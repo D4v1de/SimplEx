@@ -125,13 +125,14 @@ var Login = function () {
 	var handleRegister = function () {
 
 		function format(state) {
-            if (!state.id) return state.text; // optgroup
-            return "<img class='flag' src='../../assets/global/img/flags/" + state.id.toLowerCase() + ".png'/>&nbsp;&nbsp;" + state.text;
+			return state.text;
+            //if (!state.id) return state.text; // optgroup
+            //return "<img class='flag' src='../../assets/global/img/flags/" + state.id.toLowerCase() + ".png'/>&nbsp;&nbsp;" + state.text;
         }
 
 
 		$("#select2_sample4").select2({
-		  	placeholder: '<i class="fa fa-map-marker"></i>&nbsp;Select a Country',
+		  	placeholder: '<i class="fa fa-building-o"></i>&nbsp;Seleziona il corso di laurea',
             allowClear: true,
             formatResult: format,
             formatSelection: format,
