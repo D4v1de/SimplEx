@@ -12,6 +12,7 @@ define('VIEW_DIR', CORE_DIR . "view" . DIRECTORY_SEPARATOR); //ecc
 define('EXCEPTION_DIR', CORE_DIR . "exception" . DIRECTORY_SEPARATOR);
 define('MODEL_DIR', CORE_DIR . "model" . DIRECTORY_SEPARATOR);
 define('CONTROL_DIR', CORE_DIR . "control" . DIRECTORY_SEPARATOR);
+define('BEAN_DIR', CORE_DIR . "bean" . DIRECTORY_SEPARATOR);
 /*
  * URL Parsing, in pratica qualsiasi richiesta al sito arriva a questo file,
  * e quindi possiamo ricavare la richiesta da $_SERVER['SCRIPT_NAME']
@@ -45,8 +46,8 @@ switch (isset($_URL[0]) ? $_URL[0] : '') {
     case '':
         include_once VIEW_DIR . "VisualizzaHome.php";
         break;
-    case 'login':
-        include_once VIEW_DIR . "VisualizzaLogin.php";
+    case 'auth':
+        include_once VIEW_DIR . "VisualizzaLogReg.php";
         break;
     case 'esempio':
         include_once VIEW_DIR."VisualizzaEsempio.php";

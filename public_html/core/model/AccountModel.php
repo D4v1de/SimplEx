@@ -20,10 +20,10 @@ class AccountModel extends Model {
      */
     public function doLogin($username, $password) {
         $query = sprintf(self::$SELECT_UTENTE, $username, $password);
-        $res = Model::getDB()->query($query);
+        //$res = Model::getDB()->query($query);
         //todo parsing del risultato
         //oppure lancia eccezzione
-        //throw new UserNotFoundException("Utente non trovato");
+        throw new UserNotFoundException("Utente non trovato");
 
 
         return new Studente("0512102323", "Andrea", "Parente", "a.parente@unisa.it"); //STUB

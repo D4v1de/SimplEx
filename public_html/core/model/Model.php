@@ -11,7 +11,7 @@ class Model {
      * @return mysqli
      * @throws ConnectionException
      */
-    public static function getDB() {
+    protected static function getDB() {
         if (self::$c == NULL) {
             self::$c = new mysqli(Config::$DB_URL, Config::$DB_USER, Config::$DB_PASS);
             if (self::$c->connect_error) {
