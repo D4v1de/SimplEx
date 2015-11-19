@@ -1,16 +1,15 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: sergio
- * Date: 18/11/15
- * Time: 09:37
+ * User: Elvira
+ * Date: 19/11/15
+ * Time: 12:45
  */
-class Utente {
+class Utente extends UtenteRegistrato {
     protected $matricola;
     protected $nome;
     protected $cognome;
-
+    
     /**
      * @return mixed matricola
      */
@@ -31,8 +30,6 @@ class Utente {
     public function getCognome() {
         return $this->cognome;
     }
-
-
 
 
 }

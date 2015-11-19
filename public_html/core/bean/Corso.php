@@ -5,13 +5,13 @@
  * Date: 19/11/15
  * Time: 13:03
  */
-class CdL {
+class Corso {
     public $matricola;
     public $nome;
     public $tipologia;
 
     /**
-     * CdL constructor.
+     * Corso constructor.
      * @param $matricola
      * @param $nome
      * @param $tipologia 
