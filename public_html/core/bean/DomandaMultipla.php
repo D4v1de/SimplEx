@@ -8,51 +8,51 @@
 class DomandaMultipla {
     public $id;
     public $testo;
-    public $punteggio_corretta;
-    public $punteggio_errata;
-    public $percentuale_scelta;
-    public $percentuale_risposta_corretta;
-    public $alternativa_corretta;
-    public $argomento_id;
-    public $argomento_insegnamento_id;
-    public $argomento_insegnamento_corso_matricola;
+    public $punteggioCorretta;
+    public $punteggioErrata;
+    public $percentualeScelta;
+    public $percentualeRispostaCorretta;
+    public $alternativaCorretta;
+    public $argomentoId;
+    public $argomentoInsegnamentoId;
+    public $argomentoInsegnamentoCorsoMatricola;
     
     /**
      * DomandaMultipla constructor.
      * @param $id
      * @param $testo
-     * @param $punteggio_corretta
-     * @param $punteggio_errata
-     * @param $percentuale_scelta 
-     * @param $percentuale_risposta_corretta
-     * @param $alternativa_corretta
-     * @param $argomento_id
-     * @param $argomento_insegnamento_id
-     * @param $argomento_insegnamento_corso_matricola
+     * @param $punteggioCorretta
+     * @param $punteggioErrata
+     * @param $percentualeScelta 
+     * @param $percentualeRispostaCorretta
+     * @param $alternativaCorretta
+     * @param $argomentoId
+     * @param $argomentoInsegnamentoId
+     * @param $argomentoInsegnamentoCorsoMatricola
      */
-    public function __construct($id, $testo, $punteggio_corretta, $punteggio_errata,$percentuale_scelta, $percentuale_risposta_corretta,$alternativa_corretta, 
-            $argomento_id, $argomento_insegnamento_id, $argomento_insegnamento_corso_matricola) {
+    public function __construct($id, $testo, $punteggioCorretta, $punteggioErrata,$percentualeScelta, $percentualeRispostaCorretta,$alternativaCorretta, 
+            $argomentoId, $argomentoInsegnamentoId, $argomentoInsegnamentoCorsoMatricola) {
         $this->id = $id;
         $this->testo = $testo;
-        $this->punteggio_corretta = $punteggio_corretta;
-        $this->punteggio_errata = $punteggio_errata;
-        $this->percentuale_scelta = $percentuale_scelta;
-        $this->percentuale_risposta_corretta = $percentuale_risposta_corretta;
-        $this->alternativa_corretta = $alternativa_corretta;
-        $this->argomento_id = $argomento_id;
-        $this->argomento_insegnamento_id = $argomento_insegnamento_id;
-        $this->argomento_insegnamento_corso_matricola = $argomento_insegnamento_corso_matricola;
+        $this->punteggioCorretta = $punteggioCorretta;
+        $this->punteggioErrata = $punteggioErrata;
+        $this->percentualeScelta = $percentualeScelta;
+        $this->percentualeRispostaCorretta = $percentualeRispostaCorretta;
+        $this->alternativaCorretta = $alternativaCorretta;
+        $this->argomentoId = $argomentoId;
+        $this->argomentoInsegnamentoId = $argomentoInsegnamentoId;
+        $this->argomentoInsegnamentoCorsoMatricola = $argomentoInsegnamentoCorsoMatricola;
         
     }
     /**
-     * @return id della domanda multipla
+     * @return int id della domanda multipla
      */
     function getId() {
         return $this->id;
     }
 
     /**
-     * @return testo della domanda multipla
+     * @return String testo della domanda multipla
      */
     
     function getTesto() {
@@ -60,67 +60,67 @@ class DomandaMultipla {
     }
 
     /**
-     * @return punteggio della risposta corretta
+     * @return float punteggio della risposta corretta
      */
     
     function getPunteggioCorretta() {
-        return $this->punteggio_corretta;
+        return $this->punteggioCorretta;
     }
 
     /**
-     * @return punteggio della risposta errata
+     * @return float punteggio della risposta errata
      */
     
     function getPunteggioErrata() {
-        return $this->punteggio_errata;
+        return $this->punteggioErrata;
     }
 
     /**
-     * @return percentuale di volte in cui viene scelta la domanda multipla
+     * @return float percentuale di volte in cui viene scelta la domanda multipla
      */
     
     function getPercentualeScelta() {
-        return $this->percentuale_scelta;
+        return $this->percentualeScelta;
     }
     
     /**
-     * @return percentuale di volte in cui viene risposta correttamente la domanda multipla
+     * @return float percentuale di volte in cui viene risposta correttamente la domanda multipla
      */
 
     function getPercentualeRispostaCorretta() {
-        return $this->percentuale_risposta_corretta;
+        return $this->percentualeRispostaCorretta;
     }
     
     /**
-     * @return risposta corretta della domanda multipla
+     * @return int risposta corretta della domanda multipla
      */
 
     function getAlternativaCorretta() {
-        return $this->alternativa_corretta;
+        return $this->alternativaCorretta;
     }
     
     /**
-     * @return id dell'argomento a cui la domanda multipla appartiene
+     * @return int id dell'argomento a cui la domanda multipla appartiene
      */
 
     function getArgomentoId() {
-        return $this->argomento_id;
+        return $this->argomentoId;
     }
     
     /**
-     * @return id dell'insegnamento a cui appartiene l'argomento della domanda multipla
+     * @return int id dell'insegnamento a cui appartiene l'argomento della domanda multipla
      */
 
     function getArgomentoInsegnamentoId() {
-        return $this->argomento_insegnamento_id;
+        return $this->argomentoInsegnamentoId;
     }
     
     /**
-     * @return la matricola del corso a cui l'insegnamento realativo all'argomento appartiene 
+     * @return String la matricola del corso a cui l'insegnamento realativo all'argomento appartiene 
      */
 
     function getArgomentoInsegnamentoCorsoMatricola() {
-        return $this->argomento_insegnamento_corso_matricola;
+        return $this->argomentoInsegnamentoCorsoMatricola;
     }
 
     /**
@@ -143,74 +143,74 @@ class DomandaMultipla {
 
     /**
      * Setta il punteggio della risposta corretta relativa alla domanda multipla
-     * @param $punteggio_corretta
+     * @param $punteggioCorretta
      */
     
-    function setPunteggioCorretta($punteggio_corretta) {
-        $this->punteggio_corretta = $punteggio_corretta;
+    function setPunteggioCorretta($punteggioCorretta) {
+        $this->punteggioCorretta = $punteggioCorretta;
     }
 
     /**
      * Setta il punteggio della risposta errata relativa alla domanda multipla
-     * @param $punteggio_errata
+     * @param $punteggioErrata
      */
     
-    function setPunteggioErrata($punteggio_errata) {
-        $this->punteggio_errata = $punteggio_errata;
+    function setPunteggioErrata($punteggioErrata) {
+        $this->punteggioErrata = $punteggioErrata;
     }
     
     /**
      * Setta la percentuale di volte in cui è stata scelta la domanda multipla
-     * @param $percentuale_scelte
+     * @param $percentualeScelta
      */
 
-    function setPercentualeScelta($percentuale_scelta) {
-        $this->percentuale_scelta = $percentuale_scelta;
+    function setPercentualeScelta($percentualeScelta) {
+        $this->percentualeScelta = $percentualeScelta;
     }
 
     /**
      * Setta la percentuale di volte in cui viene risposta correttamente la domanda multipla
-     * @param $percentuale_risposte_corrette
+     * @param $percentualeRispostaCorretta
      */
     
-    function setPercentualeRispostaCorretta($percentuale_risposta_corretta) {
-        $this->percentuale_risposta_corretta = $percentuale_risposta_corretta;
+    function setPercentualeRispostaCorretta($percentualeRispostaCorretta) {
+        $this->percentualeRispostaCorretta = $percentualeRispostaCorretta;
     }
     
     /**
      * Setta la risposta corretta della domanda multipla
-     * @param $alternativa_corretta
+     * @param $alternativaCorretta
      */
 
-    function setAlternativaCorretta($alternativa_corretta) {
-        $this->alternativa_corretta = $alternativa_corretta;
+    function setAlternativaCorretta($alternativaCorretta) {
+        $this->alternativaCorretta = $alternativaCorretta;
     }
     
     /**
      * Setta l'id dell'argomento a cui appartine la domanda multipla
-     * @param $argomento_id
+     * @param $argomentoId
      */
 
-    function setArgomentoId($argomento_id) {
-        $this->argomento_id = $argomento_id;
+    function setArgomentoId($argomentoId) {
+        $this->argomentoId = $argomentoId;
     }
 
     /**
      * Setta id dell'insegnamento a cui appartiene l'argomento della domanda multipla
-     * @param $argomento_insegnamento_id
+     * @param $argomentoInsegnamentoId
      */
     
-    function setArgomentoInsegnamentoId($argomento_insegnamento_id) {
-        $this->argomento_insegnamento_id = $argomento_insegnamento_id;
+    function setArgomentoInsegnamentoId($argomentoInsegnamentoId) {
+        $this->argomentoInsegnamentoId = $argomentoInsegnamentoId;
     }
 
      /**
      * Setta la matricola del corso a cui l'insegnamento realativo all'argomento appartiene
-     * @param $argomento_insegnamento_corso_matricola
+     * @param $argomentoInsegnamentoCorsoMatricola
      */
     
-    function setArgomentoInsegnamentoCorsoMatricola($argomento_insegnamento_corso_matricola) {
-        $this->argomento_insegnamento_corso_matricola = $argomento_insegnamento_corso_matricola;
+    function setArgomentoInsegnamentoCorsoMatricola($argomentoInsegnamentoCorsoMatricola) {
+        $this->argomentoInsegnamentoCorsoMatricola = $argomentoInsegnamentoCorsoMatricola;
     }
 
 

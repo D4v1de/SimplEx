@@ -3,54 +3,54 @@
 /**
  * User: Elvira
  * Date: 20/11/15
- * Time: 09:43
+ * Time: 16:15
  */
 class Corso {
     private $matricola;
     private $nome;
     private $tipologia;
-    private $cdl_matricola;
+    private $cdlMatricola;
 
     /**
      * Costruttore di Corso.
      * @param $matricola la matricola del corso
      * @param $nome il nome del corso
      * @param $tipologia la tipolgia del corso
-     * @param $cdl_matricola la matricola del CdL a cui il corso appartiene
+     * @param $cdlMatricola la matricola del CdL a cui il corso appartiene
      */
-    public function __construct($matricola, $nome, $tipologia, $cdl_matricola) {
+    public function __construct($matricola, $nome, $tipologia, $cdlMatricola) {
         $this->matricola = $matricola;
         $this->nome = $nome;
         $this->tipologia = $tipologia;
-        $this->cdl_matricola = $cdl_matricola;
+        $this->cdlMatricola = $cdlMatricola;
     }
     
     /**
-     * @return la matricola del corso
+     * @return String la matricola del corso
      */
     public function getMatricola() {
         return $this->matricola;
     }
 
     /**
-     * @return il nome del corso
+     * @return String il nome del corso
      */
     public function getNome() {
         return $this->nome;
     }
 
     /**
-     * @return la tipologia del corso
+     * @return String la tipologia del corso
      */
     public function getTipologia() {
         return $this->tipologia;
     }
     
     /**
-     * @return la matricola del CdL a cui il corso appartiene
+     * @return String la matricola del CdL a cui il corso appartiene
      */
     public function getCdlMatricola() {
-        return $this->cdl_matricola;
+        return $this->cdlMatricola;
     }
 
     /**
@@ -79,9 +79,9 @@ class Corso {
     
     /**
      * Setta la matricola del CdL a cui il corso appartiene
-     * @param matricola la matricola del CdL a cui il corso appartiene
+     * @param cdlMatricola la matricola del CdL a cui il corso appartiene
      */
-    public function setCdlMatricola($cdl_matricola) {
-        $this->cdl_matricola = $cdl_matricola;
+    public function setCdlMatricola($cdlMatricola) {
+        $this->cdlMatricola = $cdlMatricola;
     }
 }

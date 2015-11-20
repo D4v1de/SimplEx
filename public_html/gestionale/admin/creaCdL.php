@@ -1,5 +1,11 @@
+/**
+* Created by PhpStorm.
+* User: fede_dr
+* Date: 19/11/15
+* Time: 23:35
+*/
 <!DOCTYPE html>
-<!-- 
+<!--
 Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.4
 Version: 4.0.1
 Author: KeenThemes
@@ -16,216 +22,295 @@ License: You must have a valid license purchased only from themeforest(the above
 <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
 <html lang="en">
-    <!--<![endif]-->
-    <!-- BEGIN HEAD -->
-    <head>
-        <meta charset="utf-8"/>
-        <title>Metronic | Page Layouts - Blank Page</title>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-        <meta content="" name="description"/>
-        <meta content="" name="author"/>
-        <!-- BEGIN GLOBAL MANDATORY STYLES -->
-        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
-              type="text/css"/>
-        <link href="../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-        <link href="../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
-        <link href="../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <link href="../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
-        <link href="../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet"
-              type="text/css"/>
-        <!-- END GLOBAL MANDATORY STYLES -->
-        <!-- BEGIN THEME STYLES -->
-        <link href="../assets/global/css/components-md.css" id="style_components" rel="stylesheet" type="text/css"/>
-        <link href="../assets/global/css/plugins-md.css" rel="stylesheet" type="text/css"/>
-        <link href="../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
-        <link id="style_color" href="../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
-        <link href="../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
-        <!-- END THEME STYLES -->
-        <link rel="shortcut icon" href="favicon.ico"/>
-    </head>
-    <!-- END HEAD -->
-    <!-- BEGIN BODY -->
-    <!-- DOC: Apply "page-header-fixed-mobile" and "page-footer-fixed-mobile" class to body element to force fixed header or footer in mobile devices -->
-    <!-- DOC: Apply "page-sidebar-closed" class to the body and "page-sidebar-menu-closed" class to the sidebar menu element to hide the sidebar by default -->
-    <!-- DOC: Apply "page-sidebar-hide" class to the body to make the sidebar completely hidden on toggle -->
-    <!-- DOC: Apply "page-sidebar-closed-hide-logo" class to the body element to make the logo hidden on sidebar toggle -->
-    <!-- DOC: Apply "page-sidebar-hide" class to body element to completely hide the sidebar on sidebar toggle -->
-    <!-- DOC: Apply "page-sidebar-fixed" class to have fixed sidebar -->
-    <!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer -->
-    <!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
-    <!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
-    <body class="page-md page-header-fixed page-quick-sidebar-over-content">
-        <!-- BEGIN HEADER -->
-        <div class="page-header md-shadow-z-1-i navbar navbar-fixed-top">
-            <!-- BEGIN HEADER INNER -->
-            <div class="page-header-inner">
-                <!-- BEGIN LOGO -->
-                <div class="page-logo">
-                    <a href="index.html">
-                        <img src="../assets/admin/layout/img/logo.png" alt="logo" class="logo-default"/>
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title>Crea utente</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
+          type="text/css"/>
+    <link href="../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet"
+          type="text/css"/>
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN THEME STYLES -->
+    <link href="../assets/global/css/components-md.css" id="style_components" rel="stylesheet" type="text/css"/>
+    <link href="../assets/global/css/plugins-md.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+    <link id="style_color" href="../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="favicon.ico"/>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<!-- DOC: Apply "page-header-fixed-mobile" and "page-footer-fixed-mobile" class to body element to force fixed header or footer in mobile devices -->
+<!-- DOC: Apply "page-sidebar-closed" class to the body and "page-sidebar-menu-closed" class to the sidebar menu element to hide the sidebar by default -->
+<!-- DOC: Apply "page-sidebar-hide" class to the body to make the sidebar completely hidden on toggle -->
+<!-- DOC: Apply "page-sidebar-closed-hide-logo" class to the body element to make the logo hidden on sidebar toggle -->
+<!-- DOC: Apply "page-sidebar-hide" class to body element to completely hide the sidebar on sidebar toggle -->
+<!-- DOC: Apply "page-sidebar-fixed" class to have fixed sidebar -->
+<!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer -->
+<!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
+<!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
+<body class="page-md page-header-fixed page-quick-sidebar-over-content">
+<!-- BEGIN HEADER -->
+<div class="page-header md-shadow-z-1-i navbar navbar-fixed-top">
+    <!-- BEGIN HEADER INNER -->
+    <div class="page-header-inner">
+        <!-- BEGIN LOGO -->
+        <div class="page-logo">
+            <a href="index.html">
+                <img src="../assets/admin/layout/img/logo.png" alt="logo" class="logo-default"/>
+            </a>
+
+            <div class="menu-toggler sidebar-toggler hide">
+                <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+            </div>
+        </div>
+        <!-- END LOGO -->
+        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse"
+           data-target=".navbar-collapse">
+        </a>
+        <!-- END RESPONSIVE MENU TOGGLER -->
+        <!-- BEGIN TOP NAVIGATION MENU -->
+        <div class="top-menu">
+            <ul class="nav navbar-nav pull-right">
+                <!-- END USER LOGIN DROPDOWN -->
+                <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                <li class="dropdown dropdown-quick-sidebar-toggler">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <i class="icon-logout"></i>
                     </a>
-
-                    <div class="menu-toggler sidebar-toggler hide">
-                        <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
-                    </div>
-                </div>
-                <!-- END LOGO -->
-                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-                <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse"
-                   data-target=".navbar-collapse">
-                </a>
-                <!-- END RESPONSIVE MENU TOGGLER -->
-                <!-- BEGIN TOP NAVIGATION MENU -->
-                <div class="top-menu">
-                    <ul class="nav navbar-nav pull-right">
-                        <!-- END USER LOGIN DROPDOWN -->
-                        <!-- BEGIN QUICK SIDEBAR TOGGLER -->
-                        <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                        <li class="dropdown dropdown-quick-sidebar-toggler">
-                            <a href="javascript:;" class="dropdown-toggle">
-                                <i class="icon-logout"></i>
-                            </a>
-                        </li>
-                        <!-- END QUICK SIDEBAR TOGGLER -->
-                    </ul>
-                </div>
-                <!-- END TOP NAVIGATION MENU -->
-            </div>
-            <!-- END HEADER INNER -->
+                </li>
+                <!-- END QUICK SIDEBAR TOGGLER -->
+            </ul>
         </div>
-        <!-- END HEADER -->
-        <div class="clearfix">
-        </div>
-        <!-- BEGIN CONTAINER -->
-        <div class="page-container">
-            <!-- BEGIN SIDEBAR -->
-            <div class="page-sidebar-wrapper">
-                <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-                <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-                <div class="page-sidebar navbar-collapse collapse">
-                    <!-- BEGIN SIDEBAR MENU -->
-                    <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
-                    <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
-                    <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
-                    <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-                    <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
-                    <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-                    <ul class="page-sidebar-menu page-sidebar-menu-light " data-keep-expanded="false" data-auto-scroll="true"
-                        data-slide-speed="200">
+        <!-- END TOP NAVIGATION MENU -->
+    </div>
+    <!-- END HEADER INNER -->
+</div>
+<!-- END HEADER -->
+<div class="clearfix">
+</div>
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+        <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+        <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+        <div class="page-sidebar navbar-collapse collapse">
+            <!-- BEGIN SIDEBAR MENU -->
+            <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+            <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+            <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+            <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+            <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+            <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+            <ul class="page-sidebar-menu page-sidebar-menu-light " data-keep-expanded="false" data-auto-scroll="true"
+                data-slide-speed="200">
 
-                    </ul>
-                    <!-- END SIDEBAR MENU -->
-                </div>
-            </div>
-            <!-- END SIDEBAR -->
-            <!-- BEGIN CONTENT -->
-            <div class="page-content-wrapper">
-                <div class="page-content">
-                    <!-- BEGIN PAGE HEADER-->
-                    <h3 class="page-title">
-                        Inserisci una nuova domanda a risposta multipla
-                    </h3>
-                    <div class="page-bar">
-                        <ul class="page-breadcrumb">
-                            <li>
-                                <i class="fa fa-home"></i>
-                                <a href="index.html">Home</a>
-                                <i class="fa fa-angle-right"></i>
-                            </li>
-                            <li>
-                                <a href="#">Ingegneria Del Software</a>
-                                <i class="fa fa-angle-right"></i>
-                            </li>
-                            <li>
-                                <a href="#">Use-Case</a>
-                                <i class="fa fa-angle-right"></i>
-                            </li>
-                            <li>
-                                <a href="#">Nuova Domanda Multipla</a>
-                                <i class="fa fa-angle-right"></i>
-                            </li>
-                        </ul>
-                        <!--<div class="page-toolbar">-->
-                        <!--<div class="btn-group pull-right">-->
-                        <!--<button type="button" class="btn btn-fit-height grey-salt dropdown-toggle"-->
-                        <!--data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">-->
-                        <!--Actions <i class="fa fa-angle-down"></i>-->
-                        <!--</button>-->
-                        <!--<ul class="dropdown-menu pull-right" role="menu">-->
-                        <!--<li>-->
-                        <!--<a href="#">Action</a>-->
-                        <!--</li>-->
-                        <!--<li>-->
-                        <!--<a href="#">Another action</a>-->
-                        <!--</li>-->
-                        <!--<li>-->
-                        <!--<a href="#">Something else here</a>-->
-                        <!--</li>-->
-                        <!--<li class="divider">-->
-                        <!--</li>-->
-                        <!--<li>-->
-                        <!--<a href="#">Separated link</a>-->
-                        <!--</li>-->
-                        <!--</ul>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                    </div>
-                    <!-- END PAGE HEADER-->
-                    <!-- BEGIN PAGE CONTENT-->
-                    <div class="portlet box blue">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                <i class="fa fa-gift"></i> Inserisci Domanda
-                            </div>
-                            <div class="tools">
-                                <a href="" class="collapse" data-original-title="" title="">
-                                </a>
-                            </div>
-                        </div>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <!-- BEGIN PAGE HEADER-->
+            <h3 class="page-title">Crea CdL</h3>
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+
+
+            <div class="form">
+                <form action="#" class="form-horizontal form-bordered form-row-stripped">
+
+                    <div class="portlet light bordered">
                         <div class="portlet-body form">
-                            <form role="form">
-                                <div class="form-body">
+                            <div class="form-group form-md-line-input">
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" id="form_control_1"
+                                           placeholder="Inserisci nome">
 
-                                    <div class="form-group col-md-12">
-                                        <label class="control-label col-md-8">Inserisci testo domanda
-                                            <input type="text" class="form-control" placeholder="Inserisci Testo">
-                                        </label>
-                                        <div class="radio-list col-md-12">
-                                            <label class="col-md-12">
-                                                Inserisci testo risposta
-                                            </label>
-                                            <div class="radio col-sm-2" id="uniform-optionsRadios1"><span><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked=""></span></div>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="form-control" placeholder="Inserisci risposta">
+                                    <div class="form-control-focus">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group form-md-line-input">
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" id="form_control_1"
+                                           placeholder="Inserisci tipologia">
+
+                                    <div class="form-control-focus">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group form-md-line-input">
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" id="form_control_1"
+                                           placeholder="Inserisci matricola">
+
+                                    <div class="form-control-focus">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form">
+                                        <div class="form-actions">
+                                            <div class="row">
+                                                <div class="col-md col-md-3">
+                                                    <button type="button" class="btn default"><span
+                                                            class="md-click-circle md-click-animate"
+                                                            style="height: 84px; width: 84px; top: -29px; left: 27px;"></span>
+                                                        Visualizza Tutti
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-offset-6 col-md-3">
+                                                    <div class="input-icon right">
+                                                        <i class="icon-magnifier"></i>
+                                                        <input type="text" class="form-control input-circle"
+                                                               placeholder="cerca CdL...">
+                                                    </div>
+                                                </div>
                                             </div>
-                                           <button class="btn green-jungle" type="button" style="width: 100px">
-                                            Aggiungi</button>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label ">Inserisci punteggio risposta esatta</label>
-                                        <div class="col-md-3">
-                                            <input type="number" class="form-control" placeholder="Inserisci punteggio">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label ">Inserisci punteggio risposta errata</label>
-                                        <div class="col-md-3">
-                                            <input type="number" class="form-control" placeholder="Inserisci punteggio">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-actions">
-                                    <button type="submit" class="btn blue">Conferma</button>
-                                    <button type="button" class="btn default">Annulla</button>
+                            </div>
+
+
+                            <div class="portlet-body">
+                                <div class="table-scrollable">
+                                    <table class="table table-bordered table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>
+                                                <input type="checkbox" class="checkboxes" value="1">
+                                            </th>
+                                            <th>
+                                                Matricola
+                                            </th>
+                                            <th>
+                                                Corso
+                                            </th>
+                                            <th>
+                                                Tipologia
+                                            </th>
+                                            <th>
+                                                Docente Associato
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" class="checkboxes" value="1">
+                                            </td>
+                                            <td>
+                                                0000000001
+                                            </td>
+                                            <td>
+                                                Ingegneria del Software
+                                            </td>
+                                            <td>
+                                                Annuale
+                                            </td>
+                                            <td>
+                                                Andrea De Lucia
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" class="checkboxes" value="1">
+                                            </td>
+                                            <td>
+                                                0000000011
+                                            </td>
+                                            <td>
+                                                Analisi Numerica
+                                            </td>
+                                            <td>
+                                                Semestrale
+                                            </td>
+                                            <td>
+                                                Angelamaria Cardone
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" class="checkboxes" value="1">
+                                            </td>
+                                            <td>
+                                                0000000111
+                                            </td>
+                                            <td>
+                                                Tecnologie di Sviluppo Web
+                                            </td>
+                                            <td>
+                                                Semestrale
+                                            </td>
+                                            <td>
+                                                Mimmo Parente
+                                            </td>
+                                        </tr><tr>
+                                            <td>
+                                                <input type="checkbox" class="checkboxes" value="1">
+                                            </td>
+                                            <td>
+                                                0000001111
+                                            </td>
+                                            <td>
+                                                Reti di Calcolatori
+                                            </td>
+                                            <td>
+                                                Annuale
+                                            </td>
+                                            <td>
+                                                Aaaaaa De Santis
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-actions">
+                                <div class="col-md-3">
+                                    <button type="button" class="btn green-jungle">Conferma</button>
+                                </div>
+                                <div class="col-md-offset-1 col-md-3">
+                                    <button type="button" class="btn red-intense">Annulla</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </form>
             </div>
+
+
             <!-- END PAGE CONTENT-->
         </div>
     </div>
@@ -436,8 +521,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <span class="arrow"></span>
                                             <a href="javascript:;" class="name">Bob Nilson</a>
                                             <span class="datetime">20:15</span>
-                                            <span class="body">
-                                                When could you send me the report ? </span>
+											<span class="body">
+											When could you send me the report ? </span>
                                         </div>
                                     </div>
                                     <div class="post in">
@@ -447,8 +532,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <span class="arrow"></span>
                                             <a href="javascript:;" class="name">Ella Wong</a>
                                             <span class="datetime">20:15</span>
-                                            <span class="body">
-                                                Its almost done. I will be sending it shortly </span>
+											<span class="body">
+											Its almost done. I will be sending it shortly </span>
                                         </div>
                                     </div>
                                     <div class="post out">
@@ -458,8 +543,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <span class="arrow"></span>
                                             <a href="javascript:;" class="name">Bob Nilson</a>
                                             <span class="datetime">20:15</span>
-                                            <span class="body">
-                                                Alright. Thanks! :) </span>
+											<span class="body">
+											Alright. Thanks! :) </span>
                                         </div>
                                     </div>
                                     <div class="post in">
@@ -469,8 +554,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <span class="arrow"></span>
                                             <a href="javascript:;" class="name">Ella Wong</a>
                                             <span class="datetime">20:16</span>
-                                            <span class="body">
-                                                You are most welcome. Sorry for the delay. </span>
+											<span class="body">
+											You are most welcome. Sorry for the delay. </span>
                                         </div>
                                     </div>
                                     <div class="post out">
@@ -480,8 +565,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <span class="arrow"></span>
                                             <a href="javascript:;" class="name">Bob Nilson</a>
                                             <span class="datetime">20:17</span>
-                                            <span class="body">
-                                                No probs. Just take your time :) </span>
+											<span class="body">
+											No probs. Just take your time :) </span>
                                         </div>
                                     </div>
                                     <div class="post in">
@@ -491,8 +576,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <span class="arrow"></span>
                                             <a href="javascript:;" class="name">Ella Wong</a>
                                             <span class="datetime">20:40</span>
-                                            <span class="body">
-                                                Alright. I just emailed it to you. </span>
+											<span class="body">
+											Alright. I just emailed it to you. </span>
                                         </div>
                                     </div>
                                     <div class="post out">
@@ -502,8 +587,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <span class="arrow"></span>
                                             <a href="javascript:;" class="name">Bob Nilson</a>
                                             <span class="datetime">20:17</span>
-                                            <span class="body">
-                                                Great! Thanks. Will check it right away. </span>
+											<span class="body">
+											Great! Thanks. Will check it right away. </span>
                                         </div>
                                     </div>
                                     <div class="post in">
@@ -513,8 +598,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <span class="arrow"></span>
                                             <a href="javascript:;" class="name">Ella Wong</a>
                                             <span class="datetime">20:40</span>
-                                            <span class="body">
-                                                Please let me know if you have any comment. </span>
+											<span class="body">
+											Please let me know if you have any comment. </span>
                                         </div>
                                     </div>
                                     <div class="post out">
@@ -524,8 +609,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <span class="arrow"></span>
                                             <a href="javascript:;" class="name">Bob Nilson</a>
                                             <span class="datetime">20:17</span>
-                                            <span class="body">
-                                                Sure. I will check and buzz you if anything needs to be corrected. </span>
+											<span class="body">
+											Sure. I will check and buzz you if anything needs to be corrected. </span>
                                         </div>
                                     </div>
                                 </div>
@@ -558,8 +643,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 <div class="desc">
                                                     You have 4 pending tasks. <span
                                                         class="label label-sm label-warning ">
-                                                        Take action <i class="fa fa-share"></i>
-                                                    </span>
+													Take action <i class="fa fa-share"></i>
+													</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -625,7 +710,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <div class="cont-col2">
                                                 <div class="desc">
                                                     New order received with <span class="label label-sm label-success">
-                                                        Reference Number: DR23923 </span>
+													Reference Number: DR23923 </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -669,7 +754,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 <div class="desc">
                                                     Web server hardware needs to be upgraded. <span
                                                         class="label label-sm label-warning">
-                                                        Overdue </span>
+													Overdue </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -718,8 +803,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 <div class="desc">
                                                     You have 4 pending tasks. <span
                                                         class="label label-sm label-warning ">
-                                                        Take action <i class="fa fa-share"></i>
-                                                    </span>
+													Take action <i class="fa fa-share"></i>
+													</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -785,7 +870,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <div class="cont-col2">
                                                 <div class="desc">
                                                     New order received with <span class="label label-sm label-success">
-                                                        Reference Number: DR23923 </span>
+													Reference Number: DR23923 </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -829,7 +914,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 <div class="desc">
                                                     Web server hardware needs to be upgraded. <span
                                                         class="label label-sm label-default ">
-                                                        Overdue </span>
+													Overdue </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -965,7 +1050,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
 <script src="../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"
-type="text/javascript"></script>
+        type="text/javascript"></script>
 <script src="../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
 <script src="../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
 <script src="../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
