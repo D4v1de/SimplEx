@@ -15,7 +15,7 @@ class DomandaAperta {
     public $argomento_insegnamento_corso_matricola;
     
     /**
-     * Domanda_aperta constructor.
+     * DomandaAperta constructor.
      * @param $id
      * @param $testo
      * @param $punteggio_max
@@ -90,7 +90,7 @@ class DomandaAperta {
     }
 
     /**
-     * Sets Domanda_aperta's id
+     * Setta l'id della domanda aperta
      * @param $id
      */
     
@@ -99,7 +99,7 @@ class DomandaAperta {
     }
 
     /**
-     * Sets Domanda_aperta's testo
+     * Setta il testo della domanda aperta
      * @param $testo
      */
     
@@ -108,7 +108,7 @@ class DomandaAperta {
     }
 
     /**
-     * Sets Domanda_aperta's punteggio_max
+     * Setta il punteggio massimo della domanda aperta
      * @param $punteggio_max
      */
     
@@ -117,7 +117,7 @@ class DomandaAperta {
     }
 
     /**
-     * Sets Domanda_aperta's percentuale_scelta
+     * Setta la percentuale di volta in cui è stata scelta la domanda aperta
      * @param $percentuale_scelta
      */
     
@@ -126,7 +126,7 @@ class DomandaAperta {
     }
 
      /**
-     * Sets Domanda_aperta's argomento_id
+     * Setta l'id dell'argomento a cui appartiene la domanda aperta
      * @param $argomento_id
      */
     
@@ -135,7 +135,7 @@ class DomandaAperta {
     }
 
      /**
-     * Sets Domanda_aperta's argomento_insegnamento_id
+     * Setta l'id dell'insegnamento a cui appartiene l'argomento della domanda aperta
      * @param $argomento_insegnamento_id
      */
     
@@ -144,7 +144,7 @@ class DomandaAperta {
     }
 
     /**
-     * Sets Domanda_aperta's argomento_insegnamento_corso_matricola
+     * Setta la matricola del corso a cui l'insegnamento relativo all'argomento apartiene
      * @param $argomento_insegnamento_corso_matricola
      */
     
