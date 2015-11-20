@@ -2,15 +2,15 @@
 
 /**
  * User: Elvira
- * Date: 19/11/15
- * Time: 16:34
+ * Date: 20/11/15
+ * Time: 10:05
  */
 class Account {
     protected $username;
     protected $password;
     
     /**
-     * Account's constructor.
+     * Costruttore di Account
      */
     public function __construct($username, $password) {
         $this->username=$username;
@@ -18,30 +18,30 @@ class Account {
     } 
 
     /**
-     * @return mixed username
+     * @return la username dell'account
      */
     public function getUsername() {
         return $this->username;
     }
 
     /**
-     * @return mixed password
+     * @return la password dell'account
      */
     public function getPassword() {
         return $this->password;
     }
 
     /**
-     * Sets Account's username
-     * @param $username
+     * Setta la username dell'account
+     * @param $username username dell'account
      */
     public function setUsername($username) {
         $this->username = $username;
     }
     
     /**
-     * Sets Account's password
-     * @param $password
+     * Setta la password dell'account
+     * @param $password la password dell'account
      */
     public function setPassword($password) {
         $this->password = $password;
