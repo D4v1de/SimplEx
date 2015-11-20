@@ -38,9 +38,21 @@ $controller = new Esempio();
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                Pagina di esempio
+                Visualizza Test
             </h3>
-
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li>
+                        <i class="fa fa-home"></i>
+                        <a href="index.html">Home</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="#">Visualizza Test</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                </ul>
+            </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
                 <div class="portlet box grey-cascade">
@@ -50,7 +62,7 @@ $controller = new Esempio();
                             </div>
                             <div class="tools">
                                    <div class="caption">
-                                    <font size="3">Esito: <font color="#78a300">93</font>/100</font>
+                                    <font size="3">Esito: 93/100</font>
                                    </div>
                             </div>
                         </div>

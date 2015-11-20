@@ -37,95 +37,141 @@ $controller = new Esempio();
     <div class="page-content-wrapper">
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
-            <h3 class="page-title">
-                Pagina di esempio
-            </h3>
+
 
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-             <div class="row">
-                <div class="col-md-12">
-                    <center><h1>SESSIONI</h1></center>
-                </div>
-            </div>
             <div class="row">
                 <div class="col-md-12">
-                    
-                    <div class="table-scrollable">
-                        <table class="table table-hover">
-                            <thead>
-                            <tr>
-                                <th>
-                                    Nome
-                                </th>
-                                <th>
-                                    Data e ora
-                                </th>
-                                <th>
-                                    Tipologia
-                                </th>
-                                <th>
-                                    Esito
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
+                    <div class="portlet box grey-cascade">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-globe"></i>Sessioni
+                            </div>
+                            <div class="tools">
+                                    <a href="javascript:;" class="collapse" data-original-title="" title="">
+                                    </a>
+                                    <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title="">
+                                    </a>
+                                    <a href="javascript:;" class="reload" data-original-title="" title="">
+                                    </a>
+                                    <a href="javascript:;" class="remove" data-original-title="" title="">
+                                    </a>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                        <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
+
+                        <div class="table-scrollable">
+                        <table class="table table-striped table-bordered table-hover dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
+                        <thead>
+                        <tr role="row">
+                                <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
+                                         Username
+                                : activate to sort column ascending" style="width: 119px;">
+                                         Nome
+                                </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                         Email
+                                " style="width: 210px;">
+                                         Data e ora
+                                </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                         Points
+                                " style="width: 73px;">
+                                         Tipologia
+                                </th><th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="
+                                         Joined
+                                : activate to sort column ascending" style="width: 105px;">
+                                         Esito
+                                </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                         Status
+                                " style="width: 119px;">
+                                         Azioni
+                                </th></tr>
+                        </thead>
+                        <tbody>
+                        <tr class="gradeX odd" role="row">
                                 <td>
                                     Sessione 1
                                 </td>
-                                <td>
+                                <td class="sorting_1">
                                     19/11/2015 16:00
                                 </td>
                                 <td>
                                     Esercitativa
                                 </td>
                                 <td>
-                                    
+                                         
                                 </td>
-                                <td>
-                                    <div class = "col-md-offset-3">
+                                <td class="center">
                                     <a href="javascript:;" class="btn btn-sm default" disabled="true">
                                       Visualizza
                                     </a>
                                     <a href="javascript:;" class="btn btn-sm default">
                                       Partecipa <i class="fa fa-edit"></i>
                                     </a>
-                                    </div>
-                                </td>                                
-                            </tr>
-                           <tr>
+                                </td>
+
+                        </tr>
+                        <tr class="gradeX even" role="row">
                                 <td>
                                     Sessione 2
                                 </td>
-                                <td>
-                                    04/10/2015 15:00
+                                <td class="sorting_1">
+                                         04/10/2015 15:00
                                 </td>
                                 <td>
                                     Valutativa
                                 </td>
                                 <td>
-                                     60/60
+                                         60/60
                                 </td>
-                                <td>
-                                    <div class = "col-md-offset-3">
+                                <td class="center">
                                     <a href="javascript:;" class="btn btn-sm default">
                                       Visualizza
                                     </a>
                                     <a href="javascript:;" class="btn btn-sm default" disabled="true">
                                       Partecipa <i class="fa fa-edit"></i>
                                     </a>
-                                    </div>
-                                </td>                                
-                            </tr>
-                            </tbody>
+                                </td>
+
+                        </tr>
+                        <tr class="gradeX even" role="row">
+                                <td>
+                                    Sessione 3
+                                </td>
+                                <td class="sorting_1">
+                                         04/11/2015 16:00
+                                </td>
+                                <td>
+                                    Valutativa
+                                </td>
+                                <td>
+                                        
+                                </td>
+                                <td class="center">
+                                    <a href="javascript:;" class="btn btn-sm default">
+                                      Visualizza
+                                    </a>
+                                    <a href="javascript:;" class="btn btn-sm default" disabled="true">
+                                      Partecipa <i class="fa fa-edit"></i>
+                                    </a>
+                                </td>
+
+                        </tr>                        
+                        </tbody>
                         </table>
-                    </div>
+                        </div>
+                </div>
+        </div>  
+                    
+                    
                 </div>
 
             </div>
             <!-- END PAGE CONTENT-->
         </div>
+            
+            
     </div>
     <!-- END CONTENT -->
 </div>
