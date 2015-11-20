@@ -58,7 +58,7 @@ class Elaborato {
      * @param studente_matricola la matricola dello studente a cui appartiene
      */
     public function setStudenteMatricola($studente_matricola) {
-        $this->matricola = $matricola;
+        $this->studente_matricola = $studente_matricola;
     }
     
     /**
