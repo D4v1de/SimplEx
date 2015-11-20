@@ -5,7 +5,7 @@
  * Date: 20/11/15
  * Time: 09:30
  */
-class Domanda_aperta {
+class DomandaAperta {
     public $id;
     public $testo;
     public $punteggio_max;
@@ -53,7 +53,7 @@ class Domanda_aperta {
      * @return mixed punteggio_max
      */
     
-    function getPunteggio_max() {
+    function getPunteggioMax() {
         return $this->punteggio_max;
     }
 
@@ -61,7 +61,7 @@ class Domanda_aperta {
      * @return mixed percentuale_scelta
      */
     
-    function getPercentuale_scelta() {
+    function getPercentualeScelta() {
         return $this->percentuale_scelta;
     }
 
@@ -69,7 +69,7 @@ class Domanda_aperta {
      * @return mixed argomento_id
      */
     
-    function getArgomento_id() {
+    function getArgomentoId() {
         return $this->argomento_id;
     }
 
@@ -77,7 +77,7 @@ class Domanda_aperta {
      * @return mixed argomento_insegnamento_id
      */
     
-    function getArgomento_insegnamento_id() {
+    function getArgomentoInsegnamentoId() {
         return $this->argomento_insegnamento_id;
     }
 
@@ -85,7 +85,7 @@ class Domanda_aperta {
      * @return mixed argomento_insegnamento_corso_matricola
      */
     
-    function getArgomento_insegnamento_corso_matricola() {
+    function getArgomentoInsegnamentoCorsoMatricola() {
         return $this->argomento_insegnamento_corso_matricola;
     }
 
@@ -112,7 +112,7 @@ class Domanda_aperta {
      * @param $punteggio_max
      */
     
-    function setPunteggio_max($punteggio_max) {
+    function setPunteggioMax($punteggio_max) {
         $this->punteggio_max = $punteggio_max;
     }
 
@@ -121,7 +121,7 @@ class Domanda_aperta {
      * @param $percentuale_scelta
      */
     
-    function setPercentuale_scelta($percentuale_scelta) {
+    function setPercentualeScelta($percentuale_scelta) {
         $this->percentuale_scelta = $percentuale_scelta;
     }
 
@@ -130,7 +130,7 @@ class Domanda_aperta {
      * @param $argomento_id
      */
     
-    function setArgomento_id($argomento_id) {
+    function setArgomentoId($argomento_id) {
         $this->argomento_id = $argomento_id;
     }
 
@@ -139,7 +139,7 @@ class Domanda_aperta {
      * @param $argomento_insegnamento_id
      */
     
-    function setArgomento_insegnamento_id($argomento_insegnamento_id) {
+    function setArgomentoInsegnamentoId($argomento_insegnamento_id) {
         $this->argomento_insegnamento_id = $argomento_insegnamento_id;
     }
 
@@ -148,7 +148,7 @@ class Domanda_aperta {
      * @param $argomento_insegnamento_corso_matricola
      */
     
-    function setArgomento_insegnamento_corso_matricola($argomento_insegnamento_corso_matricola) {
+    function setArgomentoInsegnamentoCorsoMatricola($argomento_insegnamento_corso_matricola) {
         $this->argomento_insegnamento_corso_matricola = $argomento_insegnamento_corso_matricola;
     }
 
