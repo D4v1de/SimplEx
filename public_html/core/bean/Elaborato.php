@@ -29,35 +29,35 @@ class Elaborato {
     }
     
     /**
-     * @return la matricola dello studente a cui appartiene
+     * @return String la matricola dello studente a cui appartiene
      */
     public function getStudenteMatricola() {
         return $this->studenteMatricola;
     }
 
     /**
-     * @return l'id della sessione a cui appartiene
+     * @return int l'id della sessione a cui appartiene
      */
     public function getSessioneId() {
         return $this->sessioneId;
     }
     
     /**
-     * @return l'id del test a cui si riferisce
+     * @return int l'id del test a cui si riferisce
      */
     public function getTestId() {
         return $this->testId;
     }
 
     /**
-     * @return l'esito parziale dell'elaborato
+     * @return float l'esito parziale dell'elaborato
      */
     public function getEsitoParziale() {
         return $this->esitoParziale;
     }
     
     /**
-     * @return l'esito finale dell'elaborato
+     * @return float l'esito finale dell'elaborato
      */
     public function getEsitoFinale() {
         return $this->esitoFinale;

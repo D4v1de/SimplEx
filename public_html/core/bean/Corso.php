@@ -26,28 +26,28 @@ class Corso {
     }
     
     /**
-     * @return la matricola del corso
+     * @return String la matricola del corso
      */
     public function getMatricola() {
         return $this->matricola;
     }
 
     /**
-     * @return il nome del corso
+     * @return String il nome del corso
      */
     public function getNome() {
         return $this->nome;
     }
 
     /**
-     * @return la tipologia del corso
+     * @return String la tipologia del corso
      */
     public function getTipologia() {
         return $this->tipologia;
     }
     
     /**
-     * @return la matricola del CdL a cui il corso appartiene
+     * @return String la matricola del CdL a cui il corso appartiene
      */
     public function getCdlMatricola() {
         return $this->cdlMatricola;

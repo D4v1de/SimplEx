@@ -33,42 +33,42 @@ class RispostaAperta {
     } 
     
      /**
-     * @return il testo dlela risposta
+     * @return String il testo della risposta
      */
     function getTesto() {
         return $this->testo;
     }
 
      /**
-     * @return la matricola dell'elaborato dello studente
+     * @return String la matricola dell'elaborato dello studente
      */
     function getElaboratoStudenteMatricola() {
         return $this->elaboratoStudenteMatricola;
     }
 
      /**
-     * @return l'id della domanda aperta
+     * @return int l'id della domanda aperta
      */
     function getDomandApertaId() {
         return $this->domandaApertaId;
     }
 
      /**
-     * @return l'id dell'argomento a cui la domanda aperta appartiene
+     * @return int l'id dell'argomento a cui la domanda aperta appartiene
      */
     function getDomandaApertaArgomentoId() {
         return $this->domandaApertaArgomentoId;
     }
     
      /**
-     * @return l'id dell'insegnamento dell'argomento a cui la domanda aperta appartiene
+     * @return int l'id dell'insegnamento dell'argomento a cui la domanda aperta appartiene
      */
     function getDomandaApertaArgomentoInsegnamentoId() {
         return $this->domandaApertaArgomentoInsegnamentoId;
     }
 
     /**
-     * @return la matricola del corso dell'insegnamento a cui la domanda aperta appartiene
+     * @return String la matricola del corso dell'insegnamento a cui la domanda aperta appartiene
      */
     function getDomandaApertaArgomentoInsegnamentoCorsoMatricola() {
         return $this->domandaApertaArgomentoInsegnamentoCorsoMatricola;
@@ -76,7 +76,7 @@ class RispostaAperta {
 
      /**
      * Setta il testo della risposta aperta
-     * @param $Testo testo della risposta aperta
+     * @param $testo testo della risposta aperta
      */
     function setTesto($testo) {
         $this->testo = $testo;
@@ -121,8 +121,5 @@ class RispostaAperta {
     function setDomandaApertaArgomentoInsegnamentoCorsoMatricola($domandaApertaArgomentoInsegnamentoCorsoMatricola) {
         $this->domandaApertaArgomentoInsegnamentoCorsoMatricola = $domandaApertaArgomentoInsegnamentoCorsoMatricola;
     }
-
-
-
 }
     

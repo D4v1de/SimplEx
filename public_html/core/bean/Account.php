@@ -18,14 +18,14 @@ class Account {
     } 
 
     /**
-     * @return la username dell'account
+     * @return String la username dell'account
      */
     public function getUsername() {
         return $this->username;
     }
-
+  
     /**
-     * @return la password dell'account
+     * @return String la password dell'account
      */
     public function getPassword() {
         return $this->password;

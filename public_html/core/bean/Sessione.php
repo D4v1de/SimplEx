@@ -35,49 +35,49 @@ class Sessione {
     } 
 
     /**
-     * @return l'id della sessione
+     * @return int l'id della sessione
      */
     public function getId() {
         return $this->id;
     }
 
     /**
-     * @return la tipologia della sessione
+     * @return String la tipologia della sessione
      */
     public function getTipologia() {
         return $this->tipologia;
     }
     
     /**
-     * @return la dataInizio della sessione
+     * @return Date la dataInizio della sessione
      */
      public function getDataInizio() {
         return $this->dataInizio;
     }
     
     /**
-     * @return la data di termine della sessione
+     * @return Date la data di termine della sessione
      */
      public function getDataFine() {
         return $this->dataFine;
     }
     
     /**
-     * @return la soglia di ammissione della sessione
+     * @return float la soglia di ammissione della sessione
      */
      public function getSogliaAmmissione() {
         return $this->sogliaAmmissione;
     }
     
     /**
-     * @return l'id dell'insegnamento a cui appartiene
+     * @return int l'id dell'insegnamento a cui appartiene
      */
      public function getInsegnamentoId() {
         return $this->insegnamentoId;
     }
     
      /**
-     * @return la matricola del corso a cui appartiene l'insegnamento relativo
+     * @return String la matricola del corso a cui appartiene l'insegnamento relativo
      */
      public function getInsegnamentoCorsoMatricola() {
         return $this->insegnamentoCorsoMatricola;

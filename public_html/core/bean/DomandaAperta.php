@@ -35,7 +35,7 @@ class DomandaAperta {
     }
     
     /**
-     * @return l'id della domanda aperta
+     * @return int l'id della domanda aperta
      */
     
     function getId() {
@@ -43,7 +43,7 @@ class DomandaAperta {
     }
 
     /**
-     * @return testo della domanda aperta
+     * @return String testo della domanda aperta
      */
     
     function getTesto() {
@@ -51,7 +51,7 @@ class DomandaAperta {
     }
 
     /**
-     * @return punteggio massimo della domanda aperta
+     * @return float punteggio massimo della domanda aperta
      */
     
     function getPunteggioMax() {
@@ -59,7 +59,7 @@ class DomandaAperta {
     }
 
     /**
-     * @return percentuale di quante volte è stata scelta la domanda aperta
+     * @return float percentuale di quante volte è stata scelta la domanda aperta
      */
     
     function getPercentualeScelta() {
@@ -67,7 +67,7 @@ class DomandaAperta {
     }
 
     /**
-     * @return l'id dell'argomento della domanda aperta
+     * @return int l'id dell'argomento della domanda aperta
      */
     
     function getArgomentoId() {
@@ -75,7 +75,7 @@ class DomandaAperta {
     }
 
     /**
-     * @return l'id dell'insegnamento a cui appartiene l'argomento 
+     * @return int l'id dell'insegnamento a cui appartiene l'argomento 
      */
     
     function getArgomentoInsegnamentoId() {
@@ -83,7 +83,7 @@ class DomandaAperta {
     }
 
     /**
-     * @return la matricola del corso a cui l'insegnamento relativo all'argomento apartiene
+     * @return String la matricola del corso a cui l'insegnamento relativo all'argomento apartiene
      */
     
     function getArgomentoInsegnamentoCorsoMatricola() {

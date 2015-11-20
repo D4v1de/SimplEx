@@ -34,42 +34,42 @@ class RispostaMultipla {
     } 
     
     /**
-     * @return la matricola dell'elaborato dello studente
+     * @return String la matricola dell'elaborato dello studente
      */
     function getElaboratoStudenteMatricola() {
         return $this->elaboratoStudenteMatricola;
     }
 
     /**
-     * @return l'id della sessione dell'elaborato
+     * @return int l'id della sessione dell'elaborato
      */
     function getElaboratoSessioneId() {
         return $this->elaboratoSessioneId;
     }
 
     /**
-     * @return l'id dell'alternativa scelta
+     * @return int l'id dell'alternativa scelta
      */
     function getAlternativaId() {
         return $this->alternativaId;
     }
 
     /**
-     * @return l'id dell'argomento a cui appartiene la domanda multipla relativa
+     * @return int l'id dell'argomento a cui appartiene la domanda multipla relativa
      */
     function getAlternativaDomandaMultiplaArgomentoId() {
         return $this->alternativaDomandaMultiplaArgomentoId;
     }
 
     /**
-     * @return l'id dell'insegnamento dell'argomento a cui appartiene la domanda multipla relativa
+     * @return int l'id dell'insegnamento dell'argomento a cui appartiene la domanda multipla relativa
      */
     function getAlternativaDomandaMultiplaArgomentoInsegnamentoId() {
         return $this->alternativaDomandaMultiplaArgomentoInsegnamentoId;
     }
 
     /**
-     * @return la matricola del corso dell'argomento a cui appartiene l'alternativa scelta
+     * @return String la matricola del corso dell'argomento a cui appartiene l'alternativa scelta
      */
     function getAlternativaDomandaMultiplaArgomentoInsegnamentoCorsoMatricola() {
         return $this->alternativaDomandaMultiplaArgomentoInsegnamentoCorsoMatricola;

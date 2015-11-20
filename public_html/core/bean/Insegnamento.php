@@ -20,14 +20,14 @@ class Insegnamento {
     }
     
     /**
-     * @return l'id del corso
+     * @return int l'id del corso
      */
     public function getId() {
         return $this->id;
     }
     
     /**
-     * @return la matricola del corso a cui appartiene
+     * @return String la matricola del corso a cui appartiene
      */
     public function getCorsoMatricola() {
         return $this->matricola;

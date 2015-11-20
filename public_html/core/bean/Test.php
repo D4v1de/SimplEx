@@ -35,49 +35,49 @@ class Test {
     } 
     
      /**
-     * @return l'id del test
+     * @return int l'id del test
      */
     function getId() {
         return $this->id;
     }
     
      /**
-     * @return la descrizione del test
+     * @return String la descrizione del test
      */
     function getDescrizione() {
         return $this->descrizione;
     }
 
      /**
-     * @return il punteggio massimo del test
+     * @return float il punteggio massimo del test
      */
     function getPunteggioMax() {
         return $this->punteggioMax;
     }
 
      /**
-     * @return il numero di domande multiple del test
+     * @return int il numero di domande multiple del test
      */
     function getNumeroMultiple() {
         return $this->numeroMultiple;
     }
 
      /**
-     * @return il numero di domande aperte del test
+     * @return int il numero di domande aperte del test
      */
     function getNumeroAperte() {
         return $this->numeroAperte;
     }
 
      /**
-     * @return la percentuale delle volte in cui il test è stato scelto
+     * @return float la percentuale delle volte in cui il test è stato scelto
      */
     function getPercentualeScelto() {
         return $this->percentualeScelto;
     }
 
      /**
-     * @return la percentuale di successo del test
+     * @return float la percentuale di successo del test
      */
     function getPercentualeSuccesso() {
         return $this->percentualeSuccesso;

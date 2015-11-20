@@ -34,7 +34,7 @@ class Alternativa {
     }
 
     /**
-     * @return id dell'alternativa
+     * @return int id dell'alternativa
      */
     
     function getId() {
@@ -42,7 +42,7 @@ class Alternativa {
     }
 
     /**
-     * @return testo dell'alternativa
+     * @return String testo dell'alternativa
      */
     
     function getTesto() {
@@ -50,7 +50,7 @@ class Alternativa {
     }
     
     /**
-     * @return percentuale di volte che è stata scelta l'alternativa della domanda multipla
+     * @return float percentuale di volte che è stata scelta l'alternativa della domanda multipla
      */
 
     function getPercentualeScelta() {
@@ -58,7 +58,7 @@ class Alternativa {
     }
 
     /**
-     * @return l'id dell'argomento a cui appartiniene la domanda multipla
+     * @return int l'id dell'argomento a cui appartiniene la domanda multipla
      */
     
     function getDomandaMultiplaArgomentoId() {
@@ -66,7 +66,7 @@ class Alternativa {
     }
 
     /**
-     * @return l'id dell'insegnamento a cui appertiene l'argomento della domanda multipla
+     * @return int l'id dell'insegnamento a cui appertiene l'argomento della domanda multipla
      */
     
     function getDomandaMultiplaArgomentoInsegnamentoId() {
@@ -74,7 +74,7 @@ class Alternativa {
     }
 
     /**
-     * @return la matricola del corso a cui appartiene l'insegnamento realativo all'argomento della domanda multipla   
+     * @return String la matricola del corso a cui appartiene l'insegnamento realativo all'argomento della domanda multipla   
      */
     
     function getDomandaMultiplaArgomentoInsegnamentoCorsoMatricola() {

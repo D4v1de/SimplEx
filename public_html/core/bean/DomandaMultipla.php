@@ -45,14 +45,14 @@ class DomandaMultipla {
         
     }
     /**
-     * @return id della domanda multipla
+     * @return int id della domanda multipla
      */
     function getId() {
         return $this->id;
     }
 
     /**
-     * @return testo della domanda multipla
+     * @return String testo della domanda multipla
      */
     
     function getTesto() {
@@ -60,7 +60,7 @@ class DomandaMultipla {
     }
 
     /**
-     * @return punteggio della risposta corretta
+     * @return float punteggio della risposta corretta
      */
     
     function getPunteggioCorretta() {
@@ -68,7 +68,7 @@ class DomandaMultipla {
     }
 
     /**
-     * @return punteggio della risposta errata
+     * @return float punteggio della risposta errata
      */
     
     function getPunteggioErrata() {
@@ -76,7 +76,7 @@ class DomandaMultipla {
     }
 
     /**
-     * @return percentuale di volte in cui viene scelta la domanda multipla
+     * @return float percentuale di volte in cui viene scelta la domanda multipla
      */
     
     function getPercentualeScelta() {
@@ -84,7 +84,7 @@ class DomandaMultipla {
     }
     
     /**
-     * @return percentuale di volte in cui viene risposta correttamente la domanda multipla
+     * @return float percentuale di volte in cui viene risposta correttamente la domanda multipla
      */
 
     function getPercentualeRispostaCorretta() {
@@ -92,7 +92,7 @@ class DomandaMultipla {
     }
     
     /**
-     * @return risposta corretta della domanda multipla
+     * @return int risposta corretta della domanda multipla
      */
 
     function getAlternativaCorretta() {
@@ -100,7 +100,7 @@ class DomandaMultipla {
     }
     
     /**
-     * @return id dell'argomento a cui la domanda multipla appartiene
+     * @return int id dell'argomento a cui la domanda multipla appartiene
      */
 
     function getArgomentoId() {
@@ -108,7 +108,7 @@ class DomandaMultipla {
     }
     
     /**
-     * @return id dell'insegnamento a cui appartiene l'argomento della domanda multipla
+     * @return int id dell'insegnamento a cui appartiene l'argomento della domanda multipla
      */
 
     function getArgomentoInsegnamentoId() {
@@ -116,7 +116,7 @@ class DomandaMultipla {
     }
     
     /**
-     * @return la matricola del corso a cui l'insegnamento realativo all'argomento appartiene 
+     * @return String la matricola del corso a cui l'insegnamento realativo all'argomento appartiene 
      */
 
     function getArgomentoInsegnamentoCorsoMatricola() {

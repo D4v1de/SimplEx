@@ -22,28 +22,28 @@ class Utente extends Account{
     } 
     
     /**
-     * @return la matricola
+     * @return String la matricola
      */
     public function getMatricola() {
         return $this->matricola;
     }
 
     /**
-     * @return il nome dell'utente
+     * @return  String il nome dell'utente
      */
     public function getNome() {
         return $this->nome;
     }
 
     /**
-     * @return il cognome dell'utente
+     * @return String il cognome dell'utente
      */
     public function getCognome() {
         return $this->cognome;
     }
     
     /**
-     * @return la tipologia dell'utente
+     * @return String la tipologia dell'utente
      */
     public function getTipologia() {
         return $this->tipologia;

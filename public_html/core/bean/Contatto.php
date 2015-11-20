@@ -23,21 +23,21 @@ class Contatto {
     }
     
     /**
-     * @return valore il valore del contatto
+     * @return String valore il valore del contatto
      */
     public function getValore() {
         return $this->valore;
     }
     
     /**
-     * @return la tipologia del contatto
+     * @return String la tipologia del contatto
      */
     public function getTipologia() {
         return $this->tipologia;
     }
 
     /**
-     * @return la matricola del docente a cui appartiene il contatto
+     * @return String la matricola del docente a cui appartiene il contatto
      */
     public function getDocenteMatricola() {
         return $this->docenteMatricola;
