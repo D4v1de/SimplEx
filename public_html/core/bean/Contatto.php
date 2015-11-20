@@ -2,69 +2,69 @@
 
 /**
  * User: Elvira
- * Date: 19/11/15
- * Time: 16:40
+ * Date: 20/11/15
+ * Time: 10:00
  */
 class Contatto {
-    public $valore;
-    public $tipologia;
-    public $docente;
+    private $valore;
+    private $tipologia;
+    private $docente_matricola;
 
     /**
-     * Contatto constructor.
-     * @param $valore
-     * @param $tipologia
-     * @param $docente
+     * Costruttore di Contatto.
+     * @param $valore il valore del contatto
+     * @param $tipologia la tipologia del contatto
+     * @param $docente_matricola la matricola del docente a cui appartiene il contatto
      */
-    public function __construct($valore, $tipologia, $docente) {
+    public function __construct($valore, $tipologia, $docente_matricola) {
         $this->valore = $valore;
         $this->tipologia = $tipologia;
-        $this->docente = $docente;
+        $this->docente_matricola = $docente_matricola;
     }
     
     /**
-     * @return mixed valore
+     * @return valore il valore del contatto
      */
     public function getValore() {
         return $this->valore;
     }
     
     /**
-     * @return mixed tipologia
+     * @return la tipologia del contatto
      */
     public function getTipologia() {
         return $this->tipologia;
     }
 
     /**
-     * @return mixed docente
+     * @return la matricola del docente a cui appartiene il contatto
      */
-    public function getDocente() {
-        return $this->docente;
+    public function getDocenteMatricola() {
+        return $this->docente_matricola;
     }
     
 
     /**
-     * Sets Contatto's valore
-     * @param $valore
+     * Setta il valore del contatto
+     * @param $valore il valore del contatto
      */
     public function setValore($valore) {
         $this->valore = $valore;
     }
     
     /**
-     * Sets Contatto's tipologia
-     * @param $tipologia
+     * Setta la tipologia del contatto
+     * @param $tipologia la tipologia del contatto
      */
     public function setTipologia($tipologia) {
         $this->tipologia = $tipologia;
     }
     
     /**
-     * Sets Account's docente
-     * @param $docente
+     * Setta la matricola del docente a cui appartiene il contatto
+     * @param $docente_matricola la matricola del docente a cui appartiene il contatto
      */
-    public function setDocente($docente) {
-        $this->docente = $docente;
+    public function setDocenteMatricola($docente_matricola) {
+        $this->docente_matricola = $docente_matricola;
     }
 }
