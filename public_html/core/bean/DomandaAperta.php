@@ -8,41 +8,42 @@
 class DomandaAperta {
     public $id;
     public $testo;
-    public $punteggio_max;
-    public $percentuale_scelta;
-    public $argomento_id;
-    public $argomento_insegnamento_id;
-    public $argomento_insegnamento_corso_matricola;
+    public $punteggioMax;
+    public $percentualeScelta;
+    public $argomentoId;
+    public $argomentoInsegnamentoId;
+    public $argomentoInsegnamentoCorsoMatricola;
     
     /**
      * DomandaAperta constructor.
      * @param $id
      * @param $testo
-     * @param $punteggio_max
-     * @param $percentuale_scelta 
-     * @param $argomento_id
-     * @param $argomento_insegnamento_id
-     * @param $argomento_insegnamento_corso_matricola
+     * @param $punteggioMax
+     * @param $percentualeScelta 
+     * @param $argomentoId
+     * @param $argomentoInsegnamentoId
+     * @param $argomentoInsegnamentoCorsoMatricola
      */
-    public function __construct($id, $testo, $punteggio_max, $percentuale_scelta, $argomento_id,$argomento_insegnamento_id, $argomento_insegnamento_corso_matricola) {
+    function __construct($id, $testo, $punteggioMax, $percentualeScelta, $argomentoId, $argomentoInsegnamentoId, $argomentoInsegnamentoCorsoMatricola) {
         $this->id = $id;
         $this->testo = $testo;
-        $this->punteggio_max = $punteggio_max;
-        $this->percentuale_scelta = $percentuale_scelta;
-        $this->argomento_id = $argomento_id;
-        $this->argomento_insegnamento_id = $argomento_insegnamento_id;
-        $this->argomento_insegnamento_corso_matricola = $argomento_insegnamento_corso_matricola;
-        
+        $this->punteggioMax = $punteggioMax;
+        $this->percentualeScelta = $percentualeScelta;
+        $this->argomentoId = $argomentoId;
+        $this->argomentoInsegnamentoId = $argomentoInsegnamentoId;
+        $this->argomentoInsegnamentoCorsoMatricola = $argomentoInsegnamentoCorsoMatricola;
     }
+    
     /**
-     * @return mixed id
+     * @return l'id della domanda aperta
      */
+    
     function getId() {
         return $this->id;
     }
 
     /**
-     * @return mixed testo
+     * @return testo della domanda aperta
      */
     
     function getTesto() {
@@ -50,43 +51,43 @@ class DomandaAperta {
     }
 
     /**
-     * @return mixed punteggio_max
+     * @return punteggio massimo della domanda aperta
      */
     
     function getPunteggioMax() {
-        return $this->punteggio_max;
+        return $this->punteggioMax;
     }
 
     /**
-     * @return mixed percentuale_scelta
+     * @return percentuale di quante volte è stata scelta la domanda aperta
      */
     
     function getPercentualeScelta() {
-        return $this->percentuale_scelta;
+        return $this->percentualeScelta;
     }
 
     /**
-     * @return mixed argomento_id
+     * @return l'id dell'argomento della domanda aperta
      */
     
     function getArgomentoId() {
-        return $this->argomento_id;
+        return $this->argomentoId;
     }
 
     /**
-     * @return mixed argomento_insegnamento_id
+     * @return l'id dell'insegnamento a cui appartiene l'argomento 
      */
     
     function getArgomentoInsegnamentoId() {
-        return $this->argomento_insegnamento_id;
+        return $this->argomentoInsegnamentoId;
     }
 
     /**
-     * @return mixed argomento_insegnamento_corso_matricola
+     * @return la matricola del corso a cui l'insegnamento relativo all'argomento apartiene
      */
     
     function getArgomentoInsegnamentoCorsoMatricola() {
-        return $this->argomento_insegnamento_corso_matricola;
+        return $this->argomentoInsegnamentoCorsoMatricola;
     }
 
     /**
@@ -98,6 +99,7 @@ class DomandaAperta {
         $this->id = $id;
     }
 
+    
     /**
      * Setta il testo della domanda aperta
      * @param $testo
@@ -109,47 +111,49 @@ class DomandaAperta {
 
     /**
      * Setta il punteggio massimo della domanda aperta
-     * @param $punteggio_max
+     * @param $punteggioMax
      */
     
-    function setPunteggioMax($punteggio_max) {
-        $this->punteggio_max = $punteggio_max;
+    function setPunteggioMax($punteggioMax) {
+        $this->punteggioMax = $punteggioMax;
     }
 
     /**
      * Setta la percentuale di volta in cui è stata scelta la domanda aperta
-     * @param $percentuale_scelta
+     * @param $percentualeScelta
      */
     
-    function setPercentualeScelta($percentuale_scelta) {
-        $this->percentuale_scelta = $percentuale_scelta;
+    
+    function setPercentualeScelta($percentualeScelta) {
+        $this->percentualeScelta = $percentualeScelta;
     }
 
-     /**
+    /**
      * Setta l'id dell'argomento a cui appartiene la domanda aperta
-     * @param $argomento_id
+     * @param $argomentoId
      */
     
-    function setArgomentoId($argomento_id) {
-        $this->argomento_id = $argomento_id;
+    
+    function setArgomentoId($argomentoId) {
+        $this->argomentoId = $argomentoId;
     }
 
      /**
      * Setta l'id dell'insegnamento a cui appartiene l'argomento della domanda aperta
-     * @param $argomento_insegnamento_id
+     * @param $argomentoInsegnamentoId
      */
     
-    function setArgomentoInsegnamentoId($argomento_insegnamento_id) {
-        $this->argomento_insegnamento_id = $argomento_insegnamento_id;
+    function setArgomentoInsegnamentoId($argomentoInsegnamentoId) {
+        $this->argomentoInsegnamentoId = $argomentoInsegnamentoId;
     }
 
     /**
      * Setta la matricola del corso a cui l'insegnamento relativo all'argomento apartiene
-     * @param $argomento_insegnamento_corso_matricola
+     * @param $argomentoInsegnamentoCorsoMatricola
      */
     
-    function setArgomentoInsegnamentoCorsoMatricola($argomento_insegnamento_corso_matricola) {
-        $this->argomento_insegnamento_corso_matricola = $argomento_insegnamento_corso_matricola;
+    function setArgomentoInsegnamentoCorsoMatricola($argomentoInsegnamentoCorsoMatricola) {
+        $this->argomentoInsegnamentoCorsoMatricola = $argomentoInsegnamentoCorsoMatricola;
     }
 
 }
