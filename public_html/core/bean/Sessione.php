@@ -12,18 +12,19 @@ class Sessione {
     private $data_fine;
     private $soglia_ammissione;
     private $insegnamento_id;
+    private $insegnamento_corso_matricola;
     
     /**
      * Costruttore di Sessione
      */
-    public function __construct($id, $tipologia, $data_inizio, $data_fine, $soglia_ammissione, $insegnamento_id ) {
+    public function __construct($id, $tipologia, $data_inizio, $data_fine, $soglia_ammissione, $insegnamento_id, $insegnamento_corso_matricola ) {
         $this->id=$id;
         $this->tipologia=$tipologia;
         $this->data_inizio=$data_inizio;
         $this->data_fine=$data_fine;
         $this->soglia_ammissione=$soglia_ammissione;
         $this->insegnamento_id=$insegnamento_id;
-        
+        $this->insegnamento_corso_matricola=$insegnamento_corso_matricola;
     } 
 
     /**
@@ -66,6 +67,13 @@ class Sessione {
      */
      public function getInsegnamentoId() {
         return $this->insegnamento_id;
+    }
+    
+     /**
+     * @return la matricola del corso dell'insegnamento
+     */
+     public function getInsegnamentoCorsoMatricola() {
+        return $this->insegnamento_corso_matricola;
     }
     /**
      * Setta l'id della sessione
@@ -113,5 +121,13 @@ class Sessione {
      */
     public function setInsegnamentoId($insegnamento_id) {
         $this->insegnamento_id = $insegnamento_id;
+    }
+    
+    /**
+     * Setta la matricola del corso dell'insegnamento a cui appartiene
+     * @param $insegnamento_corso_matricola la matricola del corso dell'insegnamento a cui appartiene
+     */
+    public function setInsegnamentoCorsoMatricola($insegnamento_corso_matricola) {
+        $this->insegnamento_corso_matricola = $insegnamento_corso_matricola;
     }
  }
