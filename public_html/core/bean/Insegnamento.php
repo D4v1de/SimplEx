@@ -3,19 +3,19 @@
 /**
  * User: Elvira
  * Date: 20/11/15
- * Time: 10:35
+ * Time: 16:48
  */
 class Insegnamento {
     private $id;
-    private $corso_matricola;
+    private $corsoMatricola;
 
     /**
      * Costruttore di Insegnamento
-     * @param $corso_matricola la matricola del corso a cui appartiene
+     * @param $corsoMatricola la matricola del corso a cui appartiene
      * @param $id l'identificatore dell'insegnamento
      */
-    public function __construct($corso_matricola, $id) {
-        $this->corso_matricola = $corso_matricola;
+    public function __construct($corsoMatricola, $id) {
+        $this->corsoMatricola = $corsoMatricola;
         $this->id = $id;
     }
     
@@ -35,10 +35,10 @@ class Insegnamento {
 
     /**
      * Setta la matricola del corso a cui appartiene
-     * @param matricola la matricola del corso
+     * @param corsoMatricola la matricola del corso a cui appartiene
      */
-    public function setCorsoMatricola($corso_matricola) {
-        $this->corso_matricola = $corso_matricola;
+    public function setCorsoMatricola($corsoMatricola) {
+        $this->corsoMatricola = $corsoMatricola;
     }
     
     /**

@@ -3,14 +3,14 @@
 /**
  * User: Elvira
  * Date: 20/11/15
- * Time: 10:30
+ * Time: 17:17
  */
-class Utente {
+class Utente extends Account{
     private $matricola;
     private $nome;
     private $cognome;
-    private $tipologia; 
-    
+    private $tipologia;    
+
     /**
      * Costruttore di Utente
      */
@@ -41,6 +41,13 @@ class Utente {
     public function getCognome() {
         return $this->cognome;
     }
+    
+    /**
+     * @return la tipologia dell'utente
+     */
+    public function getTipologia() {
+        return $this->tipologia;
+    }
 
     /**
      * Setta la matricola dell'utente
@@ -66,4 +73,11 @@ class Utente {
         $this->cognome = $cognome;
     }
 
+    /**
+     * Setta la tipologia dell'utente
+     * @param $tipologia la tipologia dell'utente
+     */
+    public function setTipologia($tipologia) {
+        $this->tipologia = $tipologia;
+    }
 }

@@ -3,7 +3,7 @@
 /**
  * User: Elvira
  * Date: 20/11/15
- * Time: 10:05
+ * Time: 16:30
  */
 class Account {
     protected $username;
@@ -46,7 +46,4 @@ class Account {
     public function setPassword($password) {
         $this->password = $password;
     }
-
-
-
 }

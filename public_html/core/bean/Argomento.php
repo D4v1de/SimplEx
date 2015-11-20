@@ -2,28 +2,28 @@
 
 /**
  * User: Dario
- * Date: 22/11/15
+ * Date: 20/11/15
  * Time: 09:28
  */
 
 class Argomento {
 	private $id;
 	private $nome;
-	private $insegnamento_id;
-	private $insegnamento_corso_matricola;
+	private $insegnamentoId;
+	private $insegnamentoCorsoMatricola;
 	
 	/**
 	 * Costruttore di Argomento
          * @param $id
 	 * @param $nome
-	 * @param $insegnamento_id
-	 * @param $insegnamento_corso_matricola
+	 * @param $insegnamentoId
+	 * @param $insegnamentoCorsoMatricola
 	 */
-	public function __construct($id,$nome,$insegnamento_id,$insegnamento_corso_matricola){
+	public function __construct($id,$nome,$insegnamentoId,$insegnamentoCorsoMatricola){
 		$this->id = $id;
                 $this->nome = $nome;
-		$this->insegnamento_id = $insegnamento_id;
-		$this->insegnamento_corso_matricola= $insegnamento_corso_matricola;
+		$this->insegnamentoId = $insegnamentoId;
+		$this->insegnamentoCorsoMatricola= $insegnamentoCorsoMatricola;
 	}
 	
         /**
@@ -44,14 +44,14 @@ class Argomento {
          * @return l'id dell'insegnamento a cui appartiene
          */
         function getInsegnamentoId() {
-            return $this->insegnamento_id;
+            return $this->insegnamentoId;
         }
 
         /**
          * @return la matricola del corso a cui l'insegnamento relativo appartiene
          */
         function getInsegnamentoCorsoMatricola() {
-            return $this->insegnamento_corso_matricola;
+            return $this->insegnamentoCorsoMatricola;
         }
 
         /**
@@ -72,18 +72,18 @@ class Argomento {
         
         /**
 	 * Setta l'id dell'insegnamento a cui appartiene
-         * @param $insegnamento_id l'id dell'insegnamento a cui appartiene
+         * @param $insegnamentoId l'id dell'insegnamento a cui appartiene
 	 */
-        function setInsegnamentoId($insegnamento_id) {
-            $this->insegnamento_id = $insegnamento_id;
+        function setInsegnamentoId($insegnamentoId) {
+            $this->insegnamentoId = $insegnamentoId;
         }
 
         /**
 	 * Setta l'id del corso a cui l'insegnamento relativo appartiene
-         * @param $insegnamento_corso_matricola l'id del corso a cui l'insegnamento relativo appartiene
+         * @param $insegnamentoCorsoMatricola l'id del corso a cui l'insegnamento relativo appartiene
 	 */
-        function setInsegnamentoCorsoMatricola($insegnamento_corso_matricola) {
-            $this->insegnamento_corso_matricola = $insegnamento_corso_matricola;
+        function setInsegnamentoCorsoMatricola($insegnamentoCorsoMatricola) {
+            $this->insegnamentoCorsoMatricola = $insegnamentoCorsoMatricola;
         }
 }
 ?>

@@ -3,26 +3,26 @@
 /**
  * User: Elvira
  * Date: 20/11/15
- * Time: 09:43
+ * Time: 16:15
  */
 class Corso {
     private $matricola;
     private $nome;
     private $tipologia;
-    private $cdl_matricola;
+    private $cdlMatricola;
 
     /**
      * Costruttore di Corso.
      * @param $matricola la matricola del corso
      * @param $nome il nome del corso
      * @param $tipologia la tipolgia del corso
-     * @param $cdl_matricola la matricola del CdL a cui il corso appartiene
+     * @param $cdlMatricola la matricola del CdL a cui il corso appartiene
      */
-    public function __construct($matricola, $nome, $tipologia, $cdl_matricola) {
+    public function __construct($matricola, $nome, $tipologia, $cdlMatricola) {
         $this->matricola = $matricola;
         $this->nome = $nome;
         $this->tipologia = $tipologia;
-        $this->cdl_matricola = $cdl_matricola;
+        $this->cdlMatricola = $cdlMatricola;
     }
     
     /**
@@ -50,7 +50,7 @@ class Corso {
      * @return la matricola del CdL a cui il corso appartiene
      */
     public function getCdlMatricola() {
-        return $this->cdl_matricola;
+        return $this->cdlMatricola;
     }
 
     /**
@@ -79,9 +79,9 @@ class Corso {
     
     /**
      * Setta la matricola del CdL a cui il corso appartiene
-     * @param matricola la matricola del CdL a cui il corso appartiene
+     * @param cdlMatricola la matricola del CdL a cui il corso appartiene
      */
-    public function setCdlMatricola($cdl_matricola) {
-        $this->cdl_matricola = $cdl_matricola;
+    public function setCdlMatricola($cdlMatricola) {
+        $this->cdlMatricola = $cdlMatricola;
     }
 }
