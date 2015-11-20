@@ -135,11 +135,11 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <i class="fa fa-angle-right"></i>
                             </li>
                             <li>
-                                <a href="is.html">Ingegneria Del Software</a>
+                                <a href="#">Ingegneria Del Software</a>
                                 <i class="fa fa-angle-right"></i>
                             </li>
                             <li>
-                                <a href="listaDomande-html">Use-Case</a>
+                                <a href="#">Use-Case</a>
                                 <i class="fa fa-angle-right"></i>
                             </li>
                             <li>
@@ -174,97 +174,76 @@ License: You must have a valid license purchased only from themeforest(the above
                     </div>
                     <!-- END PAGE HEADER-->
                     <!-- BEGIN PAGE CONTENT-->
-                    <form action="#" class="form-horizontal">
-                        <div class="form-body">
-                            <div class="form-group">
-                                <label class="col-md-3 control-label ">Inserisci testo domanda</label>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="Quale di queste due relazioni non esiste tra due casi d'uso">
-                                </div>
+                    <div class="portlet box blue">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-gift"></i> Modifica Domanda
                             </div>
-                            <div class="form-group form-md-radios">
-                                <div class="md-radio">
-                                    <input type="radio" id="radio1" name="radio1" class="md-radiobtn">
-                                    <label for="radio1">
-                                        <span class="inc"></span>
-                                        <span class="check"></span>
-                                        <span class="box"></span>
-                                    </label>
-                                    <label class="col-md-3 control-label ">Inserisci testo risposta </label>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" placeholder="Generalizzazione">
-                                    </div>
-                                    <button class="btn red-flamingo" type="button" style="width: 100px">
-                                       Rimuovi</button>
-                                </div>
-                                <div class="md-radio">
-                                    <input type="radio" id="radio2" name="radio1" class="md-radiobtn">
-                                    <label for="radio2">
-                                        <span class="inc"></span>
-                                        <span class="check"></span>
-                                        <span class="box"></span>
-                                    </label>
-                                    <label class="col-md-3 control-label ">Inserisci testo risposta </label>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" placeholder="Associazione">
-                                    </div>
-                                    <button class="btn red-flamingo" type="button" style="width: 100px">
-                                       Rimuovi</button>
-                                </div>
-                                <div class="md-radio">
-                                    <input type="radio" id="radio3" name="radio1" class="md-radiobtn">
-                                    <label for="radio3">
-                                        <span class="inc"></span>
-                                        <span class="check"></span>
-                                        <span class="box"></span>
-                                    </label>
-                                    <label class="col-md-3 control-label ">Inserisci testo risposta </label>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" placeholder="Inserisci nuova risposta">
-                                    </div>
-                                    <button class="btn green-jungle" type="button" style="width: 100px">
-                                       Aggiungi</button>
-                                </div>
+                            <div class="tools">
+                                <a href="" class="collapse" data-original-title="" title="">
+                                </a>
                             </div>
                         </div>
-                        <!--EMPTY FORM BODY FOR EMPTY SPACE -->
-                        <div class="form-body">
-                            <div class="form-group"></div>
-                            <div class="form-group"></div>
-                            <div class="form-group"></div>
-                            <div class="form-group"></div>
-                        </div>
-                        <!--END EMPTY FORM GROUP FOR EMPTY SPACE-->
+                        <div class="portlet-body form">
+                            <form role="form">
+                                <div class="form-body">
 
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label col-md-8">Inserisci testo domanda
+                                            <input type="text" class="form-control" placeholder="Quale di queste due relazioni non esiste tra due casi d'uso">
+                                        </label>
+                                        <div class="radio-list col-md-12">
+                                            <label class="col-md-12">
+                                                Inserisci testo risposta
+                                            </label>
+                                            <div class="radio col-sm-2" id="uniform-optionsRadios1"><span><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked=""></span></div>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" placeholder="Associazione">
+                                            </div>
+                                            <div class="col-sm-2"></div>
+                                            <label class="col-md-12">
+                                                Inserisci testo risposta
+                                            </label>
+                                            <div class="radio col-sm-2" id="uniform-optionsRadios1"><span><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked=""></span></div>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" placeholder="Generalizzazione">
+                                            </div>
+                                            <div class="col-sm-2"></div>
+                                            <label class="col-md-12">
+                                                Inserisci testo risposta
+                                            </label>
+                                            <div class="radio col-sm-2" id="uniform-optionsRadios1"><span><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked=""></span></div>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" placeholder="Inserisci una nuova risposta">
+                                            </div>
+                                            <div class="col-sm-2"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label ">Inserisci punteggio risposta esatta</label>
+                                        <div class="col-md-3">
+                                            <input type="number" class="form-control" placeholder="2">
+                                        </div>
+                                        <button class="btn red-flamingo" type="button" style="width: 100px">
+                                            Azzera</button>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label ">Inserisci punteggio risposta errata</label>
+                                        <div class="col-md-3">
+                                            <input type="number" class="form-control" placeholder="-1">
+                                        </div>
+                                        <button class="btn red-flamingo" type="button" style="width: 100px">
+                                            Azzera</button>
+                                    </div>
 
-                        <div class="form-body">
-                            <div class="form-group">
-                                <label class="col-md-3 control-label ">Inserisci punteggio risposta esatta</label>
-                                <div class="col-md-3">
-                                    <input type="number" class="form-control" placeholder="2">
                                 </div>
-                                <button class="btn red-flamingo" type="button" style="width: 100px">
-                                       Azzera</button>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-3 control-label ">Inserisci punteggio risposta errata</label>
-                                <div class="col-md-3">
-                                    <input type="number" class="form-control" placeholder="-1">
+                                <div class="form-actions">
+                                    <button type="submit" class="btn blue">Conferma</button>
+                                    <button type="button" class="btn default">Annulla</button>
                                 </div>
-                                <button class="btn red-flamingo" type="button" style="width: 100px">
-                                       Azzera</button>
-                            </div>
-
+                            </form>
                         </div>
-                        <div class="form-actions">
-                            <div class="row">
-                                <div class="col-md-offset-3 col-md-4">
-                                    <button type="submit" class="btn green-jungle" style=" width: 100px">Conferma</button>
-                                    <button type="button" class="btn default" style="width: 100px">Annulla</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
                 <!-- END PAGE CONTENT-->
             </div>
