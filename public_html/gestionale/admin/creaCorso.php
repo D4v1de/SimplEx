@@ -26,7 +26,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>Crea CdL</title>
+    <title>Crea Corso</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -140,7 +140,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                Crea CdL
+                Crea Corso
             </h3>
 
             <div class="page-bar">
@@ -151,16 +151,17 @@ License: You must have a valid license purchased only from themeforest(the above
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="gestioneCdL.php">GestioneCdL</a>
+                        <a href="gestioneCorsi.php">GestioneCorsi</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="creaCdL.php">CreaCdL</a>
+                        <a href="creaCorso.php">CreaCorso</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
             </div>
             <!-- END PAGE HEADER-->
+
 
 
             <div class="row">
@@ -169,7 +170,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="portlet box grey-cascade">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-globe"></i>Crea nuovo Corso di Laurea
+                                <i class="fa fa-globe"></i>Crea nuovo Corso
                             </div>
                             <div class="tools">
                                 <a href="javascript:;" class="collapse" data-original-title="" title="">
@@ -177,248 +178,59 @@ License: You must have a valid license purchased only from themeforest(the above
                             </div>
                         </div>
                         <div class="portlet-body">
-
-                            <div class="portlet-body form">
-                                <div class="form-group form-md-line-input">
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" id="form_control_1" placeholder="Inserisci nome">
-
-                                        <div class="form-control-focus">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group form-md-line-input">
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" id="form_control_1" placeholder="Inserisci tipologia">
-
-                                        <div class="form-control-focus">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group form-md-line-input">
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" id="form_control_1" placeholder="Inserisci matricola">
-
-                                        <div class="form-control-focus">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <h3></h3>
-                            </div>
-
-
-
                             <div class="table-scrollable">
-                                <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                       id="sample_1" role="grid" aria-describedby="sample_1_info">
-                                    <thead>
-                                    <tr role="row">
-                                        <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1"
-                                            aria-label="" style="width: 24px;">
-                                            <input type="checkbox" class="group-checkable"
-                                                   data-set="#sample_1 .checkboxes">
-                                        </th>
-                                        <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1"
-                                            colspan="1" aria-sort="ascending"
-                                            aria-label="Username: activate to sort column ascending"
-                                            style="width: 133px;">
-                                            Corso
-                                        </th>
-                                        <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Email"
-                                            style="width: 232px;">
-                                            Matricola
-                                        </th>
-                                        <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Points"
-                                            style="width: 82px;">
-                                            Tipologia
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1"
-                                            colspan="1" aria-label="Joined: activate to sort column ascending"
-                                            style="width: 119px;">
-                                            DocenteAssociato
-                                        </th>
-                                        <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Status"
-                                            style="width: 132px;">
-                                            Stato
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr class="gradeX odd" role="row">
-                                        <td>
-                                            <input type="checkbox" class="checkboxes" value="1">
-                                        </td>
-                                        <td class="sorting_1">
-                                            <a href="">Ingegneria del Software</a>
-                                        </td>
-                                        <td>
-                                            0000000001
-                                        </td>
-                                        <td>
-                                            Annuale
-                                        </td>
-                                        <td class="center">
-                                            Andrea de Lucia
-                                        </td>
-                                        <td>
-                                                <span class="label label-sm label-success">
-                                                    Attivo
-                                                </span>
-                                        </td>
-                                    </tr>
-                                    <tr class="gradeX even" role="row">
-                                        <td>
-                                            <input type="checkbox" class="checkboxes" value="1">
-                                        </td>
-                                        <td class="sorting_1">
-                                            <a href="">Analisi Numerica</a>
-                                        </td>
-                                        <td>
-                                            0000000011
-                                        </td>
-                                        <td>
-                                            Semestrale
-                                        </td>
-                                        <td class="center">
-                                            Angelamaria Cardone
-                                        </td>
-                                        <td>
-                                                <span class="label label-sm label-success">
-                                                    Attivo
-                                                </span>
-                                        </td>
-                                    </tr>
-                                    <tr class="gradeX odd" role="row">
-                                        <td>
-                                            <input type="checkbox" class="checkboxes" value="1">
-                                        </td>
-                                        <td class="sorting_1">
-                                            <a href="">Tecnologie di Sviluppo Web</a>
-                                        </td>
-                                        <td>
-                                            0000000111
-                                        </td>
-                                        <td>
-                                            Semestrale
-                                        </td>
-                                        <td class="center">
-                                            Mimmo Parente
-                                        </td>
-                                        <td>
-                                                <span class="label label-sm label-success">
-                                                    Attivo
-                                                </span>
-                                        </td>
-                                    </tr>
-                                    <tr class="gradeX even" role="row">
-                                        <td>
-                                            <input type="checkbox" class="checkboxes" value="1">
-                                        </td>
-                                        <td class="sorting_1">
-                                            <a href="">Fisica</a>
-                                        </td>
-                                        <td>
-                                            0000001111
-                                        </td>
-                                        <td>
-                                            Annuale
-                                        </td>
-                                        <td class="center">
-                                            Annnn De Luca
-                                        </td>
-                                        <td>
-                                                <span class="label label-sm label-warning">
-                                                    Sospeso
-                                                </span>
-                                        </td>
-                                    </tr>
-                                    <tr class="gradeX odd" role="row">
-                                        <td>
-                                            <input type="checkbox" class="checkboxes" value="1">
-                                        </td>
-                                        <td class="sorting_1">
-                                            <a href="">Algoritmi</a>
-                                        </td>
-                                        <td>
-                                            0000011111
-                                        </td>
-                                        <td>
-                                            Semestrale
-                                        </td>
-                                        <td class="center">
-                                            Ugo Vaccaro
-                                        </td>
-                                        <td>
-                                                <span class="label label-sm label-warning">
-                                                    Sospeso
-                                                </span>
-                                        </td>
-                                    </tr>
-                                    <tr class="gradeX even" role="row">
-                                        <td>
-                                            <input type="checkbox" class="checkboxes" value="1">
-                                        </td>
-                                        <td class="sorting_1">
-                                            <a href="">Ele di Teoria Computazionale</a>
-                                        </td>
-                                        <td>
-                                            0000111111
-                                        </td>
-                                        <td>
-                                            Semestrale
-                                        </td>
-                                        <td class="center">
-                                            Clelia De Felice
-                                        </td>
-                                        <td>
-                                                <span class="label label-sm label-success">
-                                                    Attivo
-                                                </span>
-                                        </td>
-                                    </tr>
-                                    <tr class="gradeX odd" role="row">
-                                        <td>
-                                            <input type="checkbox" class="checkboxes" value="1">
-                                        </td>
-                                        <td class="sorting_1">
-                                            <a href="">Programmazione</a>
-                                        </td>
-                                        <td>
-                                            0001111111
-                                        </td>
-                                        <td>
-                                            Semestrale
-                                        </td>
-                                        <td class="center">
-                                            La Torre
-                                        </td>
-                                        <td>
-                                                <span class="label label-sm label-warning">
-                                                    Sospeso
-                                                </span>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
 
-                            <div class="portlet-body form">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-actions">
-                                            <div class="col-md-3">
-                                                <button type="button" class="btn red-intense">Annulla</button>
-                                            </div>
-                                            <div class="col-md-offset-1 col-md-3">
-                                                <button type="button" class="btn green-jungle">Conferma</button>
+
+
+                                <div class="portlet-body form">
+                                    <div class="form-group form-md-line-input">
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" id="form_control_1" placeholder="Inserisci nome">
+
+                                            <div class="form-control-focus">
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="form-group form-md-line-input">
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" id="form_control_1" placeholder="Inserisci tipologia">
+
+                                            <div class="form-control-focus">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-md-line-input">
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" id="form_control_1" placeholder="Inserisci matricola">
+
+                                            <div class="form-control-focus">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-actions">
+                                                <div class="col-md-3">
+                                                    <button type="button" class="btn red-intense">Annulla</button>
+                                                </div>
+                                                <div class="col-md-offset-1 col-md-3">
+                                                    <button type="button" class="btn green-jungle">Conferma</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
                                 </div>
+
+
+
                             </div>
+
+
 
                         </div>
                     </div>

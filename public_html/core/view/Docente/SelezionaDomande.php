@@ -37,114 +37,158 @@ $controller = new Esempio();
     <div class="page-content-wrapper">
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
+                <h3 class="page-title">
+                    Seleziona domande
+                </h3>
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li>
+                            <i class="fa fa-home"></i>
+                            <a href="index.html">Home</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <a href="#">Nome Corso</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
 
+                        <li>
+                            <a href="#">Nome Test</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
 
+                        <li>
+                            <a href="#">Seleziona Domande</a>
+                        </li>
+                    </ul>
+                </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-              <div class="row">
-                <div class="col-md-12">
-                    <fieldset>
-                        <legend> UML </legend>
-                    <div class="table-scrollable">
-                        <table class="table table-hover">
-                            <thead>
-                            <tr>
-                                <th>
-                                    <input type ="checkbox">
-                                </th>
-                                <th>
-                                    Testo
-                                </th>
-                                <th>
-                                    Risposte corrette
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <input type ="checkbox">
-                                </td>
-                                <td>
-                                    Come si rappresenta una dipendenza in UML?
-                                </td>
-                                <td>
-                                    80%
-                                </td>                              
-                           </tr>
-                           <tr>
-                               <td>
-                                    <input type ="checkbox">
-                                </td>
-                                <td>
-                                    Cosa contiene la prima colonna di un sequence diagram?
-                                </td>
-                                <td>
-                                    55%
-                                </td>                           
-                            </tr>
-                            </tbody>
-                        </table>
+        
+            <form>
+                <div class="form-body">
+                    <div class="portlet box grey-cascade">
+                        <div class="portlet-title">
+                            <div class="caption">UML</div>
+                            <div class="tools">
+                                <a href="javascript:;" class="collapse" data-original-title="" title=""></a>
+                            </div>
+                        </div>
+
+                        <div class="portlet-body">
+                            <table class="table table-striped table-bordered table-hover dataTable no-footer">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="table-checkbox sorting_disabled">
+                                            <input type ="checkbox">
+                                        </th>
+                                        <th class="table-checkbox sorting_disabled">
+                                            Testo
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Risposte corrette: activate to sort column ascending" style="width: 174px;">
+                                            Tipo
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Risposte corrette: activate to sort column ascending" style="width: 174px;">
+                                            Risposte corrette
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="gradeX odd" role="row">
+                                        <td>
+                                            <input type ="checkbox">
+                                        </td>
+                                        <td class="">
+                                            Come si rappresenta una dipendenza in UML?
+                                        </td>
+                                        <td>Multipla</td>
+                                        <td>80%</td>
+                                    </tr>
+                                    <tr class="gradeX odd" role="row">
+                                        <td>
+                                            <input type ="checkbox">
+                                        </td>
+                                        <td class="">
+                                            Cosa contiene la prima colonna di un sequence diagram?
+                                        </td>
+                                        <td>Multipla</td>
+                                        <td>55%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </fieldset>
-                 
-            <div class="row">
-                <div class="col-md-12">
-                      <fieldset>
-                        <legend> Use-Case </legend>
-                    <div class="table-scrollable">
-                        <table class="table table-hover">
-                            <thead>
-                            <tr>
-                                <th>
-                                    <input type ="checkbox">
-                                </th>
-                                <th>
-                                    Testo
-                                </th>
-                                <th>
-                                    Risposte corrette
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <input type ="checkbox">
-                                </td>
-                                <td>
-                                    Cosa NON contiene il flusso di eventi di uno Use Case?
-                                </td>
-                                <td>
-                                    40%
-                                </td>                              
-                           </tr>
-                           <tr>
-                                <td>
-                                    <input type ="checkbox">
-                                </td>
-                                <td>
-                                    Quale tra queste affermazioni sugli Use Case non è corretta?
-                                </td>
-                                <td>
-                                    75%
-                                </td>                           
-                            </tr>
-                            </tbody>
-                        </table>
+
+                    <div class="portlet box grey-cascade">
+                        <div class="portlet-title">
+                            <div class="caption">Use Case</div>
+                            <div class="tools">
+                                <a href="javascript:;" class="collapse" data-original-title="" title=""></a>
+                            </div>
+                        </div>
+
+                        <div class="portlet-body">
+                            <table class="table table-striped table-bordered table-hover dataTable no-footer">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="table-checkbox sorting_disabled">
+                                            <input type ="checkbox">
+                                        </th>
+                                        <th class="table-checkbox sorting_disabled">
+                                            Testo
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Risposte corrette: activate to sort column ascending" style="width: 174px;">
+                                            Tipo
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Risposte corrette: activate to sort column ascending" style="width: 174px;">
+                                            Risposte corrette
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="gradeX odd" role="row">
+                                        <td>
+                                            <input type ="checkbox">
+                                        </td>
+                                        <td class="">
+                                            Cosa NON contiene il flusso di eventi di uno Use Case?
+                                        </td>
+                                        <td>Multipla</td>
+                                        <td>40%</td>
+                                    </tr>
+                                    <tr class="gradeX odd" role="row">
+                                        <td>
+                                            <input type ="checkbox">
+                                        </td>
+                                        <td class="">
+                                            Descrivere tutti i campi della tabella di uno Use Case
+                                        </td>
+                                        <td>Aperta</td>
+                                        <td>28%</td>
+                                    </tr>
+                                    <tr class="gradeX odd" role="row">
+                                        <td>
+                                            <input type ="checkbox">
+                                        </td>
+                                        <td class="">
+                                            Quale tra queste affermazioni sugli Use Case non è corretta?
+                                        </td>
+                                        <td>Multipla</td>
+                                        <td>75%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </fieldset>
+                    <div class="row">
+                       <div class="col-md-12">
+                           <div class="col-md-9"></div>
+                           <button type="button" class="btn green">Annulla</button> 
+                           <button type="submit" class="btn green">Conferma</button>                
+                       </div>
+                   </div>
                 </div>
-            </div>
-             <div class="row">
-                <div class="col-md-12">
-                    <div class="col-md-9"></div>
-                    <button type="button" class="btn green">Annulla</button> 
-                    <button type="submit" class="btn green">Conferma</button>                
-                </div>
-            </div>
-                    </div>
-    </div>
+            </form>
             <!-- END PAGE CONTENT-->
         </div>
     </div>

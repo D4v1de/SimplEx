@@ -26,7 +26,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>Crea CdL</title>
+    <title>Gestione Corsi</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -140,7 +140,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                Crea CdL
+                Gestione Corsi
             </h3>
 
             <div class="page-bar">
@@ -151,16 +151,27 @@ License: You must have a valid license purchased only from themeforest(the above
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="gestioneCdL.php">GestioneCdL</a>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
-                    <li>
-                        <a href="creaCdL.php">CreaCdL</a>
+                        <a href="gestioneCorsi.php">GestioneCorsi</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
             </div>
             <!-- END PAGE HEADER-->
+
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form page-bar">
+                        <div class="form-actions">
+                            <div class="col-md-4">
+                                <a href="creaCorso.php"><button type="button" class="btn green-jungle">Crea Nuovo Corso</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
 
             <div class="row">
@@ -169,7 +180,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="portlet box grey-cascade">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-globe"></i>Crea nuovo Corso di Laurea
+                                <i class="fa fa-globe"></i>Gestione dei Corsi
                             </div>
                             <div class="tools">
                                 <a href="javascript:;" class="collapse" data-original-title="" title="">
@@ -177,40 +188,6 @@ License: You must have a valid license purchased only from themeforest(the above
                             </div>
                         </div>
                         <div class="portlet-body">
-
-                            <div class="portlet-body form">
-                                <div class="form-group form-md-line-input">
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" id="form_control_1" placeholder="Inserisci nome">
-
-                                        <div class="form-control-focus">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group form-md-line-input">
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" id="form_control_1" placeholder="Inserisci tipologia">
-
-                                        <div class="form-control-focus">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group form-md-line-input">
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" id="form_control_1" placeholder="Inserisci matricola">
-
-                                        <div class="form-control-focus">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <h3></h3>
-                            </div>
-
-
-
                             <div class="table-scrollable">
                                 <table class="table table-striped table-bordered table-hover dataTable no-footer"
                                        id="sample_1" role="grid" aria-describedby="sample_1_info">
@@ -264,9 +241,18 @@ License: You must have a valid license purchased only from themeforest(the above
                                             Andrea de Lucia
                                         </td>
                                         <td>
-                                                <span class="label label-sm label-success">
-                                                    Attivo
-                                                </span>
+                                            <div class="row">
+                                                <div class="col-md-offset-1 col-md-2">
+                                                    <a href="" class="label label-sm label-success">
+                                                        Attiva
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-offset-2 col-md-2">
+                                                    <a href="" class="label label-sm label-warning">
+                                                        Sospendi
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr class="gradeX even" role="row">
@@ -286,9 +272,18 @@ License: You must have a valid license purchased only from themeforest(the above
                                             Angelamaria Cardone
                                         </td>
                                         <td>
-                                                <span class="label label-sm label-success">
-                                                    Attivo
-                                                </span>
+                                            <div class="row">
+                                                <div class="col-md-offset-1 col-md-2">
+                                                    <a href="" class="label label-sm label-success">
+                                                        Attiva
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-offset-2 col-md-2">
+                                                    <a href="" class="label label-sm label-warning">
+                                                        Sospendi
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr class="gradeX odd" role="row">
@@ -308,9 +303,18 @@ License: You must have a valid license purchased only from themeforest(the above
                                             Mimmo Parente
                                         </td>
                                         <td>
-                                                <span class="label label-sm label-success">
-                                                    Attivo
-                                                </span>
+                                            <div class="row">
+                                                <div class="col-md-offset-1 col-md-2">
+                                                    <a href="" class="label label-sm label-success">
+                                                        Attiva
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-offset-2 col-md-2">
+                                                    <a href="" class="label label-sm label-warning">
+                                                        Sospendi
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr class="gradeX even" role="row">
@@ -330,9 +334,18 @@ License: You must have a valid license purchased only from themeforest(the above
                                             Annnn De Luca
                                         </td>
                                         <td>
-                                                <span class="label label-sm label-warning">
-                                                    Sospeso
-                                                </span>
+                                            <div class="row">
+                                                <div class="col-md-offset-1 col-md-2">
+                                                    <a href="" class="label label-sm label-success">
+                                                        Attiva
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-offset-2 col-md-2">
+                                                    <a href="" class="label label-sm label-warning">
+                                                        Sospendi
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr class="gradeX odd" role="row">
@@ -352,9 +365,18 @@ License: You must have a valid license purchased only from themeforest(the above
                                             Ugo Vaccaro
                                         </td>
                                         <td>
-                                                <span class="label label-sm label-warning">
-                                                    Sospeso
-                                                </span>
+                                            <div class="row">
+                                                <div class="col-md-offset-1 col-md-2">
+                                                    <a href="" class="label label-sm label-success">
+                                                        Attiva
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-offset-2 col-md-2">
+                                                    <a href="" class="label label-sm label-warning">
+                                                        Sospendi
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr class="gradeX even" role="row">
@@ -374,9 +396,18 @@ License: You must have a valid license purchased only from themeforest(the above
                                             Clelia De Felice
                                         </td>
                                         <td>
-                                                <span class="label label-sm label-success">
-                                                    Attivo
-                                                </span>
+                                            <div class="row">
+                                                <div class="col-md-offset-1 col-md-2">
+                                                    <a href="" class="label label-sm label-success">
+                                                        Attiva
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-offset-2 col-md-2">
+                                                    <a href="" class="label label-sm label-warning">
+                                                        Sospendi
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr class="gradeX odd" role="row">
@@ -396,29 +427,25 @@ License: You must have a valid license purchased only from themeforest(the above
                                             La Torre
                                         </td>
                                         <td>
-                                                <span class="label label-sm label-warning">
-                                                    Sospeso
-                                                </span>
+                                            <div class="row">
+                                                <div class="col-md-offset-1 col-md-2">
+                                                    <a href="" class="label label-sm label-success">
+                                                        Attiva
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-offset-2 col-md-2">
+                                                    <a href="" class="label label-sm label-warning">
+                                                        Sospendi
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
 
-                            <div class="portlet-body form">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-actions">
-                                            <div class="col-md-3">
-                                                <button type="button" class="btn red-intense">Annulla</button>
-                                            </div>
-                                            <div class="col-md-offset-1 col-md-3">
-                                                <button type="button" class="btn green-jungle">Conferma</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
 
                         </div>
                     </div>

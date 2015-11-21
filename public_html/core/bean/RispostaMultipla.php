@@ -9,6 +9,7 @@ class RispostaMultipla {
     private $elaboratoStudenteMatricola;
     private $elaboratoSessioneId;
     private $alternativaId;
+    private $alternativaDomandaMultiplaId;
     private $alternativaDomandaMultiplaArgomentoId;
     private $alternativaDomandaMultiplaArgomentoInsegnamentoId;
     private $alternativaDomandaMultiplaArgomentoInsegnamentoCorsoMatricola;
@@ -18,15 +19,17 @@ class RispostaMultipla {
      * @param $elaboratoStudenteMatricola la matricola dello studente a cui appartiene l'elaborato relativo
      * @param $elaboratoSessioneId l'id della sessione a cui appartiene l'elaborato relativo
      * @param $alternativaId l'id dell'alternativa scelta
+     * @param $alternativaDomandaMultiplaId l'id della domanda multipla relativa all'alternativa scelta
      * @param $alternativaDomandaMultiplaArgomentoId l'id dell'argomento a cui appartiene la domanda multipla relativa
      * @param $alternativaDomandaMultiplaArgomentoInsegnamentoId l'id dell'insegnamento dell'argomento a cui appartiene la domanda multipla relativa
      * @param $alternativaDomandaMultiplaArgomentoInsegnamentoCorsoMatricola la matricola del corso a cui appartiene l'argomento relativo alla domanda multipla cui si riferisce
      * 
      */
-    public function __construct($elaboratoStudenteMatricola, $elaboratoSessioneId, $alternativaId, $alternativaDomandaMultiplaArgomentoId, $alternativaDomandaMultiplaArgomentoInsegnamentoId, $alternativaDomandaMultiplaArgomentoInsegnamentoCorsoMatricola) {
+    public function __construct($elaboratoStudenteMatricola, $elaboratoSessioneId, $alternativaId, $alternativaDomandaMultiplaId, $alternativaDomandaMultiplaArgomentoId, $alternativaDomandaMultiplaArgomentoInsegnamentoId, $alternativaDomandaMultiplaArgomentoInsegnamentoCorsoMatricola) {
         $this->elaboratoStudenteMatricola=$elaboratoStudenteMatricola;
         $this->elaboratoSessioneId=$elaboratoSessioneId;
         $this->alternativaId=$alternativaId;
+        $this->alternativaDomandaMultiplaId=$alternativaDomandaMultiplaId;
         $this->alternativaDomandaMultiplaArgomentoId=$alternativaDomandaMultiplaArgomentoId;
         $this->alternativaDomandaMultiplaArgomentoInsegnamentoId=$alternativaDomandaMultiplaArgomentoInsegnamentoId;
         $this->alternativaDomandaMultiplaArgomentoInsegnamentoCorsoMatricola=$alternativaDomandaMultiplaArgomentoInsegnamentoCorsoMatricola;
@@ -54,6 +57,13 @@ class RispostaMultipla {
         return $this->alternativaId;
     }
 
+    /**
+     * @return int l'id della domanda multipla a cui appartiene l'alternativa scelta
+     */
+    function getAlternativaDomandaMultiplaId() {
+        return $this->alternativaDomandaMultiplaId;
+    }
+    
     /**
      * @return int l'id dell'argomento a cui appartiene la domanda multipla relativa
      */
@@ -99,10 +109,18 @@ class RispostaMultipla {
         $this->alternativaId = $alternativaId;
     }
 
-     /**
-     * Setta l'id dell'argomento a cui appartiene la domanda multipla relativa
-     * @param $alternativaDomandaMultiplaArgomentoId l'id dell'argomento a cui appartiene la domanda multipla relativa
-     */
+    /**
+    * Setta l'id della domanda multipla a cui appartiene l'alternativa scelta
+    * @param $alternativaDomandaMultiplaId l'id della domanda multipla a cui appartiene l'alternativa scelta
+    */
+    function setAlternativaDomandaMultiplaId($alternativaDomandaMultiplaId) {
+        $this->alternativaDomandaMultiplaId = $alternativaDomandaMultiplaId;
+    }
+    
+    /**
+    * Setta l'id dell'argomento a cui appartiene la domanda multipla relativa
+    * @param $alternativaDomandaMultiplaArgomentoId l'id dell'argomento a cui appartiene la domanda multipla relativa
+    */
     function setAlternativaDomandaMultiplaArgomentoId($alternativaDomandaMultiplaArgomentoId) {
         $this->alternativaDomandaMultiplaArgomentoId = $alternativaDomandaMultiplaArgomentoId;
     }
