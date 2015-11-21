@@ -52,6 +52,36 @@ switch (isset($_URL[0]) ? $_URL[0] : '') {
     case 'esempio':
         include_once VIEW_DIR."VisualizzaEsempio.php";
         break;
+    case 'visualizzatestdocente':
+        include_once VIEW_DIR."/Docente/VisualizzaTest.php";
+        break;
+    case 'selezionadomandetest':
+        include_once VIEW_DIR."/Docente/SelezionaDomande.php";
+        break;
+    case 'aggiungistudentetest':
+        include_once VIEW_DIR."/Docente/AggiungiStudenteTest.php";
+        break;
+    case 'eseguitest':
+        include_once VIEW_DIR."/Studente/EseguiTest.php";
+        break;
+    case 'visualizzateststudente':
+        include_once VIEW_DIR."/Studente/VisualizzaTest.php";
+        break;
+    case 'homecorsostudente':
+        include_once VIEW_DIR."/Studente/HomeCorso.php";
+        break;
+    case 'homecorsodocente':
+        include_once VIEW_DIR."/Docente/HomeCorso.php";
+        break;
+    case 'visualizzaesitisessione':
+        include_once VIEW_DIR."/Docente/VisualizzaEsitiSessione.php";
+        break;
+    case 'sessioneincorso':
+        include_once VIEW_DIR."/Docente/SessioneInCorso.php";
+        break;
+    case 'creamodificasessione':
+        include_once VIEW_DIR."/Docente/CreaModificaSessione.php";
+        break;
     default:
         echo "Route inesistente";
 }

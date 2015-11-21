@@ -6,82 +6,100 @@
  * Time: 10:43
  */
 class Elaborato {
-    private $studente_matricola;
-    private $sessione_id;
-    private $esito_parziale;
-    private $esito_finale;
+    private $studenteMatricola;
+    private $sessioneId;
+    private $testId;
+    private $esitoParziale;
+    private $esitoFinale;
 
     /**
      * Costruttore di Elaborato.
-     * @param $studente_matricola la matricola dello studente a cui appartiene
-     * @param $sessione_id l'id della sessione a cui appartiene
-     * @param $esito_parziale l'esito parziale dell'elaborato
-     * @param $esito_finale l'esito finale dell'elaborato
+     * @param $studenteMatricola la matricola dello studente a cui appartiene
+     * @param $sessioneId l'id della sessione a cui appartiene
+     * @param $testId l'id del test a cui si riferisce
+     * @param $esitoParziale l'esito parziale dell'elaborato
+     * @param $esitoFinale l'esito finale dell'elaborato
      */
-    public function __construct($studente_matricola, $sessione_id, $esito_parziale, $esito_finale) {
-        $this->studente_matricola = $studente_matricola;
-        $this->sessione_id = $sessione_id;
-        $this->esito_parziale = $esito_parziale;
-        $this->esito_finale = $esito_finale;
+    public function __construct($studenteMatricola, $sessioneId, $testId, $esitoParziale, $esitoFinale) {
+        $this->studenteMatricola = $studenteMatricola;
+        $this->sessioneId = $sessioneId;
+        $this->testId = $testId;
+        $this->esitoParziale = $esitoParziale;
+        $this->esitoFinale = $esitoFinale;
     }
     
     /**
-     * @return la matricola dello studente a cui appartiene
+     * @return String la matricola dello studente a cui appartiene
      */
     public function getStudenteMatricola() {
-        return $this->studente_matricola;
+        return $this->studenteMatricola;
     }
 
     /**
-     * @return l'id della sessione a cui appartiene
+     * @return int l'id della sessione a cui appartiene
      */
     public function getSessioneId() {
-        return $this->sessione_id;
-    }
-
-    /**
-     * @return l'esito parziale dell'elaborato
-     */
-    public function getEsitoParziale() {
-        return $this->esito_parziale;
+        return $this->sessioneId;
     }
     
     /**
-     * @return l'esito finale dell'elaborato
+     * @return int l'id del test a cui si riferisce
+     */
+    public function getTestId() {
+        return $this->testId;
+    }
+
+    /**
+     * @return float l'esito parziale dell'elaborato
+     */
+    public function getEsitoParziale() {
+        return $this->esitoParziale;
+    }
+    
+    /**
+     * @return float l'esito finale dell'elaborato
      */
     public function getEsitoFinale() {
-        return $this->esito_finale;
+        return $this->esitoFinale;
     }
 
     /**
      * Setta la matricola dello studente a cui appartiene
-     * @param studente_matricola la matricola dello studente a cui appartiene
+     * @param studenteMatricola la matricola dello studente a cui appartiene
      */
-    public function setStudenteMatricola($studente_matricola) {
-        $this->studente_matricola = $studente_matricola;
+    public function setStudenteMatricola($studenteMatricola) {
+        $this->studenteMatricola = $studenteMatricola;
     }
     
     /**
      * Setta l'id della sessione a cui appartiene
-     * @param $sessione_id l'id della sessione a cui appartiene
+     * @param $sessioneId l'id della sessione a cui appartiene
      */
-    public function setSessioneId($sessione_id) {
-        $this->sessione_id = $sessione_id;
+    public function setSessioneId($sessioneId) {
+        $this->sessioneId = $sessioneId;
+    }
+    
+    /**
+     * Setta l'id del test a cui si riferisce
+     * @param $testId l'id del test a cui si riferisce
+     */
+    public function setTestId($testId) {
+        $this->testId = $testId;
     }
     
     /**
      * Setta l'esito parziale dell'elaborato
-     * @param $esito_parziale l'esito parziale dell'elaborato
+     * @param $esitoParziale l'esito parziale dell'elaborato
      */
-    public function setEsitoParziale($esito_parziale) {
-        $this->esito_parziale = $esito_parziale;
+    public function setEsitoParziale($esitoParziale) {
+        $this->esitoParziale = $esitoParziale;
     }
     
     /**
      * Setta l'esito finale dell'elaborato
-     * @param $esito_finale l'esito parziale dell'elaborato
+     * @param $esitoFinale l'esito parziale dell'elaborato
      */
-    public function setEsitoFinale($esito_finale) {
-        $this->esito_finale = $esito_finale;
+    public function setEsitoFinale($esitoFinale) {
+        $this->esitoFinale = $esitoFinale;
     }
 }

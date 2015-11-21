@@ -23,21 +23,21 @@ class CdL {
     }
     
     /**
-     * @return la matricola del CdL
+     * @return String la matricola del CdL
      */
     public function getMatricola() {
         return $this->matricola;
     }
     
     /**
-     * @return il nome del CdL
+     * @return String il nome del CdL
      */
     public function getNome() {
         return $this->nome;
     }
     
     /**
-     * @return la tipologia del CdL
+     * @return String la tipologia del CdL
      */
     public function getTipologia() {
         return $this->tipologia;

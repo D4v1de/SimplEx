@@ -3,109 +3,86 @@
 /**
  * User: Giuseppina
  * Date: 20/11/15
- * Time: 11:17
+ * Time: 16:40
  */
 class Test {
     private $id;
     private $descrizione;
-    private $punteggio_max;
-    private $numero_multiple;
-    private $numero_aperte;
-    private $percentuale_scelto;
-    private $percentuale_successo;
-    private $elaboratostudente_matricola;
-    private $elaboratosessione_id;
-
-
+    private $punteggioMax;
+    private $numeroMultiple;
+    private $numeroAperte;
+    private $percentualeScelto;
+    private $percentualeSuccesso;
 
     /**
      * Costruttore di Test
      * @param $id id del test
      * @param $descrizione Descrizione del test
-     * @param $punteggio_max Punteggio massimo del test
-     * @param $numero_multiple Numero domande multiple
-     * @param $numero_aperte Numero domande aperte
-     * @param $percentuale_scelto Percentuale di volte in cui il test viene scelto
-     * @param $percentuale_successo Percentuale di successo del test
-     * @param $elaboratostudente_matricola La matricola dell'elaborato dello studente
-     * @param $elaboratosessione_id l'id dell'elaborato della sessione
+     * @param $punteggioMax Punteggio massimo del test
+     * @param $numeroMultiple Numero domande multiple
+     * @param $numeroAperte Numero domande aperte
+     * @param $percentualeScelto Percentuale di volte in cui il test viene scelto
+     * @param $percentualeSuccesso Percentuale di successo del test
      */
-    public function __construct($id, $descrizione, $punteggio_max, $numero_multiple, $numero_aperte, $percentuale_scelto, $percentuale_successo, $elaboratostudente_matricola, $elaboratosessione_id ) {
+    public function __construct($id, $descrizione, $punteggioMax, $numeroMultiple, $numeroAperte, $percentualeScelto, $percentualeSuccesso) {
         $this->id=$id;
         $this->descrizione=$descrizione;
-        $this->punteggio_max=$punteggio_max;
-        $this->numero_multiple=$numero_multiple;
-        $this->numero_aperte=$numero_aperte;
-        $this->percentuale_scelto=$percentuale_scelto;
-        $this->percentuale_successo=$percentuale_successo;
-        $this->elaboratostudente_matricola=$elaboratostudente_matricola;
-        $this->elaboratosessione_id=$elaboratosessione_id;
+        $this->punteggioMax=$punteggioMax;
+        $this->numeroMultiple=$numeroMultiple;
+        $this->numeroAperte=$numeroAperte;
+        $this->percentualeScelto=$percentualeScelto;
+        $this->percentualeSuccesso=$percentualeSuccesso;
     } 
     
      /**
-     * @return l'id del test
+     * @return int l'id del test
      */
     function getId() {
         return $this->id;
     }
     
      /**
-     * @return la descrizione del test
+     * @return String la descrizione del test
      */
     function getDescrizione() {
         return $this->descrizione;
     }
 
      /**
-     * @return il punteggio massimo del test
+     * @return float il punteggio massimo del test
      */
     function getPunteggioMax() {
-        return $this->punteggio_max;
+        return $this->punteggioMax;
     }
 
      /**
-     * @return il numero di domande multiple del test
+     * @return int il numero di domande multiple del test
      */
     function getNumeroMultiple() {
-        return $this->numero_multiple;
+        return $this->numeroMultiple;
     }
 
      /**
-     * @return il numero di domande aperte del test
+     * @return int il numero di domande aperte del test
      */
     function getNumeroAperte() {
-        return $this->numero_aperte;
+        return $this->numeroAperte;
     }
 
      /**
-     * @return la percentuale delle volte in cui il test è stato scelto
+     * @return float la percentuale delle volte in cui il test è stato scelto
      */
     function getPercentualeScelto() {
-        return $this->percentuale_scelto;
+        return $this->percentualeScelto;
     }
 
      /**
-     * @return la percentuale di successo del test
+     * @return float la percentuale di successo del test
      */
     function getPercentualeSuccesso() {
-        return $this->percentuale_successo;
+        return $this->percentualeSuccesso;
     }
-    
-    /**
-     * @return la matricola dell'elaborato dello studente
-     */
-    function getElaboratostudenteMatricola() {
-        return $this->elaboratostudente_matricola;
-    }
-
-    /**
-     * @return l'id dell'elaborato della sessione
-     */
-    function getElaboratosessioneId() {
-        return $this->elaboratosessione_id;
-    }
-    
-    
+        
     /**
      * Setta l'id del test
      * @param $id id del test
@@ -124,60 +101,41 @@ class Test {
 
     /**
      * Setta il punteggio massimo del test
-     * @param $punteggio_max punteggio massimo del test
+     * @param $punteggioMax punteggio massimo del test
      */
-    function setPunteggioMax($punteggio_max) {
-        $this->punteggio_max = $punteggio_max;
+    function setPunteggioMax($punteggioMax) {
+        $this->punteggioMax = $punteggioMax;
     }
 
     /**
      * Setta il numero di domande multiple del test
-     * @param $numero_multiple numero di domande multiple del test
+     * @param $numeroMultiple numero di domande multiple del test
      */
-    function setNumeroMultiple($numero_multiple) {
-        $this->numero_multiple = $numero_multiple;
+    function setNumeroMultiple($numeroMultiple) {
+        $this->numeroMultiple = $numeroMultiple;
     }
 
      /**
      * Setta il numero di domande aperte del test
-     * @param $numero_aperte numero di domande aperte del test
+     * @param $numeroAperte numero di domande aperte del test
      */
-    function setNumeroAperte($numero_aperte) {
-        $this->numero_aperte = $numero_aperte;
+    function setNumeroAperte($numeroAperte) {
+        $this->numeroAperte = $numeroAperte;
     }
 
      /**
      * Setta la percentuale delle volte in cui il test è stato scelto
-     * @param $percentuale_scelto percentuale di scelta del test
+     * @param $percentualeScelto la percentuale di volte in cui il test è stato scelto
      */
-    function setPercentualeScelto($percentuale_scelto) {
-        $this->percentuale_scelto = $percentuale_scelto;
+    function setPercentualeScelto($percentualeScelto) {
+        $this->percentualeScelto = $percentualeScelto;
     }
 
      /**
      * Setta la percentuale di successo del test
-     * @param $percentuale_successo percentuale successo test
+     * @param $percentualeSuccesso la percentuale di successo del test
      */
-    function setPercentualeSuccesso($percentuale_successo) {
-        $this->percentuale_successo = $percentuale_successo;
+    function setPercentualeSuccesso($percentualeSuccesso) {
+        $this->percentualeSuccesso = $percentualeSuccesso;
     }
-    
-    /**
-     * Setta la matricola dell'elaborato dello studente
-     * @param $elaboratostudente_matricola matricola dell'elaborato dello studente
-     */
-    function setElaboratostudenteMatricola($elaboratostudente_matricola) {
-        $this->elaboratostudente_matricola = $elaboratostudente_matricola;
-    }
-
-    /**
-     * Setta l'id dell'elaborato della sessione
-     * @param $elaboratosessione_id id dell'elaborato della sessione
-     */
-    function setElaboratosessioneId($elaboratosessione_id) {
-        $this->elaboratosessione_id = $elaboratosessione_id;
-    }
-
-
-    
 }
