@@ -1,8 +1,8 @@
 /**
 * Created by PhpStorm.
 * User: fede_dr
-* Date: 19/11/15
-* Time: 17:20
+* Date: 21/11/15
+* Time: 19:00
 */
 <!DOCTYPE html>
 <!--
@@ -26,7 +26,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>Crea utente</title>
+    <title>View Corso</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -42,6 +42,15 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet"
           type="text/css"/>
     <!-- END GLOBAL MANDATORY STYLES -->
+
+
+    <!-- BEGIN PAGE LEVEL STYLES aggiunta da me -->
+    <link rel="stylesheet" type="text/css" href="../assets/global/plugins/select2/select2.css">
+    <link rel="stylesheet" type="text/css"
+          href="../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <!-- END PAGE LEVEL STYLES aggiunta da me-->
+
+
     <!-- BEGIN THEME STYLES -->
     <link href="../assets/global/css/components-md.css" id="style_components" rel="stylesheet" type="text/css"/>
     <link href="../assets/global/css/plugins-md.css" rel="stylesheet" type="text/css"/>
@@ -130,10 +139,30 @@ License: You must have a valid license purchased only from themeforest(the above
     <div class="page-content-wrapper">
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
+            <h3 class="page-title">
+                View Corso
+            </h3>
 
-
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li>
+                        <i class="fa fa-home"></i>
+                        <a href="index.html">Home</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="gestioneCdL.php">GestioneCorsi</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="visualizzaCorso.php">ViewCorso</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                </ul>
+            </div>
             <!-- END PAGE HEADER-->
-            <!-- BEGIN PAGE CONTENT-->
+
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="form">
@@ -148,6 +177,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="col-md-offset-4 col-md-2">
                                     <h3></h3>
                                     <button type="button" class="btn green-jungle">Associa Docente</button>
+                                    <h3></h3>
+                                    <a href="modificaCorso.php"><button type="button" class="btn green-jungle">Modifica</button></a>
                                 </div>
                             </div>
                         </form>
@@ -156,92 +187,195 @@ License: You must have a valid license purchased only from themeforest(the above
             </div>
 
 
-            <div class="portlet light bordered">
-                <div class="portlet-body form">
-                    <!-- BEGIN FORM-->
-                    <h3>Lista Sessioni</h3>
 
-                    <div class="portlet-body">
-                        <div class="table-scrollable">
-                            <table class="table table-bordered table-hover">
-                                <thead>
-                                <tr>
-                                    <th>
-                                        #
-                                    </th>
-                                    <th>
-                                        Sessione
-                                    </th>
-                                    <th>
-                                        Tipo
-                                    </th>
-                                    <th>
-                                        Data
-                                    </th>
-                                    <th>
-                                        Ora
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>
-                                        1
-                                    </td>
-                                    <td>
-                                        Sessione
-                                    </td>
-                                    <td>
-                                        Esercitativa
-                                    </td>
-                                    <td>
-                                        15/15/15
-                                    </td>
-                                    <td>
-                                        15:00
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        2
-                                    </td>
-                                    <td>
-                                        Sessione
-                                    </td>
-                                    <td>
-                                        Valutativa
-                                    </td>
-                                    <td>
-                                        15/11/15
-                                    </td>
-                                    <td>
-                                        15:15
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        3
-                                    </td>
-                                    <td>
-                                        Sessione
-                                    </td>
-                                    <td>
-                                        Valutativa
-                                    </td>
-                                    <td>
-                                        3/03/16
-                                    </td>
-                                    <td>
-                                        15:30
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                    <div class="portlet box grey-cascade">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-globe"></i>Lista Sessioni
+                            </div>
+                            <div class="tools">
+                                <a href="javascript:;" class="collapse" data-original-title="" title="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="table-scrollable">
+                                <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                                       id="sample_1" role="grid" aria-describedby="sample_1_info">
+                                    <thead>
+                                    <tr role="row">
+                                        <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1"
+                                            aria-label="" style="width: 24px;">
+                                            #
+                                        </th>
+                                        <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1"
+                                            colspan="1" aria-sort="ascending"
+                                            aria-label="Username: activate to sort column ascending"
+                                            style="width: 133px;">
+                                            Sessione
+                                        </th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Email"
+                                            style="width: 232px;">
+                                            Tipo
+                                        </th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Points"
+                                            style="width: 82px;">
+                                            Data
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1"
+                                            colspan="1" aria-label="Joined: activate to sort column ascending"
+                                            style="width: 119px;">
+                                            Ora
+                                        </th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Status"
+                                            style="width: 132px;">
+                                            Stato
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="gradeX odd" role="row">
+                                        <td>
+                                            1
+                                        </td>
+                                        <td class="sorting_1">
+                                            Sessione
+                                        </td>
+                                        <td>
+                                            Esercitativa
+                                        </td>
+                                        <td>
+                                            15/15/15
+                                        </td>
+                                        <td class="center">
+                                            15:30
+                                        </td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-offset-2 col-md-3">
+                                                    <a href="" class="label label-sm label-success">
+                                                        Attiva
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="gradeX even" role="row">
+                                        <td>
+                                            2
+                                        </td>
+                                        <td class="sorting_1">
+                                            Sessione
+                                        </td>
+                                        <td>
+                                            Valutativa
+                                        </td>
+                                        <td>
+                                            14/12/15
+                                        </td>
+                                        <td class="center">
+                                            14:00
+                                        </td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-offset-2 col-md-3">
+                                                    <a href="" class="label label-sm label-warning">
+                                                        Terminata
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="gradeX odd" role="row">
+                                        <td>
+                                            3
+                                        </td>
+                                        <td class="sorting_1">
+                                            Sessione
+                                        </td>
+                                        <td>
+                                            Valutativa
+                                        </td>
+                                        <td>
+                                            25/10/15
+                                        </td>
+                                        <td class="center">
+                                            12:00
+                                        </td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-offset-2 col-md-3">
+                                                    <a href="" class="label label-sm label-warning">
+                                                        Terminata
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="gradeX even" role="row">
+                                        <td>
+                                            4
+                                        </td>
+                                        <td class="sorting_1">
+                                            Sessione
+                                        </td>
+                                        <td>Valutativa
+                                        </td>
+                                        <td>
+                                            20/10/15
+                                        </td>
+                                        <td class="center">
+                                            18:00
+                                        </td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-offset-2 col-md-3">
+                                                    <a href="" class="label label-sm label-warning">
+                                                        Terminata
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="gradeX odd" role="row">
+                                        <td>
+                                            5
+                                        </td>
+                                        <td class="sorting_1">
+                                            Sessione
+                                        </td>
+                                        <td>
+                                            Valutativa
+                                        </td>
+                                        <td>
+                                            21/11/15
+                                        </td>
+                                        <td class="center">
+                                            15:00
+                                        </td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-offset-2 col-md-3">
+                                                    <a href="" class="label label-sm label-warning">
+                                                        Terminata
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                    <!-- END FORM-->
+                    <!-- END EXAMPLE TABLE PORTLET-->
                 </div>
             </div>
+
+
 
 
             <!-- END PAGE CONTENT-->
@@ -990,16 +1124,28 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
 <script src="../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
+
+<!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
+<script type="text/javascript" src="../assets/global/plugins/select2/select2.min.js"></script>
+<script type="text/javascript" src="../assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript"
+        src="../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<!-- END PAGE LEVEL PLUGINS aggiunta da me-->
+
 <script src="../assets/global/scripts/metronic.js" type="text/javascript"></script>
 <script src="../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
 <script src="../assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<!-- BEGIN aggiunta da me -->
+<script src="../assets/admin/pages/scripts/table-managed.js"></script>
+<!-- END aggiunta da me -->
 <script>
     jQuery(document).ready(function () {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
         QuickSidebar.init(); // init quick sidebar
         Demo.init(); // init demo features
+        TableManaged.init();
     });
 </script>
 <!-- END JAVASCRIPTS -->

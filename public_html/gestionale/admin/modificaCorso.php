@@ -1,8 +1,8 @@
 /**
 * Created by PhpStorm.
 * User: fede_dr
-* Date: 19/11/15
-* Time: 17:15
+* Date: 21/11/15
+* Time: 19:00
 */
 <!DOCTYPE html>
 <!--
@@ -26,7 +26,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>Crea utente</title>
+    <title>Modifica Corso</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -42,6 +42,15 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet"
           type="text/css"/>
     <!-- END GLOBAL MANDATORY STYLES -->
+
+
+    <!-- BEGIN PAGE LEVEL STYLES aggiunta da me -->
+    <link rel="stylesheet" type="text/css" href="../assets/global/plugins/select2/select2.css">
+    <link rel="stylesheet" type="text/css"
+          href="../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <!-- END PAGE LEVEL STYLES aggiunta da me-->
+
+
     <!-- BEGIN THEME STYLES -->
     <link href="../assets/global/css/components-md.css" id="style_components" rel="stylesheet" type="text/css"/>
     <link href="../assets/global/css/plugins-md.css" rel="stylesheet" type="text/css"/>
@@ -131,118 +140,103 @@ License: You must have a valid license purchased only from themeforest(the above
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                Gestione Corsi
+                Modifica Corso
             </h3>
+
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li>
+                        <i class="fa fa-home"></i>
+                        <a href="index.html">Home</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="gestioneCorsi.php">GestioneCorsi</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="modificaCorso.php">ModificaCorso</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                </ul>
+            </div>
             <!-- END PAGE HEADER-->
-            <!-- BEGIN PAGE CONTENT-->
+
+
+
             <div class="row">
                 <div class="col-md-12">
-                    <div class="form">
-                        <form action="#" class="form-horizontal form-bordered form-row-stripped">
-                            <div class="form-actions">
-                                <div class="row">
-                                    <div class="col-md col-md-3">
-                                        <button type="button" class="btn green-jungle">Crea Corso</button>
-                                    </div>
-                                    <div class="col-md-offset-6 col-md-3">
-                                        <div class="input-icon right">
-                                            <i class="icon-magnifier"></i>
-                                            <input type="text" class="form-control input-circle" placeholder="cerca Corso...">
+                    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                    <div class="portlet box grey-cascade">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-globe"></i>Modifica Corso
+                            </div>
+                            <div class="tools">
+                                <a href="javascript:;" class="collapse" data-original-title="" title="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="table-scrollable">
+
+
+
+                                <div class="portlet-body form">
+                                    <div class="form-group form-md-line-input">
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" id="form_control_1" Value="nomeAttuale">
+
+                                            <div class="form-control-focus">
+                                            </div>
                                         </div>
                                     </div>
+                                    <div class="form-group form-md-line-input">
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" id="form_control_1" value="tipologiaAttuale">
+
+                                            <div class="form-control-focus">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-md-line-input">
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" id="form_control_1" value="matricolaAttuale">
+
+                                            <div class="form-control-focus">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-actions">
+                                                <div class="col-md-3">
+                                                    <button type="button" class="btn red-intense">Annulla</button>
+                                                </div>
+                                                <div class="col-md-offset-1 col-md-3">
+                                                    <button type="button" class="btn green-jungle">Conferma</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
                                 </div>
+
+
+
                             </div>
-                        </form>
+
+
+
+                        </div>
                     </div>
+                    <!-- END EXAMPLE TABLE PORTLET-->
                 </div>
             </div>
-
-
-
-
-
-
-
-
-            <div class="portlet light bordered">
-                <div class="portlet-body form">
-                    <!-- BEGIN FORM-->
-                    <form action="#" class="form-horizontal1">
-                        <div class="form-actions">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <span class="input-group-btn btn-right">
-											<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                                Ingegneria del Software
-                                            </button>
-                                    </span>
-                                </div>
-                                <div class="col-md-offset-6 col-md-3">
-                                    <button type="submit" class="btn green">Modifica</button>
-                                    <button type="button" class="btn red-intense">Cancella</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-                    <form action="#" class="form-horizontal2">
-                        <div class="form-actions">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <span class="input-group-btn btn-right">
-											<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                                Analisi Numerica
-                                            </button>
-                                    </span>
-                                </div>
-                                <div class="col-md-offset-6 col-md-3">
-                                    <button type="submit" class="btn green">Modifica</button>
-                                    <button type="button" class="btn red-intense">Cancella</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-                    <form action="#" class="form-horizontal3">
-                        <div class="form-actions">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <span class="input-group-btn btn-right">
-											<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                                Tecnologie di Sviluppo Web
-                                            </button>
-                                    </span>
-                                </div>
-                                <div class="col-md-offset-6 col-md-3">
-                                    <button type="submit" class="btn green">Modifica</button>
-                                    <button type="button" class="btn red-intense">Cancella</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-                    <form action="#" class="form-horizontal4">
-                        <div class="form-actions">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <button type="button" class="btn btn-default">Reti di Calcolatori</button>
-                                </div>
-                                <div class="col-md-offset-6 col-md-3">
-                                    <button type="submit" class="btn green">Modifica</button>
-                                    <button type="button" class="btn red-intense">Cancella</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                    <!-- END FORM-->
-                </div>
-            </div>
-
-
-
-
-
-
 
 
             <!-- END PAGE CONTENT-->
@@ -991,16 +985,28 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
 <script src="../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
+
+<!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
+<script type="text/javascript" src="../assets/global/plugins/select2/select2.min.js"></script>
+<script type="text/javascript" src="../assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript"
+        src="../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<!-- END PAGE LEVEL PLUGINS aggiunta da me-->
+
 <script src="../assets/global/scripts/metronic.js" type="text/javascript"></script>
 <script src="../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
 <script src="../assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<!-- BEGIN aggiunta da me -->
+<script src="../assets/admin/pages/scripts/table-managed.js"></script>
+<!-- END aggiunta da me -->
 <script>
     jQuery(document).ready(function () {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
         QuickSidebar.init(); // init quick sidebar
         Demo.init(); // init demo features
+        TableManaged.init();
     });
 </script>
 <!-- END JAVASCRIPTS -->

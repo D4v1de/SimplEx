@@ -26,7 +26,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>Crea CdL</title>
+    <title>Modifica CdL</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -140,7 +140,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                Crea CdL
+                Modifica CdL
             </h3>
 
             <div class="page-bar">
@@ -155,7 +155,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="creaCdL.php">CreaCdL</a>
+                        <a href="modificaCdL.php">ModificaCdL</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
@@ -169,7 +169,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="portlet box grey-cascade">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-globe"></i>Crea nuovo Corso di Laurea
+                                <i class="fa fa-globe"></i>Modifica Corso di Laurea
                             </div>
                             <div class="tools">
                                 <a href="javascript:;" class="collapse" data-original-title="" title="">
@@ -177,11 +177,10 @@ License: You must have a valid license purchased only from themeforest(the above
                             </div>
                         </div>
                         <div class="portlet-body">
-
                             <div class="portlet-body form">
                                 <div class="form-group form-md-line-input">
                                     <div class="col-md-10">
-                                        <input type="text" class="form-control" id="form_control_1" placeholder="Inserisci nome">
+                                        <input type="text" class="form-control" id="form_control_1" value="nomeAttuale">
 
                                         <div class="form-control-focus">
                                         </div>
@@ -189,7 +188,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </div>
                                 <div class="form-group form-md-line-input">
                                     <div class="col-md-10">
-                                        <input type="text" class="form-control" id="form_control_1" placeholder="Inserisci tipologia">
+                                        <input type="text" class="form-control" id="form_control_1" value="tipologiaAttuale">
 
                                         <div class="form-control-focus">
                                         </div>
@@ -197,7 +196,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </div>
                                 <div class="form-group form-md-line-input">
                                     <div class="col-md-10">
-                                        <input type="text" class="form-control" id="form_control_1" placeholder="Inserisci matricola">
+                                        <input type="text" class="form-control" id="form_control_1" value="matricolaAttuale">
 
                                         <div class="form-control-focus">
                                         </div>
@@ -208,7 +207,6 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="col-md-12">
                                 <h3></h3>
                             </div>
-
 
 
                             <div class="table-scrollable">
@@ -404,6 +402,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </tbody>
                                 </table>
                             </div>
+
+
 
                             <div class="portlet-body form">
                                 <div class="row">
