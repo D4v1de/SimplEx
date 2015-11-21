@@ -66,12 +66,7 @@ $controller = new Esempio();
                                    </div>
                             </div>
                         </div>
-                     <!--  <div class="row">
-                            <div class="col-md-12">
-                                <div class="col-md-10"></div>
-                                <div class="col-md-2"><h3>Esito: <font color="#78a300">93</font>/100</h3></div>
-                            </div>
-                        </div> -->
+                     
                       <div class="portlet-body">
                     
                     <h3>Domanda 1 (multipla) </h3>

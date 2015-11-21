@@ -37,12 +37,40 @@ $controller = new Esempio();
     <div class="page-content-wrapper">
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
-
+             <h3 class="page-title">
+                Visualizza Test
+            </h3>
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li>
+                        <i class="fa fa-home"></i>
+                        <a href="index.html">Home</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="#">Nome Corso</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="#">Visualizza Test</a>
+                    </li>
+                </ul>
+            </div>
 
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <fieldset>
-                    <legend> Test </legend>
+            <div class="portlet box grey-cascade">
+                <div class="portlet-title">
+                    <div class="caption">
+                            <i class="fa fa-globe"></i>Test
+                    </div>
+                    <div class="tools">
+                        <a style="color:white"> <i class="fa fa-edit"></i> Seleziona domande </a>
+                        <a style="color:white"> <i class="fa fa-trash-o"></i> Elimina </a>
+                    </div>
+                </div>
+
+                <div class="portlet-body">
                     <h3> Domanda 1 </h3>
                     <p>Risposta 1</p>
                     <p>Risposta 2</p>
@@ -60,16 +88,13 @@ $controller = new Esempio();
                     <p>Risposta 2</p>
                     <p>Risposta 3</p>
                     <p>Risposta 4</p>
-                </fieldset>
+                </div>
+            </div>
            
              <div class="row">
                 <div class="col-md-12">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-6">
-                    <button type="button" class="btn green">Modifica Domande</button> 
-                    <button type="button" class="btn green">Elimina Test</button>   
-                    <button type="button" class="btn green">Indietro</button>   
-                    </div>
+                    <div class="col-md-9"></div> 
+                    <button type="button" class="btn green">Indietro</button>
                 </div>
             </div>
             <!-- END PAGE CONTENT-->
