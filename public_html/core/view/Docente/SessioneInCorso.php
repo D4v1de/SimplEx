@@ -207,9 +207,6 @@ $controller = new Esempio();
                                         <a href="javascript:;" class="btn btn-sm green">
                                             Aggiungi Studente
                                         </a>
-                                        <a href="javascript:;" class="btn btn-sm red">
-                                            Annulla Esame
-                                        </a>
                                 </div>
                         </div>
                                 <div class="table-scrollable">
@@ -233,21 +230,6 @@ $controller = new Esempio();
                                             <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Email
                                 " style="width: 100px;">
-                                                Esito
-                                            </th>
-                                            <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                         Email
-                                " style="width: 100px;">
-                                                Stato
-                                            </th>
-                                            <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                         Email
-                                " style="width: 100px;">
-                                                Stato Correzione
-                                            </th>
-                                            <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                         Email
-                                " style="width: 200px;">
                                                 Azioni
                                             </th>
                                         </tr>
@@ -265,20 +247,8 @@ $controller = new Esempio();
                                                 0512100001
                                             </td>
                                             <td>
-                                                0/60
-                                            </td>
-                                            <td>
-                                                Ritirato
-                                            </td>
-                                            <td>
-                                                <font color="green"> Corretto </font>
-                                            </td>
-                                            <td>
-                                                <a href="javascript:;" class="btn btn-sm default" disabled="true">
-                                                    Correggi
-                                                </a>
-                                                <a href="javascript:;" class="btn btn-sm default" disabled="true">
-                                                    Visualizza
+                                                <a href="javascript:;" class="btn btn-sm default">
+                                                    Annulla Esame
                                                 </a>
                                             </td>
                                         </tr>
@@ -294,21 +264,9 @@ $controller = new Esempio();
                                             <td>
                                                 0512100002
                                             </td>
-                                            <td>
-                                                59/60
-                                            </td>
-                                            <td>
-                                                Promosso
-                                            </td>
-                                            <td>
-                                                <font color="green"> Corretto </font>
-                                            </td>
-                                            <td>
-                                                <a href="javascript:;" class="btn btn-sm default" disabled="true">
-                                                    Correggi
-                                                </a>
+                                            <td>                                               
                                                 <a href="javascript:;" class="btn btn-sm default">
-                                                    Visualizza
+                                                    Annulla Esame
                                                 </a>
                                             </td>                                            
                                         </tr>
@@ -324,20 +282,8 @@ $controller = new Esempio();
                                                 0512100003
                                             </td>
                                             <td>
-                                                54/60
-                                            </td>
-                                            <td>
-                                                Promosso
-                                            </td>
-                                            <td>
-                                                <font color="green"> Corretto </font>
-                                            </td>
-                                            <td>
-                                                <a href="javascript:;" class="btn btn-sm default" disabled="true">
-                                                    Correggi
-                                                </a>
                                                 <a href="javascript:;" class="btn btn-sm default">
-                                                    Visualizza
+                                                    Annulla Esame
                                                 </a>
                                             </td>
                                         </tr>
@@ -353,20 +299,8 @@ $controller = new Esempio();
                                                 0512100004
                                             </td>
                                             <td>
-                                                50/60
-                                            </td>
-                                            <td>
-                                                Promosso
-                                            </td>
-                                            <td>
-                                                <font color="green"> Corretto </font>
-                                            </td>
-                                            <td>
-                                                <a href="javascript:;" class="btn btn-sm default" disabled="true">
-                                                    Correggi
-                                                </a>
                                                 <a href="javascript:;" class="btn btn-sm default">
-                                                    Visualizza
+                                                    Annulla Esame
                                                 </a>
                                             </td>
                                         </tr>
@@ -382,20 +316,8 @@ $controller = new Esempio();
                                                 0512100005
                                             </td>
                                             <td>
-                                                35/60
-                                            </td>
-                                            <td>
-                                                
-                                            </td>
-                                            <td>
-                                                <font color="red"> Non Corretto </font>
-                                            </td>
-                                            <td>
                                                 <a href="javascript:;" class="btn btn-sm default">
-                                                    Correggi
-                                                </a>
-                                                <a href="javascript:;" class="btn btn-sm default">
-                                                    Visualizza
+                                                    Annulla Esame
                                                 </a>
                                             </td>
                                         </tr>
@@ -411,25 +333,11 @@ $controller = new Esempio();
                                                 0512100006
                                             </td>
                                             <td>
-                                                60L/60
-                                            </td>
-                                            <td>
-                                                Promosso
-                                            </td>
-                                            <td>
-                                                <font color="green"> Corretto </font>
-                                            </td>
-                                            <td>
-                                                <a href="javascript:;" class="btn btn-sm default"  disabled="true">
-                                                    Correggi
-                                                </a>
                                                 <a href="javascript:;" class="btn btn-sm default">
-                                                    Visualizza
+                                                    Annulla Esame
                                                 </a>
                                             </td>
                                         </tr>
-                                        
-                                        
                                         </tbody>
                                     </table>
                                 </div>
