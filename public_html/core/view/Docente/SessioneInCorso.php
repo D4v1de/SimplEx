@@ -38,154 +38,13 @@ $controller = new Esempio();
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                Home Corso
+                Sessione in corso
             </h3>
 
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="col-md-8"></div>
-                    <div class="col-md-4">
-                        <div class="input-group input-large date-picker input-daterange" data-date="10/11/2012" data-date-format="mm/dd/yyyy">
-                            <span class="input-group-addon">
-									Dal: </span>
-                            <input type="text" class="form-control" name="from">
-									<span class="input-group-addon">
-									Al: </span>
-                            <input type="text" class="form-control" name="to">
-                        </div>
-                        <!-- /input-group -->
-                            <span class="help-block">
-                            Seleziona intervallo </span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="portlet box grey-cascade">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                <i class="fa fa-globe"></i>Sessioni
-                            </div>
-                            <div class="tools">
-                                    <a href="javascript:;" class="collapse" data-original-title="" title="">
-                                    </a>
-                            </div>
-                        </div>
-                        <div class="portlet-body">
-                        <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
-
-                        <div class="table-scrollable">
-                        <table class="table table-striped table-bordered table-hover dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
-                        <thead>
-                        <tr role="row">
-                                <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
-                                         Username
-                                : activate to sort column ascending" style="width: 119px;">
-                                         Nome
-                                </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                         Email
-                                " style="width: 210px;">
-                                         Data e ora
-                                </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                         Points
-                                " style="width: 73px;">
-                                         Stato
-                                </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                         Status
-                                " style="width: 119px;">
-                                         Azioni
-                                </th></tr>
-                        </thead>
-                        <tbody>
-                        <tr class="gradeX odd" role="row">
-                                <td>
-                                    Sessione 1
-                                </td>
-                                <td class="sorting_1">
-                                    19/11/2015 16:00
-                                </td>
-                                <td>
-                                    Eseguita
-                                </td>
-                                <td class="center">
-                                    <a href="javascript:;" class="btn btn-sm default">
-                                      Esiti
-                                    </a>
-                                    <a href="javascript:;" class="btn btn-sm default">
-                                        <i class="fa fa-info"></i>
-                                    </a>
-                                </td>
-
-                        </tr>
-                        <tr class="gradeX even" role="row">
-                                <td>
-                                    Sessione 2
-                                </td>
-                                <td class="sorting_1">
-                                         04/10/2015 15:00
-                                </td>
-                                <td>
-                                    Eseguita
-                                </td>
-                                <td class="center">
-                                    <a href="javascript:;" class="btn btn-sm default">
-                                      Esiti
-                                    </a>
-                                    <a href="javascript:;" class="btn btn-sm default">
-                                        <i class="fa fa-info"></i>
-                                    </a>
-                                </td>
-
-                        </tr>
-                        <tr class="gradeX even" role="row">
-                                <td>
-                                    Sessione 3
-                                </td>
-                                <td class="sorting_1">
-                                         04/11/2015 16:00
-                                </td>
-                                <td>
-                                    Non Eseguita
-                                </td>
-                                <td class="center">
-                                    <a href="javascript:;" class="btn btn-sm default" disabled="true">
-                                      Esiti
-                                    </a>
-                                    <a href="javascript:;" class="btn btn-sm default">
-                                        <i class="fa fa-info"></i>
-                                    </a>
-                                </td>
-
-                        </tr>                        
-                        </tbody>
-                        </table>
-                        </div>
-                </div>
-             </div>
-                    
-                    
-            </div>
-
-            </div>
-
-         </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="col-md-10"></div>
-                        <div class="col-md-2">
-                            <a href="javascript:;" class="btn green">
-                                Crea Sessione <i class="fa fa-plus"></i>
-                            </a>
-                            <span class="help-block"> <br> </span>
-                        </div>
-                    </div>
-                </div>
-
-            <!-- TABELLA 2 -->
+            <!-- TABELLA 1 -->
 
             <div class="row">
                 <div class="col-md-12">
@@ -201,7 +60,6 @@ $controller = new Esempio();
                         </div>
                         <div class="portlet-body">
                             <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
-
                                 <div class="table-scrollable">
                                     <table class="table table-striped table-bordered table-hover dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
                                         <thead>
@@ -239,13 +97,7 @@ $controller = new Esempio();
                                 " style="width: 119px;">
                                                 Superato
                                             </th>
-                                            <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                         Status
-                                " style="width: 119px;">
-                                                Azioni
-                                            </th>
-
-
+                                         
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -270,11 +122,6 @@ $controller = new Esempio();
                                             </td>
                                             <td>
                                                 0%
-                                            </td>
-                                            <td class="center">
-                                                <a href="javascript:;" class="btn btn-sm default">
-                                                    <i class="fa fa-info"></i>
-                                                </a>
                                             </td>
                                         </tr>
 
@@ -301,11 +148,6 @@ $controller = new Esempio();
                                             <td>
                                                 70%
                                             </td>
-                                            <td class="center">
-                                                <a href="javascript:;" class="btn btn-sm default">
-                                                    <i class="fa fa-info"></i>
-                                                </a>
-                                            </td>
                                         </tr>
 
                                         <tr class="gradeX even" role="row">
@@ -330,11 +172,6 @@ $controller = new Esempio();
                                             <td>
                                                 15%
                                             </td>
-                                            <td class="center">
-                                                <a href="javascript:;" class="btn btn-sm default">
-                                                    <i class="fa fa-info"></i>
-                                                </a>
-                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -347,36 +184,34 @@ $controller = new Esempio();
                     
                 </div>
     </div>
-            <div class="row">
-                    <div class="col-md-12">
-                        <div class="col-md-10"></div>
-                        <div class="col-md-2">
-                            <a href="javascript:;" class="btn green">
-                                Crea Test <i class="fa fa-plus"></i>
-                            </a>
-                            <span class="help-block"> <br> </span>
-                        </div>
-                    </div>
-                </div>
 
 
-            <!-- TABELLA 3 -->
+            <!-- TABELLA 2 -->
 
             <div class="row">
                 <div class="col-md-12">
                     <div class="portlet box grey-cascade">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-globe"></i>Argomenti
+                                <i class="fa fa-globe"></i>Studenti
                             </div>
                             <div class="tools">
                                 <a href="javascript:;" class="collapse" data-original-title="" title="">
                                 </a>
                             </div>
                         </div>
-                        <div class="portlet-body">
-                            <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
-
+                            <div class="portlet-body">
+                              <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
+                        <div class="row">
+                                <div class="col-md-12">
+                                        <a href="javascript:;" class="btn btn-sm green">
+                                            Aggiungi Studente
+                                        </a>
+                                        <a href="javascript:;" class="btn btn-sm red">
+                                            Annulla Esame
+                                        </a>
+                                </div>
+                        </div>
                                 <div class="table-scrollable">
                                     <table class="table table-striped table-bordered table-hover dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
                                         <thead>
@@ -388,11 +223,31 @@ $controller = new Esempio();
                                             </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Email
                                 " style="width: 210px;">
-                                                Risposte Corrette
+                                                Cognome
                                             </th>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Email
                                 " style="width: 100px;">
+                                                Matricola
+                                            </th>
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                         Email
+                                " style="width: 100px;">
+                                                Esito
+                                            </th>
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                         Email
+                                " style="width: 100px;">
+                                                Stato
+                                            </th>
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                         Email
+                                " style="width: 100px;">
+                                                Stato Correzione
+                                            </th>
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                         Email
+                                " style="width: 200px;">
                                                 Azioni
                                             </th>
                                         </tr>
@@ -401,17 +256,29 @@ $controller = new Esempio();
                                         <tbody>
                                         <tr class="gradeX odd" role="row">
                                             <td>
-                                                Argomento 1
+                                                Fabiano
                                             </td>
                                             <td class="sorting_1">
-                                                34%
+                                                Pecorelli
                                             </td>
                                             <td>
-                                                <a href="javascript:;" class="btn btn-sm default">
-                                                     <i class="fa fa-minus"></i>
+                                                0512100001
+                                            </td>
+                                            <td>
+                                                0/60
+                                            </td>
+                                            <td>
+                                                Ritirato
+                                            </td>
+                                            <td>
+                                                <font color="green"> Corretto </font>
+                                            </td>
+                                            <td>
+                                                <a href="javascript:;" class="btn btn-sm default" disabled="true">
+                                                    Correggi
                                                 </a>
-                                                <a href="javascript:;" class="btn btn-sm default">
-                                                     <i class="fa fa-edit"></i>
+                                                <a href="javascript:;" class="btn btn-sm default" disabled="true">
+                                                    Visualizza
                                                 </a>
                                             </td>
                                         </tr>
@@ -419,37 +286,150 @@ $controller = new Esempio();
 
                                         <tr class="gradeX even" role="row">
                                             <td>
-                                                Argomento 2
+                                                Elvira
                                             </td>
                                             <td class="sorting_1">
-                                                87%
+                                                Zanin
                                             </td>
                                             <td>
-                                                <a href="javascript:;" class="btn btn-sm default">
-                                                     <i class="fa fa-minus"></i>
+                                                0512100002
+                                            </td>
+                                            <td>
+                                                59/60
+                                            </td>
+                                            <td>
+                                                Promosso
+                                            </td>
+                                            <td>
+                                                <font color="green"> Corretto </font>
+                                            </td>
+                                            <td>
+                                                <a href="javascript:;" class="btn btn-sm default" disabled="true">
+                                                    Correggi
                                                 </a>
                                                 <a href="javascript:;" class="btn btn-sm default">
-                                                     <i class="fa fa-edit"></i>
+                                                    Visualizza
                                                 </a>
                                             </td>                                            
                                         </tr>
 
                                         <tr class="gradeX even" role="row">
-                                            <td>
-                                                Argomento 3
+                                             <td>
+                                                Fabio
                                             </td>
                                             <td class="sorting_1">
-                                                60%
+                                                Esposito
                                             </td>
                                             <td>
-                                                <a href="javascript:;" class="btn btn-sm default">
-                                                     <i class="fa fa-minus"></i>
+                                                0512100003
+                                            </td>
+                                            <td>
+                                                54/60
+                                            </td>
+                                            <td>
+                                                Promosso
+                                            </td>
+                                            <td>
+                                                <font color="green"> Corretto </font>
+                                            </td>
+                                            <td>
+                                                <a href="javascript:;" class="btn btn-sm default" disabled="true">
+                                                    Correggi
                                                 </a>
                                                 <a href="javascript:;" class="btn btn-sm default">
-                                                     <i class="fa fa-edit"></i>
+                                                    Visualizza
                                                 </a>
                                             </td>
                                         </tr>
+                                        
+                                        <tr class="gradeX even" role="row">
+                                             <td>
+                                                Pasquale
+                                            </td>
+                                            <td class="sorting_1">
+                                                Martiniello
+                                            </td>
+                                            <td>
+                                                0512100004
+                                            </td>
+                                            <td>
+                                                50/60
+                                            </td>
+                                            <td>
+                                                Promosso
+                                            </td>
+                                            <td>
+                                                <font color="green"> Corretto </font>
+                                            </td>
+                                            <td>
+                                                <a href="javascript:;" class="btn btn-sm default" disabled="true">
+                                                    Correggi
+                                                </a>
+                                                <a href="javascript:;" class="btn btn-sm default">
+                                                    Visualizza
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr class="gradeX even" role="row">
+                                             <td>
+                                                Christian
+                                            </td>
+                                            <td class="sorting_1">
+                                                De Blasio
+                                            </td>
+                                            <td>
+                                                0512100005
+                                            </td>
+                                            <td>
+                                                35/60
+                                            </td>
+                                            <td>
+                                                
+                                            </td>
+                                            <td>
+                                                <font color="red"> Non Corretto </font>
+                                            </td>
+                                            <td>
+                                                <a href="javascript:;" class="btn btn-sm default">
+                                                    Correggi
+                                                </a>
+                                                <a href="javascript:;" class="btn btn-sm default">
+                                                    Visualizza
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr class="gradeX even" role="row">
+                                             <td>
+                                                Carlo
+                                            </td>
+                                            <td class="sorting_1">
+                                                Di Domenico
+                                            </td>
+                                            <td>
+                                                0512100006
+                                            </td>
+                                            <td>
+                                                60L/60
+                                            </td>
+                                            <td>
+                                                Promosso
+                                            </td>
+                                            <td>
+                                                <font color="green"> Corretto </font>
+                                            </td>
+                                            <td>
+                                                <a href="javascript:;" class="btn btn-sm default"  disabled="true">
+                                                    Correggi
+                                                </a>
+                                                <a href="javascript:;" class="btn btn-sm default">
+                                                    Visualizza
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        
+                                        
                                         </tbody>
                                     </table>
                                 </div>
@@ -464,13 +444,14 @@ $controller = new Esempio();
             
             <div class="row">
                     <div class="col-md-12">
-                        <div class="col-md-10"></div>
-                        <div class="col-md-2">
+                        <div class="col-md-5"></div>
                             <a href="javascript:;" class="btn green">
-                                Crea Sessione <i class="fa fa-plus"></i>
+                                indietro
                             </a>
-                            <span class="help-block"> <br> </span>
-                        </div>
+                            <a href="javascript:;" class="btn green">
+                                Termina ora
+                            </a>
+
                     </div>
                 </div>
 
