@@ -69,6 +69,7 @@ class ArgomentoModel extends Model {
     /**
      * Cerca un Argomento nel database
      * @param int $id
+     * @return \Argomento
      */
     public function readArgomento($id){
         $query = sprintf(self::$READ_ARGOMENTO, $id);
@@ -79,10 +80,10 @@ class ArgomentoModel extends Model {
         }
     }
     
-    /**
-     * Restituisce tutti il CdL del database
-     * @return CdL[] cdls Tutti i CdL del database
-     */
+   /**
+    * Restituisce tutti gli Argomenti del database
+    * @return \Argomento
+    */
     public function getAllArgomento() {
         $res = Model::getDB()->query(self::$GET_ALL_ARGOMENTO);
         if($res) {
