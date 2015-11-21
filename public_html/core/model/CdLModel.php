@@ -2,25 +2,72 @@
 
 /**
  * Created by PhpStorm.
- * User: sergio
- * Date: 18/11/15
- * Time: 11:14
+ * User: Elvira
+ * Date: 21/11/15
+ * Time: 15:00
  */
 include_once MODEL_DIR . "Model.php";
 include_once BEAN_DIR . "CdL.php";
 
 class CdLModel extends Model {
-    public static $GET_ALL_CDLS = "SELECT 'codice','nome' from corsi_laurea";
-
-    public function getAllCdL() {
-        //$res = Model::getDB()->query(self::$GET_ALL_CDLS);
-
-        //TODO completare
-
-
-        //STUB
-        $corsi[] = new CdL("04042", "Informatica");
-        $corsi[] = new CdL("3232", "Ingegneria");
-        return $corsi;
+    private static $CREATE_CDL = "INSERT INTO 'cdl' (matricola, nome, tipologia) VALUES ('%s','%s','%s')";
+    private static $UPDATE_CDL = "UPDATE 'cdl' SET matricola = '%s', nome = '%s', tipologia = '%s' WHERE matricola = '%s'";
+    private static $DELETE_CDL = "DELETE FROM 'cdl' where matricola = '%s'";
+    private static $READ_CDL = "SELECT * FROM 'cdl' where matricola = '%s'";
+    private static $GET_ALL_CDLS = "SELECT * FROM 'cdl'";
+    
+    /**
+     * Inserisce un nuovo corso di laurea nel database
+     * @param CdL cdl Il corso di laurea da inserire nel database
+     */
+    public function createCdL($cdl){
+        $query = sprintf(self::$CREATE_CDL, $cdl->matricola, $cdl->nome, $cdl->tipologia);
+        $res = Model::getDB()->query($query);
     }
+    
+    /**
+     * Modifica un corso di laurea nel database
+     * @param string matricola La matricola del corso di laurea da modificare
+     * @param CdL updatedCdl Il corso di laurea modificato da aggiornare nel db
+     */
+    public function updateCdL($matricola,$updatedCdl){
+        $query = sprintf(self::$UPDATE_CDL, $updatedCdl->matricola, $updatedCdl->nome, $updatedCdl->tipologia, $matricola);
+        $res = Model::getDB()->query($query);
+    }
+    
+    /**
+     * Cancella un corso di laurea nel database
+     * @param string matricola La matricola del corso di laurea da eliminare
+     */
+    public function deleteCdL($matricola){
+        $query = sprintf(self::$DELETE_CDL, $matricola);
+        $res = Model::getDB()->query($query);
+    }
+    
+    /**
+     * Cerca un corso di laurea nel database
+     * @param string matricola La matricola del corso di laurea da cercare
+     */
+    public function readCdL($matricola){
+        $query = sprintf(self::$READ_CDL, $matricola);
+        $res = Model::getDB()->query($query);
+        if($res) {
+            $cdl = new CdL($res->fetch_assoc()['matricola'],$res->fetch_assoc()['nome'],$res->fetch_assoc()['tipologia']);
+            return $cdl;
+        }
+    }
+    
+    /**
+     * Restituisce tutti il corso di laurea del database
+     * @return CdL[] cdls Tutti i corsi di laurea del database
+     */
+    public function getAllCdL() {
+        $res = Model::getDB()->query(self::$GET_ALL_CDLS);
+        if($res) {
+            for($i = 0; $i < $res->num_rows; ++$i){
+                $cdls[] = new CdL($res->fetch_assoc()['matricola'],$res->fetch_assoc()['nome'],$res->fetch_assoc()['tipologia']);
+            }
+            return $cdls;
+        }
+    } 
 }

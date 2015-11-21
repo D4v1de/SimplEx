@@ -70,6 +70,18 @@ switch (isset($_URL[0]) ? $_URL[0] : '') {
     case 'homecorsostudente':
         include_once VIEW_DIR."/Studente/HomeCorso.php";
         break;
+    case 'homecorsodocente':
+        include_once VIEW_DIR."/Docente/HomeCorso.php";
+        break;
+    case 'visualizzaesitisessione':
+        include_once VIEW_DIR."/Docente/VisualizzaEsitiSessione.php";
+        break;
+    case 'sessioneincorso':
+        include_once VIEW_DIR."/Docente/SessioneInCorso.php";
+        break;
+    case 'creamodificasessione':
+        include_once VIEW_DIR."/Docente/CreaModificaSessione.php";
+        break;
     default:
         echo "Route inesistente";
 }
