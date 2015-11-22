@@ -181,12 +181,14 @@ $controller = new Esempio();
                         </div>
                     </div>
                     <div class="row">
-                       <div class="col-md-12">
-                           <div class="col-md-9"></div>
-                           <button type="button" class="btn green">Annulla</button> 
-                           <button type="submit" class="btn green">Conferma</button>                
-                       </div>
-                   </div>
+                        <div class="col-md-12">
+                            <div class="col-md-9"></div>
+                            <div class="form-actions row">
+                                <button type="button" class="btn default">Annulla</button>
+                                <button type="submit" class="btn blue">Conferma</button>
+                            </div>              
+                        </div>
+                    </div>
                 </div>
             </form>
             <!-- END PAGE CONTENT-->
