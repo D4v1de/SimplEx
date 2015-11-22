@@ -16,13 +16,13 @@ class Sessione {
     
     /**
      * Costruttore di Sessione
-     * @param $id id della sessione
-     * @param $tipologia tipologia della sessione
-     * @param $dataInizio data di inizio della sessione
-     * @param $dataFine dataFine della sessione
-     * @param $sogliaAmmissione la soglia di ammissione della sessione
-     * @param $insegnamentoId id dell'insegnamento a cui appartiene la sessione
-     * @param $insegnamentoCorsoMatricola la matricola del corso a cui appartiene l'insegnamento relativo
+     * @param int $id L'id della sessione
+     * @param enum $tipologia La tipologia della sessione
+     * @param date $dataInizio La data di inizio della sessione
+     * @param date $dataFine La data di termine della sessione
+     * @param float $sogliaAmmissione La soglia di ammissione della sessione
+     * @param int $insegnamentoId L'id dell'insegnamento a cui appartiene la sessione
+     * @param string $insegnamentoCorsoMatricola La matricola del corso a cui appartiene l'insegnamento relativo
      */
     public function __construct($id, $tipologia, $dataInizio, $dataFine, $sogliaAmmissione, $insegnamentoId, $insegnamentoCorsoMatricola ) {
         $this->id=$id;
@@ -35,56 +35,56 @@ class Sessione {
     } 
 
     /**
-     * @return int l'id della sessione
+     * @return int L'id della sessione
      */
     public function getId() {
         return $this->id;
     }
 
     /**
-     * @return String la tipologia della sessione
+     * @return enum La tipologia della sessione
      */
     public function getTipologia() {
         return $this->tipologia;
     }
     
     /**
-     * @return Date la dataInizio della sessione
+     * @return date La dataInizio della sessione
      */
      public function getDataInizio() {
         return $this->dataInizio;
     }
     
     /**
-     * @return Date la data di termine della sessione
+     * @return date La data di termine della sessione
      */
      public function getDataFine() {
         return $this->dataFine;
     }
     
     /**
-     * @return float la soglia di ammissione della sessione
+     * @return float La soglia di ammissione della sessione
      */
      public function getSogliaAmmissione() {
         return $this->sogliaAmmissione;
     }
     
     /**
-     * @return int l'id dell'insegnamento a cui appartiene
+     * @return int L'id dell'insegnamento a cui appartiene
      */
      public function getInsegnamentoId() {
         return $this->insegnamentoId;
     }
     
      /**
-     * @return String la matricola del corso a cui appartiene l'insegnamento relativo
+     * @return String La matricola del corso a cui appartiene l'insegnamento relativo
      */
      public function getInsegnamentoCorsoMatricola() {
         return $this->insegnamentoCorsoMatricola;
     }
     /**
      * Setta l'id della sessione
-     * @param $id id della sessione
+     * @param int $id L'id della sessione
      */
     public function setId($id) {
         $this->id = $id;
@@ -92,7 +92,7 @@ class Sessione {
     
    /**
      * Setta la tipologia della sessione
-     * @param $tipologia tipologia della sessione
+     * @param enum $tipologia La tipologia della sessione
      */
     public function setTipologia($tipologia) {
         $this->tipologia = $tipologia;
@@ -100,7 +100,7 @@ class Sessione {
     
     /**
      * Setta la data di inizio della sessione
-     * @param $dataInizio data di inizio della sessione
+     * @param date $dataInizio La data di inizio della sessione
      */
     public function setDataInizio($dataInizio) {
         $this->dataInizio = $dataInizio;
@@ -108,7 +108,7 @@ class Sessione {
    
     /**
      * Setta la data di termine della sessione
-     * @param $dataFine dataFine della sessione
+     * @param date $dataFine La data di termine della sessione
      */
     public function setDataFine($dataFine) {
         $this->dataFine = $dataFine;
@@ -116,7 +116,7 @@ class Sessione {
    
     /**
      * Setta la  soglia d'ammissione della sessione
-     * @param $sogliaAmmissione la soglia di ammissione della sessione
+     * @param float $sogliaAmmissione La soglia di ammissione della sessione
      */
     public function setSogliaAmmissione($sogliaAmmissione) {
         $this->sogliaAmmissione = $sogliaAmmissione;
@@ -124,7 +124,7 @@ class Sessione {
 
     /**
      * Setta l'id dell'insegnamento della sessione a cui appartiene
-     * @param $insegnamentoId id dell'insegnamento a cui appartiene la sessione
+     * @param int $insegnamentoId L'id dell'insegnamento a cui appartiene la sessione
      */
     public function setInsegnamentoId($insegnamentoId) {
         $this->insegnamentoId = $insegnamentoId;
@@ -132,7 +132,7 @@ class Sessione {
     
     /**
      * Setta la matricola del corso a cui appartiene l'insegnamento relativo
-     * @param $insegnamentoCorsoMatricola la matricola del corso a cui appartiene l'insegnamento relativo
+     * @param string $insegnamentoCorsoMatricola La matricola del corso a cui appartiene l'insegnamento relativo
      */
     public function setInsegnamentoCorsoMatricola($insegnamentoCorsoMatricola) {
         $this->insegnamentoCorsoMatricola = $insegnamentoCorsoMatricola;
