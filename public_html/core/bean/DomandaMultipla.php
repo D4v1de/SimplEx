@@ -6,29 +6,29 @@
  * Time: 10:45
  */
 class DomandaMultipla {
-    public $id;
-    public $testo;
-    public $punteggioCorretta;
-    public $punteggioErrata;
-    public $percentualeScelta;
-    public $percentualeRispostaCorretta;
-    public $alternativaCorretta;
-    public $argomentoId;
-    public $argomentoInsegnamentoId;
-    public $argomentoInsegnamentoCorsoMatricola;
+    private $id;
+    private $testo;
+    private $punteggioCorretta;
+    private $punteggioErrata;
+    private $percentualeScelta;
+    private $percentualeRispostaCorretta;
+    private $alternativaCorretta;
+    private $argomentoId;
+    private $argomentoInsegnamentoId;
+    private $argomentoInsegnamentoCorsoMatricola;
     
     /**
      * DomandaMultipla constructor.
-     * @param $id
-     * @param $testo
-     * @param $punteggioCorretta
-     * @param $punteggioErrata
-     * @param $percentualeScelta 
-     * @param $percentualeRispostaCorretta
-     * @param $alternativaCorretta
-     * @param $argomentoId
-     * @param $argomentoInsegnamentoId
-     * @param $argomentoInsegnamentoCorsoMatricola
+     * @param int $id L'id della domanda
+     * @param string $testo Il testo della domanda
+     * @param float $punteggioCorretta Il punteggio da assegnare in caso di risposta corretta
+     * @param float $punteggioErrata Il punteggio da assegnare in caso di risposta errata
+     * @param float $percentualeScelta La percentuale di volte in cui viene scelta
+     * @param float $percentualeRispostaCorretta La percentuale di risposte corrette per la domanda
+     * @param int $alternativaCorretta L'id dell'alternativa corretta
+     * @param int $argomentoId L'id dell'argomento a cui appartiene la domanda
+     * @param int $argomentoInsegnamentoId L'id dell'insegnamento a cui appartiene l'argomento relativo
+     * @param string $argomentoInsegnamentoCorsoMatricola La matricola del corso a cui appartiene l'insegnamento relativo all'argomento di riferimento
      */
     public function __construct($id, $testo, $punteggioCorretta, $punteggioErrata,$percentualeScelta, $percentualeRispostaCorretta,$alternativaCorretta, 
             $argomentoId, $argomentoInsegnamentoId, $argomentoInsegnamentoCorsoMatricola) {
@@ -44,81 +44,73 @@ class DomandaMultipla {
         $this->argomentoInsegnamentoCorsoMatricola = $argomentoInsegnamentoCorsoMatricola;
         
     }
+    
     /**
-     * @return int id della domanda multipla
+     * @return int L'id della domanda multipla
      */
     function getId() {
         return $this->id;
     }
 
     /**
-     * @return String testo della domanda multipla
+     * @return string Il testo della domanda multipla
      */
-    
     function getTesto() {
         return $this->testo;
     }
 
     /**
-     * @return float punteggio della risposta corretta
+     * @return float Il punteggio da assegnare in caso di risposta corretta
      */
-    
     function getPunteggioCorretta() {
         return $this->punteggioCorretta;
     }
 
     /**
-     * @return float punteggio della risposta errata
+     * @return float Il punteggio da assegnare in caso di risposta errata
      */
-    
     function getPunteggioErrata() {
         return $this->punteggioErrata;
     }
 
     /**
-     * @return float percentuale di volte in cui viene scelta la domanda multipla
+     * @return float La percentuale di volte in cui viene scelta
      */
-    
     function getPercentualeScelta() {
         return $this->percentualeScelta;
     }
     
     /**
-     * @return float percentuale di volte in cui viene risposta correttamente la domanda multipla
+     * @return float La percentuale di risposte corrette per la domanda
      */
-
     function getPercentualeRispostaCorretta() {
         return $this->percentualeRispostaCorretta;
     }
     
     /**
-     * @return int risposta corretta della domanda multipla
+     * @return int L'id dell'alternativa corretta
      */
-
     function getAlternativaCorretta() {
         return $this->alternativaCorretta;
     }
     
     /**
-     * @return int id dell'argomento a cui la domanda multipla appartiene
+     * @return int L'id dell'argomento a cui appartiene la domanda
      */
-
     function getArgomentoId() {
         return $this->argomentoId;
     }
     
     /**
-     * @return int id dell'insegnamento a cui appartiene l'argomento della domanda multipla
+     * @return int L'id dell'insegnamento a cui appartiene l'argomento relativo
      */
-
     function getArgomentoInsegnamentoId() {
         return $this->argomentoInsegnamentoId;
     }
     
     /**
-     * @return String la matricola del corso a cui l'insegnamento realativo all'argomento appartiene 
+     * @return String La matricola del corso a cui appartiene l'insegnamento relativo all'argomento di riferimento
      */
-
     function getArgomentoInsegnamentoCorsoMatricola() {
         return $this->argomentoInsegnamentoCorsoMatricola;
     }
@@ -126,8 +118,7 @@ class DomandaMultipla {
     /**
      * Setta l'id della domanda multipla
      * @param $id
-     */
-    
+     */  
     function setId($id) {
         $this->id = $id;
     }
@@ -136,79 +127,70 @@ class DomandaMultipla {
      * Setta il testo della domanda multipla
      * @param $testo
      */
-    
     function setTesto($testo) {
         $this->testo = $testo;
     }
 
     /**
-     * Setta il punteggio della risposta corretta relativa alla domanda multipla
-     * @param $punteggioCorretta
-     */
-    
+     * Setta il punteggio da assegnare in caso di risposta corretta
+     * @param float $punteggioCorretta Il punteggio da assegnare in caso di risposta corretta
+     */   
     function setPunteggioCorretta($punteggioCorretta) {
         $this->punteggioCorretta = $punteggioCorretta;
     }
 
     /**
-     * Setta il punteggio della risposta errata relativa alla domanda multipla
-     * @param $punteggioErrata
-     */
-    
+     * Setta il punteggio da assegnare in caso di risposta errata
+     * @param float $punteggioErrata Il punteggio da assegnare in caso di risposta errata
+     */  
     function setPunteggioErrata($punteggioErrata) {
         $this->punteggioErrata = $punteggioErrata;
     }
     
     /**
-     * Setta la percentuale di volte in cui è stata scelta la domanda multipla
-     * @param $percentualeScelta
+     * Setta la percentuale di volte in cui viene scelta
+     * @param float $percentualeScelta La percentuale di volte in cui viene scelta
      */
-
     function setPercentualeScelta($percentualeScelta) {
         $this->percentualeScelta = $percentualeScelta;
     }
 
     /**
-     * Setta la percentuale di volte in cui viene risposta correttamente la domanda multipla
-     * @param $percentualeRispostaCorretta
-     */
-    
+     * Setta la percentuale di risposte corrette per la domanda
+     * @param float $percentualeRispostaCorretta La percentuale di risposte corrette per la domanda
+     */  
     function setPercentualeRispostaCorretta($percentualeRispostaCorretta) {
         $this->percentualeRispostaCorretta = $percentualeRispostaCorretta;
     }
     
     /**
-     * Setta la risposta corretta della domanda multipla
-     * @param $alternativaCorretta
+     * Setta l'id dell'alternativa corretta
+     * @param int $alternativaCorretta L'id dell'alternativa corretta
      */
-
     function setAlternativaCorretta($alternativaCorretta) {
         $this->alternativaCorretta = $alternativaCorretta;
     }
     
     /**
-     * Setta l'id dell'argomento a cui appartine la domanda multipla
-     * @param $argomentoId
+     * Setta l'id dell'argomento a cui appartiene la domanda
+     * @param int $argomentoId L'id dell'argomento a cui appartiene la domanda
      */
-
     function setArgomentoId($argomentoId) {
         $this->argomentoId = $argomentoId;
     }
 
     /**
-     * Setta id dell'insegnamento a cui appartiene l'argomento della domanda multipla
-     * @param $argomentoInsegnamentoId
-     */
-    
+     * Setta l'id dell'insegnamento a cui appartiene l'argomento relativo
+     * @param int $argomentoInsegnamentoId L'id dell'insegnamento a cui appartiene l'argomento relativo
+     */  
     function setArgomentoInsegnamentoId($argomentoInsegnamentoId) {
         $this->argomentoInsegnamentoId = $argomentoInsegnamentoId;
     }
 
      /**
-     * Setta la matricola del corso a cui l'insegnamento realativo all'argomento appartiene
-     * @param $argomentoInsegnamentoCorsoMatricola
-     */
-    
+     * Setta la matricola del corso a cui appartiene l'insegnamento relativo all'argomento di riferimento
+     * @param string $argomentoInsegnamentoCorsoMatricola La matricola del corso a cui appartiene l'insegnamento relativo all'argomento di riferimento
+     */ 
     function setArgomentoInsegnamentoCorsoMatricola($argomentoInsegnamentoCorsoMatricola) {
         $this->argomentoInsegnamentoCorsoMatricola = $argomentoInsegnamentoCorsoMatricola;
     }

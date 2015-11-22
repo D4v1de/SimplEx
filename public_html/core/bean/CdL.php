@@ -12,9 +12,9 @@ class CdL {
 
     /**
      * Cotruttore di CdL
-     * @param $matricola la matricola del CdL
-     * @param $nome il nome del CdL
-     * @param $tipologia la tipologia del CdL
+     * @param string $matricola La matricola del CdL
+     * @param string $nome Il nome del CdL
+     * @param boolean $tipologia La tipologia del CdL
      */
     public function __construct($matricola, $nome, $tipologia) {
         $this->matricola = $matricola;
@@ -23,21 +23,21 @@ class CdL {
     }
     
     /**
-     * @return String la matricola del CdL
+     * @return string La matricola del CdL
      */
     public function getMatricola() {
         return $this->matricola;
     }
     
     /**
-     * @return String il nome del CdL
+     * @return string Il nome del CdL
      */
     public function getNome() {
         return $this->nome;
     }
     
     /**
-     * @return String la tipologia del CdL
+     * @return string La tipologia del CdL
      */
     public function getTipologia() {
         return $this->tipologia;
@@ -45,7 +45,7 @@ class CdL {
     
     /**
      * Setta la matricola del CdL
-     * @param $matricola la matricola del CdL
+     * @param string $matricola La matricola del CdL
      */
     public function setMatricola($matricola) {
         $this->matricola = $matricola;
@@ -53,7 +53,7 @@ class CdL {
 
     /**
      * Setta il nome del CdL
-     * @param $nome il nome del CdL
+     * @param string $nome Il nome del CdL
      */
     public function setNome($nome) {
         $this->nome = $nome;
@@ -61,7 +61,7 @@ class CdL {
     
     /**
      * Setta la tipologia del CdL
-     * @param $tipologia la tipologia del CdL
+     * @param boolean $tipologia La tipologia del CdL
      */
     public function setTipologia($tipologia) {
         $this->tipologia = $tipologia;

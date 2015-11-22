@@ -13,10 +13,10 @@ class Corso {
 
     /**
      * Costruttore di Corso.
-     * @param $matricola la matricola del corso
-     * @param $nome il nome del corso
-     * @param $tipologia la tipolgia del corso
-     * @param $cdlMatricola la matricola del CdL a cui il corso appartiene
+     * @param string $matricola La matricola del corso
+     * @param string $nome Il nome del corso
+     * @param boolean $tipologia La tipologia del corso
+     * @param string $cdlMatricola La matricola del CdL a cui il corso appartiene
      */
     public function __construct($matricola, $nome, $tipologia, $cdlMatricola) {
         $this->matricola = $matricola;
@@ -26,28 +26,28 @@ class Corso {
     }
     
     /**
-     * @return String la matricola del corso
+     * @return string La matricola del corso
      */
     public function getMatricola() {
         return $this->matricola;
     }
 
     /**
-     * @return String il nome del corso
+     * @return string Il nome del corso
      */
     public function getNome() {
         return $this->nome;
     }
 
     /**
-     * @return String la tipologia del corso
+     * @return string La tipologia del corso
      */
     public function getTipologia() {
         return $this->tipologia;
     }
     
     /**
-     * @return String la matricola del CdL a cui il corso appartiene
+     * @return string La matricola del CdL a cui il corso appartiene
      */
     public function getCdlMatricola() {
         return $this->cdlMatricola;
@@ -63,7 +63,7 @@ class Corso {
     
     /**
      * Setta il nome del corso
-     * @param $nome il nome del corso
+     * @param string $nome Il nome del corso
      */
     public function setNome($nome) {
         $this->nome = $nome;
@@ -71,7 +71,7 @@ class Corso {
     
     /**
      * Setta la tipologia del corso
-     * @param $tipologia la tipologia del corso
+     * @param string $tipologia La tipologia del corso
      */
     public function setTipologia($tipologia) {
         $this->tipologia = $tipologia;
@@ -79,7 +79,7 @@ class Corso {
     
     /**
      * Setta la matricola del CdL a cui il corso appartiene
-     * @param cdlMatricola la matricola del CdL a cui il corso appartiene
+     * @param string cdlMatricola La matricola del CdL a cui il corso appartiene
      */
     public function setCdlMatricola($cdlMatricola) {
         $this->cdlMatricola = $cdlMatricola;
