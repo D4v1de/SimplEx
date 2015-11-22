@@ -15,7 +15,7 @@ class Corso {
      * Costruttore di Corso.
      * @param string $matricola La matricola del corso
      * @param string $nome Il nome del corso
-     * @param boolean $tipologia La tipologia del corso
+     * @param enum $tipologia La tipologia del corso
      * @param string $cdlMatricola La matricola del CdL a cui il corso appartiene
      */
     public function __construct($matricola, $nome, $tipologia, $cdlMatricola) {
@@ -40,7 +40,7 @@ class Corso {
     }
 
     /**
-     * @return string La tipologia del corso
+     * @return enum La tipologia del corso
      */
     public function getTipologia() {
         return $this->tipologia;
@@ -71,7 +71,7 @@ class Corso {
     
     /**
      * Setta la tipologia del corso
-     * @param string $tipologia La tipologia del corso
+     * @param enum $tipologia La tipologia del corso
      */
     public function setTipologia($tipologia) {
         $this->tipologia = $tipologia;

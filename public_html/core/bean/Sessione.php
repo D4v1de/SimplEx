@@ -17,7 +17,7 @@ class Sessione {
     /**
      * Costruttore di Sessione
      * @param int $id L'id della sessione
-     * @param boolean $tipologia La tipologia della sessione
+     * @param enum $tipologia La tipologia della sessione
      * @param date $dataInizio La data di inizio della sessione
      * @param date $dataFine La data di termine della sessione
      * @param float $sogliaAmmissione La soglia di ammissione della sessione
@@ -42,7 +42,7 @@ class Sessione {
     }
 
     /**
-     * @return string La tipologia della sessione
+     * @return enum La tipologia della sessione
      */
     public function getTipologia() {
         return $this->tipologia;
@@ -92,7 +92,7 @@ class Sessione {
     
    /**
      * Setta la tipologia della sessione
-     * @param boolean $tipologia La tipologia della sessione
+     * @param enum $tipologia La tipologia della sessione
      */
     public function setTipologia($tipologia) {
         $this->tipologia = $tipologia;

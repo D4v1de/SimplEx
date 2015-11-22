@@ -21,7 +21,7 @@ class Utente {
      * @param string $matricola La matricola dell'utente
      * @param string $nome Il nome dell'utente
      * @param string $cognome Il cognome dell'utente
-     * @param boolean $tipologia La tipologia di utente
+     * @param enum $tipologia La tipologia di utente
      * @param string $cdlMatricola La matricola del corso di laurea a cui è iscritto l'utente Studente
      */
     public function __construct($username, $password, $matricola, $nome, $cognome, $tipologia, $cdlMatricola) {
@@ -42,42 +42,42 @@ class Utente {
     }
   
     /**
-     * @return String La password dell'utente
+     * @return string La password dell'utente
      */
     public function getPassword() {
         return $this->password;
     }
     
     /**
-     * @return String La matricola
+     * @return string La matricola
      */
     public function getMatricola() {
         return $this->matricola;
     }
 
     /**
-     * @return String Il nome dell'utente
+     * @return string Il nome dell'utente
      */
     public function getNome() {
         return $this->nome;
     }
 
     /**
-     * @return String Il cognome dell'utente
+     * @return string Il cognome dell'utente
      */
     public function getCognome() {
         return $this->cognome;
     }
     
     /**
-     * @return String La tipologia dell'utente
+     * @return enum La tipologia dell'utente
      */
     public function getTipologia() {
         return $this->tipologia;
     }
 
     /**
-     * @return String La matricola del corso di laurea a cui è iscritto l'utente Studente
+     * @return string La matricola del corso di laurea a cui è iscritto l'utente Studente
      */
     public function getCdlMatricola() {
         return $this->cdlMatricola;
@@ -125,7 +125,7 @@ class Utente {
 
     /**
      * Setta la tipologia dell'utente
-     * @param boolean $tipologia La tipologia dell'utente
+     * @param enum $tipologia La tipologia dell'utente
      */
     public function setTipologia($tipologia) {
         $this->tipologia = $tipologia;
