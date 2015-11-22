@@ -160,8 +160,6 @@ $controller = new Esempio();
                                     <b>Radio Button</b>.
                                 </td>
                         </tr>
-                        
-                        
                         </tr>                        
                         </tbody>
                         </table>
@@ -221,6 +219,20 @@ $controller = new Esempio();
                             </td>
                                 <td class="sorting_1">
                                     <b>Calendario</b>. Usarne 2 per creare un Range di date.   
+                                </td>
+                        </tr>
+                        <tr class="gradeX odd" role="row">
+                            <td>
+                                <div class="form-group form-md-line-input has-success">
+                                    <div class="input-icon">
+                                        <input type="text" class="form-control">
+                                            <label for="form_control_1">Testo</label>
+                                                <span class="help-block">Suggerimento</span>
+                                    </div>
+                                </div>
+                            </td>
+                                <td class="sorting_1">
+                                    <b>Input Testo</b>   
                                 </td>
                         </tr>
                                                
