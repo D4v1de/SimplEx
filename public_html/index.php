@@ -85,6 +85,9 @@ switch (isset($_URL[0]) ? $_URL[0] : '') {
     case 'creamodificasessione':
         include_once VIEW_DIR."/Docente/CreaModificaSessione.php";
         break;
+    case 'createst':
+        include_once VIEW_DIR."/Docente/CreaTest.php";
+        break;
     default:
         echo "Route inesistente";
 }
