@@ -26,7 +26,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>Crea CdL</title>
+    <title>View Corsi</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -140,7 +140,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                Crea CdL
+                View Corsi
             </h3>
 
             <div class="page-bar">
@@ -151,16 +151,131 @@ License: You must have a valid license purchased only from themeforest(the above
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="gestioneCdL.php">GestioneCdL</a>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
-                    <li>
-                        <a href="creaCdL.php">CreaCdL</a>
+                        <a href="visualizzaCorsi.php">ViewCorsi</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
             </div>
             <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form">
+                        <form action="#" class="form-horizontal form-bordered form-row-stripped">
+                            <div class="form-actions">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="input-icon right">
+                                            <i class="icon-magnifier"></i>
+                                            <input type="text" class="form-control input-circle"
+                                                   placeholder="cerca Corso...">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="portlet light bordered">
+                <div class="portlet-body form">
+                    <!-- BEGIN FORM-->
+                    <form action="#" class="form-horizontal1">
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <span class="input-group-btn btn-right">
+											<button type="button" class="btn btn-default dropdown-toggle"
+                                                    data-toggle="dropdown" aria-expanded="false">
+                                                Ingegneria del Software
+                                            </button>
+                                    </span>
+                                </div>
+                                <div class="col-md-offset-6 col-md-3">
+                                    <button type="button" class="btn red-intense">Disiscriviti</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- END FORM-->
+                </div>
+            </div>
+
+
+            <div class="portlet light bordered">
+                <div class="portlet-body form">
+                    <!-- BEGIN FORM-->
+                    <form action="#" class="form-horizontal2">
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <span class="input-group-btn btn-right">
+											<button type="button" class="btn btn-default dropdown-toggle"
+                                                    data-toggle="dropdown" aria-expanded="false">
+                                                Analisi Numerica
+                                            </button>
+                                    </span>
+                                </div>
+                                <div class="col-md-offset-6 col-md-3">
+                                    <button type="button" class="btn green-jungle">Iscriviti</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- END FORM-->
+                </div>
+            </div>
+
+
+            <div class="portlet light bordered">
+                <div class="portlet-body form">
+                    <!-- BEGIN FORM-->
+                    <form action="#" class="form-horizontal3">
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <span class="input-group-btn btn-right">
+											<button type="button" class="btn btn-default dropdown-toggle"
+                                                    data-toggle="dropdown" aria-expanded="false">
+                                                Tecnologie di Sviluppo Web
+                                            </button>
+                                    </span>
+                                </div>
+                                <div class="col-md-offset-6 col-md-3">
+                                    <button type="button" class="btn green-jungle">Iscriviti</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- END FORM-->
+                </div>
+            </div>
+
+
+
+            <div class="portlet light bordered">
+                <div class="portlet-body form">
+                    <!-- BEGIN FORM-->
+                    <form action="#" class="form-horizontal4">
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <button type="button" class="btn btn-default">Reti di Calcolatori</button>
+                                </div>
+                                <div class="col-md-offset-6 col-md-3">
+                                    <button type="submit" class="btn green-jungle">Iscriviti</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- END FORM-->
+                </div>
+            </div>
+
+
+
 
 
             <div class="row">
@@ -169,7 +284,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="portlet box grey-cascade">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-globe"></i>Crea nuovo Corso di Laurea
+                                <i class="fa fa-globe"></i>Elenco dei Corsi Disponibili
                             </div>
                             <div class="tools">
                                 <a href="javascript:;" class="collapse" data-original-title="" title="">
@@ -177,40 +292,6 @@ License: You must have a valid license purchased only from themeforest(the above
                             </div>
                         </div>
                         <div class="portlet-body">
-
-                            <div class="portlet-body form">
-                                <div class="form-group form-md-line-input">
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" id="form_control_1" placeholder="Inserisci nome">
-
-                                        <div class="form-control-focus">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group form-md-line-input">
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" id="form_control_1" placeholder="Inserisci tipologia">
-
-                                        <div class="form-control-focus">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group form-md-line-input">
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" id="form_control_1" placeholder="Inserisci matricola">
-
-                                        <div class="form-control-focus">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <h3></h3>
-                            </div>
-
-
-
                             <div class="table-scrollable">
                                 <table class="table table-striped table-bordered table-hover dataTable no-footer"
                                        id="sample_1" role="grid" aria-describedby="sample_1_info">
@@ -264,9 +345,13 @@ License: You must have a valid license purchased only from themeforest(the above
                                             Andrea de Lucia
                                         </td>
                                         <td>
-                                                <span class="label label-sm label-success">
-                                                    Attivo
-                                                </span>
+                                            <div class="row">
+                                                <div class="col-md-offset-1 col-md-2">
+                                                    <a href="" class="label label-sm label-warning">
+                                                        Abbandona
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr class="gradeX even" role="row">
@@ -286,9 +371,13 @@ License: You must have a valid license purchased only from themeforest(the above
                                             Angelamaria Cardone
                                         </td>
                                         <td>
-                                                <span class="label label-sm label-success">
-                                                    Attivo
-                                                </span>
+                                            <div class="row">
+                                                <div class="col-md-offset-1 col-md-2">
+                                                    <a href="" class="label label-sm label-success">
+                                                        Iscriviti
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr class="gradeX odd" role="row">
@@ -308,9 +397,13 @@ License: You must have a valid license purchased only from themeforest(the above
                                             Mimmo Parente
                                         </td>
                                         <td>
-                                                <span class="label label-sm label-success">
-                                                    Attivo
-                                                </span>
+                                            <div class="row">
+                                                <div class="col-md-offset-1 col-md-2">
+                                                    <a href="" class="label label-sm label-success">
+                                                        Iscriviti
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr class="gradeX even" role="row">
@@ -330,9 +423,13 @@ License: You must have a valid license purchased only from themeforest(the above
                                             Annnn De Luca
                                         </td>
                                         <td>
-                                                <span class="label label-sm label-warning">
-                                                    Sospeso
-                                                </span>
+                                            <div class="row">
+                                                <div class="col-md-offset-1 col-md-2">
+                                                    <a href="" class="label label-sm label-success">
+                                                        Iscriviti
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr class="gradeX odd" role="row">
@@ -352,9 +449,13 @@ License: You must have a valid license purchased only from themeforest(the above
                                             Ugo Vaccaro
                                         </td>
                                         <td>
-                                                <span class="label label-sm label-warning">
-                                                    Sospeso
-                                                </span>
+                                            <div class="row">
+                                                <div class="col-md-offset-1 col-md-2">
+                                                    <a href="" class="label label-sm label-success">
+                                                        Iscriviti
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr class="gradeX even" role="row">
@@ -374,9 +475,13 @@ License: You must have a valid license purchased only from themeforest(the above
                                             Clelia De Felice
                                         </td>
                                         <td>
-                                                <span class="label label-sm label-success">
-                                                    Attivo
-                                                </span>
+                                            <div class="row">
+                                                <div class="col-md-offset-1 col-md-2">
+                                                    <a href="" class="label label-sm label-success">
+                                                        Iscriviti
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr class="gradeX odd" role="row">
@@ -396,29 +501,20 @@ License: You must have a valid license purchased only from themeforest(the above
                                             La Torre
                                         </td>
                                         <td>
-                                                <span class="label label-sm label-warning">
-                                                    Sospeso
-                                                </span>
+                                            <div class="row">
+                                                <div class="col-md-offset-1 col-md-2">
+                                                    <a href="" class="label label-sm label-success">
+                                                        Iscriviti
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
 
-                            <div class="portlet-body form">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-actions">
-                                            <div class="col-md-3">
-                                                <button type="button" class="btn red-intense">Annulla</button>
-                                            </div>
-                                            <div class="col-md-offset-1 col-md-3">
-                                                <button type="button" class="btn green-jungle">Conferma</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
 
                         </div>
                     </div>

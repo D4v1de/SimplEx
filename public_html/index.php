@@ -52,6 +52,9 @@ switch (isset($_URL[0]) ? $_URL[0] : '') {
     case 'esempio':
         include_once VIEW_DIR."VisualizzaEsempio.php";
         break;
+    case 'graficacomune':
+        include_once VIEW_DIR."GraficaComune.php";
+        break;
     case 'visualizzatestdocente':
         include_once VIEW_DIR."/Docente/VisualizzaTest.php";
         break;
