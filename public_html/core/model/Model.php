@@ -1,6 +1,6 @@
 <?php
 include_once CORE_DIR . "Config.php";
-include_once EXCEPTION_DIR."ConnectionException.php";
+include_once EXCEPTION_DIR . "ConnectionException.php";
 
 class Model {
 
@@ -13,11 +13,12 @@ class Model {
      */
     protected static function getDB() {
         if (self::$c == NULL) {
-            self::$c = new mysqli(Config::$DB_URL, Config::$DB_USER, Config::$DB_PASS);
+            self::$c = new mysqli(Config::$DB_URL, Config::$DB_USER, Config::$DB_PASS, Config::$DB_NAME);
             if (self::$c->connect_error) {
                 throw new ConnectionException("Connection failed: " . self::$c->connect_error);
             }
         }
+        return self::$c;
     }
 }
 

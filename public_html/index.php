@@ -88,6 +88,9 @@ switch (isset($_URL[0]) ? $_URL[0] : '') {
     case 'createst':
         include_once VIEW_DIR."/Docente/CreaTest.php";
         break;
+    case 't':
+        include_once CONTROL_DIR."TestController.php";
+        break;
     default:
         echo "Route inesistente";
 }

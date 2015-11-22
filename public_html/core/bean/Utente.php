@@ -5,22 +5,25 @@
  * Date: 20/11/15
  * Time: 17:17
  */
-class Utente extends Account{
+include_once BEAN_DIR . "Account.php";
+
+class Utente extends Account {
     private $matricola;
     private $nome;
     private $cognome;
-    private $tipologia;    
+    private $tipologia;
 
     /**
      * Costruttore di Utente
      */
-    public function __construct($matricola, $nome, $cognome, $tipologia) {
-        $this->matricola=$matricola;
-        $this->nome=$nome;
-        $this->cognome=$cognome;
-        $this->tipologia=$tipologia;
-    } 
-    
+    public function __construct($username, $password, $matricola, $nome, $cognome, $tipologia) {
+        parent::__construct($username, $password);
+        $this->matricola = $matricola;
+        $this->nome = $nome;
+        $this->cognome = $cognome;
+        $this->tipologia = $tipologia;
+    }
+
     /**
      * @return String la matricola
      */
@@ -41,7 +44,7 @@ class Utente extends Account{
     public function getCognome() {
         return $this->cognome;
     }
-    
+
     /**
      * @return String la tipologia dell'utente
      */
@@ -56,7 +59,7 @@ class Utente extends Account{
     public function setMatricola($matricola) {
         $this->matricola = $matricola;
     }
-    
+
     /**
      * Setta il nome dell'utente
      * @param $nome il nome dell'utente
@@ -64,7 +67,7 @@ class Utente extends Account{
     public function setNome($nome) {
         $this->nome = $nome;
     }
-    
+
     /**
      * Setta il cognome dell'utente
      * @param $cognome il cognome dell'utente
