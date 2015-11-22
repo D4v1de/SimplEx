@@ -205,7 +205,7 @@ $controller = new Esempio();
                         <div class="row">
                                 <div class="col-md-12">
                                         <a href="javascript:;" class="btn btn-sm green">
-                                            Aggiungi Studente
+                                            Aggiungi Studente <i class="fa fa-plus"></i>
                                         </a>
                                 </div>
                         </div>
