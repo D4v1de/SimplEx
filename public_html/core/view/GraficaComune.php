@@ -84,8 +84,8 @@ $controller = new Esempio();
                         <tbody>
                         <tr class="gradeX odd" role="row">
                                 <td>
-                                    <a href="javascript:;" class="btn btn-sm default">
-                                      Bottone <i class="fa fa-edit"></i>
+                                    <a href="javascript:;" class="btn sm default">
+                                      Modifica <i class="fa fa-edit"></i>
                                     </a>
                                 </td>
                                 <td class="sorting_1">
@@ -128,7 +128,7 @@ $controller = new Esempio();
                         <tr class="gradeX even" role="row">
                                 <td>
                                     <a href="javascript:;" class="btn sm green-jungle">
-                                        Aggiungi <i class="fa fa-plus"></i>
+                                        <i class="fa fa-plus"></i> Aggiungi
                                     </a>
                                 </td>
                                 <td class="sorting_1">
@@ -139,7 +139,7 @@ $controller = new Esempio();
                         <tr class="gradeX even" role="row">
                                 <td>
                                     <a href="javascript:;" class="btn sm red-intense">
-                                        Rimuovi <i class="fa fa-minus"></i>
+                                      <i class="fa fa-minus"></i> Rimuovi
                                     </a>
                                 </td>
                                 <td class="sorting_1">
@@ -175,6 +175,75 @@ $controller = new Esempio();
             </div>
         </div>
         <!-- FINE RIGA -->
+        
+        <!-- SECONDA TABELLA -->
+        
+        <div class="row">
+                <div class="col-md-12">
+                    <div class="portlet box grey-cascade">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-globe"></i>Vari Form
+                            </div>
+                            <div class="tools">
+                                    <a href="javascript:;" class="collapse" data-original-title="" title="">
+                                    </a>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                        <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
+
+                        <div class="table-scrollable">
+                        <table class="table table-striped table-bordered table-hover dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
+                        <thead>
+                        <tr role="row">
+                                <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
+                                         Username
+                                : activate to sort column ascending" style="width: 120px;">
+                                         
+                                </th>
+                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                         Email
+                                " style="width: 750px;">
+                                </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="gradeX odd" role="row">
+                            <td>
+
+                                    <div class="input-group date form_datetime">
+                                        <input type="text" size="16" readonly="" class="form-control">
+                                        <span class="input-group-btn">
+                                            <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+                                        </span>
+                                    </div>
+                            </td>
+                                <td class="sorting_1">
+                                    <b>Calendario</b>. Usarne 2 per creare un Range di date.   
+                                </td>
+                        </tr>
+                                               
+                        
+                        </tr>                        
+                        </tbody>
+                        </table>
+                        </div>
+                </div>
+        </div>  
+                    
+                    
+                </div>
+
+            </div>
+        </div>
+        
+        
+        
+        
+        
+        
+        
         
         <div class="row">
             <div class="col-md-12">
@@ -396,6 +465,8 @@ $controller = new Esempio();
         //Demo.init(); // init demo features
     });
 </script>
+
+
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->
