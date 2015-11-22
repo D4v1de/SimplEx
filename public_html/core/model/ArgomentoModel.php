@@ -81,7 +81,7 @@ class ArgomentoModel extends Model {
         $query = sprintf(self::$READ_ARGOMENTO, $id);
         $res = Model::getDB()->query($query);
         if($res) {
-            $argomento = new Argomento($res->fetch_assoc()['id'],$res->fetch_assoc()['nome'],$res->fetch_assoc()['insegnamentoId'],$res->fetch_assoc()['insegnamentoCorsoMatricola']);
+            $argomento = new Argomento($res->fetch_assoc()['id'],$res->fetch_assoc()['nome'],$res->fetch_assoc()['insegnamento_id'],$res->fetch_assoc()['insegnamento_corso_matricola']);
             return $argomento;
         }
     }
@@ -94,7 +94,7 @@ class ArgomentoModel extends Model {
         $res = Model::getDB()->query(self::$GET_ALL_ARGOMENTO);
         if($res) {
             for($i = 0; $i < $res->num_rows; ++$i){
-                $argomento[] = new Argomento($res->fetch_assoc()['id'],$res->fetch_assoc()['nome'],$res->fetch_assoc()['insegnamentoId'],$res->fetch_assoc()['insegnamentoCorsoMatricola']);
+                $argomento[] = new Argomento($res->fetch_assoc()['id'],$res->fetch_assoc()['nome'],$res->fetch_assoc()['insegnamento_id'],$res->fetch_assoc()['insegnamento_corso_matricola']);
             }
             return $argomento[];
         }
@@ -137,7 +137,7 @@ class ArgomentoModel extends Model {
         $query = sprintf(self::$READ_DOMANDA_APERTA, $id);
         $res = Model::getDB()->query($query);
         if($res) {
-            $domandaAperta = new DomandaAperta($res->fetch_assoc()['id'],$res->fetch_assoc()['testo'],$res->fetch_assoc()['punteggioMax'],$res->fetch_assoc()['percentuleScelta'],$res->fetch_assoc()['argomentoId'],$res->fetch_assoc()['argomentoInsegnamentoId'],$res->fetch_assoc()['argomentoInsegnamentoCorsoMatricola']);
+            $domandaAperta = new DomandaAperta($res->fetch_assoc()['id'],$res->fetch_assoc()['testo'],$res->fetch_assoc()['punteggio_max'],$res->fetch_assoc()['percentule_scelta'],$res->fetch_assoc()['argomento_id'],$res->fetch_assoc()['argomento_insegnamento_id'],$res->fetch_assoc()['argomento_insegnamento_corso_matricola']);
             return $domandaAperta;
         }
     }
@@ -150,7 +150,7 @@ class ArgomentoModel extends Model {
         $res = Model::getDB()->query(self::$GET_ALL_DOMANDA_APERTA);
         if($res) {
             for($i = 0; $i < $res->num_rows; ++$i){
-                $domandaAperta[] = new DomandaAperta($res->fetch_assoc()['id'],$res->fetch_assoc()['testo'],$res->fetch_assoc()['punteggioMax'],$res->fetch_assoc()['percentuleScelta'],$res->fetch_assoc()['argomentoId'],$res->fetch_assoc()['argomentoInsegnamentoId'],$res->fetch_assoc()['argomentoInsegnamentoCorsoMatricola']);
+                $domandaAperta[] = new DomandaAperta($res->fetch_assoc()['id'],$res->fetch_assoc()['testo'],$res->fetch_assoc()['punteggio_max'],$res->fetch_assoc()['percentule_scelta'],$res->fetch_assoc()['argomento_id'],$res->fetch_assoc()['argomento_insegnamento_id'],$res->fetch_assoc()['argomento_insegnamento_corso_matricola']);
             }
             return $domandaAperta[];
         }
@@ -195,8 +195,8 @@ class ArgomentoModel extends Model {
         $query = sprintf(self::$READ_DOMANDA_MULTIPLA, $id);
         $res = Model::getDB()->query($query);
         if($res) {
-            $domandaMultipla = new DomandaMultipla($res->fetch_assoc()['id'],$res->fetch_assoc()['testo'],$res->fetch_assoc()['punteggioCorretta'],$res->fetch_assoc()['punteggioErrata'],$res->fetch_assoc()['percentuleScelta'],
-                    $res->fetch_assoc()['percentualeRispostaCorretta'],$res->fetch_assoc()['alternativaCorretta'],$res->fetch_assoc()['argomentoId'],$res->fetch_assoc()['argomentoInsegnamentoId'],$res->fetch_assoc()['argomentoInsegnamentoCorsoMatricola']);
+            $domandaMultipla = new DomandaMultipla($res->fetch_assoc()['id'],$res->fetch_assoc()['testo'],$res->fetch_assoc()['punteggio_corretta'],$res->fetch_assoc()['punteggio_errata'],$res->fetch_assoc()['percentuale_scelta'],
+                    $res->fetch_assoc()['percentuale_risposta_corretta'],$res->fetch_assoc()['alternativa_corretta'],$res->fetch_assoc()['argomento_id'],$res->fetch_assoc()['argomento_insegnamento_id'],$res->fetch_assoc()['argomento_insegnamento_corso_matricola']);
             return $domandaMultipla;
         }
     }
@@ -209,10 +209,66 @@ class ArgomentoModel extends Model {
         $res = Model::getDB()->query(self::$GET_ALL_DOMANDA_MULTIPLA);
         if($res) {
             for($i = 0; $i < $res->num_rows; ++$i){
-                $domandaMultipla[] = new DomandaMultipla($res->fetch_assoc()['id'],$res->fetch_assoc()['testo'],$res->fetch_assoc()['punteggioCorretta'],$res->fetch_assoc()['punteggioErrata'],$res->fetch_assoc()['percentuleScelta'],
-                    $res->fetch_assoc()['percentualeRispostaCorretta'],$res->fetch_assoc()['alternativaCorretta'],$res->fetch_assoc()['argomentoId'],$res->fetch_assoc()['argomentoInsegnamentoId'],$res->fetch_assoc()['argomentoInsegnamentoCorsoMatricola']);
+                $domandaMultipla[] = new DomandaMultipla($res->fetch_assoc()['id'],$res->fetch_assoc()['testo'],$res->fetch_assoc()['punteggio_corretta'],$res->fetch_assoc()['punteggio_errata'],$res->fetch_assoc()['percentuale_scelta'],
+                    $res->fetch_assoc()['percentuale_risposta_corretta'],$res->fetch_assoc()['alternativa_corretta'],$res->fetch_assoc()['argomento_id'],$res->fetch_assoc()['argomento_insegnamento_id'],$res->fetch_assoc()['argomento_insegnamento_corso_matricola']);
             }
             return $domandaMultipla[];
+        }
+    } 
+    
+    /**
+     * Inserisce una nuova alternativa nel database
+     * @param Alternativa $Alternativa
+     */
+    public function createAlternativa($Alternativa){
+        $query = sprintf(self::$CREATE_ALTERNATIVA, $Alternativa->testo,$Alternativa->percentualeScelta,$Alternativa->domandaMultiplaId, $Alternativa->domandaMultiplaArgomentoId, $Alternativa->domandaMultiplaArgomentoInsegnamentoId, $Alternativa->domandaMultiplaArgomentoInsegnamentoCorsoMatricola);
+        $res = Model::getDB()->query($query);
+    }
+    
+   /**
+    * Modifica una Alternativa nel database
+    * @param int $id
+    * @param Alternativa $updatedAlternativa
+    */
+    public function updateAlternativa($id,$updatedAlternativa){
+        $query = sprintf(self::$UPDATE_ALTERNATIVA, $updatedAlternativa->id,$updatedAlternativa->testo,$updatedAlternativa->percentualeScelta,$updatedAlternativa->domandaMultiplaId, $updatedAlternativa->domandaMultiplaArgomentoId, $updatedAlternativa->domandaMultiplaArgomentoInsegnamentoId, $updatedAlternativa->domandaMultiplaArgomentoInsegnamentoCorsoMatricola, $id);
+        $res = Model::getDB()->query($query);
+    }
+    
+    /**
+     * Cancella una Alternativa nel database
+     * @param int $id
+     */
+    public function deleteAlternativa($id){
+        $query = sprintf(self::$DELETE_ALTERNATIVA, $id);
+        $res = Model::getDB()->query($query);
+    }
+    
+    /**
+     * Cerca una domandaAperta nel database
+     * @param int $id
+     * @return \Alternativa
+     */
+    public function readAlternativa($id){
+        $query = sprintf(self::$READ_ALTERNATIVA, $id);
+        $res = Model::getDB()->query($query);
+        if($res) {
+            $alternativa = new Alternativa($res->fetch_assoc()['id'],$res->fetch_assoc()['testo'],$res->fetch_assoc()['percentuale_scelta'],$res->fetch_assoc()['domanda_multipla_id'],$res->fetch_assoc()['domanda_multipla_argomento_id'],$res->fetch_assoc()['domanda_multipla_argomento_insegnamento_id'],$res->fetch_assoc()['domanda_multipla_argomento_insegnamento_corso_matricola']);
+            return $alternativa;
+        }
+    }
+    
+  /**
+   * Restituisce tutte le alternative del database
+   * @return \Alternativa
+   */
+    public function getAllAlternativa() {
+        $res = Model::getDB()->query(self::$GET_ALL_ALTERNATIVA);
+        if($res) {
+            for($i = 0; $i < $res->num_rows; ++$i){
+                $alternativa[] = new Altenativa($res->fetch_assoc()['id'],$res->fetch_assoc()['testo'],$res->fetch_assoc()['percentuale_scelta'],$res->fetch_assoc()['domanda_multipla_id'],$res->fetch_assoc()['domanda_multipla_argomento_id'],$res->fetch_assoc()['domanda_multipla_argomento_insegnamento_id'],$res->fetch_assoc()['domanda_multipla_argomento_insegnamento_corso_matricola']);
+            }
+            return $alternativa[];
         }
     } 
     
