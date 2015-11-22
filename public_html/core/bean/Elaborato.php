@@ -14,11 +14,11 @@ class Elaborato {
 
     /**
      * Costruttore di Elaborato.
-     * @param $studenteMatricola la matricola dello studente a cui appartiene
-     * @param $sessioneId l'id della sessione a cui appartiene
-     * @param $testId l'id del test a cui si riferisce
-     * @param $esitoParziale l'esito parziale dell'elaborato
-     * @param $esitoFinale l'esito finale dell'elaborato
+     * @param string $studenteMatricola La matricola dello studente a cui appartiene
+     * @param int $sessioneId L'id della sessione a cui appartiene
+     * @param int $testId L'id del test a cui si riferisce
+     * @param float $esitoParziale L'esito parziale dell'elaborato
+     * @param float $esitoFinale L'esito finale dell'elaborato
      */
     public function __construct($studenteMatricola, $sessioneId, $testId, $esitoParziale, $esitoFinale) {
         $this->studenteMatricola = $studenteMatricola;
@@ -29,35 +29,35 @@ class Elaborato {
     }
     
     /**
-     * @return String la matricola dello studente a cui appartiene
+     * @return string La matricola dello studente a cui appartiene
      */
     public function getStudenteMatricola() {
         return $this->studenteMatricola;
     }
 
     /**
-     * @return int l'id della sessione a cui appartiene
+     * @return int L'id della sessione a cui appartiene
      */
     public function getSessioneId() {
         return $this->sessioneId;
     }
     
     /**
-     * @return int l'id del test a cui si riferisce
+     * @return int L'id del test a cui si riferisce
      */
     public function getTestId() {
         return $this->testId;
     }
 
     /**
-     * @return float l'esito parziale dell'elaborato
+     * @return float L'esito parziale dell'elaborato
      */
     public function getEsitoParziale() {
         return $this->esitoParziale;
     }
     
     /**
-     * @return float l'esito finale dell'elaborato
+     * @return float L'esito finale dell'elaborato
      */
     public function getEsitoFinale() {
         return $this->esitoFinale;
@@ -65,7 +65,7 @@ class Elaborato {
 
     /**
      * Setta la matricola dello studente a cui appartiene
-     * @param studenteMatricola la matricola dello studente a cui appartiene
+     * @param string $studenteMatricola La matricola dello studente a cui appartiene
      */
     public function setStudenteMatricola($studenteMatricola) {
         $this->studenteMatricola = $studenteMatricola;
@@ -73,7 +73,7 @@ class Elaborato {
     
     /**
      * Setta l'id della sessione a cui appartiene
-     * @param $sessioneId l'id della sessione a cui appartiene
+     * @param int $sessioneId L'id della sessione a cui appartiene
      */
     public function setSessioneId($sessioneId) {
         $this->sessioneId = $sessioneId;
@@ -81,7 +81,7 @@ class Elaborato {
     
     /**
      * Setta l'id del test a cui si riferisce
-     * @param $testId l'id del test a cui si riferisce
+     * @param int $testId L'id del test a cui si riferisce
      */
     public function setTestId($testId) {
         $this->testId = $testId;
@@ -89,7 +89,7 @@ class Elaborato {
     
     /**
      * Setta l'esito parziale dell'elaborato
-     * @param $esitoParziale l'esito parziale dell'elaborato
+     * @param float $esitoParziale L'esito parziale dell'elaborato
      */
     public function setEsitoParziale($esitoParziale) {
         $this->esitoParziale = $esitoParziale;
@@ -97,7 +97,7 @@ class Elaborato {
     
     /**
      * Setta l'esito finale dell'elaborato
-     * @param $esitoFinale l'esito parziale dell'elaborato
+     * @param float $esitoFinale L'esito parziale dell'elaborato
      */
     public function setEsitoFinale($esitoFinale) {
         $this->esitoFinale = $esitoFinale;

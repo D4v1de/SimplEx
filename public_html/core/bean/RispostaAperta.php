@@ -6,8 +6,11 @@
  * Time: 12:48
  */
 class RispostaAperta {
-    private $testo;
+    private $id;
+    private $elaboratoSessioneId;
     private $elaboratoStudenteMatricola;
+    private $testo;
+    private $punteggio;
     private $domandaApertaId;
     private $domandaApertaArgomentoId;
     private $domandaApertaArgomentoInsegnamentoId;
@@ -15,35 +18,60 @@ class RispostaAperta {
     
     /**
      * Costruttore di Risposta_multipla
-     * @param $testo testo risposta aperta
-     * @param $elaboratoStudenteMatricola la matricola dello studente a cui appartiene l'elaborato
-     * @param $domandaApertaId l'id della domanda aperta a cui si riferisce
-     * @param $domandaApertaArgomentoId l'id dell'argomento della domanda aperta
-     * @param $domandaApertaArgomentoInsegnamentoId l'id dell'insegnamento dell'argomento della domanda aperta
-     * @param $domandaApertaArgomentoInsegnamentoCorsoMatricola la matricola del corso dell'insegnamento a cui l'argomento appartiene
-     * 
+     * @param int $id L'id della risposta aperta
+     * @param int $elaboratoSessioneId L'id della sessione a cui appartiene l'elaborato relativo
+     * @param string $elaboratoStudenteMatricola La matricola dello studente a cui appartiene l'elaborato 
+     * @param string $testo Il testo della risposta aperta
+     * @param int $domandaApertaId L'id della domanda aperta a cui si riferisce
+     * @param int $domandaApertaArgomentoId L'id dell'argomento della domanda aperta
+     * @param int $domandaApertaArgomentoInsegnamentoId L'id dell'insegnamento dell'argomento della domanda aperta
+     * @param string $domandaApertaArgomentoInsegnamentoCorsoMatricola La matricola del corso dell'insegnamento a cui l'argomento appartiene
      */
-    public function __construct($testo, $elaboratoStudenteMatricola, $domandaApertaId, $domandaApertaArgomentoId,$domandaApertaArgomentoInsegnamentoId, $domandaApertaArgomentoInsegnamentoCorsoMatricola){
-        $this->testo=$testo;
+    public function __construct($id, $elaboratoSessioneId, $elaboratoStudenteMatricola, $testo, $punteggio, $domandaApertaId, $domandaApertaArgomentoId,$domandaApertaArgomentoInsegnamentoId, $domandaApertaArgomentoInsegnamentoCorsoMatricola){
+        $this->id=$id;
+        $this->elaboratoSessioneId=$elaboratoSessioneId;
         $this->elaboratoStudenteMatricola=$elaboratoStudenteMatricola;
+        $this->testo=$testo;
+        $this->punteggio=$punteggio;
         $this->domandaApertaId=$domandaApertaId;
         $this->domandaApertaArgomentoId=$domandaApertaArgomentoId;
         $this->domandaApertaArgomentoInsegnamentoId=$domandaApertaArgomentoInsegnamentoId;
         $this->domandaApertaArgomentoInsegnamentoCorsoMatricola=$domandaApertaArgomentoInsegnamentoCorsoMatricola;
     } 
     
-     /**
-     * @return String il testo della risposta
+    /**
+     * @return int L'id della risposta
+     */
+    function getId() {
+        return $this->id;
+    }
+    
+    /**
+     * @return string La matricola dell'elaborato dello studente
+     */
+    function getElaboratoSessioneId() {
+        return $this->elaboratoSessioneId;
+    }
+    
+    /**
+     * @return string La matricola dell'elaborato dello studente
+     */
+    function getElaboratoStudenteMatricola() {
+        return $this->elaboratoStudenteMatricola;
+    }
+    
+    /**
+     * @return string Il testo della risposta
      */
     function getTesto() {
         return $this->testo;
     }
-
-     /**
-     * @return String la matricola dell'elaborato dello studente
+    
+    /**
+     * @return float Il punteggio asseganto alla risposta
      */
-    function getElaboratoStudenteMatricola() {
-        return $this->elaboratoStudenteMatricola;
+    function getPunteggio() {
+        return $this->punteggio;
     }
 
      /**
@@ -54,69 +82,77 @@ class RispostaAperta {
     }
 
      /**
-     * @return int l'id dell'argomento a cui la domanda aperta appartiene
+     * @return int L'id dell'argomento a cui la domanda aperta appartiene
      */
     function getDomandaApertaArgomentoId() {
         return $this->domandaApertaArgomentoId;
     }
     
      /**
-     * @return int l'id dell'insegnamento dell'argomento a cui la domanda aperta appartiene
+     * @return int L'id dell'insegnamento dell'argomento a cui la domanda aperta appartiene
      */
     function getDomandaApertaArgomentoInsegnamentoId() {
         return $this->domandaApertaArgomentoInsegnamentoId;
     }
 
     /**
-     * @return String la matricola del corso dell'insegnamento a cui la domanda aperta appartiene
+     * @return string La matricola del corso dell'insegnamento a cui la domanda aperta appartiene
      */
     function getDomandaApertaArgomentoInsegnamentoCorsoMatricola() {
         return $this->domandaApertaArgomentoInsegnamentoCorsoMatricola;
     }
 
-     /**
+    /**
+     * Setta l'id della risposta aperta
+     * @param int $id L'id della risposta aperta
+     */
+    function setId($id) {
+        $this->id = $id;
+    }
+    
+    /**
      * Setta il testo della risposta aperta
-     * @param $testo testo della risposta aperta
+     * @param stirng $testo Il testo della risposta aperta
      */
     function setTesto($testo) {
         $this->testo = $testo;
     }
 
     /**
-     * Setta la matricola dell'elaborato dello studente
-     * @param $elaboratoStudenteMatricola matricola dell'elaborato dello studente
+     * Setta la matricola dello studente a cui appartiene l'elaborato
+     * @param string $elaboratoStudenteMatricola La matricola dello studente a cui appartiene l'elaborato
      */
     function setElaboratoStudenteMatricola($elaboratoStudenteMatricola) {
         $this->elaboratoStudenteMatricola = $elaboratoStudenteMatricola;
     }
 
      /**
-     * Setta l'id della domanda aperta
-     * @param $domandaApertaId id della domanda aperta
+     * Setta l'id della domanda aperta relativa
+     * @param int $domandaApertaId L'id della domanda aperta relativa
      */
     function setDomandaApertaId($domandaApertaId) {
         $this->domandaApertaId = $domandaApertaId;
     }
 
     /**
-     * Setta l'id dell'argomento della domanda aperta
-     * @param $domandaApertaArgomentoId id dell'argomento della domanda aperta
+     * Setta l'id dell'argomento a cui appartiene la domanda aperta
+     * @param int $domandaApertaArgomentoId L'id dell'argomento a cui appartiene la domanda aperta
      */
     function setDomandaApertaArgomentoId($domandaApertaArgomentoId) {
         $this->domandaApertaArgomentoId = $domandaApertaArgomentoId;
     }
 
     /**
-     * Setta l'id dell'insegnamento dell'argomento a cui la domanda appartiene
-     * @param $domandaApertaArgomentoInsegnamentoId id dell'insegnamento dell'argomento a cui la domanda appartiene
+     * Setta l'id dell'insegnamento a cui appartiene l'argomento relativo alla domanda
+     * @param int $domandaApertaArgomentoInsegnamentoId L'id dell'insegnamento a cui appartiene l'argomento relativo alla domanda
      */
     function setDomandaApertaArgomentoInsegnamentoId($domandaApertaArgomentoInsegnamentoId) {
         $this->domandaApertaArgomentoInsegnamentoId = $domandaApertaArgomentoInsegnamentoId;
     }
 
     /**
-     * Setta la matricola del corso dell'insegnamento dell'argomento a cui la domanda appartiene
-     * @param $domandaApertaArgomentoInsegnamentoCorsoMatricola la matricola del corso dell'insegnamento dell'argomento a cui la domanda appartiene
+     * Setta la matricola del corso dell'insegnamento a cui appartiene l'argomento relativo alla domanda
+     * @param string $domandaApertaArgomentoInsegnamentoCorsoMatricola La matricola del corso dell'insegnamento a cui appartiene l'argomento relativo alla domanda
      */
     function setDomandaApertaArgomentoInsegnamentoCorsoMatricola($domandaApertaArgomentoInsegnamentoCorsoMatricola) {
         $this->domandaApertaArgomentoInsegnamentoCorsoMatricola = $domandaApertaArgomentoInsegnamentoCorsoMatricola;
