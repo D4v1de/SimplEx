@@ -40,7 +40,18 @@ $controller = new Esempio();
             <h3 class="page-title">
                 Home Corso
             </h3>
-
+            <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li>
+                            <i class="fa fa-home"></i>
+                            <a href="index.html">Home</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <a href="#">Nome Corso</a>
+                        </li>
+                    </ul>
+                </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
 
@@ -48,21 +59,24 @@ $controller = new Esempio();
                 <div class="col-md-12">
                     <div class="col-md-8"></div>
                     <div class="col-md-4">
-                        <div class="input-group input-large date-picker input-daterange" data-date="10/11/2012" data-date-format="mm/dd/yyyy">
-                            <span class="input-group-addon">
-									Dal: </span>
-                            <input type="text" class="form-control" name="from">
-									<span class="input-group-addon">
-									Al: </span>
-                            <input type="text" class="form-control" name="to">
+                        <div class="col-md-6">
+                            <label class="control-label">Dal:</label>
+                                <div class="input-icon">
+                                        <i class="fa fa-calendar"></i>
+                                        <input class="form-control date-picker" size="16" type="text" value="12-02-2012" data-date="12-02-2012" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+                                </div>
                         </div>
-                        <!-- /input-group -->
-                            <span class="help-block">
-                            Seleziona intervallo </span>
+                        <div class="col-md-6">
+                            <label class="control-label">Al:</label>
+                                <div class="input-icon">
+                                        <i class="fa fa-calendar"></i>
+                                        <input class="form-control date-picker" size="16" type="text" value="12-02-2012" data-date="12-02-2012" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+                                </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
+            <br/>
             <div class="row">
                 <div class="col-md-12">
                     <div class="portlet box grey-cascade">
@@ -116,7 +130,7 @@ $controller = new Esempio();
                                       Esiti
                                     </a>
                                     <a href="javascript:;" class="btn btn-sm default">
-                                        <i class="fa fa-info"></i>
+                                        <i class="fa fa-info-circle"></i>
                                     </a>
                                 </td>
 
@@ -136,7 +150,7 @@ $controller = new Esempio();
                                       Esiti
                                     </a>
                                     <a href="javascript:;" class="btn btn-sm default">
-                                        <i class="fa fa-info"></i>
+                                        <i class="fa fa-info-circle"></i>
                                     </a>
                                 </td>
 
@@ -156,7 +170,7 @@ $controller = new Esempio();
                                       Esiti
                                     </a>
                                     <a href="javascript:;" class="btn btn-sm default">
-                                        <i class="fa fa-info"></i>
+                                        <i class="fa fa-info-circle"></i>
                                     </a>
                                 </td>
 
@@ -273,7 +287,7 @@ $controller = new Esempio();
                                             </td>
                                             <td class="center">
                                                 <a href="javascript:;" class="btn btn-sm default">
-                                                    <i class="fa fa-info"></i>
+                                                    <i class="fa fa-info-circle"></i>
                                                 </a>
                                             </td>
                                         </tr>
@@ -303,7 +317,7 @@ $controller = new Esempio();
                                             </td>
                                             <td class="center">
                                                 <a href="javascript:;" class="btn btn-sm default">
-                                                    <i class="fa fa-info"></i>
+                                                    <i class="fa fa-info-circle"></i>
                                                 </a>
                                             </td>
                                         </tr>
@@ -332,7 +346,7 @@ $controller = new Esempio();
                                             </td>
                                             <td class="center">
                                                 <a href="javascript:;" class="btn btn-sm default">
-                                                    <i class="fa fa-info"></i>
+                                                    <i class="fa fa-info-circle"></i>
                                                 </a>
                                             </td>
                                         </tr>
@@ -346,7 +360,7 @@ $controller = new Esempio();
                     </div>
                     
                 </div>
-    </div>
+            </div>
             <div class="row">
                     <div class="col-md-12">
                         <div class="col-md-10"></div>
