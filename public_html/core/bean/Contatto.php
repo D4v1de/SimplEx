@@ -12,9 +12,9 @@ class Contatto {
 
     /**
      * Costruttore di Contatto.
-     * @param $valore il valore del contatto
-     * @param $tipologia la tipologia del contatto
-     * @param $docenteMatricola la matricola del docente a cui appartiene il contatto
+     * @param string $valore Il valore del contatto
+     * @param enum $tipologia La tipologia del contatto
+     * @param string $docenteMatricola La matricola del docente a cui appartiene il contatto
      */
     public function __construct($valore, $tipologia, $docenteMatricola) {
         $this->valore = $valore;
@@ -23,21 +23,21 @@ class Contatto {
     }
     
     /**
-     * @return String valore il valore del contatto
+     * @return string Il valore del contatto
      */
     public function getValore() {
         return $this->valore;
     }
     
     /**
-     * @return String la tipologia del contatto
+     * @return enum La tipologia del contatto
      */
     public function getTipologia() {
         return $this->tipologia;
     }
 
     /**
-     * @return String la matricola del docente a cui appartiene il contatto
+     * @return string La matricola del docente a cui appartiene il contatto
      */
     public function getDocenteMatricola() {
         return $this->docenteMatricola;
@@ -45,7 +45,7 @@ class Contatto {
     
     /**
      * Setta il valore del contatto
-     * @param $valore il valore del contatto
+     * @param string $valore Il valore del contatto
      */
     public function setValore($valore) {
         $this->valore = $valore;
@@ -53,7 +53,7 @@ class Contatto {
     
     /**
      * Setta la tipologia del contatto
-     * @param $tipologia la tipologia del contatto
+     * @param enum $tipologia La tipologia del contatto
      */
     public function setTipologia($tipologia) {
         $this->tipologia = $tipologia;
@@ -61,7 +61,7 @@ class Contatto {
     
     /**
      * Setta la matricola del docente a cui appartiene il contatto
-     * @param $docenteMatricola la matricola del docente a cui appartiene il contatto
+     * @param string $docenteMatricola La matricola del docente a cui appartiene il contatto
      */
     public function setDocenteMatricola($docenteMatricola) {
         $this->docenteMatricola = $docenteMatricola;

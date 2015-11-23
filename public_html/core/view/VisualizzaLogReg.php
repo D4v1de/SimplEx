@@ -13,7 +13,7 @@ try {
     if (isset($_POST['action'])) {
         switch ($_POST['action']) {
             case 'login': {
-                $controller->login($_POST['username'], $_POST['password']);
+                $controller->login($_POST['email'], $_POST['password'], ($_POST['remember'] == "1" ? true : false));
             }
                 break;
             case 'register': {
@@ -75,7 +75,7 @@ try {
         <div class="alert alert-danger display-hide">
             <button class="close" data-close="alert"></button>
 			<span>
-			Inserisci username e password. </span>
+			Inserisci e-mail e password. </span>
         </div>
         <?php
         if ($error != null && $error instanceof UserNotFoundException) {
@@ -85,12 +85,12 @@ try {
 
         <div class="form-group">
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-            <label class="control-label visible-ie8 visible-ie9">Username</label>
+            <label class="control-label visible-ie8 visible-ie9">E-mail</label>
 
             <div class="input-icon">
                 <i class="fa fa-user"></i>
-                <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Username"
-                       name="username"/>
+                <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="E-mail"
+                       name="email"/>
             </div>
         </div>
         <div class="form-group">
@@ -195,8 +195,9 @@ try {
                 <option value=""></option>
                 <?php
                 $corsi = $controller->getCDL();
+                /** @var CdL $corso */
                 foreach ($corsi as $corso) {
-                    echo "<option value='$corso->codice'>$corso->nome</option>";
+                    printf("<option value='%s'>%s</option>", $corso->getMatricola(), $corso->getNome());
                 }
                 ?>
             </select>
@@ -206,7 +207,7 @@ try {
         </p>
 
         <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">Nome utente</label>
+            <label class="control-label visible-ie8 visible-ie9">E-mail</label>
 
             <div class="input-icon">
                 <i class="fa fa-user"></i>
@@ -262,10 +263,6 @@ try {
 <!-- END COPYRIGHT -->
 
 <?php include VIEW_DIR . "js.php"; ?>
-
-<!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
-
 <!-- END PAGE LEVEL SCRIPTS -->
 
 <!-- BEGIN PAGE LEVEL PLUGINS -->
@@ -279,7 +276,6 @@ try {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
         Login.init();
-        Demo.init();
         // init background slide images
         $.backstretch([
                 "/assets/admin/pages/media/bg/1.jpg",

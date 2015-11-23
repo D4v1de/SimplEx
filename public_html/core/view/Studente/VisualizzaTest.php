@@ -49,7 +49,6 @@ $controller = new Esempio();
                     </li>
                     <li>
                         <a href="#">Visualizza Test</a>
-                        <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
             </div>
@@ -90,7 +89,7 @@ $controller = new Esempio();
              <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-9"></div>
-                    <button type="button" class="btn green">Indietro</button> 
+                    <button type="button" class="btn green-jungle">Indietro</button> 
                    
                 </div>
             </div>

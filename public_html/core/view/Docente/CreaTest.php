@@ -38,8 +38,25 @@ $controller = new Esempio();
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                Crea Test
-            </h3>
+                    Crea Test
+                </h3>
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li>
+                            <i class="fa fa-home"></i>
+                            <a href="index.html">Home</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <a href="#">Nome Corso</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <a href="#">Crea Test</a>
+                        </li>
+
+                    </ul>
+                </div>
 
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
@@ -176,8 +193,8 @@ $controller = new Esempio();
                 </div>
                 <div class="form-actions row">
                     <div class="col-md-9"></div>
-                        <button type="button" class="btn default">Annulla</button>
-                        <button type="submit" class="btn blue">Conferma</button>
+                        <button type="button" class="btn red-intense">Annulla</button>
+                        <button type="submit" class="btn green-jungle">Conferma</button>
                     </div>
                 </div>
             </form>

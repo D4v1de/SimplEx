@@ -11,23 +11,23 @@ class Insegnamento {
 
     /**
      * Costruttore di Insegnamento
-     * @param $corsoMatricola la matricola del corso a cui appartiene
-     * @param $id l'identificatore dell'insegnamento
+     * @param int $id L'identificatore dell'insegnamento
+     * @param string $corsoMatricola La matricola del corso a cui appartiene
      */
-    public function __construct($corsoMatricola, $id) {
+    public function __construct($id, $corsoMatricola) {
         $this->corsoMatricola = $corsoMatricola;
         $this->id = $id;
     }
     
     /**
-     * @return int l'id del corso
+     * @return int L'id del corso
      */
     public function getId() {
         return $this->id;
     }
     
     /**
-     * @return String la matricola del corso a cui appartiene
+     * @return string La matricola del corso a cui appartiene
      */
     public function getCorsoMatricola() {
         return $this->matricola;
@@ -35,7 +35,7 @@ class Insegnamento {
 
     /**
      * Setta la matricola del corso a cui appartiene
-     * @param corsoMatricola la matricola del corso a cui appartiene
+     * @param string $corsoMatricola La matricola del corso a cui appartiene
      */
     public function setCorsoMatricola($corsoMatricola) {
         $this->corsoMatricola = $corsoMatricola;
@@ -43,7 +43,7 @@ class Insegnamento {
     
     /**
      * Setta l'id dell'insegnamento
-     * @param $id l'id dell'insegnamento
+     * @param int $id L'id dell'insegnamento
      */
     public function setNome($id) {
         $this->id = $id;
