@@ -28,7 +28,7 @@ class TestModel extends Model {
     
     /**
      * Inserisce un nuovo test nel database
-     * @param Test test Il test da inserire nel database
+     * @param Test $test Il test da inserire nel database
      */
     public function createTest($test) {
         $query = sprintf(self::$CREATE_TEST, $test->getDescrizione(), $test->getPunteggioMax(), $test->getNumeroMultiple(), $test->getNumeroAperte(), $test->getPercentualeScelto(), $test->getPercentualeSuccesso());
@@ -43,8 +43,8 @@ class TestModel extends Model {
 
     /**
      * Modifica un test nel database
-     * @param int id L'id del test da modificare
-     * @param Test updatedTest Il test da aggiornare nel db
+     * @param int $id L'id del test da modificare
+     * @param Test $updatedTest Il test da aggiornare nel db
      */
     public function updateTest($id, $updatedTest) {
         $query = sprintf(self::$UPDATE_TEST, $updatedTest->getDescrizione(), $updatedTest->getPunteggioMax(), $updatedTest->getNumeroMultiple(), $updatedTest->getNumeroAperte(), $updatedTest->getPercentualeScelto(), $updatedTest->getPercentualeSuccesso(), $id);
@@ -59,7 +59,7 @@ class TestModel extends Model {
 
     /**
      * Cancella un test nel database
-     * @param int id L'id del test da eliminare
+     * @param int $id L'id del test da eliminare
      */
     public function deleteTest($id) {
         $query = sprintf(self::$DELETE_TEST, $id);
@@ -74,13 +74,12 @@ class TestModel extends Model {
 
     /**
      * Cerca un test nel database
-     * @param int id L'id del test da cercare
+     * @param int $id L'id del test da cercare
      */
     public function readTest($id) {
         $query = sprintf(self::$READ_TEST, $id);
         $res = Model::getDB()->query($query);
-        if ($res) {
-            $obj = $res->fetch_assoc();
+        if ($obj = $res->fetch_assoc()) {
             $test = new Test($obj['id'], $obj['descrizione'], $obj['punteggio_max'], $obj['numero_multiple'], $obj['numero_aperte'], $obj['pecentuale_scelto'], $obj['percentuale_successo'] );
             return $test;
         }
@@ -91,15 +90,20 @@ class TestModel extends Model {
 
     /**
      * Restituisce tutti i test del database
-     * @return Test[] tests Tutti i test del database
+     * @return Test[] Tutti i test del database
      */
     public function getAllTest() {
         $res = Model::getDB()->query(self::$GET_ALL_TESTS);
         $tests = array();
-        while ($obj = $res->fetch_assoc()) {
-            $tests[]= new Test($obj['id'], $obj['descrizione'], $obj['punteggio_max'], $obj['numero_multiple'], $obj['numero_aperte'], $obj['pecentuale_scelto'], $obj['percentuale_successo'] );
+        if($res){
+            while ($obj = $res->fetch_assoc()) {
+                $tests[]= new Test($obj['id'], $obj['descrizione'], $obj['punteggio_max'], $obj['numero_multiple'], $obj['numero_aperte'], $obj['pecentuale_scelto'], $obj['percentuale_successo'] );
+            }
+            return $tests;
         }
-        return $tests;
+        else{
+            //nessun test trovato
+        }
     }
     
     /**
@@ -111,26 +115,36 @@ class TestModel extends Model {
         $query = sprintf(self::$GET_ALL_DOMANDE_APERTE_TEST, $id);
         $res = Model::getDB()->query($query);
         $domande = array();
-        while ($obj = $res->fetch_assoc()) {
-           $domandaAperta = new DomandaAperta(); //da completare
-           $domande[]= domandaAperta;
+        if($res){
+            while ($obj = $res->fetch_assoc()) {
+                $domandaAperta = new DomandaAperta(); //da completare
+                $domande[]= domandaAperta;
+            }
+            return $domande;
         }
-        return $domande;
+        else{
+            //nesuna domanda aperta trovata
+        }
     }
     
     /**
      * Restituisce tutte le domande multiple che costituiscono un test
      * @param int $id L'id del test per il quale si vogliono conoscere tutte le domande multiple che lo compongono
-     * @return Test[] tests Tutte le domande multiple che costituiscono un test
+     * @return Test[] Tutte le domande multiple che costituiscono un test
      */
     public function getAllDomandeMultipleTest($id) {
         $query = sprintf(self::$GET_ALL_DOMANDE_MULTIPLE_TEST, $id);
         $res = Model::getDB()->query($query);
         $domande = array();
-        while ($obj = $res->fetch_assoc()) {
-            $domandaMultipla = new DomandaMultipla(); //da completare
-            $domande[]= domandaMultipla;
+        if($res){
+            while ($obj = $res->fetch_assoc()) {
+                $domandaMultipla = new DomandaMultipla(); //da completare
+                $domande[]= domandaMultipla;
+            }
+            return $domande;
         }
-        return $domande;
+        else{
+            //nessuna domanda multipla trovata
+        }
     }
 }
