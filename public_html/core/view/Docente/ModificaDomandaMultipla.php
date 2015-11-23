@@ -37,7 +37,7 @@ $controller = new Esempio();
                 <div class="page-content">
                     <!-- BEGIN PAGE HEADER-->
                     <h3 class="page-title">
-                        Inserisci un nuovo argomento
+                        Modifica una domanda a risposta multipla
                     </h3>
                     <div class="page-bar">
                         <ul class="page-breadcrumb">
@@ -47,11 +47,15 @@ $controller = new Esempio();
                                 <i class="fa fa-angle-right"></i>
                             </li>
                             <li>
-                                <a href="#">Nome Corso</a>
+                                <a href="#">Ingegneria Del Software</a>
                                 <i class="fa fa-angle-right"></i>
                             </li>
                             <li>
-                                <a href="#">Nuovo Argomento</a>
+                                <a href="#">Use-Case</a>
+                                <i class="fa fa-angle-right"></i>
+                            </li>
+                            <li>
+                                <a href="#">Modifica Domanda Multipla</a>
                                 <i class="fa fa-angle-right"></i>
                             </li>
                         </ul>
@@ -61,7 +65,7 @@ $controller = new Esempio();
                     <div class="portlet box grey-cascade">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-globe"></i> Inserisci Argomento
+                                <i class="fa fa-globe"></i> Modifica Domanda
                             </div>
                             <div class="tools">
                                 <a href="" class="collapse" data-original-title="" title="">
@@ -71,11 +75,57 @@ $controller = new Esempio();
                         <div class="portlet-body form">
                             <form role="form">
                                 <div class="form-body">
+
                                     <div class="form-group col-md-12">
-                                        <label class="control-label col-md-8">Inserisci titolo argomento
-                                            <input type="text" class="form-control" placeholder="Inserisci titolo">
+                                        <label class="control-label col-md-8">Inserisci testo domanda
+                                            <input type="text" class="form-control" placeholder="Quale di queste due relazioni non esiste tra due casi d'uso">
                                         </label>
+                                        <div class="radio-list col-md-12">
+                                            <label class="col-md-12">
+                                                Inserisci testo risposta
+                                            </label>
+                                            <div class="radio col-sm-2" id="uniform-optionsRadios1"><span><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked=""></span></div>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" placeholder="Associazione">
+                                            </div>
+                                            <div class="col-sm-2"></div>
+                                            <label class="col-md-12">
+                                                Inserisci testo risposta
+                                            </label>
+                                            <div class="radio col-sm-2" id="uniform-optionsRadios1"><span><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked=""></span></div>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" placeholder="Generalizzazione">
+                                            </div>
+                                            <div class="col-sm-2"></div>
+                                            <label class="col-md-12">
+                                                Inserisci testo risposta
+                                            </label>
+                                            <div class="radio col-sm-2" id="uniform-optionsRadios1"><span><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked=""></span></div>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" placeholder="Inserisci una nuova risposta">
+                                            </div>
+                                            <div class="col-sm-2"></div>
+                                        </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label ">Inserisci punteggio risposta esatta</label>
+                                        <div class="col-md-3">
+                                            <input type="number" class="form-control" placeholder="2">
+                                        </div>
+                                        <a href="javascript:;" class="btn sm red-intense">
+                                            Azzera
+                                        </a>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label ">Inserisci punteggio risposta errata</label>
+                                        <div class="col-md-3">
+                                            <input type="number" class="form-control" placeholder="-1">
+                                        </div>
+                                        <a href="javascript:;" class="btn sm red-intense">
+                                            Azzera
+                                        </a>
+                                    </div>
+
                                 </div>
                                 <div class="form-actions">
                                     <a href="javascript:;" class="btn sm green-jungle">

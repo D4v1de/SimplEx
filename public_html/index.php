@@ -97,11 +97,20 @@ switch (isset($_URL[0]) ? $_URL[0] : '') {
     case 'inseriscidomandaaperta':
         include_once VIEW_DIR . "/Docente/InserisciDomandaAperta.php";
         break;
+    case 'modificadomandaaperta':
+        include_once VIEW_DIR . "/Docente/ModificaDomandaAperta.php";
+        break;
     case 'inseriscidomandamultipla':
         include_once VIEW_DIR . "/Docente/InserisciDomandaMultipla.php";
         break;
+     case 'modificadomandamultipla':
+        include_once VIEW_DIR . "/Docente/ModificaDomandaMultipla.php";
+        break;
     case 'inserisciargomento':
         include_once VIEW_DIR . "/Docente/InserisciArgomento.php";
+        break;
+    case 'modificaargomento':
+        include_once VIEW_DIR . "/Docente/ModificaArgomento.php";
         break;
     case 'creacdl':
         include_once VIEW_DIR . "/Admin/creaCdL.php";

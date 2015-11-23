@@ -37,7 +37,7 @@ $controller = new Esempio();
                 <div class="page-content">
                     <!-- BEGIN PAGE HEADER-->
                     <h3 class="page-title">
-                        Inserisci un nuovo argomento
+                        Modifica una domanda a risposta aperta
                     </h3>
                     <div class="page-bar">
                         <ul class="page-breadcrumb">
@@ -51,7 +51,11 @@ $controller = new Esempio();
                                 <i class="fa fa-angle-right"></i>
                             </li>
                             <li>
-                                <a href="#">Nuovo Argomento</a>
+                                <a href="#">Nome Argomento</a>
+                                <i class="fa fa-angle-right"></i>
+                            </li>
+                            <li>
+                                <a href="#">Modifica Domanda Aperta</a>
                                 <i class="fa fa-angle-right"></i>
                             </li>
                         </ul>
@@ -61,7 +65,7 @@ $controller = new Esempio();
                     <div class="portlet box grey-cascade">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-globe"></i> Inserisci Argomento
+                                <i class="fa fa-globe"></i> Modifica Domanda
                             </div>
                             <div class="tools">
                                 <a href="" class="collapse" data-original-title="" title="">
@@ -72,12 +76,21 @@ $controller = new Esempio();
                             <form role="form">
                                 <div class="form-body">
                                     <div class="form-group col-md-12">
-                                        <label class="control-label col-md-8">Inserisci titolo argomento
-                                            <input type="text" class="form-control" placeholder="Inserisci titolo">
+                                        <label class="control-label col-md-8">Modifica testo domanda
+                                            <input type="text" class="form-control" placeholder="Descrivere le differenza tra una relazione extende e una relazione include">
                                         </label>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label ">Modifica punteggio risposta</label>
+                                        <div class="col-md-3">
+                                            <input type="number" class="form-control" placeholder="10">
+                                        </div>
+                                        <a href="javascript:;" class="btn sm red-intense">
+                                            Azzera
+                                        </a>
+                                    </div>
                                 </div>
-                                <div class="form-actions">
+                                <div class="form-actions row">
                                     <a href="javascript:;" class="btn sm green-jungle">
                                         Conferma
                                     </a>

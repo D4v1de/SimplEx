@@ -37,7 +37,7 @@ $controller = new Esempio();
                 <div class="page-content">
                     <!-- BEGIN PAGE HEADER-->
                     <h3 class="page-title">
-                        Inserisci un nuovo argomento
+                        Modifica argomento
                     </h3>
                     <div class="page-bar">
                         <ul class="page-breadcrumb">
@@ -51,7 +51,7 @@ $controller = new Esempio();
                                 <i class="fa fa-angle-right"></i>
                             </li>
                             <li>
-                                <a href="#">Nuovo Argomento</a>
+                                <a href="#">Modifica Argomento</a>
                                 <i class="fa fa-angle-right"></i>
                             </li>
                         </ul>
@@ -61,7 +61,7 @@ $controller = new Esempio();
                     <div class="portlet box grey-cascade">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-globe"></i> Inserisci Argomento
+                                <i class="fa fa-globe"></i> Modifica Argomento
                             </div>
                             <div class="tools">
                                 <a href="" class="collapse" data-original-title="" title="">
@@ -72,8 +72,8 @@ $controller = new Esempio();
                             <form role="form">
                                 <div class="form-body">
                                     <div class="form-group col-md-12">
-                                        <label class="control-label col-md-8">Inserisci titolo argomento
-                                            <input type="text" class="form-control" placeholder="Inserisci titolo">
+                                        <label class="control-label col-md-8">Modifica titolo argomento
+                                            <input type="text" class="form-control" placeholder="Requirements Analysis Document">
                                         </label>
                                     </div>
                                 </div>
