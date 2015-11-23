@@ -29,6 +29,12 @@ class AccountModel extends Model {
         return $this->getUtenteByIdentity(self::createIdentity($email, $password));
     }
 
+    /**
+     * @param $identity
+     * @return Utente
+     * @throws ConnectionException
+     * @throws UserNotFoundException
+     */
     public function getUtenteByIdentity($identity) {
         $qr = sprintf(self::$SELECT_UTENTE, $identity);
 
@@ -36,6 +42,12 @@ class AccountModel extends Model {
         return $this->parseUtente($res);
     }
 
+    /**
+     * @param $matricola
+     * @return Utente
+     * @throws ConnectionException
+     * @throws UserNotFoundException
+     */
     public function getUtenteByMatricola($matricola) {
         $qr = sprintf(self::$SELECT_UTENTE_MATRICOLA, $matricola);
 
