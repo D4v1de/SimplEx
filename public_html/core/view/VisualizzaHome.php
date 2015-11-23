@@ -5,6 +5,8 @@
  * Date: 18/11/15
  * Time: 09:19
  */
+
+print_r($_SESSION);
 ?>
 
 <h1>Bravo!</h1>

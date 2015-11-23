@@ -7,11 +7,11 @@
  */
 class Utente {
     private $username;
-    private $password; 
+    private $password;
     private $matricola;
     private $nome;
     private $cognome;
-    private $tipologia;  
+    private $tipologia;
     private $cdlMatricola;
 
     /**
@@ -21,68 +21,69 @@ class Utente {
      * @param string $matricola La matricola dell'utente
      * @param string $nome Il nome dell'utente
      * @param string $cognome Il cognome dell'utente
-     * @param boolean $tipologia La tipologia di utente
+     * @param string $tipologia La tipologia di utente
      * @param string $cdlMatricola La matricola del corso di laurea a cui è iscritto l'utente Studente
      */
     public function __construct($username, $password, $matricola, $nome, $cognome, $tipologia, $cdlMatricola) {
-        $this->username=$username;
+
+            $this->username=$username;
         $this->password=$password;
         $this->matricola=$matricola;
         $this->nome=$nome;
         $this->cognome=$cognome;
         $this->tipologia=$tipologia;
-        $this->cdlMatricol=$cdlMatricola;
-    } 
-    
+        $this->cdlMatricola=$cdlMatricola;
+    }
+
     /**
      * @return String L'username dell'utente
      */
     public function getUsername() {
         return $this->username;
     }
-  
+
     /**
-     * @return String La password dell'utente
+     * @return string La password dell'utente
      */
     public function getPassword() {
         return $this->password;
     }
-    
+
     /**
-     * @return String La matricola
+     * @return string La matricola
      */
     public function getMatricola() {
         return $this->matricola;
     }
 
     /**
-     * @return String Il nome dell'utente
+     * @return string Il nome dell'utente
      */
     public function getNome() {
         return $this->nome;
     }
 
     /**
-     * @return String Il cognome dell'utente
+     * @return string Il cognome dell'utente
      */
     public function getCognome() {
         return $this->cognome;
     }
     
     /**
-     * @return String La tipologia dell'utente
+     * @return string La tipologia dell'utente
      */
     public function getTipologia() {
         return $this->tipologia;
     }
 
     /**
-     * @return String La matricola del corso di laurea a cui è iscritto l'utente Studente
+     * @return string La matricola del corso di laurea a cui è iscritto l'utente Studente
      */
     public function getCdlMatricola() {
         return $this->cdlMatricola;
     }
-    
+
     /**
      * Setta l'username dell'utente
      * @param string $username L'username dell'utente
@@ -90,7 +91,7 @@ class Utente {
     public function setUsername($username) {
         $this->username = $username;
     }
-    
+
     /**
      * Setta la password dell'utente
      * @param string $password La password dell'utente
@@ -98,7 +99,7 @@ class Utente {
     public function setPassword($password) {
         $this->password = $password;
     }
-    
+
     /**
      * Setta la matricola dell'utente
      * @param string $matricola La matricola dell'utente
@@ -125,12 +126,12 @@ class Utente {
 
     /**
      * Setta la tipologia dell'utente
-     * @param boolean $tipologia La tipologia dell'utente
+     * @param enum $tipologia La tipologia dell'utente
      */
     public function setTipologia($tipologia) {
         $this->tipologia = $tipologia;
     }
-    
+
     /**
      * Setta la matricola del corso di laurea a cui è iscritto l'utente Studente
      * @param string $cdlMatricola La matricola del corso di laurea a cui è iscritto l'utente Studente

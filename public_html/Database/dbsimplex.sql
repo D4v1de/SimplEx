@@ -23,12 +23,12 @@ DROP TABLE IF EXISTS `abilitatazione`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `abilitatazione` (
-  `sessione_id` int(10) NOT NULL,
   `studente_matricola` varchar(10) NOT NULL,
+  `sessione_id` int(10) NOT NULL,
   PRIMARY KEY (`sessione_id`,`studente_matricola`),
   KEY `studente_mat_idx` (`studente_matricola`),
   CONSTRAINT `sessione_id` FOREIGN KEY (`sessione_id`) REFERENCES `sessione` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `studente_mat` FOREIGN KEY (`studente_matricola`) REFERENCES `studente` (`matricola`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `studente_mat` FOREIGN KEY (`studente_matricola`) REFERENCES `utente` (`matricola`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -52,16 +52,19 @@ CREATE TABLE `alternativa` (
   `id` int(8) NOT NULL AUTO_INCREMENT,
   `testo` varchar(30) NOT NULL,
   `percentuale_scelta` varchar(45) DEFAULT '0',
+  `domanda_multipla_id` int(8) NOT NULL,
   `domanda_multipla_argomento_id` int(3) NOT NULL,
   `domanda_multipla_argomento_insegnamento_id` int(2) NOT NULL,
   `domanda_multipla_argomento_insegnamento_corso_matricola` varchar(10) NOT NULL,
-  PRIMARY KEY (`id`,`domanda_multipla_argomento_id`,`domanda_multipla_argomento_insegnamento_id`,`domanda_multipla_argomento_insegnamento_corso_matricola`),
+  PRIMARY KEY (`id`,`domanda_multipla_argomento_id`,`domanda_multipla_argomento_insegnamento_id`,`domanda_multipla_argomento_insegnamento_corso_matricola`,`domanda_multipla_id`),
   KEY `domanda_multipla_argomento_id_idx` (`domanda_multipla_argomento_id`),
   KEY `domanda_multipla_argomento_insegnamento_id_idx` (`domanda_multipla_argomento_insegnamento_id`),
   KEY `domanda_multipla_argomento_insegnamento_corso_matricola_idx` (`domanda_multipla_argomento_insegnamento_corso_matricola`),
-  CONSTRAINT `domanda_multipla_argomento_id` FOREIGN KEY (`domanda_multipla_argomento_id`) REFERENCES `domanda_multipla` (`argomento_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `domanda_multipla_argomento_insegnamento_corso_matricola` FOREIGN KEY (`domanda_multipla_argomento_insegnamento_corso_matricola`) REFERENCES `domanda_multipla` (`argomento_insegnamento_corso_matricola`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `domanda_multipla_argomento_insegnamento_id` FOREIGN KEY (`domanda_multipla_argomento_insegnamento_id`) REFERENCES `domanda_multipla` (`argomento_insegnamento_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `dom1` (`domanda_multipla_id`),
+  CONSTRAINT `dom1` FOREIGN KEY (`domanda_multipla_id`) REFERENCES `domanda_multipla` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `dom2` FOREIGN KEY (`domanda_multipla_argomento_id`) REFERENCES `domanda_multipla` (`argomento_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `dom3` FOREIGN KEY (`domanda_multipla_argomento_insegnamento_id`) REFERENCES `domanda_multipla` (`argomento_insegnamento_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `dom4` FOREIGN KEY (`domanda_multipla_argomento_insegnamento_corso_matricola`) REFERENCES `domanda_multipla` (`argomento_insegnamento_corso_matricola`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -113,7 +116,7 @@ DROP TABLE IF EXISTS `cdl`;
 CREATE TABLE `cdl` (
   `matricola` varchar(10) NOT NULL,
   `nome` varchar(40) NOT NULL,
-  `tipologia` varchar(20) NOT NULL,
+  `tipologia` enum('Triennale','Magistrale') NOT NULL,
   PRIMARY KEY (`matricola`),
   UNIQUE KEY `nome_UNIQUE` (`nome`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -174,21 +177,22 @@ DROP TABLE IF EXISTS `compone_multipla`;
 CREATE TABLE `compone_multipla` (
   `punteggio_corretto_altrenativo` float DEFAULT NULL,
   `punteggio_errata_alternativo` float DEFAULT NULL,
-  `domanda_multipla_id` int(8) DEFAULT NULL,
-  `test_id` int(8) DEFAULT NULL,
-  `domanda_multipla_argomento_id` int(3) DEFAULT NULL,
-  `domanda_multipla_argomento_insegnamento_id` int(2) DEFAULT NULL,
-  `domanda_multipla_argomento_insegnamento_corso_matricola` varchar(10) DEFAULT NULL,
+  `domanda_multipla_id` int(8) NOT NULL,
+  `test_id` int(8) NOT NULL,
+  `domanda_multipla_argomento_id` int(3) NOT NULL,
+  `domanda_multipla_argomento_insegnamento_id` int(2) NOT NULL,
+  `domanda_multipla_argomento_insegnamento_corso_matricola` varchar(10) NOT NULL,
+  PRIMARY KEY (`domanda_multipla_id`,`test_id`,`domanda_multipla_argomento_id`,`domanda_multipla_argomento_insegnamento_id`,`domanda_multipla_argomento_insegnamento_corso_matricola`),
   KEY `domanda_multipla_id_idx` (`domanda_multipla_id`),
   KEY `test_id_idx` (`test_id`),
   KEY `domanda_multipla_argomento_id_idx` (`domanda_multipla_argomento_id`),
-  KEY `compone_multipla_ibfk_3` (`domanda_multipla_argomento_insegnamento_id`),
-  KEY `compone_multipla_ibfk_4` (`domanda_multipla_argomento_insegnamento_corso_matricola`),
-  CONSTRAINT `compone_multipla_ibfk_1` FOREIGN KEY (`test_id`) REFERENCES `test` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `compone_multipla_ibfk_2` FOREIGN KEY (`domanda_multipla_argomento_id`) REFERENCES `domanda_multipla` (`argomento_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `compone_multipla_ibfk_3` FOREIGN KEY (`domanda_multipla_argomento_insegnamento_id`) REFERENCES `domanda_multipla` (`argomento_insegnamento_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `compone_multipla_ibfk_4` FOREIGN KEY (`domanda_multipla_argomento_insegnamento_corso_matricola`) REFERENCES `domanda_multipla` (`argomento_insegnamento_corso_matricola`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `domanda_multipla_id` FOREIGN KEY (`domanda_multipla_id`) REFERENCES `domanda_multipla` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `dom7` (`domanda_multipla_argomento_insegnamento_id`),
+  KEY `dom8` (`domanda_multipla_argomento_insegnamento_corso_matricola`),
+  CONSTRAINT `compone_multipla_ibfk_2` FOREIGN KEY (`test_id`) REFERENCES `test` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `dom5` FOREIGN KEY (`domanda_multipla_id`) REFERENCES `domanda_multipla` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `dom6` FOREIGN KEY (`domanda_multipla_argomento_id`) REFERENCES `domanda_multipla` (`argomento_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `dom7` FOREIGN KEY (`domanda_multipla_argomento_insegnamento_id`) REFERENCES `domanda_multipla` (`argomento_insegnamento_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `dom8` FOREIGN KEY (`domanda_multipla_argomento_insegnamento_corso_matricola`) REFERENCES `domanda_multipla` (`argomento_insegnamento_corso_matricola`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -210,11 +214,11 @@ DROP TABLE IF EXISTS `contatto`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `contatto` (
   `valore` varchar(20) NOT NULL,
-  `tipologia` varchar(15) DEFAULT NULL,
+  `tipologia` enum('Telefono','E-mail','Fax','Cellulare') NOT NULL,
   `docente_matricola` varchar(10) NOT NULL,
-  PRIMARY KEY (`valore`),
+  PRIMARY KEY (`valore`,`docente_matricola`),
   KEY `docente_matricola_idx` (`docente_matricola`),
-  CONSTRAINT `docente_matricola` FOREIGN KEY (`docente_matricola`) REFERENCES `docente` (`matricola`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `docente_matricola` FOREIGN KEY (`docente_matricola`) REFERENCES `utente` (`matricola`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -237,7 +241,7 @@ DROP TABLE IF EXISTS `corso`;
 CREATE TABLE `corso` (
   `matricola` varchar(10) NOT NULL,
   `nome` varchar(40) NOT NULL,
-  `tipologia` varchar(20) DEFAULT NULL,
+  `tipologia` enum('Semestrale','Annuale') NOT NULL,
   `cdl_matricola` varchar(10) NOT NULL,
   PRIMARY KEY (`matricola`),
   UNIQUE KEY `nome_UNIQUE` (`nome`),
@@ -256,89 +260,6 @@ LOCK TABLES `corso` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `credenziali`
---
-
-DROP TABLE IF EXISTS `credenziali`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `credenziali` (
-  `username` varchar(50) NOT NULL,
-  `password` varchar(32) NOT NULL,
-  `matricola_studente` varchar(10) DEFAULT NULL,
-  `matricola_docente` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`username`),
-  UNIQUE KEY `username_UNIQUE` (`username`),
-  KEY `matricola_studente_idx` (`matricola_studente`),
-  KEY `matricola_docente_idx` (`matricola_docente`),
-  CONSTRAINT `matricola_docente` FOREIGN KEY (`matricola_docente`) REFERENCES `docente` (`matricola`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `matricola_studente` FOREIGN KEY (`matricola_studente`) REFERENCES `studente` (`matricola`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `credenziali`
---
-
-LOCK TABLES `credenziali` WRITE;
-/*!40000 ALTER TABLE `credenziali` DISABLE KEYS */;
-/*!40000 ALTER TABLE `credenziali` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `docente`
---
-
-DROP TABLE IF EXISTS `docente`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `docente` (
-  `matricola` varchar(10) NOT NULL,
-  `nome` varchar(30) NOT NULL,
-  `cognome` varchar(30) NOT NULL,
-  PRIMARY KEY (`matricola`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `docente`
---
-
-LOCK TABLES `docente` WRITE;
-/*!40000 ALTER TABLE `docente` DISABLE KEYS */;
-/*!40000 ALTER TABLE `docente` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `docente_insegnamento`
---
-
-DROP TABLE IF EXISTS `docente_insegnamento`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `docente_insegnamento` (
-  `docente_matrciola` varchar(10) NOT NULL,
-  `insegnamento_id` int(2) NOT NULL,
-  `insegnamento_corso_matricola` varchar(10) NOT NULL,
-  PRIMARY KEY (`docente_matrciola`,`insegnamento_id`,`insegnamento_corso_matricola`),
-  KEY `docente_insegnamento_ibfk_2` (`insegnamento_id`),
-  KEY `docente_insegnamento_ibfk_3` (`insegnamento_corso_matricola`),
-  CONSTRAINT `docente_insegnamento_ibfk_1` FOREIGN KEY (`docente_matrciola`) REFERENCES `docente` (`matricola`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `docente_insegnamento_ibfk_2` FOREIGN KEY (`insegnamento_id`) REFERENCES `insegnamento` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `docente_insegnamento_ibfk_3` FOREIGN KEY (`insegnamento_corso_matricola`) REFERENCES `insegnamento` (`corso_matricola`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `docente_insegnamento`
---
-
-LOCK TABLES `docente_insegnamento` WRITE;
-/*!40000 ALTER TABLE `docente_insegnamento` DISABLE KEYS */;
-/*!40000 ALTER TABLE `docente_insegnamento` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `domanda_aperta`
 --
 
@@ -347,13 +268,13 @@ DROP TABLE IF EXISTS `domanda_aperta`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `domanda_aperta` (
   `id` int(8) NOT NULL AUTO_INCREMENT,
-  `testo` varchar(100) DEFAULT NULL,
-  `punteggio_max` float DEFAULT NULL,
-  `argomento_id` int(3) NOT NULL,
-  `argomento_insegnamento_corso_matricola` varchar(10) NOT NULL,
-  `argomento_insegnamento_id` int(2) NOT NULL,
+  `testo` varchar(100) NOT NULL,
+  `punteggio_max` float NOT NULL,
   `percentuale_scelta` float DEFAULT '0',
-  PRIMARY KEY (`id`,`argomento_id`,`argomento_insegnamento_corso_matricola`,`argomento_insegnamento_id`),
+  `argomento_id` int(3) NOT NULL,
+  `argomento_insegnamento_id` int(2) NOT NULL,
+  `argomento_insegnamento_corso_matricola` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`,`argomento_id`,`argomento_insegnamento_id`,`argomento_insegnamento_corso_matricola`),
   KEY `argomento_id_idx` (`argomento_id`),
   KEY `argomento_insegnamento_id_idx` (`argomento_insegnamento_id`),
   KEY `argomento_insegnamento_corso_matricola_idx` (`argomento_insegnamento_corso_matricola`),
@@ -380,25 +301,23 @@ DROP TABLE IF EXISTS `domanda_multipla`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `domanda_multipla` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(8) NOT NULL AUTO_INCREMENT,
   `testo` varchar(100) NOT NULL,
-  `punteggio_corretta` float DEFAULT '1',
-  `punteggio_errata` float DEFAULT '0',
-  `percentuale_scelta` float DEFAULT '0',
-  `percentuale_rispota_corretta` float DEFAULT '0',
-  `argomento_id` int(3) DEFAULT NULL,
-  `argomento_insegnamento_id` int(2) DEFAULT NULL,
-  `argomento_insegnamento_corso_matricola` varchar(10) DEFAULT NULL,
-  `alternativa_corretta` int(8) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `argomento_id_idx` (`argomento_id`),
-  KEY `argomento_insegnamento_id_idx` (`argomento_insegnamento_id`),
-  KEY `argomento_insegnamento_corso_matricola_idx` (`argomento_insegnamento_corso_matricola`),
-  KEY `alternativa_corretta_idx` (`alternativa_corretta`),
-  CONSTRAINT `alternativa_corretta` FOREIGN KEY (`alternativa_corretta`) REFERENCES `alternativa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `domanda_multipla_ibfk_1` FOREIGN KEY (`argomento_id`) REFERENCES `argomento` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `domanda_multipla_ibfk_2` FOREIGN KEY (`argomento_insegnamento_id`) REFERENCES `argomento` (`insegnamento_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `domanda_multipla_ibfk_3` FOREIGN KEY (`argomento_insegnamento_corso_matricola`) REFERENCES `argomento` (`insegnamento_corso_matricola`) ON DELETE CASCADE ON UPDATE CASCADE
+  `punteggio_corretta` float NOT NULL,
+  `punteggio_errata` float NOT NULL,
+  `percentuale_scelta` float NOT NULL,
+  `percentuale_risposta_corretta` float NOT NULL,
+  `alterativa_corretta` int(8) NOT NULL,
+  `argomento_id` int(3) NOT NULL,
+  `argomento_insegnamento_id` int(2) NOT NULL,
+  `argomento_insegnamento_corso_matricola` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`,`argomento_insegnamento_corso_matricola`,`argomento_insegnamento_id`,`argomento_id`),
+  KEY `arg_idx` (`argomento_id`),
+  KEY `arg2_idx` (`argomento_insegnamento_id`),
+  KEY `arg3_idx` (`argomento_insegnamento_corso_matricola`),
+  CONSTRAINT `arg` FOREIGN KEY (`argomento_id`) REFERENCES `argomento` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `arg2` FOREIGN KEY (`argomento_insegnamento_id`) REFERENCES `argomento` (`insegnamento_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `arg3` FOREIGN KEY (`argomento_insegnamento_corso_matricola`) REFERENCES `argomento` (`insegnamento_corso_matricola`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -423,11 +342,11 @@ CREATE TABLE `elaborato` (
   `sessione_id` int(10) NOT NULL,
   `esito_parziale` float DEFAULT NULL,
   `esito_finale` float DEFAULT NULL,
-  `test_id` int(8) DEFAULT NULL,
+  `test_id` int(8) NOT NULL,
   PRIMARY KEY (`studente_matricola`,`sessione_id`),
   KEY `sessione_id_idx` (`sessione_id`),
   KEY `test_id_idx` (`test_id`),
-  CONSTRAINT `elaborato_ibfk_1` FOREIGN KEY (`studente_matricola`) REFERENCES `studente` (`matricola`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `elaborato_ibfk_1` FOREIGN KEY (`studente_matricola`) REFERENCES `utente` (`matricola`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `elaborato_ibfk_2` FOREIGN KEY (`sessione_id`) REFERENCES `sessione` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `elaborato_ibfk_3` FOREIGN KEY (`test_id`) REFERENCES `test` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -459,7 +378,7 @@ CREATE TABLE `frequenta` (
   KEY `frequenta_ibfk_2` (`insegnamento_corso_matricola`),
   CONSTRAINT `frequenta_ibfk_1` FOREIGN KEY (`insegnamento_id`) REFERENCES `insegnamento` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `frequenta_ibfk_2` FOREIGN KEY (`insegnamento_corso_matricola`) REFERENCES `insegnamento` (`corso_matricola`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `studente_matricola` FOREIGN KEY (`studente_matricola`) REFERENCES `studente` (`matricola`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `studente_matricola` FOREIGN KEY (`studente_matricola`) REFERENCES `utente` (`matricola`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -498,6 +417,35 @@ LOCK TABLES `insegnamento` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `insegnamento_docente`
+--
+
+DROP TABLE IF EXISTS `insegnamento_docente`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `insegnamento_docente` (
+  `docente_matricola` varchar(10) NOT NULL,
+  `insegnamento_id` int(2) NOT NULL,
+  `insegnamento_corso_matricola` varchar(10) NOT NULL,
+  PRIMARY KEY (`docente_matricola`,`insegnamento_id`,`insegnamento_corso_matricola`),
+  KEY `docente_insegnamento_ibfk_2` (`insegnamento_id`),
+  KEY `docente_insegnamento_ibfk_3` (`insegnamento_corso_matricola`),
+  CONSTRAINT `insegnamento_docente_ibfk_1` FOREIGN KEY (`docente_matricola`) REFERENCES `utente` (`matricola`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `insegnamento_docente_ibfk_2` FOREIGN KEY (`insegnamento_id`) REFERENCES `insegnamento` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `insegnamento_docente_ibfk_3` FOREIGN KEY (`insegnamento_corso_matricola`) REFERENCES `insegnamento` (`corso_matricola`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `insegnamento_docente`
+--
+
+LOCK TABLES `insegnamento_docente` WRITE;
+/*!40000 ALTER TABLE `insegnamento_docente` DISABLE KEYS */;
+/*!40000 ALTER TABLE `insegnamento_docente` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `risposta_aperta`
 --
 
@@ -508,11 +456,13 @@ CREATE TABLE `risposta_aperta` (
   `testo` varchar(400) DEFAULT NULL,
   `elaborato_studente_matricola` varchar(10) NOT NULL,
   `elaborato_sessione_id` int(10) NOT NULL,
-  `domanda_aperta_id` int(8) DEFAULT NULL,
-  `domanda_aperta_argomento_id` int(3) DEFAULT NULL,
-  `domanda_aperta_argomento_insegnamento_id` int(2) DEFAULT NULL,
-  `domada_aperta_argomento_insegnamento_corso_matricola` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`elaborato_studente_matricola`,`elaborato_sessione_id`),
+  `domanda_aperta_id` int(8) NOT NULL,
+  `domanda_aperta_argomento_id` int(3) NOT NULL,
+  `domanda_aperta_argomento_insegnamento_id` int(2) NOT NULL,
+  `domada_aperta_argomento_insegnamento_corso_matricola` varchar(10) NOT NULL,
+  `id` int(10) NOT NULL,
+  `punteggio` float DEFAULT NULL,
+  PRIMARY KEY (`elaborato_studente_matricola`,`elaborato_sessione_id`,`id`),
   KEY `elaborato_sessione_id_idx` (`elaborato_sessione_id`),
   KEY `risposta_aperta_ibfk_3` (`domanda_aperta_id`),
   KEY `risposta_aperta_ibfk_4` (`domanda_aperta_argomento_id`),
@@ -544,24 +494,30 @@ DROP TABLE IF EXISTS `risposta_multipla`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `risposta_multipla` (
-  `elaborato_studente_matricola` varchar(10) NOT NULL,
+  `id` int(10) NOT NULL,
+  `punteggio` float DEFAULT NULL,
   `elaborato_sessione_id` int(10) NOT NULL,
+  `elaborato_studente_matricola` varchar(10) NOT NULL,
   `alternativa_id` int(8) DEFAULT NULL,
-  `alternativa_domanda_multipla_argomento_id` int(3) NOT NULL,
-  `alternativa_domanda_multipla_argomento_insegnamento_id` int(2) NOT NULL,
-  `alternativa_domanda_multipla_argomento_insegnamento_corso_mat` varchar(10) NOT NULL,
-  PRIMARY KEY (`elaborato_studente_matricola`,`elaborato_sessione_id`),
-  KEY `elaborato_sessione_id_idx` (`elaborato_sessione_id`),
-  KEY `alternativa_id_idx` (`alternativa_id`),
-  KEY `alternativa_domanda_multipla_argomento_id_idx` (`alternativa_domanda_multipla_argomento_id`),
-  KEY `alternativa_domanda_multipla_argomento_insegnamento_id_idx` (`alternativa_domanda_multipla_argomento_insegnamento_id`),
-  KEY `alternativa_domanda_multipla_argomento_insegnamento_corso_m_idx` (`alternativa_domanda_multipla_argomento_insegnamento_corso_mat`),
-  CONSTRAINT `alternativa_domanda_multipla_argomento_id` FOREIGN KEY (`alternativa_domanda_multipla_argomento_id`) REFERENCES `alternativa` (`domanda_multipla_argomento_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `alternativa_domanda_multipla_argomento_insegnamento_corso_mat` FOREIGN KEY (`alternativa_domanda_multipla_argomento_insegnamento_corso_mat`) REFERENCES `alternativa` (`domanda_multipla_argomento_insegnamento_corso_matricola`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `alternativa_domanda_multipla_argomento_insegnamento_id` FOREIGN KEY (`alternativa_domanda_multipla_argomento_insegnamento_id`) REFERENCES `alternativa` (`domanda_multipla_argomento_insegnamento_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `alternativa_id` FOREIGN KEY (`alternativa_id`) REFERENCES `alternativa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `elaborato_sessione_id` FOREIGN KEY (`elaborato_sessione_id`) REFERENCES `elaborato` (`sessione_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `elaborato_studente_matricola` FOREIGN KEY (`elaborato_studente_matricola`) REFERENCES `elaborato` (`studente_matricola`) ON DELETE CASCADE ON UPDATE CASCADE
+  `alternativa_domanda_multipla_id` int(8) DEFAULT NULL,
+  `alternativa_domanda_multipla_argomento_id` int(8) DEFAULT NULL,
+  `alternativa_domanda_multipla_argomento_insegnamento_id` int(2) DEFAULT NULL,
+  `alternativa_domanda_multipla_argomento_insegnamento_corso_mat` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`id`,`elaborato_sessione_id`,`elaborato_studente_matricola`),
+  KEY `elab_idx` (`elaborato_sessione_id`),
+  KEY `elab2_idx` (`elaborato_studente_matricola`),
+  KEY `alter_idx` (`alternativa_id`),
+  KEY `alter1_idx` (`alternativa_domanda_multipla_id`),
+  KEY `alter2_idx` (`alternativa_domanda_multipla_argomento_id`),
+  KEY `alter3_idx` (`alternativa_domanda_multipla_argomento_insegnamento_id`),
+  KEY `elab3_idx` (`alternativa_domanda_multipla_argomento_insegnamento_corso_mat`),
+  CONSTRAINT `alter` FOREIGN KEY (`alternativa_id`) REFERENCES `alternativa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `alter1` FOREIGN KEY (`alternativa_domanda_multipla_id`) REFERENCES `alternativa` (`domanda_multipla_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `alter2` FOREIGN KEY (`alternativa_domanda_multipla_argomento_id`) REFERENCES `alternativa` (`domanda_multipla_argomento_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `alter3` FOREIGN KEY (`alternativa_domanda_multipla_argomento_insegnamento_id`) REFERENCES `alternativa` (`domanda_multipla_argomento_insegnamento_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `elab` FOREIGN KEY (`elaborato_sessione_id`) REFERENCES `elaborato` (`sessione_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `elab2` FOREIGN KEY (`elaborato_studente_matricola`) REFERENCES `elaborato` (`studente_matricola`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `elab3` FOREIGN KEY (`alternativa_domanda_multipla_argomento_insegnamento_corso_mat`) REFERENCES `alternativa` (`domanda_multipla_argomento_insegnamento_corso_matricola`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -583,10 +539,10 @@ DROP TABLE IF EXISTS `sessione`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sessione` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `tipologia` bit(1) NOT NULL,
+  `tipologia` enum('Esercitativa','Valutativa') NOT NULL,
   `data_inizio` date NOT NULL,
   `data_fine` date NOT NULL,
-  `soglia_ammissione` float DEFAULT NULL,
+  `soglia_ammissione` float NOT NULL,
   `insegnamento_id` int(2) NOT NULL,
   `insegnamento_corso_matricola` varchar(10) NOT NULL,
   PRIMARY KEY (`id`),
@@ -633,36 +589,6 @@ LOCK TABLES `sessione_test` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `studente`
---
-
-DROP TABLE IF EXISTS `studente`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `studente` (
-  `matricola` varchar(10) NOT NULL,
-  `username` varchar(15) NOT NULL,
-  `password` varchar(32) NOT NULL,
-  `nome` varchar(30) NOT NULL,
-  `cognome` varchar(30) NOT NULL,
-  `cdl_matricola` varchar(10) NOT NULL,
-  PRIMARY KEY (`matricola`),
-  UNIQUE KEY `username_UNIQUE` (`username`),
-  KEY `cdl_matricola_idx` (`cdl_matricola`),
-  CONSTRAINT `cdl_matricola` FOREIGN KEY (`cdl_matricola`) REFERENCES `cdl` (`matricola`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `studente`
---
-
-LOCK TABLES `studente` WRITE;
-/*!40000 ALTER TABLE `studente` DISABLE KEYS */;
-/*!40000 ALTER TABLE `studente` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `test`
 --
 
@@ -689,6 +615,37 @@ LOCK TABLES `test` WRITE;
 /*!40000 ALTER TABLE `test` DISABLE KEYS */;
 /*!40000 ALTER TABLE `test` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `utente`
+--
+
+DROP TABLE IF EXISTS `utente`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `utente` (
+  `matricola` varchar(10) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(32) NOT NULL,
+  `tipologia` enum('Studente','Docente','Admin') NOT NULL,
+  `nome` varchar(30) DEFAULT NULL,
+  `cognome` varchar(30) DEFAULT NULL,
+  `cdl_matricola` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`matricola`),
+  UNIQUE KEY `username_UNIQUE` (`username`),
+  KEY `cdl_matricola_idx` (`cdl_matricola`),
+  CONSTRAINT `utente_ibfk_1` FOREIGN KEY (`cdl_matricola`) REFERENCES `cdl` (`matricola`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `utente`
+--
+
+LOCK TABLES `utente` WRITE;
+/*!40000 ALTER TABLE `utente` DISABLE KEYS */;
+/*!40000 ALTER TABLE `utente` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -699,4 +656,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-11-20 21:26:35
+-- Dump completed on 2015-11-23 11:50:39

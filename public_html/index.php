@@ -13,6 +13,7 @@ define('EXCEPTION_DIR', CORE_DIR . "exception" . DIRECTORY_SEPARATOR);
 define('MODEL_DIR', CORE_DIR . "model" . DIRECTORY_SEPARATOR);
 define('CONTROL_DIR', CORE_DIR . "control" . DIRECTORY_SEPARATOR);
 define('BEAN_DIR', CORE_DIR . "bean" . DIRECTORY_SEPARATOR);
+define('UTILS_DIR', CORE_DIR . "utils" . DIRECTORY_SEPARATOR);
 /*
  * URL Parsing, in pratica qualsiasi richiesta al sito arriva a questo file,
  * e quindi possiamo ricavare la richiesta da $_SERVER['SCRIPT_NAME']
@@ -42,6 +43,8 @@ if (isset($_SERVER['HTTP_X_REAL_IP'])) {
 
 session_start(); //facciamo partire la sessione
 
+include_once UTILS_DIR . "Patterns.php";
+
 switch (isset($_URL[0]) ? $_URL[0] : '') {
     case '':
         include_once VIEW_DIR . "VisualizzaHome.php";
@@ -50,43 +53,46 @@ switch (isset($_URL[0]) ? $_URL[0] : '') {
         include_once VIEW_DIR . "VisualizzaLogReg.php";
         break;
     case 'esempio':
-        include_once VIEW_DIR."VisualizzaEsempio.php";
+        include_once VIEW_DIR . "VisualizzaEsempio.php";
         break;
     case 'graficacomune':
-        include_once VIEW_DIR."GraficaComune.php";
+        include_once VIEW_DIR . "GraficaComune.php";
         break;
     case 'visualizzatestdocente':
-        include_once VIEW_DIR."/Docente/VisualizzaTest.php";
+        include_once VIEW_DIR . "/Docente/VisualizzaTest.php";
         break;
     case 'selezionadomandetest':
-        include_once VIEW_DIR."/Docente/SelezionaDomande.php";
+        include_once VIEW_DIR . "/Docente/SelezionaDomande.php";
         break;
     case 'aggiungistudentetest':
-        include_once VIEW_DIR."/Docente/AggiungiStudenteTest.php";
+        include_once VIEW_DIR . "/Docente/AggiungiStudenteTest.php";
         break;
     case 'eseguitest':
-        include_once VIEW_DIR."/Studente/EseguiTest.php";
+        include_once VIEW_DIR . "/Studente/EseguiTest.php";
         break;
     case 'visualizzateststudente':
-        include_once VIEW_DIR."/Studente/VisualizzaTest.php";
+        include_once VIEW_DIR . "/Studente/VisualizzaTest.php";
         break;
     case 'homecorsostudente':
-        include_once VIEW_DIR."/Studente/HomeCorso.php";
+        include_once VIEW_DIR . "/Studente/HomeCorso.php";
         break;
     case 'homecorsodocente':
-        include_once VIEW_DIR."/Docente/HomeCorso.php";
+        include_once VIEW_DIR . "/Docente/HomeCorso.php";
         break;
     case 'visualizzaesitisessione':
-        include_once VIEW_DIR."/Docente/VisualizzaEsitiSessione.php";
+        include_once VIEW_DIR . "/Docente/VisualizzaEsitiSessione.php";
         break;
     case 'sessioneincorso':
-        include_once VIEW_DIR."/Docente/SessioneInCorso.php";
+        include_once VIEW_DIR . "/Docente/SessioneInCorso.php";
         break;
     case 'creamodificasessione':
-        include_once VIEW_DIR."/Docente/CreaModificaSessione.php";
+        include_once VIEW_DIR . "/Docente/CreaModificaSessione.php";
         break;
     case 'createst':
-        include_once VIEW_DIR."/Docente/CreaTest.php";
+        include_once VIEW_DIR . "/Docente/CreaTest.php";
+        break;
+    case 't':
+        include_once CONTROL_DIR . "TestController.php";
         break;
     case 'creacdl':
         include_once VIEW_DIR."/Admin/creaCdL.php";
