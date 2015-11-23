@@ -456,18 +456,6 @@ $controller = new Esempio();
 
                 </div>
             </div>
-            
-            <div class="row">
-                    <div class="col-md-12">
-                        <div class="col-md-5"></div>
-                        <div class="col-md-2">
-                            <a href="javascript:;" class="btn red-intense">
-                                indietro
-                            </a>
-                            <span class="help-block"> <br> </span>
-                        </div>
-                    </div>
-                </div>
 
 
             <!-- END PAGE CONTENT-->

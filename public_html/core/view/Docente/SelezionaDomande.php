@@ -80,7 +80,14 @@ $controller = new Esempio();
                                 <thead>
                                     <tr role="row">
                                         <th class="table-checkbox sorting_disabled">
-                                            <input type ="checkbox">
+                                            <div class="md-checkbox">
+                                                <input type="checkbox" id="arg1" class="md-check">
+                                                <label for="arg1">
+                                                    <span class="inc"></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span>
+                                                </label>
+                                            </div>
                                         </th>
                                         <th class="table-checkbox sorting_disabled">
                                             Testo
@@ -96,7 +103,14 @@ $controller = new Esempio();
                                 <tbody>
                                     <tr class="gradeX odd" role="row">
                                         <td>
-                                            <input type ="checkbox">
+                                            <div class="md-checkbox">
+                                                <input type="checkbox" id="arg1d1" class="md-check">
+                                                <label for="arg1d1">
+                                                    <span class="inc"></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span>
+                                                </label>
+                                            </div>
                                         </td>
                                         <td class="">
                                             Come si rappresenta una dipendenza in UML?
@@ -106,7 +120,14 @@ $controller = new Esempio();
                                     </tr>
                                     <tr class="gradeX odd" role="row">
                                         <td>
-                                            <input type ="checkbox">
+                                            <div class="md-checkbox">
+                                                <input type="checkbox" id="arg1d2" class="md-check">
+                                                <label for="arg1d2">
+                                                    <span class="inc"></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span>
+                                                </label>
+                                            </div>
                                         </td>
                                         <td class="">
                                             Cosa contiene la prima colonna di un sequence diagram?
@@ -132,7 +153,14 @@ $controller = new Esempio();
                                 <thead>
                                     <tr role="row">
                                         <th class="table-checkbox sorting_disabled">
-                                            <input type ="checkbox">
+                                            <div class="md-checkbox">
+                                                <input type="checkbox" id="arg2" class="md-check">
+                                                <label for="arg2">
+                                                    <span class="inc"></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span>
+                                                </label>
+                                            </div>
                                         </th>
                                         <th class="table-checkbox sorting_disabled">
                                             Testo
@@ -148,7 +176,14 @@ $controller = new Esempio();
                                 <tbody>
                                     <tr class="gradeX odd" role="row">
                                         <td>
-                                            <input type ="checkbox">
+                                            <div class="md-checkbox">
+                                                <input type="checkbox" id="arg2d1" class="md-check">
+                                                <label for="arg2d1">
+                                                    <span class="inc"></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span>
+                                                </label>
+                                            </div>
                                         </td>
                                         <td class="">
                                             Cosa NON contiene il flusso di eventi di uno Use Case?
@@ -158,7 +193,14 @@ $controller = new Esempio();
                                     </tr>
                                     <tr class="gradeX odd" role="row">
                                         <td>
-                                            <input type ="checkbox">
+                                            <div class="md-checkbox">
+                                                <input type="checkbox" id="arg2d2" class="md-check">
+                                                <label for="arg2d2">
+                                                    <span class="inc"></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span>
+                                                </label>
+                                            </div>
                                         </td>
                                         <td class="">
                                             Descrivere tutti i campi della tabella di uno Use Case
@@ -168,7 +210,14 @@ $controller = new Esempio();
                                     </tr>
                                     <tr class="gradeX odd" role="row">
                                         <td>
-                                            <input type ="checkbox">
+                                            <div class="md-checkbox">
+                                                <input type="checkbox" id="arg2d3" class="md-check">
+                                                <label for="arg2d3">
+                                                    <span class="inc"></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span>
+                                                </label>
+                                            </div>
                                         </td>
                                         <td class="">
                                             Quale tra queste affermazioni sugli Use Case non è corretta?
