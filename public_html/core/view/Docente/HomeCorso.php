@@ -110,7 +110,7 @@ $controller = new Esempio();
                                          Stato
                                 </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Status
-                                " style="width: 119px;">
+                                " style="width: 15%;">
                                          Azioni
                                 </th></tr>
                         </thead>
@@ -191,7 +191,7 @@ $controller = new Esempio();
                     <div class="col-md-12">
                         <div class="col-md-10"></div>
                         <div class="col-md-2">
-                            <a href="javascript:;" class="btn green">
+                            <a href="javascript:;" class="btn green-jungle">
                                 Crea Sessione <i class="fa fa-plus"></i>
                             </a>
                             <span class="help-block"> <br> </span>
@@ -255,7 +255,7 @@ $controller = new Esempio();
                                             </th>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Status
-                                " style="width: 119px;">
+                                " style="width: 7%;">
                                                 Azioni
                                             </th>
 
@@ -365,7 +365,7 @@ $controller = new Esempio();
                     <div class="col-md-12">
                         <div class="col-md-10"></div>
                         <div class="col-md-2">
-                            <a href="javascript:;" class="btn green">
+                            <a href="javascript:;" class="btn green-jungle">
                                 Crea Test <i class="fa fa-plus"></i>
                             </a>
                             <span class="help-block"> <br> </span>
@@ -406,7 +406,7 @@ $controller = new Esempio();
                                             </th>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Email
-                                " style="width: 100px;">
+                                " style="width: 15%;">
                                                 Azioni
                                             </th>
                                         </tr>
@@ -421,7 +421,7 @@ $controller = new Esempio();
                                                 34%
                                             </td>
                                             <td>
-                                                <a href="javascript:;" class="btn btn-sm default">
+                                                <a href="javascript:;" class="btn btn-sm red-intense">
                                                      <i class="fa fa-minus"></i>
                                                 </a>
                                                 <a href="javascript:;" class="btn btn-sm default">
@@ -439,7 +439,7 @@ $controller = new Esempio();
                                                 87%
                                             </td>
                                             <td>
-                                                <a href="javascript:;" class="btn btn-sm default">
+                                                <a href="javascript:;" class="btn btn-sm red-intense">
                                                      <i class="fa fa-minus"></i>
                                                 </a>
                                                 <a href="javascript:;" class="btn btn-sm default">
@@ -456,7 +456,7 @@ $controller = new Esempio();
                                                 60%
                                             </td>
                                             <td>
-                                                <a href="javascript:;" class="btn btn-sm default">
+                                                <a href="javascript:;" class="btn btn-sm red-intense">
                                                      <i class="fa fa-minus"></i>
                                                 </a>
                                                 <a href="javascript:;" class="btn btn-sm default">
@@ -480,7 +480,7 @@ $controller = new Esempio();
                     <div class="col-md-12">
                         <div class="col-md-10"></div>
                         <div class="col-md-2">
-                            <a href="javascript:;" class="btn green">
+                            <a href="javascript:;" class="btn green-jungle">
                                 Crea Sessione <i class="fa fa-plus"></i>
                             </a>
                             <span class="help-block"> <br> </span>
