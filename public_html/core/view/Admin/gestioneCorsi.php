@@ -35,28 +35,28 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
           type="text/css"/>
-    <link href="../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-    <link href="../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
-    <link href="../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link href="../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
-    <link href="../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet"
+    <link href="../../../gestionale/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../gestionale/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../gestionale/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../gestionale/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../gestionale/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet"
           type="text/css"/>
     <!-- END GLOBAL MANDATORY STYLES -->
 
 
     <!-- BEGIN PAGE LEVEL STYLES aggiunta da me -->
-    <link rel="stylesheet" type="text/css" href="../assets/global/plugins/select2/select2.css">
+    <link rel="stylesheet" type="text/css" href="../../../gestionale/assets/global/plugins/select2/select2.css">
     <link rel="stylesheet" type="text/css"
-          href="../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+          href="../../../gestionale/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
     <!-- END PAGE LEVEL STYLES aggiunta da me-->
 
 
     <!-- BEGIN THEME STYLES -->
-    <link href="../assets/global/css/components-md.css" id="style_components" rel="stylesheet" type="text/css"/>
-    <link href="../assets/global/css/plugins-md.css" rel="stylesheet" type="text/css"/>
-    <link href="../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
-    <link id="style_color" href="../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
-    <link href="../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../gestionale/assets/global/css/components-md.css" id="style_components" rel="stylesheet" type="text/css"/>
+    <link href="../../../gestionale/assets/global/css/plugins-md.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../gestionale/assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+    <link id="style_color" href="../../../gestionale/assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../gestionale/assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="favicon.ico"/>
 </head>
@@ -78,8 +78,8 @@ License: You must have a valid license purchased only from themeforest(the above
     <div class="page-header-inner">
         <!-- BEGIN LOGO -->
         <div class="page-logo">
-            <a href="index.html">
-                <img src="../assets/admin/layout/img/logo.png" alt="logo" class="logo-default"/>
+            <a href="../../../gestionale/admin/index.html">
+                <img src="../../../gestionale/assets/admin/layout/img/logo.png" alt="logo" class="logo-default"/>
             </a>
 
             <div class="menu-toggler sidebar-toggler hide">
@@ -147,7 +147,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="index.html">Home</a>
+                        <a href="../../../gestionale/admin/index.html">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
@@ -511,7 +511,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <div class="media-status">
                                         <span class="badge badge-success">8</span>
                                     </div>
-                                    <img class="media-object" src="../assets/admin/layout/img/avatar3.jpg" alt="...">
+                                    <img class="media-object" src="../../../gestionale/assets/admin/layout/img/avatar3.jpg" alt="...">
 
                                     <div class="media-body">
                                         <h4 class="media-heading">Bob Nilson</h4>
@@ -522,7 +522,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </div>
                                 </li>
                                 <li class="media">
-                                    <img class="media-object" src="../assets/admin/layout/img/avatar1.jpg" alt="...">
+                                    <img class="media-object" src="../../../gestionale/assets/admin/layout/img/avatar1.jpg" alt="...">
 
                                     <div class="media-body">
                                         <h4 class="media-heading">Nick Larson</h4>
@@ -536,7 +536,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <div class="media-status">
                                         <span class="badge badge-danger">3</span>
                                     </div>
-                                    <img class="media-object" src="../assets/admin/layout/img/avatar4.jpg" alt="...">
+                                    <img class="media-object" src="../../../gestionale/assets/admin/layout/img/avatar4.jpg" alt="...">
 
                                     <div class="media-body">
                                         <h4 class="media-heading">Deon Hubert</h4>
@@ -547,7 +547,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </div>
                                 </li>
                                 <li class="media">
-                                    <img class="media-object" src="../assets/admin/layout/img/avatar2.jpg" alt="...">
+                                    <img class="media-object" src="../../../gestionale/assets/admin/layout/img/avatar2.jpg" alt="...">
 
                                     <div class="media-body">
                                         <h4 class="media-heading">Ella Wong</h4>
@@ -564,7 +564,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <div class="media-status">
                                         <span class="badge badge-warning">2</span>
                                     </div>
-                                    <img class="media-object" src="../assets/admin/layout/img/avatar6.jpg" alt="...">
+                                    <img class="media-object" src="../../../gestionale/assets/admin/layout/img/avatar6.jpg" alt="...">
 
                                     <div class="media-body">
                                         <h4 class="media-heading">Lara Kunis</h4>
@@ -581,7 +581,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <div class="media-status">
                                         <span class="label label-sm label-success">new</span>
                                     </div>
-                                    <img class="media-object" src="../assets/admin/layout/img/avatar7.jpg" alt="...">
+                                    <img class="media-object" src="../../../gestionale/assets/admin/layout/img/avatar7.jpg" alt="...">
 
                                     <div class="media-body">
                                         <h4 class="media-heading">Ernie Kyllonen</h4>
@@ -593,7 +593,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </div>
                                 </li>
                                 <li class="media">
-                                    <img class="media-object" src="../assets/admin/layout/img/avatar8.jpg" alt="...">
+                                    <img class="media-object" src="../../../gestionale/assets/admin/layout/img/avatar8.jpg" alt="...">
 
                                     <div class="media-body">
                                         <h4 class="media-heading">Lisa Stone</h4>
@@ -610,7 +610,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <div class="media-status">
                                         <span class="badge badge-success">7</span>
                                     </div>
-                                    <img class="media-object" src="../assets/admin/layout/img/avatar9.jpg" alt="...">
+                                    <img class="media-object" src="../../../gestionale/assets/admin/layout/img/avatar9.jpg" alt="...">
 
                                     <div class="media-body">
                                         <h4 class="media-heading">Deon Portalatin</h4>
@@ -621,7 +621,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </div>
                                 </li>
                                 <li class="media">
-                                    <img class="media-object" src="../assets/admin/layout/img/avatar10.jpg" alt="...">
+                                    <img class="media-object" src="../../../gestionale/assets/admin/layout/img/avatar10.jpg" alt="...">
 
                                     <div class="media-body">
                                         <h4 class="media-heading">Irina Savikova</h4>
@@ -635,7 +635,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <div class="media-status">
                                         <span class="badge badge-danger">4</span>
                                     </div>
-                                    <img class="media-object" src="../assets/admin/layout/img/avatar11.jpg" alt="...">
+                                    <img class="media-object" src="../../../gestionale/assets/admin/layout/img/avatar11.jpg" alt="...">
 
                                     <div class="media-body">
                                         <h4 class="media-heading">Maria Gomez</h4>
@@ -658,7 +658,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </div>
                                 <div class="page-quick-sidebar-chat-user-messages">
                                     <div class="post out">
-                                        <img class="avatar" alt="" src="../assets/admin/layout/img/avatar3.jpg"/>
+                                        <img class="avatar" alt="" src="../../../gestionale/assets/admin/layout/img/avatar3.jpg"/>
 
                                         <div class="message">
                                             <span class="arrow"></span>
@@ -669,7 +669,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </div>
                                     </div>
                                     <div class="post in">
-                                        <img class="avatar" alt="" src="../assets/admin/layout/img/avatar2.jpg"/>
+                                        <img class="avatar" alt="" src="../../../gestionale/assets/admin/layout/img/avatar2.jpg"/>
 
                                         <div class="message">
                                             <span class="arrow"></span>
@@ -680,7 +680,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </div>
                                     </div>
                                     <div class="post out">
-                                        <img class="avatar" alt="" src="../assets/admin/layout/img/avatar3.jpg"/>
+                                        <img class="avatar" alt="" src="../../../gestionale/assets/admin/layout/img/avatar3.jpg"/>
 
                                         <div class="message">
                                             <span class="arrow"></span>
@@ -691,7 +691,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </div>
                                     </div>
                                     <div class="post in">
-                                        <img class="avatar" alt="" src="../assets/admin/layout/img/avatar2.jpg"/>
+                                        <img class="avatar" alt="" src="../../../gestionale/assets/admin/layout/img/avatar2.jpg"/>
 
                                         <div class="message">
                                             <span class="arrow"></span>
@@ -702,7 +702,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </div>
                                     </div>
                                     <div class="post out">
-                                        <img class="avatar" alt="" src="../assets/admin/layout/img/avatar3.jpg"/>
+                                        <img class="avatar" alt="" src="../../../gestionale/assets/admin/layout/img/avatar3.jpg"/>
 
                                         <div class="message">
                                             <span class="arrow"></span>
@@ -713,7 +713,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </div>
                                     </div>
                                     <div class="post in">
-                                        <img class="avatar" alt="" src="../assets/admin/layout/img/avatar2.jpg"/>
+                                        <img class="avatar" alt="" src="../../../gestionale/assets/admin/layout/img/avatar2.jpg"/>
 
                                         <div class="message">
                                             <span class="arrow"></span>
@@ -724,7 +724,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </div>
                                     </div>
                                     <div class="post out">
-                                        <img class="avatar" alt="" src="../assets/admin/layout/img/avatar3.jpg"/>
+                                        <img class="avatar" alt="" src="../../../gestionale/assets/admin/layout/img/avatar3.jpg"/>
 
                                         <div class="message">
                                             <span class="arrow"></span>
@@ -735,7 +735,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </div>
                                     </div>
                                     <div class="post in">
-                                        <img class="avatar" alt="" src="../assets/admin/layout/img/avatar2.jpg"/>
+                                        <img class="avatar" alt="" src="../../../gestionale/assets/admin/layout/img/avatar2.jpg"/>
 
                                         <div class="message">
                                             <span class="arrow"></span>
@@ -746,7 +746,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </div>
                                     </div>
                                     <div class="post out">
-                                        <img class="avatar" alt="" src="../assets/admin/layout/img/avatar3.jpg"/>
+                                        <img class="avatar" alt="" src="../../../gestionale/assets/admin/layout/img/avatar3.jpg"/>
 
                                         <div class="message">
                                             <span class="arrow"></span>
@@ -1184,36 +1184,36 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
 <!--[if lt IE 9]>
-<script src="../assets/global/plugins/respond.min.js"></script>
-<script src="../assets/global/plugins/excanvas.min.js"></script>
+<script src="../../../gestionale/assets/global/plugins/respond.min.js"></script>
+<script src="../../../gestionale/assets/global/plugins/excanvas.min.js"></script>
 <![endif]-->
-<script src="../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
-<script src="../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<script src="../../../gestionale/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="../../../gestionale/assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
 <!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
-<script src="../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
-<script src="../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"
+<script src="../../../gestionale/assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="../../../gestionale/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../../../gestionale/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"
         type="text/javascript"></script>
-<script src="../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
-<script src="../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
-<script src="../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
-<script src="../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
-<script src="../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<script src="../../../gestionale/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../../../gestionale/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="../../../gestionale/assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="../../../gestionale/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="../../../gestionale/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
 
 <!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
-<script type="text/javascript" src="../assets/global/plugins/select2/select2.min.js"></script>
-<script type="text/javascript" src="../assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../../../gestionale/assets/global/plugins/select2/select2.min.js"></script>
+<script type="text/javascript" src="../../../gestionale/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript"
-        src="../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+        src="../../../gestionale/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <!-- END PAGE LEVEL PLUGINS aggiunta da me-->
 
-<script src="../assets/global/scripts/metronic.js" type="text/javascript"></script>
-<script src="../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
-<script src="../assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
-<script src="../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="../../../gestionale/assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="../../../gestionale/assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="../../../gestionale/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+<script src="../../../gestionale/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN aggiunta da me -->
-<script src="../assets/admin/pages/scripts/table-managed.js"></script>
+<script src="../../../gestionale/assets/admin/pages/scripts/table-managed.js"></script>
 <!-- END aggiunta da me -->
 <script>
     jQuery(document).ready(function () {
