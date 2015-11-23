@@ -85,10 +85,10 @@ $controller = new Esempio();
                                         <th class="table-checkbox sorting_disabled">
                                             Testo
                                         </th>
-                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Risposte corrette: activate to sort column ascending" style="width: 174px;">
+                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Risposte corrette: activate to sort column ascending" style="width: 10%;">
                                             Tipo
                                         </th>
-                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Risposte corrette: activate to sort column ascending" style="width: 174px;">
+                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Risposte corrette: activate to sort column ascending" style="width: 15%;">
                                             Risposte corrette
                                         </th>
                                     </tr>
@@ -137,10 +137,10 @@ $controller = new Esempio();
                                         <th class="table-checkbox sorting_disabled">
                                             Testo
                                         </th>
-                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Risposte corrette: activate to sort column ascending" style="width: 174px;">
+                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Risposte corrette: activate to sort column ascending" style="width: 10%;">
                                             Tipo
                                         </th>
-                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Risposte corrette: activate to sort column ascending" style="width: 174px;">
+                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Risposte corrette: activate to sort column ascending" style="width: 15%;">
                                             Risposte corrette
                                         </th>
                                     </tr>
@@ -184,8 +184,8 @@ $controller = new Esempio();
                         <div class="col-md-12">
                             <div class="col-md-9"></div>
                             <div class="form-actions row">
-                                <button type="button" class="btn default">Annulla</button>
-                                <button type="submit" class="btn blue">Conferma</button>
+                                <button type="button" class="btn red-intense">Annulla</button>
+                                <button type="submit" class="btn green-jungle">Conferma</button>
                             </div>              
                         </div>
                     </div>
