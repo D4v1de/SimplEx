@@ -47,14 +47,14 @@ class RispostaAperta {
     }
     
     /**
-     * @return string La matricola dell'elaborato dello studente
+     * @return string L'id della sessione a cui appartiene l'elaborato
      */
     function getElaboratoSessioneId() {
         return $this->elaboratoSessioneId;
     }
     
     /**
-     * @return string La matricola dell'elaborato dello studente
+     * @return string La matricola dello studente a cui appartiene l'elaborato
      */
     function getElaboratoStudenteMatricola() {
         return $this->elaboratoStudenteMatricola;
