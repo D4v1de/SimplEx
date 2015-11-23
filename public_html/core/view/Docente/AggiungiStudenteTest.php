@@ -37,89 +37,106 @@ $controller = new Esempio();
     <div class="page-content-wrapper">
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
+            
+            <h3 class="page-title">
+                    Aggiungi Studente
+                </h3>
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li>
+                            <i class="fa fa-home"></i>
+                            <a href="index.html">Home</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <a href="#">Nome Corso</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
 
+                        <li>
+                            <a href="#">Nome Sessione</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+
+                        <li>
+                            <a href="#">Aggiungi Studente</a>
+                        </li>
+                    </ul>
+                </div>
 
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <div class="row">
-                <div class="col-md-12">
-                    
-                    <div class="table-scrollable">
-                        <table class="table table-hover">
-                            <thead>
-                            <tr>
-                                <th class="table-checkbox sorting_disabled">
-                                    <input type="checkbox" class="group-checkable">
-                                </th>
-                                <th>
-                                    Nome
-                                </th>
-                                <th>
-                                    Cognome
-                                </th>
-                                <th>
-                                    Matricola
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" name=""/>
-                                </td>
-                                <td>
-                                    Carlo
-                                </td>
-                                <td>
-                                    Di Domenico
-                                </td>
-                                <td>
-                                    0512102316
-                                </td>
-                            </tr>
-                            
-                             <tr>
-                                <td>
-                                    <input type="checkbox" name=""/>
-                                </td>
-                                <td>
-                                    Fabiano
-                                </td>
-                                <td>
-                                    Pecorelli
-                                </td>
-                                <td>
-                                    0512102390
-                                </td>
-                            </tr>
-                            
-                            <tr>
-                                <td>
-                                    <input type="checkbox" name=""/>
-                                </td>
-                                <td>
-                                    Fabio
-                                </td>
-                                <td>
-                                    Esposito
-                                </td>
-                                <td>
-                                    0512102426
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+         
+            <div class="portlet box grey-cascade">
+                        <div class="portlet-title">
+                            <div class="caption">Use Case</div>
+                            <div class="tools">
+                                <a href="javascript:;" class="collapse" data-original-title="" title=""></a>
+                            </div>
+                        </div>
 
-            </div>
+                        <div class="portlet-body">
+                            <table class="table table-striped table-bordered table-hover dataTable no-footer">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="table-checkbox sorting_disabled">
+                                            <input type ="checkbox">
+                                        </th>
+                                        <th class="table-checkbox sorting_disabled">
+                                            Nome
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Risposte corrette: activate to sort column ascending" style="width: 174px;">
+                                            Cognome
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="Risposte corrette: activate to sort column ascending" style="width: 174px;">
+                                            Matricola
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="gradeX odd" role="row">
+                                        <td>
+                                            <input type ="checkbox">
+                                        </td>
+                                        <td class="">
+                                            Carlo
+                                        </td>
+                                        <td>Di Domenico</td>
+                                        <td>0512102316</td>
+                                    </tr>
+                                    <tr class="gradeX odd" role="row">
+                                        <td>
+                                            <input type ="checkbox">
+                                        </td>
+                                        <td class="">
+                                            Fabiano
+                                        </td>
+                                        <td>Pecorelli</td>
+                                        <td>0512102390</td>
+                                    </tr>
+                                    <tr class="gradeX odd" role="row">
+                                        <td>
+                                            <input type ="checkbox">
+                                        </td>
+                                        <td class="">
+                                            Fabio
+                                        </td>
+                                        <td>Esposito</td>
+                                        <td>0512102426</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+            
+            
             
             
             <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-9"></div>
-                    <button type="button" class="btn green">Annulla</button> 
-                    <button type="submit" class="btn green">Conferma</button>                
+                    <button type="button" class="btn red-intense">Annulla</button> 
+                    <button type="submit" class="btn green-jungle">Conferma</button>                
                 </div>
             </div>
             <!-- END PAGE CONTENT-->

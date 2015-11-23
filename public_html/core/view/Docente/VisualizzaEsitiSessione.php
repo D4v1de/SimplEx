@@ -38,8 +38,28 @@ $controller = new Esempio();
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                Esiti Sessione
-            </h3>
+                    Esiti Sessione
+                </h3>
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li>
+                            <i class="fa fa-home"></i>
+                            <a href="index.html">Home</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <a href="#">Nome Corso</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <a href="#">Nome Sessione</a>
+                            <i class="fa fa-angle-right"></i>                            
+                        </li>
+                        <li>
+                            <a href="#">Esiti Sessione</a>
+                        </li>
+                    </ul>
+                </div>
 
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
@@ -441,7 +461,7 @@ $controller = new Esempio();
                     <div class="col-md-12">
                         <div class="col-md-5"></div>
                         <div class="col-md-2">
-                            <a href="javascript:;" class="btn green">
+                            <a href="javascript:;" class="btn red-intense">
                                 indietro
                             </a>
                             <span class="help-block"> <br> </span>

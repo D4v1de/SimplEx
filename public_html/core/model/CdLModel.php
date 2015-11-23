@@ -21,8 +21,14 @@ class CdLModel extends Model {
      * @param CdL cdl Il corso di laurea da inserire nel database
      */
     public function createCdL($cdl) {
-        $query = sprintf(self::$CREATE_CDL, $cdl->matricola, $cdl->nome, $cdl->tipologia);
+        $query = sprintf(self::$CREATE_CDL, $cdl->getMatricola(), $cdl->getNome(), $cdl->getTipologia());
         $res = Model::getDB()->query($query);
+        if ($res) {
+            //messaggio ok
+        }
+        else{
+            //messaggio errore  
+        }
     }
 
     /**
@@ -31,8 +37,14 @@ class CdLModel extends Model {
      * @param CdL updatedCdl Il corso di laurea modificato da aggiornare nel db
      */
     public function updateCdL($matricola, $updatedCdl) {
-        $query = sprintf(self::$UPDATE_CDL, $updatedCdl->matricola, $updatedCdl->nome, $updatedCdl->tipologia, $matricola);
+        $query = sprintf(self::$UPDATE_CDL, $updatedCdl->getMatricola(), $updatedCdl->getNome(), $updatedCdl->getTipologia(), $matricola);
         $res = Model::getDB()->query($query);
+        if ($res) {
+            //messaggio ok
+        }
+        else{
+            //messaggio errore  
+        }
     }
 
     /**
@@ -42,6 +54,12 @@ class CdLModel extends Model {
     public function deleteCdL($matricola) {
         $query = sprintf(self::$DELETE_CDL, $matricola);
         $res = Model::getDB()->query($query);
+        if ($res) {
+            //messaggio ok
+        }
+        else{
+            //messaggio errore  
+        }
     }
 
     /**
@@ -52,8 +70,12 @@ class CdLModel extends Model {
         $query = sprintf(self::$READ_CDL, $matricola);
         $res = Model::getDB()->query($query);
         if ($res) {
-            $cdl = new CdL($res->fetch_assoc()['matricola'], $res->fetch_assoc()['nome'], $res->fetch_assoc()['tipologia']);
+            $obj = $res->fetch_assoc();
+            $cdl = new CdL($obj['matricola'], $obj['nome'], $obj['tipologia']);
             return $cdl;
+        }
+        else{
+            //messaggio  nessun corso trovato 
         }
     }
 
@@ -64,9 +86,14 @@ class CdLModel extends Model {
     public function getAllCdL() {
         $res = Model::getDB()->query(self::$GET_ALL_CDLS);
         $cdls = array();
-        while ($obj = $res->fetch_assoc()) {
-            $cdls[] = new CdL($obj['matricola'], $obj['nome'], $obj['tipologia']);
+        if($res){
+            while ($obj = $res->fetch_assoc()) {
+                $cdls[] = new CdL($obj['matricola'], $obj['nome'], $obj['tipologia']);
+            }
+            return $cdls;
         }
-        return $cdls;
+        else{
+            //mesaggio nessun cdl trovato
+        }
     }
 }

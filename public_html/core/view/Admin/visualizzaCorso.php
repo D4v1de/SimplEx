@@ -26,7 +26,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>Crea Corso</title>
+    <title>View Corso</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -35,28 +35,28 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
           type="text/css"/>
-    <link href="../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-    <link href="../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
-    <link href="../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link href="../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
-    <link href="../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet"
+    <link href="../../../gestionale/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../gestionale/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../gestionale/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../gestionale/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../gestionale/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet"
           type="text/css"/>
     <!-- END GLOBAL MANDATORY STYLES -->
 
 
     <!-- BEGIN PAGE LEVEL STYLES aggiunta da me -->
-    <link rel="stylesheet" type="text/css" href="../assets/global/plugins/select2/select2.css">
+    <link rel="stylesheet" type="text/css" href="../../../gestionale/assets/global/plugins/select2/select2.css">
     <link rel="stylesheet" type="text/css"
-          href="../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+          href="../../../gestionale/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
     <!-- END PAGE LEVEL STYLES aggiunta da me-->
 
 
     <!-- BEGIN THEME STYLES -->
-    <link href="../assets/global/css/components-md.css" id="style_components" rel="stylesheet" type="text/css"/>
-    <link href="../assets/global/css/plugins-md.css" rel="stylesheet" type="text/css"/>
-    <link href="../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
-    <link id="style_color" href="../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
-    <link href="../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../gestionale/assets/global/css/components-md.css" id="style_components" rel="stylesheet" type="text/css"/>
+    <link href="../../../gestionale/assets/global/css/plugins-md.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../gestionale/assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+    <link id="style_color" href="../../../gestionale/assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../gestionale/assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="favicon.ico"/>
 </head>
@@ -78,8 +78,8 @@ License: You must have a valid license purchased only from themeforest(the above
     <div class="page-header-inner">
         <!-- BEGIN LOGO -->
         <div class="page-logo">
-            <a href="index.html">
-                <img src="../assets/admin/layout/img/logo.png" alt="logo" class="logo-default"/>
+            <a href="../../../gestionale/admin/index.html">
+                <img src="../../../gestionale/assets/admin/layout/img/logo.png" alt="logo" class="logo-default"/>
             </a>
 
             <div class="menu-toggler sidebar-toggler hide">
@@ -140,27 +140,51 @@ License: You must have a valid license purchased only from themeforest(the above
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                Crea Corso
+                View Corso
             </h3>
 
             <div class="page-bar">
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="index.html">Home</a>
+                        <a href="../../../gestionale/admin/index.html">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="gestioneCorsi.php">GestioneCorsi</a>
+                        <a href="gestioneCdL.php">GestioneCorsi</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="creaCorso.php">CreaCorso</a>
+                        <a href="visualizzaCorso.php">ViewCorso</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
             </div>
             <!-- END PAGE HEADER-->
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form">
+                        <form action="#" class="form-horizontal form-bordered form-row-stripped">
+                            <div class="form-actions">
+                                <div class="col-md col-md-5">
+                                    <h3>Ingegneria del Software</h3>
+                                    <h5>Matricola: 010000001</h5>
+                                    <h5>Tipologia: Annuale</h5>
+                                    <h5>Docente: Andrea De Lucia</h5>
+                                </div>
+                                <div class="col-md-offset-4 col-md-2">
+                                    <h3></h3>
+                                    <button type="button" class="btn green-jungle">Associa Docente</button>
+                                    <h3></h3>
+                                    <a href="modificaCorso.php"><button type="button" class="btn green-jungle">Modifica</button></a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
 
 
@@ -170,7 +194,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="portlet box grey-cascade">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-globe"></i>Crea nuovo Corso
+                                <i class="fa fa-globe"></i>Lista Sessioni
                             </div>
                             <div class="tools">
                                 <a href="javascript:;" class="collapse" data-original-title="" title="">
@@ -179,64 +203,179 @@ License: You must have a valid license purchased only from themeforest(the above
                         </div>
                         <div class="portlet-body">
                             <div class="table-scrollable">
-
-
-
-                                <div class="portlet-body form">
-                                    <div class="form-group form-md-line-input">
-                                        <div class="col-md-10">
-                                            <input type="text" class="form-control" id="form_control_1" placeholder="Inserisci nome">
-
-                                            <div class="form-control-focus">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group form-md-line-input">
-                                        <div class="col-md-10">
-                                            <input type="text" class="form-control" id="form_control_1" placeholder="Inserisci tipologia">
-
-                                            <div class="form-control-focus">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group form-md-line-input">
-                                        <div class="col-md-10">
-                                            <input type="text" class="form-control" id="form_control_1" placeholder="Inserisci matricola">
-
-                                            <div class="form-control-focus">
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-actions">
-                                                <div class="col-md-3">
-                                                    <button type="button" class="btn red-intense">Annulla</button>
+                                <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                                       id="sample_1" role="grid" aria-describedby="sample_1_info">
+                                    <thead>
+                                    <tr role="row">
+                                        <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1"
+                                            aria-label="" style="width: 24px;">
+                                            #
+                                        </th>
+                                        <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1"
+                                            colspan="1" aria-sort="ascending"
+                                            aria-label="Username: activate to sort column ascending"
+                                            style="width: 133px;">
+                                            Sessione
+                                        </th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Email"
+                                            style="width: 232px;">
+                                            Tipo
+                                        </th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Points"
+                                            style="width: 82px;">
+                                            Data
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1"
+                                            colspan="1" aria-label="Joined: activate to sort column ascending"
+                                            style="width: 119px;">
+                                            Ora
+                                        </th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Status"
+                                            style="width: 132px;">
+                                            Stato
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="gradeX odd" role="row">
+                                        <td>
+                                            1
+                                        </td>
+                                        <td class="sorting_1">
+                                            Sessione
+                                        </td>
+                                        <td>
+                                            Esercitativa
+                                        </td>
+                                        <td>
+                                            15/15/15
+                                        </td>
+                                        <td class="center">
+                                            15:30
+                                        </td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-offset-2 col-md-3">
+                                                    <a href="" class="label label-sm label-success">
+                                                        Attiva
+                                                    </a>
                                                 </div>
-                                                <div class="col-md-offset-1 col-md-3">
-                                                    <button type="button" class="btn green-jungle">Conferma</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="gradeX even" role="row">
+                                        <td>
+                                            2
+                                        </td>
+                                        <td class="sorting_1">
+                                            Sessione
+                                        </td>
+                                        <td>
+                                            Valutativa
+                                        </td>
+                                        <td>
+                                            14/12/15
+                                        </td>
+                                        <td class="center">
+                                            14:00
+                                        </td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-offset-2 col-md-3">
+                                                    <a href="" class="label label-sm label-warning">
+                                                        Terminata
+                                                    </a>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-
-
-
-                                </div>
-
-
-
+                                        </td>
+                                    </tr>
+                                    <tr class="gradeX odd" role="row">
+                                        <td>
+                                            3
+                                        </td>
+                                        <td class="sorting_1">
+                                            Sessione
+                                        </td>
+                                        <td>
+                                            Valutativa
+                                        </td>
+                                        <td>
+                                            25/10/15
+                                        </td>
+                                        <td class="center">
+                                            12:00
+                                        </td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-offset-2 col-md-3">
+                                                    <a href="" class="label label-sm label-warning">
+                                                        Terminata
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="gradeX even" role="row">
+                                        <td>
+                                            4
+                                        </td>
+                                        <td class="sorting_1">
+                                            Sessione
+                                        </td>
+                                        <td>Valutativa
+                                        </td>
+                                        <td>
+                                            20/10/15
+                                        </td>
+                                        <td class="center">
+                                            18:00
+                                        </td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-offset-2 col-md-3">
+                                                    <a href="" class="label label-sm label-warning">
+                                                        Terminata
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="gradeX odd" role="row">
+                                        <td>
+                                            5
+                                        </td>
+                                        <td class="sorting_1">
+                                            Sessione
+                                        </td>
+                                        <td>
+                                            Valutativa
+                                        </td>
+                                        <td>
+                                            21/11/15
+                                        </td>
+                                        <td class="center">
+                                            15:00
+                                        </td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-offset-2 col-md-3">
+                                                    <a href="" class="label label-sm label-warning">
+                                                        Terminata
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
-
-
-
                         </div>
                     </div>
                     <!-- END EXAMPLE TABLE PORTLET-->
                 </div>
             </div>
+
+
 
 
             <!-- END PAGE CONTENT-->
@@ -296,7 +435,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <div class="media-status">
                                         <span class="badge badge-success">8</span>
                                     </div>
-                                    <img class="media-object" src="../assets/admin/layout/img/avatar3.jpg" alt="...">
+                                    <img class="media-object" src="../../../gestionale/assets/admin/layout/img/avatar3.jpg" alt="...">
 
                                     <div class="media-body">
                                         <h4 class="media-heading">Bob Nilson</h4>
@@ -307,7 +446,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </div>
                                 </li>
                                 <li class="media">
-                                    <img class="media-object" src="../assets/admin/layout/img/avatar1.jpg" alt="...">
+                                    <img class="media-object" src="../../../gestionale/assets/admin/layout/img/avatar1.jpg" alt="...">
 
                                     <div class="media-body">
                                         <h4 class="media-heading">Nick Larson</h4>
@@ -321,7 +460,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <div class="media-status">
                                         <span class="badge badge-danger">3</span>
                                     </div>
-                                    <img class="media-object" src="../assets/admin/layout/img/avatar4.jpg" alt="...">
+                                    <img class="media-object" src="../../../gestionale/assets/admin/layout/img/avatar4.jpg" alt="...">
 
                                     <div class="media-body">
                                         <h4 class="media-heading">Deon Hubert</h4>
@@ -332,7 +471,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </div>
                                 </li>
                                 <li class="media">
-                                    <img class="media-object" src="../assets/admin/layout/img/avatar2.jpg" alt="...">
+                                    <img class="media-object" src="../../../gestionale/assets/admin/layout/img/avatar2.jpg" alt="...">
 
                                     <div class="media-body">
                                         <h4 class="media-heading">Ella Wong</h4>
@@ -349,7 +488,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <div class="media-status">
                                         <span class="badge badge-warning">2</span>
                                     </div>
-                                    <img class="media-object" src="../assets/admin/layout/img/avatar6.jpg" alt="...">
+                                    <img class="media-object" src="../../../gestionale/assets/admin/layout/img/avatar6.jpg" alt="...">
 
                                     <div class="media-body">
                                         <h4 class="media-heading">Lara Kunis</h4>
@@ -366,7 +505,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <div class="media-status">
                                         <span class="label label-sm label-success">new</span>
                                     </div>
-                                    <img class="media-object" src="../assets/admin/layout/img/avatar7.jpg" alt="...">
+                                    <img class="media-object" src="../../../gestionale/assets/admin/layout/img/avatar7.jpg" alt="...">
 
                                     <div class="media-body">
                                         <h4 class="media-heading">Ernie Kyllonen</h4>
@@ -378,7 +517,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </div>
                                 </li>
                                 <li class="media">
-                                    <img class="media-object" src="../assets/admin/layout/img/avatar8.jpg" alt="...">
+                                    <img class="media-object" src="../../../gestionale/assets/admin/layout/img/avatar8.jpg" alt="...">
 
                                     <div class="media-body">
                                         <h4 class="media-heading">Lisa Stone</h4>
@@ -395,7 +534,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <div class="media-status">
                                         <span class="badge badge-success">7</span>
                                     </div>
-                                    <img class="media-object" src="../assets/admin/layout/img/avatar9.jpg" alt="...">
+                                    <img class="media-object" src="../../../gestionale/assets/admin/layout/img/avatar9.jpg" alt="...">
 
                                     <div class="media-body">
                                         <h4 class="media-heading">Deon Portalatin</h4>
@@ -406,7 +545,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </div>
                                 </li>
                                 <li class="media">
-                                    <img class="media-object" src="../assets/admin/layout/img/avatar10.jpg" alt="...">
+                                    <img class="media-object" src="../../../gestionale/assets/admin/layout/img/avatar10.jpg" alt="...">
 
                                     <div class="media-body">
                                         <h4 class="media-heading">Irina Savikova</h4>
@@ -420,7 +559,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <div class="media-status">
                                         <span class="badge badge-danger">4</span>
                                     </div>
-                                    <img class="media-object" src="../assets/admin/layout/img/avatar11.jpg" alt="...">
+                                    <img class="media-object" src="../../../gestionale/assets/admin/layout/img/avatar11.jpg" alt="...">
 
                                     <div class="media-body">
                                         <h4 class="media-heading">Maria Gomez</h4>
@@ -443,7 +582,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </div>
                                 <div class="page-quick-sidebar-chat-user-messages">
                                     <div class="post out">
-                                        <img class="avatar" alt="" src="../assets/admin/layout/img/avatar3.jpg"/>
+                                        <img class="avatar" alt="" src="../../../gestionale/assets/admin/layout/img/avatar3.jpg"/>
 
                                         <div class="message">
                                             <span class="arrow"></span>
@@ -454,7 +593,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </div>
                                     </div>
                                     <div class="post in">
-                                        <img class="avatar" alt="" src="../assets/admin/layout/img/avatar2.jpg"/>
+                                        <img class="avatar" alt="" src="../../../gestionale/assets/admin/layout/img/avatar2.jpg"/>
 
                                         <div class="message">
                                             <span class="arrow"></span>
@@ -465,7 +604,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </div>
                                     </div>
                                     <div class="post out">
-                                        <img class="avatar" alt="" src="../assets/admin/layout/img/avatar3.jpg"/>
+                                        <img class="avatar" alt="" src="../../../gestionale/assets/admin/layout/img/avatar3.jpg"/>
 
                                         <div class="message">
                                             <span class="arrow"></span>
@@ -476,7 +615,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </div>
                                     </div>
                                     <div class="post in">
-                                        <img class="avatar" alt="" src="../assets/admin/layout/img/avatar2.jpg"/>
+                                        <img class="avatar" alt="" src="../../../gestionale/assets/admin/layout/img/avatar2.jpg"/>
 
                                         <div class="message">
                                             <span class="arrow"></span>
@@ -487,7 +626,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </div>
                                     </div>
                                     <div class="post out">
-                                        <img class="avatar" alt="" src="../assets/admin/layout/img/avatar3.jpg"/>
+                                        <img class="avatar" alt="" src="../../../gestionale/assets/admin/layout/img/avatar3.jpg"/>
 
                                         <div class="message">
                                             <span class="arrow"></span>
@@ -498,7 +637,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </div>
                                     </div>
                                     <div class="post in">
-                                        <img class="avatar" alt="" src="../assets/admin/layout/img/avatar2.jpg"/>
+                                        <img class="avatar" alt="" src="../../../gestionale/assets/admin/layout/img/avatar2.jpg"/>
 
                                         <div class="message">
                                             <span class="arrow"></span>
@@ -509,7 +648,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </div>
                                     </div>
                                     <div class="post out">
-                                        <img class="avatar" alt="" src="../assets/admin/layout/img/avatar3.jpg"/>
+                                        <img class="avatar" alt="" src="../../../gestionale/assets/admin/layout/img/avatar3.jpg"/>
 
                                         <div class="message">
                                             <span class="arrow"></span>
@@ -520,7 +659,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </div>
                                     </div>
                                     <div class="post in">
-                                        <img class="avatar" alt="" src="../assets/admin/layout/img/avatar2.jpg"/>
+                                        <img class="avatar" alt="" src="../../../gestionale/assets/admin/layout/img/avatar2.jpg"/>
 
                                         <div class="message">
                                             <span class="arrow"></span>
@@ -531,7 +670,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </div>
                                     </div>
                                     <div class="post out">
-                                        <img class="avatar" alt="" src="../assets/admin/layout/img/avatar3.jpg"/>
+                                        <img class="avatar" alt="" src="../../../gestionale/assets/admin/layout/img/avatar3.jpg"/>
 
                                         <div class="message">
                                             <span class="arrow"></span>
@@ -969,36 +1108,36 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
 <!--[if lt IE 9]>
-<script src="../assets/global/plugins/respond.min.js"></script>
-<script src="../assets/global/plugins/excanvas.min.js"></script>
+<script src="../../../gestionale/assets/global/plugins/respond.min.js"></script>
+<script src="../../../gestionale/assets/global/plugins/excanvas.min.js"></script>
 <![endif]-->
-<script src="../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
-<script src="../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<script src="../../../gestionale/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="../../../gestionale/assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
 <!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
-<script src="../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
-<script src="../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"
+<script src="../../../gestionale/assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="../../../gestionale/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../../../gestionale/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"
         type="text/javascript"></script>
-<script src="../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
-<script src="../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
-<script src="../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
-<script src="../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
-<script src="../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<script src="../../../gestionale/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../../../gestionale/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="../../../gestionale/assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="../../../gestionale/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="../../../gestionale/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
 
 <!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
-<script type="text/javascript" src="../assets/global/plugins/select2/select2.min.js"></script>
-<script type="text/javascript" src="../assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../../../gestionale/assets/global/plugins/select2/select2.min.js"></script>
+<script type="text/javascript" src="../../../gestionale/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript"
-        src="../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+        src="../../../gestionale/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <!-- END PAGE LEVEL PLUGINS aggiunta da me-->
 
-<script src="../assets/global/scripts/metronic.js" type="text/javascript"></script>
-<script src="../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
-<script src="../assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
-<script src="../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="../../../gestionale/assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="../../../gestionale/assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="../../../gestionale/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+<script src="../../../gestionale/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN aggiunta da me -->
-<script src="../assets/admin/pages/scripts/table-managed.js"></script>
+<script src="../../../gestionale/assets/admin/pages/scripts/table-managed.js"></script>
 <!-- END aggiunta da me -->
 <script>
     jQuery(document).ready(function () {

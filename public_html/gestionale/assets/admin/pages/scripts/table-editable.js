@@ -46,7 +46,7 @@ var TableEditable = function () {
         }
 
         var table = $('#sample_editable_1');
-
+     
         var oTable = table.dataTable({
 
             // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout

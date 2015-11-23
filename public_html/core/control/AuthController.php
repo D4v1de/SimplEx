@@ -59,7 +59,10 @@ class AuthController extends Controller {
                 return null;
             }
             $accModel = new AccountModel();
-            return $accModel->getUtenteByIdentity($identity);
+            $user = $accModel->getUtenteByIdentity($identity);
+            $_SESSION['loggedin'] = true;
+            $_SESSION['user'] = $user;
+            return $user;
         } catch (UserNotFoundException $ex) {
             return null;
         }
