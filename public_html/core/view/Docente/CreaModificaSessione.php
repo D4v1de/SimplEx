@@ -38,7 +38,7 @@ $controller = new Esempio();
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                Crea Test
+                Crea Sessione / Modifica Sessione
             </h3>
             <div class="page-bar">
                     <ul class="page-breadcrumb">
@@ -74,34 +74,36 @@ $controller = new Esempio();
                             <div class="col-md-8">
                                 <div class="col-md-4">
                                     <label class="control-label">Avvio:</label>
-                                    <div class="input-icon">
-                                        <i class="fa fa-calendar"></i>
-                                        <input class="form-control date-picker" size="16" type="text" value="12-02-2012" data-date="12-02-2012" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+                                    <div class="input-group date form_datetime">
+                                        <input type="text" size="16" readonly="" class="form-control"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="col-md-1">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <div class="input-icon">
-                                            <input type="text" class="form-control">
-                                                <label for="form_control_1">Ora</label>
-                                                    <span class="help-block">Avvio</span>
+                                    <div class="form-group">
+                                        <label>Ora:</label>
+                                        <div class="input-icon right">
+                                                <input type="text" class="form-control input-circle" placeholder="Ora Avvio">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-1"></div>
                                 <div class="col-md-4">
                                     <label class="control-label">Termine:</label>
-                                    <div class="input-icon">
-                                        <i class="fa fa-calendar"></i>
-                                        <input class="form-control date-picker" size="16" type="text" value="12-02-2012" data-date="12-02-2012" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+                                    <div class="input-group date form_datetime">
+                                        <input type="text" size="16" readonly="" class="form-control"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="col-md-1">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <div class="input-icon">
-                                            <input type="text" class="form-control">
-                                                <label for="form_control_1">Ora</label>
-                                                    <span class="help-block">Termine</span>
+                                    <div class="form-group">
+                                        <label>Ora:</label>
+                                        <div class="input-icon right">
+                                                <input type="text" class="form-control input-circle" placeholder="Termine">
                                         </div>
                                     </div>
                                 </div>
@@ -116,8 +118,8 @@ $controller = new Esempio();
                                         <i class="fa fa-globe"></i>Test
                                     </div>
                                     <div class="tools">
-                                        <input type="radio"/> Valutativo
-                                        <input type="radio"/> Esercitativo
+                                        <input type="radio" name"val" value"val"> Valutativo
+                                        <input type="radio"> Esercitativo
                                         <a href="javascript:;" class="collapse" data-original-title="" title="">
                                         </a>
                                     </div>
@@ -128,8 +130,15 @@ $controller = new Esempio();
                                             <table class="table table-striped table-bordered table-hover dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
                                                 <thead>                                        
                                                     <tr role="row">
-                                                        <th>
-                                                            <input type="checkbox"/>
+                                                        <th width="1px">
+                                                            <div class="md-checkbox">
+                                                                <input type="checkbox" id="testAll" class="md-check">
+                                                                <label for="testAll">
+                                                                <span></span>
+                                                                <span class="check"></span>
+                                                                <span class="box"></span>
+                                                                </label>
+                                                            </div>
                                                         </th>
                                                         <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
                                                      Username
@@ -168,8 +177,15 @@ $controller = new Esempio();
                                                 </thead>
                                                 <tbody>
                                                     <tr class="gradeX odd" role="row">
-                                                        <td>
-                                                            <input type="checkbox"/>
+                                                        <td width="1px">
+                                                            <div class="md-checkbox">
+                                                                <input type="checkbox" id="test1" class="md-check">
+                                                                <label for="test1">
+                                                                <span></span>
+                                                                <span class="check"></span>
+                                                                <span class="box"></span>
+                                                                </label>
+                                                            </div>
                                                         </td>
                                                         <td>Test 1</td>
                                                         <td class="sorting_1">10/11/2015</td>
@@ -181,7 +197,14 @@ $controller = new Esempio();
                                                     </tr>
                                                     <tr class="gradeX even" role="row">
                                                         <td>
-                                                            <input type="checkbox"/>
+                                                            <div class="md-checkbox">
+                                                                <input type="checkbox" id="test2" class="md-check">
+                                                                <label for="test2">
+                                                                <span></span>
+                                                                <span class="check"></span>
+                                                                <span class="box"></span>
+                                                                </label>
+                                                            </div>
                                                         </td>
                                                         <td>Test 2</td>
                                                         <td class="sorting_1">23/03/2016</td>
@@ -194,7 +217,14 @@ $controller = new Esempio();
 
                                                     <tr class="gradeX even" role="row">
                                                         <td>
-                                                            <input type="checkbox"/>
+                                                            <div class="md-checkbox">
+                                                                <input type="checkbox" id="test3" class="md-check">
+                                                                <label for="test3">
+                                                                <span></span>
+                                                                <span class="check"></span>
+                                                                <span class="box"></span>
+                                                                </label>
+                                                            </div>
                                                         </td>
                                                         <td>Test 3</td>
                                                         <td class="sorting_1">15/11/2015</td>
@@ -213,14 +243,205 @@ $controller = new Esempio();
                         </div>
                     </div>
                     
-                    <h1> DA COMPLETARE </h1>
-                    <div class="form-actions row">
-                        <div class="col-md-9"></div>
-                            <button type="button" class="btn default">Annulla</button>
-                            <button type="submit" class="btn blue">Conferma</button>
+            <div class="portlet box grey-cascade">
+                <div class="portlet-title">
+                        <div class="caption">
+                                <i class="fa fa-globe"></i>Studenti
+
+                </div>
+                <div class="tools">
+                        <a href="javascript:;" class="collapse" data-original-title="" title="">
+                        </a>
+                </div>
+                         </div>
+                 <div class="portlet-body">
+                            <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
+                                <div class="table-scrollable">
+                                    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
+
+                                        <thead>
+                                            <tr class="gradeX odd" role="row">
+                                                <th width ="1px">
+                                                        <div class="md-checkbox">
+                                                            <input type="checkbox" id="studentiAll" class="md-check">
+                                                            <label for="studentiAll">
+                                                            <span></span>
+                                                            <span class="check"></span>
+                                                            <span class="box"></span>
+                                                            </label>
+                                                        </div>
+                                                </th>
+                                                <th>Nome</th>
+                                                <th>Cognome</th>
+                                                <th>Matricola</th>
+                                            </tr>       
+                                    </thead>
+
+                                    <tbody>
+
+                                        <tr class="gradeX odd" role="row">
+                                                <td>
+                                                    <div class="md-checkbox">
+                                                        <input type="checkbox" id="studente1" class="md-check">
+                                                        <label for="studente1">
+                                                        <span></span>
+                                                        <span class="check"></span>
+                                                        <span class="box"></span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td class="sorting_1">
+                                                         Mario
+                                                </td>
+                                                <td>
+                                                         Rossi
+                                                </td>
+                                                <td>
+                                                         0512100000
+                                                </td>
+                                        </tr>  <tr class="gradeX odd" role="row">
+                                                <td>
+                                                    <div class="md-checkbox">
+                                                        <input type="checkbox" id="studente2" class="md-check">
+                                                        <label for="studente2">
+                                                        <span></span>
+                                                        <span class="check"></span>
+                                                        <span class="box"></span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td class="sorting_1">
+                                                         Giuseppe
+                                                </td>
+                                                <td>
+                                                         Verdi
+                                                </td>
+                                                <td>
+                                                         0512100001
+                                                </td>
+                                        </tr>
+                                          <tr class="gradeX odd" role="row">
+                                                <td>
+                                                    <div class="md-checkbox">
+                                                        <input type="checkbox" id="studente3" class="md-check">
+                                                        <label for="studente3">
+                                                        <span></span>
+                                                        <span class="check"></span>
+                                                        <span class="box"></span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td class="sorting_1">
+                                                         Antonio
+                                                </td>
+                                                <td>
+                                                         Bianchi
+                                                </td>
+                                                <td>
+                                                         0512100002
+                                                </td>
+                                        </tr>
+                                        <tr class="gradeX odd" role="row">
+                                                <td>
+                                                    <div class="md-checkbox">
+                                                        <input type="checkbox" id="studente4" class="md-check">
+                                                        <label for="studente4">
+                                                        <span></span>
+                                                        <span class="check"></span>
+                                                        <span class="box"></span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td class="sorting_1">
+                                                         Michele
+                                                </td>
+                                                <td>
+                                                         Neri
+                                                </td>
+                                                <td>
+                                                         0512100003
+                                                </td>
+                                        </tr>
+                                        <tr class="gradeX odd" role="row">
+                                                <td>
+                                                    <div class="md-checkbox">
+                                                        <input type="checkbox" id="studente5" class="md-check">
+                                                        <label for="studente5">
+                                                        <span></span>
+                                                        <span class="check"></span>
+                                                        <span class="box"></span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td class="sorting_1">
+                                                         Antonio
+                                                </td>
+                                                <td>
+                                                         Di Natale
+                                                </td>
+                                                <td>
+                                                         0512100004
+                                                </td>
+                                        </tr>
+                                        <tr class="gradeX odd" role="row">
+                                                <td>
+                                                    <div class="md-checkbox">
+                                                        <input type="checkbox" id="studente6" class="md-check">
+                                                        <label for="studente6">
+                                                        <span></span>
+                                                        <span class="check"></span>
+                                                        <span class="box"></span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td class="sorting_1">
+                                                         Francesco
+                                                </td>
+                                                <td>
+                                                         Luzzi
+                                                </td>
+                                                <td>
+                                                         0512100005
+                                                </td>
+                                        </tr>
+                                        <tr class="gradeX odd" role="row">
+                                                <td>
+                                                    <div class="md-checkbox">
+                                                        <input type="checkbox" id="studente7" class="md-check">
+                                                        <label for="studente7">
+                                                        <span></span>
+                                                        <span class="check"></span>
+                                                        <span class="box"></span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td class="sorting_1">
+                                                         Loris
+                                                </td>
+                                                <td>
+                                                         Lusi
+                                                </td>
+                                                <td>
+                                                         0512100006
+                                                </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
+                </div>
+            </div>
+                <div class="form-actions row">
+                    <div class="col-md-9"></div>
+                        <a href="javascript:;" class="btn sm red-intense">
+                            Annulla
+                        </a>
+                        <a href="javascript:;" class="btn sm green-jungle">
+                            Conferma
+                        </a>
                     </div>
-                </form>
+                </div>
+            </form>
             <!-- END PAGE CONTENT-->
         </div>
     </div>

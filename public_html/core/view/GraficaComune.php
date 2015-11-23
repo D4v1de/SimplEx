@@ -148,18 +148,62 @@ $controller = new Esempio();
                         </tr>
                         
                         <tr class="gradeX even" role="row">
-                                <td>
-                                    <div class="btn-group" data-toggle="buttons">
-                                        <label class="btn btn-default active">
-                                        <input type="radio" class="toggle"> Bottone 1 </label>
-                                        <label class="btn btn-default">
-                                        <input type="radio" class="toggle"> Bottone 2 </label>
+                            <td>
+                               <div class="md-radio-inline">
+                                    <div class="md-radio">
+                                            <input type="radio" id="radio53" name="radio2" class="md-radiobtn">
+                                            <label for="radio53">
+                                            <span></span>
+                                            <span class="check"></span>
+                                            <span class="box"></span>
+                                            Option 1 </label>
                                     </div>
-                                </td>
-                                <td class="sorting_1">
-                                    <b>Radio Button</b>.
-                                </td>
+                                    <div class="md-radio">
+                                            <input type="radio" id="radio54" name="radio2" class="md-radiobtn">
+                                            <label for="radio54">
+                                            <span></span>
+                                            <span class="check"></span>
+                                            <span class="box"></span>
+                                            Option 2 </label>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="sorting_1">
+                                <b>Radio Button</b>.
+                            </td>
                         </tr>
+                        <tr class="gradeX even" role="row">
+                            <td>
+                                <div class="md-checkbox-inline">
+                                    <div class="md-checkbox">
+                                            <input type="checkbox" id="checkbox6" class="md-check">
+                                            <label for="checkbox6">
+                                            <span></span>
+                                            <span class="check"></span>
+                                            <span class="box"></span>
+                                            Option 1 </label>
+                                    </div>
+                                    <div class="md-checkbox">
+                                            <input type="checkbox" id="checkbox7" class="md-check">
+                                            <label for="checkbox7">
+                                            <span></span>
+                                            <span class="check"></span>
+                                            <span class="box"></span>
+                                            Option 2 </label>
+                                    </div>
+                                    <div class="md-checkbox">
+                                            <input type="checkbox" id="checkbox8" class="md-check">
+                                            <label for="checkbox8">
+                                            <span></span>
+                                            <span class="check"></span>
+                                            <span class="box"></span>
+                                            Option 3 </label>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="sorting_1">
+                                <b>Checkbox</b>.
+                            </td> 
                         </tr>                        
                         </tbody>
                         </table>
@@ -209,13 +253,12 @@ $controller = new Esempio();
                         <tbody>
                         <tr class="gradeX odd" role="row">
                             <td>
-
-                                    <div class="input-group date form_datetime">
-                                        <input type="text" size="16" readonly="" class="form-control">
-                                        <span class="input-group-btn">
-                                            <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
-                                        </span>
-                                    </div>
+                                <div class="input-group date form_datetime">
+                                    <input type="text" size="16" readonly="" class="form-control">
+                                    <span class="input-group-btn">
+                                        <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </div>
                             </td>
                                 <td class="sorting_1">
                                     <b>Calendario</b>. Usarne 2 per creare un Range di date.   
