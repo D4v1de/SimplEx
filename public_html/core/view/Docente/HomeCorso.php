@@ -61,16 +61,20 @@ $controller = new Esempio();
                     <div class="col-md-4">
                         <div class="col-md-6">
                             <label class="control-label">Dal:</label>
-                                <div class="input-icon">
-                                        <i class="fa fa-calendar"></i>
-                                        <input class="form-control date-picker" size="16" type="text" value="12-02-2012" data-date="12-02-2012" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+                                <div class="input-group date form_datetime">
+                                    <input type="text" size="16" readonly="" class="form-control"/>
+                                    <span class="input-group-btn">
+                                        <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+                                    </span>
                                 </div>
                         </div>
                         <div class="col-md-6">
                             <label class="control-label">Al:</label>
-                                <div class="input-icon">
-                                        <i class="fa fa-calendar"></i>
-                                        <input class="form-control date-picker" size="16" type="text" value="12-02-2012" data-date="12-02-2012" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+                                <div class="input-group date form_datetime">
+                                    <input type="text" size="16" readonly="" class="form-control"/>
+                                    <span class="input-group-btn">
+                                        <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+                                    </span>
                                 </div>
                         </div>
                     </div>

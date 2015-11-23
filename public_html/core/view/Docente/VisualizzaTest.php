@@ -66,7 +66,7 @@ $controller = new Esempio();
                     </div>
                     <div class="tools">
                         <a style="color:white"> <i class="fa fa-edit"></i> Seleziona domande </a>
-                        <a style="color:white"> <i class="fa fa-trash-o"></i> Elimina </a>
+                        <a style="color:#e35b5a"> <i class="fa fa-trash-o"></i> Elimina </a>
                     </div>
                 </div>
 
@@ -91,12 +91,6 @@ $controller = new Esempio();
                 </div>
             </div>
            
-             <div class="row">
-                <div class="col-md-12">
-                    <div class="col-md-9"></div> 
-                    <button type="button" class="btn green-jungle">Indietro</button>
-                </div>
-            </div>
             <!-- END PAGE CONTENT-->
         </div>
     </div>

@@ -99,20 +99,84 @@ $controller = new Esempio();
                             </div>
                         </div>
                         <h3> Domanda 1 (multipla) </h3>
-                        <p><input type = "checkbox"/>Risposta 1</p>
-                        <p><input type = "checkbox"/>Risposta 2</p>
-                        <p><input type = "checkbox"/>Risposta 3</p>
-                        <p><input type = "checkbox"/>Risposta 4</p>
+                        <div class="form-group form-md-radios">
+                            <div class="md-radio-list">
+                                <div class="md-radio">
+                                    <input type="radio" id="d1r1" name="radio1" class="md-radiobtn">
+                                    <label for="d1r1">
+                                    <span class="inc"></span>
+                                    <span class="check"></span>
+                                    <span class="box"></span>
+                                    Riposta 1 </label>
+                                </div>
+                                <div class="md-radio">
+                                    <input type="radio" id="d1r2" name="radio1" class="md-radiobtn">
+                                    <label for="d1r2">
+                                    <span class="inc"></span>
+                                    <span class="check"></span>
+                                    <span class="box"></span>
+                                    Riposta 2 </label>
+                                </div>
+                                <div class="md-radio">
+                                    <input type="radio" id="d1r3" name="radio1" class="md-radiobtn">
+                                    <label for="d1r3">
+                                    <span class="inc"></span>
+                                    <span class="check"></span>
+                                    <span class="box"></span>
+                                    Riposta 3 </label>
+                                </div>
+                                <div class="md-radio">
+                                    <input type="radio" id="d1r4" name="radio1" class="md-radiobtn">
+                                    <label for="d1r4">
+                                    <span class="inc"></span>
+                                    <span class="check"></span>
+                                    <span class="box"></span>
+                                    Riposta 4 </label>
+                                </div>
+                            </div>
+                        </div>
 
                         <h3> Domanda 2 (aperta)</h3>
                         <div class="form-group">
                             <textarea class="form-control" rows="3" placeholder="Inserisci risposta" style="resize:none"></textarea>
                         </div>
                         <h3> Domanda 3 (multipla)</h3>
-                        <p><input type = "checkbox"/>Risposta 1</p>
-                        <p><input type = "checkbox"/>Risposta 2</p>
-                        <p><input type = "checkbox"/>Risposta 3</p>
-                        <p><input type = "checkbox"/>Risposta 4</p>
+                        <div class="form-group form-md-radios">
+                            <div class="md-radio-list">
+                                <div class="md-radio">
+                                    <input type="radio" id="d2r1" name="radio1" class="md-radiobtn">
+                                    <label for="d2r1">
+                                    <span class="inc"></span>
+                                    <span class="check"></span>
+                                    <span class="box"></span>
+                                    Riposta 1 </label>
+                                </div>
+                                <div class="md-radio">
+                                    <input type="radio" id="d2r2" name="radio1" class="md-radiobtn">
+                                    <label for="d2r2">
+                                    <span class="inc"></span>
+                                    <span class="check"></span>
+                                    <span class="box"></span>
+                                    Riposta 2 </label>
+                                </div>
+                                <div class="md-radio">
+                                    <input type="radio" id="d2r3" name="radio1" class="md-radiobtn">
+                                    <label for="d2r3">
+                                    <span class="inc"></span>
+                                    <span class="check"></span>
+                                    <span class="box"></span>
+                                    Riposta 3 </label>
+                                </div>
+                                <div class="md-radio">
+                                    <input type="radio" id="d2r4" name="radio1" class="md-radiobtn">
+                                    <label for="d2r4">
+                                    <span class="inc"></span>
+                                    <span class="check"></span>
+                                    <span class="box"></span>
+                                    Riposta 4 </label>
+                                </div>
+                            </div>
+                        </div>
 
 
                     <div class="row">
