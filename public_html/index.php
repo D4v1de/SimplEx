@@ -1,11 +1,11 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: sergio
  * Date: 18/11/15
  * Time: 08:58
  */
-
 define('ROOT_DIR', dirname(__FILE__)); //costante root dir
 define('CORE_DIR', ROOT_DIR . DIRECTORY_SEPARATOR . 'core' . DIRECTORY_SEPARATOR); //costante core directory
 define('VIEW_DIR', CORE_DIR . "view" . DIRECTORY_SEPARATOR); //ecc
@@ -29,11 +29,8 @@ if (preg_match("/^index.(?:html|php)$/i", $_URL[count($_URL) - 1]))
 
 
 //TODO gestione modalità di funzionamento DEBUG-PRODUZIONE
-
 //TODO logging
-
 //TODO catch degli errori globale
-
 // definisco costante IP contenente l'ip del client
 if (isset($_SERVER['HTTP_X_REAL_IP'])) {
     define('IP', $_SERVER['HTTP_X_REAL_IP']);
@@ -94,6 +91,50 @@ switch (isset($_URL[0]) ? $_URL[0] : '') {
     case 't':
         include_once CONTROL_DIR . "TestController.php";
         break;
+    case 'visualizzalistadomande':
+        include_once VIEW_DIR . "/Docente/VisualizzaListaDomande.php";
+        break;
+    case 'inseriscidomandaaperta':
+        include_once VIEW_DIR . "/Docente/InserisciDomandaAperta.php";
+        break;
+    case 'modificadomandaaperta':
+        include_once VIEW_DIR . "/Docente/ModificaDomandaAperta.php";
+        break;
+    case 'inseriscidomandamultipla':
+        include_once VIEW_DIR . "/Docente/InserisciDomandaMultipla.php";
+        break;
+     case 'modificadomandamultipla':
+        include_once VIEW_DIR . "/Docente/ModificaDomandaMultipla.php";
+        break;
+    case 'inserisciargomento':
+        include_once VIEW_DIR . "/Docente/InserisciArgomento.php";
+        break;
+    case 'modificaargomento':
+        include_once VIEW_DIR . "/Docente/ModificaArgomento.php";
+        break;
+    case 'creacdl':
+        include_once VIEW_DIR . "/Admin/creaCdL.php";
+        break;
+    case 'creacorso':
+        include_once VIEW_DIR . "/Admin/creaCorso.php";
+        break;
+    case 'gestionecdl':
+        include_once VIEW_DIR . "/Admin/gestioneCdL.php";
+        break;
+    case 'gestionecorsi':
+        include_once VIEW_DIR . "/Admin/gestioneCorsi.php";
+        break;
+    case 'modificacdl':
+        include_once VIEW_DIR . "/Admin/modificaCdL.php";
+        break;
+    case 'modificacorso':
+        include_once VIEW_DIR . "/Admin/modificaCorso.php";
+        break;
+    case 'visualizzacorso':
+        include_once VIEW_DIR . "/Admin/visualizzaCorso.php";
+        break;
+    case 'visualizzacorsi':
+        include_once VIEW_DIR . "/Studente/visualizzaCorsi.php";
     case 'creacdl':
         include_once VIEW_DIR."/Admin/creaCdL.php";
         break;
@@ -117,6 +158,9 @@ switch (isset($_URL[0]) ? $_URL[0] : '') {
         break;
     case 'visualizzacorsi':
         include_once VIEW_DIR."/Studente/visualizzaCorsi.php";
+        break;
+    case 'selezionestudenti':
+        include_once VIEW_DIR."/Docente/SelezioneStudenti.php";
         break;
     default:
         echo "Route inesistente";

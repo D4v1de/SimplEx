@@ -151,7 +151,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="gestioneCorsi.php">GestioneCorsi</a>
+                        <a href="gestionecorsi">GestioneCorsi</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
@@ -165,7 +165,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="form page-bar">
                         <div class="form-actions">
                             <div class="col-md-4">
-                                <a href="creaCorso.php"><button type="button" class="btn green-jungle">Crea Nuovo Corso</button></a>
+                                <a href="creacorso"><button type="button" class="btn green-jungle">Crea Nuovo Corso</button></a>
                             </div>
                         </div>
                     </div>

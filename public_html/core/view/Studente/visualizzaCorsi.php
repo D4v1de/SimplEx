@@ -151,7 +151,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="visualizzaCorsi.php">ViewCorsi</a>
+                        <a href="visualizzacorsi">ViewCorsi</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>

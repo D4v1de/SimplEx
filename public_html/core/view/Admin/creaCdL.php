@@ -151,11 +151,11 @@ License: You must have a valid license purchased only from themeforest(the above
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="gestioneCdL.php">GestioneCdL</a>
+                        <a href="gestionecdl">GestioneCdL</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="creaCdL.php">CreaCdL</a>
+                        <a href="creacdl">CreaCdL</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
