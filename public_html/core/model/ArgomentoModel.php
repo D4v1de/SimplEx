@@ -46,26 +46,26 @@ class ArgomentoModel extends Model {
     
     /**
      * Inserisce un nuovo Argomento nel database
-     * @param Argomento da inserire nel database
+     * @param Argomento Argomento da inserire nel database
      */
     public function createArgomento($Argomento){
-        $query = sprintf(self::$CREATE_ARGOMENTO, $Argomento->id, $Argomento->nome, $Argomento->insegnamentoId, $Argomento->insegnamentoCorsoMatricola);
+        $query = sprintf(self::$CREATE_ARGOMENTO, $Argomento->getId(), $Argomento->getNome(), $Argomento->getInsegnamentoId(), $Argomento->getInsegnamentoCorsoMatricola());
         $res = Model::getDB()->query($query);
     }
     
    /**
     * Modifica un Argomento nel database
-    * @param int $id
-    * @param Argomento $updatedArgomento
+    * @param int $id id dell' argomento da aggiornare
+    * @param Argomento $updatedArgomento Argomento modificato da aggiornare nel database
     */
     public function updateArgomento($id,$updatedArgomento){
-        $query = sprintf(self::$UPDATE_ARGOMENTO, $updatedArgomento->id, $updatedArgomento->nome, $updatedArgomento->insegnamentoId, $id);
+        $query = sprintf(self::$UPDATE_ARGOMENTO, $updatedArgomento->getId(), $updatedArgomento->getNome(), $updatedArgomento->getInsegnamentoId(), $id);
         $res = Model::getDB()->query($query);
     }
     
     /**
      * Cancella un Argomento nel database
-     * @param int $id
+     * @param int $id Id dell'argomento da cancellare
      */
     public function deleteArgomento($id){
         $query = sprintf(self::$DELETE_ARGOMENTO, $id);
@@ -74,8 +74,8 @@ class ArgomentoModel extends Model {
     
     /**
      * Cerca un Argomento nel database
-     * @param int $id
-     * @return \Argomento
+     * @param int $id Id dell'argomento da cercare
+     * @return \Argomento Argomento da cercare
      */
     public function readArgomento($id){
         $query = sprintf(self::$READ_ARGOMENTO, $id);
@@ -88,7 +88,7 @@ class ArgomentoModel extends Model {
     
    /**
     * Restituisce tutti gli Argomenti del database
-    * @return \Argomento
+    * @return \Argomento Array di tutti argomenti del database
     */
     public function getAllArgomento() {
         $res = Model::getDB()->query(self::$GET_ALL_ARGOMENTO);
@@ -102,26 +102,26 @@ class ArgomentoModel extends Model {
     
     /**
      * Inserisce una nuova DomandaAperta nel database
-     * @param DomandaAperta da inserire nel database
+     * @param DomandaAperta Domanda aperta da inserire nel database
      */
     public function createDomandaAperta($DomandaAperta){
-        $query = sprintf(self::$CREATE_DOMANDA_APERTA, $DomandaAperta->testo, $DomandaAperta->punteggioMax, $DomandaAperta->percentualeScelta, $DomandaAperta->argomentoId, $DomandaAperta->argomentoInsegnamentoId,$DomandaAperta->argomentoInsegnamentoCorsoMatricola );
+        $query = sprintf(self::$CREATE_DOMANDA_APERTA, $DomandaAperta->getTesto(), $DomandaAperta->getPunteggioMax(), $DomandaAperta->getPercentualeScelta(), $DomandaAperta->getArgomentoId(), $DomandaAperta->getArgomentoInsegnamentoId(),$DomandaAperta->getArgomentoInsegnamentoCorsoMatricola());
         $res = Model::getDB()->query($query);
     }
     
    /**
     * Modifica una DomandaAperta nel database
-    * @param int $id
-    * @param DomandaAperta $updatedDomandaAperta
+    * @param int $id della domanda aperta da modificare
+    * @param DomandaAperta $updatedDomandaAperta domanda aperta aggiornata da modificare nel database
     */
     public function updateDomandaAperta($id,$updatedDomandaAperta){
-        $query = sprintf(self::$UPDATE_DOMANDA_APERTA, $updatedDomandaAperta->id, $updatedDomandaAperta->testo, $updatedDomandaAperta->punteggioMax,$updatedDomandaAperta->percentualeScelta,$updatedDomandaAperta->argomentoId, $updatedDomandaAperta->argomentoInsegnamentoId,$updatedDomandaAperta->argomentoInsegnamentoCorsoMatricola, $id);
+        $query = sprintf(self::$UPDATE_DOMANDA_APERTA, $updatedDomandaAperta->getId(), $updatedDomandaAperta->getTesto(), $updatedDomandaAperta->getPunteggioMax(),$updatedDomandaAperta->getPercentualeScelta(),$updatedDomandaAperta->getArgomentoId(), $updatedDomandaAperta->getArgomentoInsegnamentoId(),$updatedDomandaAperta->getArgomentoInsegnamentoCorsoMatricola(), $id);
         $res = Model::getDB()->query($query);
     }
     
     /**
      * Cancella una DomandaAperta nel database
-     * @param int $id
+     * @param int $id Id della domanda aperta da cancellare
      */
     public function deleteDomandaAperta($id){
         $query = sprintf(self::$DELETE_DOMANDA_APERTA, $id);
@@ -130,8 +130,8 @@ class ArgomentoModel extends Model {
     
     /**
      * Cerca una domandaAperta nel database
-     * @param int $id
-     * @return \DomandaAperta
+     * @param int $id Id della domanda aperta da cercare
+     * @return \DomandaAperta Domanda aperta cercata nel database
      */
     public function readDomandaAperta($id){
         $query = sprintf(self::$READ_DOMANDA_APERTA, $id);
@@ -144,7 +144,7 @@ class ArgomentoModel extends Model {
     
    /**
     * Restituisce tutte le domande aperte del database
-    * @return \DomandaAperta
+    * @return \DomandaAperta Array di tutte le domande aperte del database
     */
     public function getAllDomandaAperta() {
         $res = Model::getDB()->query(self::$GET_ALL_DOMANDA_APERTA);
@@ -158,22 +158,22 @@ class ArgomentoModel extends Model {
     
     /**
      * Inserisce una nuova DomandaMultipla nel database
-     * @param DomandaMultipla da inserire nel database
+     * @param DomandaMultipla Domanda Multipla da inserire nel database
      */
     public function createDomandaMultipla($DomandaMultipla){
-        $query = sprintf(self::$CREATE_DOMANDA_MULTIPLA, $DomandaMultipla->testo, $DomandaMultipla->punteggioCorretta, $DomandaMultipla->punteggioErrata,$DomandaMultipla->percentualeScelta, $DomandaMultipla->percentualeRispostaCorretta,$DomandaMultipla->alternativaCorretta,
-                $DomandaMultipla->argomentoId, $DomandaMultipla->argomentoInsegnamentoId,$DomandaMultipla->argomentoInsegnamentoCorsoMatricola);
+        $query = sprintf(self::$CREATE_DOMANDA_MULTIPLA, $DomandaMultipla->getTesto(), $DomandaMultipla->getPunteggioCorretta(), $DomandaMultipla->getPunteggioErrata(),$DomandaMultipla->getPercentualeScelta(), $DomandaMultipla->getPercentualeRispostaCorretta(),$DomandaMultipla->getAlternativaCorretta(),
+                $DomandaMultipla->getArgomentoId(), $DomandaMultipla->getArgomentoInsegnamentoId(),$DomandaMultipla->getArgomentoInsegnamentoCorsoMatricola());
         $res = Model::getDB()->query($query);
     }
     
    /**
     * Modifica una DomandaMultipla nel database
-    * @param int $id
-    * @param DomandaMultipla $updatedDomandaMultipla
+    * @param int $id Id della domanda multipla da aggiornare
+    * @param DomandaMultipla $updatedDomandaMultipla Domanda multipla aggiornata da modificare nel database
     */
     public function updateDomandaMultipla($id,$updatedDomandaMultipla){
-        $query = sprintf(self::$UPDATE_DOMANDA_APERTA, $updatedDomandaMultipla->id, $updatedDomandaMultipla->testo, $updatedDomandaMultipla->punteggioCorretta, $updatedDomandaMultipla->punteggioErrata,$updatedDomandaMultipla->percentualeScelta, $updatedDomandaMultipla->percentualeRispostaCorretta,
-                $updatedDomandaMultipla->alternativaCorretta,$updatedDomandaMultipla->argomentoId, $updatedDomandaMultipla->argomentoInsegnamentoId,$updatedDomandaMultipla->argomentoInsegnamentoCorsoMatricola, $id);
+        $query = sprintf(self::$UPDATE_DOMANDA_APERTA, $updatedDomandaMultipla->getId(), $updatedDomandaMultipla->getTesto(), $updatedDomandaMultipla->getPunteggioCorretta(), $updatedDomandaMultipla->getPunteggioErrata(),$updatedDomandaMultipla->getPercentualeScelta(), $updatedDomandaMultipla->getPercentualeRispostaCorretta(),
+                $updatedDomandaMultipla->getAlternativaCorretta(),$updatedDomandaMultipla->getArgomentoId(), $updatedDomandaMultipla->getArgomentoInsegnamentoId(),$updatedDomandaMultipla->getArgomentoInsegnamentoCorsoMatricola(), $id);
         $res = Model::getDB()->query($query);
     }
     
@@ -221,7 +221,7 @@ class ArgomentoModel extends Model {
      * @param Alternativa $Alternativa
      */
     public function createAlternativa($Alternativa){
-        $query = sprintf(self::$CREATE_ALTERNATIVA, $Alternativa->testo,$Alternativa->percentualeScelta,$Alternativa->domandaMultiplaId, $Alternativa->domandaMultiplaArgomentoId, $Alternativa->domandaMultiplaArgomentoInsegnamentoId, $Alternativa->domandaMultiplaArgomentoInsegnamentoCorsoMatricola);
+        $query = sprintf(self::$CREATE_ALTERNATIVA, $Alternativa->getTesto(),$Alternativa->getPercentualeScelta(),$Alternativa->getDomandaMultiplaId(), $Alternativa->getDomandaMultiplaArgomentoId(), $Alternativa->getDomandaMultiplaArgomentoInsegnamentoId(), $Alternativa->getDomandaMultiplaArgomentoInsegnamentoCorsoMatricola());
         $res = Model::getDB()->query($query);
     }
     
@@ -231,7 +231,7 @@ class ArgomentoModel extends Model {
     * @param Alternativa $updatedAlternativa
     */
     public function updateAlternativa($id,$updatedAlternativa){
-        $query = sprintf(self::$UPDATE_ALTERNATIVA, $updatedAlternativa->id,$updatedAlternativa->testo,$updatedAlternativa->percentualeScelta,$updatedAlternativa->domandaMultiplaId, $updatedAlternativa->domandaMultiplaArgomentoId, $updatedAlternativa->domandaMultiplaArgomentoInsegnamentoId, $updatedAlternativa->domandaMultiplaArgomentoInsegnamentoCorsoMatricola, $id);
+        $query = sprintf(self::$UPDATE_ALTERNATIVA, $updatedAlternativa->getId(),$updatedAlternativa->getTesto(),$updatedAlternativa->getPercentualeScelta(),$updatedAlternativa->getDomandaMultiplaId(), $updatedAlternativa->getDomandaMultiplaArgomentoId(), $updatedAlternativa->getDomandaMultiplaArgomentoInsegnamentoId(), $updatedAlternativa->getDomandaMultiplaArgomentoInsegnamentoCorsoMatricola(), $id);
         $res = Model::getDB()->query($query);
     }
     
@@ -271,6 +271,57 @@ class ArgomentoModel extends Model {
             return $alternativa[];
         }
     } 
+    
+    /**
+     * Restituisce un array con tutte le domande aperte di un argomento
+     * @param int $id
+     * @return \DomandaAperta 
+     */
+    
+     public function getAllDomandaApertaByArgomento($idArg){
+        $query = sprintf(self::$GET_ALL_DOMANDA_APERTA_BY_ARGOMENTO, $idArg);
+        $res = Model::getDB()->query($query);
+        if($res) {
+            for($i = 0; $i < $res->num_rows; ++$i){
+                $domandaApertaArg[] = new DomandaAperta($res->fetch_assoc()['id'],$res->fetch_assoc()['testo'],$res->fetch_assoc()['punteggio_max'],$res->fetch_assoc()['percentule_scelta'],$res->fetch_assoc()['argomento_id'],$res->fetch_assoc()['argomento_insegnamento_id'],$res->fetch_assoc()['argomento_insegnamento_corso_matricola']);
+            }
+            return $domandaApertaArg[];
+        }
+    }
+    
+    /**
+     * Restituisce un array con tutte le domande multiple di un argomento
+     * @param int $idArg
+     * @return \DomandaMultipla
+     */
+    
+    public function getAllDomandaMultiplaByArgomento($idArg){
+        $query = sprintf(self::$GET_ALL_DOMANDA_MULTIPLA_BY_ARGOMENTO, $idArg);
+        $res = Model::getDB()->query($query);
+         if($res) {
+            for($i = 0; $i < $res->num_rows; ++$i){
+                $domandaMultipla[] = new DomandaMultipla($res->fetch_assoc()['id'],$res->fetch_assoc()['testo'],$res->fetch_assoc()['punteggio_corretta'],$res->fetch_assoc()['punteggio_errata'],$res->fetch_assoc()['percentuale_scelta'],
+                    $res->fetch_assoc()['percentuale_risposta_corretta'],$res->fetch_assoc()['alternativa_corretta'],$res->fetch_assoc()['argomento_id'],$res->fetch_assoc()['argomento_insegnamento_id'],$res->fetch_assoc()['argomento_insegnamento_corso_matricola']);
+            }
+            return $domandaMultipla[];
+        }
+    }
+
+    /**
+     * Restituisce tutte le alternative di una domanda multipla
+     * @param int $idDom
+     * @return \Altenativa
+     */
+    
+    public function getAllAlternativaByDomanda($idDom) {
+        $res = Model::getDB()->query(self::$GET_ALL_ALTERNATIVA_BY_DOMANDA, $idDom);
+        if($res) {
+            for($i = 0; $i < $res->num_rows; ++$i){
+                $alternativa[] = new Altenativa($res->fetch_assoc()['id'],$res->fetch_assoc()['testo'],$res->fetch_assoc()['percentuale_scelta'],$res->fetch_assoc()['domanda_multipla_id'],$res->fetch_assoc()['domanda_multipla_argomento_id'],$res->fetch_assoc()['domanda_multipla_argomento_insegnamento_id'],$res->fetch_assoc()['domanda_multipla_argomento_insegnamento_corso_matricola']);
+            }
+            return $alternativa[];
+        }
+    }
     
     
 }
