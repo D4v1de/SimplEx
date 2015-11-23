@@ -8,6 +8,8 @@
  */
 include_once MODEL_DIR . "Model.php";
 include_once BEAN_DIR . "Sessione.php";
+include_once BEAN_DIR . "Sessione_test.php";
+include_once BEAN_DIR . "Abilitazione.php";
 
 class SessioneModel extends Model {
     private static $CREATE_SESSIONE = "INSERT INTO `sessione` (id, data_inizio, data_fine, soglia_ammissione, tipologia, insegnamento_id, insegnamento_corso_matricola) VALUES ('%d','%s','%s','%f','%s','%d','%s')";
@@ -15,8 +17,10 @@ class SessioneModel extends Model {
     private static $DELETE_SESSIONE = "DELETE FROM `sessione` WHERE id = '%d'";
     private static $READ_SESSIONE = "SELECT * FROM `sessione` WHERE id = '%d'";
     private static $GET_ALL_SESSIONI = "SELECT * FROM `sessione`";
-    private static $GET_ALL_TEST_SESSIONE = "SELECT * FROM `sessione_test` WHERE sessione_id='%s'";
-    private static $GET_ALL_STUDENTI_SESSIONE = "SELECT * FROM `abilitazione` WHERE sessione_id='%s'";
+    private static $GET_ALL_TEST_SESSIONE = "SELECT * FROM `sessione_test` as s, `test` as t WHERE"
+            . "s.sessione_id='%d' AND s.test_id= t.id";
+    private static $GET_ALL_STUDENTI_SESSIONE = "SELECT * FROM `abilitazione` as a, `utente` as u WHERE "
+            . "a.sessione_id='%s' AND a.studente_matricola=u.matricola";
     /**
      * Inserisce una nuova sessione nel database
      * @param Sessione sessione la sessione da inserire nel database
@@ -70,17 +74,34 @@ class SessioneModel extends Model {
         }
         return $sessioni;
     }
-    
-    /**
-     * Restituisce tutte le sessioni del database
-     * @return Sessione[] sessioni Tutte le sessioni del database
+      /**
+     * Restituisce tutti i test di una sessione
+     * @param int $id L'id di tutti i test di una sessione
+     * @return TestSessione[] Tutti i test della sessione
      */
-    public function getAllTestSessione() {
-        $res = Model::getDB()->query(self::$GET_ALL_TEST_SESSIONE);
+    public function getAllTestSessione($id) {
+        $query = sprintf(self::$GET_ALL_TEST_SESSIONE, $id);
+        $res = Model::getDB()->query($query);
         $sessione = array();
         while ($obj = $res->fetch_assoc()) {
-            $sessioni[] = new Sessione($obj['id'], $obj['dataInizio'], $obj['dataFine'], $obj['sogliaAmmissione'], $obj['tipologia'], $obj['insegnamentoId'], $obj['insegnamentoCorsoMatricola']);
+            $TestSessione = new TestSessione(); //da completare
+            $sessione[]= TestSessione;
         }
-        return $sessioni;
+        return $sessione;
+    }
+      /**
+     * Restituisce tutti gli studenti che hanno partecipato ad una sessione
+     * @param int $id L'id della sessione
+     * @return StudentiSessione[] Tutti gli studenti che hanno partecipato alla sessione
+     */
+     public function getAllStudentiSessione($id) {
+        $query = sprintf(self::$GET_ALL_STUDENTI_SESSIONE, $id);
+        $res = Model::getDB()->query($query);
+        $sessione = array();
+        while ($obj = $res->fetch_assoc()) {
+            $StudentiSessione = new StudentiSessione(); //da completare
+            $sessione[]= StudentiSessione;
+        }
+        return $sessione;
     }
 }
