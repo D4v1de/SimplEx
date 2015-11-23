@@ -38,8 +38,25 @@ $controller = new Esempio();
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                Crea Test
-            </h3>
+                    Crea Test
+                </h3>
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li>
+                            <i class="fa fa-home"></i>
+                            <a href="index.html">Home</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <a href="#">Nome Corso</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <a href="#">Crea Test</a>
+                        </li>
+
+                    </ul>
+                </div>
 
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
@@ -63,12 +80,26 @@ $controller = new Esempio();
                                 <div class="row">
                                     <div class="col-md-4">
                                         <h4> Tipologia selezione domande</h4>
-                                            <label>
-                                                <div class="radio" id="uniform-optionsRadios1"><span class="checked"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked=""></span></div> Manuale
-                                            </label>
-                                            <label>
-                                                <div class="radio" id="uniform-optionsRadios2"><span><input type="radio" name="optionsRadios" id="optionsRadios2" value="option2"></span></div> Random
-                                            </label>
+                                            <div class="col-md-10">
+                                                    <div class="md-radio-inline">
+                                                            <div class="md-radio">
+                                                                    <input type="radio" id="radio53" name="radio2" class="md-radiobtn">
+                                                                    <label for="radio53">
+                                                                    <span></span>
+                                                                    <span class="check"></span>
+                                                                    <span class="box"></span>
+                                                                    Manuale </label>
+                                                            </div>
+                                                            <div class="md-radio">
+                                                                    <input type="radio" id="radio54" name="radio2" class="md-radiobtn">
+                                                                    <label for="radio54">
+                                                                    <span></span>
+                                                                    <span class="check"></span>
+                                                                    <span class="box"></span>
+                                                                    Random </label>
+                                                            </div>
+                                                    </div>
+                                            </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group form-md-line-input has-success">
@@ -106,8 +137,15 @@ $controller = new Esempio();
                                     <table class="table table-striped table-bordered table-hover dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
                                         <tbody>
                                             <tr class="gradeX odd" role="row">
-                                                <td>
-                                                   <input type="checkbox" class="checkboxes" value="1">
+                                                <td width="1px">
+                                                    <div class="md-checkbox">
+                                                        <input type="checkbox" id="checkbox33" class="md-check">
+                                                        <label for="checkbox33">
+                                                            <span class="inc"></span>
+                                                            <span class="check"></span>
+                                                            <span class="box"></span>
+                                                        </label>
+                                                    </div>
                                                 </td>
                                                 <td class="sorting_1">
                                                     Introduzione all'ingegneria del software
@@ -115,8 +153,15 @@ $controller = new Esempio();
                                                 <td>80%</td>
                                             </tr>  
                                             <tr class="gradeX odd" role="row">
-                                                <td>
-                                                    <input type="checkbox" class="checkboxes" value="1">
+                                                <td width="1px">
+                                                    <div class="md-checkbox">
+                                                        <input type="checkbox" id="checkbox34" class="md-check">
+                                                        <label for="checkbox34">
+                                                            <span class="inc"></span>
+                                                            <span class="check"></span>
+                                                            <span class="box"></span>
+                                                        </label>
+                                                    </div>
                                                 </td>
                                             <td class="sorting_1">
                                                 Introduzione UML
@@ -124,8 +169,15 @@ $controller = new Esempio();
                                             <td> 70%</td>
                                             </tr>
                                             <tr class="gradeX odd" role="row">
-                                                <td>
-                                                     <input type="checkbox" class="checkboxes" value="1">
+                                                <td width="1px">
+                                                    <div class="md-checkbox">
+                                                        <input type="checkbox" id="checkbox35" class="md-check">
+                                                        <label for="checkbox35">
+                                                            <span class="inc"></span>
+                                                            <span class="check"></span>
+                                                            <span class="box"></span>
+                                                        </label>
+                                                    </div>
                                                 </td>
                                                 <td class="sorting_1">
                                                     Use-Case
@@ -141,8 +193,8 @@ $controller = new Esempio();
                 </div>
                 <div class="form-actions row">
                     <div class="col-md-9"></div>
-                        <button type="button" class="btn default">Annulla</button>
-                        <button type="submit" class="btn blue">Conferma</button>
+                        <button type="button" class="btn red-intense">Annulla</button>
+                        <button type="submit" class="btn green-jungle">Conferma</button>
                     </div>
                 </div>
             </form>

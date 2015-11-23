@@ -94,7 +94,7 @@ $controller = new Esempio();
              <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-9"></div> 
-                    <button type="button" class="btn green">Indietro</button>
+                    <button type="button" class="btn green-jungle">Indietro</button>
                 </div>
             </div>
             <!-- END PAGE CONTENT-->
