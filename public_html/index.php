@@ -157,6 +157,9 @@ switch (isset($_URL[0]) ? $_URL[0] : '') {
     case 'visualizzacorso':
         include_once VIEW_DIR."/Admin/visualizzaCorso.php";
         break;
+    case 'visualizzacorsi':
+        include_once VIEW_DIR."/Studente/visualizzaCorsi.php";
+        break;
     case 'selezionestudenti':
         include_once VIEW_DIR."/Docente/SelezioneStudenti.php";
         break;
