@@ -6,23 +6,23 @@
  * Time: 09:30
  */
 class DomandaAperta {
-    public $id;
-    public $testo;
-    public $punteggioMax;
-    public $percentualeScelta;
-    public $argomentoId;
-    public $argomentoInsegnamentoId;
-    public $argomentoInsegnamentoCorsoMatricola;
+    private $id;
+    private $testo;
+    private $punteggioMax;
+    private $percentualeScelta;
+    private $argomentoId;
+    private $argomentoInsegnamentoId;
+    private $argomentoInsegnamentoCorsoMatricola;
     
     /**
      * DomandaAperta constructor.
-     * @param $id
-     * @param $testo
-     * @param $punteggioMax
-     * @param $percentualeScelta 
-     * @param $argomentoId
-     * @param $argomentoInsegnamentoId
-     * @param $argomentoInsegnamentoCorsoMatricola
+     * @param int $id L'id della domanda
+     * @param string $testo Il testo della domanda
+     * @param float $punteggioMax Il punteggio max della domanda
+     * @param float $percentualeScelta La percentuale di volte in cui è stata scelta quella domanda
+     * @param int $argomentoId L'id dell'argomento a cui appartiene la domanda
+     * @param int $argomentoInsegnamentoId L'id dell'insegnamento a cui appartiene l'argomento relativo
+     * @param string $argomentoInsegnamentoCorsoMatricola La matricola del corso a cui appartiene l'insegnamento relativo all'argomento di riferimento
      */
     function __construct($id, $testo, $punteggioMax, $percentualeScelta, $argomentoId, $argomentoInsegnamentoId, $argomentoInsegnamentoCorsoMatricola) {
         $this->id = $id;
@@ -35,125 +35,107 @@ class DomandaAperta {
     }
     
     /**
-     * @return int l'id della domanda aperta
+     * @return int L'id della domanda aperta
      */
-    
     function getId() {
         return $this->id;
     }
 
     /**
-     * @return String testo della domanda aperta
+     * @return string Il testo della domanda aperta
      */
-    
     function getTesto() {
         return $this->testo;
     }
-
-    /**
-     * @return float punteggio massimo della domanda aperta
-     */
     
+    /**
+     * @return float Il punteggio massimo della domanda aperta
+     */
     function getPunteggioMax() {
         return $this->punteggioMax;
     }
 
     /**
-     * @return float percentuale di quante volte è stata scelta la domanda aperta
+     * @return float La percentuale di quante volte è stata scelta la domanda aperta
      */
-    
     function getPercentualeScelta() {
         return $this->percentualeScelta;
     }
-
-    /**
-     * @return int l'id dell'argomento della domanda aperta
-     */
     
+    /**
+     * @return int L'id dell'argomento della domanda aperta
+     */ 
     function getArgomentoId() {
         return $this->argomentoId;
     }
 
     /**
-     * @return int l'id dell'insegnamento a cui appartiene l'argomento 
+     * @return int L'id dell'insegnamento a cui appartiene l'argomento 
      */
-    
     function getArgomentoInsegnamentoId() {
         return $this->argomentoInsegnamentoId;
     }
 
     /**
-     * @return String la matricola del corso a cui l'insegnamento relativo all'argomento apartiene
+     * @return string La matricola del corso a cui l'insegnamento relativo all'argomento apartiene
      */
-    
     function getArgomentoInsegnamentoCorsoMatricola() {
         return $this->argomentoInsegnamentoCorsoMatricola;
     }
 
     /**
      * Setta l'id della domanda aperta
-     * @param $id
+     * @param int $id L'id della domanda
      */
-    
     function setId($id) {
         $this->id = $id;
     }
 
-    
     /**
      * Setta il testo della domanda aperta
-     * @param $testo
+     * @param string $testo Il testo della domanda
      */
-    
     function setTesto($testo) {
         $this->testo = $testo;
     }
 
     /**
      * Setta il punteggio massimo della domanda aperta
-     * @param $punteggioMax
+     * @param  $punteggioMax Il punteggio max della domanda
      */
-    
     function setPunteggioMax($punteggioMax) {
         $this->punteggioMax = $punteggioMax;
     }
 
     /**
      * Setta la percentuale di volta in cui è stata scelta la domanda aperta
-     * @param $percentualeScelta
+     * @param float $percentualeScelta La percentuale di volte in cui è stata scelta quella domanda
      */
-    
-    
     function setPercentualeScelta($percentualeScelta) {
         $this->percentualeScelta = $percentualeScelta;
     }
 
     /**
      * Setta l'id dell'argomento a cui appartiene la domanda aperta
-     * @param $argomentoId
+     * @param int $argomentoId L'id dell'argomento a cui appartiene la domanda
      */
-    
-    
     function setArgomentoId($argomentoId) {
         $this->argomentoId = $argomentoId;
     }
 
-     /**
-     * Setta l'id dell'insegnamento a cui appartiene l'argomento della domanda aperta
-     * @param $argomentoInsegnamentoId
+    /**
+     * Setta l'id dell'insegnamento a cui appartiene l'argomento relativo
+     * @param int $argomentoInsegnamentoId L'id dell'insegnamento a cui appartiene l'argomento relativo
      */
-    
     function setArgomentoInsegnamentoId($argomentoInsegnamentoId) {
         $this->argomentoInsegnamentoId = $argomentoInsegnamentoId;
     }
 
     /**
-     * Setta la matricola del corso a cui l'insegnamento relativo all'argomento apartiene
-     * @param $argomentoInsegnamentoCorsoMatricola
+     * Setta la matricola del corso a cui appartiene l'insegnamento relativo all'argomento di riferimento
+     * @param string $argomentoInsegnamentoCorsoMatricola La matricola del corso a cui appartiene l'insegnamento relativo all'argomento di riferimento
      */
-    
     function setArgomentoInsegnamentoCorsoMatricola($argomentoInsegnamentoCorsoMatricola) {
         $this->argomentoInsegnamentoCorsoMatricola = $argomentoInsegnamentoCorsoMatricola;
     }
-
 }

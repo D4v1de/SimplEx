@@ -16,13 +16,13 @@ class Test {
 
     /**
      * Costruttore di Test
-     * @param $id id del test
-     * @param $descrizione Descrizione del test
-     * @param $punteggioMax Punteggio massimo del test
-     * @param $numeroMultiple Numero domande multiple
-     * @param $numeroAperte Numero domande aperte
-     * @param $percentualeScelto Percentuale di volte in cui il test viene scelto
-     * @param $percentualeSuccesso Percentuale di successo del test
+     * @param int $id L'id del test
+     * @param string $descrizione La descrizione del test
+     * @param float $punteggioMax Il punteggio massimo del test
+     * @param int $numeroMultiple Numero di domande multiple
+     * @param int $numeroAperte Numero di domande aperte
+     * @param float $percentualeScelto Percentuale di volte in cui il test viene scelto
+     * @param float $percentualeSuccesso Percentuale di successo del test
      */
     public function __construct($id, $descrizione, $punteggioMax, $numeroMultiple, $numeroAperte, $percentualeScelto, $percentualeSuccesso) {
         $this->id=$id;
@@ -34,50 +34,50 @@ class Test {
         $this->percentualeSuccesso=$percentualeSuccesso;
     } 
     
-     /**
-     * @return int l'id del test
+    /**
+     * @return int L'id del test
      */
     function getId() {
         return $this->id;
     }
     
-     /**
-     * @return String la descrizione del test
+    /**
+     * @return string La descrizione del test
      */
     function getDescrizione() {
         return $this->descrizione;
     }
 
-     /**
-     * @return float il punteggio massimo del test
+    /**
+     * @return float Il punteggio massimo del test
      */
     function getPunteggioMax() {
         return $this->punteggioMax;
     }
 
-     /**
-     * @return int il numero di domande multiple del test
+    /**
+     * @return int Il numero di domande multiple del test
      */
     function getNumeroMultiple() {
         return $this->numeroMultiple;
     }
 
-     /**
-     * @return int il numero di domande aperte del test
+    /**
+     * @return int Il numero di domande aperte del test
      */
     function getNumeroAperte() {
         return $this->numeroAperte;
     }
 
-     /**
-     * @return float la percentuale delle volte in cui il test è stato scelto
+    /**
+     * @return float La percentuale delle volte in cui il test è stato scelto
      */
     function getPercentualeScelto() {
         return $this->percentualeScelto;
     }
 
-     /**
-     * @return float la percentuale di successo del test
+    /**
+     * @return float La percentuale di successo del test
      */
     function getPercentualeSuccesso() {
         return $this->percentualeSuccesso;
@@ -85,7 +85,7 @@ class Test {
         
     /**
      * Setta l'id del test
-     * @param $id id del test
+     * @param int $id L'id del test
      */
     function setId($id) {
         $this->id = $id;
@@ -93,7 +93,7 @@ class Test {
 
     /**
      * Setta la descrizione della sessione
-     * @param $descrizione descrizione del test
+     * @param string $descrizione La descrizione del test
      */
     function setDescrizione($descrizione) {
         $this->descrizione = $descrizione;
@@ -101,7 +101,7 @@ class Test {
 
     /**
      * Setta il punteggio massimo del test
-     * @param $punteggioMax punteggio massimo del test
+     * @param float $punteggioMax Il punteggio massimo del test
      */
     function setPunteggioMax($punteggioMax) {
         $this->punteggioMax = $punteggioMax;
@@ -109,31 +109,31 @@ class Test {
 
     /**
      * Setta il numero di domande multiple del test
-     * @param $numeroMultiple numero di domande multiple del test
+     * @param int $numeroMultiple Il numero di domande multiple del test
      */
     function setNumeroMultiple($numeroMultiple) {
         $this->numeroMultiple = $numeroMultiple;
     }
 
-     /**
+    /**
      * Setta il numero di domande aperte del test
-     * @param $numeroAperte numero di domande aperte del test
+     * @param int $numeroAperte Il numero di domande aperte del test
      */
     function setNumeroAperte($numeroAperte) {
         $this->numeroAperte = $numeroAperte;
     }
 
-     /**
+    /**
      * Setta la percentuale delle volte in cui il test è stato scelto
-     * @param $percentualeScelto la percentuale di volte in cui il test è stato scelto
+     * @param float $percentualeScelto La percentuale di volte in cui il test è stato scelto
      */
     function setPercentualeScelto($percentualeScelto) {
         $this->percentualeScelto = $percentualeScelto;
     }
 
-     /**
+    /**
      * Setta la percentuale di successo del test
-     * @param $percentualeSuccesso la percentuale di successo del test
+     * @param float $percentualeSuccesso La percentuale di successo del test
      */
     function setPercentualeSuccesso($percentualeSuccesso) {
         $this->percentualeSuccesso = $percentualeSuccesso;
