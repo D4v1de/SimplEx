@@ -38,7 +38,7 @@ $controller = new Esempio();
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                Crea Test
+                Crea Sessione / Modifica Sessione
             </h3>
             <div class="page-bar">
                     <ul class="page-breadcrumb">
@@ -74,34 +74,36 @@ $controller = new Esempio();
                             <div class="col-md-8">
                                 <div class="col-md-4">
                                     <label class="control-label">Avvio:</label>
-                                    <div class="input-icon">
-                                        <i class="fa fa-calendar"></i>
-                                        <input class="form-control date-picker" size="16" type="text" value="12-02-2012" data-date="12-02-2012" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+                                    <div class="input-group date form_datetime">
+                                        <input type="text" size="16" readonly="" class="form-control"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="col-md-1">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <div class="input-icon">
-                                            <input type="text" class="form-control">
-                                                <label for="form_control_1">Ora</label>
-                                                    <span class="help-block">Avvio</span>
+                                    <div class="form-group">
+                                        <label>Ora:</label>
+                                        <div class="input-icon right">
+                                                <input type="text" class="form-control input-circle" placeholder="Ora Avvio">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-1"></div>
                                 <div class="col-md-4">
                                     <label class="control-label">Termine:</label>
-                                    <div class="input-icon">
-                                        <i class="fa fa-calendar"></i>
-                                        <input class="form-control date-picker" size="16" type="text" value="12-02-2012" data-date="12-02-2012" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+                                    <div class="input-group date form_datetime">
+                                        <input type="text" size="16" readonly="" class="form-control"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="col-md-1">
-                                    <div class="form-group form-md-line-input has-success">
-                                        <div class="input-icon">
-                                            <input type="text" class="form-control">
-                                                <label for="form_control_1">Ora</label>
-                                                    <span class="help-block">Termine</span>
+                                    <div class="form-group">
+                                        <label>Ora:</label>
+                                        <div class="input-icon right">
+                                                <input type="text" class="form-control input-circle" placeholder="Termine">
                                         </div>
                                     </div>
                                 </div>
@@ -116,8 +118,8 @@ $controller = new Esempio();
                                         <i class="fa fa-globe"></i>Test
                                     </div>
                                     <div class="tools">
-                                        <input type="radio"/> Valutativo
-                                        <input type="radio"/> Esercitativo
+                                        <input type="radio"> Valutativo
+                                        <input type="radio"> Esercitativo
                                         <a href="javascript:;" class="collapse" data-original-title="" title="">
                                         </a>
                                     </div>
@@ -216,8 +218,12 @@ $controller = new Esempio();
                     <h1> DA COMPLETARE </h1>
                     <div class="form-actions row">
                         <div class="col-md-9"></div>
-                            <button type="button" class="btn default">Annulla</button>
-                            <button type="submit" class="btn blue">Conferma</button>
+                            <a href="javascript:;" class="btn sm red-intense">
+                                Annulla
+                            </a>
+                            <a href="javascript:;" class="btn sm green-jungle">
+                                Conferma
+                            </a>
                         </div>
                     </div>
                 </form>
