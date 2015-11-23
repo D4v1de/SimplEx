@@ -11,7 +11,8 @@ include_once CONTROL_DIR . "AuthController.php";
 $am = new AuthController();
 $aModel = new AccountModel();
 
-$am->login("shevchenk2ser@gmail.com", "password", true);
+//$am->login("shevchenk2ser@gmail.com", "password", true);
+//print_r($am->checkPermanentLogin());
 
 //print_r($am->register("13332132", "shevchenk2ser@gmail.com", "password", "studente", "nome", "cognome", "001"));
 //$r=$aModel->getUtente("shevchenk2ser@gmail.com", "password");
