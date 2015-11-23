@@ -24,6 +24,13 @@ class AuthController extends Controller {
         return $cdlModel->getAllCdL();
     }
 
+    /**
+     * @param $email
+     * @param $password
+     * @param $remember
+     * @return Utente
+     * @throws IllegalArgumentException
+     */
     public function login($email, $password, $remember) {
         if (!preg_match(Patterns::$EMAIL, $email)) {
             throw new IllegalArgumentException("Email non valido");
@@ -55,9 +62,7 @@ class AuthController extends Controller {
                 return null;
             }
             $identity = $this->getIdentityFromPerm($_COOKIE[self::PERMA_COOKIE]);
-            if (!preg_match(Patterns::$MD5, $identity)) {
-                return null;
-            }
+
             $accModel = new AccountModel();
             $user = $accModel->getUtenteByIdentity($identity);
             $_SESSION['loggedin'] = true;
@@ -111,14 +116,23 @@ class AuthController extends Controller {
             throw new IllegalArgumentException("Cdl sbagliato o assente");
         }
         $accModel = new AccountModel();
-        return $accModel->createUtente($matricola, $email, $password, $tipologia, $nome, $cognome, $cdl);
+        return $accModel->createUtente(new Utente($email, $password, $matricola, $nome, $cognome, $tipologia, $cdl));
     }
 
     private function setPermanentCookie($getPassword) {
+        $getPassword = $getPassword . "|" . md5(uniqid());
         setcookie(self::PERMA_COOKIE, StringUtils::encrypt($getPassword), time() + 365 * 24 * 60 * 60);
     }
 
+
     private function getIdentityFromPerm($permanent) {
-        return StringUtils::decrypt($permanent);
+        $identity = StringUtils::decrypt($permanent);
+
+        if (!preg_match(Patterns::$MD5_SLASH, $identity)) {
+            return null;
+        }
+        
+        $identity = explode("|", $identity);
+        return $identity[0];
     }
 }

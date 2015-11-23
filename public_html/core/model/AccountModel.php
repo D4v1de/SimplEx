@@ -15,7 +15,8 @@ class AccountModel extends Model {
     private static $SELECT_UTENTE_MATRICOLA = "SELECT * FROM `utente` WHERE `matricola`='%s' LIMIT 1";
     private static $INSERT_UTENTE = "INSERT INTO `utente` (`matricola`, `username`, `password`, `tipologia`, `nome`, `cognome`, `cdl_matricola`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s');";
     private static $DELETE_UTENTE = "DELETE FROM `utente` WHERE `matricola` = '%s' LIMIT 1";
-
+    private static $SELECT_ALL_UTENTI = "SELECT * FROM `utente`";
+    private static $UPDATE_UTENTE = "UPDATE `utente` SET `username` = '%s', `password` = '%s', `tipologia` = '%s', `nome` = '%s', `cognome` = '%s', `matricola` = '%s' WHERE `matricola` = '%s' LIMIT 1";
 
     /**
      * Restituisce utente dato email e password
@@ -66,28 +67,24 @@ class AccountModel extends Model {
     }
 
     /**
-     * @param $matricola
-     * @param $email
-     * @param $password
-     * @param $tipologia
-     * @param $nome
-     * @param $cognome
-     * @param $cdl
+     * @param Utente $utente
+     *
      * @throws ConnectionException
      * @throws RuntimeException
      * @return Utente
      */
-    public function createUtente($matricola, $email, $password, $tipologia, $nome, $cognome, $cdl) {
-        $ident = self::createIdentity($email, $password);
+    public function createUtente($utente) {
+        $ident = self::createIdentity($utente->getUsername(), $utente->getPassword());
+        $utente->setPassword($ident);
+        $utente->setNome(mysqli_real_escape_string(Model::getDB(), $utente->getNome()));
+        $utente->setCognome(mysqli_real_escape_string(Model::getDB(), $utente->getCognome()));
 
-        $nome = mysqli_real_escape_string(Model::getDB(), $nome);
-        $cognome = mysqli_real_escape_string(Model::getDB(), $cognome);
-
-        $query = sprintf(self::$INSERT_UTENTE, $matricola, $email, $ident, $tipologia, $nome, $cognome, $cdl);
+        $query = sprintf(self::$INSERT_UTENTE, $utente->getMatricola(), $utente->getUsername(),
+            $ident, $utente->getPassword(), $utente->getNome(), $utente->getCognome(), $utente->getCdlMatricola());
         if (!Model::getDB()->query($query)) {
             throw new RuntimeException(Model::getDB()->error, Model::getDB()->errno);
         }
-        return new Utente($email, $password, $matricola, $nome, $cognome, $tipologia, $cdl);
+        return $utente;
     }
 
     /**
@@ -115,5 +112,32 @@ class AccountModel extends Model {
         } else {
             throw new UserNotFoundException("Utente non trovato");
         }
+    }
+
+    /**
+     * @return array Utente
+     * @throws ConnectionException
+     */
+    public function getAllUtenti() {
+        $res = Model::getDB()->query(self::$SELECT_ALL_UTENTI);
+        $ret = array();
+        while ($obj = $res->fetch_assoc()) {
+            $ret[] = new Utente($obj['username'], $obj['password'], $obj['matricola'], $obj['nome'], $obj['cognome'], $obj['tipologia'], $obj['cdl_matricola']);
+        }
+        return $ret;
+    }
+
+    /**
+     * @param string $matricola
+     * @param Utente $utente
+     * @return bool aggiornato?
+     * @throws ConnectionException
+     *
+     */
+    public function editUtente($matricola, $utente) {
+        $qr = sprintf(self::$UPDATE_UTENTE, $utente->getUsername(), $utente->getPassword(), $utente->getTipologia(), $utente->getNome(), $utente->getCognome(), $utente->getMatricola(), $matricola);
+
+        Model::getDB()->query($qr);
+        return (Model::getDB()->affected_rows == 1);
     }
 }
