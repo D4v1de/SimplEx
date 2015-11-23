@@ -11,8 +11,11 @@ include_once EXCEPTION_DIR . "UserNotFoundException.php";
  */
 class AccountModel extends Model {
     private static $SALT = "r#*1542&ztnsa7uABN83gtkw7lcSjy";
-    private static $SELECT_UTENTE = "SELECT * FROM `utente` WHERE 'password'='%s' LIMIT 1";
+    private static $SELECT_UTENTE = "SELECT * FROM `utente` WHERE `password`='%s' LIMIT 1";
+    private static $SELECT_UTENTE_MATRICOLA = "SELECT * FROM `utente` WHERE `matricola`='%s' LIMIT 1";
     private static $INSERT_UTENTE = "INSERT INTO `utente` (`matricola`, `username`, `password`, `tipologia`, `nome`, `cognome`, `cdl_matricola`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s');";
+    private static $DELETE_UTENTE = "DELETE FROM `utente` WHERE `matricola` = '%s' LIMIT 1";
+
 
     /**
      * Restituisce utente dato email e password
@@ -23,15 +26,21 @@ class AccountModel extends Model {
      * @throws UserNotFoundException
      */
     public function getUtente($email, $password) {
-        $ident = self::createIdentity($email, $password);
-        $query = sprintf(self::$SELECT_UTENTE, $ident);
+        return $this->getUtenteByIdentity(self::createIdentity($email, $password));
+    }
 
-        $res = Model::getDB()->query($query);
-        if ($obj = $res->fetch_assoc()) {
-            return new Utente($obj['username'], $obj['password'], $obj['matricola'], $obj['nome'], $obj['cognome'], $obj['tipologia']);
-        } else {
-            throw new UserNotFoundException("Utente non trovato");
-        }
+    public function getUtenteByIdentity($identity) {
+        $qr = sprintf(self::$SELECT_UTENTE, $identity);
+
+        $res = Model::getDB()->query($qr);
+        return $this->parseUtente($res);
+    }
+
+    public function getUtenteByMatricola($matricola) {
+        $qr = sprintf(self::$SELECT_UTENTE_MATRICOLA, $matricola);
+
+        $res = Model::getDB()->query($qr);
+        return $this->parseUtente($res);
     }
 
     /**
@@ -56,13 +65,43 @@ class AccountModel extends Model {
      * @throws RuntimeException
      * @return Utente
      */
-    public function register($matricola, $email, $password, $tipologia, $nome, $cognome, $cdl) {
+    public function createUtente($matricola, $email, $password, $tipologia, $nome, $cognome, $cdl) {
         $ident = self::createIdentity($email, $password);
+
+        $nome = mysqli_real_escape_string(Model::getDB(), $nome);
+        $cognome = mysqli_real_escape_string(Model::getDB(), $cognome);
+
         $query = sprintf(self::$INSERT_UTENTE, $matricola, $email, $ident, $tipologia, $nome, $cognome, $cdl);
         if (!Model::getDB()->query($query)) {
             throw new RuntimeException(Model::getDB()->error, Model::getDB()->errno);
         }
-        return new Utente($email, $password, $matricola, $nome, $cognome, $tipologia);
+        return new Utente($email, $password, $matricola, $nome, $cognome, $tipologia, $cdl);
     }
 
+    /**
+     * Il metodo rimuove l'utente dato la matricola
+     * @param $matricola
+     * @return bool Cancellato oppure no
+     * @throws ConnectionException
+     */
+    public function removeUtente($matricola) {
+        $qr = sprintf(self::$DELETE_UTENTE, $matricola);
+        Model::getDB()->query($qr);
+
+        return (Model::getDB()->affected_rows = 1);
+    }
+
+    /**
+     * Serializza tupla dal db in un oggetto Utente
+     * @param mysqli_result $res
+     * @return Utente
+     * @throws UserNotFoundException
+     */
+    public function parseUtente(&$res) {
+        if ($obj = $res->fetch_assoc()) {
+            return new Utente($obj['username'], $obj['password'], $obj['matricola'], $obj['nome'], $obj['cognome'], $obj['tipologia'], $obj['cdl_matricola']);
+        } else {
+            throw new UserNotFoundException("Utente non trovato");
+        }
+    }
 }
