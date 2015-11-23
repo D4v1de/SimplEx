@@ -8,6 +8,8 @@
  */
 include_once MODEL_DIR . "Model.php";
 include_once BEAN_DIR . "Test.php";
+include_once BEAN_DIR . "DomandaMultipla.php";
+include_once BEAN_DIR . "DomandaAperta.php";
 
 class TestModel extends Model {
     private static $CREATE_TEST = "INSERT INTO `test` (descrizione, punteggio_max, numero_multiple, numero_aperte, percentuale_scelto, percentuale_successo) VALUES ('%d','%s','%f','%d','%d','%f','%f')";
