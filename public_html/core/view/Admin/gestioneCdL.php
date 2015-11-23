@@ -151,7 +151,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="gestioneCdL.php">GestioneCdL</a>
+                        <a href="gestionecdl">GestioneCdL</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
@@ -165,7 +165,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="form page-bar">
                         <div class="form-actions">
                             <div class="col-md-4">
-                                <a href="creaCdl.php"><button type="button" class="btn green-jungle">Crea Nuovo CdL</button></a>
+                                <a href="creacdl"><button type="button" class="btn green-jungle">Crea Nuovo CdL</button></a>
                             </div>
                         </div>
                     </div>
