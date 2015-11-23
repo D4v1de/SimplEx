@@ -49,7 +49,6 @@ $controller = new Esempio();
                         </li>
                         <li>
                             <a href="#">Esegui Test</a>
-                            <i class="fa fa-angle-right"></i>
                         </li>
                     </ul>
                 </div>
@@ -119,8 +118,8 @@ $controller = new Esempio();
                     <div class="row">
                         <div class="col-md-12">
                             <div class="col-md-9"></div>
-                            <button type="button" class="btn green">Abbandona</button> 
-                            <button type="submit" class="btn green">Conegna</button>  
+                            <button type="button" class="btn red-intense">Abbandona</button> 
+                            <button type="submit" class="btn green-jungle">Conegna</button>  
                         </div>
                     </div>
                     </div>

@@ -38,8 +38,25 @@ $controller = new Esempio();
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                Sessione in corso
-            </h3>
+                    Sessione in Corso
+                </h3>
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li>
+                            <i class="fa fa-home"></i>
+                            <a href="index.html">Home</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <a href="#">Nome Corso</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <a href="#">Nome Sessione</a>
+                        </li>
+
+                    </ul>
+                </div>
 
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
@@ -204,7 +221,7 @@ $controller = new Esempio();
                               <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
                         <div class="row">
                                 <div class="col-md-12">
-                                        <a href="javascript:;" class="btn btn-sm green">
+                                        <a href="javascript:;" class="btn btn-sm green-jungle">
                                             Aggiungi Studente <i class="fa fa-plus"></i>
                                         </a>
                                 </div>
@@ -229,7 +246,7 @@ $controller = new Esempio();
                                             </th>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Email
-                                " style="width: 100px;">
+                                " style="width: 15%;">
                                                 Azioni
                                             </th>
                                         </tr>
@@ -247,7 +264,7 @@ $controller = new Esempio();
                                                 0512100001
                                             </td>
                                             <td>
-                                                <a href="javascript:;" class="btn btn-sm default">
+                                                <a href="javascript:;" class="btn btn-sm red-intense">
                                                     Annulla Esame
                                                 </a>
                                             </td>
@@ -265,7 +282,7 @@ $controller = new Esempio();
                                                 0512100002
                                             </td>
                                             <td>                                               
-                                                <a href="javascript:;" class="btn btn-sm default">
+                                                <a href="javascript:;" class="btn btn-sm red-intense">
                                                     Annulla Esame
                                                 </a>
                                             </td>                                            
@@ -282,7 +299,7 @@ $controller = new Esempio();
                                                 0512100003
                                             </td>
                                             <td>
-                                                <a href="javascript:;" class="btn btn-sm default">
+                                                <a href="javascript:;" class="btn btn-sm red-intense">
                                                     Annulla Esame
                                                 </a>
                                             </td>
@@ -299,7 +316,7 @@ $controller = new Esempio();
                                                 0512100004
                                             </td>
                                             <td>
-                                                <a href="javascript:;" class="btn btn-sm default">
+                                                <a href="javascript:;" class="btn btn-sm red-intense">
                                                     Annulla Esame
                                                 </a>
                                             </td>
@@ -316,7 +333,7 @@ $controller = new Esempio();
                                                 0512100005
                                             </td>
                                             <td>
-                                                <a href="javascript:;" class="btn btn-sm default">
+                                                <a href="javascript:;" class="btn btn-sm red-intense">
                                                     Annulla Esame
                                                 </a>
                                             </td>
@@ -333,7 +350,7 @@ $controller = new Esempio();
                                                 0512100006
                                             </td>
                                             <td>
-                                                <a href="javascript:;" class="btn btn-sm default">
+                                                <a href="javascript:;" class="btn btn-sm red-intense">
                                                     Annulla Esame
                                                 </a>
                                             </td>
@@ -353,10 +370,10 @@ $controller = new Esempio();
             <div class="row">
                     <div class="col-md-12">
                         <div class="col-md-5"></div>
-                            <a href="javascript:;" class="btn green">
+                            <a href="javascript:;" class="btn red-intense">
                                 indietro
                             </a>
-                            <a href="javascript:;" class="btn green">
+                            <a href="javascript:;" class="btn green-jungle">
                                 Termina ora
                             </a>
 
