@@ -151,11 +151,11 @@ License: You must have a valid license purchased only from themeforest(the above
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="gestioneCorsi.php">GestioneCorsi</a>
+                        <a href="gestionecorsi">GestioneCorsi</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="creaCorso.php">CreaCorso</a>
+                        <a href="creacorso">CreaCorso</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>

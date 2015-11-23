@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: sergio
- * Date: 18/11/15
- * Time: 09:58
- */
+
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "Esempio.php";
@@ -37,37 +32,35 @@ $controller = new Esempio();
     <div class="page-content-wrapper">
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
-            
+          
             <h3 class="page-title">
-                    Aggiungi Studente
-                </h3>
-                <div class="page-bar">
-                    <ul class="page-breadcrumb">
-                        <li>
-                            <i class="fa fa-home"></i>
-                            <a href="index.html">Home</a>
-                            <i class="fa fa-angle-right"></i>
-                        </li>
-                        <li>
-                            <a href="#">Nome Corso</a>
-                            <i class="fa fa-angle-right"></i>
-                        </li>
-
-                        <li>
-                            <a href="#">Nome Sessione</a>
-                            <i class="fa fa-angle-right"></i>
-                        </li>
-
-                        <li>
-                            <a href="#">Aggiungi Studente</a>
-                        </li>
-                    </ul>
-                </div>
-
+                Selezione studenti
+            </h3>
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li>
+                        <i class="fa fa-home"></i>
+                        <a href="index.html">Home</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="#">Nome Corso</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="#">Nome Sessione</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="#">Abilita Studenti</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                </ul>
+            </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-         
-            <div class="portlet box grey-cascade">
+            <br>
+             <div class="portlet box grey-cascade">
                 <div class="portlet-title">
                         <div class="caption">
                                 <i class="fa fa-globe"></i>Studenti
@@ -254,15 +247,13 @@ $controller = new Esempio();
                             </div>
                         </div>
                 </div>
-            </div>
-            
-            
-            
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="col-md-9"></div>
-                    <button type="button" class="btn red-intense">Annulla</button> 
-                    <button type="submit" class="btn green-jungle">Conferma</button>                
+        </div>
+            <div class="form-actions row">
+                <div class="col-md-9">
+                </div>
+                <div class="col-md-3">
+                  <button type="button" class="btn red">Annulla</button>
+                  <button type="submit" class="btn green">Conferma</button>
                 </div>
             </div>
             <!-- END PAGE CONTENT-->

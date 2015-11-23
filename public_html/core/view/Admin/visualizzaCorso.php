@@ -151,11 +151,11 @@ License: You must have a valid license purchased only from themeforest(the above
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="gestioneCdL.php">GestioneCorsi</a>
+                        <a href="gestionecdl">GestioneCorsi</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="visualizzaCorso.php">ViewCorso</a>
+                        <a href="visualizzacorso">ViewCorso</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
@@ -178,7 +178,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <h3></h3>
                                     <button type="button" class="btn green-jungle">Associa Docente</button>
                                     <h3></h3>
-                                    <a href="modificaCorso.php"><button type="button" class="btn green-jungle">Modifica</button></a>
+                                    <a href="modificacorso"><button type="button" class="btn green-jungle">Modifica</button></a>
                                 </div>
                             </div>
                         </form>

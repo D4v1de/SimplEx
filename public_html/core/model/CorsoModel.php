@@ -16,7 +16,7 @@ class CorsoModel extends Model {
     
     /**
      * Inserisce un nuovo corso nel database
-     * @param corso Corso Il corso da inserire nel database
+     * @param Corso $corso Il corso da inserire nel database
      */
     public function createCorso($corso){
         $query = sprintf(self::$CREATE_CORSO, $corso->getMatricola(), $corso->getNome(), $corso->getTipologia(), $corso->getCdlMatricola());
@@ -31,8 +31,8 @@ class CorsoModel extends Model {
     
     /**
      * Modifica un corso nel database
-     * @param string matricola La matricola del corso da modificare
-     * @param Corso updatedCorso Il corso modificato da aggiornare nel database
+     * @param string $matricola La matricola del corso da modificare
+     * @param Corso $updatedCorso Il corso modificato da aggiornare nel database
      */
     public function updateCorso($matricola,$updatedCorso){
         $query = sprintf(self::$UPDATE_CORSO, $updatedCorso->getMatricola(), $updatedCorso->getNome(), $updatedCorso->getTipologia(), $updatedCorso->getCdlMatricola(), $matricola);
@@ -47,7 +47,7 @@ class CorsoModel extends Model {
     
     /**
      * Cancella un corso nel database
-     * @param string matricola La matricola del corso da eliminare
+     * @param string $matricola La matricola del corso da eliminare
      */
     public function deleteCorso($matricola){
         $query = sprintf(self::$DELETE_CORSO, $matricola);
@@ -62,13 +62,12 @@ class CorsoModel extends Model {
     
     /**
      * Cerca un corso nel database
-     * @param string matricola la matricola del corso da cercare
+     * @param string $matricola la matricola del corso da cercare
      */
     public function readCorso($matricola){
         $query = sprintf(self::$READ_CORSO, $matricola);
         $res = Model::getDB()->query($query);
-        if($res) {
-            $obj = $res->fetch_assoc();
+        if($obj = $res->fetch_assoc()) {
             $corso = new Corso($obj['matricola'], $obj['nome'], $obj['tipologia'], $obj['cdl_matricola']);
             return $corso;
         }
@@ -79,7 +78,7 @@ class CorsoModel extends Model {
     
     /**
      * Restituisce tutti il corsi del database
-     * @return Corso[] corsi Tutti i corsi del database
+     * @return Corso[] Tutti i corsi del database
      */
     public function getAllCorsi() {
         $res = Model::getDB()->query(self::$GET_ALL_CORSI);
