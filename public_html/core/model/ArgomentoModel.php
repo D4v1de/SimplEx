@@ -43,6 +43,7 @@ class ArgomentoModel extends Model {
     private static $GET_ALL_DOMANDA_APERTA_BY_ARGOMENTO = "SELECT * FROM 'domanda_aperta' WHERE argomento_id = '%d'";
     private static $GET_ALL_DOMANDA_MULTIPLA_BY_ARGOMENTO = "SELECT * FROM 'domanda_multipla' WHERE argomento_id = '%d'";
     private static $GET_ALL_ALTERNATIVA_BY_DOMANDA = "SELECT * FROM `alternativa` WHERE domanda_multipla_id = '%d'";
+    private static $GET_RISPOSTA_CORRETTA = "SELECT a.testo FROM alternativa a, domanda_multipla dm WHERE dm.id = '%d' and dm.alternativa_corretta = a.id";
 
     /**
      * Inserisce un nuovo argomento nel database
@@ -401,4 +402,18 @@ class ArgomentoModel extends Model {
             //nessuna alternativa trovata
         }
     }
+    
+    /**
+     * Restituisce il titolo della risposta corretta di una domanda multipla
+     * @param int $id Id della domanda multipla
+     * @return string $res Ll titolo della risposta corretta 
+     */
+    
+    public function getTestoAlternativaDiDomanda($id) {
+        $query = sprintf(self::$GET_RISPOSTA_CORRETTA, $id);
+        $res = Model::getDB()->query($query);
+        return $res;
+            //errore da aggiungere per nessuna alternativa trovata
+    }
+    
 }
