@@ -163,6 +163,9 @@ switch (isset($_URL[0]) ? $_URL[0] : '') {
     case 'selezionestudenti':
         include_once VIEW_DIR . "/Docente/SelezioneStudenti.php";
         break;
+    case 'correggitest':
+        include_once VIEW_DIR . "/Docente/CorreggiTest.php";
+        break;
     default:
         echo "Route inesistente";
 }

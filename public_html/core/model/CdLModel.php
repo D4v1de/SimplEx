@@ -8,13 +8,15 @@
  */
 include_once MODEL_DIR . "Model.php";
 include_once BEAN_DIR . "CdL.php";
+include_once BEAN_DIR . "Corso.php";
 
 class CdLModel extends Model {
-    private static $CREATE_CDL = "INSERT INTO `cdl` (matricola, nome, tipologia) VALUES ('%s','%s','%s')";
-    private static $UPDATE_CDL = "UPDATE `cdl` SET matricola = '%s', nome = '%s', tipologia = '%s' WHERE matricola = '%s'";
-    private static $DELETE_CDL = "DELETE FROM `cdl` WHERE matricola = '%s'";
-    private static $READ_CDL = "SELECT * FROM `cdl` WHERE matricola = '%s'";
-    private static $GET_ALL_CDLS = "SELECT * FROM `cdl`";
+    private static $CREATE_CDL = "INSERT INTO 'cdl' (matricola, nome, tipologia) VALUES ('%s','%s','%s')";
+    private static $UPDATE_CDL = "UPDATE 'cdl' SET matricola = '%s', nome = '%s', tipologia = '%s' WHERE matricola = '%s'";
+    private static $DELETE_CDL = "DELETE FROM 'cdl' WHERE matricola = '%s'";
+    private static $READ_CDL = "SELECT * FROM 'cdl' WHERE matricola = '%s'";
+    private static $GET_ALL_CDLS = "SELECT * FROM 'cdl'";
+    private static $GET_ALL_CORSI_CDL = "SELECT * FROM 'corso' WHERE cdl_matricola = '%s'";
 
     /**
      * Inserisce un nuovo corso di laurea nel database
@@ -93,6 +95,25 @@ class CdLModel extends Model {
         }
         else{
             //mesaggio nessun cdl trovato
+        }
+    }
+    
+    /**
+     * Restituisce tutti i corsi di un cdl del database
+     * @return Corsi[] Tutti i corsi di un cdl del database
+     */
+    public function getAllCorsiCdl($cdl_matricola) {
+        $query = sprintf(self::$GET_ALL_CORSI_CDL, $cdl_matricola);
+        $res = Model::getDB()->query($query);
+        $corsi = array();
+        if($res){
+            while ($obj = $res->fetch_assoc()) {
+                $corsi[] = new Corso($obj['matricola'], $obj['nome'], $obj['tipologia'], $obj['cdl_matricola']);
+            }
+            return $corsi;
+        }
+        else{
+            //mesaggio nessun corso trovato
         }
     }
 }
