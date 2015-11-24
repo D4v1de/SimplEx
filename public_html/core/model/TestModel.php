@@ -17,11 +17,11 @@ class TestModel extends Model {
     private static $DELETE_TEST = "DELETE FROM `test` WHERE id = '%d'";
     private static $READ_TEST = "SELECT * FROM `test` WHERE id = '%d'";
     private static $GET_ALL_TESTS = "SELECT * FROM `test`";
-    private static $GET_ALL_DOMANDE_APERTE_TEST = "SELECT * FROM `domanda_aperta` as d,`compone_aperta` as c WHERE "
+    private static $GET_ALL_DOMANDE_APERTE_TEST = "SELECT d.* FROM `domanda_aperta` as d,`compone_aperta` as c WHERE "
             ."c.test_id = '%s' AND c.domanda_aperta_id = d.id AND c.domanda_aperta_argomento_id = d.argomento_id AND "
             ."c.domanda_aperta_argomento_insegnamento_id = d.argomento_insegnamento_id AND "
             ."c.domanda_aperta_argomento_insegnamento_corso_matricola = d.argomento_insegnamento_corso_matricola";
-    private static $GET_ALL_DOMANDE_MULTIPLE_TEST = "SELECT * FROM `domanda_multipla` as d,`compone_multipla` as c WHERE "
+    private static $GET_ALL_DOMANDE_MULTIPLE_TEST = "SELECT d.* FROM `domanda_multipla` as d,`compone_multipla` as c WHERE "
             ."c.test_id = '%s' AND c.domanda_multipla_id = d.id AND c.domanda_multipla_argomento_id = d.argomento_id AND "
             ."c.domanda_multipla_argomento_insegnamento_id = d.argomento_insegnamento_id AND "
             ."c.domanda_multipla_argomento_insegnamento_corso_matricola = d.argomento_insegnamento_corso_matricola";
@@ -117,7 +117,7 @@ class TestModel extends Model {
         $domande = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $domandaAperta = new DomandaAperta(); //da completare
+                $domandaAperta = new DomandaAperta($obj['id'],$obj['testo'], $obj['punteggio_max'], $obj['percentuale_scelta'],$obj['argomento_id'],$obj['argomento_insegnamento_id'],$obj['argomento_insegnamento_corso_matricola']);
                 $domande[]= domandaAperta;
             }
             return $domande;
@@ -138,7 +138,7 @@ class TestModel extends Model {
         $domande = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $domandaMultipla = new DomandaMultipla(); //da completare
+                $domandaMultipla = new DomandaMultipla($obj['id'], $obj['testo'], $obj['punteggio_corretta'], $obj['punteggio_errata'], $obj['percentuale_scelta'], $obj['percentuale_risposta_corretta'], $obj['alternativa_corretta'], $obj['argomento_id'], $obj['argomento_insegnamento_id'], $obj['argomento_insegnamento_corso_matricola']);
                 $domande[]= domandaMultipla;
             }
             return $domande;
