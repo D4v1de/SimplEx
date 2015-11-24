@@ -307,7 +307,7 @@ CREATE TABLE `domanda_multipla` (
   `punteggio_errata` float NOT NULL,
   `percentuale_scelta` float NOT NULL,
   `percentuale_risposta_corretta` float NOT NULL,
-  `alterativa_corretta` int(8) NOT NULL,
+  `alternativa_corretta` int(8) NOT NULL,
   `argomento_id` int(3) NOT NULL,
   `argomento_insegnamento_id` int(2) NOT NULL,
   `argomento_insegnamento_corso_matricola` varchar(10) NOT NULL,
