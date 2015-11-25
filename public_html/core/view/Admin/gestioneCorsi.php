@@ -76,10 +76,10 @@ $controller = new CdlController();
                     </div>
                 </div>
                 <div class="portlet-body">
-                    <div id="sample_2_wrapper" class="dataTables_wrapper no-footer">
+                    <div id="tabella_2_wrapper" class="dataTables_wrapper no-footer">
                         <div class="table-scrollable">
                             <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                   id="sample_2" role="grid" aria-describedby="sample_2_info">
+                                   id="tabella_2" role="grid" aria-describedby="sample_2_info">
                                 <thead>
                                 <tr role="row">
                                     <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label=""
@@ -107,21 +107,18 @@ $controller = new CdlController();
                                 </thead>
                                 <tbody>
                                 <?php
+                                $array = Array();
                                 $array = $controller->getCorsi();
-                                if(!$array) {
-                                    echo "<h1>errore: non ci sono Corsi</h1>";
-                                }
-                                else {
-                                    foreach($array as $c) {
-                                        printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                        printf("<td><input type=\"checkbox\" class=\"checkboxes\" value=\"1\"></td>");
-                                        printf("<td class=\"sorting_1\"><a href=\"\">%s</a></td>",$c->getMatricola());
-                                        printf("<td class=\"sorting_1\"><a href=\"\">%s</a></td>",$c->getNome());
-                                        printf("<td>%s</td>",$c->getTipologia());
-                                        printf("<td>%s</td>",$c->getCldMatricola());
-                                        printf("</tr>");
+                                if($array == null){echo "l'array è null";}
+                                foreach($array as $c) {
+                                    printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                    printf("<td><input type=\"checkbox\" class=\"checkboxes\" value=\"1\"></td>");
+                                    printf("<td class=\"sorting_1\">%s</td>",$c->getMatricola());
+                                    printf("<td class=\"sorting_1\"><a href=\"\">%s</a></td>",$c->getNome());
+                                    printf("<td>%s</td>",$c->getTipologia());
+                                    printf("<td>%s</td>",$c->getCdlMatricola());
+                                    printf("</tr>");
                                     }
-                                }
                                 ?>
                                 </tbody>
                             </table>
@@ -165,7 +162,7 @@ $controller = new CdlController();
         Layout.init(); // init current layout
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
-        TableManaged.init();
+        TableManaged.init("tabella_2","tabella_2_wrapper");
     });
 </script>
 <!-- END JAVASCRIPTS -->

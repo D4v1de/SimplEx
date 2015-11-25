@@ -99,43 +99,10 @@ $controller = new Esempio();
                     </div>
                 </div>
                 <div class="portlet-body">
-                    <div id="sample_2_wrapper" class="dataTables_wrapper no-footer">
-                        <!--<div class="row">
-                            <div class="col-md-6 col-sm-12">
-                                <div class="dataTables_length" id="sample_2_length">
-                                    <label>
-                                        <div class="select2-container form-control input-xsmall input-inline" id="s2id_autogen1">
-                                            <a href="javascript:void(0)" class="select2-choice" tabindex="-1">
-                                                <span class="select2-chosen" id="select2-chosen-2">
-                                                    5
-                                                </span>
-                                                <abbr class="select2-search-choice-close"></abbr>
-                                                <span class="select2-arrow" role="presentation">
-                                                    <b role="presentation"></b>
-                                                </span>
-                                            </a>
-                                            <label for="s2id_autogen2" class="select2-offscreen">
-                                            </label>
-                                            <input class="select2-focusser select2-offscreen" type="text" aria-haspopup="true" role="button" aria-labelledby="select2-chosen-2" id="s2id_autogen2">
-                                        </div>
-                                        <select name="sample_2_length" aria-controls="sample_2" class="form-control input-xsmall input-inline select2-offscreen" tabindex="-1" title=""><option value="5">5</option><option value="15">15</option><option value="20">20</option><option value="-1">All</option>
-                                        </select>
-                                         records
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <div id="sample_2_filter" class="dataTables_filter">
-                                    <label>
-                                        Search:
-                                        <input type="search" class="form-control input-small input-inline" placeholder="" aria-controls="sample_2">
-                                    </label>
-                                </div>
-                            </div>
-                        </div>-->
+                    <div id="tabella_studenti_wrapper" class="dataTables_wrapper no-footer">
                         <div class="table-scrollable">
                             <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                   id="sample_2" role="grid" aria-describedby="sample_2_info">
+                                   id="tabella_studenti" role="grid" aria-describedby="sample_2_info">
                                 <thead>
                                 <tr role="row">
                                     <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label=""
@@ -310,19 +277,272 @@ $controller = new Esempio();
                 </div>
             </div>
 
+
+
+
+
+
+            <div class="portlet box purple">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-cogs"></i>Table
+                    </div>
+                    <div class="actions">
+                        <a href="javascript:;" class="btn btn-default btn-sm">
+                            <i class="fa fa-plus"></i> Add </a>
+                        <a href="javascript:;" class="btn btn-default btn-sm">
+                            <i class="fa fa-print"></i> Print </a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div id="tabella_2_wrapper" class="dataTables_wrapper no-footer">
+                        <div class="table-scrollable">
+                            <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                                   id="tabella_2" role="grid" aria-describedby="sample_3_info">
+                                <thead>
+                                <tr role="row">
+                                    <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 24px;">
+                                        <input type="checkbox" class="group-checkable" data-set="#sample_3 .checkboxes">
+                                    </th>
+                                    <th class="sorting_asc" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column ascending" style="width: 78px;">
+                                        Username
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" aria-label="Email: activate to sort column ascending" style="width: 137px;">
+                                        Email
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 71px;">
+                                        Status
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+
+                                <tr class="gradeX odd" role="row">
+                                    <td>
+                                        <input type="checkbox" class="checkboxes" value="1">
+                                    </td>
+                                    <td class="sorting_1">
+                                        coop
+                                    </td>
+                                    <td>
+                                        <a href="mailto:userwow@gmail.com">
+                                            good@gmail.com </a>
+                                    </td>
+                                    <td>
+									<span class="label label-sm label-success">
+									Approved </span>
+                                    </td>
+                                </tr>
+                                <tr class="gradeX even" role="row">
+                                    <td>
+                                        <input type="checkbox" class="checkboxes" value="1">
+                                    </td>
+                                    <td class="sorting_1">
+                                        foopl
+                                    </td>
+                                    <td>
+                                        <a href="mailto:userwow@gmail.com">
+                                            good@gmail.com </a>
+                                    </td>
+                                    <td>
+									<span class="label label-sm label-success">
+									Approved </span>
+                                    </td>
+                                </tr>
+                                <tr class="gradeX odd" role="row">
+                                    <td>
+                                        <input type="checkbox" class="checkboxes" value="1">
+                                    </td>
+                                    <td class="sorting_1">
+                                        looper
+                                    </td>
+                                    <td>
+                                        <a href="mailto:looper90@gmail.com">
+                                            looper90@gmail.com </a>
+                                    </td>
+                                    <td>
+									<span class="label label-sm label-warning">
+									Suspended </span>
+                                    </td>
+                                </tr>
+                                <tr class="gradeX even" role="row">
+                                    <td>
+                                        <input type="checkbox" class="checkboxes" value="1">
+                                    </td>
+                                    <td class="sorting_1">
+                                        pppol
+                                    </td>
+                                    <td>
+                                        <a href="mailto:userwow@gmail.com">
+                                            good@gmail.com </a>
+                                    </td>
+                                    <td>
+									<span class="label label-sm label-success">
+									Approved </span>
+                                    </td>
+                                </tr>
+                                <tr class="gradeX odd" role="row">
+                                    <td>
+                                        <input type="checkbox" class="checkboxes" value="1">
+                                    </td>
+                                    <td class="sorting_1">
+                                        restest
+                                    </td>
+                                    <td>
+                                        <a href="mailto:userwow@gmail.com">
+                                            test@gmail.com </a>
+                                    </td>
+                                    <td>
+									<span class="label label-sm label-success">
+									Approved </span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    <!-- END EXAMPLE TABLE PORTLET-->
                 </div>
             </div>
 
 
 
+            <div class="portlet box purple">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-cogs"></i>Table
+                    </div>
+                    <div class="actions">
+                        <a href="javascript:;" class="btn btn-default btn-sm">
+                            <i class="fa fa-plus"></i> Add </a>
+                        <a href="javascript:;" class="btn btn-default btn-sm">
+                            <i class="fa fa-print"></i> Print </a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div id="tabella_3_wrapper" class="dataTables_wrapper no-footer">
+                        <div class="table-scrollable">
+                            <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                                   id="tabella_3" role="grid" aria-describedby="sample_3_info">
+                                <thead>
+                                <tr role="row">
+                                    <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 24px;">
+                                        <input type="checkbox" class="group-checkable" data-set="#sample_3 .checkboxes">
+                                    </th>
+                                    <th class="sorting_asc" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column ascending" style="width: 78px;">
+                                        Username
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" aria-label="Email: activate to sort column ascending" style="width: 137px;">
+                                        Email
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 71px;">
+                                        Status
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
 
-            <!-- END PAGE CONTENT-->
+
+                                <tr class="gradeX odd" role="row">
+                                    <td>
+                                        <input type="checkbox" class="checkboxes" value="1">
+                                    </td>
+                                    <td class="sorting_1">
+                                        coop
+                                    </td>
+                                    <td>
+                                        <a href="mailto:userwow@gmail.com">
+                                            good@gmail.com </a>
+                                    </td>
+                                    <td>
+									<span class="label label-sm label-success">
+									Approved </span>
+                                    </td>
+                                </tr>
+                                <tr class="gradeX even" role="row">
+                                    <td>
+                                        <input type="checkbox" class="checkboxes" value="1">
+                                    </td>
+                                    <td class="sorting_1">
+                                        foopl
+                                    </td>
+                                    <td>
+                                        <a href="mailto:userwow@gmail.com">
+                                            good@gmail.com </a>
+                                    </td>
+                                    <td>
+									<span class="label label-sm label-success">
+									Approved </span>
+                                    </td>
+                                </tr>
+                                <tr class="gradeX odd" role="row">
+                                    <td>
+                                        <input type="checkbox" class="checkboxes" value="1">
+                                    </td>
+                                    <td class="sorting_1">
+                                        looper
+                                    </td>
+                                    <td>
+                                        <a href="mailto:looper90@gmail.com">
+                                            looper90@gmail.com </a>
+                                    </td>
+                                    <td>
+									<span class="label label-sm label-warning">
+									Suspended </span>
+                                    </td>
+                                </tr>
+                                <tr class="gradeX even" role="row">
+                                    <td>
+                                        <input type="checkbox" class="checkboxes" value="1">
+                                    </td>
+                                    <td class="sorting_1">
+                                        pppol
+                                    </td>
+                                    <td>
+                                        <a href="mailto:userwow@gmail.com">
+                                            good@gmail.com </a>
+                                    </td>
+                                    <td>
+									<span class="label label-sm label-success">
+									Approved </span>
+                                    </td>
+                                </tr>
+                                <tr class="gradeX odd" role="row">
+                                    <td>
+                                        <input type="checkbox" class="checkboxes" value="1">
+                                    </td>
+                                    <td class="sorting_1">
+                                        restest
+                                    </td>
+                                    <td>
+                                        <a href="mailto:userwow@gmail.com">
+                                            test@gmail.com </a>
+                                    </td>
+                                    <td>
+									<span class="label label-sm label-success">
+									Approved </span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
         </div>
     </div>
-    <!-- END CONTENT -->
+    <!-- END EXAMPLE TABLE PORTLET-->
+</div>
+</div>
+
+
+<!-- END PAGE CONTENT-->
+</div>
+</div>
+<!-- END CONTENT -->
 </div>
 <!-- END CONTAINER -->
 <?php include VIEW_DIR . "footer.php"; ?>
@@ -353,7 +573,10 @@ $controller = new Esempio();
         Layout.init(); // init current layout
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
-        TableManaged.init();
+        TableManaged.init("tabella_studenti","tabella_studenti_wrapper");
+        TableManaged.init("tabella_2","tabella_2_wrapper");
+        TableManaged.init("tabella_3","tabella_3_wrapper");
+        //TableManaged.init(3);
     });
 </script>
 <!-- END JAVASCRIPTS -->

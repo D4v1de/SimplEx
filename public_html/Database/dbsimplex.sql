@@ -307,7 +307,7 @@ CREATE TABLE `domanda_multipla` (
   `punteggio_errata` float NOT NULL,
   `percentuale_scelta` float NOT NULL,
   `percentuale_risposta_corretta` float NOT NULL,
-  `alterativa_corretta` int(8) NOT NULL,
+  `alternativa_corretta` int(8) NOT NULL,
   `argomento_id` int(3) NOT NULL,
   `argomento_insegnamento_id` int(2) NOT NULL,
   `argomento_insegnamento_corso_matricola` varchar(10) NOT NULL,
@@ -443,6 +443,30 @@ CREATE TABLE `insegnamento_docente` (
 LOCK TABLES `insegnamento_docente` WRITE;
 /*!40000 ALTER TABLE `insegnamento_docente` DISABLE KEYS */;
 /*!40000 ALTER TABLE `insegnamento_docente` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `log`
+--
+
+DROP TABLE IF EXISTS `log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `log` (
+  `id` int(11) NOT NULL,
+  `level` enum('Debug','Info','Warning','Error') NOT NULL,
+  `message` varchar(2014) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `log`
+--
+
+LOCK TABLES `log` WRITE;
+/*!40000 ALTER TABLE `log` DISABLE KEYS */;
+/*!40000 ALTER TABLE `log` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -656,4 +680,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-11-23 11:50:39
+-- Dump completed on 2015-11-23 19:11:39

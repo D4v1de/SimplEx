@@ -65,45 +65,60 @@ $controller = new Esempio();
                     <div class="portlet box grey-cascade">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-globe"></i> Modifica Domanda
+                                <i class="fa fa-globe"></i>Modifica Domanda Aperta
                             </div>
                             <div class="tools">
-                                <a href="" class="collapse" data-original-title="" title="">
+                                <a href="javascript:;" class="collapse" data-original-title="" title="">
+                                </a>
+                                <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title="">
+                                </a>
+                                <a href="javascript:;" class="reload" data-original-title="" title="">
+                                </a>
+                                <a href="javascript:;" class="remove" data-original-title="" title="">
                                 </a>
                             </div>
                         </div>
                         <div class="portlet-body form">
-                            <form role="form">
+                            <!-- BEGIN FORM-->
+                            <form action="#" class="form-horizontal form-bordered">
                                 <div class="form-body">
-                                    <div class="form-group col-md-12">
-                                        <label class="control-label col-md-8">Modifica testo domanda
-                                            <input type="text" class="form-control" placeholder="Descrivere le differenza tra una relazione extende e una relazione include">
-                                        </label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label ">Modifica punteggio risposta</label>
-                                        <div class="col-md-3">
-                                            <input type="number" class="form-control" placeholder="10">
+                                    <div class="form-group form-md-line-input has-success" style="height: 100px">
+                                        <label class="control-label col-md-3">Inserisci Testo Domanda</label>
+                                        <div class="col-md-6">
+                                            <input type="text" value="Precedente Testo Domanda" class="form-control">
+                                            <span class="help-block">
+                                                Inserisci il testo della domanda </span>
                                         </div>
-                                        <a href="javascript:;" class="btn sm red-intense">
-                                            Azzera
-                                        </a>
+                                    </div>
+                                    <div class="form-group form-md-line-input has-success" style="height: 100px">
+                                        <label class="control-label col-md-3">Inserisci Punteggio</label>
+                                        <div class="col-md-4">
+                                            <input type="number" value="Precedente punteggio" class="form-control">
+                                            <span class="help-block">
+                                                Inserisci il punteggio massimo per la domanda </span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-actions row">
-                                    <a href="javascript:;" class="btn sm green-jungle">
-                                        Conferma
-                                    </a>
-                                    <a href="javascript:;" class="btn sm red-intense">
-                                        Annulla
-                                    </a>
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-9">
+                                                    <a href="javascript:;" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                                        Conferma
+                                                    </a>
+                                                    <a href="javascript:;" class="btn sm red-intense">
+                                                        Annulla
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
+                            <!-- END FORM-->
                         </div>
                     </div>
-                    <!-- END PAGE CONTENT-->
-                </div>
-            </div>
             <!-- END CONTENT -->
         </div>
         <!-- END CONTAINER -->
