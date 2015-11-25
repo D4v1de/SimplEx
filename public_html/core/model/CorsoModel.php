@@ -202,7 +202,7 @@ class CorsoModel extends Model {
      * @return Insegnamento[] Tutti gli insegnamenti di un docente del database
      * @throws ApplicationException
      */
-    public function getAllInsegnamenti($docente_matricola) {
+    public function getAllInsegnamentiDocente($docente_matricola) {
         $query = sprintf(self::$GET_ALL_INSEGNAMENTI_DOCENTE, $docente_matricola);
         $res = Model::getDB()->query($query);
         $insegnamenti = array();
