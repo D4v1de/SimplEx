@@ -6,7 +6,7 @@ include_once BEAN_DIR . "Insegnamento.php";
 /**
  * Created by PhpStorm.
  * User: Elvira
- * Date: 21/11/15
+ * Date: 25/11/15
  * Time: 15:42
  */
 class CorsoModel extends Model {

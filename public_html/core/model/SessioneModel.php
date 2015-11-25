@@ -18,7 +18,7 @@ class SessioneModel extends Model {
     private static $READ_SESSIONE = "SELECT * FROM `sessione` WHERE id = '%d'";
     private static $GET_ALL_SESSIONI = "SELECT * FROM `sessione`";
     private static $GET_ALL_STUDENTI_SESSIONE = "SELECT u.* FROM `abilitazione` as a, `utente` as u WHERE "
-            . "a.sessione_id='%s' AND a.studente_matricola=u.matricola"; //va spostato in utenti
+            . "a.sessione_id='%s' AND a.studente_matricola=u.matricola"; //va spostato in utenti By Elvira
     
     /**
      * Inserisce una nuova sessione nel database

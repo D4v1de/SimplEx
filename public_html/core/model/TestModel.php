@@ -17,7 +17,7 @@ class TestModel extends Model {
     private static $DELETE_TEST = "DELETE FROM `test` WHERE id = '%d'";
     private static $READ_TEST = "SELECT * FROM `test` WHERE id = '%d'";
     private static $GET_ALL_TESTS = "SELECT * FROM `test`";
-    private static $GET_ALL_TEST_INSEGNAMENTO = "";//da completare
+    private static $GET_ALL_TEST_INSEGNAMENTO = "";//da completare la query
     private static $GET_ALL_TEST_SESSIONE = "SELECT t.* FROM `sessione_test` as s, `test` as t WHERE"
             . "s.sessione_id='%d' AND s.test_id= t.id";
     private static $GET_ALL_DOMANDE_APERTE_TEST = "SELECT d.* FROM `domanda_aperta` as d,`compone_aperta` as c WHERE "
@@ -133,7 +133,7 @@ class TestModel extends Model {
      * @return Test[] Tutti i test di una sessione del database del database
      * @throws ApplicationException
      */
-    public function getAllTestSessione() {
+    public function getAllTestSessione($id) {
         $query = sprintf(self::$GET_ALL_TEST_SESSIONE, $id);
         $res = Model::getDB()->query($query);
         $tests = array();

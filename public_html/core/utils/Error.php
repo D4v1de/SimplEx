@@ -16,5 +16,11 @@ class Error {
     public static $INSEGNAMENTO_NON_TROVATO = "Nessun insegnamento trovato";
     public static $TEST_NON_TROVATO = "Nessun test trovato";
     public static $DOMANDA_NON_TROVATA = "Nessuna domanda trovato";
+    public static $ARGOMENTO_NON_TROVATO = "Nessun argomento trovato";
+    public static $DOMANDA_APERTA_NON_TROVATA = "Nessuna domanda aperta trovata";
+    public static $DOMANDA_MULTIPLA_NON_TROVATA = "Nessuna domanda mutlipla trovata";
+    public static $ALTERNATIVA_NON_TROVATA = "Nessuna alternativa trovata";
+    public static $AGGIORNAMENTO_FALLITO = "Impossibile aggiornare il database";
+    public static $CANCELLAZIONE_FALLITA = "Impossibile cancellare dal database";
 }
 ?>
