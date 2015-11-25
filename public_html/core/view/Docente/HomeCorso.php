@@ -485,7 +485,7 @@ $controller = new Esempio();
                         <div class="col-md-10"></div>
                         <div class="col-md-2">
                             <a href="javascript:;" class="btn green-jungle">
-                                Crea Sessione <i class="fa fa-plus"></i>
+                                Crea Argomento <i class="fa fa-plus"></i>
                             </a>
                             <span class="help-block"> <br> </span>
                         </div>
