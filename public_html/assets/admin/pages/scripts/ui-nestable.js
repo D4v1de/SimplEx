@@ -18,8 +18,21 @@ var UINestable = function () {
             // activate Nestable for list 1
             $('#nestable_list_1').nestable({
                 group: 1
+
             })
                 .on('change', updateOutput);
+
+            //AGGIUNGE IL TAG "dd-nodrag", che permette di rendere non movibile l'elemento
+            $(".dd-nodrag").on("mousedown", function(event) { // mousedown prevent nestable click
+                event.preventDefault();
+                return false;
+            });
+
+            $(".dd-nodrag").on("click", function(event) { // click event
+                event.preventDefault();
+                return false;
+            });
+
 
             // activate Nestable for list 2
             $('#nestable_list_2').nestable({

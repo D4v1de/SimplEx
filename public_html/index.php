@@ -46,8 +46,19 @@ switch (isset($_URL[0]) ? $_URL[0] : '') {
     case '':
         include_once VIEW_DIR . "VisualizzaHome.php";
         break;
-    case 'auth':
-        include_once VIEW_DIR . "VisualizzaLogReg.php";
+    case 'auth': {
+        switch (@$_URL[1]) {
+            case '':
+                include_once VIEW_DIR . "Auth/VisualizzaLogReg.php";
+                break;
+            case 'register':
+                include_once VIEW_DIR . "Auth/Register.php";
+                break;
+            case 'login':
+                include_once VIEW_DIR . "Auth/Login.php";
+                break;
+        }
+    }
         break;
     case 'esempio':
         include_once VIEW_DIR . "VisualizzaEsempio.php";
@@ -107,7 +118,7 @@ switch (isset($_URL[0]) ? $_URL[0] : '') {
     case 'inseriscidomandamultipla':
         include_once VIEW_DIR . "/Docente/InserisciDomandaMultipla.php";
         break;
-     case 'modificadomandamultipla':
+    case 'modificadomandamultipla':
         include_once VIEW_DIR . "/Docente/ModificaDomandaMultipla.php";
         break;
     case 'inserisciargomento':
@@ -145,6 +156,9 @@ switch (isset($_URL[0]) ? $_URL[0] : '') {
         break;
     case 'correggitest':
         include_once VIEW_DIR . "/Docente/CorreggiTest.php";
+        break;
+    case 'provaargomenti':
+        include_once VIEW_DIR . "/Docente/ProvaArgomenti.php";
         break;
     default:
         echo "Route inesistente";
