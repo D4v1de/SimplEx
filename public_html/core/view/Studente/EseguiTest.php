@@ -182,8 +182,8 @@ $controller = new Esempio();
                     <div class="row">
                         <div class="col-md-12">
                             <div class="col-md-9"></div>
+                            <button type="submit" class="btn green-jungle">Conegna</button>
                             <button type="button" class="btn red-intense">Abbandona</button> 
-                            <button type="submit" class="btn green-jungle">Conegna</button>  
                         </div>
                     </div>
                     </div>
