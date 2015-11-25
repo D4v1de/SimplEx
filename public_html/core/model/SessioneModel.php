@@ -17,10 +17,8 @@ class SessioneModel extends Model {
     private static $DELETE_SESSIONE = "DELETE FROM `sessione` WHERE id = '%d'";
     private static $READ_SESSIONE = "SELECT * FROM `sessione` WHERE id = '%d'";
     private static $GET_ALL_SESSIONI = "SELECT * FROM `sessione`";
-    private static $GET_ALL_TEST_SESSIONE = "SELECT * FROM `sessione_test` as s, `test` as t WHERE"
-            . "s.sessione_id='%d' AND s.test_id= t.id";
-    private static $GET_ALL_STUDENTI_SESSIONE = "SELECT * FROM `abilitazione` as a, `utente` as u WHERE "
-            . "a.sessione_id='%s' AND a.studente_matricola=u.matricola";
+    private static $GET_ALL_STUDENTI_SESSIONE = "SELECT u.* FROM `abilitazione` as a, `utente` as u WHERE "
+            . "a.sessione_id='%s' AND a.studente_matricola=u.matricola"; //va spostato in utenti By Elvira
     
     /**
      * Inserisce una nuova sessione nel database
@@ -101,29 +99,7 @@ class SessioneModel extends Model {
             //nessuna sessione trovata
         }
     }
-     
-    /**
-     * Restituisce tutti i test di una sessione
-     * @param int $id L'id della sessione per la qule si vogliono cercare i test
-     * @return Test[] Tutti i test della sessione
-     */
-    public function getAllTestSessione($id) {
-        $query = sprintf(self::$GET_ALL_TEST_SESSIONE, $id);
-        $res = Model::getDB()->query($query);
-        $test = array();
-        if($res){
-            while ($obj = $res->fetch_assoc()) {
-                $testSessione = new TestSessione($obj['id'],$obj['data_inizio'], $obj['data_fine'], $obj['soglia_ammissione'],$obj['tipologia'],$obj['insegnamento_id'],$obj['insegnamento_corso_matricola']);
-                $test[]= testSessione;
-            }
-            return $test;
-        }
-        else{
-            //nessun test trovato
-        }
-        
-    }
-     
+          
     /**
      * Restituisce tutti gli studenti che hanno partecipato ad una sessione
      * @param int $id L'id della sessione per la quale si vogliono conoscere gli studenti abilitati
@@ -135,7 +111,7 @@ class SessioneModel extends Model {
         $studenti = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $studentiSessione = new studentiSessione($obj['id'],$obj['data_inizio'], $obj['data_fine'], $obj['soglia_ammissione'],$obj['tipologia'],$obj['insegnamento_id'],$obj['insegnamento_corso_matricola']);
+                $studentiSessione = new Utente($obj['username'], $obj['password'],$obj['matricola'], $obj['nome'],$obj['cognome'],$obj['tipologia'],$obj['cdl_matricola']);
                 $studenti[]= studentiSessione;
             }
             return $studenti;

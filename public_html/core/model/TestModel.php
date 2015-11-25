@@ -17,6 +17,9 @@ class TestModel extends Model {
     private static $DELETE_TEST = "DELETE FROM `test` WHERE id = '%d'";
     private static $READ_TEST = "SELECT * FROM `test` WHERE id = '%d'";
     private static $GET_ALL_TESTS = "SELECT * FROM `test`";
+    private static $GET_ALL_TEST_INSEGNAMENTO = "";//da completare la query
+    private static $GET_ALL_TEST_SESSIONE = "SELECT t.* FROM `sessione_test` as s, `test` as t WHERE"
+            . "s.sessione_id='%d' AND s.test_id= t.id";
     private static $GET_ALL_DOMANDE_APERTE_TEST = "SELECT d.* FROM `domanda_aperta` as d,`compone_aperta` as c WHERE "
             ."c.test_id = '%s' AND c.domanda_aperta_id = d.id AND c.domanda_aperta_argomento_id = d.argomento_id AND "
             ."c.domanda_aperta_argomento_insegnamento_id = d.argomento_insegnamento_id AND "
@@ -29,15 +32,13 @@ class TestModel extends Model {
     /**
      * Inserisce un nuovo test nel database
      * @param Test $test Il test da inserire nel database
+     * @throws ApplicationException
      */
     public function createTest($test) {
         $query = sprintf(self::$CREATE_TEST, $test->getDescrizione(), $test->getPunteggioMax(), $test->getNumeroMultiple(), $test->getNumeroAperte(), $test->getPercentualeScelto(), $test->getPercentualeSuccesso());
         $res = Model::getDB()->query($query);
-        if ($res) {
-            //messaggio ok
-        }
-        else{
-            //messaggio errore  
+        if(!$res){
+            throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
         }
     }
 
@@ -45,36 +46,33 @@ class TestModel extends Model {
      * Modifica un test nel database
      * @param int $id L'id del test da modificare
      * @param Test $updatedTest Il test da aggiornare nel db
+     * @throws ApplicationException
      */
     public function updateTest($id, $updatedTest) {
         $query = sprintf(self::$UPDATE_TEST, $updatedTest->getDescrizione(), $updatedTest->getPunteggioMax(), $updatedTest->getNumeroMultiple(), $updatedTest->getNumeroAperte(), $updatedTest->getPercentualeScelto(), $updatedTest->getPercentualeSuccesso(), $id);
         $res = Model::getDB()->query($query);
-        if($res){
-            //messaggio ok
-        }
-        else{
-            //messaggio errore
+        if(!$res){
+            throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
         }
     }
 
     /**
      * Cancella un test nel database
      * @param int $id L'id del test da eliminare
+     * @throws ApplicationException
      */
     public function deleteTest($id) {
         $query = sprintf(self::$DELETE_TEST, $id);
         $res = Model::getDB()->query($query);
-        if($res){
-            //messaggio ok
-        }
-        else{
-            //messaggio errore
+        if(!$res){
+            throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
         }
     }
 
     /**
      * Cerca un test nel database
      * @param int $id L'id del test da cercare
+     * @throws ApplicationException
      */
     public function readTest($id) {
         $query = sprintf(self::$READ_TEST, $id);
@@ -84,13 +82,14 @@ class TestModel extends Model {
             return $test;
         }
         else{
-            //messaggio nessun test trovato
+            throw new ApplicationException(Error::$TEST_NON_TROVATO);
         }
     }
 
     /**
      * Restituisce tutti i test del database
      * @return Test[] Tutti i test del database
+     * @throws ApplicationException
      */
     public function getAllTest() {
         $res = Model::getDB()->query(self::$GET_ALL_TESTS);
@@ -102,7 +101,50 @@ class TestModel extends Model {
             return $tests;
         }
         else{
-            //nessun test trovato
+            throw new ApplicationException(Error::$TEST_NON_TROVATO);
+        }
+    }
+    
+    /**
+     * Restituisce tutti i test di un insegnamento del database
+     * @param int $id L'id dell'insegnamento per il quale si vogliono conoscere i test
+     * @param string $corso_matricola La matricola del corso a cui appartiene l'insegnamento per il quale si vogliono conoscere i test
+     * @return Test[] Tutti i test del database
+     * @throws ApplicationException
+     */
+    public function getAllTestInsegnamento($id, $corso_matricola) {
+        $query = sprintf(self::$GET_ALL_TEST_INSEGNAMENTO, $id, $corso_matricola);
+        $res = Model::getDB()->query($query);
+        $tests = array();
+        if($res){
+            while ($obj = $res->fetch_assoc()) {
+                $tests[]= new Test($obj['id'], $obj['descrizione'], $obj['punteggio_max'], $obj['numero_multiple'], $obj['numero_aperte'], $obj['pecentuale_scelto'], $obj['percentuale_successo'] );
+            }
+            return $tests;
+        }
+        else{
+            throw new ApplicationException(Error::$TEST_NON_TROVATO);
+        }
+    }
+    
+    /**
+     * Restituisce tutti i test di una sessione del database
+     * @param int $id L'id della sessione per la quale si vogliono consocere i test associati
+     * @return Test[] Tutti i test di una sessione del database del database
+     * @throws ApplicationException
+     */
+    public function getAllTestSessione($id) {
+        $query = sprintf(self::$GET_ALL_TEST_SESSIONE, $id);
+        $res = Model::getDB()->query($query);
+        $tests = array();
+        if($res){
+            while ($obj = $res->fetch_assoc()) {
+                $tests[]= new Test($obj['id'], $obj['descrizione'], $obj['punteggio_max'], $obj['numero_multiple'], $obj['numero_aperte'], $obj['pecentuale_scelto'], $obj['percentuale_successo'] );
+            }
+            return $tests;
+        }
+        else{
+            throw new ApplicationException(Error::$TEST_NON_TROVATO);
         }
     }
     
@@ -110,6 +152,7 @@ class TestModel extends Model {
      * Restituisce tutte le domande aperte che costituiscono un test
      * @param int $id L'id del test per il quale si vogliono conoscere tutte le domande aperte che lo compongono
      * @return DomandaAperta[] Tutte le domande aperte che costituiscono il test
+     * @throws ApplicationException
      */
     public function getAllDomandeAperteTest($id) {
         $query = sprintf(self::$GET_ALL_DOMANDE_APERTE_TEST, $id);
@@ -123,7 +166,7 @@ class TestModel extends Model {
             return $domande;
         }
         else{
-            //nesuna domanda aperta trovata
+            throw new ApplicationException(Error::$DOMANDA_NON_TROVATA);
         }
     }
     
@@ -131,6 +174,7 @@ class TestModel extends Model {
      * Restituisce tutte le domande multiple che costituiscono un test
      * @param int $id L'id del test per il quale si vogliono conoscere tutte le domande multiple che lo compongono
      * @return Test[] Tutte le domande multiple che costituiscono un test
+     * @throws ApplicationException
      */
     public function getAllDomandeMultipleTest($id) {
         $query = sprintf(self::$GET_ALL_DOMANDE_MULTIPLE_TEST, $id);
@@ -144,7 +188,7 @@ class TestModel extends Model {
             return $domande;
         }
         else{
-            //nessuna domanda multipla trovata
+            throw new ApplicationException(Error::$DOMANDA_NON_TROVATA);
         }
     }
 }
