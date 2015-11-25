@@ -64,7 +64,7 @@ $controller = new Esempio();
                         <div class="col-md-12">
                             <div class="col-md-4">
                                 <div class="form-group form-md-line-input has-success">
-                                    <div class="input-icon">
+                                    <div class="input">
                                         <input type="text" class="form-control">
                                             <label for="form_control_1">Nome</label>
                                                 <span class="help-block">Inserire nome sessione</span>
@@ -431,14 +431,26 @@ $controller = new Esempio();
                         </div>
                 </div>
             </div>
-                <div class="form-actions row">
-                    <div class="col-md-9"></div>
-                        <a href="javascript:;" class="btn sm red-intense">
-                            Annulla
-                        </a>
-                        <a href="javascript:;" class="btn sm green-jungle">
-                            Conferma
-                        </a>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-4">
+                            <a href="javascript:;" class="btn sm green-jungle">
+                                Avvia Ora
+                            </a>
+                            <a href="javascript:;" class="btn sm red-intense">
+                                <i class="fa fa-minus"></i> Elimina Sessione
+                            </a>
+                        </div>
+                        <div class="col-md-3"></div>
+                        <div class="col-md-4">
+                            <a href="javascript:;" class="btn sm green-jungle">
+                                Conferma
+                            </a>
+                            <a href="javascript:;" class="btn sm red-intense">
+                                Annulla
+                            </a>
+                        </div>
                     </div>
                 </div>
             </form>

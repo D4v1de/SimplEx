@@ -7,8 +7,9 @@
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "Esempio.php";
-$controller = new Esempio();
+include_once CONTROL_DIR . "CdlController.php";
+$controller = new CdlController();
+
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -23,6 +24,8 @@ $controller = new Esempio();
     <meta charset="utf-8"/>
     <title>Gestione Corsi</title>
     <?php include VIEW_DIR . "header.php"; ?>
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -58,300 +61,72 @@ $controller = new Esempio();
             <!-- BEGIN PAGE CONTENT-->
 
 
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form page-bar">
-                        <div class="form-actions">
-                            <div class="col-md-4">
-                                <a href="creacorso"><button type="button" class="btn green-jungle">Crea Nuovo Corso</button></a>
-                            </div>
+            <div class="portlet box grey-cascade">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-globe"></i>Gestione dei Corsi
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse" data-original-title="" title="">
+                        </a>
+                    </div>
+                    <div class="actions">
+                        <a href="creacorso" class="btn btn-default btn-sm">
+                            <i class="fa fa-pencil"></i> Crea nuovo Corso </a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div id="tabella_2_wrapper" class="dataTables_wrapper no-footer">
+                        <div class="table-scrollable">
+                            <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                                   id="tabella_2" role="grid" aria-describedby="sample_2_info">
+                                <thead>
+                                <tr role="row">
+                                    <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label=""
+                                        style="width: 24px;">
+                                        <input type="checkbox" class="group-checkable" data-set="#sample_2 .checkboxes">
+                                    </th>
+                                    <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                        colspan="1" aria-label="Username: activate to sort column ascending"
+                                        aria-sort="ascending" style="width: 78px;">
+                                        Matricola
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1"
+                                        aria-label="Email: activate to sort column ascending" style="width: 137px;">
+                                        Nome
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1"
+                                        aria-label="Status: activate to sort column ascending" style="width: 36px;">
+                                        Tipologia
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1"
+                                        aria-label="Status: activate to sort column ascending" style="width: 36px;">
+                                        Matricola CdL
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                $array = Array();
+                                $array = $controller->getCorsi();
+                                if($array == null){echo "l'array è null";}
+                                foreach($array as $c) {
+                                    printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                    printf("<td><input type=\"checkbox\" class=\"checkboxes\" value=\"1\"></td>");
+                                    printf("<td class=\"sorting_1\">%s</td>",$c->getMatricola());
+                                    printf("<td class=\"sorting_1\"><a href=\"\">%s</a></td>",$c->getNome());
+                                    printf("<td>%s</td>",$c->getTipologia());
+                                    printf("<td>%s</td>",$c->getCdlMatricola());
+                                    printf("</tr>");
+                                    }
+                                ?>
+                                </tbody>
+                            </table>
                         </div>
+
                     </div>
                 </div>
             </div>
-
-
-
-            <div class="row">
-                <div class="col-md-12">
-                    <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                    <div class="portlet box grey-cascade">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                <i class="fa fa-globe"></i>Gestione dei Corsi
-                            </div>
-                            <div class="tools">
-                                <a href="javascript:;" class="collapse" data-original-title="" title="">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="portlet-body">
-                            <div class="table-scrollable">
-                                <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                       id="sample_1" role="grid" aria-describedby="sample_1_info">
-                                    <thead>
-                                    <tr role="row">
-                                        <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1"
-                                            aria-label="" style="width: 24px;">
-                                            <input type="checkbox" class="group-checkable"
-                                                   data-set="#sample_1 .checkboxes">
-                                        </th>
-                                        <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1"
-                                            colspan="1" aria-sort="ascending"
-                                            aria-label="Username: activate to sort column ascending"
-                                            style="width: 133px;">
-                                            Corso
-                                        </th>
-                                        <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Email"
-                                            style="width: 232px;">
-                                            Matricola
-                                        </th>
-                                        <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Points"
-                                            style="width: 82px;">
-                                            Tipologia
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1"
-                                            colspan="1" aria-label="Joined: activate to sort column ascending"
-                                            style="width: 119px;">
-                                            DocenteAssociato
-                                        </th>
-                                        <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Status"
-                                            style="width: 132px;">
-                                            Stato
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr class="gradeX odd" role="row">
-                                        <td>
-                                            <input type="checkbox" class="checkboxes" value="1">
-                                        </td>
-                                        <td class="sorting_1">
-                                            <a href="">Ingegneria del Software</a>
-                                        </td>
-                                        <td>
-                                            0000000001
-                                        </td>
-                                        <td>
-                                            Annuale
-                                        </td>
-                                        <td class="center">
-                                            Andrea de Lucia
-                                        </td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-md-offset-1 col-md-2">
-                                                    <a href="" class="label label-sm label-success">
-                                                        Attiva
-                                                    </a>
-                                                </div>
-                                                <div class="col-md-offset-2 col-md-2">
-                                                    <a href="" class="label label-sm label-warning">
-                                                        Sospendi
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="gradeX even" role="row">
-                                        <td>
-                                            <input type="checkbox" class="checkboxes" value="1">
-                                        </td>
-                                        <td class="sorting_1">
-                                            <a href="">Analisi Numerica</a>
-                                        </td>
-                                        <td>
-                                            0000000011
-                                        </td>
-                                        <td>
-                                            Semestrale
-                                        </td>
-                                        <td class="center">
-                                            Angelamaria Cardone
-                                        </td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-md-offset-1 col-md-2">
-                                                    <a href="" class="label label-sm label-success">
-                                                        Attiva
-                                                    </a>
-                                                </div>
-                                                <div class="col-md-offset-2 col-md-2">
-                                                    <a href="" class="label label-sm label-warning">
-                                                        Sospendi
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="gradeX odd" role="row">
-                                        <td>
-                                            <input type="checkbox" class="checkboxes" value="1">
-                                        </td>
-                                        <td class="sorting_1">
-                                            <a href="">Tecnologie di Sviluppo Web</a>
-                                        </td>
-                                        <td>
-                                            0000000111
-                                        </td>
-                                        <td>
-                                            Semestrale
-                                        </td>
-                                        <td class="center">
-                                            Mimmo Parente
-                                        </td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-md-offset-1 col-md-2">
-                                                    <a href="" class="label label-sm label-success">
-                                                        Attiva
-                                                    </a>
-                                                </div>
-                                                <div class="col-md-offset-2 col-md-2">
-                                                    <a href="" class="label label-sm label-warning">
-                                                        Sospendi
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="gradeX even" role="row">
-                                        <td>
-                                            <input type="checkbox" class="checkboxes" value="1">
-                                        </td>
-                                        <td class="sorting_1">
-                                            <a href="">Fisica</a>
-                                        </td>
-                                        <td>
-                                            0000001111
-                                        </td>
-                                        <td>
-                                            Annuale
-                                        </td>
-                                        <td class="center">
-                                            Annnn De Luca
-                                        </td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-md-offset-1 col-md-2">
-                                                    <a href="" class="label label-sm label-success">
-                                                        Attiva
-                                                    </a>
-                                                </div>
-                                                <div class="col-md-offset-2 col-md-2">
-                                                    <a href="" class="label label-sm label-warning">
-                                                        Sospendi
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="gradeX odd" role="row">
-                                        <td>
-                                            <input type="checkbox" class="checkboxes" value="1">
-                                        </td>
-                                        <td class="sorting_1">
-                                            <a href="">Algoritmi</a>
-                                        </td>
-                                        <td>
-                                            0000011111
-                                        </td>
-                                        <td>
-                                            Semestrale
-                                        </td>
-                                        <td class="center">
-                                            Ugo Vaccaro
-                                        </td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-md-offset-1 col-md-2">
-                                                    <a href="" class="label label-sm label-success">
-                                                        Attiva
-                                                    </a>
-                                                </div>
-                                                <div class="col-md-offset-2 col-md-2">
-                                                    <a href="" class="label label-sm label-warning">
-                                                        Sospendi
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="gradeX even" role="row">
-                                        <td>
-                                            <input type="checkbox" class="checkboxes" value="1">
-                                        </td>
-                                        <td class="sorting_1">
-                                            <a href="">Ele di Teoria Computazionale</a>
-                                        </td>
-                                        <td>
-                                            0000111111
-                                        </td>
-                                        <td>
-                                            Semestrale
-                                        </td>
-                                        <td class="center">
-                                            Clelia De Felice
-                                        </td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-md-offset-1 col-md-2">
-                                                    <a href="" class="label label-sm label-success">
-                                                        Attiva
-                                                    </a>
-                                                </div>
-                                                <div class="col-md-offset-2 col-md-2">
-                                                    <a href="" class="label label-sm label-warning">
-                                                        Sospendi
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="gradeX odd" role="row">
-                                        <td>
-                                            <input type="checkbox" class="checkboxes" value="1">
-                                        </td>
-                                        <td class="sorting_1">
-                                            <a href="">Programmazione</a>
-                                        </td>
-                                        <td>
-                                            0001111111
-                                        </td>
-                                        <td>
-                                            Semestrale
-                                        </td>
-                                        <td class="center">
-                                            La Torre
-                                        </td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-md-offset-1 col-md-2">
-                                                    <a href="" class="label label-sm label-success">
-                                                        Attiva
-                                                    </a>
-                                                </div>
-                                                <div class="col-md-offset-2 col-md-2">
-                                                    <a href="" class="label label-sm label-warning">
-                                                        Sospendi
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-
-
-                        </div>
-                    </div>
-                    <!-- END EXAMPLE TABLE PORTLET-->
-                </div>
-            </div>
-
 
 
             <!-- END PAGE CONTENT-->
@@ -387,7 +162,7 @@ $controller = new Esempio();
         Layout.init(); // init current layout
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
-        TableManaged.init();
+        TableManaged.init("tabella_2","tabella_2_wrapper");
     });
 </script>
 <!-- END JAVASCRIPTS -->

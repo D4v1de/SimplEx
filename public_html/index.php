@@ -55,6 +55,10 @@ switch (isset($_URL[0]) ? $_URL[0] : '') {
     case 'graficacomune':
         include_once VIEW_DIR . "GraficaComune.php";
         break;
+    //esempioo da eliminare
+    case 'provatable':
+        include_once VIEW_DIR . "/Admin/provatable.php";
+        break;
     case 'visualizzatestdocente':
         include_once VIEW_DIR . "/Docente/VisualizzaTest.php";
         break;
@@ -111,30 +115,6 @@ switch (isset($_URL[0]) ? $_URL[0] : '') {
         break;
     case 'modificaargomento':
         include_once VIEW_DIR . "/Docente/ModificaArgomento.php";
-        break;
-    case 'creacdl':
-        include_once VIEW_DIR . "/Admin/creaCdL.php";
-        break;
-    case 'creacorso':
-        include_once VIEW_DIR . "/Admin/creaCorso.php";
-        break;
-    case 'gestionecdl':
-        include_once VIEW_DIR . "/Admin/gestioneCdL.php";
-        break;
-    case 'gestionecorsi':
-        include_once VIEW_DIR . "/Admin/gestioneCorsi.php";
-        break;
-    case 'modificacdl':
-        include_once VIEW_DIR . "/Admin/modificaCdL.php";
-        break;
-    case 'modificacorso':
-        include_once VIEW_DIR . "/Admin/modificaCorso.php";
-        break;
-    case 'visualizzacorso':
-        include_once VIEW_DIR . "/Admin/visualizzaCorso.php";
-        break;
-    case 'visualizzacorsi':
-        include_once VIEW_DIR . "/Studente/visualizzaCorsi.php";
         break;
     case 'creacdl':
         include_once VIEW_DIR . "/Admin/creaCdL.php";

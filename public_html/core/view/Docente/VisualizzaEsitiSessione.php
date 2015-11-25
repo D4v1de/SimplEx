@@ -64,6 +64,17 @@ $controller = new Esempio();
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
 
+            <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-8"></div>
+                <label>Soglia esiti:
+                    <input type="search" class="form-control input-small input-inline" placeholder="" aria-controls="sample_1"/>
+                </label>
+                <a href="javascript:;" class="btn sm green-jungle">
+                    Conferma
+                </a>
+            </div>
+        </div>
             <!-- TABELLA 1 -->
 
             <div class="row">
@@ -205,7 +216,6 @@ $controller = new Esempio();
                 </div>
     </div>
 
-
             <!-- TABELLA 2 -->
 
             <div class="row">
@@ -222,11 +232,6 @@ $controller = new Esempio();
                         </div>
                         <div class="portlet-body">
                             <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
-                                <div class="col-md-12">
-                                    <label>Soglia esiti:
-                                        <input type="search" class="form-control input-small input-inline" placeholder="" aria-controls="sample_1"/>
-                                    </label>
-                                </div>
                                 <div class="table-scrollable">
                                     <table class="table table-striped table-bordered table-hover dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
                                         <thead>
