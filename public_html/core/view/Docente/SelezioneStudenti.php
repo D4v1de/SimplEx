@@ -252,8 +252,8 @@ $controller = new Esempio();
                 <div class="col-md-9">
                 </div>
                 <div class="col-md-3">
-                  <button type="button" class="btn red">Annulla</button>
-                  <button type="submit" class="btn green">Conferma</button>
+                    <button type="submit" class="btn green-jungle">Conferma</button>
+                    <button type="button" class="btn red-intense">Annulla</button>
                 </div>
             </div>
             <!-- END PAGE CONTENT-->
