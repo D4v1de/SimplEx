@@ -76,7 +76,7 @@ class SessioneModel extends Model {
         $query = sprintf(self::$READ_SESSIONE, $id);
         $res = Model::getDB()->query($query);
         if ($obj = $res->fetch_assoc()) {
-            $sessione = new Sessione($obj['id'], $obj['dataInizio'], $obj['dataFine'],  $obj['sogliaAmmissione'],  $obj()['tipologia'],  $obj()['insegnamentoId'],  $obj['insegnamentoCorsoMatricola']);
+            $sessione = new Sessione($obj['id'], $obj['data_inizio'], $obj['data_fine'],  $obj['soglia_ammissione'],  $obj()['tipologia'],  $obj()['insegnamento_id'],  $obj['insegnamento_corso_matricola']);
             return $sessione;
         }
         else{
@@ -93,7 +93,7 @@ class SessioneModel extends Model {
         $sessioni = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $sessioni[] = new Sessione($obj['id'], $obj['dataInizio'], $obj['dataFine'], $obj['sogliaAmmissione'], $obj['tipologia'], $obj['insegnamentoId'], $obj['insegnamentoCorsoMatricola']);
+                $sessioni[] = new Sessione($obj['id'], $obj['dataInizio'], $obj['data_fine'], $obj['soglia_ammissione'], $obj['tipologia'], $obj['insegnamento_id'], $obj['insegnamento_corso_matricola']);
             }
             return $sessioni;
         }
@@ -110,13 +110,13 @@ class SessioneModel extends Model {
     public function getAllTestSessione($id) {
         $query = sprintf(self::$GET_ALL_TEST_SESSIONE, $id);
         $res = Model::getDB()->query($query);
-        $sessione = array();
+        $test = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $TestSessione = new Test(); //da completare
-                $sessione[]= TestSessione;
+                $testSessione = new TestSessione($obj['id'],$obj['data_inizio'], $obj['data_fine'], $obj['soglia_ammissione'],$obj['tipologia'],$obj['insegnamento_id'],$obj['insegnamento_corso_matricola']);
+                $test[]= testSessione;
             }
-            return $sessione;
+            return $test;
         }
         else{
             //nessun test trovato
@@ -135,13 +135,14 @@ class SessioneModel extends Model {
         $studenti = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $StudenteSessione = new Studente(); //da completare
-                $studenti[]= StudenteSessione;
+                $studentiSessione = new studentiSessione($obj['id'],$obj['data_inizio'], $obj['data_fine'], $obj['soglia_ammissione'],$obj['tipologia'],$obj['insegnamento_id'],$obj['insegnamento_corso_matricola']);
+                $studenti[]= studentiSessione;
             }
             return $studenti;
         }
         else{
-            //nessuno studente trovato
+            //nessun studente trovato
         }
-    }
+        
+} 
 }
