@@ -15,7 +15,7 @@ class CdLModel extends Model {
     private static $UPDATE_CDL = "UPDATE 'cdl' SET matricola = '%s', nome = '%s', tipologia = '%s' WHERE matricola = '%s'";
     private static $DELETE_CDL = "DELETE FROM 'cdl' WHERE matricola = '%s'";
     private static $READ_CDL = "SELECT * FROM 'cdl' WHERE matricola = '%s'";
-    private static $GET_ALL_CDLS = "SELECT * FROM 'cdl'";
+    private static $GET_ALL_CDLS = "SELECT * FROM cdl";
     private static $GET_ALL_CORSI_CDL = "SELECT * FROM 'corso' WHERE cdl_matricola = '%s'";
 
     /**

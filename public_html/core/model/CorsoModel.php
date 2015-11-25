@@ -14,7 +14,7 @@ class CorsoModel extends Model {
     private static $UPDATE_CORSO = "UPDATE 'corso' SET matricola = '%s', nome = '%s', tipologia = '%s' , cdl_matricola = '%s' WHERE matricola = '%s'";
     private static $DELETE_CORSO = "DELETE FROM 'corso' WHERE matricola = '%s'";
     private static $READ_CORSO = "SELECT * FROM 'corso' WHERE matricola = '%s'";
-    private static $GET_ALL_CORSI = "SELECT * FROM 'corso'";
+    private static $GET_ALL_CORSI = "SELECT * FROM corso";
     private static $CREATE_INSEGNAMENTO = "INSERT INTO 'insegnamento' (corso_matricola) VALUES ('%s')";
     private static $UPDATE_INSEGNAMENTO = "UPDATE 'insegnamento' SET corso_matricola = '%s'";
     private static $DELETE_INSEGNAMENTO = "DELETE FROM 'insegnamento' WHERE id = '%d'";
