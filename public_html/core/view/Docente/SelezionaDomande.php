@@ -233,9 +233,9 @@ $controller = new Esempio();
                         <div class="col-md-12">
                             <div class="col-md-9"></div>
                             <div class="form-actions row">
-                                <button type="button" class="btn red-intense">Annulla</button>
                                 <button type="submit" class="btn green-jungle">Conferma</button>
-                            </div>              
+                                <button type="button" class="btn red-intense">Annulla</button>
+                            </div>
                         </div>
                     </div>
                 </div>

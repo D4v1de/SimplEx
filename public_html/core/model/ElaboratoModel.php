@@ -7,6 +7,8 @@
  */
 
 include_once MODEL_DIR . "Model.php";
+include_once UTIL_DIR . "Error.php";
+include_once EXCEPTION_DIR . "ApplicationException";
 include_once BEAN_DIR . "Elaborato.php";
 include_once BEAN_DIR . "RispostaAperta.php";
 include_once BEAN_DIR . "RispostaMultipla.php";
@@ -37,8 +39,13 @@ class ElaboratoModel extends Model {
      * @param Elaborato $elaborato Il nuovo elaborato da inserire nel database
      */
     public function createElaborato($elaborato) {
-        $query = sprintf(self::CREATE_ELABORATO,$elaborato->getStudenteMatricola(),$elaborato->getSessionId(), $elaborato->getTestId(),$elaborato->getEsitoFinale(), $elaborato->getEsitoParziale());
-        $res = Model::getDB()->query($query);
+        try{
+            $query = sprintf(self::$CREATE_ELABORATO,$elaborato->getStudenteMatricola(),$elaborato->getSessionId(), $elaborato->getTestId(),$elaborato->getEsitoFinale(), $elaborato->getEsitoParziale());
+            $res = Model::getDB()->query($query);
+        }
+        catch(ConnentionException $e){
+            throw new ApplicationException(Error::$INSERIMENTO_FALLITO, $e->getCode(), $e);
+        }
     }
     
     /**
@@ -48,7 +55,7 @@ class ElaboratoModel extends Model {
      * @return Elaborato $elaborato L'elaborato presente nel database
      */
     public function readElaborato($matrStudente,$sessionID){
-        $query = sprintf(self::READ_ELABORATO,$matrStudente,$sessionID);
+        $query = sprintf(self::$READ_ELABORATO,$matrStudente,$sessionID);
         $res = Model::getDB()->query($query);
         if ($res) {
             $obj = $res->fetch_assoc();
@@ -56,7 +63,7 @@ class ElaboratoModel extends Model {
             return $elaborato;
         }
         else{
-            //elaborato non trovato
+            throw new ApplicationException(Error::$ELABORATO_NON_TROVATO);
         }
     }
     
@@ -67,7 +74,7 @@ class ElaboratoModel extends Model {
      * @param Elaborato $updatedElaborato L'elaborato modificato da aggiornare nel database
      */
     public function updateElaborato($matrStudente,$sessionID,$updatedElaborato) {
-        $query = sprintf(self::UPDATE_ELABORATO,$updatedElaborato->getStudenteMatricola(),$updatedElaborato->getSessionId(), $updatedElaborato->getTestId(),$updatedElaborato->getEsitoFinale(), $updatedElaborato->getEsitoParziale(),$matrStudente,$sessionID);
+        $query = sprintf(self::$UPDATE_ELABORATO,$updatedElaborato->getStudenteMatricola(),$updatedElaborato->getSessionId(), $updatedElaborato->getTestId(),$updatedElaborato->getEsitoFinale(), $updatedElaborato->getEsitoParziale(),$matrStudente,$sessionID);
         $res = Model::getDB()->query($query);
     }
     
@@ -77,7 +84,7 @@ class ElaboratoModel extends Model {
      * @param int $sessionID L'id della sessione di cui si vuole eliminare l'elaborato
      */
     public function deleteElaborato($matrStudente, $sessionID){
-        $query = sprintf(self::DELETE_ELABORATO,$matrStudente,$sessionID);
+        $query = sprintf(self::$DELETE_ELABORATO,$matrStudente,$sessionID);
         $res = Model::getDB()->query($query);
     }
     
@@ -86,7 +93,7 @@ class ElaboratoModel extends Model {
      * @return Elaborato[] $elaborati Elenco degli elaborati presenti nel database
      */
     public function getAllElaborato() {
-        $res = Model::getDB()->query(self::GET_ALL_ELABORATO);
+        $res = Model::getDB()->query(self::$GET_ALL_ELABORATO);
         if($res) {
             while($obj = $res->fetch_assoc()) {
                 $elaborati[] = new Elaborato($obj['studente_matricola'], $obj['session_id'], $obj['test_id'], $obj['esito_parziale'], $obj['esito_finale']);
@@ -94,7 +101,7 @@ class ElaboratoModel extends Model {
             return $elaborati;
         }
         else {
-            //nessun elaborato trovato
+            throw new ApplicationException(Error::$ELABORATO_NON_TROVATO);
         }
     }
     
@@ -103,15 +110,24 @@ class ElaboratoModel extends Model {
      * @param RispostaAperta $risposta La nuova risposta da inserire nel database
      */
     public function createRispostaAperta($risposta) {
-        $query = sprintf(self::CREATE_RISPOSTA_APERTA, $risposta->getId(), $risposta->getTesto(),$risposta->getPunteggio(), $risposta->getElaboratoSessioneId(), $risposta->getElaboratoStudenteMatricola(), $risposta->getDomandaApertaId(), $risposta->getDomandaApertaArgomentoId(),$risposta->getDomandaApertaArgomentoInsegnamentoId(), $risposta->getDomandaApertaArgomentoInsegnamentoCorsoMatricola());
-        $res = Model::getDB()->query($query);
+        try{
+            $query = sprintf(self::$CREATE_RISPOSTA_APERTA, $risposta->getId(), $risposta->getTesto(),$risposta->getPunteggio(), $risposta->getElaboratoSessioneId(), $risposta->getElaboratoStudenteMatricola(), $risposta->getDomandaApertaId(), $risposta->getDomandaApertaArgomentoId(),$risposta->getDomandaApertaArgomentoInsegnamentoId(), $risposta->getDomandaApertaArgomentoInsegnamentoCorsoMatricola());
+            $res = Model::getDB()->query($query);
+        } catch (ConnectionException $e) {
+            throw new ApplicationException(Error::$INSERIMENTO_FALLITO, $e->getCode(), $e);
+        }
     }
     
     /**
-     
+     * Ricerca una risposta aperta nel database
+     * @param int $id L'id della domanda aperta da cercare
+     * @param int $elaboratoSessioneId L'id della sessione a cui appartiene un elaborato del quale cercare una risposta aperta
+     * @param string $elaboratoStudenteMatricola La matricola dello studente del cui elaborato si vuole cercare la risposta aperta
+     * @return RispostaAperta $risposta La risposta aperta restituita se presente nel database
+     * @throws ApplicationException Eccezione lanciata se non viene trovata alcuna risposta
      */
     public function readRispostaAperta($id,$elaboratoSessioneId, $elaboratoStudenteMatricola) {
-        $query = sprintf(self::READ_RISPOSTA_APERTA, $id, $$elaboratoSessioneId, $elaboratoStudenteMatricola);
+        $query = sprintf(self::$READ_RISPOSTA_APERTA, $id, $$elaboratoSessioneId, $elaboratoStudenteMatricola);
         $res = Model::getDB()->query($query);
         if($res) {
             $obj = $res->fetch_assoc();
@@ -119,7 +135,7 @@ class ElaboratoModel extends Model {
             return $risposta;
         }
         else{
-            //risposta non trovata
+            throw new ApplicationException(Error::$RISPOSTA_NON_TROVATA);
         }
     }
     
@@ -127,7 +143,7 @@ class ElaboratoModel extends Model {
      * Aggiorna una risposta aperta presente nel database
      * */
     public function updateRispostaAperta($updatedRisposta,$id,$elaboratoSessioneId, $elaboratoStudenteMatricola){
-        $query = sprintf(self::UPDATE_RISPOSTA_APERTA,$updatedRisposta->getId(), $updatedRisposta->getTesto(),$updatedRisposta->getPunteggio(), $updatedRisposta->getElaboratoSessioneId(), $updatedRisposta->getElaboratoStudenteMatricola(), $updatedRisposta->getDomandaApertaId(), $updatedRisposta->getDomandaApertaArgomentoId(),$updatedRisposta->getDomandaApertaArgomentoInsegnamentoId(), $updatedRisposta->getDomandaApertaArgomentoInsegnamentoCorsoMatricola(),$id,$elaboratoSessioneId, $elaboratoStudenteMatricola);
+        $query = sprintf(self::$UPDATE_RISPOSTA_APERTA,$updatedRisposta->getId(), $updatedRisposta->getTesto(),$updatedRisposta->getPunteggio(), $updatedRisposta->getElaboratoSessioneId(), $updatedRisposta->getElaboratoStudenteMatricola(), $updatedRisposta->getDomandaApertaId(), $updatedRisposta->getDomandaApertaArgomentoId(),$updatedRisposta->getDomandaApertaArgomentoInsegnamentoId(), $updatedRisposta->getDomandaApertaArgomentoInsegnamentoCorsoMatricola(),$id,$elaboratoSessioneId, $elaboratoStudenteMatricola);
         $res = Model::getDB()->query($query);
     }
     
@@ -138,7 +154,7 @@ class ElaboratoModel extends Model {
      * @param string $elaboratoStudenteMatricola La matricola dello studente a cui appartiene l'elaborato di cui fa parte la risposta aperta
      */
     public function deleteRispostaAperta ($id,$elaboratoSessioneId, $elaboratoStudenteMatricola) {
-        $query = sprintf(self::DELETE_RISPOSTA_APERTA, $id,$elaboratoSessioneId, $elaboratoStudenteMatricola);
+        $query = sprintf(self::$DELETE_RISPOSTA_APERTA, $id,$elaboratoSessioneId, $elaboratoStudenteMatricola);
         $res = Model::getDB()->query($query);
     }
     
@@ -147,7 +163,7 @@ class ElaboratoModel extends Model {
      * @return RispostaAperta $risposte Elenco delle risposte aperte nel database
      */
     public function getAllRispostaAperta(){
-        $res = Model::getDB()->query(self::GET_ALL_RISPOSTA_APERTA);
+        $res = Model::getDB()->query(self::$GET_ALL_RISPOSTA_APERTA);
         if($res) {
             while($obj=$res->fetch_assoc()) {
                 $risposte[] = new RispostaAperta($obj['id'],$obj['elaborato_sessione_id'],$obj['elaborato_studente_matricola'],$obj['testo'],$obj['punteggio'],$obj['domanda_aperta_id'],$obj['domanda_aperta_argomento_id'],$obj['domanda_aperta_argomento_insegnamento_id'],$obj['domanda_aperta_argomento_insegnamento_corso_matricola']);
@@ -155,7 +171,7 @@ class ElaboratoModel extends Model {
             return $risposte;
         }
         else{
-            //nessuna risposta aperta trovata
+            throw new ApplicationException(Error::$RISPOSTA_NON_TROVATA);
         }
     }
     
@@ -164,8 +180,13 @@ class ElaboratoModel extends Model {
      * @param RispostaMultipla $risposta La nuova risposta da inserire nel database
      */
     public function createRispostaMultipla($risposta) {
-        $query = sprintf(self::CREATE_RISPOSTA_MULTIPLA, $risposta->getId(), $risposta->getElaboratoSessioneId(), $risposta->getElaboratoStudenteMatricola(), $risposta->getPunteggio(), $risposta->getAlternativaId(),$risposta->getAlternativaDomandaMultiplaId(), $risposta->getAlternativaDomandaMultiplaArgomentoId(), $risposta->getAlternativaDomandaMultiplaArgomentoInsegnamentoId(), $risposta->getAlternativaDomandaMultiplaArgomentoInsegnamentoCorsoMatricol());
-        $res = Model::getDB()->query($query);
+        try{
+            $query = sprintf(self::$CREATE_RISPOSTA_MULTIPLA, $risposta->getId(), $risposta->getElaboratoSessioneId(), $risposta->getElaboratoStudenteMatricola(), $risposta->getPunteggio(), $risposta->getAlternativaId(),$risposta->getAlternativaDomandaMultiplaId(), $risposta->getAlternativaDomandaMultiplaArgomentoId(), $risposta->getAlternativaDomandaMultiplaArgomentoInsegnamentoId(), $risposta->getAlternativaDomandaMultiplaArgomentoInsegnamentoCorsoMatricol());
+            $res = Model::getDB()->query($query);
+        }
+        catch (ConnectionException $e){
+            throw new ApplicationException(Error::$INSERIMENTO_FALLITO, $e->getCode(), $e);
+        }
     }
     
     /**
@@ -176,7 +197,7 @@ class ElaboratoModel extends Model {
      * @return RispostaAperta $risposta La risposta multipla presente nel database
      */
     public function readRispostaMultipla($id,$elaboratoSessioneId, $elaboratoStudenteMatricola) {
-        $query = sprintf(self::READ_RISPOSTA_APERTA, $id, $$elaboratoSessioneId, $elaboratoStudenteMatricola);
+        $query = sprintf(self::$READ_RISPOSTA_APERTA, $id, $$elaboratoSessioneId, $elaboratoStudenteMatricola);
         $res = Model::getDB()->query($query);
         if($res) {
             $obj = $res->fetch_assoc();
@@ -184,7 +205,7 @@ class ElaboratoModel extends Model {
             return $risposta;
         }
         else{
-            //risposta non trovata
+            throw new ApplicationException(Error::$RISPOSTA_NON_TROVATA);
         }
     }
     
@@ -192,7 +213,7 @@ class ElaboratoModel extends Model {
      * Aggiorna una risposta multipla presente nel database
      * */
     public function updateRispostaMultipla($updatedRisposta,$id,$elaboratoSessioneId, $elaboratoStudenteMatricola){
-        $query = sprintf(self::UPDATE_RISPOSTA_MULTIPLA,$updatedRisposta->getId(),$updatedRisposta->getElaboratoSessioneId(), $updatedRisposta->getElaboratoStudenteMatricola(), $updatedRisposta->getPunteggio(), $updatedRisposta->getAlternativaId(), $updatedRisposta->getAlternativaDomandaMultiplaId(), $updatedRisposta->getAlternativaDomandaMultiplaArgomentoId(),$updatedRisposta->getAlternativaDomandaMultiplaArgomentoInsegnamentoId(), $updatedRisposta->getAlternativaDomandaMultiplaArgomentoInsegnamentoCorsoMatricola(),$id,$elaboratoSessioneId, $elaboratoStudenteMatricola);
+        $query = sprintf(self::$UPDATE_RISPOSTA_MULTIPLA,$updatedRisposta->getId(),$updatedRisposta->getElaboratoSessioneId(), $updatedRisposta->getElaboratoStudenteMatricola(), $updatedRisposta->getPunteggio(), $updatedRisposta->getAlternativaId(), $updatedRisposta->getAlternativaDomandaMultiplaId(), $updatedRisposta->getAlternativaDomandaMultiplaArgomentoId(),$updatedRisposta->getAlternativaDomandaMultiplaArgomentoInsegnamentoId(), $updatedRisposta->getAlternativaDomandaMultiplaArgomentoInsegnamentoCorsoMatricola(),$id,$elaboratoSessioneId, $elaboratoStudenteMatricola);
         $res = Model::getDB()->query($query);
     }
     
@@ -203,7 +224,7 @@ class ElaboratoModel extends Model {
      * @param string $elaboratoStudenteMatricola La matricola dello studente a cui appartiene l'elaborato di cui fa parte la risposta multipla
      */
     public function deleteRispostaMultipla ($id,$elaboratoSessioneId, $elaboratoStudenteMatricola) {
-        $query = sprintf(self::DELETE_RISPOSTA_MULTIPLA, $id,$elaboratoSessioneId, $elaboratoStudenteMatricola);
+        $query = sprintf(self::$DELETE_RISPOSTA_MULTIPLA, $id,$elaboratoSessioneId, $elaboratoStudenteMatricola);
         $res = Model::getDB()->query($query);
     }
     
@@ -212,7 +233,7 @@ class ElaboratoModel extends Model {
      * @return RispostaMultipla[] $risposte Elenco delle risposte multiple nel database
      */
     public function getAllRispostaMultipla(){
-        $res = Model::getDB()->query(self::GET_ALL_RISPOSTA_MULTIPLA);
+        $res = Model::getDB()->query(self::$GET_ALL_RISPOSTA_MULTIPLA);
         if($res) {
             while($obj=$res->fetch_assoc()) {
                 $risposte[] = new RispostaMultipla($obj['id'],$obj['elaborato_sessione_id'],$obj['elaborato_studente_matricola'],$obj['punteggio'],$obj['alternativa_id'],$obj['alternatica_domanda_multipla_id'],$obj['alternativa_domanda_multipla_argomento_id'],$obj['alternativa_domanda_multipla_argomento_insegnamento_id'],$obj['alternativa_domanda_multipla_argomento_insegnamento_corso_mat']);
@@ -220,7 +241,7 @@ class ElaboratoModel extends Model {
             return $risposte;
         }
         else{
-            //nessuna risposta multipla trovata
+            throw new ApplicationException(Error::$RISPOSTA_NON_TROVATA);
         }
     }
     
@@ -230,7 +251,7 @@ class ElaboratoModel extends Model {
      * @return RispostaMultipla[] $risposte Elenco delle risposte multiple dell'elaborato
      */
     public function getMultipleFromElaborato($elaborato) {
-        $query = sprintf(self::GET_ELABORATO_MULTIPLE,$elaborato->getSessionId(),$elaborato->getStudenteMatricola());
+        $query = sprintf(self::$GET_ELABORATO_MULTIPLE,$elaborato->getSessionId(),$elaborato->getStudenteMatricola());
         $res = Model::getDB()->query($query);
         if($res){
             while($obj=$res->fetch_assoc()) {
@@ -239,7 +260,7 @@ class ElaboratoModel extends Model {
             return $risposte;
         }
         else{
-            //elaborato non ha multiple
+            //elaborato non ha multiple non può capitare
         }
     }
     
@@ -249,7 +270,7 @@ class ElaboratoModel extends Model {
      * @return RispostaMultipla[] $risposte Elenco delle risposte aperte dell'elaborato
      */
     public function getAperteFromElaborato($elaborato) {
-        $query = sprintf(self::GET_ELABORATO_APERTE,$elaborato->getSessionId(),$elaborato->getStudenteMatricola());
+        $query = sprintf(self::$GET_ELABORATO_APERTE,$elaborato->getSessionId(),$elaborato->getStudenteMatricola());
         $res = Model::getDB()->query($query);
         if($res){
             while($obj=$res->fetch_assoc()) {
@@ -258,7 +279,7 @@ class ElaboratoModel extends Model {
             return $risposte;
         }
         else{
-            //elaborato non ha aperte
+            throw new ApplicationException(Error::$NO_APERTE);
         }
     }
     
@@ -268,7 +289,7 @@ class ElaboratoModel extends Model {
      * @return Elaborato[] $elaborati Elenco degli elaborati dello studente
      */
     public function getElaboratiStudente($studente) {
-        $query = sprintf(self::GET_ELABORATI_STUDENTE, $studente->getMatricola());
+        $query = sprintf(self::$GET_ELABORATI_STUDENTE, $studente->getMatricola());
         $res = Model::getDB()->query($query);
         if($res){
             while($obj=$res->fetch_assoc()) {
@@ -277,7 +298,7 @@ class ElaboratoModel extends Model {
             return $elaborati;
         }
         else{
-            //nessun elaborato trovato per lo studente
+            throw new ApplicationException(Error::$ELABORATO_NON_TROVATO);
         }
     }
 }
