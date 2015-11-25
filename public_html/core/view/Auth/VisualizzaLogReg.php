@@ -9,26 +9,6 @@ include_once CONTROL_DIR . "AuthController.php";
 $controller = new AuthController();
 /** @var Exception $error */
 $error = null;
-try {
-    if (isset($_POST['action'])) {
-        switch ($_POST['action']) {
-            case 'login': {
-                $controller->login($_POST['email'], $_POST['password'], ($_POST['remember'] == "1" ? true : false));
-            }
-                break;
-            case 'register': {
-                //todo prendi campi da $_POST e passa al controller
-            }
-                break;
-            case 'reset': {
-                //todo vedi 'register'
-            }
-                break;
-        }
-    }
-} catch (UserNotFoundException $ex) {
-    $error = $ex;
-}
 ?>
 
 <!DOCTYPE html>
