@@ -65,77 +65,106 @@ $controller = new Esempio();
                     <div class="portlet box grey-cascade">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-globe"></i> Modifica Domanda
+                                <i class="fa fa-globe"></i>Modifica Domanda Multipla
                             </div>
                             <div class="tools">
-                                <a href="" class="collapse" data-original-title="" title="">
+                                <a href="javascript:;" class="collapse" data-original-title="" title="">
+                                </a>
+                                <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title="">
+                                </a>
+                                <a href="javascript:;" class="reload" data-original-title="" title="">
+                                </a>
+                                <a href="javascript:;" class="remove" data-original-title="" title="">
                                 </a>
                             </div>
                         </div>
                         <div class="portlet-body form">
-                            <form role="form">
+                            <!-- BEGIN FORM-->
+                            <form action="#" class="form-horizontal form-bordered">
                                 <div class="form-body">
-
-                                    <div class="form-group col-md-12">
-                                        <label class="control-label col-md-8">Inserisci testo domanda
-                                            <input type="text" class="form-control" placeholder="Quale di queste due relazioni non esiste tra due casi d'uso">
+                                    <div class="form-group form-md-line-input has-success" style="height: 100px">
+                                        <label class="control-label col-md-3">Inserisci Testo Domanda</label>
+                                        <div class="col-md-6">
+                                            <input type="text" value="Precedente testo domanda" class="form-control">
+                                            <span class="help-block">
+                                                Inserisci il testo della domanda </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-md-line-input has-success ratio" style="height: 100px">
+                                        <div class="control-label col-md-1">
+                                            <span class="checked"><input type="radio" name="optionsRadios2" value="option1"></span>
+                                        </div>
+                                        <label class="control-label col-md-2">
+                                            Inserisci Testo Risposta</label>
+                                        <div class="col-md-6">
+                                            <input type="text" value="Precedente testo risposta" class="form-control">
+                                            <span class="help-block">
+                                                Inserisci il testo della risposta </span>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <a href="javascript:;" class="btn sm green-jungle">
+                                                <i class="fa fa-plus"></i> Aggiungi
+                                            </a>
+                                            <a href="javascript:;" class="btn sm red-intense">
+                                                <i class="fa fa-minus"></i> Rimuovi
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-md-line-input has-success ratio" style="height: 100px">
+                                        <label class="control-label col-md-1">
+                                            <span class="checked"><input type="radio" name="optionsRadios2" value="option2"></span>
                                         </label>
-                                        <div class="radio-list col-md-12">
-                                            <label class="col-md-12">
-                                                Inserisci testo risposta
-                                            </label>
-                                            <div class="radio col-sm-2" id="uniform-optionsRadios1"><span><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked=""></span></div>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="form-control" placeholder="Associazione">
-                                            </div>
-                                            <div class="col-sm-2"></div>
-                                            <label class="col-md-12">
-                                                Inserisci testo risposta
-                                            </label>
-                                            <div class="radio col-sm-2" id="uniform-optionsRadios1"><span><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked=""></span></div>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="form-control" placeholder="Generalizzazione">
-                                            </div>
-                                            <div class="col-sm-2"></div>
-                                            <label class="col-md-12">
-                                                Inserisci testo risposta
-                                            </label>
-                                            <div class="radio col-sm-2" id="uniform-optionsRadios1"><span><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked=""></span></div>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="form-control" placeholder="Inserisci una nuova risposta">
-                                            </div>
-                                            <div class="col-sm-2"></div>
+                                        <label class="control-label col-md-2">
+                                            Inserisci Testo Risposta</label>
+                                        <div class="col-md-6">
+                                            <input type="text" value="Precedente testo risposta"  class="form-control">
+                                            <span class="help-block">
+                                                Inserisci il testo della risposta </span>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label ">Inserisci punteggio risposta esatta</label>
                                         <div class="col-md-3">
-                                            <input type="number" class="form-control" placeholder="2">
+                                            <a href="javascript:;" class="btn sm green-jungle">
+                                                <i class="fa fa-plus"></i> Aggiungi
+                                            </a>
+                                            <a href="javascript:;" class="btn sm red-intense">
+                                                <i class="fa fa-minus"></i> Rimuovi
+                                            </a>
                                         </div>
-                                        <a href="javascript:;" class="btn sm red-intense">
-                                            Azzera
-                                        </a>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label ">Inserisci punteggio risposta errata</label>
-                                        <div class="col-md-3">
-                                            <input type="number" class="form-control" placeholder="-1">
+                                    <div class="form-group form-md-line-input has-success" style="height: 100px">
+                                        <label class="control-label col-md-3">Inserisci Punteggio Esatta</label>
+                                        <div class="col-md-4">
+                                            <input type="number" value="Precedente Punteggio" class="form-control">
+                                            <span class="help-block">
+                                                Inserisci il punteggio per risposta esatta </span>
                                         </div>
-                                        <a href="javascript:;" class="btn sm red-intense">
-                                            Azzera
-                                        </a>
                                     </div>
-
+                                    <div class="form-group form-md-line-input has-success" style="height: 100px">
+                                        <label class="control-label col-md-3">Inserisci Punteggio Errata</label>
+                                        <div class="col-md-4">
+                                            <input type="number" value="Precedente Punteggio Numerico" class="form-control">
+                                            <span class="help-block">
+                                                Inserisci il punteggio per risposta errata </span>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-actions">
-                                    <a href="javascript:;" class="btn sm green-jungle">
-                                        Conferma
-                                    </a>
-                                    <a href="javascript:;" class="btn sm red-intense">
-                                        Annulla
-                                    </a>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-9">
+                                                    <a href="javascript:;" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                                        Conferma
+                                                    </a>
+                                                    <a href="javascript:;" class="btn sm red-intense">
+                                                        Annulla
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
+                            <!-- END FORM-->
                         </div>
                     </div>
                     <!-- END PAGE CONTENT-->

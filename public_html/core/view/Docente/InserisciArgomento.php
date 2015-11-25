@@ -61,31 +61,50 @@ $controller = new Esempio();
                     <div class="portlet box grey-cascade">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-globe"></i> Inserisci Argomento
+                                <i class="fa fa-globe"></i>Inserisci Argomento
                             </div>
                             <div class="tools">
-                                <a href="" class="collapse" data-original-title="" title="">
+                                <a href="javascript:;" class="collapse" data-original-title="" title="">
+                                </a>
+                                <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title="">
+                                </a>
+                                <a href="javascript:;" class="reload" data-original-title="" title="">
+                                </a>
+                                <a href="javascript:;" class="remove" data-original-title="" title="">
                                 </a>
                             </div>
                         </div>
                         <div class="portlet-body form">
-                            <form role="form">
+                            <!-- BEGIN FORM-->
+                            <form action="#" class="form-horizontal form-bordered">
                                 <div class="form-body">
-                                    <div class="form-group col-md-12">
-                                        <label class="control-label col-md-8">Inserisci titolo argomento
-                                            <input type="text" class="form-control" placeholder="Inserisci titolo">
-                                        </label>
+                                    <div class="form-group form-md-line-input has-success" style="height: 90px">
+                                        <label class="control-label col-md-3">Inserisci Titolo</label>
+                                        <div class="col-md-6">
+                                            <input type="text" placeholder="" class="form-control">
+                                            <span class="help-block">
+                                                Inserisci il titolo del nuovo argomento </span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-actions">
-                                    <a href="javascript:;" class="btn sm green-jungle">
-                                        Conferma
-                                    </a>
-                                    <a href="javascript:;" class="btn sm red-intense">
-                                        Annulla
-                                    </a>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-9">
+                                                    <a href="javascript:;" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                                        Conferma
+                                                    </a>
+                                                    <a href="javascript:;" class="btn sm red-intense">
+                                                        Annulla
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
+                            <!-- END FORM-->
                         </div>
                     </div>
                     <!-- END PAGE CONTENT-->
