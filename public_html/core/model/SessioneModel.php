@@ -27,8 +27,8 @@ class SessioneModel extends Model {
      */
     public function createSessione($sessione) {
         $query = sprintf(self::$CREATE_SESSIONE, $sessione->getId, $sessione->getDataInizio, $sessione->getDataFine, $sessione->getSogliaAmmissione, $sessione->getTipologia, $sessione->getInsegnamentoId, $sessione->getInsegnamentoCorsoMatricola);
-        $res = Model::getDB()->query($query);
-        if ($res->affected_rows==-1) {
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows == 1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
         }
     }
@@ -41,8 +41,8 @@ class SessioneModel extends Model {
      */
     public function updateSessione($id, $updatedSessione) {
         $query = sprintf(self::$UPDATE_SESSIONE, $updatedSessione->getDataInizio, $updatedSessione->getDataFine, $updatedSessione->getSogliaAmmissione, $updatedSessione->getTipologia, $updatedSessione->getInsegnamentoId, $updatedSessione->getInsegnamentoCorsoMatricola,  $id);
-        $res = Model::getDB()->query($query);
-        if ($res->affected_rows==-1) {
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows == 1) {
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
         }
     }
@@ -54,8 +54,8 @@ class SessioneModel extends Model {
      */
     public function deleteSessione($id) {
         $query = sprintf(self::$DELETE_SESSIONE, $id);
-        $res = Model::getDB()->query($query);
-        if ($res->affected_rows==-1) {
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows == 1) {
             throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
         }
     }
@@ -88,11 +88,8 @@ class SessioneModel extends Model {
             while ($obj = $res->fetch_assoc()) {
                 $sessioni[] = new Sessione($obj['id'], $obj['dataInizio'], $obj['data_fine'], $obj['soglia_ammissione'], $obj['tipologia'], $obj['insegnamento_id'], $obj['insegnamento_corso_matricola']);
             }
-            return $sessioni;
         }
-        else{
-            throw new ApplicationException(Error::$SESSIONE_NON_TROVATA);
-        }
+        return $sessioni;
     }
       
     //probabilmente va spostato in AccountModel perchè riguarda lo studente
@@ -100,7 +97,6 @@ class SessioneModel extends Model {
      * Restituisce tutti gli studenti che hanno partecipato ad una sessione
      * @param int $id L'id della sessione per la quale si vogliono conoscere gli studenti abilitati
      * @return Studente[] Tutti gli studenti che sono abilitati alla sessione
-     * @throws ApplicationException
      */
      public function getAllStudentiSessione($id) {
         $query = sprintf(self::$GET_ALL_STUDENTI_SESSIONE, $id);
@@ -111,11 +107,7 @@ class SessioneModel extends Model {
                 $studentiSessione = new Utente($obj['username'], $obj['password'],$obj['matricola'], $obj['nome'],$obj['cognome'],$obj['tipologia'],$obj['cdl_matricola']);
                 $studenti[]= $studentiSessione;
             }
-            return $studenti;
         }
-        else{
-            throw new ApplicationException(Error::$STUDENTE_NON_TROVATO);
-        }
-        
-} 
+        return $studenti;   
+    } 
 }
