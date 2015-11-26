@@ -66,7 +66,6 @@ switch (isset($_URL[0]) ? $_URL[0] : '') {
     case 'graficacomune':
         include_once VIEW_DIR . "GraficaComune.php";
         break;
-    //esempioo da eliminare
     case 'provatable':
         include_once VIEW_DIR . "/Admin/provatable.php";
         break;
@@ -159,6 +158,12 @@ switch (isset($_URL[0]) ? $_URL[0] : '') {
         break;
     case 'provaargomenti':
         include_once VIEW_DIR . "/Docente/ProvaArgomenti.php";
+        break;
+    case 'c':
+        include_once CONTROL_DIR . "CdlController.php";
+        break;
+    case 'prova':
+        include_once VIEW_DIR . "/Admin/prova.php";
         break;
     default:
         echo "Route inesistente";
