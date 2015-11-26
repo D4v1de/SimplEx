@@ -17,8 +17,8 @@ class CorsoModel extends Model {
     private static $GET_ALL_CORSI = "SELECT * FROM `corso`";
     private static $GET_ALL_CORSI_CDL = "SELECT * FROM `corso` WHERE cdl_matricola = '%s'";
     private static $CREATE_INSEGNAMENTO = "INSERT INTO `insegnamento` (corso_matricola) VALUES ('%s')";
-    private static $UPDATE_INSEGNAMENTO = "UPDATE `insegnamento` SET corso_matricola = '%s'";
-    private static $DELETE_INSEGNAMENTO = "DELETE FROM `insegnamento` WHERE id = '%d'";
+    private static $UPDATE_INSEGNAMENTO = "UPDATE `insegnamento` SET corso_matricola = '%s' WHERE id = '%d'";
+    private static $DELETE_INSEGNAMENTO = "DELETE FROM `insegnamento` WHERE id = '%d' AND corso_matricola = '%s'";
     private static $READ_INSEGNAMENTO = "SELECT * FROM `insegnamento` id = '%d'";
     private static $GET_ALL_INSEGNAMENTI = "SELECT * FROM `insegnamento`";
     private static $GET_ALL_INSEGNAMENTI_DOCENTE = "SELECT i.* FROM `insegnamento` as i,`insegnamento_docente` id WHERE id.docente_matricola = '%s'" 
@@ -32,7 +32,7 @@ class CorsoModel extends Model {
     public function createCorso($corso){
         $query = sprintf(self::$CREATE_CORSO, $corso->getMatricola(), $corso->getNome(), $corso->getTipologia(), $corso->getCdlMatricola());
         $res = Model::getDB()->query($query);
-        if(!$res){
+        if ($res->affected_rows==-1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
         }
     }
@@ -46,7 +46,7 @@ class CorsoModel extends Model {
     public function updateCorso($matricola,$updatedCorso){
         $query = sprintf(self::$UPDATE_CORSO, $updatedCorso->getMatricola(), $updatedCorso->getNome(), $updatedCorso->getTipologia(), $updatedCorso->getCdlMatricola(), $matricola);
         $res = Model::getDB()->query($query);
-        if(!$res){
+        if ($res->affected_rows==-1) {
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
         }
     }
@@ -59,7 +59,7 @@ class CorsoModel extends Model {
     public function deleteCorso($matricola){
         $query = sprintf(self::$DELETE_CORSO, $matricola);
         $res = Model::getDB()->query($query);
-        if(!$res){
+        if ($res->affected_rows==-1) {
             throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
         }
     }
@@ -127,7 +127,7 @@ class CorsoModel extends Model {
     public function createInsegnamento($insegnamento){
         $query = sprintf(self::$CREATE_INSEGNAMENTO, $insegnamento->getCorsoMatricola());
         $res = Model::getDB()->query($query);
-        if(!$res){
+        if ($res->affected_rows==-1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
         }
         
@@ -139,10 +139,10 @@ class CorsoModel extends Model {
      * @param Insegnamento $updatedInsegnamento L'insegnamento modificato da aggiornare nel database
      * @throws ApplicationException
      */
-    public function updateInsegnamento($id,$updatedInsegnamento){
-        $query = sprintf(self::$UPDATE_INSEGNAMENTO, $updatedInsegnamento->getCorsoMatricola());
+    public function updateInsegnamento($id, $updatedInsegnamento){
+        $query = sprintf(self::$UPDATE_INSEGNAMENTO,$updatedInsegnamento->getCorsoMatricola(), $id);
         $res = Model::getDB()->query($query);
-        if(!$res){
+        if ($res->affected_rows==-1) {
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
         }
     }
@@ -150,12 +150,13 @@ class CorsoModel extends Model {
     /**
      * Cancella un insegnamento nel database
      * @param int $id L'id dell'insegnamento da eliminare
+     * @param string $corso_matricola La matricola del corso a cui appartiene l'insegnamento da eliminare
      * @throws ApplicationException
      */
-    public function deleteInsegnamento($id){
-        $query = sprintf(self::$DELETE_INSEGNAMENTO, $id);
+    public function deleteInsegnamento($id, $corso_matricola){
+        $query = sprintf(self::$DELETE_INSEGNAMENTO, $id, $corso_matricola);
         $res = Model::getDB()->query($query);
-        if(!$res){
+        if ($res->affected_rows==-1) {
             throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
         }
     }

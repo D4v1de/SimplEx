@@ -18,20 +18,18 @@ class SessioneModel extends Model {
     private static $READ_SESSIONE = "SELECT * FROM `sessione` WHERE id = '%d'";
     private static $GET_ALL_SESSIONI = "SELECT * FROM `sessione`";
     private static $GET_ALL_STUDENTI_SESSIONE = "SELECT u.* FROM `abilitazione` as a, `utente` as u WHERE "
-            . "a.sessione_id='%s' AND a.studente_matricola=u.matricola"; //va spostato in utenti By Elvira
+            . "a.sessione_id='%s' AND a.studente_matricola=u.matricola"; //probabilmente va spostato in utenti By Elvira
     
     /**
      * Inserisce una nuova sessione nel database
      * @param Sessione $sessione La sessione da inserire nel database
+     * @throws ApplicationException
      */
     public function createSessione($sessione) {
         $query = sprintf(self::$CREATE_SESSIONE, $sessione->getId, $sessione->getDataInizio, $sessione->getDataFine, $sessione->getSogliaAmmissione, $sessione->getTipologia, $sessione->getInsegnamentoId, $sessione->getInsegnamentoCorsoMatricola);
         $res = Model::getDB()->query($query);
-        if ($res) {
-            //messaggio ok
-        }
-        else{
-            //messaggio errore  
+        if ($res->affected_rows==-1) {
+            throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
         }
     }
 
@@ -39,36 +37,33 @@ class SessioneModel extends Model {
      * Modifica una sessione nel database
      * @param int $id L'id della sessione da modificare
      * @param Sessione $updatedSessione La sessione modificata da aggiornare nel db
+     * @throws ApplicationException
      */
     public function updateSessione($id, $updatedSessione) {
         $query = sprintf(self::$UPDATE_SESSIONE, $updatedSessione->getDataInizio, $updatedSessione->getDataFine, $updatedSessione->getSogliaAmmissione, $updatedSessione->getTipologia, $updatedSessione->getInsegnamentoId, $updatedSessione->getInsegnamentoCorsoMatricola,  $id);
         $res = Model::getDB()->query($query);
-        if ($res) {
-            //messaggio ok
-        }
-        else{
-            //messaggio errore  
+        if ($res->affected_rows==-1) {
+            throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
         }
     }
 
     /**
      * Cancella una sessione nel database
      * @param int $id L'id della sessione da eliminare
+     * @throws ApplicationException
      */
     public function deleteSessione($id) {
         $query = sprintf(self::$DELETE_SESSIONE, $id);
         $res = Model::getDB()->query($query);
-        if ($res) {
-            //messaggio ok
-        }
-        else{
-            //messaggio errore  
+        if ($res->affected_rows==-1) {
+            throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
         }
     }
 
     /**
      * Cerca una sessione nel database
      * @param int $id L'id della sessione da cercare
+     * @throws ApplicationException
      */
     public function readSessione($id) {
         $query = sprintf(self::$READ_SESSIONE, $id);
@@ -78,7 +73,7 @@ class SessioneModel extends Model {
             return $sessione;
         }
         else{
-            //nessuna sessione trovata
+            throw new ApplicationException(Error::$SESSIONE_NON_TROVATA);
         }
     }
 
@@ -96,14 +91,16 @@ class SessioneModel extends Model {
             return $sessioni;
         }
         else{
-            //nessuna sessione trovata
+            throw new ApplicationException(Error::$SESSIONE_NON_TROVATA);
         }
     }
-          
+      
+    //probabilmente va spostato in AccountModel perchè riguarda lo studente
     /**
      * Restituisce tutti gli studenti che hanno partecipato ad una sessione
      * @param int $id L'id della sessione per la quale si vogliono conoscere gli studenti abilitati
      * @return Studente[] Tutti gli studenti che sono abilitati alla sessione
+     * @throws ApplicationException
      */
      public function getAllStudentiSessione($id) {
         $query = sprintf(self::$GET_ALL_STUDENTI_SESSIONE, $id);
@@ -112,12 +109,12 @@ class SessioneModel extends Model {
         if($res){
             while ($obj = $res->fetch_assoc()) {
                 $studentiSessione = new Utente($obj['username'], $obj['password'],$obj['matricola'], $obj['nome'],$obj['cognome'],$obj['tipologia'],$obj['cdl_matricola']);
-                $studenti[]= studentiSessione;
+                $studenti[]= $studentiSessione;
             }
             return $studenti;
         }
         else{
-            //nessun studente trovato
+            throw new ApplicationException(Error::$STUDENTE_NON_TROVATO);
         }
         
 } 
