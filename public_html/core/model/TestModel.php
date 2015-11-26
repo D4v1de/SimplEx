@@ -37,7 +37,7 @@ class TestModel extends Model {
     public function createTest($test) {
         $query = sprintf(self::$CREATE_TEST, $test->getDescrizione(), $test->getPunteggioMax(), $test->getNumeroMultiple(), $test->getNumeroAperte(), $test->getPercentualeScelto(), $test->getPercentualeSuccesso());
         $res = Model::getDB()->query($query);
-        if(!$res){
+        if ($res->affected_rows==-1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
         }
     }
@@ -51,7 +51,7 @@ class TestModel extends Model {
     public function updateTest($id, $updatedTest) {
         $query = sprintf(self::$UPDATE_TEST, $updatedTest->getDescrizione(), $updatedTest->getPunteggioMax(), $updatedTest->getNumeroMultiple(), $updatedTest->getNumeroAperte(), $updatedTest->getPercentualeScelto(), $updatedTest->getPercentualeSuccesso(), $id);
         $res = Model::getDB()->query($query);
-        if(!$res){
+        if ($res->affected_rows==-1) {
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
         }
     }
@@ -64,7 +64,7 @@ class TestModel extends Model {
     public function deleteTest($id) {
         $query = sprintf(self::$DELETE_TEST, $id);
         $res = Model::getDB()->query($query);
-        if(!$res){
+        if ($res->affected_rows==-1) {
             throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
         }
     }
@@ -161,12 +161,12 @@ class TestModel extends Model {
         if($res){
             while ($obj = $res->fetch_assoc()) {
                 $domandaAperta = new DomandaAperta($obj['id'],$obj['testo'], $obj['punteggio_max'], $obj['percentuale_scelta'],$obj['argomento_id'],$obj['argomento_insegnamento_id'],$obj['argomento_insegnamento_corso_matricola']);
-                $domande[]= domandaAperta;
+                $domande[]= $domandaAperta;
             }
             return $domande;
         }
         else{
-            throw new ApplicationException(Error::$DOMANDA_NON_TROVATA);
+            throw new ApplicationException(Error::$DOMANDA_APERTA_NON_TROVATA);
         }
     }
     
@@ -183,12 +183,12 @@ class TestModel extends Model {
         if($res){
             while ($obj = $res->fetch_assoc()) {
                 $domandaMultipla = new DomandaMultipla($obj['id'], $obj['testo'], $obj['punteggio_corretta'], $obj['punteggio_errata'], $obj['percentuale_scelta'], $obj['percentuale_risposta_corretta'], $obj['alternativa_corretta'], $obj['argomento_id'], $obj['argomento_insegnamento_id'], $obj['argomento_insegnamento_corso_matricola']);
-                $domande[]= domandaMultipla;
+                $domande[]= $domandaMultipla;
             }
             return $domande;
         }
         else{
-            throw new ApplicationException(Error::$DOMANDA_NON_TROVATA);
+            throw new ApplicationException(Error::$DOMANDA_MULTIPLA_NON_TROVATA);
         }
     }
 }
