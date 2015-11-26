@@ -57,7 +57,7 @@ class ArgomentoModel extends Model {
     public function createArgomento($argomento) {
         $query = sprintf(self::$CREATE_ARGOMENTO, $argomento->getNome(), $argomento->getInsegnamentoId(), $argomento->getInsegnamentoCorsoMatricola());
         $res = Model::getDB()->query($query);
-        if($res->affected_rows==-1){
+        if(Model::getDB()->affected_rows==-1){
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
         }
     }
@@ -70,7 +70,7 @@ class ArgomentoModel extends Model {
     public function updateArgomento($id, $updatedArgomento) {
         $query = sprintf(self::$UPDATE_ARGOMENTO, $updatedArgomento->getNome(), $updatedArgomento->getInsegnamentoId(), $id);
         $res = Model::getDB()->query($query);
-        if($res->affected_rows==-1){
+        if(Model::getDB()->affected_rows==-1){
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
         }
     }
@@ -83,7 +83,7 @@ class ArgomentoModel extends Model {
     public function deleteArgomento($id) {
         $query = sprintf(self::$DELETE_ARGOMENTO, $id);
         $res = Model::getDB()->query($query);
-        if($res->affected_rows==-1){
+        if(Model::getDB()->affected_rows==-1){
             throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
         }
     }
@@ -130,7 +130,7 @@ class ArgomentoModel extends Model {
     public function createDomandaAperta($domandaAperta) {
         $query = sprintf(self::$CREATE_DOMANDA_APERTA, $domandaAperta->getTesto(), $domandaAperta->getPunteggioMax(), $domandaAperta->getPercentualeScelta(), $domandaAperta->getArgomentoId(), $domandaAperta->getArgomentoInsegnamentoId(), $domandaAperta->getArgomentoInsegnamentoCorsoMatricola());
         $res = Model::getDB()->query($query);
-        if($res->affected_rows==-1){
+        if(Model::getDB()->affected_rows==-1){
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
         }
     }
@@ -144,7 +144,7 @@ class ArgomentoModel extends Model {
     public function updateDomandaAperta($id, $updatedDomandaAperta) {
        $query = sprintf(self::$UPDATE_DOMANDA_APERTA, $updatedDomandaAperta->getTesto(), $updatedDomandaAperta->getPunteggioMax(), $updatedDomandaAperta->getPercentualeScelta(), $updatedDomandaAperta->getArgomentoId(), $updatedDomandaAperta->getArgomentoInsegnamentoId(), $updatedDomandaAperta->getArgomentoInsegnamentoCorsoMatricola(), $id);
        $res = Model::getDB()->query($query);
-        if($res->affected_rows==-1){
+        if(Model::getDB()->affected_rows==-1){
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
         }
     }
@@ -157,7 +157,7 @@ class ArgomentoModel extends Model {
     public function deleteDomandaAperta($id) {
         $query = sprintf(self::$DELETE_DOMANDA_APERTA, $id);
         $res = Model::getDB()->query($query);
-        if($res->affected_rows==-1){
+        if(Model::getDB()->affected_rows==-1){
             throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA, $e->getCode(), $e);
         }
     }
@@ -205,7 +205,7 @@ class ArgomentoModel extends Model {
         $query = sprintf(self::$CREATE_DOMANDA_MULTIPLA, $domandaMultipla->getTesto(), $domandaMultipla->getPunteggioCorretta(), $domandaMultipla->getPunteggioErrata(), $domandaMultipla->getPercentualeScelta(), $domandaMultipla->getPercentualeRispostaCorretta(), $domandaMultipla->getAlternativaCorretta(),
             $domandaMultipla->getArgomentoId(), $domandaMultipla->getArgomentoInsegnamentoId(), $domandaMultipla->getArgomentoInsegnamentoCorsoMatricola());
         $res = Model::getDB()->query($query);
-        if($res->affected_rows==-1){
+        if(Model::getDB()->affected_rows==-1){
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
         }
     }
@@ -219,7 +219,7 @@ class ArgomentoModel extends Model {
         $query = sprintf(self::$UPDATE_DOMANDA_MULTIPLA, $updatedDomandaMultipla->getTesto(), $updatedDomandaMultipla->getPunteggioCorretta(), $updatedDomandaMultipla->getPunteggioErrata(), $updatedDomandaMultipla->getPercentualeScelta(), $updatedDomandaMultipla->getPercentualeRispostaCorretta(),
             $updatedDomandaMultipla->getAlternativaCorretta(), $updatedDomandaMultipla->getArgomentoId(), $updatedDomandaMultipla->getArgomentoInsegnamentoId(), $updatedDomandaMultipla->getArgomentoInsegnamentoCorsoMatricola(), $id);
         $res = Model::getDB()->query($query);
-       if($res->affected_rows==-1){
+       if(Model::getDB()->affected_rows==-1){
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
         }
     }
@@ -232,7 +232,7 @@ class ArgomentoModel extends Model {
     public function deleteDomandaMultipla($id) {
         $query = sprintf(self::$DELETE_DOMANDA_MULTIPLA, $id);
         $res = Model::getDB()->query($query);
-        if($res->affected_rows==-1){
+        if(Model::getDB()->affected_rows==-1){
             throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
         }
     }
@@ -281,7 +281,7 @@ class ArgomentoModel extends Model {
     public function createAlternativa($alternativa) {
       $query = sprintf(self::$CREATE_ALTERNATIVA, $alternativa->getTesto(), $alternativa->getPercentualeScelta(), $alternativa->getDomandaMultiplaId(), $alternativa->getDomandaMultiplaArgomentoId(), $alternativa->getDomandaMultiplaArgomentoInsegnamentoId(), $alternativa->getDomandaMultiplaArgomentoInsegnamentoCorsoMatricola());
       $res = Model::getDB()->query($query);
-      if($res->affected_rows==-1){
+      if(Model::getDB()->affected_rows==-1){
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
        }
     }
@@ -295,7 +295,7 @@ class ArgomentoModel extends Model {
     public function updateAlternativa($id, $updatedAlternativa) {
         $query = sprintf(self::$UPDATE_ALTERNATIVA, $updatedAlternativa->getTesto(), $updatedAlternativa->getPercentualeScelta(), $updatedAlternativa->getDomandaMultiplaId(), $updatedAlternativa->getDomandaMultiplaArgomentoId(), $updatedAlternativa->getDomandaMultiplaArgomentoInsegnamentoId(), $updatedAlternativa->getDomandaMultiplaArgomentoInsegnamentoCorsoMatricola(), $id);
         $res = Model::getDB()->query($query);
-        if($res->affected_rows==-1){
+        if(Model::getDB()->affected_rows==-1){
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
         }
     }
@@ -308,7 +308,7 @@ class ArgomentoModel extends Model {
     public function deleteAlternativa($id) {
         $query = sprintf(self::$DELETE_ALTERNATIVA, $id);
         $res = Model::getDB()->query($query);
-        if($res->affected_rows==-1){
+        if(Model::getDB()->affected_rows==-1){
             throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
         }
     }
@@ -414,7 +414,7 @@ class ArgomentoModel extends Model {
     public function getTestoAlternativaDiDomanda($id) {
         $query = sprintf(self::$GET_RISPOSTA_CORRETTA, $id);
         $res = Model::getDB()->query($query);
-        if($res->affected_rows==-1){
+        if(Model::getDB()->affected_rows==-1){
             throw new ApplicationException(Error::$ALTERNATIVA_NON_TROVATA);
         }
         return $res;
