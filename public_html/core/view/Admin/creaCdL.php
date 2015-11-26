@@ -98,17 +98,18 @@ if(isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricol
                                 <div class="portlet-body form">
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" name="nome" id="nomeCdl"
-                                                   placeholder="Inserisci nome" required>
-
+                                            <select class="form-control" id="tipologiaCdl" name="tipologia">
+                                                <option value="Triennale">Triennale</option>
+                                                <option value="Magistrale">Magistrale</option>
+                                            </select>
                                             <div class="form-control-focus">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" name="tipologia" id="tipologiaCdl"
-                                                   placeholder="Inserisci tipologia" required>
+                                            <input type="text" class="form-control" name="nome" id="nomeCdl"
+                                                   placeholder="Inserisci nome" required>
 
                                             <div class="form-control-focus">
                                             </div>

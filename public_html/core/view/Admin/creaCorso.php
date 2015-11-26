@@ -13,6 +13,9 @@ $controller = new CdlController();
 print_r($_POST);
 
 if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricola']) && isset($_POST['cdlmatricola'])) {
+
+    echo "ricevo i parametri!";
+
     $nome = $_POST['nome'];
     $tipologia = $_POST['tipologia'];
     $matricola = $_POST['matricola'];
@@ -20,7 +23,11 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 
     $corso = new Corso($matricola, $nome, $tipologia, $cdlMatricola);
 
+    echo "oggetto creato!";
+
     $controller->creaCorso($corso);
+
+    echo "corso inserito!";
 
     /*header('location: gestioneCdl.php');*/
 }
@@ -98,8 +105,8 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
                                             <select class="form-control" id="tipologiaCorso" name="tipologia">
-                                                <option value="Triennale">Triennale</option>
-                                                <option value="Magistrale">Magistrale</option>
+                                                <option value="Semestrale">Semestrale</option>
+                                                <option value="Annuale">Annuale</option>
                                             </select>
                                             <div class="form-control-focus">
                                             </div>
@@ -116,7 +123,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                     </div>
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" id="matricolaCorso" nome="matricola"
+                                            <input type="text" class="form-control" id="matricolaCorso" name="matricola"
                                                    placeholder="Inserisci matricola">
 
                                             <div class="form-control-focus">
@@ -125,8 +132,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                     </div>
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" id="cdlmatricolaCorso"
-                                                   name="cdlmatricola"
+                                            <input type="text" class="form-control" id="cdlmatricolaCorso" name="cdlmatricola"
                                                    placeholder="Inserisci cdlmatricola">
 
                                             <div class="form-control-focus">
