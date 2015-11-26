@@ -31,8 +31,8 @@ class CorsoModel extends Model {
      */
     public function createCorso($corso){
         $query = sprintf(self::$CREATE_CORSO, $corso->getMatricola(), $corso->getNome(), $corso->getTipologia(), $corso->getCdlMatricola());
-        $res = Model::getDB()->query($query);
-        if ($res->affected_rows==-1) {
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
         }
     }
@@ -45,8 +45,8 @@ class CorsoModel extends Model {
      */
     public function updateCorso($matricola,$updatedCorso){
         $query = sprintf(self::$UPDATE_CORSO, $updatedCorso->getMatricola(), $updatedCorso->getNome(), $updatedCorso->getTipologia(), $updatedCorso->getCdlMatricola(), $matricola);
-        $res = Model::getDB()->query($query);
-        if ($res->affected_rows==-1) {
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
         }
     }
@@ -58,8 +58,8 @@ class CorsoModel extends Model {
      */
     public function deleteCorso($matricola){
         $query = sprintf(self::$DELETE_CORSO, $matricola);
-        $res = Model::getDB()->query($query);
-        if ($res->affected_rows==-1) {
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
         }
     }
@@ -92,19 +92,15 @@ class CorsoModel extends Model {
             while ($obj = $res->fetch_assoc()) {
                 $corsi[] = new Corso($obj['matricola'],$obj['nome'],$obj['tipologia'],$obj['cdl_matricola']);
             }
-            return $corsi;
         }
-        else{
-            throw new ApplicationException(Error::$CORSO_NON_TROVATO);
-        }
+        return $corsi;
     } 
     
     /**
      * Restituisce tutti i corsi di un cdl del database
      * @return Corsi[] Tutti i corsi di un cdl del database
-     * @throws ApplicationException
      */
-    public function getAllCorsiCdl($cdl_matricola) {
+    public function getAllCorsiByCdl($cdl_matricola) {
         $query = sprintf(self::$GET_ALL_CORSI_CDL, $cdl_matricola);
         $res = Model::getDB()->query($query);
         $corsi = array();
@@ -112,11 +108,8 @@ class CorsoModel extends Model {
             while ($obj = $res->fetch_assoc()) {
                 $corsi[] = new Corso($obj['matricola'], $obj['nome'], $obj['tipologia'], $obj['cdl_matricola']);
             }
-            return $corsi;
         }
-        else{
-            throw new ApplicationException(Error::$CORSO_NON_TROVATO);
-        }
+        return $corsi;
     }
     
     /**
@@ -126,8 +119,8 @@ class CorsoModel extends Model {
      */
     public function createInsegnamento($insegnamento){
         $query = sprintf(self::$CREATE_INSEGNAMENTO, $insegnamento->getCorsoMatricola());
-        $res = Model::getDB()->query($query);
-        if ($res->affected_rows==-1) {
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
         }
         
@@ -141,8 +134,8 @@ class CorsoModel extends Model {
      */
     public function updateInsegnamento($id, $updatedInsegnamento){
         $query = sprintf(self::$UPDATE_INSEGNAMENTO,$updatedInsegnamento->getCorsoMatricola(), $id);
-        $res = Model::getDB()->query($query);
-        if ($res->affected_rows==-1) {
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
         }
     }
@@ -155,8 +148,8 @@ class CorsoModel extends Model {
      */
     public function deleteInsegnamento($id, $corso_matricola){
         $query = sprintf(self::$DELETE_INSEGNAMENTO, $id, $corso_matricola);
-        $res = Model::getDB()->query($query);
-        if ($res->affected_rows==-1) {
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
         }
     }
@@ -181,7 +174,6 @@ class CorsoModel extends Model {
     /**
      * Restituisce tutti gli insegnamenti del database
      * @return Insegnamento[] Tutti gli insegnamenti del database
-     * @throws ApplicationException
      */
     public function getAllInsegnamenti() {
         $res = Model::getDB()->query(self::$GET_ALL_INSEGNAMENTI);
@@ -189,21 +181,17 @@ class CorsoModel extends Model {
         if($res){
             while ($obj = $res->fetch_assoc()) {
                 $insegnamenti[] = new Insegnamento($obj['id'],$obj['corso_matricola']);
-            }
-            return $insegnamenti;
+            }  
         }
-        else{
-            throw new ApplicationException(Error::$INSEGNAMENTO_NON_TROVATO);
-        }
+        return $insegnamenti;
     } 
     
     /**
      * Restituisce tutti gli insegnamenti di un docente del database
      * @param string $docente_matricola La matricola del docente per il quale si vogliono conoscere gli insegnamenti
      * @return Insegnamento[] Tutti gli insegnamenti di un docente del database
-     * @throws ApplicationException
      */
-    public function getAllInsegnamentiDocente($docente_matricola) {
+    public function getAllInsegnamentiByDocente($docente_matricola) {
         $query = sprintf(self::$GET_ALL_INSEGNAMENTI_DOCENTE, $docente_matricola);
         $res = Model::getDB()->query($query);
         $insegnamenti = array();
@@ -211,10 +199,7 @@ class CorsoModel extends Model {
             while ($obj = $res->fetch_assoc()) {
                 $insegnamenti[] = new Insegnamento($obj['id'],$obj['corso_matricola']);
             }
-            return $insegnamenti;
         }
-        else{
-            throw new ApplicationException(Error::$INSEGNAMENTO_NON_TROVATO);
-        }
+        return $insegnamenti;
     } 
 }
