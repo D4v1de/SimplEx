@@ -50,8 +50,8 @@ class TestModel extends Model {
      */
     public function updateTest($id, $updatedTest) {
         $query = sprintf(self::$UPDATE_TEST, $updatedTest->getDescrizione(), $updatedTest->getPunteggioMax(), $updatedTest->getNumeroMultiple(), $updatedTest->getNumeroAperte(), $updatedTest->getPercentualeScelto(), $updatedTest->getPercentualeSuccesso(), $id);
-        $res = Model::getDB()->query($query);
-        if ($res->affected_rows==-1) {
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
         }
     }
@@ -63,8 +63,8 @@ class TestModel extends Model {
      */
     public function deleteTest($id) {
         $query = sprintf(self::$DELETE_TEST, $id);
-        $res = Model::getDB()->query($query);
-        if ($res->affected_rows==-1) {
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
         }
     }
@@ -89,7 +89,6 @@ class TestModel extends Model {
     /**
      * Restituisce tutti i test del database
      * @return Test[] Tutti i test del database
-     * @throws ApplicationException
      */
     public function getAllTest() {
         $res = Model::getDB()->query(self::$GET_ALL_TESTS);
@@ -97,12 +96,9 @@ class TestModel extends Model {
         if($res){
             while ($obj = $res->fetch_assoc()) {
                 $tests[]= new Test($obj['id'], $obj['descrizione'], $obj['punteggio_max'], $obj['numero_multiple'], $obj['numero_aperte'], $obj['pecentuale_scelto'], $obj['percentuale_successo'] );
-            }
-            return $tests;
+            }  
         }
-        else{
-            throw new ApplicationException(Error::$TEST_NON_TROVATO);
-        }
+        return $tests;
     }
     
     /**
@@ -112,7 +108,7 @@ class TestModel extends Model {
      * @return Test[] Tutti i test del database
      * @throws ApplicationException
      */
-    public function getAllTestInsegnamento($id, $corso_matricola) {
+    public function getAllTestByInsegnamento($id, $corso_matricola) {
         $query = sprintf(self::$GET_ALL_TEST_INSEGNAMENTO, $id, $corso_matricola);
         $res = Model::getDB()->query($query);
         $tests = array();
@@ -120,20 +116,16 @@ class TestModel extends Model {
             while ($obj = $res->fetch_assoc()) {
                 $tests[]= new Test($obj['id'], $obj['descrizione'], $obj['punteggio_max'], $obj['numero_multiple'], $obj['numero_aperte'], $obj['pecentuale_scelto'], $obj['percentuale_successo'] );
             }
-            return $tests;
         }
-        else{
-            throw new ApplicationException(Error::$TEST_NON_TROVATO);
-        }
+        return $tests;
     }
     
     /**
      * Restituisce tutti i test di una sessione del database
      * @param int $id L'id della sessione per la quale si vogliono consocere i test associati
      * @return Test[] Tutti i test di una sessione del database del database
-     * @throws ApplicationException
      */
-    public function getAllTestSessione($id) {
+    public function getAllTestBySessione($id) {
         $query = sprintf(self::$GET_ALL_TEST_SESSIONE, $id);
         $res = Model::getDB()->query($query);
         $tests = array();
@@ -141,20 +133,16 @@ class TestModel extends Model {
             while ($obj = $res->fetch_assoc()) {
                 $tests[]= new Test($obj['id'], $obj['descrizione'], $obj['punteggio_max'], $obj['numero_multiple'], $obj['numero_aperte'], $obj['pecentuale_scelto'], $obj['percentuale_successo'] );
             }
-            return $tests;
         }
-        else{
-            throw new ApplicationException(Error::$TEST_NON_TROVATO);
-        }
+        return $tests;
     }
     
     /**
      * Restituisce tutte le domande aperte che costituiscono un test
      * @param int $id L'id del test per il quale si vogliono conoscere tutte le domande aperte che lo compongono
      * @return DomandaAperta[] Tutte le domande aperte che costituiscono il test
-     * @throws ApplicationException
      */
-    public function getAllDomandeAperteTest($id) {
+    public function getAllDomandeAperteByTest($id) {
         $query = sprintf(self::$GET_ALL_DOMANDE_APERTE_TEST, $id);
         $res = Model::getDB()->query($query);
         $domande = array();
@@ -162,21 +150,17 @@ class TestModel extends Model {
             while ($obj = $res->fetch_assoc()) {
                 $domandaAperta = new DomandaAperta($obj['id'],$obj['testo'], $obj['punteggio_max'], $obj['percentuale_scelta'],$obj['argomento_id'],$obj['argomento_insegnamento_id'],$obj['argomento_insegnamento_corso_matricola']);
                 $domande[]= $domandaAperta;
-            }
-            return $domande;
+            }  
         }
-        else{
-            throw new ApplicationException(Error::$DOMANDA_APERTA_NON_TROVATA);
-        }
+        return $domande;
     }
     
     /**
      * Restituisce tutte le domande multiple che costituiscono un test
      * @param int $id L'id del test per il quale si vogliono conoscere tutte le domande multiple che lo compongono
      * @return Test[] Tutte le domande multiple che costituiscono un test
-     * @throws ApplicationException
      */
-    public function getAllDomandeMultipleTest($id) {
+    public function getAllDomandeMultipleByTest($id) {
         $query = sprintf(self::$GET_ALL_DOMANDE_MULTIPLE_TEST, $id);
         $res = Model::getDB()->query($query);
         $domande = array();
@@ -184,11 +168,8 @@ class TestModel extends Model {
             while ($obj = $res->fetch_assoc()) {
                 $domandaMultipla = new DomandaMultipla($obj['id'], $obj['testo'], $obj['punteggio_corretta'], $obj['punteggio_errata'], $obj['percentuale_scelta'], $obj['percentuale_risposta_corretta'], $obj['alternativa_corretta'], $obj['argomento_id'], $obj['argomento_insegnamento_id'], $obj['argomento_insegnamento_corso_matricola']);
                 $domande[]= $domandaMultipla;
-            }
-            return $domande;
+            }  
         }
-        else{
-            throw new ApplicationException(Error::$DOMANDA_MULTIPLA_NON_TROVATA);
-        }
+        return $domande;
     }
 }
