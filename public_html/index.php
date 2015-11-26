@@ -41,6 +41,7 @@ if (isset($_SERVER['HTTP_X_REAL_IP'])) {
 session_start(); //facciamo partire la sessione
 
 include_once UTILS_DIR . "Patterns.php";
+include_once UTILS_DIR . "Error.php";
 
 switch (isset($_URL[0]) ? $_URL[0] : '') {
     case '':
@@ -161,9 +162,6 @@ switch (isset($_URL[0]) ? $_URL[0] : '') {
         break;
     case 'c':
         include_once CONTROL_DIR . "CdlController.php";
-        break;
-    case 'prova':
-        include_once VIEW_DIR . "/Admin/prova.php";
         break;
     default:
         echo "Route inesistente";

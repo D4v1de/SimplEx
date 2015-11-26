@@ -19,7 +19,6 @@ if(isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricol
 
     $cdl = new CdL($matricola, $nome, $tipologia);
 
-    $controller = new CdlController();
     $controller->creaCdl($cdl);
 
     /*header('location: gestioneCdl.php');*/
@@ -99,7 +98,7 @@ if(isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricol
                                 <div class="portlet-body form">
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" name="nome" id="nomeCorso"
+                                            <input type="text" class="form-control" name="nome" id="nomeCdl"
                                                    placeholder="Inserisci nome" required>
 
                                             <div class="form-control-focus">
@@ -108,7 +107,7 @@ if(isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricol
                                     </div>
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" name="tipologia" id="tipologiaCorso"
+                                            <input type="text" class="form-control" name="tipologia" id="tipologiaCdl"
                                                    placeholder="Inserisci tipologia" required>
 
                                             <div class="form-control-focus">
@@ -117,7 +116,7 @@ if(isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricol
                                     </div>
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" name="matricola" id="matricolaCorso"
+                                            <input type="text" class="form-control" name="matricola" id="matricolaCdl"
                                                    placeholder="Inserisci matricola" required>
 
                                             <div class="form-control-focus">

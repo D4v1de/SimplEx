@@ -102,12 +102,12 @@ $controller = new Esempio();
                     <div id="tabella_studenti_wrapper" class="dataTables_wrapper no-footer">
                         <div class="table-scrollable">
                             <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                   id="tabella_studenti" role="grid" aria-describedby="sample_2_info">
+                                   id="tabella_studenti" role="grid" aria-describedby="tabella_studenti_info">
                                 <thead>
                                 <tr role="row">
                                     <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label=""
                                         style="width: 24px;">
-                                        <input type="checkbox" class="group-checkable" data-set="#sample_2 .checkboxes">
+                                        <input type="checkbox" class="group-checkable" data-set="#tabella_studenti .checkboxes">
                                     </th>
                                     <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
                                         colspan="1" aria-label="Username: activate to sort column ascending"
@@ -298,11 +298,11 @@ $controller = new Esempio();
                     <div id="tabella_2_wrapper" class="dataTables_wrapper no-footer">
                         <div class="table-scrollable">
                             <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                   id="tabella_2" role="grid" aria-describedby="sample_3_info">
+                                   id="tabella_2" role="grid" aria-describedby="tabella_2_info">
                                 <thead>
                                 <tr role="row">
                                     <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 24px;">
-                                        <input type="checkbox" class="group-checkable" data-set="#sample_3 .checkboxes">
+                                        <input type="checkbox" class="group-checkable" data-set="#tabella_2 .checkboxes">
                                     </th>
                                     <th class="sorting_asc" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column ascending" style="width: 78px;">
                                         Username
@@ -423,11 +423,11 @@ $controller = new Esempio();
                     <div id="tabella_3_wrapper" class="dataTables_wrapper no-footer">
                         <div class="table-scrollable">
                             <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                   id="tabella_3" role="grid" aria-describedby="sample_3_info">
+                                   id="tabella_3" role="grid" aria-describedby="tabella_3_info">
                                 <thead>
                                 <tr role="row">
                                     <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 24px;">
-                                        <input type="checkbox" class="group-checkable" data-set="#sample_3 .checkboxes">
+                                        <input type="checkbox" class="group-checkable" data-set="#tabella_3 .checkboxes">
                                     </th>
                                     <th class="sorting_asc" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Username: activate to sort column ascending" style="width: 78px;">
                                         Username

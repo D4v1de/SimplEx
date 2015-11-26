@@ -8,6 +8,7 @@
  */
 include_once MODEL_DIR . "Model.php";
 include_once BEAN_DIR . "CdL.php";
+include_once EXCEPTION_DIR . "ApplicationException.php";
 
 class CdLModel extends Model {
     private static $CREATE_CDL = "INSERT INTO `cdl` (matricola, nome, tipologia) VALUES ('%s','%s','%s')";
@@ -24,7 +25,7 @@ class CdLModel extends Model {
     public function createCdL($cdl) {
         $query = sprintf(self::$CREATE_CDL, $cdl->getMatricola(), $cdl->getNome(), $cdl->getTipologia());
         $res = Model::getDB()->query($query);
-        if ($res->affected_rows==-1) {
+        if (Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
         }
     }
