@@ -17,17 +17,17 @@ class TestModel extends Model {
     private static $DELETE_TEST = "DELETE FROM `test` WHERE id = '%d'";
     private static $READ_TEST = "SELECT * FROM `test` WHERE id = '%d'";
     private static $GET_ALL_TESTS = "SELECT * FROM `test`";
-    private static $GET_ALL_TEST_INSEGNAMENTO = "";//da completare la query
+    private static $GET_ALL_TEST_CORSO = "SELECT * FROM `test` WHERE id IN (SELECT DISTINCT test_id FROM `compone_aperta` "
+            . "WHERE domanda_aperta_compone_argomento_corso_id = '%d') OR id IN (SELECT DISTINCT test_id FROM `compone_multipla` "
+            . "WHERE domanda_multipla_compone_argomento_corso_id = '%d') ";
     private static $GET_ALL_TEST_SESSIONE = "SELECT t.* FROM `sessione_test` as s, `test` as t WHERE"
             . "s.sessione_id='%d' AND s.test_id= t.id";
     private static $GET_ALL_DOMANDE_APERTE_TEST = "SELECT d.* FROM `domanda_aperta` as d,`compone_aperta` as c WHERE "
             ."c.test_id = '%s' AND c.domanda_aperta_id = d.id AND c.domanda_aperta_argomento_id = d.argomento_id AND "
-            ."c.domanda_aperta_argomento_insegnamento_id = d.argomento_insegnamento_id AND "
-            ."c.domanda_aperta_argomento_insegnamento_corso_matricola = d.argomento_insegnamento_corso_matricola";
+            ."c.domanda_aperta_argomento_corso_id = d.argomento_corso_id";
     private static $GET_ALL_DOMANDE_MULTIPLE_TEST = "SELECT d.* FROM `domanda_multipla` as d,`compone_multipla` as c WHERE "
             ."c.test_id = '%s' AND c.domanda_multipla_id = d.id AND c.domanda_multipla_argomento_id = d.argomento_id AND "
-            ."c.domanda_multipla_argomento_insegnamento_id = d.argomento_insegnamento_id AND "
-            ."c.domanda_multipla_argomento_insegnamento_corso_matricola = d.argomento_insegnamento_corso_matricola";
+            ."c.domanda_multipla_argomento_corso_id = d.argomento_corso_id";
     
     /**
      * Inserisce un nuovo test nel database
@@ -103,13 +103,12 @@ class TestModel extends Model {
     
     /**
      * Restituisce tutti i test di un insegnamento del database
-     * @param int $id L'id dell'insegnamento per il quale si vogliono conoscere i test
-     * @param string $corso_matricola La matricola del corso a cui appartiene l'insegnamento per il quale si vogliono conoscere i test
+     * @param int $id L'id del corso per il quale si vogliono conoscere i test
      * @return Test[] Tutti i test del database
      * @throws ApplicationException
      */
-    public function getAllTestByInsegnamento($id, $corso_matricola) {
-        $query = sprintf(self::$GET_ALL_TEST_INSEGNAMENTO, $id, $corso_matricola);
+    public function getAllTestByCorso($id) {
+        $query = sprintf(self::$GET_ALL_TEST_CORSO, $id);
         $res = Model::getDB()->query($query);
         $tests = array();
         if($res){
@@ -148,8 +147,8 @@ class TestModel extends Model {
         $domande = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $domandaAperta = new DomandaAperta($obj['id'],$obj['testo'], $obj['punteggio_max'], $obj['percentuale_scelta'],$obj['argomento_id'],$obj['argomento_insegnamento_id'],$obj['argomento_insegnamento_corso_matricola']);
-                $domande[]= $domandaAperta;
+                $domande[] = new DomandaAperta($obj['id'],$obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_max'], 
+                        $obj['percentule_scelta']);
             }  
         }
         return $domande;
@@ -161,13 +160,13 @@ class TestModel extends Model {
      * @return Test[] Tutte le domande multiple che costituiscono un test
      */
     public function getAllDomandeMultipleByTest($id) {
-        $query = sprintf(self::$GET_ALL_DOMANDE_MULTIPLE_TEST, $id);
+        $query = sprintf(self::$GET_ALL_DOMANDE_MULTIPLE_TEST, $id, $id);
         $res = Model::getDB()->query($query);
         $domande = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $domandaMultipla = new DomandaMultipla($obj['id'], $obj['testo'], $obj['punteggio_corretta'], $obj['punteggio_errata'], $obj['percentuale_scelta'], $obj['percentuale_risposta_corretta'], $obj['alternativa_corretta'], $obj['argomento_id'], $obj['argomento_insegnamento_id'], $obj['argomento_insegnamento_corso_matricola']);
-                $domande[]= $domandaMultipla;
+                $domande[]= new DomandaMultipla($obj['id'], $obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_corretta'], 
+                    $obj['punteggio_errata'], $obj['percentuale_scelta'], $obj['percentuale_risposta_corretta']);
             }  
         }
         return $domande;
