@@ -2,30 +2,30 @@
 
 /**
  * User: Elvira
- * Date: 20/11/15
- * Time: 10:43
+ * Date: 27/11/15
+ * Time: 10:33
  */
 class Elaborato {
     private $studenteMatricola;
     private $sessioneId;
-    private $testId;
     private $esitoParziale;
     private $esitoFinale;
+    private $testId;
 
     /**
      * Costruttore di Elaborato.
      * @param string $studenteMatricola La matricola dello studente a cui appartiene
      * @param int $sessioneId L'id della sessione a cui appartiene
-     * @param int $testId L'id del test a cui si riferisce
      * @param float $esitoParziale L'esito parziale dell'elaborato
      * @param float $esitoFinale L'esito finale dell'elaborato
+     * @param int $testId L'id del test a cui si riferisce
      */
-    public function __construct($studenteMatricola, $sessioneId, $testId, $esitoParziale, $esitoFinale) {
+    public function __construct($studenteMatricola, $sessioneId, $esitoParziale, $esitoFinale, $testId) {
         $this->studenteMatricola = $studenteMatricola;
         $this->sessioneId = $sessioneId;
-        $this->testId = $testId;
         $this->esitoParziale = $esitoParziale;
         $this->esitoFinale = $esitoFinale;
+        $this->testId = $testId;
     }
     
     /**
@@ -41,13 +41,6 @@ class Elaborato {
     public function getSessioneId() {
         return $this->sessioneId;
     }
-    
-    /**
-     * @return int L'id del test a cui si riferisce
-     */
-    public function getTestId() {
-        return $this->testId;
-    }
 
     /**
      * @return float L'esito parziale dell'elaborato
@@ -61,6 +54,13 @@ class Elaborato {
      */
     public function getEsitoFinale() {
         return $this->esitoFinale;
+    }
+    
+    /**
+     * @return int L'id del test a cui si riferisce
+     */
+    public function getTestId() {
+        return $this->testId;
     }
 
     /**
@@ -80,14 +80,6 @@ class Elaborato {
     }
     
     /**
-     * Setta l'id del test a cui si riferisce
-     * @param int $testId L'id del test a cui si riferisce
-     */
-    public function setTestId($testId) {
-        $this->testId = $testId;
-    }
-    
-    /**
      * Setta l'esito parziale dell'elaborato
      * @param float $esitoParziale L'esito parziale dell'elaborato
      */
@@ -101,5 +93,13 @@ class Elaborato {
      */
     public function setEsitoFinale($esitoFinale) {
         $this->esitoFinale = $esitoFinale;
+    }
+    
+    /**
+     * Setta l'id del test a cui si riferisce
+     * @param int $testId L'id del test a cui si riferisce
+     */
+    public function setTestId($testId) {
+        $this->testId = $testId;
     }
 }
