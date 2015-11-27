@@ -22,6 +22,12 @@ $controller = new Esempio();
 <head>
     <meta charset="utf-8"/>
     <title>Metronic | Page Layouts - Blank Page</title>
+    <link rel="stylesheet" type="text/css"
+          href="/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
+
     <?php include VIEW_DIR . "header.php"; ?>
 </head>
 <!-- END HEAD -->
@@ -40,443 +46,423 @@ $controller = new Esempio();
             <h3 class="page-title">
                 Crea Sessione / Modifica Sessione
             </h3>
+
             <div class="page-bar">
-                    <ul class="page-breadcrumb">
-                        <li>
-                            <i class="fa fa-home"></i>
-                            <a href="index.html">Home</a>
-                            <i class="fa fa-angle-right"></i>
-                        </li>
-                        <li>
-                            <a href="#">Nome Corso</a>
-                            <i class="fa fa-angle-right"></i>
-                        </li>
-                        <li>
-                            <a href="#">Nome Sessione</a>
-                        </li>
-                    </ul>
-                </div>
+                <ul class="page-breadcrumb">
+                    <li>
+                        <i class="fa fa-home"></i>
+                        <a href="index.html">Home</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="#">Nome Corso</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="#">Nome Sessione</a>
+                    </li>
+                </ul>
+            </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <form>
-                <div class="form-body">
-                    <div clas="row">
-                        <div class="col-md-12">
-                            <div class="col-md-4">
-                                <div class="form-group form-md-line-input has-success">
-                                    <div class="input">
-                                        <input type="text" class="form-control">
-                                            <label for="form_control_1">Nome</label>
-                                                <span class="help-block">Inserire nome sessione</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="col-md-4">
-                                    <label class="control-label">Avvio:</label>
-                                    <div class="input-group date form_datetime">
-                                        <input type="text" size="16" readonly="" class="form-control"/>
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="col-md-8">
+                        <div class="col-md-4">
+                            <label class="control-label">Avvio:</label>
+
+                            <div class="input-group date form_datetime">
+                                <input type="text" size="16" readonly="" class="form-control"/>
                                         <span class="input-group-btn">
-                                            <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
+                                            <button class="btn default date-set" type="button"><i
+                                                    class="fa fa-calendar"></i></button>
                                         </span>
-                                    </div>
-                                </div>
-                                <div class="col-md-1">
-                                    <div class="form-group">
-                                        <label>Ora:</label>
-                                        <div class="input-icon right">
-                                                <input type="text" class="form-control input-circle" placeholder="Ora Avvio">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-1"></div>
-                                <div class="col-md-4">
-                                    <label class="control-label">Termine:</label>
-                                    <div class="input-group date form_datetime">
-                                        <input type="text" size="16" readonly="" class="form-control"/>
-                                        <span class="input-group-btn">
-                                            <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="col-md-1">
-                                    <div class="form-group">
-                                        <label>Ora:</label>
-                                        <div class="input-icon right">
-                                                <input type="text" class="form-control input-circle" placeholder="Termine">
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
+                            <span class="help-block"><br></span>
+
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="portlet box grey-cascade">
-                                <div class="portlet-title">
-                                    <div class="caption">
-                                        <i class="fa fa-globe"></i>Test
-                                    </div>
-                                    <div class="tools">
-                                        <input type="radio" name"val" value"val"> Valutativo
-                                        <input type="radio"> Esercitativo
-                                        <a href="javascript:;" class="collapse" data-original-title="" title="">
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="portlet-body">
-                                    <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
-                                        <div class="table-scrollable">
-                                            <table class="table table-striped table-bordered table-hover dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
-                                                <thead>                                        
-                                                    <tr role="row">
-                                                        <th width="1px">
-                                                            <div class="md-checkbox">
-                                                                <input type="checkbox" id="testAll" class="md-check">
-                                                                <label for="testAll">
-                                                                <span></span>
-                                                                <span class="check"></span>
-                                                                <span class="box"></span>
-                                                                </label>
-                                                            </div>
-                                                        </th>
-                                                        <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
-                                                     Username
-                                            : activate to sort column ascending" style="width: 119px;">
-                                                            Nome
-                                                        </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                                     Email
-                                            " style="width: 210px;">
-                                                            Data creazione
-                                                        </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                                     Points
-                                            " style="width: 73px;">
-                                                            N° multiple
-                                                        </th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                                     Status
-                                            " style="width: 119px;">
-                                                            N° aperte
-                                                        </th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                                     Status
-                                            " style="width: 119px;">
-                                                            Punteggio massimo
-                                                        </th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                                     Status
-                                            " style="width: 119px;">
-                                                            Inserito
-                                                        </th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                                     Status
-                                            " style="width: 119px;">
-                                                            Superato
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr class="gradeX odd" role="row">
-                                                        <td width="1px">
-                                                            <div class="md-checkbox">
-                                                                <input type="checkbox" id="test1" class="md-check">
-                                                                <label for="test1">
-                                                                <span></span>
-                                                                <span class="check"></span>
-                                                                <span class="box"></span>
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                        <td>Test 1</td>
-                                                        <td class="sorting_1">10/11/2015</td>
-                                                        <td>10</td>
-                                                        <td>2</td>
-                                                        <td>30</td>
-                                                        <td>0%</td>
-                                                        <td>0%</td>
-                                                    </tr>
-                                                    <tr class="gradeX even" role="row">
-                                                        <td>
-                                                            <div class="md-checkbox">
-                                                                <input type="checkbox" id="test2" class="md-check">
-                                                                <label for="test2">
-                                                                <span></span>
-                                                                <span class="check"></span>
-                                                                <span class="box"></span>
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                        <td>Test 2</td>
-                                                        <td class="sorting_1">23/03/2016</td>
-                                                        <td>30</td>
-                                                        <td>0</td>
-                                                        <td>60</td>
-                                                        <td>10%</td>
-                                                        <td>70%</td>
-                                                    </tr>
 
-                                                    <tr class="gradeX even" role="row">
-                                                        <td>
-                                                            <div class="md-checkbox">
-                                                                <input type="checkbox" id="test3" class="md-check">
-                                                                <label for="test3">
-                                                                <span></span>
-                                                                <span class="check"></span>
-                                                                <span class="box"></span>
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                        <td>Test 3</td>
-                                                        <td class="sorting_1">15/11/2015</td>
-                                                        <td>0</td>
-                                                        <td>10</td>
-                                                        <td>100</td>
-                                                        <td>5%</td>
-                                                        <td>15%</td>                                            
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>                    
-                        </div>
-                    </div>
-                    
-            <div class="portlet box grey-cascade">
-                <div class="portlet-title">
-                        <div class="caption">
-                                <i class="fa fa-globe"></i>Studenti
-
-                </div>
-                <div class="tools">
-                        <a href="javascript:;" class="collapse" data-original-title="" title="">
-                        </a>
-                </div>
-                         </div>
-                 <div class="portlet-body">
-                            <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
-                                <div class="table-scrollable">
-                                    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
-
-                                        <thead>
-                                            <tr class="gradeX odd" role="row">
-                                                <th width ="1px">
-                                                        <div class="md-checkbox">
-                                                            <input type="checkbox" id="studentiAll" class="md-check">
-                                                            <label for="studentiAll">
-                                                            <span></span>
-                                                            <span class="check"></span>
-                                                            <span class="box"></span>
-                                                            </label>
-                                                        </div>
-                                                </th>
-                                                <th>Nome</th>
-                                                <th>Cognome</th>
-                                                <th>Matricola</th>
-                                            </tr>       
-                                    </thead>
-
-                                    <tbody>
-
-                                        <tr class="gradeX odd" role="row">
-                                                <td>
-                                                    <div class="md-checkbox">
-                                                        <input type="checkbox" id="studente1" class="md-check">
-                                                        <label for="studente1">
-                                                        <span></span>
-                                                        <span class="check"></span>
-                                                        <span class="box"></span>
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                                <td class="sorting_1">
-                                                         Mario
-                                                </td>
-                                                <td>
-                                                         Rossi
-                                                </td>
-                                                <td>
-                                                         0512100000
-                                                </td>
-                                        </tr>  <tr class="gradeX odd" role="row">
-                                                <td>
-                                                    <div class="md-checkbox">
-                                                        <input type="checkbox" id="studente2" class="md-check">
-                                                        <label for="studente2">
-                                                        <span></span>
-                                                        <span class="check"></span>
-                                                        <span class="box"></span>
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                                <td class="sorting_1">
-                                                         Giuseppe
-                                                </td>
-                                                <td>
-                                                         Verdi
-                                                </td>
-                                                <td>
-                                                         0512100001
-                                                </td>
-                                        </tr>
-                                          <tr class="gradeX odd" role="row">
-                                                <td>
-                                                    <div class="md-checkbox">
-                                                        <input type="checkbox" id="studente3" class="md-check">
-                                                        <label for="studente3">
-                                                        <span></span>
-                                                        <span class="check"></span>
-                                                        <span class="box"></span>
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                                <td class="sorting_1">
-                                                         Antonio
-                                                </td>
-                                                <td>
-                                                         Bianchi
-                                                </td>
-                                                <td>
-                                                         0512100002
-                                                </td>
-                                        </tr>
-                                        <tr class="gradeX odd" role="row">
-                                                <td>
-                                                    <div class="md-checkbox">
-                                                        <input type="checkbox" id="studente4" class="md-check">
-                                                        <label for="studente4">
-                                                        <span></span>
-                                                        <span class="check"></span>
-                                                        <span class="box"></span>
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                                <td class="sorting_1">
-                                                         Michele
-                                                </td>
-                                                <td>
-                                                         Neri
-                                                </td>
-                                                <td>
-                                                         0512100003
-                                                </td>
-                                        </tr>
-                                        <tr class="gradeX odd" role="row">
-                                                <td>
-                                                    <div class="md-checkbox">
-                                                        <input type="checkbox" id="studente5" class="md-check">
-                                                        <label for="studente5">
-                                                        <span></span>
-                                                        <span class="check"></span>
-                                                        <span class="box"></span>
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                                <td class="sorting_1">
-                                                         Antonio
-                                                </td>
-                                                <td>
-                                                         Di Natale
-                                                </td>
-                                                <td>
-                                                         0512100004
-                                                </td>
-                                        </tr>
-                                        <tr class="gradeX odd" role="row">
-                                                <td>
-                                                    <div class="md-checkbox">
-                                                        <input type="checkbox" id="studente6" class="md-check">
-                                                        <label for="studente6">
-                                                        <span></span>
-                                                        <span class="check"></span>
-                                                        <span class="box"></span>
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                                <td class="sorting_1">
-                                                         Francesco
-                                                </td>
-                                                <td>
-                                                         Luzzi
-                                                </td>
-                                                <td>
-                                                         0512100005
-                                                </td>
-                                        </tr>
-                                        <tr class="gradeX odd" role="row">
-                                                <td>
-                                                    <div class="md-checkbox">
-                                                        <input type="checkbox" id="studente7" class="md-check">
-                                                        <label for="studente7">
-                                                        <span></span>
-                                                        <span class="check"></span>
-                                                        <span class="box"></span>
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                                <td class="sorting_1">
-                                                         Loris
-                                                </td>
-                                                <td>
-                                                         Lusi
-                                                </td>
-                                                <td>
-                                                         0512100006
-                                                </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                </div>
-            </div>
-                <div class="row">
-                    <div class="col-md-12">
                         <div class="col-md-1"></div>
                         <div class="col-md-4">
-                            <a href="javascript:;" class="btn sm green-jungle">
-                                Avvia Ora
-                            </a>
-                            <a href="javascript:;" class="btn sm red-intense">
-                                <i class="fa fa-minus"></i> Elimina Sessione
-                            </a>
+                            <label class="control-label">Termine:</label>
+
+                            <div class="input-group date form_datetime">
+                                <input type="text" size="16" readonly="" class="form-control"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn default date-set" type="button"><i
+                                                    class="fa fa-calendar"></i></button>
+                                        </span>
+                            </div>
                         </div>
-                        <div class="col-md-3"></div>
-                        <div class="col-md-4">
-                            <a href="javascript:;" class="btn sm green-jungle">
-                                Conferma
-                            </a>
-                            <a href="javascript:;" class="btn sm red-intense">
-                                Annulla
-                            </a>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="portlet box blue-madison">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-user"></i>Test
+                    </div>
+
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse" data-original-title="" title="">
+                        </a>
+                    </div>
+
+
+                    <div class="actions">
+                        <div class="btn-group">
+                            <ul class="dropdown-menu pull-right">
+                                <li>
+                                    <a href="javascript:;">
+                                        <i class="fa fa-pencil"></i> Print </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <i class="fa fa-trash-o"></i> Save as PDF </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <i class="fa fa-ban"></i> Export to Excel </a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-            </form>
+                <div class="portlet-body">
+
+
+                    <div id="tabella_test_wrapper" class="dataTables_wrapper no-footer">
+                        <table class="table table-striped table-bordered table-hover dataTable no-footer" id="tabella_test" role="grid" aria-describedby="tabella_studenti_info">
+                            <thead>
+                            <tr role="row">
+                                <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                                        " style="width: 24px;">
+                                    <input type="checkbox" class="group-checkable" data-set="#tabella_test .checkboxes">
+                                </th>
+                                <th class="sorting-disabled" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" aria-label="
+                                                                 Email
+                                                        : activate to sort column ascending" style="width: 106px;">
+                                    Nome
+                                </th><th class="sorting-disabled" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" aria-label="
+                                                                 Email
+                                                        : activate to sort column ascending" style="width: 181px;">
+                                    Data Creazione
+                                </th>
+                                <th class="sorting-disabled" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" aria-label="
+                                                                 Email
+                                                        : activate to sort column ascending" style="width: 181px;">
+                                    N° Multiple
+                                </th>
+                                <th class="sorting-disabled" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" aria-label="
+                                                                 Email
+                                                        : activate to sort column ascending" style="width: 181px;">
+                                    N° Aperte
+                                </th>
+                                <th class="sorting-disabled" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" aria-label="
+                                                                 Email
+                                                        : activate to sort column ascending" style="width: 181px;">
+                                    Punteggio Massimo
+                                </th>
+                                <th class="sorting-disabled" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" aria-label="
+                                                                 Email
+                                                        : activate to sort column ascending" style="width: 181px;">
+                                    % Inserito
+                                </th>
+                                <th class="sorting-disabled" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" aria-label="
+                                                                 Email
+                                                        : activate to sort column ascending" style="width: 181px;">
+                                    % Superato
+                                </th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr class="gradeX odd" role="row">
+                                <td>
+                                    <input type="checkbox" class="checkboxes" value="1">
+                                </td>
+                                <td class="sorting_1">
+                                    Test 1
+                                </td>
+                                <td>
+                                    10/11/2015
+                                </td>
+                                <td>10</td>
+                                <td>2</td>
+                                <td>60</td>
+                                <td>0%</td>
+                                <td>0%</td>
+
+                            </tr><tr class="gradeX even" role="row">
+                                <td>
+                                    <input type="checkbox" class="checkboxes" value="1">
+                                </td>
+                                <td class="sorting_1">
+                                    Test 2
+                                </td>
+                                <td>
+                                    15/2/2016
+                                </td>
+                                <td>10</td>
+                                <td>0</td>
+                                <td>60</td>
+                                <td>10%</td>
+                                <td>70%</td>
+                            </tr><tr class="gradeX odd" role="row">
+                                <td>
+                                    <input type="checkbox" class="checkboxes" value="1">
+                                </td>
+                                <td class="sorting_1">
+                                    Test 3
+                                </td>
+                                <td>
+                                    16/11/2015
+                                </td>
+                                <td>0</td>
+                                <td>10</td>
+                                <td>60</td>
+                                <td>5%</td>
+                                <td>15%</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="portlet box blue-madison">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-user"></i>Studenti
+                    </div>
+
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse" data-original-title="" title="">
+                        </a>
+                    </div>
+
+                    <div class="actions">
+                        <div class="btn-group">
+                            <ul class="dropdown-menu pull-right">
+                                <li>
+                                    <a href="javascript:;">
+                                        <i class="fa fa-pencil"></i> Print </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <i class="fa fa-trash-o"></i> Save as PDF </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <i class="fa fa-ban"></i> Export to Excel </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="portlet-body">
+
+
+                    <div id="tabella_studenti_wrapper" class="dataTables_wrapper no-footer">
+                        <table class="table table-striped table-bordered table-hover dataTable no-footer" id="tabella_studenti" role="grid" aria-describedby="tabella_studenti_info">
+                            <thead>
+                            <tr role="row">
+                                <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                                        " style="width: 24px;">
+                                    <input type="checkbox" class="group-checkable" data-set="#tabella_studenti .checkboxes">
+                                </th>
+                                <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
+                                                                 Username
+                                                        : activate to sort column ascending" style="width: 106px;">
+                                    Nome
+                                </th><th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" aria-label="
+                                                                 Email
+                                                        : activate to sort column ascending" style="width: 181px;">
+                                    Cognome
+                                </th>
+                                <th class="sorting-disabled" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" aria-label="
+                                                                 Email
+                                                        : activate to sort column ascending" style="width: 181px;">
+                                    Matricola
+                                </th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr class="gradeX odd" role="row">
+                                <td>
+                                    <input type="checkbox" class="checkboxes" value="1">
+                                </td>
+                                <td class="sorting_1">
+                                    Mario
+                                </td>
+                                <td>
+                                    Rossi
+                                </td>
+                                <td>0512100001</td>
+                            </tr><tr class="gradeX even" role="row">
+                                <td>
+                                    <input type="checkbox" class="checkboxes" value="1">
+                                </td>
+                                <td class="sorting_1">
+                                    Giacomo
+                                </td>
+                                <td>
+                                    Bonaventura
+                                </td>
+                                <td>0512100002</td>
+                            </tr><tr class="gradeX odd" role="row">
+                                <td>
+                                    <input type="checkbox" class="checkboxes" value="1">
+                                </td>
+                                <td class="sorting_1">
+                                    Diego Armando
+                                </td>
+                                <td>
+                                    Maradona
+                                </td>
+                                <td>0512100003</td>
+                            </tr><tr class="gradeX even" role="row">
+                                <td>
+                                    <input type="checkbox" class="checkboxes" value="1">
+                                </td>
+                                <td class="sorting_1">
+                                    Francesco
+                                </td>
+                                <td>
+                                    Totti
+                                </td>
+                                <td>0512100004</td>
+                            </tr>
+
+                            <tr class="gradeX odd" role="row">
+                                <td>
+                                    <input type="checkbox" class="checkboxes" value="1">
+                                </td>
+                                <td class="sorting_1">
+                                    Gianluca
+                                </td>
+                                <td>
+                                    Di Marzio
+                                </td>
+                                <td>0512100005</td>
+                            </tr>
+
+                            <tr class="gradeX odd" role="row">
+                                <td>
+                                    <input type="checkbox" class="checkboxes" value="1">
+                                </td>
+                                <td class="sorting_1">
+                                    Riccardo
+                                </td>
+                                <td>
+                                    Montolivo
+                                </td>
+                                <td>0512100006</td>
+                            </tr>
+
+                            <tr class="gradeX odd" role="row">
+                                <td>
+                                    <input type="checkbox" class="checkboxes" value="1">
+                                </td>
+                                <td class="sorting_1">
+                                    Inacio
+                                </td>
+                                <td>
+                                    Pia
+                                </td>
+                                <td>0512100007</td>
+                            </tr>
+
+                            <tr class="gradeX odd" role="row">
+                                <td>
+                                    <input type="checkbox" class="checkboxes" value="1">
+                                </td>
+                                <td class="sorting_1">
+                                    Raffaele
+                                </td>
+                                <td>
+                                    Auriemma
+                                </td>
+                                <td>0512100008</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4">
+                        <a href="javascript:;" class="btn sm green-jungle">
+                            Avvia Ora
+                        </a>
+                        <a href="javascript:;" class="btn sm red-intense">
+                            Elimina Sessione
+                        </a>
+                    </div>
+                    <div class="col-md-3"></div>
+                    <div class="col-md-4">
+                        <a href="javascript:;" class="btn sm green-jungle">
+                            Conferma
+                        </a>
+                        <a href="javascript:;" class="btn sm red-intense">
+                            Annulla
+                        </a>
+                    </div>
+                </div>
+            </div>
             <!-- END PAGE CONTENT-->
         </div>
+        <!-- END CONTENT -->
     </div>
-    <!-- END CONTENT -->
-</div>
-<!-- END CONTAINER -->
-<?php include VIEW_DIR . "footer.php"; ?>
-<!-- END FOOTER -->
-<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
-<?php include VIEW_DIR . "js.php"; ?>
+    <!-- END CONTAINER -->
+    <?php include VIEW_DIR . "footer.php"; ?>
+    <!-- END FOOTER -->
+    <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+    <?php include VIEW_DIR . "js.php"; ?>
 
-<!--Script specifici per la pagina -->
-<script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
-<script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
-<script>
-    jQuery(document).ready(function () {
-        Metronic.init(); // init metronic core components
-        Layout.init(); // init current layout
-        //QuickSidebar.init(); // init quick sidebar
-        //Demo.init(); // init demo features
-    });
-</script>
-<!-- END JAVASCRIPTS -->
+    <!--Script specifici per la pagina -->
+    <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+    <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
+    <script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript"
+            src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+    <script src="/assets/admin/pages/scripts/table-managed.js"></script>
+
+    <script type="text/javascript"
+            src="/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+
+    <script>
+        jQuery(document).ready(function () {
+            Metronic.init(); // init metronic core components
+            Layout.init(); // init current layout
+            //QuickSidebar.init(); // init quick sidebar
+            //Demo.init(); // init demo features
+            TableManaged.init('tabella_test','tabella_test_wrapper');
+            TableManaged.init('tabella_studenti','tabella_studenti_wrapper');
+
+        });
+    </script>
+
+    <script>
+        //SCRIPT PER AVVIARE DATETIMEPICKER
+        $(".form_datetime").datetimepicker({format: 'dd-mm-yyyy hh:ii'});
+    </script>
+
+    <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->
 </html>
