@@ -17,16 +17,15 @@ class AccountModel extends Model {
     private static $DELETE_UTENTE = "DELETE FROM `utente` WHERE `matricola` = '%s' LIMIT 1";
     private static $SELECT_ALL_UTENTI = "SELECT * FROM `utente`";
     private static $UPDATE_UTENTE = "UPDATE `utente` SET `username` = '%s', `password` = '%s', `tipologia` = '%s', `nome` = '%s', `cognome` = '%s', `matricola` = '%s' WHERE `matricola` = '%s' LIMIT 1";
-    
-    
+
+
     // Aggiunti da Elvira
     private static $GET_ALL_DOCENTI_CORSO = "SELECT u.* FROM insegnamento i, utente u WHERE i.docente_matricola = u.matricola AND i.corso_id = '%d'";
     private static $GET_ALL_STUDENTI_CDL = "SELECT u.* FROM utente u WHERE u.cdl_matricola = '%s'";
-    private static $GET_ALL_STUDENTI_CORSO = "SELECT u.* FROM utente u, frequenta f WHERE f.studente_matricola = u.matricola AND f.corso_matricola = '%d'"; 
-    private static $GET_ALL_STUDENTI_SESSIONE = "SELECT u.* FROM `abilitazione` as a, `utente` as u WHERE "
-            . "a.sessione_id='%s' AND a.studente_matricola=u.matricola";
-    
-    
+    private static $GET_ALL_STUDENTI_CORSO = "SELECT u.* FROM utente u, frequenta f WHERE f.studente_matricola = u.matricola AND f.corso_matricola = '%d'";
+    private static $GET_ALL_STUDENTI_SESSIONE = "SELECT u.* FROM `abilitazione` AS a, `utente` AS u WHERE a.sessione_id='%s' AND a.studente_matricola=u.matricola";
+
+
     /**
      * Restituisce utente dato email e password
      * @param $email
@@ -150,78 +149,78 @@ class AccountModel extends Model {
         Model::getDB()->query($qr);
         return (Model::getDB()->affected_rows == 1);
     }
-    
+
     //Aggiunti da Elvira
-    
+
     /**
      * Restituisce tutti i docenti che insegnano il corso
      * @param int $id L'id del corso per la quale si vogliono conoscere i docenti che lo insegnano
      * @return Utente[] Tutti i docenti che insegnano il corso
      */
-     public function getAllDocentiByCorso($id) {
+    public function getAllDocentiByCorso($id) {
         $query = sprintf(self::$$GET_ALL_DOCENTI_CORSO, $id);
         $res = Model::getDB()->query($query);
         $docenti = array();
-        if($res){
+        if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $docente = new Utente($obj['username'], $obj['password'],$obj['matricola'], $obj['nome'],$obj['cognome'],$obj['tipologia'],$obj['cdl_matricola']);
-                $docenti[]= $docente;
+                $docente = new Utente($obj['username'], $obj['password'], $obj['matricola'], $obj['nome'], $obj['cognome'], $obj['tipologia'], $obj['cdl_matricola']);
+                $docenti[] = $docente;
             }
         }
-        return $docenti;   
-    } 
-    
+        return $docenti;
+    }
+
     /**
      * Restituisce tutti gli studenti abilitati ad una sessione
      * @param string $matricolaCdl La matricola del cdl per il quale si vogliono conoscere gli studenti iscritti
      * @return Utente[] Tutti gli studenti che sono iscritti al cdl
      */
-     public function getAllStudentiByCdl($matricolaCdl) {
+    public function getAllStudentiByCdl($matricolaCdl) {
         $query = sprintf(self::$GET_ALL_STUDENTI_CDL, $matricolaCdl);
         $res = Model::getDB()->query($query);
         $studenti = array();
-        if($res){
+        if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $studente = new Utente($obj['username'], $obj['password'],$obj['matricola'], $obj['nome'],$obj['cognome'],$obj['tipologia'],$obj['cdl_matricola']);
-                $studenti[]= $studente;
+                $studente = new Utente($obj['username'], $obj['password'], $obj['matricola'], $obj['nome'], $obj['cognome'], $obj['tipologia'], $obj['cdl_matricola']);
+                $studenti[] = $studente;
             }
         }
-        return $studenti;   
-    } 
-    
+        return $studenti;
+    }
+
     /**
      * Restituisce tutti gli studenti iscritti ad un corso
      * @param int $idCorso L'id del corso per il quale si vogliono conoscere gli studenti iscritti
      * @return Studente[] Tutti gli studenti iscritti al corso
      */
-     public function getAllStudentiByCorso($idCorso) {
+    public function getAllStudentiByCorso($idCorso) {
         $query = sprintf(self::$GET_ALL_STUDENTI_CORSO, $idCorso);
         $res = Model::getDB()->query($query);
         $studenti = array();
-        if($res){
+        if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $studente = new Utente($obj['username'], $obj['password'],$obj['matricola'], $obj['nome'],$obj['cognome'],$obj['tipologia'],$obj['cdl_matricola']);
-                $studenti[]= $studente;
+                $studente = new Utente($obj['username'], $obj['password'], $obj['matricola'], $obj['nome'], $obj['cognome'], $obj['tipologia'], $obj['cdl_matricola']);
+                $studenti[] = $studente;
             }
         }
-        return $studenti;   
-    } 
-    
+        return $studenti;
+    }
+
     /**
      * Restituisce tutti gli studenti abilitati ad una sessione
      * @param int $id L'id della sessione per la quale si vogliono conoscere gli studenti abilitati
      * @return Utente[] Tutti gli studenti che sono abilitati alla sessione
      */
-     public function getAllStudentiSessione($id) {
+    public function getAllStudentiSessione($id) {
         $query = sprintf(self::$GET_ALL_STUDENTI_SESSIONE, $id);
         $res = Model::getDB()->query($query);
         $studenti = array();
-        if($res){
+        if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $studentiSessione = new Utente($obj['username'], $obj['password'],$obj['matricola'], $obj['nome'],$obj['cognome'],$obj['tipologia'],$obj['cdl_matricola']);
-                $studenti[]= $studentiSessione;
+                $studentiSessione = new Utente($obj['username'], $obj['password'], $obj['matricola'], $obj['nome'], $obj['cognome'], $obj['tipologia'], $obj['cdl_matricola']);
+                $studenti[] = $studentiSessione;
             }
         }
-        return $studenti;   
-    } 
+        return $studenti;
+    }
 }
