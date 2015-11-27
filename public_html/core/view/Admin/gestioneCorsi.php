@@ -114,7 +114,7 @@ $controller = new CdlController();
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
                                     printf("<td><input type=\"checkbox\" class=\"checkboxes\" value=\"1\"></td>");
                                     printf("<td class=\"sorting_1\">%s</td>",$c->getMatricola());
-                                    printf("<td class=\"sorting_1\"><a href=\"\">%s</a></td>",$c->getNome());
+                                    printf("<td class=\"sorting_1\"><a href=\"modificacorso/%s\">%s</a></td>",$c->getId() ,$c->getNome());
                                     printf("<td><span class=\"label label-sm label-success\">%s</span></td>",$c->getTipologia());
                                     printf("<td>%s</td>",$c->getCdlMatricola());
                                     printf("</tr>");
