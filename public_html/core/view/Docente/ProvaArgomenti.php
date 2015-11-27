@@ -7,8 +7,10 @@
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "Esempio.php";
-$controller = new Esempio();
+include_once CONTROL_DIR . "ArgomentoController.php";
+$controller = new ArgomentoController();
+$argomenti = $controller->getArgomenti();
+$numArgomenti = count($argomenti);
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -323,13 +325,16 @@ $controller = new Esempio();
 
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+
 <script>
+
+
     jQuery(document).ready(function () {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
-        UINestable.init(6); //Il numero equivale al n° di tabelle presenti nella pagina
+        UINestable.init(<?php $numArgomenti ?>); //Il numero equivale al n° di tabelle presenti nella pagina
 
     });
 
