@@ -49,7 +49,7 @@ final class Logger extends Model {
         // chiamo self::write($DEBUG, $message);
         self::write('Debug', $value, $tag);
     }
-    }
+    
 
     public static function info($value = '', $tag = self::DEFAULT_TAG) {
         //stessa cose di debug
@@ -64,7 +64,7 @@ final class Logger extends Model {
     public static function error($value = '', $tag = self::DEFAULT_TAG) {
         //stessa cose di debug
         self::write('Error', $value, $tag);
-    }
+    
     }
 
     private static function write($errorlevel = 'Info', $value = '', $tag) {
@@ -86,4 +86,4 @@ final class Logger extends Model {
 		fclose($fd);
         
     }
-}}
+}
