@@ -35,13 +35,37 @@ $controller = new Esempio();
             <h3 class="page-title">
                 Correzione Test
             </h3>
+            <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li>
+                            <i class="fa fa-home"></i>
+                            <a href="index.html">Home</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <a href="#">Nome Corso</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <a href="#">Nome Sessione</a>
+                            <i class="fa fa-angle-right"></i>                            
+                        </li>
+                        <li>
+                            <a href="#">Esiti Sessione</a>
+                            <i class="fa fa-angle-right"></i>                            
+                        </li>
+                        <li>
+                            Correggi Test
+                        </li>
+                    </ul>
+                </div>
 
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-           <div class="portlet box grey-cascade">
+           <div class="portlet box blue-madison">
                         <div class="portlet-title">
                             <div class="caption">
-                                    <i class="fa fa-globe"></i>Test
+                                    <i class="fa fa-file-text-o"></i>Test
                             </div>
                             <div class="tools">
                                    <a href="javascript:;" class="collapse" data-original-title="" title="">
@@ -59,18 +83,21 @@ $controller = new Esempio();
                     
                     <h3> Domanda 2 (aperta)</h3>
                     <div class="row">
-                    <div class="form-group">
+                    
                         <div class="col-md-6">
                         <textarea disabled="true" class="form-control" rows="3" style="resize:none">Risposta data dallo studente</textarea>
                         </div>
                         <div class="col-md-1">
-                            <textarea class="form-control" rows="1" style="resize:none"></textarea>
-                        </div>
-                        <div class="col-md-2">
-                            <label>/5</label>
+                            <select class="form-control">
+                                <option>0</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
                         </div>
                     </div>
-                        </div>
                     <h3> Domanda 3 (multipla)</h3>
                     <p><div class="checker disabled"><span><input type="checkbox" disabled="true"></span></div>Risposta 1</p>
                     <p><div class="checker disabled"><span><input type="checkbox" disabled="true"></span></div>Risposta 2</p>
