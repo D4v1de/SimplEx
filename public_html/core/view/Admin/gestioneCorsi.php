@@ -61,7 +61,7 @@ $controller = new CdlController();
             <!-- BEGIN PAGE CONTENT-->
 
 
-            <div class="portlet box blue">
+            <div class="portlet box blue-madison">
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="fa fa-globe"></i>Gestione dei Corsi

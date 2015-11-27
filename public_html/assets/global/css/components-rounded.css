@@ -6811,7 +6811,7 @@ Blue Madison
 /* Button */
 .blue-madison.btn {
   color: #FFFFFF;
-  background-color: #578ebe;
+  background-color: #668ec9;
 }
 .blue-madison.btn:hover, .blue-madison.btn:focus, .blue-madison.btn:active, .blue-madison.btn.active {
   color: #FFFFFF;
@@ -6832,22 +6832,22 @@ Blue Madison
   background-image: none;
 }
 .blue-madison.btn.disabled, .blue-madison.btn.disabled:hover, .blue-madison.btn.disabled:focus, .blue-madison.btn.disabled:active, .blue-madison.btn.disabled.active, .blue-madison.btn[disabled], .blue-madison.btn[disabled]:hover, .blue-madison.btn[disabled]:focus, .blue-madison.btn[disabled]:active, .blue-madison.btn[disabled].active, fieldset[disabled] .blue-madison.btn, fieldset[disabled] .blue-madison.btn:hover, fieldset[disabled] .blue-madison.btn:focus, fieldset[disabled] .blue-madison.btn:active, fieldset[disabled] .blue-madison.btn.active {
-  background-color: #578ebe;
+  background-color: #668ec9;
 }
 .blue-madison.btn .badge {
-  color: #578ebe;
+  color: #668ec9;
   background-color: #FFFFFF;
 }
 
 /* Button Strip */
 .btn.blue-madison-stripe {
-  border-left: 3px solid #578ebe;
+  border-left: 3px solid #668ec9;
 }
 
 /* Portlet */
 .portlet > .portlet-body.blue-madison,
 .portlet.blue-madison {
-  background-color: #578ebe;
+  background-color: #668ec9;
 }
 
 .portlet.solid.blue-madison > .portlet-title,
@@ -6885,7 +6885,7 @@ Blue Madison
   border-top: 0;
 }
 .portlet.box.blue-madison > .portlet-title {
-  background-color: #578ebe;
+  background-color: #668ec9;
 }
 .portlet.box.blue-madison > .portlet-title > .caption {
   color: #FFFFFF;
@@ -6909,7 +6909,7 @@ Blue Madison
 
 /* Statistic Block */
 .dashboard-stat.blue-madison {
-  background-color: #578ebe;
+  background-color: #668ec9;
 }
 .dashboard-stat.blue-madison.dashboard-stat-light:hover {
   background-color: #4884b8;
@@ -6934,19 +6934,19 @@ Blue Madison
 
 /* General Element */
 .bg-blue-madison {
-  border-color: #578ebe !important;
+  border-color: #668ec9 !important;
   background-image: none !important;
-  background-color: #578ebe !important;
+  background-color: #668ec9 !important;
   color: #FFFFFF !important;
 }
 
 /* General Text & Icon Font Colors */
 .font-blue-madison {
-  color: #578ebe !important;
+  color: #668ec9 !important;
 }
 
 .progress-bar.blue-madison {
-  background: #578ebe !important;
+  background: #668ec9 !important;
   color: #FFFFFF !important;
 }
 

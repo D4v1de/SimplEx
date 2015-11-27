@@ -88,7 +88,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
             <div class="row">
                 <div class="col-md-12">
                     <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                    <div class="portlet box blue">
+                    <div class="portlet box blue-madison">
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="fa fa-globe"></i>Crea nuovo Corso

@@ -77,7 +77,7 @@ switch (isset($_URL[0]) ? $_URL[0] : '') {
         include_once VIEW_DIR . "/Docente/SelezionaDomande.php";
         break;
     case 'aggiungistudentetest':
-        include_once VIEW_DIR . "/Docente/AggiungiStudenteTest.php";
+        include_once VIEW_DIR . "/Docente/AggiungiStudenteTest2.php";
         break;
     case 'eseguitest':
         include_once VIEW_DIR . "/Studente/EseguiTest.php";
