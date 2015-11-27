@@ -46,7 +46,7 @@
             expandBtnHTML   : '<button data-action="expand" type="button">Expand</button>',
             collapseBtnHTML : '<button data-action="collapse" type="button">Collapse</button>',
             group           : 0,
-            maxDepth        : 2,
+            maxDepth        : 1,
             threshold       : 20,
 
             //method for call when an item has been successfully dropped
@@ -62,6 +62,8 @@
         this.options = $.extend({}, defaults, options);
         this.init();
     }
+
+
 
     Plugin.prototype = {
 
@@ -108,6 +110,7 @@
                 }
                 e.preventDefault();
                 list.dragStart(hasTouch ? e.touches[0] : e);
+
             };
 
             var onMoveEvent = function(e)

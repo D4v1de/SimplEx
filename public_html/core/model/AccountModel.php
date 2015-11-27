@@ -53,6 +53,7 @@ class AccountModel extends Model {
         $qr = sprintf(self::$SELECT_UTENTE_MATRICOLA, $matricola);
 
         $res = Model::getDB()->query($qr);
+        print_r(Model::getDB()->error_list);
         return $this->parseUtente($res);
     }
 

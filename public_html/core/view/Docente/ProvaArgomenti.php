@@ -198,7 +198,7 @@ $controller = new Esempio();
                     <div class="portlet box blue">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-comments"></i>Test
+                                <i class="fa fa-pencil"></i>Test
                             </div>
                             <div class="tools">
                                 <a href="javascript:;" class="collapse" data-original-title="" title="">
@@ -211,6 +211,7 @@ $controller = new Esempio();
                                 Trascina le domande qui..
                                 <ol class="dd-list">
                                     <li class="dd-item" data-id="" >
+
                                     </li>
                                 </ol>
                             </div>
@@ -219,6 +220,21 @@ $controller = new Esempio();
                 </div>
 
             </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-10"></div>
+                    <div class="col-md-2">
+                        <a href="javascript:;" class="btn green-jungle">
+                            Crea Test <i class="fa fa-plus"></i>
+                        </a>
+                        <span class="help-block"> <br> </span>
+                    </div>
+                </div>
+            </div>
+
+
 
             <!-- END PAGE CONTENT-->
         </div>
@@ -246,6 +262,16 @@ $controller = new Esempio();
         UINestable.init();
 
     });
+
+    //CollapseAll all'avvio.
+    // PROBLEMA: se lo metto, funziona anche sull'altra tabella, non permettendomi di inserire nulla
+
+    /*
+    $('#nestable_list_1').nestable({
+    });
+    $('#nestable_list_1').nestable('collapseAll');
+    */
+
 </script>
 <!-- END JAVASCRIPTS -->
 </body>
