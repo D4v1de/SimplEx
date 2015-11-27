@@ -7,8 +7,30 @@
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "Esempio.php";
-$controller = new Esempio();
+include_once CONTROL_DIR . "CdlController.php";
+$controller = new CdlController();
+
+$array = $controller->readCorso($_URL[1]);
+
+$nome = $array->getNome();
+$tipologia = $array->getTipologia();
+$matricola = $array->getMatricola();
+$cdlmatricola = $array->getCdlMatricola();
+
+if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricola']) && isset($_POST['cdlmatricola'])) {
+
+    $nome = $_POST['nome'];
+    $tipologia = $_POST['tipologia'];
+    $matricola = $_POST['matricola'];
+    $cdlmatricola = $_POST['matricola'];
+
+    $corso = new Corso($matricola, $nome, $tipologia, $cdlmatricola);
+
+    $controller->modificaCdl($_URL[1], $cdl);
+
+    /*header('location: gestioneCdl.php');*/
+}
+
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>

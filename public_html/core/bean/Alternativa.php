@@ -23,7 +23,7 @@ class Alternativa {
      * @param float $percentualeScelta La percentuale di volte in cui è stata scelta
      * @param Enum $corretta Indica se l'alternativa è corretta
      **/
-    function __construct($id,$domandaMultiplaId, $domandaMultiplaArgomentoId, $domandaMultiplaArgomentoCorsoId,$testo, $percentualeScelta, $corretta) {
+    function __construct($id, $domandaMultiplaId, $domandaMultiplaArgomentoId, $domandaMultiplaArgomentoCorsoId, $testo, $percentualeScelta, $corretta) {
         $this->id = $id;
         $this->domandaMultiplaId = $domandaMultiplaId;
         $this->domandaMultiplaArgomentoId = $domandaMultiplaArgomentoId;

@@ -22,7 +22,7 @@ class DomandaAperta {
      * @param float $punteggioMax Il punteggio max della domanda
      * @param float $percentualeScelta La percentuale di volte in cui è stata scelta quella domanda
      */
-    function __construct($id,$argomentoId,$argomentoCorsoId, $testo, $punteggioMax, $percentualeScelta) {
+    function __construct($id, $argomentoId, $argomentoCorsoId, $testo, $punteggioMax, $percentualeScelta) {
         $this->id = $id;
         $this->argomentoId = $argomentoId;
         $this->argomentoCorsoId = $argomentoCorsoId;

@@ -60,7 +60,7 @@ $controller = new CdlController();
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
 
-            <div class="portlet box blue">
+            <div class="portlet box blue-madison">
                 <div class="portlet-title">
                     <div class="tools">
                         <a href="javascript:;" class="collapse" data-original-title="" title="">
@@ -108,7 +108,7 @@ $controller = new CdlController();
                                 foreach($array as $c) {
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
                                     printf("<td><input type=\"checkbox\" class=\"checkboxes\" value=\"1\"></td>");
-                                    printf("<td class=\"sorting_1\"><a href=\"\">%s</a></td>",$c->getNome());
+                                    printf("<td class=\"sorting_1\"><a href=\"modificacdl/%s\">%s</a></td>",$c->getMatricola() ,$c->getNome());
                                     printf("<td>%s</td>",$c->getMatricola());
                                     printf("<td><span class=\"label label-sm label-success\">%s</span></td>",$c->getTipologia());
                                     printf("</tr>");
