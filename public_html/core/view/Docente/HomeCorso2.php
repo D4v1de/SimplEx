@@ -60,32 +60,6 @@ $controller = new Esempio();
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="col-md-8"></div>
-                    <div class="col-md-4">
-                        <div class="col-md-6">
-                            <label class="control-label">Dal:</label>
-                                <div class="input-group date form_datetime">
-                                    <input type="text" size="16" readonly="" class="form-control"/>
-                                    <span class="input-group-btn">
-                                        <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
-                                    </span>
-                                </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="control-label">Al:</label>
-                                <div class="input-group date form_datetime">
-                                    <input type="text" size="16" readonly="" class="form-control"/>
-                                    <span class="input-group-btn">
-                                        <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
-                                    </span>
-                                </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br/>
             <div class="portlet box blue-madison">
                 <div class="portlet-title">
                     <div class="caption">
@@ -94,10 +68,10 @@ $controller = new Esempio();
                     <div class="tools">
                         <a href="javascript:;" class="collapse" data-original-title="" title="">
                         </a>
-                    </div>
+                    </div> 
                     <div class="actions">
                         <a href="creamodificasessione" class="btn btn-default btn-sm">
-                            <i class="fa fa-plus"></i> Add </a>
+                            <i class="fa fa-plus"></i> Crea Sessione </a>
                         <a href="javascript:;" class="btn btn-default btn-sm">
                             <i class="fa fa-print"></i> Print </a>
                     </div>
@@ -122,14 +96,14 @@ $controller = new Esempio();
                                                  Stato
                                         </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                                  Status
-                                        " style="width: 17%;">
+                                        " style="width: 20%;">
                                                  Azioni
                                         </th></tr>
                                 </thead>
                                 <tbody>
                                 <tr class="gradeX odd" role="row">
                                         <td class="sorting_1">
-                                            Sessione 1
+                                            <a>Sessione 1</a>
                                         </td>
                                         <td class="sorting_1">
                                             19/11/2015 16:00
@@ -141,9 +115,12 @@ $controller = new Esempio();
                                             <a href="visualizzaesitisessione" class="btn btn-sm default">
                                               Esiti
                                             </a>
-                                            <a href="javascript:;" class="btn btn-sm default">
-                                                <i class="fa fa-info-circle"></i>
-                                            </a>
+                                            <a href="javascript:;" class="btn btn-sm blue-madison">
+                                                <i class="fa fa-edit"></i>
+                                            </a>  
+                                            <a href="javascript:;" class="btn btn-sm red-intense">
+                                                <i class="fa fa-trash-o"></i>
+                                            </a>  
                                         </td>
 
                                 </tr>
@@ -161,8 +138,11 @@ $controller = new Esempio();
                                             <a href="visualizzaesitisessione" class="btn btn-sm default">
                                               Esiti
                                             </a>
-                                            <a href="javascript:;" class="btn btn-sm default">
-                                                <i class="fa fa-info-circle"></i>
+                                            <a href="javascript:;" class="btn btn-sm blue-madison">
+                                                <i class="fa fa-edit"></i>
+                                            </a> 
+                                            <a href="javascript:;" class="btn btn-sm red-intense">
+                                                <i class="fa fa-trash-o"></i>
                                             </a>
                                         </td>
 
@@ -178,11 +158,14 @@ $controller = new Esempio();
                                             Non Eseguita
                                         </td>
                                         <td class="center">
-                                            <a href="visualizzaesitisessione" class="btn btn-sm default" disabled="true">
+                                            <a href="visualizzaesitisessione" class="btn btn-sm default" disabled=true">
                                               Esiti
                                             </a>
-                                            <a href="javascript:;" class="btn btn-sm default">
-                                                <i class="fa fa-info-circle"></i>
+                                            <a href="javascript:;" class="btn btn-sm blue-madison">
+                                                <i class="fa fa-edit"></i>
+                                            </a> 
+                                            <a href="javascript:;" class="btn btn-sm red-intense">
+                                                <i class="fa fa-trash-o"></i>
                                             </a>
                                         </td>
 
@@ -206,7 +189,7 @@ $controller = new Esempio();
                     </div>
                     <div class="actions">
                         <a href="createst" class="btn btn-default btn-sm">
-                            <i class="fa fa-plus"></i> Add </a>
+                            <i class="fa fa-plus"></i> Crea Test </a>
                         <a href="javascript:;" class="btn btn-default btn-sm">
                             <i class="fa fa-print"></i> Print </a>
                     </div>
@@ -252,7 +235,7 @@ $controller = new Esempio();
                                             </th>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Status
-                                " style="width: 7%;">
+                                " style="width: 14%;">
                                                 Azioni
                                             </th>
 
@@ -283,9 +266,12 @@ $controller = new Esempio();
                                                 0%
                                             </td>
                                             <td class="center">
-                                                <a href="javascript:;" class="btn btn-sm default">
-                                                    <i class="fa fa-info-circle"></i>
-                                                </a>
+                                                <a href="javascript:;" class="btn btn-sm blue-madison">
+                                                <i class="fa fa-edit"></i>
+                                                </a>  
+                                                <a href="javascript:;" class="btn btn-sm red-intense">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </a> 
                                             </td>
                                         </tr>
 
@@ -313,9 +299,12 @@ $controller = new Esempio();
                                                 70%
                                             </td>
                                             <td class="center">
-                                                <a href="javascript:;" class="btn btn-sm default">
-                                                    <i class="fa fa-info-circle"></i>
-                                                </a>
+                                                <a href="javascript:;" class="btn btn-sm blue-madison">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>  
+                                                <a href="javascript:;" class="btn btn-sm red-intense">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </a> 
                                             </td>
                                         </tr>
 
@@ -342,9 +331,12 @@ $controller = new Esempio();
                                                 15%
                                             </td>
                                             <td class="center">
-                                                <a href="javascript:;" class="btn btn-sm default">
-                                                    <i class="fa fa-info-circle"></i>
-                                                </a>
+                                                <a href="javascript:;" class="btn btn-sm blue-madison">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>  
+                                                <a href="javascript:;" class="btn btn-sm red-intense">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </a> 
                                             </td>
                                         </tr>
                                 </tbody>
@@ -365,7 +357,7 @@ $controller = new Esempio();
                     </div>
                     <div class="actions">
                         <a href="inserisciargomento" class="btn btn-default btn-sm">
-                            <i class="fa fa-plus"></i> Add </a>
+                            <i class="fa fa-plus"></i> Aggiungi Argomento </a>
                         <a href="javascript:;" class="btn btn-default btn-sm">
                             <i class="fa fa-print"></i> Print </a>
                     </div>
@@ -387,7 +379,7 @@ $controller = new Esempio();
                                             </th>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Email
-                                " style="width: 17%;">
+                                " style="width: 14%;">
                                                 Azioni
                                             </th>
                                         </tr>
@@ -402,11 +394,11 @@ $controller = new Esempio();
                                                 34%
                                             </td>
                                             <td>
-                                                <a href="javascript:;" class="btn btn-sm red-intense">
-                                                     <i class="fa fa-minus"></i>
-                                                </a>
-                                                <a href="javascript:;" class="btn btn-sm default">
+                                                <a href="javascript:;" class="btn btn-sm blue-madison">
                                                      <i class="fa fa-edit"></i>
+                                                </a>
+                                                <a href="javascript:;" class="btn btn-sm red-intense">
+                                                     <i class="fa fa-trash-o"></i>
                                                 </a>
                                             </td>
                                         </tr>
@@ -420,11 +412,11 @@ $controller = new Esempio();
                                                 87%
                                             </td>
                                             <td>
-                                                <a href="javascript:;" class="btn btn-sm red-intense">
-                                                     <i class="fa fa-minus"></i>
-                                                </a>
-                                                <a href="javascript:;" class="btn btn-sm default">
+                                                <a href="javascript:;" class="btn btn-sm blue-madison">
                                                      <i class="fa fa-edit"></i>
+                                                </a>
+                                                <a href="javascript:;" class="btn btn-sm red-intense">
+                                                     <i class="fa fa-trash-o"></i>
                                                 </a>
                                             </td>                                            
                                         </tr>
@@ -437,11 +429,11 @@ $controller = new Esempio();
                                                 60%
                                             </td>
                                             <td>
-                                                <a href="javascript:;" class="btn btn-sm red-intense">
-                                                     <i class="fa fa-minus"></i>
-                                                </a>
-                                                <a href="javascript:;" class="btn btn-sm default">
+                                                <a href="javascript:;" class="btn btn-sm blue-madison">
                                                      <i class="fa fa-edit"></i>
+                                                </a>
+                                                <a href="javascript:;" class="btn btn-sm red-intense">
+                                                     <i class="fa fa-trash-o"></i>
                                                 </a>
                                             </td>
                                         </tr>
