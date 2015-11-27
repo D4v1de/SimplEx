@@ -23,8 +23,8 @@ class CdLModel extends Model {
      */
     public function createCdL($cdl) {
         $query = sprintf(self::$CREATE_CDL, $cdl->getMatricola(), $cdl->getNome(), $cdl->getTipologia());
-        $res = Model::getDB()->query($query);
-        if ($res->affected_rows==-1) {
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
         }
     }
@@ -37,8 +37,8 @@ class CdLModel extends Model {
      */
     public function updateCdL($matricola, $updatedCdl) {
         $query = sprintf(self::$UPDATE_CDL, $updatedCdl->getMatricola(), $updatedCdl->getNome(), $updatedCdl->getTipologia(), $matricola);
-        $res = Model::getDB()->query($query);
-        if ($res->affected_rows==-1) {
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
         }
     }
@@ -50,8 +50,8 @@ class CdLModel extends Model {
      */
     public function deleteCdL($matricola) {
         $query = sprintf(self::$DELETE_CDL, $matricola);
-        $res = Model::getDB()->query($query);
-        if ($res->affected_rows==-1) {
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
         }
     }
@@ -76,7 +76,6 @@ class CdLModel extends Model {
     /**
      * Restituisce tutti i corsi di laurea del database
      * @return CdL[] Tutti i corsi di laurea del database
-     * @throws ApplicationException
      */
     public function getAllCdL() {
         $res = Model::getDB()->query(self::$GET_ALL_CDLS);
@@ -85,10 +84,7 @@ class CdLModel extends Model {
             while ($obj = $res->fetch_assoc()) {
                 $cdls[] = new CdL($obj['matricola'], $obj['nome'], $obj['tipologia']);
             }
-            return $cdls;
         }
-        else{
-            throw new ApplicationException(Error::$CDL_NON_TROVATO);
-        }
+        return $cdls;
     }
 }

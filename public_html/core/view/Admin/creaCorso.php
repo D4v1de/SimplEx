@@ -7,8 +7,30 @@
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "Esempio.php";
-$controller = new Esempio();
+include_once CONTROL_DIR . "CdlController.php";
+$controller = new CdlController();
+
+print_r($_POST);
+
+if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricola']) && isset($_POST['cdlmatricola'])) {
+
+    echo "ricevo i parametri!";
+
+    $nome = $_POST['nome'];
+    $tipologia = $_POST['tipologia'];
+    $matricola = $_POST['matricola'];
+    $cdlMatricola = $_POST['cdlmatricola'];
+
+    $corso = new Corso($matricola, $nome, $tipologia, $cdlMatricola);
+
+    echo "oggetto creato!";
+
+    $controller->creaCorso($corso);
+
+    echo "corso inserito!";
+
+    /*header('location: gestioneCdl.php');*/
+}
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -62,7 +84,6 @@ $controller = new Esempio();
             <!-- BEGIN PAGE CONTENT-->
 
 
-
             <div class="row">
                 <div class="col-md-12">
                     <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -77,14 +98,24 @@ $controller = new Esempio();
                             </div>
                         </div>
                         <div class="portlet-body">
-                            <div class="table-scrollable">
 
-
+                            <form method="post" action="creacorso">
 
                                 <div class="portlet-body form">
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" id="form_control_1" placeholder="Inserisci nome">
+                                            <select class="form-control" id="tipologiaCorso" name="tipologia">
+                                                <option value="Semestrale">Semestrale</option>
+                                                <option value="Annuale">Annuale</option>
+                                            </select>
+                                            <div class="form-control-focus">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-md-line-input">
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" id="nomeCorso" name="nome"
+                                                   placeholder="Inserisci nome">
 
                                             <div class="form-control-focus">
                                             </div>
@@ -92,7 +123,8 @@ $controller = new Esempio();
                                     </div>
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" id="form_control_1" placeholder="Inserisci tipologia">
+                                            <input type="text" class="form-control" id="matricolaCorso" name="matricola"
+                                                   placeholder="Inserisci matricola">
 
                                             <div class="form-control-focus">
                                             </div>
@@ -100,21 +132,23 @@ $controller = new Esempio();
                                     </div>
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" id="form_control_1" placeholder="Inserisci matricola">
+                                            <input type="text" class="form-control" id="cdlmatricolaCorso" name="cdlmatricola"
+                                                   placeholder="Inserisci cdlmatricola">
 
                                             <div class="form-control-focus">
                                             </div>
                                         </div>
                                     </div>
+
 
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-actions">
                                                 <div class="col-md-3">
-                                                    <button type="button" class="btn green-jungle">Conferma</button>
+                                                    <button type="submit" class="btn green-jungle">Conferma</button>
                                                 </div>
                                                 <div class="col-md-offset-1 col-md-3">
-                                                    <button type="button" class="btn red-intense">Annulla</button>
+                                                    <button type="reset" class="btn red-intense">Annulla</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -122,10 +156,7 @@ $controller = new Esempio();
 
                                 </div>
 
-
-
-                            </div>
-
+                            </form>
 
 
                         </div>
@@ -133,7 +164,6 @@ $controller = new Esempio();
                     <!-- END EXAMPLE TABLE PORTLET-->
                 </div>
             </div>
-
 
 
             <!-- END PAGE CONTENT-->
@@ -153,7 +183,8 @@ $controller = new Esempio();
 <!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
 <script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<script type="text/javascript"
+        src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <!-- END PAGE LEVEL PLUGINS aggiunta da me-->
 
 <script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>
@@ -163,6 +194,7 @@ $controller = new Esempio();
 <!-- BEGIN aggiunta da me -->
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
 <!-- END aggiunta da me -->
+
 <script>
     jQuery(document).ready(function () {
         Metronic.init(); // init metronic core components
