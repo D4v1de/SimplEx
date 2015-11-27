@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: fede_dr
+ * User: Fabiano
  * Date: 23/11/15
  * Time: 21:59
  */
@@ -21,7 +21,7 @@ $controller = new Esempio();
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>Table</title>
+    <title>Nome Corso</title>
     <?php include VIEW_DIR . "header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
     <link rel="stylesheet" type="text/css"
@@ -41,7 +41,7 @@ $controller = new Esempio();
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                Home "Nome Corso"
+                Nome Corso
             </h3>
 
             <div class="page-bar">
@@ -91,15 +91,15 @@ $controller = new Esempio();
                     <div class="caption">
                         <i class="fa fa-files-o"></i>Sessioni
                     </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse" data-original-title="" title="">
+                        </a>
+                    </div>
                     <div class="actions">
                         <a href="creamodificasessione" class="btn btn-default btn-sm">
                             <i class="fa fa-plus"></i> Add </a>
                         <a href="javascript:;" class="btn btn-default btn-sm">
                             <i class="fa fa-print"></i> Print </a>
-                    </div>
-                    <div class="tools">
-                        <a href="javascript:;" class="collapse" data-original-title="" title="">
-                        </a>
                     </div>
                 </div>
                 <div class="portlet-body">
@@ -202,15 +202,15 @@ $controller = new Esempio();
                     <div class="caption">
                         <i class="fa fa-file-text-o"></i>Test
                     </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse" data-original-title="" title="">
+                        </a>
+                    </div>
                     <div class="actions">
                         <a href="createst" class="btn btn-default btn-sm">
                             <i class="fa fa-plus"></i> Add </a>
                         <a href="javascript:;" class="btn btn-default btn-sm">
                             <i class="fa fa-print"></i> Print </a>
-                    </div>
-                    <div class="tools">
-                        <a href="javascript:;" class="collapse" data-original-title="" title="">
-                        </a>
                     </div>
                 </div>
                 <div class="portlet-body">
@@ -363,15 +363,15 @@ $controller = new Esempio();
                     <div class="caption">
                         <i class="fa fa-book"></i>Argomenti
                     </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse" data-original-title="" title="">
+                        </a>
+                    </div>
                     <div class="actions">
                         <a href="inserisciargomento" class="btn btn-default btn-sm">
                             <i class="fa fa-plus"></i> Add </a>
                         <a href="javascript:;" class="btn btn-default btn-sm">
                             <i class="fa fa-print"></i> Print </a>
-                    </div>
-                    <div class="tools">
-                        <a href="javascript:;" class="collapse" data-original-title="" title="">
-                        </a>
                     </div>
                 </div>
                 <div class="portlet-body">
