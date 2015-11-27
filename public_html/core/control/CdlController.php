@@ -52,23 +52,42 @@ class CdlController extends Controller {
 
     /**
      * Modifica un cdl
-     * @param matricola CdL da modificare
+     * @param la matricola del CdL da modificare
      * @param un CdL modificato
      */
     public function modificaCdl($matricola, $cdl){
         $cdlModel = new CdLModel();
-        $oldCdl = $cdlModel->readCdL($matricola);
-        $cdlModel->updateCdL($oldCdl->getMatricola(), $cdl);
+        $cdlModel->updateCdL($matricola, $cdl);
+    }
+
+    /**
+     * Restituisco un cdl
+     * @param matricola CdL
+     * @return CdL con la matricola specificata
+     */
+    public function readCdl($matricola) {
+        $cdlModel = new CdLModel();
+        return $cdlModel->readCdL($matricola);
     }
 
     /**
      * Modifica un corso
+     * @param la matricola del Corso da modificare
      * @param un Corso
      */
     public function modificaCorso($matricola, $corso){
         $corsoModel = new CorsoModel();
-        $oldCorso = $corsoModel->readCorso($matricola);
-        $corsoModel->updateCorso($oldCorso->getMatricola(), $corso);
+        $corsoModel->updateCorso($matricola, $corso);
+    }
+
+    /**
+     * Restituisco un Corso
+     * @param matricola del Corso
+     * @return il Corso con la matricola specificata
+     */
+    public function readCorso($matricola) {
+        $corsoModel = new CorsoModel();
+        return $corsoModel->readCorso($matricola);
     }
 
     /**

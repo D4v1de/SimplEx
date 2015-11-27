@@ -89,9 +89,6 @@ switch (isset($_URL[0]) ? $_URL[0] : '') {
         include_once VIEW_DIR . "/Studente/HomeCorso.php";
         break;
     case 'homecorsodocente':
-        include_once VIEW_DIR . "/Docente/HomeCorso.php";
-        break;
-    case 'homecorsodocente2':
         include_once VIEW_DIR . "/Docente/HomeCorso2.php";
         break;
     case 'visualizzaesitisessione':
