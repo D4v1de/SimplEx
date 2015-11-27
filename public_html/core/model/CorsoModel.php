@@ -1,7 +1,7 @@
 <?php
 include_once MODEL_DIR . "Model.php";
 include_once BEAN_DIR . "Corso.php";
-include_once BEAN_DIR . "Insegnamento.php";
+//include_once BEAN_DIR . "Insegnamento.php";
 
 /**
  * Created by PhpStorm.
@@ -90,7 +90,7 @@ class CorsoModel extends Model {
         $corsi = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $corsi[] = new Corso($obj['matricola'],$obj['nome'],$obj['tipologia'],$obj['cdl_matricola']);
+                $corsi[] = new Corso($obj['id'], $obj['matricola'],$obj['nome'],$obj['tipologia'],$obj['cdl_matricola']);
             }
         }
         return $corsi;

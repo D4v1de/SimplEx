@@ -61,7 +61,7 @@ $controller = new CdlController();
             <!-- BEGIN PAGE CONTENT-->
 
 
-            <div class="portlet box grey-cascade">
+            <div class="portlet box blue">
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="fa fa-globe"></i>Gestione dei Corsi
@@ -115,7 +115,7 @@ $controller = new CdlController();
                                     printf("<td><input type=\"checkbox\" class=\"checkboxes\" value=\"1\"></td>");
                                     printf("<td class=\"sorting_1\">%s</td>",$c->getMatricola());
                                     printf("<td class=\"sorting_1\"><a href=\"\">%s</a></td>",$c->getNome());
-                                    printf("<td>%s</td>",$c->getTipologia());
+                                    printf("<td><span class=\"label label-sm label-success\">%s</span></td>",$c->getTipologia());
                                     printf("<td>%s</td>",$c->getCdlMatricola());
                                     printf("</tr>");
                                     }
