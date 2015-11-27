@@ -109,9 +109,9 @@ $controller = new Esempio();
                                    id="tabella_sessioni" role="grid" aria-describedby="tabella_sessioni_info">
                                 <thead>
                         <tr role="row">
-                                <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
-                                         Username
-                                : activate to sort column ascending" style="width: 119px;">
+                            <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                         sortAscending
+                                " style="width: 210px;">
                                          Nome
                                 </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Email
@@ -123,13 +123,13 @@ $controller = new Esempio();
                                          Stato
                                 </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Status
-                                " style="width: 15%;">
+                                " style="width: 17%;">
                                          Azioni
                                 </th></tr>
                         </thead>
                         <tbody>
                         <tr class="gradeX odd" role="row">
-                                <td>
+                                <td class="sorting_1">
                                     Sessione 1
                                 </td>
                                 <td class="sorting_1">
@@ -149,7 +149,7 @@ $controller = new Esempio();
 
                         </tr>
                         <tr class="gradeX even" role="row">
-                                <td>
+                                <td class="sorting_1">
                                     Sessione 2
                                 </td>
                                 <td class="sorting_1">
@@ -169,7 +169,7 @@ $controller = new Esempio();
 
                         </tr>
                         <tr class="gradeX even" role="row">
-                                <td>
+                                <td class="sorting_1">
                                     Sessione 3
                                 </td>
                                 <td class="sorting_1">
@@ -392,7 +392,7 @@ $controller = new Esempio();
                                             </th>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Email
-                                " style="width: 15%;">
+                                " style="width: 17%;">
                                                 Azioni
                                             </th>
                                         </tr>

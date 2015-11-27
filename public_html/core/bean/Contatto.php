@@ -2,24 +2,34 @@
 
 /**
  * User: Elvira
- * Date: 20/11/15
- * Time: 16:28
+ * Date: 27/11/15
+ * Time: 09:00
  */
 class Contatto {
+    private $id;
     private $valore;
     private $tipologia;
-    private $docenteMatricola;
+    private $utenteMatricola;
 
     /**
      * Costruttore di Contatto.
+     * @param int $id L'id del contatto
      * @param string $valore Il valore del contatto
      * @param enum $tipologia La tipologia del contatto
-     * @param string $docenteMatricola La matricola del docente a cui appartiene il contatto
+     * @param string $utenteMatricola La matricola dell'utente a cui appartiene il contatto
      */
-    public function __construct($valore, $tipologia, $docenteMatricola) {
+    public function __construct($id, $valore, $tipologia, $utenteMatricola) {
+        $this->id = $id;
         $this->valore = $valore;
         $this->tipologia = $tipologia;
-        $this->docenteMatricola = $docenteMatricola;
+        $this->utenteMatricola = $utenteMatricola;
+    }
+    
+    /**
+     * @return int L'id del contatto
+     */
+    public function getId() {
+        return $this->id;
     }
     
     /**
@@ -37,10 +47,18 @@ class Contatto {
     }
 
     /**
-     * @return string La matricola del docente a cui appartiene il contatto
+     * @return string La matricola dell'utente a cui appartiene il contatto
      */
-    public function getDocenteMatricola() {
-        return $this->docenteMatricola;
+    public function getUtenteMatricola() {
+        return $this->utenteMatricola;
+    }
+    
+    /**
+     * Setta l'id del contatto
+     * @param int $id L'id del contatto
+     */
+    public function setId($id) {
+        $this->id = $id;
     }
     
     /**
@@ -60,10 +78,10 @@ class Contatto {
     }
     
     /**
-     * Setta la matricola del docente a cui appartiene il contatto
-     * @param string $docenteMatricola La matricola del docente a cui appartiene il contatto
+     * Setta la matricola dell'utente a cui appartiene il contatto
+     * @param string $utenteMatricola La matricola dell'utente a cui appartiene il contatto
      */
-    public function setDocenteMatricola($docenteMatricola) {
-        $this->docenteMatricola = $docenteMatricola;
+    public function setUtenteMatricola($utenteMatricola) {
+        $this->utenteMatricola = $utenteMatricola;
     }
 }
