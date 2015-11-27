@@ -20,8 +20,9 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     $tipologia = $_POST['tipologia'];
     $matricola = $_POST['matricola'];
     $cdlMatricola = $_POST['cdlmatricola'];
+    $id = 0;
 
-    $corso = new Corso($matricola, $nome, $tipologia, $cdlMatricola);
+    $corso = new Corso($id, $matricola, $nome, $tipologia, $cdlMatricola);
 
     echo "oggetto creato!";
 
@@ -87,7 +88,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
             <div class="row">
                 <div class="col-md-12">
                     <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                    <div class="portlet box grey-cascade">
+                    <div class="portlet box blue">
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="fa fa-globe"></i>Crea nuovo Corso

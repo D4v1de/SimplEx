@@ -60,7 +60,7 @@ $controller = new CdlController();
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
 
-            <div class="portlet box grey-cascade">
+            <div class="portlet box blue">
                 <div class="portlet-title">
                     <div class="tools">
                         <a href="javascript:;" class="collapse" data-original-title="" title="">
