@@ -24,13 +24,13 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     $nome = $_POST['nome'];
     $tipologia = $_POST['tipologia'];
     $matricola = $_POST['matricola'];
-    $cdlmatricola = $_POST['matricola'];
+    $cdlmatricola = $_POST['cdlmatricola'];
 
     $corso = new Corso($_URL[1], $matricola, $nome, $tipologia, $cdlmatricola);
 
     $controller->modificaCorso($_URL[1], $corso);
 
-    /*header('location: gestioneCdl.php');*/
+    header('location: ../gestionecorsi');
 }
 
 ?>

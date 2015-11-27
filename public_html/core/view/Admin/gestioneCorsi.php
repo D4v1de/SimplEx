@@ -10,6 +10,19 @@
 include_once CONTROL_DIR . "CdlController.php";
 $controller = new CdlController();
 
+if (isset($_POST['checkbox'])) {
+    $checkbox = $_POST['checkbox'];
+    if (count($checkbox) == 1) {
+        $controller->eliminaCorso($checkbox[0]);
+    } else if (count($checkbox) > 1) {
+        foreach ($checkbox as $c) {
+            $controller->eliminaCorso($c);
+        }
+    } else if (count($checkbox) < 1) {
+        echo "errore nessun elemento da eliminare!";
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -25,7 +38,8 @@ $controller = new CdlController();
     <title>Gestione Corsi</title>
     <?php include VIEW_DIR . "header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
-    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css"
+          href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -60,73 +74,87 @@ $controller = new CdlController();
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
 
+            <form method="post" action="gestionecorsi">
 
-            <div class="portlet box blue-madison">
-                <div class="portlet-title">
-                    <div class="caption">
-                        <i class="fa fa-globe"></i>Gestione dei Corsi
-                    </div>
-                    <div class="tools">
-                        <a href="javascript:;" class="collapse" data-original-title="" title="">
-                        </a>
-                    </div>
-                    <div class="actions">
-                        <a href="creacorso" class="btn btn-default btn-sm">
-                            <i class="fa fa-pencil"></i> Crea nuovo Corso </a>
-                    </div>
-                </div>
-                <div class="portlet-body">
-                    <div id="tabella_2_wrapper" class="dataTables_wrapper no-footer">
-                        <div class="table-scrollable">
-                            <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                   id="tabella_2" role="grid" aria-describedby="tabella_2_info">
-                                <thead>
-                                <tr role="row">
-                                    <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label=""
-                                        style="width: 24px;">
-                                        <input type="checkbox" class="group-checkable" data-set="#tabella_2 .checkboxes">
-                                    </th>
-                                    <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                        colspan="1" aria-label="Username: activate to sort column ascending"
-                                        aria-sort="ascending" style="width: 78px;">
-                                        Matricola
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1"
-                                        aria-label="Email: activate to sort column ascending" style="width: 137px;">
-                                        Nome
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1"
-                                        aria-label="Status: activate to sort column ascending" style="width: 36px;">
-                                        Tipologia
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1"
-                                        aria-label="Status: activate to sort column ascending" style="width: 36px;">
-                                        Matricola CdL
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php
-                                $array = Array();
-                                $array = $controller->getCorsi();
-                                if($array == null){echo "l'array è null";}
-                                foreach($array as $c) {
-                                    printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    printf("<td><input type=\"checkbox\" class=\"checkboxes\" value=\"1\"></td>");
-                                    printf("<td class=\"sorting_1\">%s</td>",$c->getMatricola());
-                                    printf("<td class=\"sorting_1\"><a href=\"modificacorso/%s\">%s</a></td>",$c->getId() ,$c->getNome());
-                                    printf("<td><span class=\"label label-sm label-success\">%s</span></td>",$c->getTipologia());
-                                    printf("<td>%s</td>",$c->getCdlMatricola());
-                                    printf("</tr>");
-                                    }
-                                ?>
-                                </tbody>
-                            </table>
+                <div class="portlet box blue-madison">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-university"></i>Gestione dei Corsi
                         </div>
+                        <div class="tools">
+                            <a href="javascript:;" class="collapse" data-original-title="" title="">
+                            </a>
+                        </div>
+                        <div class="actions">
+                            <a href="creacorso" class="btn btn-default btn-sm">
+                                <i class="fa fa-plus"></i> Crea Corso </a>
+                        </div>
+                        <div class="actions">
+                            <button type="submit" class="btn btn-default btn-sm">
+                                <i class="fa fa-minus"></i> Elimina Corso
+                            </button>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div id="tabella_2_wrapper" class="dataTables_wrapper no-footer">
+                            <div class="table-scrollable">
+                                <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                                       id="tabella_2" role="grid" aria-describedby="tabella_2_info">
+                                    <thead>
+                                    <tr role="row">
+                                        <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1"
+                                            aria-label=""
+                                            style="width: 24px;">
+                                            <input type="checkbox" class="group-checkable"
+                                                   data-set="#tabella_2 .checkboxes">
+                                        </th>
+                                        <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                            colspan="1" aria-label="Username: activate to sort column ascending"
+                                            aria-sort="ascending" style="width: 78px;">
+                                            Matricola
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                            colspan="1"
+                                            aria-label="Email: activate to sort column ascending" style="width: 137px;">
+                                            Nome
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                            colspan="1"
+                                            aria-label="Status: activate to sort column ascending" style="width: 36px;">
+                                            Tipologia
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                            colspan="1"
+                                            aria-label="Status: activate to sort column ascending" style="width: 36px;">
+                                            Matricola CdL
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    $array = Array();
+                                    $array = $controller->getCorsi();
+                                    if ($array == null) {
+                                        echo "l'array è null";
+                                    }
+                                    foreach ($array as $c) {
+                                        printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                        printf("<td><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $c->getId());
+                                        printf("<td class=\"sorting_1\">%s</td>", $c->getMatricola());
+                                        printf("<td class=\"sorting_1\"><a href=\"modificacorso/%s\">%s</a></td>", $c->getId(), $c->getNome());
+                                        printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
+                                        printf("<td>%s</td>", $c->getCdlMatricola());
+                                        printf("</tr>");
+                                    }
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </div>
 
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
 
 
             <!-- END PAGE CONTENT-->
@@ -146,7 +174,8 @@ $controller = new CdlController();
 <!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
 <script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<script type="text/javascript"
+        src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <!-- END PAGE LEVEL PLUGINS aggiunta da me-->
 
 <script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>
@@ -162,7 +191,7 @@ $controller = new CdlController();
         Layout.init(); // init current layout
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
-        TableManaged.init("tabella_2","tabella_2_wrapper");
+        TableManaged.init("tabella_2", "tabella_2_wrapper");
     });
 </script>
 <!-- END JAVASCRIPTS -->

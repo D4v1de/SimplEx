@@ -71,6 +71,15 @@ class CdlController extends Controller {
     }
 
     /**
+     * Elimino un Corso
+     * @param ID di un Corso
+     */
+    public function eliminaCdl($matricola) {
+        $cdlModel = new CdLModel();
+        $cdlModel->deleteCdL($matricola);
+    }
+
+    /**
      * Modifica un corso
      * @param la matricola del Corso da modificare
      * @param un Corso
@@ -97,6 +106,15 @@ class CdlController extends Controller {
     public function visualizzaCorso($corso) {
         $corsoModel = new CorsoModel();
         $corsoModel->readCorso($corso->getMatricola());
+    }
+
+    /**
+     * Elimino un Corso
+     * @param ID di un Corso
+     */
+    public function eliminaCorso($id) {
+        $corsoModel = new CorsoModel();
+        $corsoModel->deleteCorso($id);
     }
 
     /**

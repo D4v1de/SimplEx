@@ -10,11 +10,7 @@
 include_once CONTROL_DIR . "CdlController.php";
 $controller = new CdlController();
 
-print_r($_POST);
-
 if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricola']) && isset($_POST['cdlmatricola'])) {
-
-    echo "ricevo i parametri!";
 
     $nome = $_POST['nome'];
     $tipologia = $_POST['tipologia'];
@@ -23,13 +19,9 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 
     $corso = new Corso($id, $matricola, $nome, $tipologia, $cdlMatricola);
 
-    echo "oggetto creato!";
-
     $controller->creaCorso($corso);
 
-    echo "corso inserito!";
-
-    /*header('location: gestioneCdl.php');*/
+    header('location: ../gestionecorsi');
 }
 ?>
 <!DOCTYPE html>

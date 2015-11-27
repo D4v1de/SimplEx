@@ -26,7 +26,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 
     $controller->modificaCdl($_URL[1], $cdl);
 
-    /*header('location: gestioneCdl.php');*/
+    header('location: ../gestionecdl');
 }
 ?>
 <!DOCTYPE html>
