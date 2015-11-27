@@ -2,39 +2,46 @@
 
 /**
  * User: Elvira
- * Date: 22/11/15
- * Time: 17:20
+ * Date: 27/11/15
+ * Time: 09:10
  */
 class Utente {
+    private $matricola;
     private $username;
     private $password;
-    private $matricola;
+    private $tipologia;
     private $nome;
     private $cognome;
-    private $tipologia;
     private $cdlMatricola;
 
     /**
      * Costruttore di Utente
+     * @param string $matricola La matricola dell'utente
      * @param string $username L'username dell'utente
      * @param string $password La password dell'utente
-     * @param string $matricola La matricola dell'utente
+     * @param enum $tipologia La tipologia di utente
      * @param string $nome Il nome dell'utente
      * @param string $cognome Il cognome dell'utente
-     * @param string $tipologia La tipologia di utente
      * @param string $cdlMatricola La matricola del corso di laurea a cui è iscritto l'utente Studente
      */
-    public function __construct($username, $password, $matricola, $nome, $cognome, $tipologia, $cdlMatricola) {
+    public function __construct($matricola, $username, $password, $tipologia, $nome, $cognome, $cdlMatricola) {
 
-            $this->username=$username;
-        $this->password=$password;
         $this->matricola=$matricola;
+        $this->username=$username;
+        $this->password=$password;
+        $this->tipologia=$tipologia;
         $this->nome=$nome;
         $this->cognome=$cognome;
-        $this->tipologia=$tipologia;
         $this->cdlMatricola=$cdlMatricola;
     }
 
+    /**
+     * @return string La matricola
+     */
+    public function getMatricola() {
+        return $this->matricola;
+    }
+    
     /**
      * @return String L'username dell'utente
      */
@@ -50,10 +57,10 @@ class Utente {
     }
 
     /**
-     * @return string La matricola
+     * @return enum La tipologia dell'utente
      */
-    public function getMatricola() {
-        return $this->matricola;
+    public function getTipologia() {
+        return $this->tipologia;
     }
 
     /**
@@ -71,19 +78,20 @@ class Utente {
     }
     
     /**
-     * @return string La tipologia dell'utente
-     */
-    public function getTipologia() {
-        return $this->tipologia;
-    }
-
-    /**
      * @return string La matricola del corso di laurea a cui è iscritto l'utente Studente
      */
     public function getCdlMatricola() {
         return $this->cdlMatricola;
     }
-
+    
+    /**
+     * Setta la matricola dell'utente
+     * @param string $matricola La matricola dell'utente
+     */
+    public function setMatricola($matricola) {
+        $this->matricola = $matricola;
+    }
+    
     /**
      * Setta l'username dell'utente
      * @param string $username L'username dell'utente
@@ -101,11 +109,11 @@ class Utente {
     }
 
     /**
-     * Setta la matricola dell'utente
-     * @param string $matricola La matricola dell'utente
+     * Setta la tipologia dell'utente
+     * @param enum $tipologia La tipologia dell'utente
      */
-    public function setMatricola($matricola) {
-        $this->matricola = $matricola;
+    public function setTipologia($tipologia) {
+        $this->tipologia = $tipologia;
     }
     
     /**
@@ -122,14 +130,6 @@ class Utente {
      */
     public function setCognome($cognome) {
         $this->cognome = $cognome;
-    }
-
-    /**
-     * Setta la tipologia dell'utente
-     * @param enum $tipologia La tipologia dell'utente
-     */
-    public function setTipologia($tipologia) {
-        $this->tipologia = $tipologia;
     }
 
     /**

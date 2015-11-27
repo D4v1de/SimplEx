@@ -2,28 +2,25 @@
 
 /**
  * User: Dario
- * Date: 20/11/15
- * Time: 09:28
+ * Date: 27/11/15
+ * Time: 09:54
  */
 
 class Argomento {
     private $id;
+    private $corsoId;
     private $nome;
-    private $insegnamentoId;
-    private $insegnamentoCorsoMatricola;
 
     /**
      * Costruttore di Argomento
      * @param int $id L'id dell'argomento
-     * @param string $nome $nome Il nome dell'argomento
-     * @param int $insegnamentoId L'id dell'insegnamento a cui appartiene l'argomento
-     * @param string $insegnamentoCorsoMatricola La matricola del corso a cui appartiene l'insegnamento relativo all'argomento
+     * @param string $corsoId L'id del corso a cui appartiene l'argomento
+     * @param string $nome Il nome dell'argomento
      */
-    public function __construct($id, $nome, $insegnamentoId, $insegnamentoCorsoMatricola){
+    public function __construct($id, $corsoId, $nome){
             $this->id = $id;
+            $this->corsoId = $corsoId;
             $this->nome = $nome;
-            $this->insegnamentoId = $insegnamentoId;
-            $this->insegnamentoCorsoMatricola= $insegnamentoCorsoMatricola;
     }
 
     /**
@@ -32,26 +29,19 @@ class Argomento {
     function getId() {
         return $this->id;
     }
-
+    
+    /**
+     * @return int L'id del corso a cui appartiene
+     */
+    function getCorsoId() {
+        return $this->corsoId;
+    }
+    
     /**
      * @return String Il nome dell'argomento
      */
     public function getNome() {
             return $this->nome;
-    }
-
-    /**
-     * @return int L'id dell'insegnamento a cui appartiene
-     */
-    function getInsegnamentoId() {
-        return $this->insegnamentoId;
-    }
-
-    /**
-     * @return String La matricola del corso a cui l'insegnamento relativo appartiene
-     */
-    function getInsegnamentoCorsoMatricola() {
-        return $this->insegnamentoCorsoMatricola;
     }
 
     /**
@@ -61,28 +51,20 @@ class Argomento {
     function setId($id) {
         $this->id = $id;
     }
-
+    
+    /**
+     * Setta l'id del corso a cui appartiene
+     * @param int $corsoId L'id del corso a cui appartiene
+     */
+    function setCorsoId($corsoId) {
+        $this->corsoId = $corsoId;
+    }
+    
     /**
      * Setta il nome dell'argomento
      * @param string $nome Il nome dell'argomento
      */
     public function setNome($nome){
             $this->nome = $nome;
-    }
-
-    /**
-     * Setta l'id dell'insegnamento a cui appartiene
-     * @param int $insegnamentoId L'id dell'insegnamento a cui appartiene
-     */
-    function setInsegnamentoId($insegnamentoId) {
-        $this->insegnamentoId = $insegnamentoId;
-    }
-
-    /**
-     * Setta l'id del corso a cui l'insegnamento relativo appartiene
-     * @param string $insegnamentoCorsoMatricola L'id del corso a cui l'insegnamento relativo appartiene
-     */
-    function setInsegnamentoCorsoMatricola($insegnamentoCorsoMatricola) {
-        $this->insegnamentoCorsoMatricola = $insegnamentoCorsoMatricola;
     }
 }
