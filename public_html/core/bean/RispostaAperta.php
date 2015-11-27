@@ -2,8 +2,8 @@
 
 /**
  * User: Giuseppina
- * Date: 20/11/15
- * Time: 12:48
+ * Date: 27/11/15
+ * Time: 10:36
  */
 class RispostaAperta {
     private $id;
@@ -13,8 +13,7 @@ class RispostaAperta {
     private $punteggio;
     private $domandaApertaId;
     private $domandaApertaArgomentoId;
-    private $domandaApertaArgomentoInsegnamentoId;
-    private $domandaApertaArgomentoInsegnamentoCorsoMatricola;
+    private $domandaApertaArgomentoCorsoId;
     
     /**
      * Costruttore di Risposta_multipla
@@ -24,10 +23,10 @@ class RispostaAperta {
      * @param string $testo Il testo della risposta aperta
      * @param int $domandaApertaId L'id della domanda aperta a cui si riferisce
      * @param int $domandaApertaArgomentoId L'id dell'argomento della domanda aperta
-     * @param int $domandaApertaArgomentoInsegnamentoId L'id dell'insegnamento dell'argomento della domanda aperta
-     * @param string $domandaApertaArgomentoInsegnamentoCorsoMatricola La matricola del corso dell'insegnamento a cui l'argomento appartiene
+     * @param int $domandaApertaArgomentoCorsoId L'id del corso a cui appartiene l'argomento relativo alla domanda aperta
      */
-    public function __construct($id, $elaboratoSessioneId, $elaboratoStudenteMatricola, $testo, $punteggio, $domandaApertaId, $domandaApertaArgomentoId,$domandaApertaArgomentoInsegnamentoId, $domandaApertaArgomentoInsegnamentoCorsoMatricola){
+    public function __construct($id, $elaboratoSessioneId, $elaboratoStudenteMatricola, $testo, $punteggio, $domandaApertaId, 
+            $domandaApertaArgomentoId,$domandaApertaArgomentoCorsoId){
         $this->id=$id;
         $this->elaboratoSessioneId=$elaboratoSessioneId;
         $this->elaboratoStudenteMatricola=$elaboratoStudenteMatricola;
@@ -35,8 +34,7 @@ class RispostaAperta {
         $this->punteggio=$punteggio;
         $this->domandaApertaId=$domandaApertaId;
         $this->domandaApertaArgomentoId=$domandaApertaArgomentoId;
-        $this->domandaApertaArgomentoInsegnamentoId=$domandaApertaArgomentoInsegnamentoId;
-        $this->domandaApertaArgomentoInsegnamentoCorsoMatricola=$domandaApertaArgomentoInsegnamentoCorsoMatricola;
+        $this->domandaApertaArgomentoCorsoId=$domandaApertaArgomentoCorsoId;
     } 
     
     /**
@@ -89,17 +87,10 @@ class RispostaAperta {
     }
     
      /**
-     * @return int L'id dell'insegnamento dell'argomento a cui la domanda aperta appartiene
+     * @return int L'id del corso a cui appartiene l'argomento relativo alla domanda aperta
      */
-    function getDomandaApertaArgomentoInsegnamentoId() {
-        return $this->domandaApertaArgomentoInsegnamentoId;
-    }
-
-    /**
-     * @return string La matricola del corso dell'insegnamento a cui la domanda aperta appartiene
-     */
-    function getDomandaApertaArgomentoInsegnamentoCorsoMatricola() {
-        return $this->domandaApertaArgomentoInsegnamentoCorsoMatricola;
+    function getDomandaApertaArgomentoCorsoId() {
+        return $this->domandaApertaArgomentoCorsoId;
     }
 
     /**
@@ -143,19 +134,11 @@ class RispostaAperta {
     }
 
     /**
-     * Setta l'id dell'insegnamento a cui appartiene l'argomento relativo alla domanda
-     * @param int $domandaApertaArgomentoInsegnamentoId L'id dell'insegnamento a cui appartiene l'argomento relativo alla domanda
+     * Setta l'id del corso a cui appartiene l'argomento relativo alla domanda aperta
+     * @param int $domandaApertaArgomentoCorsoId L'id del corso a cui appartiene l'argomento relativo alla domanda aperta
      */
-    function setDomandaApertaArgomentoInsegnamentoId($domandaApertaArgomentoInsegnamentoId) {
-        $this->domandaApertaArgomentoInsegnamentoId = $domandaApertaArgomentoInsegnamentoId;
-    }
-
-    /**
-     * Setta la matricola del corso dell'insegnamento a cui appartiene l'argomento relativo alla domanda
-     * @param string $domandaApertaArgomentoInsegnamentoCorsoMatricola La matricola del corso dell'insegnamento a cui appartiene l'argomento relativo alla domanda
-     */
-    function setDomandaApertaArgomentoInsegnamentoCorsoMatricola($domandaApertaArgomentoInsegnamentoCorsoMatricola) {
-        $this->domandaApertaArgomentoInsegnamentoCorsoMatricola = $domandaApertaArgomentoInsegnamentoCorsoMatricola;
+    function setDomandaApertaArgomentoCorsoId($domandaApertaArgomentoCorsoId) {
+        $this->domandaApertaArgomentoCorsoId = $domandaApertaArgomentoCorsoId;
     }
 }
     

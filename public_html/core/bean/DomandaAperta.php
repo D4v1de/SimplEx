@@ -2,36 +2,33 @@
 
 /**
  * User: Alina
- * Date: 20/11/15
- * Time: 09:30
+ * Date: 27/11/15
+ * Time: 10:00
  */
 class DomandaAperta {
     private $id;
+    private $argomentoId;
+    private $argomentoCorsoId;
     private $testo;
     private $punteggioMax;
     private $percentualeScelta;
-    private $argomentoId;
-    private $argomentoInsegnamentoId;
-    private $argomentoInsegnamentoCorsoMatricola;
     
     /**
-     * DomandaAperta constructor.
+     * Costruttore di DomandaAperta.
      * @param int $id L'id della domanda
+     * @param int $argomentoId L'id dell'argomento a cui appartiene la domanda
+     * @param int $argomentoCorsoId L'id dell'insegnamento a cui appartiene l'argomento relativo
      * @param string $testo Il testo della domanda
      * @param float $punteggioMax Il punteggio max della domanda
      * @param float $percentualeScelta La percentuale di volte in cui è stata scelta quella domanda
-     * @param int $argomentoId L'id dell'argomento a cui appartiene la domanda
-     * @param int $argomentoInsegnamentoId L'id dell'insegnamento a cui appartiene l'argomento relativo
-     * @param string $argomentoInsegnamentoCorsoMatricola La matricola del corso a cui appartiene l'insegnamento relativo all'argomento di riferimento
      */
-    function __construct($id, $testo, $punteggioMax, $percentualeScelta, $argomentoId, $argomentoInsegnamentoId, $argomentoInsegnamentoCorsoMatricola) {
+    function __construct($id, $argomentoId, $argomentoCorsoId, $testo, $punteggioMax, $percentualeScelta) {
         $this->id = $id;
+        $this->argomentoId = $argomentoId;
+        $this->argomentoCorsoId = $argomentoCorsoId;
         $this->testo = $testo;
         $this->punteggioMax = $punteggioMax;
         $this->percentualeScelta = $percentualeScelta;
-        $this->argomentoId = $argomentoId;
-        $this->argomentoInsegnamentoId = $argomentoInsegnamentoId;
-        $this->argomentoInsegnamentoCorsoMatricola = $argomentoInsegnamentoCorsoMatricola;
     }
     
     /**
@@ -39,6 +36,20 @@ class DomandaAperta {
      */
     function getId() {
         return $this->id;
+    }
+    
+    /**
+     * @return int L'id dell'argomento della domanda aperta
+     */ 
+    function getArgomentoId() {
+        return $this->argomentoId;
+    }
+
+    /**
+     * @return int L'id del corso a cui appartiene l'argomento relativo
+     */
+    function getArgomentoCorsoId() {
+        return $this->argomentoCorsoId;
     }
 
     /**
@@ -63,32 +74,27 @@ class DomandaAperta {
     }
     
     /**
-     * @return int L'id dell'argomento della domanda aperta
-     */ 
-    function getArgomentoId() {
-        return $this->argomentoId;
-    }
-
-    /**
-     * @return int L'id dell'insegnamento a cui appartiene l'argomento 
-     */
-    function getArgomentoInsegnamentoId() {
-        return $this->argomentoInsegnamentoId;
-    }
-
-    /**
-     * @return string La matricola del corso a cui l'insegnamento relativo all'argomento apartiene
-     */
-    function getArgomentoInsegnamentoCorsoMatricola() {
-        return $this->argomentoInsegnamentoCorsoMatricola;
-    }
-
-    /**
      * Setta l'id della domanda aperta
      * @param int $id L'id della domanda
      */
     function setId($id) {
         $this->id = $id;
+    }
+    
+    /**
+     * Setta l'id dell'argomento a cui appartiene la domanda aperta
+     * @param int $argomentoId L'id dell'argomento a cui appartiene la domanda
+     */
+    function setArgomentoId($argomentoId) {
+        $this->argomentoId = $argomentoId;
+    }
+
+    /**
+     * Setta l'id del corso a cui appartiene l'argomento relativo
+     * @param int $argomentoCorsoId L'id del corso a cui appartiene l'argomento relativo
+     */
+    function setArgomentoCorsoId($argomentoCorsoId) {
+        $this->argomentoCorsoId = $argomentoCorsoId;
     }
 
     /**
@@ -113,29 +119,5 @@ class DomandaAperta {
      */
     function setPercentualeScelta($percentualeScelta) {
         $this->percentualeScelta = $percentualeScelta;
-    }
-
-    /**
-     * Setta l'id dell'argomento a cui appartiene la domanda aperta
-     * @param int $argomentoId L'id dell'argomento a cui appartiene la domanda
-     */
-    function setArgomentoId($argomentoId) {
-        $this->argomentoId = $argomentoId;
-    }
-
-    /**
-     * Setta l'id dell'insegnamento a cui appartiene l'argomento relativo
-     * @param int $argomentoInsegnamentoId L'id dell'insegnamento a cui appartiene l'argomento relativo
-     */
-    function setArgomentoInsegnamentoId($argomentoInsegnamentoId) {
-        $this->argomentoInsegnamentoId = $argomentoInsegnamentoId;
-    }
-
-    /**
-     * Setta la matricola del corso a cui appartiene l'insegnamento relativo all'argomento di riferimento
-     * @param string $argomentoInsegnamentoCorsoMatricola La matricola del corso a cui appartiene l'insegnamento relativo all'argomento di riferimento
-     */
-    function setArgomentoInsegnamentoCorsoMatricola($argomentoInsegnamentoCorsoMatricola) {
-        $this->argomentoInsegnamentoCorsoMatricola = $argomentoInsegnamentoCorsoMatricola;
     }
 }

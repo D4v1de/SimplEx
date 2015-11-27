@@ -41,7 +41,8 @@ if (isset($_SERVER['HTTP_X_REAL_IP'])) {
 session_start(); //facciamo partire la sessione
 
 include_once UTILS_DIR . "Patterns.php";
-
+include_once UTILS_DIR . "Error.php";
+include_once EXCEPTION_DIR . "ApplicationException.php";
 switch (isset($_URL[0]) ? $_URL[0] : '') {
     case '':
         include_once VIEW_DIR . "VisualizzaHome.php";
@@ -66,7 +67,6 @@ switch (isset($_URL[0]) ? $_URL[0] : '') {
     case 'graficacomune':
         include_once VIEW_DIR . "GraficaComune.php";
         break;
-    //esempioo da eliminare
     case 'provatable':
         include_once VIEW_DIR . "/Admin/provatable.php";
         break;
@@ -77,7 +77,7 @@ switch (isset($_URL[0]) ? $_URL[0] : '') {
         include_once VIEW_DIR . "/Docente/SelezionaDomande.php";
         break;
     case 'aggiungistudentetest':
-        include_once VIEW_DIR . "/Docente/AggiungiStudenteTest.php";
+        include_once VIEW_DIR . "/Docente/AggiungiStudenteTest2.php";
         break;
     case 'eseguitest':
         include_once VIEW_DIR . "/Studente/EseguiTest.php";
@@ -90,6 +90,9 @@ switch (isset($_URL[0]) ? $_URL[0] : '') {
         break;
     case 'homecorsodocente':
         include_once VIEW_DIR . "/Docente/HomeCorso.php";
+        break;
+    case 'homecorsodocente2':
+        include_once VIEW_DIR . "/Docente/HomeCorso2.php";
         break;
     case 'visualizzaesitisessione':
         include_once VIEW_DIR . "/Docente/VisualizzaEsitiSessione.php";
@@ -159,6 +162,9 @@ switch (isset($_URL[0]) ? $_URL[0] : '') {
         break;
     case 'provaargomenti':
         include_once VIEW_DIR . "/Docente/ProvaArgomenti.php";
+        break;
+    case 'c':
+        include_once CONTROL_DIR . "CdlController.php";
         break;
     default:
         echo "Route inesistente";

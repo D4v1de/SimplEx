@@ -31,4 +31,61 @@ class CdlController extends Controller {
         $corsoModel = new CorsoModel();
         return $corsoModel->getAllCorsi();
     }
+
+    /**
+     * Crea un nuovo cdl
+     * @param un CdL
+     */
+    public function creaCdl($cdl) {
+        $cdlModel = new CdLModel();
+        $cdlModel->createCdL($cdl);
+    }
+
+    /**
+     * Crea un nuovo corso
+     * @param un Corso
+     */
+    public function creaCorso($corso) {
+        $corsoModel = new CorsoModel();
+        $corsoModel->createCorso($corso);
+    }
+
+    /**
+     * Modifica un cdl
+     * @param matricola CdL da modificare
+     * @param un CdL modificato
+     */
+    public function modificaCdl($matricola, $cdl){
+        $cdlModel = new CdLModel();
+        $oldCdl = $cdlModel->readCdL($matricola);
+        $cdlModel->updateCdL($oldCdl->getMatricola(), $cdl);
+    }
+
+    /**
+     * Modifica un corso
+     * @param un Corso
+     */
+    public function modificaCorso($matricola, $corso){
+        $corsoModel = new CorsoModel();
+        $oldCorso = $corsoModel->readCorso($matricola);
+        $corsoModel->updateCorso($oldCorso->getMatricola(), $corso);
+    }
+
+    /**
+     * Restituisco un corso
+     * @param un Corso
+     */
+    public function visualizzaCorso($corso) {
+        $corsoModel = new CorsoModel();
+        $corsoModel->readCorso($corso->getMatricola());
+    }
+
+    /**
+     * Restituisco i corsi di un cdl
+     * @return array di Corsi di un cdl
+     */
+    public function getCorsiCdl($cdl) {
+        $corsoModel = new CorsoModel();
+        return $corsoModel->getAllCorsiCdl($cdl->getMatricola());
+    }
 }
