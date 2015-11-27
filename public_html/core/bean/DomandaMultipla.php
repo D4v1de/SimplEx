@@ -26,7 +26,7 @@ class DomandaMultipla {
      * @param float $percentualeScelta La percentuale di volte in cui viene scelta
      * @param float $percentualeRispostaCorretta La percentuale di risposte corrette per la domanda
      */
-    public function __construct($id,$argomentoId,$argomentoCorsoId, $testo, $punteggioCorretta, $punteggioErrata,$percentualeScelta, $percentualeRispostaCorretta) {
+    public function __construct($id, $argomentoId, $argomentoCorsoId, $testo, $punteggioCorretta, $punteggioErrata,$percentualeScelta, $percentualeRispostaCorretta) {
         $this->id = $id;
         $this->argomentoId = $argomentoId;
         $this->argomentoCorsoId = $argomentoCorsoId;
