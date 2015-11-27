@@ -10,7 +10,7 @@
 
 /**
  * Class Logger
- * Note per Giusy
+ *
  *
  * Ci sono 4 livelli possibili di un evento da loggare e vanno in ordine di importanza crescente:
  * debug, info, warning, error
@@ -36,7 +36,7 @@
  *
  */
 final class Logger extends Model {
-    public static $INSERT_QUERY = "INSERT ...";
+    public static $INSERT_QUERY = "INSERT INTO `log`(id,level,message)";
     public static $DEBUG = "Debug"; //rappresentazione nel db
     public static $INFO = "Info";
     public static $WARN = "Warning";
@@ -44,24 +44,46 @@ final class Logger extends Model {
 
     // ... ecc
 
-    public static function debug($message) {
+    public static function debug($value = '', $tag = self::DEFAULT_TAG) {
         // verifico se nel config il livello da error in su
         // chiamo self::write($DEBUG, $message);
+        self::write('Debug', $value, $tag);
     }
+    
 
-    public static function info($message) {
+    public static function info($value = '', $tag = self::DEFAULT_TAG) {
         //stessa cose di debug
+        self::write('Info', $value, $tag);
     }
 
-    public static function warning($message) {
+    public static function warning($value = '', $tag = self::DEFAULT_TAG) {
         //stessa cose di debug
+        self::write('Warning', $value, $tag);
     }
 
-    public static function error($message) {
+    public static function error($value = '', $tag = self::DEFAULT_TAG) {
         //stessa cose di debug
+        self::write('Error', $value, $tag);
+    
     }
 
-    private static function write($logLevel, $message) {
+    private static function write($errorlevel = 'Info', $value = '', $tag) {
         //qui prendo la riga ed il file, genero la data e butto tutto ciò nel db
+    $datetime = @date("Y-m-d H:i:s");
+		if (!file_exists($this->LOGFILENAME)) {
+			$headers = $this->HEADERS . "\n";
+		}
+		$fd = fopen($this->LOGFILENAME, "a");
+		if (@$headers) {
+			fwrite($fd, $headers);
+		}
+		$debugBacktrace = debug_backtrace();
+		$line = $debugBacktrace[1]['line'];
+		$file = $debugBacktrace[1]['file'];
+		$value = preg_replace('/\s+/', ' ', trim($value));
+		$entry = array($datetime,$errorlevel,$tag,$value,$line,$file);
+		fputcsv($fd, $entry, $this->SEPARATOR);
+		fclose($fd);
+        
     }
 }

@@ -135,7 +135,7 @@ var TableManaged2 = function () {
                 'orderable': true,
                 'targets': [0]
             }, {
-                "searchable": false,
+                "searchable": true,
                 "targets": [0]
             }],
             "order": [

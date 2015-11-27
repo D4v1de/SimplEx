@@ -13,36 +13,24 @@ var UINestable = function () {
 
     return {
         //main function to initiate the module
-        init: function () {
+        init: function (n) {
 
-            // activate Nestable for list 1
-            $('#nestable_list_1').nestable({
-                group: 1
+        //instanzia le tabelle in base al n° passato
+            for(i=0;i<n;i++){
 
-            })
-                .on('change', updateOutput);
+                $('#nestable_list_'+i).nestable({
+                        maxDepth: 1
+                    })
+                    .on('change', updateOutput);
 
-            //AGGIUNGE IL TAG "dd-nodrag", che permette di rendere non movibile l'elemento
-            $(".dd-nodrag").on("mousedown", function(event) { // mousedown prevent nestable click
-                event.preventDefault();
-                return false;
-            });
-
-            $(".dd-nodrag").on("click", function(event) { // click event
-                event.preventDefault();
-                return false;
-            });
+                updateOutput($('#nestable_list_'+i).data('output', $('#nestable_list_'+i+'_output')));
 
 
-            // activate Nestable for list 2
-            $('#nestable_list_2').nestable({
-                group: 1
-            })
-                .on('change', updateOutput);
+            }
 
-            // output initial serialised data
-            updateOutput($('#nestable_list_1').data('output', $('#nestable_list_1_output')));
-            updateOutput($('#nestable_list_2').data('output', $('#nestable_list_2_output')));
+
+
+
 
             $('#nestable_list_menu').on('click', function (e) {
                 var target = $(e.target),
@@ -55,7 +43,7 @@ var UINestable = function () {
                 }
             });
 
-            $('#nestable_list_3').nestable();
+
 
         }
 

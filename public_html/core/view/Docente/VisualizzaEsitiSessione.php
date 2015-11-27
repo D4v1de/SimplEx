@@ -56,7 +56,7 @@ $controller = new Esempio();
                             <i class="fa fa-angle-right"></i>                            
                         </li>
                         <li>
-                            <a href="#">Esiti Sessione</a>
+                            Esiti Sessione
                         </li>
                     </ul>
                 </div>

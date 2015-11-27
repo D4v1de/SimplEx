@@ -70,7 +70,7 @@ $controller = new Esempio();
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
 
-            <div class="portlet box blue">
+            <div class="portlet box blue-madison">
             <div class="portlet-title">
                 <div class="caption">
                     <i class="fa fa-user"></i>Studenti
@@ -83,9 +83,6 @@ $controller = new Esempio();
 
                 <div class="actions">
                     <div class="btn-group">
-                        <a class="btn btn-default btn-sm" href="javascript:;" data-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-cogs"></i> Tools <i class="fa fa-angle-down"></i>
-                        </a>
                         <ul class="dropdown-menu pull-right">
                             <li>
                                 <a href="javascript:;">

@@ -20,7 +20,15 @@ class ArgomentoController extends Controller {
         $argomentoModel = new ArgomentoModel();
         return $argomentoModel->getAllArgomento();
     }
-    
 
+    public function getAllDomandeAperte() {
+        $argomentoModel = new ArgomentoModel();
+        return $argomentoModel->getAllDomandaAperta();
+    }
+
+    public function getAllDomandeMultiple() {
+        $argomentoModel = new ArgomentoModel();
+        return $argomentoModel->getAllDomandaMultipla();
+    }
     
 }
