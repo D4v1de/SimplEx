@@ -42,7 +42,7 @@ var TableManaged = function () {
                 }
             },
             "columnDefs": [{  // set default column settings
-                'orderable': false,
+                'orderable': true,
                 'targets': [0]
             }, {
                 "searchable": false,
