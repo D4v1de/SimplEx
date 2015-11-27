@@ -2,36 +2,33 @@
 
 /**
  * User: Giuseppina
- * Date: 20/11/15
- * Time: 16:47
+ * Date: 27/11/15
+ * Time: 10:30
  */
 class Sessione {
     private $id;
-    private $tipologia;
     private $dataInizio;
     private $dataFine;
     private $sogliaAmmissione;
-    private $insegnamentoId;
-    private $insegnamentoCorsoMatricola;
+    private $tipologia;
+    private $corsoId;
     
     /**
      * Costruttore di Sessione
      * @param int $id L'id della sessione
-     * @param enum $tipologia La tipologia della sessione
      * @param date $dataInizio La data di inizio della sessione
      * @param date $dataFine La data di termine della sessione
      * @param float $sogliaAmmissione La soglia di ammissione della sessione
-     * @param int $insegnamentoId L'id dell'insegnamento a cui appartiene la sessione
-     * @param string $insegnamentoCorsoMatricola La matricola del corso a cui appartiene l'insegnamento relativo
+     * @param enum $tipologia La tipologia della sessione
+     * @param int $corsoId L'id dell'insegnamento a cui appartiene la sessione
      */
-    public function __construct($id, $tipologia, $dataInizio, $dataFine, $sogliaAmmissione, $insegnamentoId, $insegnamentoCorsoMatricola ) {
+    public function __construct($id, $dataInizio, $dataFine, $sogliaAmmissione, $tipologia, $corsoId) {
         $this->id=$id;
-        $this->tipologia=$tipologia;
         $this->dataInizio=$dataInizio;
         $this->dataFine=$dataFine;
         $this->sogliaAmmissione=$sogliaAmmissione;
-        $this->insegnamentoId=$insegnamentoId;
-        $this->insegnamentoCorsoMatricola=$insegnamentoCorsoMatricola;
+        $this->tipologia=$tipologia;
+        $this->corsoId=$corsoId;
     } 
 
     /**
@@ -41,13 +38,6 @@ class Sessione {
         return $this->id;
     }
 
-    /**
-     * @return enum La tipologia della sessione
-     */
-    public function getTipologia() {
-        return $this->tipologia;
-    }
-    
     /**
      * @return date La dataInizio della sessione
      */
@@ -70,32 +60,25 @@ class Sessione {
     }
     
     /**
-     * @return int L'id dell'insegnamento a cui appartiene
+     * @return enum La tipologia della sessione
      */
-     public function getInsegnamentoId() {
-        return $this->insegnamentoId;
+    public function getTipologia() {
+        return $this->tipologia;
     }
     
-     /**
-     * @return String La matricola del corso a cui appartiene l'insegnamento relativo
+    /**
+     * @return int L'id del corso a cui appartiene
      */
-     public function getInsegnamentoCorsoMatricola() {
-        return $this->insegnamentoCorsoMatricola;
+     public function getCorsoId() {
+        return $this->corsoId;
     }
+    
     /**
      * Setta l'id della sessione
      * @param int $id L'id della sessione
      */
     public function setId($id) {
         $this->id = $id;
-    }
-    
-   /**
-     * Setta la tipologia della sessione
-     * @param enum $tipologia La tipologia della sessione
-     */
-    public function setTipologia($tipologia) {
-        $this->tipologia = $tipologia;
     }
     
     /**
@@ -121,20 +104,20 @@ class Sessione {
     public function setSogliaAmmissione($sogliaAmmissione) {
         $this->sogliaAmmissione = $sogliaAmmissione;
     }
-
-    /**
-     * Setta l'id dell'insegnamento della sessione a cui appartiene
-     * @param int $insegnamentoId L'id dell'insegnamento a cui appartiene la sessione
-     */
-    public function setInsegnamentoId($insegnamentoId) {
-        $this->insegnamentoId = $insegnamentoId;
-    }
     
     /**
-     * Setta la matricola del corso a cui appartiene l'insegnamento relativo
-     * @param string $insegnamentoCorsoMatricola La matricola del corso a cui appartiene l'insegnamento relativo
+     * Setta la tipologia della sessione
+     * @param enum $tipologia La tipologia della sessione
      */
-    public function setInsegnamentoCorsoMatricola($insegnamentoCorsoMatricola) {
-        $this->insegnamentoCorsoMatricola = $insegnamentoCorsoMatricola;
+    public function setTipologia($tipologia) {
+        $this->tipologia = $tipologia;
+    }
+
+    /**
+     * Setta l'id del corso a cui appartiene
+     * @param int $corsoId L'id del corso a cui appartiene la sessione
+     */
+    public function setCorsoId($corsoId) {
+        $this->corsoId = $corsoId;
     }
  }

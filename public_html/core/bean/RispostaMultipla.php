@@ -2,8 +2,8 @@
 
 /**
  * User: Giuseppina
- * Date: 22/11/15
- * Time: 17:38
+ * Date: 27/11/15
+ * Time: 10:40
  */
 class RispostaMultipla {
     private $id;
@@ -13,8 +13,7 @@ class RispostaMultipla {
     private $alternativaId;
     private $alternativaDomandaMultiplaId;
     private $alternativaDomandaMultiplaArgomentoId;
-    private $alternativaDomandaMultiplaArgomentoInsegnamentoId;
-    private $alternativaDomandaMultiplaArgomentoInsegnamentoCorsoMatricola;
+    private $alternativaDomandaMultiplaArgomentoCorsoId;
     
     /**
      * Costruttore di Risposta_multipla
@@ -25,11 +24,10 @@ class RispostaMultipla {
      * @param int $alternativaId L'id dell'alternativa scelta
      * @param int $alternativaDomandaMultiplaId L'id della domanda multipla relativa all'alternativa scelta
      * @param int $alternativaDomandaMultiplaArgomentoId L'id dell'argomento a cui appartiene la domanda multipla relativa
-     * @param int $alternativaDomandaMultiplaArgomentoInsegnamentoId L'id dell'insegnamento dell'argomento a cui appartiene la domanda multipla relativa
-     * @param string $alternativaDomandaMultiplaArgomentoInsegnamentoCorsoMatricola La matricola del corso a cui appartiene l'argomento relativo alla domanda multipla cui si riferisce
-     * 
+     * @param int $alternativaDomandaMultiplaArgomentoCorsoId L'id del corso a cui appartiene l'argomento relativo alla domanda multipla
      */
-    public function __construct($id, $elaboratoSessioneId, $elaboratoStudenteMatricola, $punteggio, $alternativaId, $alternativaDomandaMultiplaId, $alternativaDomandaMultiplaArgomentoId, $alternativaDomandaMultiplaArgomentoInsegnamentoId, $alternativaDomandaMultiplaArgomentoInsegnamentoCorsoMatricola) {
+    public function __construct($id, $elaboratoSessioneId, $elaboratoStudenteMatricola, $punteggio, $alternativaId, $alternativaDomandaMultiplaId, 
+            $alternativaDomandaMultiplaArgomentoId, $alternativaDomandaMultiplaArgomentoCorsoId) {
         $this->id=$id;
         $this->elaboratoSessioneId=$elaboratoSessioneId;
         $this->elaboratoStudenteMatricola=$elaboratoStudenteMatricola;
@@ -37,9 +35,7 @@ class RispostaMultipla {
         $this->alternativaId=$alternativaId;
         $this->alternativaDomandaMultiplaId=$alternativaDomandaMultiplaId;
         $this->alternativaDomandaMultiplaArgomentoId=$alternativaDomandaMultiplaArgomentoId;
-        $this->alternativaDomandaMultiplaArgomentoInsegnamentoId=$alternativaDomandaMultiplaArgomentoInsegnamentoId;
-        $this->alternativaDomandaMultiplaArgomentoInsegnamentoCorsoMatricola=$alternativaDomandaMultiplaArgomentoInsegnamentoCorsoMatricola;
-        
+        $this->alternativaDomandaMultiplaArgomentoCorsoId=$alternativaDomandaMultiplaArgomentoCorsoId;
     } 
     
     /**
@@ -92,17 +88,10 @@ class RispostaMultipla {
     }
 
     /**
-     * @return int L'id dell'insegnamento dell'argomento a cui appartiene la domanda multipla relativa
+     * @return int L'id del corso dell'argomento a cui appartiene la domanda multipla relativa
      */
-    function getAlternativaDomandaMultiplaArgomentoInsegnamentoId() {
-        return $this->alternativaDomandaMultiplaArgomentoInsegnamentoId;
-    }
-
-    /**
-     * @return string La matricola del corso dell'argomento a cui appartiene l'alternativa scelta
-     */
-    function getAlternativaDomandaMultiplaArgomentoInsegnamentoCorsoMatricola() {
-        return $this->alternativaDomandaMultiplaArgomentoInsegnamentoCorsoMatricola;
+    function getAlternativaDomandaMultiplaArgomentoCorsoId() {
+        return $this->alternativaDomandaMultiplaArgomentoCorsoId;
     }
 
     /**
@@ -162,19 +151,11 @@ class RispostaMultipla {
     }
 
     /**
-     * Setta l'id dell'insegnamento dell'argomento a cui appartiene la domanda multipla relativa
-     * @param int $alternativaDomandaMultiplaArgomentoInsegnamentoId L'id dell'insegnamento dell'argomento a cui appartiene la domanda multipla relativa
+     * Setta l'id del corso dell'argomento a cui appartiene la domanda multipla relativa
+     * @param int $alternativaDomandaMultiplaArgomentoCorsoId L'id del corso dell'argomento a cui appartiene la domanda multipla relativa
      */
-    function setAlternativaDomandaMultiplaArgomentoInsegnamentoId($alternativaDomandaMultiplaArgomentoInsegnamentoId) {
-        $this->alternativaDomandaMultiplaArgomentoInsegnamentoId = $alternativaDomandaMultiplaArgomentoInsegnamentoId;
-    }
-
-    /**
-     * Setta la matricola del corso a cui appartiene l'argomento relativo alla domanda multipla cui si riferisce
-     * @param string $alternativaDomandaMultiplaArgomentoInsegnamentoCorsoMatricola La matricola del corso a cui appartiene l'argomento relativo alla domanda multipla cui si riferisce
-     */
-    function setAlternativaDomandaMultiplaArgomentoInsegnamentoCorsoMatricola($alternativaDomandaMultiplaArgomentoInsegnamentoCorsoMatricola) {
-        $this->alternativaDomandaMultiplaArgomentoInsegnamentoCorsoMatricola = $alternativaDomandaMultiplaArgomentoInsegnamentoCorsoMatricola;
+    function setAlternativaDomandaMultiplaArgomentoCorsoId($alternativaDomandaMultiplaArgomentoCorsoId) {
+        $this->alternativaDomandaMultiplaArgomentoCorsoId = $alternativaDomandaMultiplaArgomentoCorsoId;
     }
 }
     
