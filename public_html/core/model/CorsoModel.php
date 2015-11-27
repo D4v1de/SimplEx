@@ -1,7 +1,6 @@
 <?php
 include_once MODEL_DIR . "Model.php";
 include_once BEAN_DIR . "Corso.php";
-//include_once BEAN_DIR . "Insegnamento.php";
 
 /**
  * Created by PhpStorm.
@@ -11,18 +10,14 @@ include_once BEAN_DIR . "Corso.php";
  */
 class CorsoModel extends Model {
     private static $CREATE_CORSO = "INSERT INTO `corso` (matricola, nome, tipologia, cdl_matricola) VALUES ('%s','%s','%s','%s')";
-    private static $UPDATE_CORSO = "UPDATE `corso` SET matricola = '%s', nome = '%s', tipologia = '%s' , cdl_matricola = '%s' WHERE matricola = '%s'";
-    private static $DELETE_CORSO = "DELETE FROM `corso` WHERE matricola = '%s'";
-    private static $READ_CORSO = "SELECT * FROM `corso` WHERE matricola = '%s'";
+    private static $UPDATE_CORSO = "UPDATE `corso` SET matricola = '%s', nome = '%s', tipologia = '%s' , cdl_matricola = '%s' WHERE id = '%d'";
+    private static $DELETE_CORSO = "DELETE FROM `corso` WHERE id = '%d'";
+    private static $READ_CORSO = "SELECT * FROM `corso` WHERE id = '%d'";
     private static $GET_ALL_CORSI = "SELECT * FROM `corso`";
     private static $GET_ALL_CORSI_CDL = "SELECT * FROM `corso` WHERE cdl_matricola = '%s'";
-    private static $CREATE_INSEGNAMENTO = "INSERT INTO `insegnamento` (corso_matricola) VALUES ('%s')";
-    private static $UPDATE_INSEGNAMENTO = "UPDATE `insegnamento` SET corso_matricola = '%s' WHERE id = '%d'";
-    private static $DELETE_INSEGNAMENTO = "DELETE FROM `insegnamento` WHERE id = '%d' AND corso_matricola = '%s'";
-    private static $READ_INSEGNAMENTO = "SELECT * FROM `insegnamento` id = '%d'";
-    private static $GET_ALL_INSEGNAMENTI = "SELECT * FROM `insegnamento`";
-    private static $GET_ALL_INSEGNAMENTI_DOCENTE = "SELECT i.* FROM `insegnamento` as i,`insegnamento_docente` id WHERE id.docente_matricola = '%s'" 
-            ." AND id.insegnamento_id = i.id AND id.insegnamento_corso_matricola = i.corso_matricola";
+    private static $CREATE_INSEGNAMENTO = "INSERT INTO `insegnamento` (corso_id, docente_matricola) VALUES ('%d',%s')";
+    private static $DELETE_INSEGNAMENTO = "DELETE FROM `insegnamento` WHERE corso_id = '%d' AND docente_matricola = '%s'";
+    private static $GET_ALL_CORSI_DOCENTE = "SELECT c.* FROM `insegnamento` as i,`corso` as c WHERE i.corso_id = c.id AND i.docente_matricola = '%s'";
     
     /**
      * Inserisce un nuovo corso nel database
@@ -39,12 +34,12 @@ class CorsoModel extends Model {
     
     /**
      * Modifica un corso nel database
-     * @param string $matricola La matricola del corso da modificare
+     * @param int $id L'id del corso da modificare
      * @param Corso $updatedCorso Il corso modificato da aggiornare nel database
      * @throws ApplicationException
      */
-    public function updateCorso($matricola,$updatedCorso){
-        $query = sprintf(self::$UPDATE_CORSO, $updatedCorso->getMatricola(), $updatedCorso->getNome(), $updatedCorso->getTipologia(), $updatedCorso->getCdlMatricola(), $matricola);
+    public function updateCorso($id,$updatedCorso){
+        $query = sprintf(self::$UPDATE_CORSO, $updatedCorso->getMatricola(), $updatedCorso->getNome(), $updatedCorso->getTipologia(), $updatedCorso->getCdlMatricola(), $id);
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
@@ -53,11 +48,11 @@ class CorsoModel extends Model {
     
     /**
      * Cancella un corso nel database
-     * @param string $matricola La matricola del corso da eliminare
+     * @param int $id L'id del corso da eliminare
      * @throws ApplicationException
      */
-    public function deleteCorso($matricola){
-        $query = sprintf(self::$DELETE_CORSO, $matricola);
+    public function deleteCorso($id){
+        $query = sprintf(self::$DELETE_CORSO, $id);
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
@@ -66,14 +61,14 @@ class CorsoModel extends Model {
     
     /**
      * Cerca un corso nel database
-     * @param string $matricola la matricola del corso da cercare
+     * @param int $id L'id del corso da cercare
      * @throws ApplicationException
      */
-    public function readCorso($matricola){
-        $query = sprintf(self::$READ_CORSO, $matricola);
+    public function readCorso($id){
+        $query = sprintf(self::$READ_CORSO, $id);
         $res = Model::getDB()->query($query);
         if($obj = $res->fetch_assoc()) {
-            $corso = new Corso($obj['matricola'], $obj['nome'], $obj['tipologia'], $obj['cdl_matricola']);
+            $corso = new Corso($obj['id'],$obj['matricola'], $obj['nome'], $obj['tipologia'], $obj['cdl_matricola']);
             return $corso;
         }
         else{
@@ -90,7 +85,7 @@ class CorsoModel extends Model {
         $corsi = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $corsi[] = new Corso($obj['id'], $obj['matricola'],$obj['nome'],$obj['tipologia'],$obj['cdl_matricola']);
+                $corsi[] = new Corso($obj['id'],$obj['matricola'],$obj['nome'],$obj['tipologia'],$obj['cdl_matricola']);
             }
         }
         return $corsi;
@@ -98,6 +93,7 @@ class CorsoModel extends Model {
     
     /**
      * Restituisce tutti i corsi di un cdl del database
+     * @param string $cdl_matricola La matricola del Cdl di cui si vogliono conoscere i corsi
      * @return Corsi[] Tutti i corsi di un cdl del database
      */
     public function getAllCorsiByCdl($cdl_matricola) {
@@ -106,7 +102,7 @@ class CorsoModel extends Model {
         $corsi = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $corsi[] = new Corso($obj['matricola'], $obj['nome'], $obj['tipologia'], $obj['cdl_matricola']);
+                $corsi[] = new Corso($obj['id'],$obj['matricola'], $obj['nome'], $obj['tipologia'], $obj['cdl_matricola']);
             }
         }
         return $corsi;
@@ -114,11 +110,12 @@ class CorsoModel extends Model {
     
     /**
      * Inserisce un nuovo insegnamento nel database
-     * @param Insegnamento $insegnamento L'insegnamento da inserire nel database
+     * @param int $corso_id L'id del corso
+     * @param string $docente_matricola La matricola del docente
      * @throws ApplicationException
      */
-    public function createInsegnamento($insegnamento){
-        $query = sprintf(self::$CREATE_INSEGNAMENTO, $insegnamento->getCorsoMatricola());
+    public function createInsegnamento($corso_id, $docente_matricola){
+        $query = sprintf(self::$CREATE_INSEGNAMENTO, $corso_id, $docente_matricola);
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
@@ -127,27 +124,13 @@ class CorsoModel extends Model {
     }
     
     /**
-     * Modifica un insegnamento nel database
-     * @param int $id L'id dell'insegnamento da modificare
-     * @param Insegnamento $updatedInsegnamento L'insegnamento modificato da aggiornare nel database
-     * @throws ApplicationException
-     */
-    public function updateInsegnamento($id, $updatedInsegnamento){
-        $query = sprintf(self::$UPDATE_INSEGNAMENTO,$updatedInsegnamento->getCorsoMatricola(), $id);
-        Model::getDB()->query($query);
-        if (Model::getDB()->affected_rows==-1) {
-            throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
-        }
-    }
-    
-    /**
      * Cancella un insegnamento nel database
-     * @param int $id L'id dell'insegnamento da eliminare
-     * @param string $corso_matricola La matricola del corso a cui appartiene l'insegnamento da eliminare
+     * @param int $corso_id L'id del corso
+     * @param string $docente_matricola La matricola del docente
      * @throws ApplicationException
      */
-    public function deleteInsegnamento($id, $corso_matricola){
-        $query = sprintf(self::$DELETE_INSEGNAMENTO, $id, $corso_matricola);
+    public function deleteInsegnamento($corso_id, $docente_matricola){
+        $query = sprintf(self::$DELETE_INSEGNAMENTO, $corso_id, $docente_matricola);
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
@@ -155,51 +138,19 @@ class CorsoModel extends Model {
     }
     
     /**
-     * Cerca un insegnamento nel database
-     * @param int $id l'id dell'insegnamento da cercare
-     * @throws ApplicationException
+     * Restituisce tutti corsi di un docente del database
+     * @param string $docente_matricola La matricola del docente per il quale si vogliono conoscere i corsi
+     * @return Insegnamento[] Tutti i corsi di un docente del database
      */
-    public function readInsegnamento($id){
-        $query = sprintf(self::$READ_INSEGNAMENTO, $id);
+    public function getAllCorsiByDocente($docente_matricola) {
+        $query = sprintf(self::$GET_ALL_CORSI_DOCENTE, $docente_matricola);
         $res = Model::getDB()->query($query);
-        if($obj = $res->fetch_assoc()) {
-            $insegnamento = new Insegnamento($obj['id'], $obj['corso_matricola']);
-            return $insegnamento;
-        }
-        else{
-            throw new ApplicationException(Error::$INSEGNAMENTO_NON_TROVATO);
-        }
-    }
-    
-    /**
-     * Restituisce tutti gli insegnamenti del database
-     * @return Insegnamento[] Tutti gli insegnamenti del database
-     */
-    public function getAllInsegnamenti() {
-        $res = Model::getDB()->query(self::$GET_ALL_INSEGNAMENTI);
-        $insegnamenti = array();
+        $corsi = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $insegnamenti[] = new Insegnamento($obj['id'],$obj['corso_matricola']);
-            }  
-        }
-        return $insegnamenti;
-    } 
-    
-    /**
-     * Restituisce tutti gli insegnamenti di un docente del database
-     * @param string $docente_matricola La matricola del docente per il quale si vogliono conoscere gli insegnamenti
-     * @return Insegnamento[] Tutti gli insegnamenti di un docente del database
-     */
-    public function getAllInsegnamentiByDocente($docente_matricola) {
-        $query = sprintf(self::$GET_ALL_INSEGNAMENTI_DOCENTE, $docente_matricola);
-        $res = Model::getDB()->query($query);
-        $insegnamenti = array();
-        if($res){
-            while ($obj = $res->fetch_assoc()) {
-                $insegnamenti[] = new Insegnamento($obj['id'],$obj['corso_matricola']);
+                $corsi[] = new Corso($obj['id'],$obj['matricola'], $obj['nome'], $obj['tipologia'], $obj['cdl_matricola']);
             }
         }
-        return $insegnamenti;
+        return $corsi;
     } 
 }
