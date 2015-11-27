@@ -107,132 +107,131 @@ $controller = new Esempio();
 
 
                 <div id="tabella_studenti_wrapper" class="dataTables_wrapper no-footer">
-                    <div class="table-scrollable"><table class="table table-striped table-bordered table-hover dataTable no-footer" id="tabella_studenti" role="grid" aria-describedby="tabella_studenti_info">
-                            <thead>
-                            <tr role="row">
-                                <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                                            " style="width: 24px;">
-                                    <input type="checkbox" class="group-checkable" data-set="#tabella_studenti .checkboxes">
-                                </th>
-                                <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
-                                                                     Username
-                                                            : activate to sort column ascending" style="width: 106px;">
-                                    Nome
-                                </th><th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" aria-label="
-                                                                     Email
-                                                            : activate to sort column ascending" style="width: 181px;">
-                                    Cognome
-                                </th>
-                                <th class="sorting-disabled" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" aria-label="
-                                                                     Email
-                                                            : activate to sort column ascending" style="width: 181px;">
-                                    Matricola
-                                </th>
+                    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="tabella_studenti" role="grid" aria-describedby="tabella_studenti_info">
+                        <thead>
+                        <tr role="row">
+                            <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                                        " style="width: 24px;">
+                                <input type="checkbox" class="group-checkable" data-set="#tabella_studenti .checkboxes">
+                            </th>
+                            <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
+                                                                 Username
+                                                        : activate to sort column ascending" style="width: 106px;">
+                                Nome
+                            </th><th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" aria-label="
+                                                                 Email
+                                                        : activate to sort column ascending" style="width: 181px;">
+                                Cognome
+                            </th>
+                            <th class="sorting-disabled" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" aria-label="
+                                                                 Email
+                                                        : activate to sort column ascending" style="width: 181px;">
+                                Matricola
+                            </th>
 
-                            </tr>
-                            </thead>
-                            <tbody>
+                        </tr>
+                        </thead>
+                        <tbody>
 
-                            <tr class="gradeX odd" role="row">
-                                <td>
-                                    <input type="checkbox" class="checkboxes" value="1">
-                                </td>
-                                <td class="sorting_1">
-                                    Mario
-                                </td>
-                                <td>
-                                    Rossi
-                                </td>
-                                <td>0512100001</td>
-                            </tr><tr class="gradeX even" role="row">
-                                <td>
-                                    <input type="checkbox" class="checkboxes" value="1">
-                                </td>
-                                <td class="sorting_1">
-                                    Giacomo
-                                </td>
-                                <td>
-                                    Bonaventura
-                                </td>
-                                <td>0512100002</td>
-                            </tr><tr class="gradeX odd" role="row">
-                                <td>
-                                    <input type="checkbox" class="checkboxes" value="1">
-                                </td>
-                                <td class="sorting_1">
-                                    Diego Armando
-                                </td>
-                                <td>
-                                    Maradona
-                                </td>
-                                <td>0512100003</td>
-                            </tr><tr class="gradeX even" role="row">
-                                <td>
-                                    <input type="checkbox" class="checkboxes" value="1">
-                                </td>
-                                <td class="sorting_1">
-                                    Francesco
-                                </td>
-                                <td>
-                                    Totti
-                                </td>
-                                <td>0512100004</td>
-                            </tr>
+                        <tr class="gradeX odd" role="row">
+                            <td>
+                                <input type="checkbox" class="checkboxes" value="1">
+                            </td>
+                            <td class="sorting_1">
+                                Mario
+                            </td>
+                            <td>
+                                Rossi
+                            </td>
+                            <td>0512100001</td>
+                        </tr><tr class="gradeX even" role="row">
+                            <td>
+                                <input type="checkbox" class="checkboxes" value="1">
+                            </td>
+                            <td class="sorting_1">
+                                Giacomo
+                            </td>
+                            <td>
+                                Bonaventura
+                            </td>
+                            <td>0512100002</td>
+                        </tr><tr class="gradeX odd" role="row">
+                            <td>
+                                <input type="checkbox" class="checkboxes" value="1">
+                            </td>
+                            <td class="sorting_1">
+                                Diego Armando
+                            </td>
+                            <td>
+                                Maradona
+                            </td>
+                            <td>0512100003</td>
+                        </tr><tr class="gradeX even" role="row">
+                            <td>
+                                <input type="checkbox" class="checkboxes" value="1">
+                            </td>
+                            <td class="sorting_1">
+                                Francesco
+                            </td>
+                            <td>
+                                Totti
+                            </td>
+                            <td>0512100004</td>
+                        </tr>
 
-                            <tr class="gradeX odd" role="row">
-                                <td>
-                                    <input type="checkbox" class="checkboxes" value="1">
-                                </td>
-                                <td class="sorting_1">
-                                    Gianluca
-                                </td>
-                                <td>
-                                    Di Marzio
-                                </td>
-                                <td>0512100005</td>
-                            </tr>
+                        <tr class="gradeX odd" role="row">
+                            <td>
+                                <input type="checkbox" class="checkboxes" value="1">
+                            </td>
+                            <td class="sorting_1">
+                                Gianluca
+                            </td>
+                            <td>
+                                Di Marzio
+                            </td>
+                            <td>0512100005</td>
+                        </tr>
 
-                            <tr class="gradeX odd" role="row">
-                                <td>
-                                    <input type="checkbox" class="checkboxes" value="1">
-                                </td>
-                                <td class="sorting_1">
-                                    Riccardo
-                                </td>
-                                <td>
-                                    Montolivo
-                                </td>
-                                <td>0512100006</td>
-                            </tr>
+                        <tr class="gradeX odd" role="row">
+                            <td>
+                                <input type="checkbox" class="checkboxes" value="1">
+                            </td>
+                            <td class="sorting_1">
+                                Riccardo
+                            </td>
+                            <td>
+                                Montolivo
+                            </td>
+                            <td>0512100006</td>
+                        </tr>
 
-                            <tr class="gradeX odd" role="row">
-                                <td>
-                                    <input type="checkbox" class="checkboxes" value="1">
-                                </td>
-                                <td class="sorting_1">
-                                    Inacio
-                                </td>
-                                <td>
-                                    Pia
-                                </td>
-                                <td>0512100007</td>
-                            </tr>
+                        <tr class="gradeX odd" role="row">
+                            <td>
+                                <input type="checkbox" class="checkboxes" value="1">
+                            </td>
+                            <td class="sorting_1">
+                                Inacio
+                            </td>
+                            <td>
+                                Pia
+                            </td>
+                            <td>0512100007</td>
+                        </tr>
 
-                            <tr class="gradeX odd" role="row">
-                                <td>
-                                    <input type="checkbox" class="checkboxes" value="1">
-                                </td>
-                                <td class="sorting_1">
-                                    Raffaele
-                                </td>
-                                <td>
-                                    Auriemma
-                                </td>
-                                <td>0512100008</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                        <tr class="gradeX odd" role="row">
+                            <td>
+                                <input type="checkbox" class="checkboxes" value="1">
+                            </td>
+                            <td class="sorting_1">
+                                Raffaele
+                            </td>
+                            <td>
+                                Auriemma
+                            </td>
+                            <td>0512100008</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

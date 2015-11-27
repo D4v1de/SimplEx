@@ -86,7 +86,7 @@ $controller = new Esempio();
                 </div>
             </div>
             <br/>
-            <div class="portlet box grey-cascade">
+            <div class="portlet box blue-simplex">
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="fa fa-files-o"></i>Sessioni
@@ -104,100 +104,98 @@ $controller = new Esempio();
                 </div>
                 <div class="portlet-body">
                     <div id="tabella_sessioni_wrapper" class="dataTables_wrapper no-footer">
-                        <div class="table-scrollable">
-                            <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                   id="tabella_sessioni" role="grid" aria-describedby="tabella_sessioni_info">
-                                <thead>
-                        <tr role="row">
-                            <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                         sortAscending
-                                " style="width: 210px;">
-                                         Nome
-                                </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                         Email
-                                " style="width: 210px;">
-                                         Data e ora
-                                </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                         Points
-                                " style="width: 73px;">
-                                         Stato
-                                </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                         Status
-                                " style="width: 17%;">
-                                         Azioni
-                                </th></tr>
-                        </thead>
-                        <tbody>
-                        <tr class="gradeX odd" role="row">
-                                <td class="sorting_1">
-                                    Sessione 1
-                                </td>
-                                <td class="sorting_1">
-                                    19/11/2015 16:00
-                                </td>
-                                <td>
-                                    Eseguita
-                                </td>
-                                <td class="center">
-                                    <a href="visualizzaesitisessione" class="btn btn-sm default">
-                                      Esiti
-                                    </a>
-                                    <a href="javascript:;" class="btn btn-sm default">
-                                        <i class="fa fa-info-circle"></i>
-                                    </a>
-                                </td>
+                        <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                               id="tabella_sessioni" role="grid" aria-describedby="tabella_sessioni_info">
+                            <thead>
+                                <tr role="row">
+                                    <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                                 sortAscending
+                                        " style="width: 210px;">
+                                                 Nome
+                                        </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                                 Email
+                                        " style="width: 210px;">
+                                                 Data e ora
+                                        </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                                 Points
+                                        " style="width: 73px;">
+                                                 Stato
+                                        </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                                 Status
+                                        " style="width: 17%;">
+                                                 Azioni
+                                        </th></tr>
+                                </thead>
+                                <tbody>
+                                <tr class="gradeX odd" role="row">
+                                        <td class="sorting_1">
+                                            Sessione 1
+                                        </td>
+                                        <td class="sorting_1">
+                                            19/11/2015 16:00
+                                        </td>
+                                        <td>
+                                            Eseguita
+                                        </td>
+                                        <td class="center">
+                                            <a href="visualizzaesitisessione" class="btn btn-sm default">
+                                              Esiti
+                                            </a>
+                                            <a href="javascript:;" class="btn btn-sm default">
+                                                <i class="fa fa-info-circle"></i>
+                                            </a>
+                                        </td>
 
-                        </tr>
-                        <tr class="gradeX even" role="row">
-                                <td class="sorting_1">
-                                    Sessione 2
-                                </td>
-                                <td class="sorting_1">
-                                         04/10/2015 15:00
-                                </td>
-                                <td>
-                                    Eseguita
-                                </td>
-                                <td class="center">
-                                    <a href="visualizzaesitisessione" class="btn btn-sm default">
-                                      Esiti
-                                    </a>
-                                    <a href="javascript:;" class="btn btn-sm default">
-                                        <i class="fa fa-info-circle"></i>
-                                    </a>
-                                </td>
+                                </tr>
+                                <tr class="gradeX even" role="row">
+                                        <td class="sorting_1">
+                                            Sessione 2
+                                        </td>
+                                        <td class="sorting_1">
+                                                 04/10/2015 15:00
+                                        </td>
+                                        <td>
+                                            Eseguita
+                                        </td>
+                                        <td class="center">
+                                            <a href="visualizzaesitisessione" class="btn btn-sm default">
+                                              Esiti
+                                            </a>
+                                            <a href="javascript:;" class="btn btn-sm default">
+                                                <i class="fa fa-info-circle"></i>
+                                            </a>
+                                        </td>
 
-                        </tr>
-                        <tr class="gradeX even" role="row">
-                                <td class="sorting_1">
-                                    Sessione 3
-                                </td>
-                                <td class="sorting_1">
-                                         04/11/2015 16:00
-                                </td>
-                                <td>
-                                    Non Eseguita
-                                </td>
-                                <td class="center">
-                                    <a href="visualizzaesitisessione" class="btn btn-sm default" disabled="true">
-                                      Esiti
-                                    </a>
-                                    <a href="javascript:;" class="btn btn-sm default">
-                                        <i class="fa fa-info-circle"></i>
-                                    </a>
-                                </td>
+                                </tr>
+                                <tr class="gradeX even" role="row">
+                                        <td class="sorting_1">
+                                            Sessione 3
+                                        </td>
+                                        <td class="sorting_1">
+                                                 04/11/2015 16:00
+                                        </td>
+                                        <td>
+                                            Non Eseguita
+                                        </td>
+                                        <td class="center">
+                                            <a href="visualizzaesitisessione" class="btn btn-sm default" disabled="true">
+                                              Esiti
+                                            </a>
+                                            <a href="javascript:;" class="btn btn-sm default">
+                                                <i class="fa fa-info-circle"></i>
+                                            </a>
+                                        </td>
 
-                        </tr>                        
-                        </tbody>
-                            </table>
-                        </div>
+                                </tr>                        
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
 
 
 
-            <div class="portlet box grey-cascade">
+            <div class="portlet box blue">
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="fa fa-file-text-o"></i>Test
@@ -215,8 +213,7 @@ $controller = new Esempio();
                 </div>
                 <div class="portlet-body">
                     <div id="tabella_test_wrapper" class="dataTables_wrapper no-footer">
-                        <div class="table-scrollable">
-                            <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                        <table class="table table-striped table-bordered table-hover dataTable no-footer"
                                    id="tabella_test" role="grid" aria-describedby="tabella_test_info">
                                 <thead>
                                         <tr role="row">
@@ -350,15 +347,14 @@ $controller = new Esempio();
                                                 </a>
                                             </td>
                                         </tr>
-                                        </tbody>
+                                </tbody>
                             </table>
-                        </div>
                     </div>
                 </div>
             </div>
 
 
-            <div class="portlet box grey-cascade">
+            <div class="portlet box blue-ebonyclay">
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="fa fa-book"></i>Argomenti
@@ -376,8 +372,7 @@ $controller = new Esempio();
                 </div>
                 <div class="portlet-body">
                     <div id="tabella_argomenti_wrapper" class="dataTables_wrapper no-footer">
-                        <div class="table-scrollable">
-                            <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                       <table class="table table-striped table-bordered table-hover dataTable no-footer"
                                    id="tabella_argomenti" role="grid" aria-describedby="tabella_argomenti_info">
                                 <thead>
                                         <tr role="row">
@@ -450,9 +445,8 @@ $controller = new Esempio();
                                                 </a>
                                             </td>
                                         </tr>
-                                        </tbody>
+                                    </tbody>
                             </table>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -501,9 +495,9 @@ $controller = new Esempio();
         Layout.init(); // init current layout
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
-        TableManaged.init("tabella_sessioni","tabella_sessioni_wrapper");
-        TableManaged.init("tabella_test","tabella_test_wrapper");
-        TableManaged.init("tabella_argomenti","tabella_argomenti_wrapper");
+        TableManaged2.init("tabella_sessioni","tabella_sessioni_wrapper");
+        TableManaged2.init("tabella_test","tabella_test_wrapper");
+        TableManaged2.init("tabella_argomenti","tabella_argomenti_wrapper");
         //TableManaged.init(3);
     });
 </script>
