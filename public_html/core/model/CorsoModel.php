@@ -68,7 +68,7 @@ class CorsoModel extends Model {
         $query = sprintf(self::$READ_CORSO, $id);
         $res = Model::getDB()->query($query);
         if($obj = $res->fetch_assoc()) {
-            $corso = new Corso($obj['id'],$obj['matricola'], $obj['nome'], $obj['tipologia'], $obj['cdl_matricola']);
+            $corso = new Corso($obj['id'], $obj['matricola'], $obj['nome'], $obj['tipologia'], $obj['cdl_matricola']);
             return $corso;
         }
         else{

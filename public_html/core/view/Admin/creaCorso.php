@@ -20,7 +20,6 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     $tipologia = $_POST['tipologia'];
     $matricola = $_POST['matricola'];
     $cdlMatricola = $_POST['cdlmatricola'];
-    $id = 0;
 
     $corso = new Corso($id, $matricola, $nome, $tipologia, $cdlMatricola);
 

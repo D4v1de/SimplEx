@@ -7,8 +7,10 @@
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "Esempio.php";
-$controller = new Esempio();
+include_once CONTROL_DIR . "ArgomentoController.php";
+$controller = new ArgomentoController();
+$argomenti = $controller->getArgomenti();
+$numArgomenti = count($argomenti);
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -45,157 +47,222 @@ $controller = new Esempio();
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
 
-
-            <div class="container-fluid">
-                <div class="col-md-6">
-                    <div class="portlet box blue">
+<div class="row">
+    <div class="col-md-6">
+                    <div class="portlet box blue-madison">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-comments"></i>Argomenti
+                                <i class="fa fa-comments"></i>Argomento 1
                             </div>
                             <div class="tools">
-                                <a href="javascript:;" class="collapse" data-original-title="" title="">
+                                <a href="javascript:;" class="expand" data-original-title="" title="">
                                 </a>
 
                             </div>
                         </div>
-                        <div class="portlet-body ">
-                            <div class="dd" id="nestable_list_1" >
+                        <div class="portlet-body collapse">
+                            <div class="dd" id="nestable_list_1">
                                 <ol class="dd-list">
-                                    <li class="dd-item" data-id="1">
-                                        <div class="dd-handle dd-nodrag" >
-                                            Argomento 1
+                                    <li class="dd-item" data-id="11">
+                                        <div class="dd-handle">
+                                            Domanda 1
                                         </div>
-                                        <ol class="dd-list" style="">
-
-                                            <li class="dd-item" data-id="11">
-                                                <div class="dd-handle">
-                                                    Domanda 1
-                                                </div>
-                                            </li>
-                                            <li class="dd-item" data-id="12">
-                                                <div class="dd-handle">
-                                                    Domanda 2
-                                                </div>
-
-                                            </li>
-                                            <li class="dd-item" data-id="13">
-                                                <div class="dd-handle">
-                                                    Domanda 3
-                                                </div>
-                                            </li>
-                                            <li class="dd-item" data-id="14">
-                                                <div class="dd-handle">
-                                                    Domanda 4
-                                                </div>
-                                            </li>
-                                        </ol>
-                                    </li><li class="dd-item" data-id="2">
-                                        <div class="dd-handle dd-nodrag">
-                                            Argomento 2
-                                        </div>
-                                        <ol class="dd-list" style="">
-                                            <li class="dd-item" data-id="21">
-                                                <div class="dd-handle">
-                                                    Domanda 1
-                                                </div>
-                                            </li>
-                                            <li class="dd-item" data-id="22">
-                                                <div class="dd-handle">
-                                                    Domanda 2
-                                                </div>
-                                            </li>
-                                            <li class="dd-item" data-id="23">
-                                                <div class="dd-handle">
-                                                    Domanda 3
-                                                </div>
-                                            </li>
-                                            <li class="dd-item" data-id="24">
-                                                <div class="dd-handle">
-                                                    Domanda 4
-                                                </div>
-                                            </li>
-                                            <li class="dd-item" data-id="25">
-                                                <div class="dd-handle">
-                                                    Domanda 5
-                                                </div>
-                                            </li>
-                                        </ol>
                                     </li>
+                                    <li class="dd-item" data-id="12">
+                                        <div class="dd-handle">
+                                            Domanda 2
+                                        </div>
 
-                                    <li class="dd-item" data-id="3">
-                                        <div class="dd-handle dd-nodrag">
-                                            Argomento 3
-                                        </div>
-                                        <ol class="dd-list" style="">
-                                            <li class="dd-item" data-id="31">
-                                                <div class="dd-handle">
-                                                    Domanda 1
-                                                </div>
-                                            </li>
-                                            <li class="dd-item" data-id="32">
-                                                <div class="dd-handle">
-                                                    Domanda 2
-                                                </div>
-                                            </li>
-                                            <li class="dd-item" data-id="33">
-                                                <div class="dd-handle">
-                                                    Domanda 3
-                                                </div>
-                                            </li>
-                                            <li class="dd-item" data-id="34">
-                                                <div class="dd-handle">
-                                                    Domanda 4
-                                                </div>
-                                            </li>
-                                            <li class="dd-item" data-id="35">
-                                                <div class="dd-handle">
-                                                    Domanda 5
-                                                </div>
-                                            </li>
-                                        </ol>
                                     </li>
-                                    <li class="dd-item" data-id="4">
-                                        <div class="dd-handle dd-nodrag">
-                                            Argomento 4
+                                    <li class="dd-item" data-id="13">
+                                        <div class="dd-handle">
+                                            Domanda 3
                                         </div>
-                                        <ol class="dd-list" style="">
-                                            <li class="dd-item" data-id="41">
-                                                <div class="dd-handle">
-                                                    Domanda 1
-                                                </div>
-                                            </li>
-                                            <li class="dd-item" data-id="42">
-                                                <div class="dd-handle">
-                                                    Domanda 2
-                                                </div>
-                                            </li>
-                                            <li class="dd-item" data-id="43">
-                                                <div class="dd-handle">
-                                                    Domanda 3
-                                                </div>
-                                            </li>
-                                            <li class="dd-item" data-id="44">
-                                                <div class="dd-handle">
-                                                    Domanda 4
-                                                </div>
-                                            </li>
-                                            <li class="dd-item" data-id="45">
-                                                <div class="dd-handle">
-                                                    Domanda 5
-                                                </div>
-                                            </li>
-                                        </ol>
+                                    </li>
+                                    <li class="dd-item" data-id="14">
+                                        <div class="dd-handle">
+                                            Domanda 4
+                                        </div>
                                     </li>
                                 </ol>
                             </div>
                         </div>
                     </div>
-                </div>
 
+<!--ARGOMENTO 2-->
+
+        <div class="portlet box blue-madison">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-comments"></i>Argomento 2
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="expand" data-original-title="" title="">
+                    </a>
+
+                </div>
+            </div>
+            <div class="portlet-body collapse">
+                <div class="dd" id="nestable_list_2">
+                    <ol class="dd-list">
+                        <li class="dd-item" data-id="21">
+                            <div class="dd-handle">
+                                Domanda 1
+                            </div>
+                        </li>
+                        <li class="dd-item" data-id="22">
+                            <div class="dd-handle">
+                                Domanda 2
+                            </div>
+
+                        </li>
+                        <li class="dd-item" data-id="23">
+                            <div class="dd-handle">
+                                Domanda 3
+                            </div>
+                        </li>
+                        <li class="dd-item" data-id="24">
+                            <div class="dd-handle">
+                                Domanda 4
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="portlet box blue-madison">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-comments"></i>Argomento 3
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="expand" data-original-title="" title="">
+                    </a>
+
+                </div>
+            </div>
+            <div class="portlet-body collapse">
+                <div class="dd" id="nestable_list_3">
+                    <ol class="dd-list">
+                        <li class="dd-item" data-id="31">
+                            <div class="dd-handle">
+                                Domanda 1
+                            </div>
+                        </li>
+                        <li class="dd-item" data-id="32">
+                            <div class="dd-handle">
+                                Domanda 2
+                            </div>
+                        </li>
+                        <li class="dd-item" data-id="33">
+                            <div class="dd-handle">
+                                Domanda 3
+                            </div>
+                        </li>
+                        <li class="dd-item" data-id="34">
+                            <div class="dd-handle">
+                                Domanda 4
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="portlet box blue-madison">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-comments"></i>Argomento 4
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="expand" data-original-title="" title="">
+                    </a>
+
+                </div>
+            </div>
+            <div class="portlet-body collapse">
+                <div class="dd" id="nestable_list_4">
+                    <ol class="dd-list">
+                        <li class="dd-item" data-id="41">
+                            <div class="dd-handle">
+                                Domanda 1
+                            </div>
+                        </li>
+                        <li class="dd-item" data-id="42">
+                            <div class="dd-handle">
+                                Domanda 2
+                            </div>
+
+                        </li>
+                        <li class="dd-item" data-id="43">
+                            <div class="dd-handle">
+                                Domanda 3
+                            </div>
+                        </li>
+                        <li class="dd-item" data-id="44">
+                            <div class="dd-handle">
+                                Domanda 4
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="portlet box blue-madison">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-comments"></i>Argomento 5
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="expand" data-original-title="" title="">
+                    </a>
+
+                </div>
+            </div>
+            <div class="portlet-body collapse">
+                <div class="dd" id="nestable_list_5">
+                    <ol class="dd-list">
+                        <li class="dd-item" data-id="51">
+                            <div class="dd-handle">
+                                Domanda 1
+                            </div>
+                        </li>
+                        <li class="dd-item" data-id="52">
+                            <div class="dd-handle">
+                                Domanda 2
+                            </div>
+
+                        </li>
+                        <li class="dd-item" data-id="53">
+                            <div class="dd-handle">
+                                Domanda 3
+                            </div>
+                        </li>
+                        <li class="dd-item" data-id="54">
+                            <div class="dd-handle">
+                                Domanda 4
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+     </div> <!--chiudi col-md-6-->
 
                 <div class="col-md-6">
-                    <div class="portlet box blue">
+                    <div class="portlet box blue-madison">
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="fa fa-pencil"></i>Test
@@ -207,20 +274,18 @@ $controller = new Esempio();
                             </div>
                         </div>
                         <div class="portlet-body ">
-                            <div class="dd" id="nestable_list_2">
-                                Trascina le domande qui..
-                                <ol class="dd-list">
-                                    <li class="dd-item" data-id="" >
-
-                                    </li>
-                                </ol>
+                            <div class="dd" id="nestable_list_0">
+                                <div class="dd-empty">
+                                    <div>
+                                        <h3>Trascina le domande qui...</h3>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
             </div>
-
 
             <div class="row">
                 <div class="col-md-12">
@@ -233,6 +298,13 @@ $controller = new Esempio();
                     </div>
                 </div>
             </div>
+
+
+
+</div>
+
+
+
 
 
 
@@ -253,24 +325,18 @@ $controller = new Esempio();
 
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+
 <script>
+
+
     jQuery(document).ready(function () {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
-        UINestable.init();
+        UINestable.init(<?php $numArgomenti ?>); //Il numero equivale al n° di tabelle presenti nella pagina
 
     });
-
-    //CollapseAll all'avvio.
-    // PROBLEMA: se lo metto, funziona anche sull'altra tabella, non permettendomi di inserire nulla
-
-    /*
-    $('#nestable_list_1').nestable({
-    });
-    $('#nestable_list_1').nestable('collapseAll');
-    */
 
 </script>
 <!-- END JAVASCRIPTS -->

@@ -43,6 +43,7 @@ session_start(); //facciamo partire la sessione
 include_once UTILS_DIR . "Patterns.php";
 include_once UTILS_DIR . "Error.php";
 include_once EXCEPTION_DIR . "ApplicationException.php";
+include_once MODEL_DIR . "Logger.php";
 switch (isset($_URL[0]) ? $_URL[0] : '') {
     case '':
         include_once VIEW_DIR . "VisualizzaHome.php";

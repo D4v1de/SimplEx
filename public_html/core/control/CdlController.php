@@ -75,9 +75,9 @@ class CdlController extends Controller {
      * @param la matricola del Corso da modificare
      * @param un Corso
      */
-    public function modificaCorso($matricola, $corso){
+    public function modificaCorso($id, $corso){
         $corsoModel = new CorsoModel();
-        $corsoModel->updateCorso($matricola, $corso);
+        $corsoModel->updateCorso($id, $corso);
     }
 
     /**
@@ -85,9 +85,9 @@ class CdlController extends Controller {
      * @param matricola del Corso
      * @return il Corso con la matricola specificata
      */
-    public function readCorso($matricola) {
+    public function readCorso($id) {
         $corsoModel = new CorsoModel();
-        return $corsoModel->readCorso($matricola);
+        return $corsoModel->readCorso($id);
     }
 
     /**
