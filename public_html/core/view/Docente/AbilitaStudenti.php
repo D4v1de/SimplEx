@@ -41,7 +41,7 @@ $controller = new Esempio();
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                Aggiungi Studente
+                Abilita Studenti
             </h3>
 
             <div class="page-bar">
@@ -62,7 +62,7 @@ $controller = new Esempio();
                     </li>
 
                     <li>
-                        Aggiungi Studente
+                        Abilita Studenti
                     </li>
                 </ul>
             </div>
@@ -232,11 +232,20 @@ $controller = new Esempio();
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-9"></div>
-                <button type="submit" class="btn green-jungle">Conferma</button>
-                <button type="button" class="btn red-intense">Annulla</button>
+        <div class="form-actions">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <a href="javascript:;" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                Conferma
+                            </a>
+                            <a href="javascript:;" class="btn sm red-intense">
+                                Annulla
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
