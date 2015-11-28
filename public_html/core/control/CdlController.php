@@ -156,4 +156,9 @@ class CdlController extends Controller {
         $accountModel = new AccountModel();
         return $accountModel->getAllDocentiByCorso($corsoID);
     }
+
+    public function getUtenteByMatricola($matricola) {
+        $accountModel = new AccountModel();
+        return $accountModel->getUtenteByMatricola($matricola);
+    }
 }
