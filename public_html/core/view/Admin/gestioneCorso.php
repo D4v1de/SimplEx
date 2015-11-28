@@ -12,15 +12,46 @@ $controller = new CdlController();
 
 $corso = $controller->readCorso($_URL[1]);
 
-if(isset($_POST['checkbox'])) {
+$docenteassociato = $controller->getDocenteAssociato($corso->getId());
+
+if (isset($_POST['checkbox'])) {
     $checkbox = $_POST['checkbox'];
     if (count($checkbox) == 1) {
+        if (count($docenteassociato) < 1) ;
+        else if (count($docenteassociato) == 1) {
+            $controller->eliminaInsegnamento($corso->getId(), $docenteassociato[0]->getMatricola());
+        } else if (count($docenteassociato) > 1) {
+            foreach ($docenteassociato as $d) {
+                $controller->eliminaInsegnamento($corso->getId(), $d->getMatricola());
+            }
+        }
         $controller->creaInsegnamento($corso->getId(), $checkbox[0]);
+        header('location: ../../gestionecorso/'.$corso->getId());
     } else if (count($checkbox) > 1) {
-        echo "errore non puoi associare più docenti!";
-    } else if (count($checkbox) < 1) {
-        echo "errore nessun elemento da eliminare!";
+        if (count($docenteassociato) < 1) ;
+        else if (count($docenteassociato) == 1) {
+            $controller->eliminaInsegnamento($corso->getId(), $docenteassociato[0]->getMatricola());
+        } else if (count($docenteassociato) > 1) {
+            foreach ($docenteassociato as $d) {
+                $controller->eliminaInsegnamento($corso->getId(), $d->getMatricola());
+            }
+        }
+        foreach ($checkbox as $c) {
+            $controller->creaInsegnamento($corso->getId(), $c);
+        }
+        header('location: ../../gestionecorso/'.$corso->getId());
     }
+}
+if (empty($_POST['checkbox'])) {
+        if (count($docenteassociato) < 1) ;
+        else if (count($docenteassociato) == 1) {
+            $controller->eliminaInsegnamento($corso->getId(), $docenteassociato[0]->getMatricola());
+        } else if (count($docenteassociato) > 1) {
+            foreach ($docenteassociato as $d) {
+                $controller->eliminaInsegnamento($corso->getId(), $d->getMatricola());
+            }
+        }
+    //header('location: ../../gestionecorso/'.$corso->getId());
 }
 
 ?>
@@ -88,7 +119,17 @@ if(isset($_POST['checkbox'])) {
                                     <h3><?php echo $corso->getNome(); ?></h3>
                                     <h5>Matricola: <?php echo $corso->getMatricola(); ?></h5>
                                     <h5>Tipologia: <?php echo $corso->getTipologia(); ?></h5>
-                                    <h5>Docente: </h5>
+                                    <?php
+                                    if (count($docenteassociato) == 1) {
+                                        printf('<h5>Docente: %s %s</h5>', $docenteassociato[0]->getNome(), $docenteassociato[0]->getCognome());
+                                    } else if (count($docenteassociato) > 1) {
+                                        foreach ($docenteassociato as $d) {
+                                            printf('<h5>Docente: %s %s</h5>', $d->getNome(), $d->getCognome());
+                                        }
+                                    } else if (count($docenteassociato) < 1) {
+                                        printf('<h5>Questo corso non ha docenti Associati!</h5>');
+                                    }
+                                    ?>
                                 </div>
                                 <div class="col-md-offset-3 col-md-2">
                                     <h3></h3>
@@ -106,7 +147,7 @@ if(isset($_POST['checkbox'])) {
                 <h3></h3>
             </div>
 
-            <form method="post" action="gestionecorso">
+            <form method="post" action="../gestionecorso/<?php echo $corso->getId(); ?>">
 
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
@@ -162,13 +203,17 @@ if(isset($_POST['checkbox'])) {
                                 $array = Array();
                                 $array = $controller->getDocenti();
                                 if ($array == null) {
-                                    //echo "l'array è null";
+                                    echo "l'array è null";
                                 } else {
                                     foreach ($array as $d) {
                                         printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                        printf("<td><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $d->getMatricola());
+                                        if (in_array($d, $docenteassociato)) {
+                                            printf("<td><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\" checked></td>", $d->getMatricola());
+                                        } else {
+                                            printf("<td><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $d->getMatricola());
+                                        }
                                         printf("<td class=\"sorting_1\">%s</td>", $d->getMatricola());
-                                        printf("<td class=\"sorting_1\"><a href=\"../../utente/%s\">%s</a></td>", $d->getId(), $d->getNome());
+                                        printf("<td class=\"sorting_1\"><a href=\"../../utente/%s\">%s</a></td>", $d->getMatricola(), $d->getNome());
                                         printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $d->getCognome());
                                         printf("<td>%s</td>", $d->getCdlMatricola());
                                         printf("</tr>");

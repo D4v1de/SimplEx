@@ -11,6 +11,7 @@ include_once BEAN_DIR . "CdL.php";
 include_once BEAN_DIR . "Corso.php";
 include_once MODEL_DIR . "CdLModel.php";
 include_once MODEL_DIR . "CorsoModel.php";
+include_once MODEL_DIR . "AccountModel.php";
 
 class CdlController extends Controller {
 
@@ -147,6 +148,12 @@ class CdlController extends Controller {
     }
 
     public function getDocenti() {
-        return null;
+        $accountModel = new AccountModel();
+        return $accountModel->getAllDocenti();
+    }
+
+    public function getDocenteAssociato($corsoID) {
+        $accountModel = new AccountModel();
+        return $accountModel->getAllDocentiByCorso($corsoID);
     }
 }
