@@ -17,7 +17,7 @@ class ArgomentoModel extends Model {
     private static $DELETE_ARGOMENTO = "DELETE FROM `argomento` WHERE id = '%d' AND corso_id = '%d'";
     private static $READ_ARGOMENTO = "SELECT * FROM `argomento` WHERE id = '%d' AND corso_id = '%d'";
     private static $GET_ALL_ARGOMENTO = "SELECT * FROM `argomento`";
-    private static $CREATE_DOMANDA_APERTA = "INSERT INTO `domanda_aperta` (argomento_id, argomento_corso_id, testo, punteggio_max, percentuale_scelta) VALUES (NULL,'%d','%d','%s','%f','%f')";
+    private static $CREATE_DOMANDA_APERTA = "INSERT INTO `domanda_aperta` (id, argomento_id, argomento_corso_id, testo, punteggio_max, percentuale_scelta) VALUES (NULL,'%d','%d','%s','%f','%f')";
     private static $UPDATE_DOMANDA_APERTA = "UPDATE `domanda_aperta` SET testo = '%s', punteggio_max = '%f', percentuale_scelta = '%f' WHERE id = '%d' AND argomento_id = '%d' AND argomento_corso_id = '%d'";
     private static $DELETE_DOMANDA_APERTA = "DELETE FROM `domanda_aperta` WHERE id = '%d' AND argomento_id = '%d' AND argomento_corso_id = '%d'";
     private static $READ_DOMANDA_APERTA = "SELECT * FROM `domanda_aperta` WHERE id = '%d' AND argomento_id = '%d' AND argomento_corso_id = '%d'";
@@ -120,8 +120,7 @@ class ArgomentoModel extends Model {
      * @throws ApplicationException
      */
     public function createDomandaAperta($domandaAperta) {
-        $query = sprintf(self::$CREATE_DOMANDA_APERTA, $domandaAperta->getArgomentoId(), $domandaAperta->getArgomentoCorsoId(), $domandaAperta->getTesto(),
-            $domandaAperta->getPunteggioMax(), $domandaAperta->getPercentualeScelta());
+        $query = sprintf(self::$CREATE_DOMANDA_APERTA, $domandaAperta->getArgomentoId(), $domandaAperta->getArgomentoCorsoId(), $domandaAperta->getTesto(), $domandaAperta->getPunteggioMax(), $domandaAperta->getPercentualeScelta());
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
@@ -172,7 +171,7 @@ class ArgomentoModel extends Model {
         $query = sprintf(self::$READ_DOMANDA_APERTA, $id, $argomentoId, $argomentoCorsoId);
         $res = Model::getDB()->query($query);
         if ($obj = $res->fetch_assoc()) {
-            $domandaAperta = new DomandaAperta($obj['id'], $obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_max'], $obj['percentule_scelta']);
+            $domandaAperta = new DomandaAperta($obj['id'], $obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_max'], $obj['percentuale_scelta']);
             return $domandaAperta;
         } else {
             throw new ApplicationException(Error::$DOMANDA_APERTA_NON_TROVATA);
@@ -189,7 +188,7 @@ class ArgomentoModel extends Model {
         $domandeAperte[] = array();
         if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $domandeAperte[] = new DomandaAperta($obj['id'], $obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_max'], $obj['percentule_scelta']);
+                $domandeAperte[] = new DomandaAperta($obj['id'], $obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_max'], $obj['percentuale_scelta']);
             }
         }
         return $domandeAperte;
@@ -208,8 +207,7 @@ class ArgomentoModel extends Model {
         $domandeAperte = array();
         if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $domandeAperte[] = new DomandaAperta($obj['id'], $obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_max'],
-                    $obj['percentule_scelta']);
+                $domandeAperte[] = new DomandaAperta($obj['id'], $obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_max'],$obj['percentuale_scelta']);
             }
         }
         return $domandeAperte;
