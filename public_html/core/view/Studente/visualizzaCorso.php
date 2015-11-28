@@ -49,7 +49,7 @@ $controller = new Esempio();
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="gestionecdl">GestioneCorsi</a>
+                        <a href="gestionecdl">VisualizzaCorsi</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
@@ -66,17 +66,11 @@ $controller = new Esempio();
                     <div class="form">
                         <form action="#" class="form-horizontal form-bordered form-row-stripped">
                             <div class="form-actions">
-                                <div class="col-md col-md-5">
+                                <div class="col-md col-md-8">
                                     <h3>Ingegneria del Software</h3>
                                     <h5>Matricola: 010000001</h5>
                                     <h5>Tipologia: Annuale</h5>
                                     <h5>Docente: Andrea De Lucia</h5>
-                                </div>
-                                <div class="col-md-offset-4 col-md-2">
-                                    <h3></h3>
-                                    <button type="button" class="btn green-jungle">Associa Docente</button>
-                                    <h3></h3>
-                                    <a href="modificacorso"><button type="button" class="btn green-jungle">Modifica</button></a>
                                 </div>
                             </div>
                         </form>

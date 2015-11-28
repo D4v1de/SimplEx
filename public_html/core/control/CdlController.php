@@ -71,6 +71,15 @@ class CdlController extends Controller {
     }
 
     /**
+     * Elimino un Corso
+     * @param ID di un Corso
+     */
+    public function eliminaCdl($matricola) {
+        $cdlModel = new CdLModel();
+        $cdlModel->deleteCdL($matricola);
+    }
+
+    /**
      * Modifica un corso
      * @param la matricola del Corso da modificare
      * @param un Corso
@@ -100,11 +109,44 @@ class CdlController extends Controller {
     }
 
     /**
+     * Elimino un Corso
+     * @param ID di un Corso
+     */
+    public function eliminaCorso($id) {
+        $corsoModel = new CorsoModel();
+        $corsoModel->deleteCorso($id);
+    }
+
+    /**
      * Restituisco i corsi di un cdl
      * @return array di Corsi di un cdl
      */
     public function getCorsiCdl($cdl) {
         $corsoModel = new CorsoModel();
         return $corsoModel->getAllCorsiCdl($cdl->getMatricola());
+    }
+
+    /**
+     * Crea l'associazione insegnamento tra Corso e Docente
+     * @param id Corso da associare
+     * @param matricola Docente da associare
+     */
+    public function creaInsegnamento($corso_id, $docente_matricola) {
+        $corsoModel = new CorsoModel();
+        $corsoModel->createInsegnamento($corso_id, $docente_matricola);
+    }
+
+    /**
+     * Elimina l'associazione insegnamento tra Corso e Docente
+     * @param id Corso da disassociare
+     * @param matricola Docente da disassociare
+     */
+    public function eliminaInsegnamento($corso_id, $docente_matricola) {
+        $corsoModel = new CorsoModel();
+        $corsoModel->deleteInsegnamento($corso_id, $docente_matricola);
+    }
+
+    public function getDocenti() {
+        return null;
     }
 }

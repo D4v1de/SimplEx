@@ -165,6 +165,9 @@ if (!defined("TESTING")) {
         case 'c':
             include_once CONTROL_DIR . "CdlController.php";
             break;
+        case 'visualizzacorso':
+            include_once VIEW_DIR . "Studente/visualizzaCorso.php";
+            break;
         default:
             echo "Route inesistente";
     }

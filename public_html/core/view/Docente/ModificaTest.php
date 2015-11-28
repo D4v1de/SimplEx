@@ -38,7 +38,7 @@ $controller = new Esempio();
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
              <h3 class="page-title">
-                Visualizza Test
+                Modifica Test
             </h3>
             <div class="page-bar">
                 <ul class="page-breadcrumb">
@@ -52,7 +52,7 @@ $controller = new Esempio();
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        Visualizza Test
+                        <a href="#">Modifica Test</a>
                     </li>
                 </ul>
             </div>
@@ -62,68 +62,57 @@ $controller = new Esempio();
             <div class="portlet box blue-madison">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="fa fa-question-circle"></i>Domanda 1
+                        <i class="fa fa-info-circle"></i>Informazioni
                     </div>
                     <div class="tools">
-                        <a href="javascript:;" class="collapse" data-original-title="" title="">
-                        </a>
+                        <a href="javascript:;" class="collapse" data-original-title="" title=""></a>
+                    </div>
+                    <div class="actions">
+                        <a href="selezionadomandetest" class="btn btn-default btn-sm">
+                            <i class="fa fa-edit"></i> Seleziona Domande </a>
                     </div>
                 </div>
+
                 <div class="portlet-body">
-                    <p>Risposta 1</p>
-                    <p><font color="#78a300">Risposta 2</font></p>
-                    <p>Risposta 3</p>
-                    <p>Risposta 4</p>
+                    
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input has-success">
+                                    <div class="input-icon">
+                                        <input type="text" class="form-control" value="Test 1">
+                                            <label for="form_control_1">Nome Test:</label>
+                                                <span class="help-block">Inserire il nome del test</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-6">
+                                <h4> Descrizione</h4>
+                                <textarea class="form-control" rows="4" placeholder="Inserisci descrizione" style="resize:none">Qui c'è la descrizione del test da modificare</textarea>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="portlet box blue-madison">
-                <div class="portlet-title">
-                    <div class="caption">
-                        <i class="fa fa-question-circle"></i>Domanda 2
-                    </div>
-                    <div class="tools">
-                        <a href="javascript:;" class="collapse" data-original-title="" title="">
-                        </a>
-                    </div>
-                </div>
-                <div class="portlet-body">
-                    Testo domanda a risposta aperta
-                </div>
-            </div>
-            <div class="portlet box blue-madison">
-                <div class="portlet-title">
-                    <div class="caption">
-                        <i class="fa fa-question-circle"></i>Domanda 3
-                    </div>
-                    <div class="tools">
-                        <a href="javascript:;" class="collapse" data-original-title="" title="">
-                        </a>
+            <div class="form-actions">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <a href="javascript:;" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                        Salva
+                                    </a>
+                                    <a href="javascript:;" class="btn sm red-intense">
+                                        Annulla
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="portlet-body">
-                    <p>Risposta 1</p>
-                    <p>Risposta 2</p>
-                    <p>Risposta 3</p>
-                    <p><font color="#78a300">Risposta 4</font></p>
-                </div>
-            </div>     
-            <div class="portlet box blue-madison">
-                <div class="portlet-title">
-                    <div class="caption">
-                        <i class="fa fa-question-circle"></i>Domanda 4
-                    </div>
-                    <div class="tools">
-                        <a href="javascript:;" class="collapse" data-original-title="" title="">
-                        </a>
-                    </div>
-                </div>
-                <div class="portlet-body">
-                    <p><font color="#78a300">Risposta 1</font></p>
-                    <p>Risposta 2</p>
-                    <p>Risposta 3</p>
-                    <p>Risposta 4</p>
-                </div>
-            </div>
+           
             <!-- END PAGE CONTENT-->
         </div>
     </div>
