@@ -17,36 +17,26 @@ class ArgomentoModel extends Model {
     private static $DELETE_ARGOMENTO = "DELETE FROM `argomento` WHERE id = '%d' AND corso_id = '%d'";
     private static $READ_ARGOMENTO = "SELECT * FROM `argomento` WHERE id = '%d' AND corso_id = '%d'";
     private static $GET_ALL_ARGOMENTO = "SELECT * FROM `argomento`";
-    private static $CREATE_DOMANDA_APERTA = "INSERT INTO `domanda_aperta` (argomento_id, argomento_corso_id, testo, punteggio_max, percentuale_scelta)"
-            . " VALUES (NULL,'%d','%d','%s','%f','%f')";
-    private static $UPDATE_DOMANDA_APERTA = "UPDATE `domanda_aperta` SET testo = '%s', punteggio_max = '%f', percentuale_scelta = '%f' "
-            ." WHERE id = '%d' AND argomento_id = '%d' AND argomento_corso_id = '%d'";
+    private static $CREATE_DOMANDA_APERTA = "INSERT INTO `domanda_aperta` (argomento_id, argomento_corso_id, testo, punteggio_max, percentuale_scelta)  VALUES (NULL,'%d','%d','%s','%f','%f')";
+    private static $UPDATE_DOMANDA_APERTA = "UPDATE `domanda_aperta` SET testo = '%s', punteggio_max = '%f', percentuale_scelta = '%f' WHERE id = '%d' AND argomento_id = '%d' AND argomento_corso_id = '%d'";
     private static $DELETE_DOMANDA_APERTA = "DELETE FROM `domanda_aperta` WHERE id = '%d' AND argomento_id = '%d' AND argomento_corso_id = '%d'";
     private static $READ_DOMANDA_APERTA = "SELECT * FROM `domanda_aperta` WHERE id = '%d' AND argomento_id = '%d' AND argomento_corso_id = '%d'";
     private static $GET_ALL_DOMANDA_APERTA = "SELECT * FROM `domanda_aperta`";
     private static $GET_ALL_DOMANDA_APERTA_BY_ARGOMENTO = "SELECT * FROM `domanda_aperta` WHERE argomento_id = '%d' AND argomento_corso_id = '%d'";
-    private static $CREATE_DOMANDA_MULTIPLA = "INSERT INTO `domanda_multipla` (argomento_id, argomento_corso_id, testo, punteggio_corretta, punteggio_errata, "
-            ."percentuale_scelta, percentuale_risposta_corretta) VALUES ('%d','%d','%s', %f','%f','%f','%f')";
-    private static $UPDATE_DOMANDA_MULTIPLA = "UPDATE `domanda_multipla` SET testo = '%s', punteggio_corretta = '%f', "
-            ."punteggio_errata = '%f', percentuale_scelta = '%f', percentuale_risposta_corretta = '%f' WHERE id = '%d' AND argomento_id = '%d' AND argomento_corso_id = '%d'";
+    private static $CREATE_DOMANDA_MULTIPLA = "INSERT INTO `domanda_multipla` (argomento_id, argomento_corso_id, testo, punteggio_corretta, punteggio_errata, percentuale_scelta, percentuale_risposta_corretta) VALUES ('%d','%d','%s', '%f','%f','%f','%f')";
+    private static $UPDATE_DOMANDA_MULTIPLA = "UPDATE `domanda_multipla` SET testo = '%s', punteggio_corretta = '%f', punteggio_errata = '%f', percentuale_scelta = '%f', percentuale_risposta_corretta = '%f' WHERE id = '%d' AND argomento_id = '%d' AND argomento_corso_id = '%d'";
     private static $DELETE_DOMANDA_MULTIPLA = "DELETE FROM `domanda_multipla` WHERE id = '%d' AND argomento_id = '%d' AND argomento_corso_id = '%d'";
     private static $READ_DOMANDA_MULTIPLA = "SELECT * FROM `domanda_multipla` WHERE id = '%d' AND argomento_id = '%d' AND argomento_corso_id = '%d'";
     private static $GET_ALL_DOMANDA_MULTIPLA = "SELECT * FROM `domanda_multipla`";
     private static $GET_ALL_DOMANDA_MULTIPLA_BY_ARGOMENTO = "SELECT * FROM `domanda_multipla` WHERE argomento_id = '%d' AND argomento_corso_id = '%d'";
  
-    private static $CREATE_ALTERNATIVA = "INSERT INTO `alternativa` (domanda_multipla_id, domanda_multipla_argomento_id, domanda_multipla_argomento_corso_id, testo, "
-            ."percentuale_scelta, corretta) VALUES ('%d','%d','%d','%s','%f','%s')";
-    private static $UPDATE_ALTERNATIVA = "UPDATE `alternativa` SET testo = '%s', percentuale_scelta = '%f', corretta = '%s' WHERE id = '%d' AND "
-            . "domanda_multipla_id = '%d' AND domanda_multipla_argomento_id = '%d' AND domanda_multipla_argomento_corso_id = '%d'";
-    private static $DELETE_ALTERNATIVA = "DELETE FROM `alternativa` WHERE id = '%d' AND domanda_multipla_id = '%d' AND domanda_multipla_argomento_id = '%d' "
-            . "AND domanda_multipla_argomento_corso_id = '%d'";
-    private static $READ_ALTERNATIVA = "SELECT * FROM `alternativa` WHERE id = '%d' AND domanda_multipla_id = '%d' AND domanda_multipla_argomento_id = '%d' "
-            . "AND domanda_multipla_argomento_corso_id = '%d'";
+    private static $CREATE_ALTERNATIVA = "INSERT INTO `alternativa` (domanda_multipla_id, domanda_multipla_argomento_id, domanda_multipla_argomento_corso_id, testo,percentuale_scelta, corretta) VALUES ('%d','%d','%d','%s','%f','%s')";
+    private static $UPDATE_ALTERNATIVA = "UPDATE `alternativa` SET testo = '%s', percentuale_scelta = '%f', corretta = '%s' WHERE id = '%d' AND domanda_multipla_id = '%d' AND domanda_multipla_argomento_id = '%d' AND domanda_multipla_argomento_corso_id = '%d'";
+    private static $DELETE_ALTERNATIVA = "DELETE FROM `alternativa` WHERE id = '%d' AND domanda_multipla_id = '%d' AND domanda_multipla_argomento_id = '%d' AND domanda_multipla_argomento_corso_id = '%d'";
+    private static $READ_ALTERNATIVA = "SELECT * FROM `alternativa` WHERE id = '%d' AND domanda_multipla_id = '%d' AND domanda_multipla_argomento_id = '%d' AND domanda_multipla_argomento_corso_id = '%d'";
     private static $GET_ALL_ALTERNATIVA = "SELECT * FROM `alternativa`";
-    private static $GET_ALL_ALTERNATIVA_BY_DOMANDA = "SELECT * FROM `alternativa` WHERE domanda_multipla_id = '%d' AND domanda_multipla_argomento_id = '%d' "
-            . "AND domanda_multipla_argomento_corso_id = '%d'";
-    private static $GET_ALTERNATIVA_CORRETTA_BY_DOMANDA = "SELECT * FROM `alternativa` WHERE domanda_multipla_id = '%d' AND domanda_multipla_argomento_id = '%d' "
-            . "AND domanda_multipla_argomento_corso_id = '%d' AND a.corretta = \"Si\"";
+    private static $GET_ALL_ALTERNATIVA_BY_DOMANDA = "SELECT * FROM `alternativa` WHERE domanda_multipla_id = '%d' AND domanda_multipla_argomento_id = '%d' AND domanda_multipla_argomento_corso_id = '%d'";
+    private static $GET_ALTERNATIVA_CORRETTA_BY_DOMANDA = "SELECT * FROM `alternativa` WHERE domanda_multipla_id = '%d' AND domanda_multipla_argomento_id = '%d' AND domanda_multipla_argomento_corso_id = '%d' AND a.corretta = \"Si\"";
 
     /**
      *Inserisce un nuovo argomento nel database
