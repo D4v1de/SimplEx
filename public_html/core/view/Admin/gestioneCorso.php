@@ -42,7 +42,10 @@ if (isset($_POST['checkbox'])) {
         header('location: ../../gestionecorso/'.$corso->getId());
     }
 }
-if (empty($_POST['checkbox'])) {
+if(isset($_POST['checkbox']) && empty($_POST['checkbox'])) {
+
+        echo"siamo qui!!!!!!!!";
+
         if (count($docenteassociato) < 1) ;
         else if (count($docenteassociato) == 1) {
             $controller->eliminaInsegnamento($corso->getId(), $docenteassociato[0]->getMatricola());
@@ -51,7 +54,7 @@ if (empty($_POST['checkbox'])) {
                 $controller->eliminaInsegnamento($corso->getId(), $d->getMatricola());
             }
         }
-    //header('location: ../../gestionecorso/'.$corso->getId());
+    header('location: ../../gestionecorso/'.$corso->getId());
 }
 
 ?>
