@@ -89,7 +89,8 @@ class AccountModel extends Model {
         $utente->setCognome(mysqli_real_escape_string(Model::getDB(), $utente->getCognome()));
 
         $query = sprintf(self::$INSERT_UTENTE, $utente->getMatricola(), $utente->getUsername(),
-            $ident, $utente->getPassword(), $utente->getNome(), $utente->getCognome(), $utente->getCdlMatricola());
+            $ident, $utente->getTipologia(), $utente->getNome(), $utente->getCognome(), $utente->getCdlMatricola());
+        //TODO rifare
         if (!Model::getDB()->query($query)) {
             throw new RuntimeException(Model::getDB()->error, Model::getDB()->errno);
         }
@@ -106,7 +107,7 @@ class AccountModel extends Model {
         $qr = sprintf(self::$DELETE_UTENTE, $matricola);
         Model::getDB()->query($qr);
 
-        return (Model::getDB()->affected_rows = 1);
+        return (Model::getDB()->affected_rows == 1);
     }
 
     /**
@@ -117,7 +118,7 @@ class AccountModel extends Model {
      */
     public function parseUtente(&$res) {
         if ($obj = $res->fetch_assoc()) {
-            return new Utente($obj['username'], $obj['password'], $obj['matricola'], $obj['nome'], $obj['cognome'], $obj['tipologia'], $obj['cdl_matricola']);
+            return new Utente($obj['matricola'], $obj['username'], $obj['password'], $obj['tipologia'], $obj['nome'], $obj['cognome'], $obj['cdl_matricola']);
         } else {
             throw new UserNotFoundException("Utente non trovato");
         }
@@ -131,7 +132,7 @@ class AccountModel extends Model {
         $res = Model::getDB()->query(self::$SELECT_ALL_UTENTI);
         $ret = array();
         while ($obj = $res->fetch_assoc()) {
-            $ret[] = new Utente($obj['username'], $obj['password'], $obj['matricola'], $obj['nome'], $obj['cognome'], $obj['tipologia'], $obj['cdl_matricola']);
+            $ret[] = new Utente($obj['matricola'], $obj['username'], $obj['password'], $obj['tipologia'], $obj['nome'], $obj['cognome'], $obj['cdl_matricola']);
         }
         return $ret;
     }
@@ -163,7 +164,7 @@ class AccountModel extends Model {
         $docenti = array();
         if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $docente = new Utente($obj['username'], $obj['password'], $obj['matricola'], $obj['nome'], $obj['cognome'], $obj['tipologia'], $obj['cdl_matricola']);
+                $docente = new Utente($obj['matricola'], $obj['username'], $obj['password'], $obj['tipologia'], $obj['nome'], $obj['cognome'], $obj['cdl_matricola']);
                 $docenti[] = $docente;
             }
         }
@@ -181,7 +182,7 @@ class AccountModel extends Model {
         $studenti = array();
         if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $studente = new Utente($obj['username'], $obj['password'], $obj['matricola'], $obj['nome'], $obj['cognome'], $obj['tipologia'], $obj['cdl_matricola']);
+                $studente = new Utente($obj['matricola'], $obj['username'], $obj['password'], $obj['tipologia'], $obj['nome'], $obj['cognome'], $obj['cdl_matricola']);
                 $studenti[] = $studente;
             }
         }
@@ -199,7 +200,7 @@ class AccountModel extends Model {
         $studenti = array();
         if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $studente = new Utente($obj['username'], $obj['password'], $obj['matricola'], $obj['nome'], $obj['cognome'], $obj['tipologia'], $obj['cdl_matricola']);
+                $studente = new Utente($obj['matricola'], $obj['username'], $obj['password'], $obj['tipologia'], $obj['nome'], $obj['cognome'], $obj['cdl_matricola']);
                 $studenti[] = $studente;
             }
         }
@@ -217,7 +218,7 @@ class AccountModel extends Model {
         $studenti = array();
         if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $studentiSessione = new Utente($obj['username'], $obj['password'], $obj['matricola'], $obj['nome'], $obj['cognome'], $obj['tipologia'], $obj['cdl_matricola']);
+                $studentiSessione = new Utente($obj['matricola'], $obj['username'], $obj['password'], $obj['tipologia'], $obj['nome'], $obj['cognome'], $obj['cdl_matricola']);
                 $studenti[] = $studentiSessione;
             }
         }
