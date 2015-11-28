@@ -23,6 +23,7 @@ class AccountModelTest extends PHPUnit_Framework_TestCase {
         /** @var Utente $utente */
         $utente = $model->getUtente(self::TESTEMAIL_GMAIL_COM, self::TESTPASSWORD);
         $this->assertEquals(self::MATRICOLA, $utente->getMatricola());
+        //completare i tests
     }
 
 }
