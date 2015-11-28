@@ -48,6 +48,8 @@ class ArgomentoModel extends Model {
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
+        }else{
+            return Model::getDB()->insert_id;
         }
     }
 
@@ -124,6 +126,8 @@ class ArgomentoModel extends Model {
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
+        }else{
+            return Model::getDB()->insert_id;
         }
     }
 
@@ -224,6 +228,8 @@ class ArgomentoModel extends Model {
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
+        }else{
+            return Model::getDB()->insert_id;
         }
     }
 
@@ -328,6 +334,8 @@ class ArgomentoModel extends Model {
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
+        }else{
+            return Model::getDB()->insert_id;
         }
     }
 
