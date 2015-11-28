@@ -67,7 +67,7 @@ if(isset($_POST['checkbox'])) {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="gestionecdl">GestioneCorsi</a>
+                        <a href="../../gestionecorsi">GestioneCorsi</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
