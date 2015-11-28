@@ -6,11 +6,13 @@
  * Time: 17:24
  */
 
+define("TESTING",true);
 include_once('AutoLoader.php');
 // Register the directory to your include files
 
-include_once "../index.php";
-AutoLoader::registerDirectory('../core/model');
-AutoLoader::registerDirectory('../core/exception');
-AutoLoader::registerDirectory('../core/control');
-AutoLoader::registerDirectory('../core/utils');
+include_once "../../../index.php";
+AutoLoader::registerDirectory('../../../core/model');
+AutoLoader::registerDirectory('../../../core/exception');
+AutoLoader::registerDirectory('../../../core/control');
+AutoLoader::registerDirectory('../../../core/utils');
+AutoLoader::registerDirectory('../../../core/bean');

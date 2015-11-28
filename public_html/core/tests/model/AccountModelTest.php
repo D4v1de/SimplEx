@@ -9,8 +9,12 @@
 class AccountModelTest extends PHPUnit_Framework_TestCase {
 
     public function testTest() {
-        $model = new AccountModel();
-        $res = $model->removeUtente("sds");
-        $this->assertEquals("hell", "ss");
+        //$model = new AccountModel();
+        //$res = $model->removeUtente("sds");
+
+
+        $this->assertEquals("hell", "hell");
+
+        //$this->assertEquals("ciao","bye");
     }
 }

@@ -44,126 +44,128 @@ include_once UTILS_DIR . "Patterns.php";
 include_once UTILS_DIR . "Error.php";
 include_once EXCEPTION_DIR . "ApplicationException.php";
 include_once MODEL_DIR . "Logger.php";
-switch (isset($_URL[0]) ? $_URL[0] : '') {
-    case '':
-        include_once VIEW_DIR . "VisualizzaHome.php";
-        break;
-    case 'auth': {
-        switch (@$_URL[1]) {
-            case '':
-                include_once VIEW_DIR . "Auth/VisualizzaLogReg.php";
-                break;
-            case 'register':
-                include_once VIEW_DIR . "Auth/Register.php";
-                break;
-            case 'login':
-                include_once VIEW_DIR . "Auth/Login.php";
-                break;
+if (!defined("TESTING")) {
+    switch (isset($_URL[0]) ? $_URL[0] : '') {
+        case '':
+            include_once VIEW_DIR . "VisualizzaHome.php";
+            break;
+        case 'auth': {
+            switch (@$_URL[1]) {
+                case '':
+                    include_once VIEW_DIR . "Auth/VisualizzaLogReg.php";
+                    break;
+                case 'register':
+                    include_once VIEW_DIR . "Auth/Register.php";
+                    break;
+                case 'login':
+                    include_once VIEW_DIR . "Auth/Login.php";
+                    break;
+            }
         }
+            break;
+        case 'esempio':
+            include_once VIEW_DIR . "VisualizzaEsempio.php";
+            break;
+        case 'graficacomune':
+            include_once VIEW_DIR . "GraficaComune.php";
+            break;
+        case 'provatable':
+            include_once VIEW_DIR . "/Admin/provatable.php";
+            break;
+        case 'visualizzatestdocente':
+            include_once VIEW_DIR . "/Docente/VisualizzaTest.php";
+            break;
+        case 'selezionadomandetest':
+            include_once VIEW_DIR . "/Docente/SelezionaDomande.php";
+            break;
+        case 'aggiungistudentetest':
+            include_once VIEW_DIR . "/Docente/AggiungiStudenteTest2.php";
+            break;
+        case 'eseguitest':
+            include_once VIEW_DIR . "/Studente/EseguiTest.php";
+            break;
+        case 'visualizzateststudente':
+            include_once VIEW_DIR . "/Studente/VisualizzaTest.php";
+            break;
+        case 'homecorsostudente':
+            include_once VIEW_DIR . "/Studente/HomeCorso.php";
+            break;
+        case 'homecorsodocente':
+            include_once VIEW_DIR . "/Docente/HomeCorso2.php";
+            break;
+        case 'visualizzaesitisessione':
+            include_once VIEW_DIR . "/Docente/VisualizzaEsitiSessione.php";
+            break;
+        case 'sessioneincorso':
+            include_once VIEW_DIR . "/Docente/SessioneInCorso.php";
+            break;
+        case 'creamodificasessione':
+            include_once VIEW_DIR . "/Docente/CreaModificaSessione.php";
+            break;
+        case 'createst':
+            include_once VIEW_DIR . "/Docente/CreaTest.php";
+            break;
+        case 't':
+            include_once CONTROL_DIR . "TestController.php";
+            break;
+        case 'visualizzalistadomande':
+            include_once VIEW_DIR . "/Docente/VisualizzaListaDomande.php";
+            break;
+        case 'inseriscidomandaaperta':
+            include_once VIEW_DIR . "/Docente/InserisciDomandaAperta.php";
+            break;
+        case 'modificadomandaaperta':
+            include_once VIEW_DIR . "/Docente/ModificaDomandaAperta.php";
+            break;
+        case 'inseriscidomandamultipla':
+            include_once VIEW_DIR . "/Docente/InserisciDomandaMultipla.php";
+            break;
+        case 'modificadomandamultipla':
+            include_once VIEW_DIR . "/Docente/ModificaDomandaMultipla.php";
+            break;
+        case 'inserisciargomento':
+            include_once VIEW_DIR . "/Docente/InserisciArgomento.php";
+            break;
+        case 'modificaargomento':
+            include_once VIEW_DIR . "/Docente/ModificaArgomento.php";
+            break;
+        case 'creacdl':
+            include_once VIEW_DIR . "/Admin/creaCdL.php";
+            break;
+        case 'creacorso':
+            include_once VIEW_DIR . "/Admin/creaCorso.php";
+            break;
+        case 'gestionecdl':
+            include_once VIEW_DIR . "/Admin/gestioneCdL.php";
+            break;
+        case 'gestionecorsi':
+            include_once VIEW_DIR . "/Admin/gestioneCorsi.php";
+            break;
+        case 'modificacdl':
+            include_once VIEW_DIR . "/Admin/modificaCdL.php";
+            break;
+        case 'modificacorso':
+            include_once VIEW_DIR . "/Admin/modificaCorso.php";
+            break;
+        case 'visualizzacorso':
+            include_once VIEW_DIR . "/Admin/visualizzaCorso.php";
+            break;
+        case 'visualizzacorsi':
+            include_once VIEW_DIR . "/Studente/visualizzaCorsi.php";
+            break;
+        case 'selezionestudenti':
+            include_once VIEW_DIR . "/Docente/SelezioneStudenti.php";
+            break;
+        case 'correggitest':
+            include_once VIEW_DIR . "/Docente/CorreggiTest.php";
+            break;
+        case 'provaargomenti':
+            include_once VIEW_DIR . "/Docente/ProvaArgomenti.php";
+            break;
+        case 'c':
+            include_once CONTROL_DIR . "CdlController.php";
+            break;
+        default:
+            echo "Route inesistente";
     }
-        break;
-    case 'esempio':
-        include_once VIEW_DIR . "VisualizzaEsempio.php";
-        break;
-    case 'graficacomune':
-        include_once VIEW_DIR . "GraficaComune.php";
-        break;
-    case 'provatable':
-        include_once VIEW_DIR . "/Admin/provatable.php";
-        break;
-    case 'visualizzatestdocente':
-        include_once VIEW_DIR . "/Docente/VisualizzaTest.php";
-        break;
-    case 'selezionadomandetest':
-        include_once VIEW_DIR . "/Docente/SelezionaDomande.php";
-        break;
-    case 'aggiungistudentetest':
-        include_once VIEW_DIR . "/Docente/AggiungiStudenteTest2.php";
-        break;
-    case 'eseguitest':
-        include_once VIEW_DIR . "/Studente/EseguiTest.php";
-        break;
-    case 'visualizzateststudente':
-        include_once VIEW_DIR . "/Studente/VisualizzaTest.php";
-        break;
-    case 'homecorsostudente':
-        include_once VIEW_DIR . "/Studente/HomeCorso.php";
-        break;
-    case 'homecorsodocente':
-        include_once VIEW_DIR . "/Docente/HomeCorso2.php";
-        break;
-    case 'visualizzaesitisessione':
-        include_once VIEW_DIR . "/Docente/VisualizzaEsitiSessione.php";
-        break;
-    case 'sessioneincorso':
-        include_once VIEW_DIR . "/Docente/SessioneInCorso.php";
-        break;
-    case 'creamodificasessione':
-        include_once VIEW_DIR . "/Docente/CreaModificaSessione.php";
-        break;
-    case 'createst':
-        include_once VIEW_DIR . "/Docente/CreaTest.php";
-        break;
-    case 't':
-        include_once CONTROL_DIR . "TestController.php";
-        break;
-    case 'visualizzalistadomande':
-        include_once VIEW_DIR . "/Docente/VisualizzaListaDomande.php";
-        break;
-    case 'inseriscidomandaaperta':
-        include_once VIEW_DIR . "/Docente/InserisciDomandaAperta.php";
-        break;
-    case 'modificadomandaaperta':
-        include_once VIEW_DIR . "/Docente/ModificaDomandaAperta.php";
-        break;
-    case 'inseriscidomandamultipla':
-        include_once VIEW_DIR . "/Docente/InserisciDomandaMultipla.php";
-        break;
-    case 'modificadomandamultipla':
-        include_once VIEW_DIR . "/Docente/ModificaDomandaMultipla.php";
-        break;
-    case 'inserisciargomento':
-        include_once VIEW_DIR . "/Docente/InserisciArgomento.php";
-        break;
-    case 'modificaargomento':
-        include_once VIEW_DIR . "/Docente/ModificaArgomento.php";
-        break;
-    case 'creacdl':
-        include_once VIEW_DIR . "/Admin/creaCdL.php";
-        break;
-    case 'creacorso':
-        include_once VIEW_DIR . "/Admin/creaCorso.php";
-        break;
-    case 'gestionecdl':
-        include_once VIEW_DIR . "/Admin/gestioneCdL.php";
-        break;
-    case 'gestionecorsi':
-        include_once VIEW_DIR . "/Admin/gestioneCorsi.php";
-        break;
-    case 'modificacdl':
-        include_once VIEW_DIR . "/Admin/modificaCdL.php";
-        break;
-    case 'modificacorso':
-        include_once VIEW_DIR . "/Admin/modificaCorso.php";
-        break;
-    case 'visualizzacorso':
-        include_once VIEW_DIR . "/Admin/visualizzaCorso.php";
-        break;
-    case 'visualizzacorsi':
-        include_once VIEW_DIR . "/Studente/visualizzaCorsi.php";
-        break;
-    case 'selezionestudenti':
-        include_once VIEW_DIR . "/Docente/SelezioneStudenti.php";
-        break;
-    case 'correggitest':
-        include_once VIEW_DIR . "/Docente/CorreggiTest.php";
-        break;
-    case 'provaargomenti':
-        include_once VIEW_DIR . "/Docente/ProvaArgomenti.php";
-        break;
-    case 'c':
-        include_once CONTROL_DIR . "CdlController.php";
-        break;
-    default:
-        echo "Route inesistente";
 }
