@@ -1,7 +1,6 @@
 <?php
 include_once MODEL_DIR . "Model.php";
 include_once BEAN_DIR . "Utente.php";
-include_once EXCEPTION_DIR . "UserNotFoundException.php";
 
 /**
  * Created by PhpStorm.
@@ -34,7 +33,7 @@ class AccountModel extends Model {
      * @param $password
      * @return Utente
      * @throws ConnectionException
-     * @throws UserNotFoundException
+     * @throws ApplicationException
      */
     public function getUtente($email, $password) {
         return $this->getUtenteByIdentity(self::createIdentity($email, $password));
@@ -44,7 +43,7 @@ class AccountModel extends Model {
      * @param $identity
      * @return Utente
      * @throws ConnectionException
-     * @throws UserNotFoundException
+     * @throws ApplicationException
      */
     public function getUtenteByIdentity($identity) {
         $qr = sprintf(self::$SELECT_UTENTE, $identity);
@@ -57,13 +56,12 @@ class AccountModel extends Model {
      * @param $matricola
      * @return Utente
      * @throws ConnectionException
-     * @throws UserNotFoundException
+     * @throws ApplicationException
      */
     public function getUtenteByMatricola($matricola) {
         $qr = sprintf(self::$SELECT_UTENTE_MATRICOLA, $matricola);
 
         $res = Model::getDB()->query($qr);
-        print_r(Model::getDB()->error_list);
         return $this->parseUtente($res);
     }
 
@@ -79,10 +77,9 @@ class AccountModel extends Model {
 
     /**
      * @param Utente $utente
-     *
-     * @throws ConnectionException
-     * @throws RuntimeException
      * @return Utente
+     * @throws ApplicationException [$INSERIMENTO_FALLITO]
+     * @throws ConnectionException
      */
     public function createUtente($utente) {
         $ident = self::createIdentity($utente->getUsername(), $utente->getPassword());
@@ -92,9 +89,8 @@ class AccountModel extends Model {
 
         $query = sprintf(self::$INSERT_UTENTE, $utente->getMatricola(), $utente->getUsername(),
             $ident, $utente->getTipologia(), $utente->getNome(), $utente->getCognome(), $utente->getCdlMatricola());
-        //TODO rifare
         if (!Model::getDB()->query($query)) {
-            throw new RuntimeException(Model::getDB()->error, Model::getDB()->errno);
+            throw new ApplicationException(Error::$INSERIMENTO_FALLITO, Model::getDB()->error, Model::getDB()->errno);
         }
         return $utente;
     }
@@ -116,13 +112,13 @@ class AccountModel extends Model {
      * Serializza tupla dal db in un oggetto Utente
      * @param mysqli_result $res
      * @return Utente
-     * @throws UserNotFoundException
+     * @throws ApplicationException [$UTENTE_NON_TROVATO]
      */
-    public function parseUtente(&$res) {
+    private function parseUtente(&$res) {
         if ($obj = $res->fetch_assoc()) {
             return new Utente($obj['matricola'], $obj['username'], $obj['password'], $obj['tipologia'], $obj['nome'], $obj['cognome'], $obj['cdl_matricola']);
         } else {
-            throw new UserNotFoundException("Utente non trovato");
+            throw new ApplicationException(Error::$UTENTE_NON_TROVATO);
         }
     }
 
@@ -180,8 +176,7 @@ class AccountModel extends Model {
         $docenti = array();
         if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $docente = new Utente($obj['matricola'], $obj['username'], $obj['password'], $obj['tipologia'], $obj['nome'], $obj['cognome'], $obj['cdl_matricola']);
-                $docenti[] = $docente;
+                $docenti[] = new Utente($obj['matricola'], $obj['username'], $obj['password'], $obj['tipologia'], $obj['nome'], $obj['cognome'], $obj['cdl_matricola']);
             }
         }
         return $docenti;

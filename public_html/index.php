@@ -102,6 +102,9 @@ if (!defined("TESTING")) {
         case 'creamodificasessione':
             include_once VIEW_DIR . "/Docente/CreaModificaSessione.php";
             break;
+        case 'visualizzasessione':
+            include_once VIEW_DIR . "/Docente/VisualizzaSessione.php";
+            break;
         case 'createst':
             include_once VIEW_DIR . "/Docente/CreaTest.php";
             break;
