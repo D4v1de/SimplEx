@@ -25,6 +25,8 @@ class AccountModel extends Model {
     private static $GET_ALL_STUDENTI_CORSO = "SELECT u.* FROM utente u, frequenta f WHERE f.studente_matricola = u.matricola AND f.corso_matricola = '%d'";
     private static $GET_ALL_STUDENTI_SESSIONE = "SELECT u.* FROM `abilitazione` AS a, `utente` AS u WHERE a.sessione_id='%s' AND a.studente_matricola=u.matricola";
 
+    // Aggiunto da Federico
+    private static $GET_ALL_DOCENTI = "SELECT u.* FROM utente u WHERE u.tipologia = 'Docente'";
 
     /**
      * Restituisce utente dato email e password
@@ -137,6 +139,20 @@ class AccountModel extends Model {
     }
 
     /**
+     * Aggiunta da federico
+     * @return array Docenti
+     * @throws ConnectionException
+     */
+    public function getAllDocenti() {
+        $res = Model::getDB()->query(self::$GET_ALL_DOCENTI);
+        $ret = array();
+        while ($obj = $res->fetch_assoc()) {
+            $ret[] = new Utente($obj['matricola'], $obj['username'], $obj['password'], $obj['tipologia'], $obj['nome'], $obj['cognome'], $obj['cdl_matricola']);
+        }
+        return $ret;
+    }
+
+    /**
      * @param string $matricola
      * @param Utente $utente
      * @return bool aggiornato?
@@ -158,12 +174,12 @@ class AccountModel extends Model {
      * @return Utente[] Tutti i docenti che insegnano il corso
      */
     public function getAllDocentiByCorso($id) {
-        $query = sprintf(self::$$GET_ALL_DOCENTI_CORSO, $id);
+        $query = sprintf(self::$GET_ALL_DOCENTI_CORSO, $id);
         $res = Model::getDB()->query($query);
         $docenti = array();
         if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $docente = new Utente($obj['username'], $obj['password'], $obj['matricola'], $obj['nome'], $obj['cognome'], $obj['tipologia'], $obj['cdl_matricola']);
+                $docente = new Utente($obj['matricola'], $obj['username'], $obj['password'], $obj['tipologia'], $obj['nome'], $obj['cognome'], $obj['cdl_matricola']);
                 $docenti[] = $docente;
             }
         }
@@ -199,7 +215,7 @@ class AccountModel extends Model {
         $studenti = array();
         if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $studente = new Utente($obj['username'], $obj['password'], $obj['matricola'], $obj['nome'], $obj['cognome'], $obj['tipologia'], $obj['cdl_matricola']);
+                $studente = new Utente($obj['username'], $obj['password'], $obj['nome'], $obj['cognome'], $obj['tipologia'], $obj['cdl_matricola']);
                 $studenti[] = $studente;
             }
         }

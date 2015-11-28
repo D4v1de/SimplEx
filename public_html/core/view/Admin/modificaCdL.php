@@ -98,20 +98,22 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                             </div>
                             <div class="portlet-body">
 
+                                <div class="form-group form-md-line-input">
+                                    <div class="col-md-10">
+                                        <select class="form-control" id="tipologiaCdl" name="tipologia">
+                                            <option value="Triennale" <?php if($tipologia == 'Triennale'){echo "selected";}?>>Triennale</option>
+                                            <option value="Magistrale" <?php if($tipologia == 'Magistrale'){echo "selected";}?>>Magistrale</option>
+                                        </select>
+
+                                        <div class="form-control-focus">
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="portlet-body form">
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
                                             <input type="text" class="form-control" name="nome" id="nomeCdl"
                                                    value="<?php echo $nome; ?>">
-
-                                            <div class="form-control-focus">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group form-md-line-input">
-                                        <div class="col-md-10">
-                                            <input type="text" class="form-control" name="tipologia" id="tipologiaCdl"
-                                                   value="<?php echo $tipologia; ?>">
 
                                             <div class="form-control-focus">
                                             </div>
