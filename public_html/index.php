@@ -149,8 +149,8 @@ switch (isset($_URL[0]) ? $_URL[0] : '') {
     case 'modificacorso':
         include_once VIEW_DIR . "/Admin/modificaCorso.php";
         break;
-    case 'visualizzacorso':
-        include_once VIEW_DIR . "/Admin/visualizzaCorso.php";
+    case 'gestionecorso':
+        include_once VIEW_DIR . "/Admin/gestioneCorso.php";
         break;
     case 'visualizzacorsi':
         include_once VIEW_DIR . "/Studente/visualizzaCorsi.php";
@@ -164,8 +164,8 @@ switch (isset($_URL[0]) ? $_URL[0] : '') {
     case 'provaargomenti':
         include_once VIEW_DIR . "/Docente/ProvaArgomenti.php";
         break;
-    case 'c':
-        include_once CONTROL_DIR . "CdlController.php";
+    case 'visualizzacorso':
+        include_once VIEW_DIR . "Studente/visualizzaCorso.php";
         break;
     default:
         echo "Route inesistente";

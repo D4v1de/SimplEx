@@ -125,4 +125,28 @@ class CdlController extends Controller {
         $corsoModel = new CorsoModel();
         return $corsoModel->getAllCorsiCdl($cdl->getMatricola());
     }
+
+    /**
+     * Crea l'associazione insegnamento tra Corso e Docente
+     * @param id Corso da associare
+     * @param matricola Docente da associare
+     */
+    public function creaInsegnamento($corso_id, $docente_matricola) {
+        $corsoModel = new CorsoModel();
+        $corsoModel->createInsegnamento($corso_id, $docente_matricola);
+    }
+
+    /**
+     * Elimina l'associazione insegnamento tra Corso e Docente
+     * @param id Corso da disassociare
+     * @param matricola Docente da disassociare
+     */
+    public function eliminaInsegnamento($corso_id, $docente_matricola) {
+        $corsoModel = new CorsoModel();
+        $corsoModel->deleteInsegnamento($corso_id, $docente_matricola);
+    }
+
+    public function getDocenti() {
+        return null;
+    }
 }

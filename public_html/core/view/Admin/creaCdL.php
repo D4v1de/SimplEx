@@ -10,7 +10,7 @@
 include_once CONTROL_DIR . "CdlController.php";
 $controller = new CdlController();
 
-if(isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricola'])) {
+if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricola'])) {
     $nome = $_POST['nome'];
     $tipologia = $_POST['tipologia'];
     $matricola = $_POST['matricola'];
@@ -36,7 +36,8 @@ if(isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricol
     <title>Crea CdL</title>
     <?php include VIEW_DIR . "header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
-    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css"
+          href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -79,19 +80,20 @@ if(isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricol
             <div class="row">
                 <div class="col-md-12">
                     <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                    <div class="portlet box blue-madison">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                <i class="fa fa-globe"></i>Crea nuovo Corso di Laurea
-                            </div>
-                            <div class="tools">
-                                <a href="javascript:;" class="collapse" data-original-title="" title="">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="portlet-body">
 
-                            <form method="post" action="creacdl">
+                    <form method="post" action="creacdl">
+
+                        <div class="portlet box blue-madison">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-globe"></i>Crea nuovo Corso di Laurea
+                                </div>
+                                <div class="tools">
+                                    <a href="javascript:;" class="collapse" data-original-title="" title="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
 
                                 <div class="portlet-body form">
                                     <div class="form-group form-md-line-input">
@@ -100,6 +102,7 @@ if(isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricol
                                                 <option value="Triennale">Triennale</option>
                                                 <option value="Magistrale">Magistrale</option>
                                             </select>
+
                                             <div class="form-control-focus">
                                             </div>
                                         </div>
@@ -124,25 +127,21 @@ if(isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricol
                                     </div>
                                 </div>
 
-                                <div class="portlet-body form">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-actions">
-                                                <div class="col-md-3">
-                                                    <button type="submit" class="btn green-jungle">Conferma</button>
-                                                </div>
-                                                <div class="col-md-offset-1 col-md-3">
-                                                    <button type="reset" class="btn red-intense">Annulla</button>
-                                                </div>
-                                            </div>
-                                        </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-actions">
+                                    <div class="col-md-3">
+                                        <button type="submit" class="btn green-jungle">Conferma</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="reset" class="btn red-intense">Annulla</button>
                                     </div>
                                 </div>
-
-                            </form>
-
+                            </div>
                         </div>
-                    </div>
+                    </form>
                     <!-- END EXAMPLE TABLE PORTLET-->
                 </div>
             </div>

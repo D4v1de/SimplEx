@@ -134,13 +134,15 @@ if(isset($_POST['checkbox'])) {
                                     if ($array == null) {
                                         echo "l'array è null";
                                     }
-                                    foreach ($array as $c) {
-                                        printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                        printf("<td><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $c->getMatricola());
-                                        printf("<td class=\"sorting_1\"><a href=\"modificacdl/%s\">%s</a></td>", $c->getMatricola(), $c->getNome());
-                                        printf("<td>%s</td>", $c->getMatricola());
-                                        printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
-                                        printf("</tr>");
+                                    else {
+                                        foreach ($array as $c) {
+                                            printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                            printf("<td><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $c->getMatricola());
+                                            printf("<td class=\"sorting_1\"><a href=\"modificacdl/%s\">%s</a></td>", $c->getMatricola(), $c->getNome());
+                                            printf("<td>%s</td>", $c->getMatricola());
+                                            printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
+                                            printf("</tr>");
+                                        }
                                     }
                                     ?>
                                     </tbody>
