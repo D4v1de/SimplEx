@@ -148,7 +148,7 @@ $controller = new Esempio();
             <div class="portlet box blue-madison">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="fa fa-user"></i>Test
+                        <i class="fa fa-file-text-o"></i>Test
                     </div>
 
                     <div class="tools">
