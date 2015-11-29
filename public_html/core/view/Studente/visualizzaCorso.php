@@ -110,7 +110,7 @@ $docenteassociato = $controller->getDocenteAssociato($corso->getId());
                 <h3></h3>
             </div>
 
-            <form method="post" action="../visualizzacorso/<?php echo $corso->getId(); ?>">
+            <form method="post" action="">
 
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
