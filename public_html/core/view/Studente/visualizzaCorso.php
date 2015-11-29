@@ -84,7 +84,7 @@ $docenteassociato = $controller->getDocenteAssociato($corso->getId());
                     <div class="form">
                         <form action="#" class="form-horizontal form-bordered form-row-stripped">
                             <div class="form-actions">
-                                <div class="col-md col-md-7">
+                                <div class="col-md col-md-12">
                                     <h3><?php echo $corso->getNome(); ?></h3>
                                     <h5>Matricola: <?php echo $corso->getMatricola(); ?></h5>
                                     <h5>Tipologia: <?php echo $corso->getTipologia(); ?></h5>
@@ -99,12 +99,6 @@ $docenteassociato = $controller->getDocenteAssociato($corso->getId());
                                         printf('<h5>Questo corso non ha docenti Associati!</h5>');
                                     }
                                     ?>
-                                </div>
-                                <div class="col-md-offset-3 col-md-2">
-                                    <h3></h3>
-                                    <a href="">
-                                        <button type="button" class="btn green-jungle">Link</button>
-                                    </a>
                                 </div>
                             </div>
                         </form>
