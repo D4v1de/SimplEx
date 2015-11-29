@@ -29,14 +29,14 @@ class AuthController extends Controller {
      * @param $password
      * @param $remember
      * @return Utente
-     * @throws IllegalArgumentException
+     * @throws ApplicationException
      */
     public function login($email, $password, $remember) {
         if (!preg_match(Patterns::$EMAIL, $email)) {
-            throw new IllegalArgumentException("Email non valido");
+            throw new ApplicationException(Error::$EMAIL_NON_VALIDA);
         }
         if (strlen($password) < Config::$MIN_PASSWORD_LEN) {
-            throw new IllegalArgumentException("Password è troppo corta");
+            throw new ApplicationException(Error::$PASS_CORTA);
         }
         $accModel = new AccountModel();
         $user = $accModel->getUtente($email, $password);
@@ -68,13 +68,13 @@ class AuthController extends Controller {
             $_SESSION['loggedin'] = true;
             $_SESSION['user'] = $user;
             return $user;
-        } catch (UserNotFoundException $ex) {
+        } catch (ApplicationException $ex) {
             return null;
         }
     }
 
     public function logOut() {
-        $_SESSION['loggedin'] = false;
+        unset($_SESSION['loggedin']);
         unset($_SESSION['user']);
         setcookie(self::PERMA_COOKIE, "", 0);
     }
@@ -116,7 +116,7 @@ class AuthController extends Controller {
             throw new IllegalArgumentException("Cdl sbagliato o assente");
         }
         $accModel = new AccountModel();
-        return $accModel->createUtente(new Utente($email, $password, $matricola, $nome, $cognome, $tipologia, $cdl));
+        return $accModel->createUtente(new Utente($matricola, $email, $password, $tipologia, $nome, $cognome, $cdl));
     }
 
     private function setPermanentCookie($getPassword) {
@@ -131,7 +131,7 @@ class AuthController extends Controller {
         if (!preg_match(Patterns::$MD5_SLASH, $identity)) {
             return null;
         }
-        
+
         $identity = explode("|", $identity);
         return $identity[0];
     }

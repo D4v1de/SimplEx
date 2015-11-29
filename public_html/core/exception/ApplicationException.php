@@ -28,4 +28,8 @@ class ApplicationException extends Exception {
     public function getDescription() {
         return $this->description;
     }
+
+    public function __toString() {
+        return parent::__toString() . " description=" . $this->description;
+    }
 }
