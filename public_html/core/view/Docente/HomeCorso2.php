@@ -72,6 +72,8 @@ $controller = new Esempio();
                     <div class="actions">
                         <a href="creamodificasessione" class="btn btn-default btn-sm">
                             <i class="fa fa-plus"></i> Crea Sessione </a>
+                        <a href="javascript:;" class="btn btn-default btn-sm">
+                            <i class="fa fa-print"></i> Print </a>
                     </div>
                 </div>
                 <div class="portlet-body">
@@ -113,7 +115,7 @@ $controller = new Esempio();
                                             <a href="visualizzaesitisessione" class="btn btn-sm default">
                                               Esiti
                                             </a>
-                                            <a href="creamodificasessione" class="btn btn-sm blue-madison">
+                                            <a href="javascript:;" class="btn btn-sm blue-madison">
                                                 <i class="fa fa-edit"></i>
                                             </a>  
                                             <a href="javascript:;" class="btn btn-sm red-intense">
@@ -136,7 +138,7 @@ $controller = new Esempio();
                                             <a href="visualizzaesitisessione" class="btn btn-sm default">
                                               Esiti
                                             </a>
-                                            <a href="creamodificasessione" class="btn btn-sm blue-madison">
+                                            <a href="javascript:;" class="btn btn-sm blue-madison">
                                                 <i class="fa fa-edit"></i>
                                             </a> 
                                             <a href="javascript:;" class="btn btn-sm red-intense">
@@ -159,7 +161,7 @@ $controller = new Esempio();
                                             <a href="visualizzaesitisessione" class="btn btn-sm default" disabled=true">
                                               Esiti
                                             </a>
-                                            <a href="creamodificasessione" class="btn btn-sm blue-madison">
+                                            <a href="javascript:;" class="btn btn-sm blue-madison">
                                                 <i class="fa fa-edit"></i>
                                             </a> 
                                             <a href="javascript:;" class="btn btn-sm red-intense">
@@ -188,6 +190,8 @@ $controller = new Esempio();
                     <div class="actions">
                         <a href="createst" class="btn btn-default btn-sm">
                             <i class="fa fa-plus"></i> Crea Test </a>
+                        <a href="javascript:;" class="btn btn-default btn-sm">
+                            <i class="fa fa-print"></i> Print </a>
                     </div>
                 </div>
                 <div class="portlet-body">
@@ -354,6 +358,8 @@ $controller = new Esempio();
                     <div class="actions">
                         <a href="inserisciargomento" class="btn btn-default btn-sm">
                             <i class="fa fa-plus"></i> Aggiungi Argomento </a>
+                        <a href="javascript:;" class="btn btn-default btn-sm">
+                            <i class="fa fa-print"></i> Print </a>
                     </div>
                 </div>
                 <div class="portlet-body">
@@ -388,7 +394,7 @@ $controller = new Esempio();
                                                 34%
                                             </td>
                                             <td>
-                                                <a href="modificaargomento" class="btn btn-sm blue-madison">
+                                                <a href="javascript:;" class="btn btn-sm blue-madison">
                                                      <i class="fa fa-edit"></i>
                                                 </a>
                                                 <a href="javascript:;" class="btn btn-sm red-intense">
@@ -406,7 +412,7 @@ $controller = new Esempio();
                                                 87%
                                             </td>
                                             <td>
-                                                <a href="modificaargomento" class="btn btn-sm blue-madison">
+                                                <a href="javascript:;" class="btn btn-sm blue-madison">
                                                      <i class="fa fa-edit"></i>
                                                 </a>
                                                 <a href="javascript:;" class="btn btn-sm red-intense">
@@ -423,7 +429,7 @@ $controller = new Esempio();
                                                 60%
                                             </td>
                                             <td>
-                                                <a href="modificaargomento" class="btn btn-sm blue-madison">
+                                                <a href="javascript:;" class="btn btn-sm blue-madison">
                                                      <i class="fa fa-edit"></i>
                                                 </a>
                                                 <a href="javascript:;" class="btn btn-sm red-intense">

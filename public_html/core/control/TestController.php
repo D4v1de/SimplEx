@@ -8,10 +8,8 @@
  */
 include_once MODEL_DIR . "AccountModel.php";
 include_once CONTROL_DIR . "AuthController.php";
-
-Logger::debug("Ciaoo, prima loggata");
-//$am = new AuthController();
-//$aModel = new AccountModel();
+$am = new AuthController();
+$aModel = new AccountModel();
 //$aModel->getUtenteByMatricola("ss");
 
 //$am->login("shevchenk2ser@gmail.com", "password", true);

@@ -19,7 +19,7 @@ class Utente {
      * @param string $matricola La matricola dell'utente
      * @param string $username L'username dell'utente
      * @param string $password La password dell'utente
-     * @param string $tipologia La tipologia di utente tra Studente, Docente ed Admin
+     * @param enum $tipologia La tipologia di utente
      * @param string $nome Il nome dell'utente
      * @param string $cognome Il cognome dell'utente
      * @param string $cdlMatricola La matricola del corso di laurea a cui è iscritto l'utente Studente

@@ -52,78 +52,45 @@ $controller = new Esempio();
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        Visualizza Test
+                        <a href="#">Visualizza Test</a>
                     </li>
                 </ul>
             </div>
 
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <div class="portlet box blue-madison">
+            <div class="portlet box grey-cascade">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="fa fa-question-circle"></i>Domanda 1
+                            <i class="fa fa-globe"></i>Test
                     </div>
                     <div class="tools">
-                        <a href="javascript:;" class="collapse" data-original-title="" title="">
-                        </a>
+                        <a style="color:white"> <i class="fa fa-edit"></i> Seleziona domande </a>
+                        <a style="color:#e35b5a"> <i class="fa fa-trash-o"></i> Elimina </a>
                     </div>
                 </div>
+
                 <div class="portlet-body">
-                    <p>Risposta 1</p>
-                    <p><font color="#78a300">Risposta 2</font></p>
-                    <p>Risposta 3</p>
-                    <p>Risposta 4</p>
-                </div>
-            </div>
-            <div class="portlet box blue-madison">
-                <div class="portlet-title">
-                    <div class="caption">
-                        <i class="fa fa-question-circle"></i>Domanda 2
-                    </div>
-                    <div class="tools">
-                        <a href="javascript:;" class="collapse" data-original-title="" title="">
-                        </a>
-                    </div>
-                </div>
-                <div class="portlet-body">
-                    Testo domanda a risposta aperta
-                </div>
-            </div>
-            <div class="portlet box blue-madison">
-                <div class="portlet-title">
-                    <div class="caption">
-                        <i class="fa fa-question-circle"></i>Domanda 3
-                    </div>
-                    <div class="tools">
-                        <a href="javascript:;" class="collapse" data-original-title="" title="">
-                        </a>
-                    </div>
-                </div>
-                <div class="portlet-body">
+                    <h3> Domanda 1 </h3>
                     <p>Risposta 1</p>
                     <p>Risposta 2</p>
                     <p>Risposta 3</p>
-                    <p><font color="#78a300">Risposta 4</font></p>
-                </div>
-            </div>     
-            <div class="portlet box blue-madison">
-                <div class="portlet-title">
-                    <div class="caption">
-                        <i class="fa fa-question-circle"></i>Domanda 4
-                    </div>
-                    <div class="tools">
-                        <a href="javascript:;" class="collapse" data-original-title="" title="">
-                        </a>
-                    </div>
-                </div>
-                <div class="portlet-body">
-                    <p><font color="#78a300">Risposta 1</font></p>
+                    <p>Risposta 4</p>
+                    
+                    <h3> Domanda 2 </h3>
+                    <p>Risposta 1</p>
+                    <p>Risposta 2</p>
+                    <p>Risposta 3</p>
+                    <p>Risposta 4</p>
+                    
+                    <h3> Domanda 3 </h3>
+                    <p>Risposta 1</p>
                     <p>Risposta 2</p>
                     <p>Risposta 3</p>
                     <p>Risposta 4</p>
                 </div>
             </div>
+           
             <!-- END PAGE CONTENT-->
         </div>
     </div>

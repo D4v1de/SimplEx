@@ -12,91 +12,12 @@ $controller = new CdlController();
 
 $corso = $controller->readCorso($_URL[1]);
 
-$docenti = $controller->getDocenti();
+$cdl = $controller->readCdl($corso->getCdlMatricola());
+
+$sessioni = $controller->getSessioni();
 
 $docenteassociato = Array();
 $docenteassociato = $controller->getDocenteAssociato($corso->getId());
-
-if(isset($_POST['checkbox'])) {
-
-    $checkbox = Array();
-    $checkbox = $_POST['checkbox'];
-
-    foreach($docenteassociato as $da) {
-        if(!in_array($da->getMatricola(), $checkbox)) {
-            $controller->eliminaInsegnamento($corso->getId(), $da->getMatricola());
-        }
-    }
-
-    foreach($checkbox as $c) {
-        $docente = $controller->getUtenteByMatricola($c);
-        if(!in_array($docente, $docenteassociato)) {
-            $controller->creaInsegnamento($corso->getId(), $c);
-        }
-    }
-    header('location: ../../gestionecorso/'.$corso->getId());
-}
-
-if(!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
-
-    foreach($docenteassociato as $da) {
-        $controller->eliminaInsegnamento($corso->getId(), $da->getMatricola());
-    }
-    header('location: ../../gestionecorso/'.$corso->getId());
-}
-
-
-/* vecchia vecchia configurazione
-if (isset($_POST['checkbox'])) {
-
-    echo "sei entrato!!!!";
-
-    $checkbox = $_POST['checkbox'];
-    if (count($checkbox) == 1) {
-
-        echo "prima opzione!!! ==1";
-
-        if (count($docenteassociato) < 1) ;
-        else if (count($docenteassociato) == 1) {
-            $controller->eliminaInsegnamento($corso->getId(), $docenteassociato[0]->getMatricola());
-        } else if (count($docenteassociato) > 1) {
-            foreach ($docenteassociato as $d) {
-                $controller->eliminaInsegnamento($corso->getId(), $d->getMatricola());
-            }
-        }
-        $controller->creaInsegnamento($corso->getId(), $checkbox[0]);
-        //header('location: ../../gestionecorso/'.$corso->getId());
-    } else if (count($checkbox) > 1) {
-
-        echo "seconda opzione!!! >1";
-
-        if (count($docenteassociato) < 1) ;
-        else if (count($docenteassociato) == 1) {
-            $controller->eliminaInsegnamento($corso->getId(), $docenteassociato[0]->getMatricola());
-        } else if (count($docenteassociato) > 1) {
-            foreach ($docenteassociato as $d) {
-                $controller->eliminaInsegnamento($corso->getId(), $d->getMatricola());
-            }
-        }
-        foreach ($checkbox as $c) {
-            $controller->creaInsegnamento($corso->getId(), $c);
-        }
-        //header('location: ../../gestionecorso/'.$corso->getId());
-    } else {
-
-        echo "terza opzione!!! <1";
-
-        if (count($docenteassociato) < 1) ;
-        else if (count($docenteassociato) == 1) {
-            $controller->eliminaInsegnamento($corso->getId(), $docenteassociato[0]->getMatricola());
-        } else if (count($docenteassociato) > 1) {
-            foreach ($docenteassociato as $d) {
-                $controller->eliminaInsegnamento($corso->getId(), $d->getMatricola());
-            }
-        }
-        //header('location: ../../gestionecorso/'.$corso->getId());
-    }
-}*/
 
 
 ?>
@@ -131,7 +52,7 @@ if (isset($_POST['checkbox'])) {
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                View Corso
+                Corso Cdl in <?php echo $cdl->getNome(); ?>
             </h3>
 
             <div class="page-bar">
@@ -142,11 +63,11 @@ if (isset($_POST['checkbox'])) {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../../gestionecorsi">GestioneCorsi</a>
+                        <a href="../../visualizzacorsi/<?php echo $corso->getCdlMatricola(); ?>">CdL in <?php echo $cdl->getNome(); ?></a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="visualizzacorso"><?php echo $corso->getNome(); ?></a>
+                        <a href="visualizzacorso/<?php echo $corso->getId(); ?>"><?php echo $corso->getNome(); ?></a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
@@ -177,8 +98,8 @@ if (isset($_POST['checkbox'])) {
                                 </div>
                                 <div class="col-md-offset-3 col-md-2">
                                     <h3></h3>
-                                    <a href="<?php printf('../../modificacorso/%s/', $corso->getId()); ?>">
-                                        <button type="button" class="btn green-jungle">Modifica</button>
+                                    <a href="">
+                                        <button type="button" class="btn green-jungle">Link</button>
                                     </a>
                                 </div>
                             </div>
@@ -191,12 +112,12 @@ if (isset($_POST['checkbox'])) {
                 <h3></h3>
             </div>
 
-            <form method="post" action="../gestionecorso/<?php echo $corso->getId(); ?>">
+            <form method="post" action="../visualizzacorso/<?php echo $corso->getId(); ?>">
 
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-university"></i>Scegli un Docente
+                            <i class="fa fa-university"></i>Sessioni
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="collapse" data-original-title="" title="">
@@ -204,9 +125,8 @@ if (isset($_POST['checkbox'])) {
                         </div>
                         <div class="actions">
                             <button type="submit" class="btn btn-default btn-sm">
-                                <i class="fa fa-plus"></i> Associa
+                                <i class="fa fa-plus"></i> Azione
                             </button>
-                            <input type="hidden" id="elimina" name="elimina" value="elimina">
                         </div>
                     </div>
                     <div class="portlet-body">
@@ -215,11 +135,10 @@ if (isset($_POST['checkbox'])) {
                                    id="tabella_4" role="grid" aria-describedby="tabella_4_info">
                                 <thead>
                                 <tr role="row">
-                                    <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1"
-                                        aria-label=""
-                                        style="width: 24px;">
-                                        <input type="checkbox" class="group-checkable"
-                                               data-set="#tabella_4 .checkboxes">
+                                    <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                        colspan="1" aria-label="Username: activate to sort column ascending"
+                                        aria-sort="ascending" style="width: 78px;">
+                                        Id
                                     </th>
                                     <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
                                         colspan="1" aria-label="Username: activate to sort column ascending"
@@ -245,16 +164,12 @@ if (isset($_POST['checkbox'])) {
                                 </thead>
                                 <tbody>
                                 <?php
-                                if ($docenti == null) {
+                                if ($sessioni == null) {
                                     echo "l'array è null";
                                 } else {
-                                    foreach ($docenti as $d) {
+                                    foreach ($sessioni as $s) {
                                         printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                        if (in_array($d, $docenteassociato)) {
-                                            printf("<td><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\" checked></td>", $d->getMatricola());
-                                        } else {
-                                            printf("<td><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $d->getMatricola());
-                                        }
+                                        printf("<td class=\"sorting_1\">%s</td>", $d->getMatricola());
                                         printf("<td class=\"sorting_1\">%s</td>", $d->getMatricola());
                                         printf("<td class=\"sorting_1\"><a href=\"../../utente/%s\">%s</a></td>", $d->getMatricola(), $d->getNome());
                                         printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $d->getCognome());
@@ -305,7 +220,7 @@ if (isset($_POST['checkbox'])) {
         Layout.init(); // init current layout
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
-        TableManaged.init("tabella_4", "tabella_4_wrapper");
+        TableManaged2.init("tabella_4", "tabella_4_wrapper");
     });
 </script>
 <!-- END JAVASCRIPTS -->

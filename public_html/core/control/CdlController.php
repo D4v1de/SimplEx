@@ -12,6 +12,7 @@ include_once BEAN_DIR . "Corso.php";
 include_once MODEL_DIR . "CdLModel.php";
 include_once MODEL_DIR . "CorsoModel.php";
 include_once MODEL_DIR . "AccountModel.php";
+include_once MODEL_DIR . "SessioneModel.php";
 
 class CdlController extends Controller {
 
@@ -119,12 +120,13 @@ class CdlController extends Controller {
     }
 
     /**
-     * Restituisco i corsi di un cdl
-     * @return array di Corsi di un cdl
+     * Restituisco i corsi di un Cdl
+     * @param matricola del Cdl
+     * @return array di Corsi di un Cdl
      */
-    public function getCorsiCdl($cdl) {
+    public function getCorsiCdl($cdl_matricola) {
         $corsoModel = new CorsoModel();
-        return $corsoModel->getAllCorsiCdl($cdl->getMatricola());
+        return $corsoModel->getAllCorsiByCdl($cdl_matricola);
     }
 
     /**
@@ -147,18 +149,43 @@ class CdlController extends Controller {
         $corsoModel->deleteInsegnamento($corso_id, $docente_matricola);
     }
 
+    /**
+     * Restituisce tutti i Docenti
+     * @return array con tutti i Docenti
+     */
     public function getDocenti() {
         $accountModel = new AccountModel();
         return $accountModel->getAllDocenti();
     }
 
+    /**
+     * Restituisce i Docenti associati a un Corso
+     * @param id del Corso
+     * @return array con i Docenti associati al corso specificato
+     */
     public function getDocenteAssociato($corsoID) {
         $accountModel = new AccountModel();
         return $accountModel->getAllDocentiByCorso($corsoID);
     }
 
+    /**
+     * Restituisce un Utente
+     * @param matricola dell'Utente da cercare
+     * @return Utente con la matricola specificata
+     */
     public function getUtenteByMatricola($matricola) {
         $accountModel = new AccountModel();
         return $accountModel->getUtenteByMatricola($matricola);
+    }
+
+    /**
+     * Restituisce tutte le Sessioni di un Corso DAAGIUSTARE
+     * @param matricola dell'Utente da cercare
+     * @return Utente con la matricola specificata
+     */
+    public function getSessioni() {
+        $sessioneModel = new SessioneModel();
+        //return $sessioneModel->getAllSessioniByCorso();
+        return $sessioneModel->getAllSessioni();
     }
 }
