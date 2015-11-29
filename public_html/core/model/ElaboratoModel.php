@@ -14,28 +14,28 @@ include_once BEAN_DIR . "RispostaMultipla.php";
 class ElaboratoModel extends Model {
     public static $CREATE_ELABORATO = "INSERT INTO `elaborato` (studente_matricola, sessione_id, esito_finale, esito_parziale, test_id) VALUES ('%s',%d','%f','%f','%d')";
     public static $READ_ELABORATO = "SELECT * FROM `elaborato` WHERE studente_matricola = '%s' AND sessione_id = '%d'";
-    public static $UPDATE_ELABORATO ="UPDATE `elaborato` SET test_id = '%d', esito_parziale = '%f', esito_finale='%f' WHERE studente_matricola = '%s' AND sessione_id = '%d'";
+    public static $UPDATE_ELABORATO ="UPDATE `elaborato` SET test_id = '%d', esito_parziale = '%f', esito_finale = '%f' WHERE studente_matricola = '%s' AND sessione_id = '%d'";
     public static $DELETE_ELABORATO ="DELETE FROM `elaborato` WHERE studente_matricola = '%s' AND sessione_id = '%d'";
     public static $GET_ALL_ELABORATO = "SELECT * FROM `elaborato`";
     public static $GET_ELABORATI_STUDENTE = "SELECT * FROM `elaborato` WHERE `studente_matricola` = '%s'";
     
     public static $CREATE_RISPOSTA_APERTA = "INSERT INTO `risposta_aperta` (elaborato_sessione_id, elaborato_studente_matricola, testo, punteggio, domanda_aperta_id, "
-            . "domanda_aperta_argomento_id, domanda_aperta_argomento_corso_id) VALUES ('%d', '%s', '%s', %f', %d', '%d', '%d')";
-    public static $READ_RISPOSTA_APERTA = "SELECT * FROM `risposta_aperta` WHERE id='%d' AND elaborato_sessione_id='%d' AND elaborato_studente_matricola='%s'";
-    public static $UPDATE_RISPOSTA_APERTA = "UPDATE `risposta_aperta` SET testo='%s', punteggio='%f', domanda_aperta_id='%d', domanda_aperta_argomento_id='%d',"
-            . "domanda_aperta_argomento_corso_id='%d WHERE id='%d' AND elaborato_sessione_id='%d' AND elaborato_studente_matricola='%s'";
-    public static $DELETE_RISPOSTA_APERTA = "DELETE FROM `risposta_aperta` WHERE id='%d' AND elaborato_sessione_id='%d' AND elaborato_studente_matricola='%s'";
+            . "domanda_aperta_argomento_id, domanda_aperta_argomento_corso_id) VALUES ('%d', '%s', '%s', '%f', '%d', '%d', '%d')";
+    public static $READ_RISPOSTA_APERTA = "SELECT * FROM `risposta_aperta` WHERE id = '%d' AND elaborato_sessione_id = '%d' AND elaborato_studente_matricola = '%s'";
+    public static $UPDATE_RISPOSTA_APERTA = "UPDATE `risposta_aperta` SET testo = '%s', punteggio = '%f', domanda_aperta_id = '%d', domanda_aperta_argomento_id = '%d',"
+            . "domanda_aperta_argomento_corso_id = '%d' WHERE id = '%d' AND elaborato_sessione_id = '%d' AND elaborato_studente_matricola = '%s'";
+    public static $DELETE_RISPOSTA_APERTA = "DELETE FROM `risposta_aperta` WHERE id = '%d' AND elaborato_sessione_id = '%d' AND elaborato_studente_matricola = '%s'";
     public static $GET_ALL_RISPOSTA_APERTA_ELABORATO = "SELECT * FROM `risposta_aperta` WHERE 'elaborato_sessione_id' = '%d' AND 'elaborato_studente_matricola' = '%s'";
     
     public static $CREATE_RISPOSTA_MULTIPLA = "INSERT INTO `risposta_multipla` (elaborato_sessione_id, elaborato_studente_matricola, punteggio, alternativa_id, "
             . "alternativa_domanda_multipla_id, alternativa_domanda_multipla_argomento_id, alternativa_domanda_multipla_argomento_corso_id) "
-            . "VALUES (%d', '%s', %f', %d', '%d', '%d', '%d')";
-    public static $READ_RISPOSTA_MULTIPLA = "SELECT * FROM `risposta_multipla` WHERE id='%d' AND elaborato_sessione_id='%d' AND elaborato_studente_matricola='%s'";
-    public static $UPDATE_RISPOSTA_MULTIPLA = "UPDATE `risposta_multipla` SET punteggio='%f', alternativa_id='%d', alternativa_domanda_multipla_id='%d', "
-            . "alternativa_domanda_multipla_argomento_id='%d', alternativa_domanda_multipla_argomento_corso_id='%d "
-            . "WHERE id='%d' AND elaborato_sessione_id='%d' AND elaborato_studente_matricola='%s'";
-    public static $DELETE_RISPOSTA_MULTIPLA = "DELETE FROM `risposta_multipla` WHERE id='%d' AND elaborato_sessione_id='%d' AND elaborato_studente_matricola='%s'";
-    public static $GET_ALL_RISPOSTA_MULTIPLA_ELABORATO = "SELECT * FROM `risposta_multipla` WHERE 'elaborato_sessione_id' = '%d' AND 'elaborato_studente_matricola' = '%s'";
+            . "VALUES (%d', '%s', '%f', '%d', '%d', '%d', '%d')";
+    public static $READ_RISPOSTA_MULTIPLA = "SELECT * FROM `risposta_multipla` WHERE id = '%d' AND elaborato_sessione_id='%d' AND elaborato_studente_matricola = '%s'";
+    public static $UPDATE_RISPOSTA_MULTIPLA = "UPDATE `risposta_multipla` SET punteggio = '%f', alternativa_id = '%d', alternativa_domanda_multipla_id = '%d', "
+            . "alternativa_domanda_multipla_argomento_id = '%d', alternativa_domanda_multipla_argomento_corso_id = '%d "
+            . "WHERE id = '%d' AND elaborato_sessione_id = '%d' AND elaborato_studente_matricola = '%s'";
+    public static $DELETE_RISPOSTA_MULTIPLA = "DELETE FROM `risposta_multipla` WHERE id = '%d' AND elaborato_sessione_id = '%d' AND elaborato_studente_matricola = '%s'";
+    public static $GET_ALL_RISPOSTA_MULTIPLA_ELABORATO = "SELECT * FROM `risposta_multipla` WHERE elaborato_sessione_id = '%d' AND elaborato_studente_matricola = '%s'";
 
     /**
      * Inserisce il nuovo elaborato nel database
