@@ -7,8 +7,19 @@
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "Esempio.php";
-$controller = new Esempio();
+include_once CONTROL_DIR . "CdlController.php";
+$controller = new CdlController();
+
+$corso = $controller->readCorso($_URL[1]);
+
+$cdl = $controller->readCdl($corso->getCdlMatricola());
+
+$sessioni = $controller->getSessioni();
+
+$docenteassociato = Array();
+$docenteassociato = $controller->getDocenteAssociato($corso->getId());
+
+
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -21,8 +32,11 @@ $controller = new Esempio();
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>View Corso</title>
+    <title><?php echo $corso->getNome(); ?></title>
     <?php include VIEW_DIR . "header.php"; ?>
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -38,7 +52,7 @@ $controller = new Esempio();
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                View Corso
+                Corso Cdl in <?php echo $cdl->getNome(); ?>
             </h3>
 
             <div class="page-bar">
@@ -49,11 +63,11 @@ $controller = new Esempio();
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="gestionecdl">VisualizzaCorsi</a>
+                        <a href="../../visualizzacorsi/<?php echo $corso->getCdlMatricola(); ?>">CdL in <?php echo $cdl->getNome(); ?></a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="visualizzacorso">ViewCorso</a>
+                        <a href="visualizzacorso/<?php echo $corso->getId(); ?>"><?php echo $corso->getNome(); ?></a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
@@ -66,11 +80,27 @@ $controller = new Esempio();
                     <div class="form">
                         <form action="#" class="form-horizontal form-bordered form-row-stripped">
                             <div class="form-actions">
-                                <div class="col-md col-md-8">
-                                    <h3>Ingegneria del Software</h3>
-                                    <h5>Matricola: 010000001</h5>
-                                    <h5>Tipologia: Annuale</h5>
-                                    <h5>Docente: Andrea De Lucia</h5>
+                                <div class="col-md col-md-7">
+                                    <h3><?php echo $corso->getNome(); ?></h3>
+                                    <h5>Matricola: <?php echo $corso->getMatricola(); ?></h5>
+                                    <h5>Tipologia: <?php echo $corso->getTipologia(); ?></h5>
+                                    <?php
+                                    if (count($docenteassociato) == 1) {
+                                        printf('<h5>Docente: %s %s</h5>', $docenteassociato[0]->getNome(), $docenteassociato[0]->getCognome());
+                                    } else if (count($docenteassociato) > 1) {
+                                        foreach ($docenteassociato as $d) {
+                                            printf('<h5>Docente: %s %s</h5>', $d->getNome(), $d->getCognome());
+                                        }
+                                    } else if (count($docenteassociato) < 1) {
+                                        printf('<h5>Questo corso non ha docenti Associati!</h5>');
+                                    }
+                                    ?>
+                                </div>
+                                <div class="col-md-offset-3 col-md-2">
+                                    <h3></h3>
+                                    <a href="">
+                                        <button type="button" class="btn green-jungle">Link</button>
+                                    </a>
                                 </div>
                             </div>
                         </form>
@@ -82,195 +112,80 @@ $controller = new Esempio();
                 <h3></h3>
             </div>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                    <div class="portlet box grey-cascade">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                <i class="fa fa-globe"></i>Lista Sessioni
-                            </div>
-                            <div class="tools">
-                                <a href="javascript:;" class="collapse" data-original-title="" title="">
-                                </a>
-                            </div>
+            <form method="post" action="../visualizzacorso/<?php echo $corso->getId(); ?>">
+
+                <div class="portlet box blue-madison">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-university"></i>Sessioni
                         </div>
-                        <div class="portlet-body">
-                            <div class="table-scrollable">
-                                <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                       id="sample_1" role="grid" aria-describedby="sample_1_info">
-                                    <thead>
-                                    <tr role="row">
-                                        <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1"
-                                            aria-label="" style="width: 24px;">
-                                            #
-                                        </th>
-                                        <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1"
-                                            colspan="1" aria-sort="ascending"
-                                            aria-label="Username: activate to sort column ascending"
-                                            style="width: 133px;">
-                                            Sessione
-                                        </th>
-                                        <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Email"
-                                            style="width: 232px;">
-                                            Tipo
-                                        </th>
-                                        <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Points"
-                                            style="width: 82px;">
-                                            Data
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1"
-                                            colspan="1" aria-label="Joined: activate to sort column ascending"
-                                            style="width: 119px;">
-                                            Ora
-                                        </th>
-                                        <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Status"
-                                            style="width: 132px;">
-                                            Stato
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr class="gradeX odd" role="row">
-                                        <td>
-                                            1
-                                        </td>
-                                        <td class="sorting_1">
-                                            Sessione
-                                        </td>
-                                        <td>
-                                            Esercitativa
-                                        </td>
-                                        <td>
-                                            15/15/15
-                                        </td>
-                                        <td class="center">
-                                            15:30
-                                        </td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-md-offset-2 col-md-3">
-                                                    <a href="" class="label label-sm label-success">
-                                                        Attiva
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="gradeX even" role="row">
-                                        <td>
-                                            2
-                                        </td>
-                                        <td class="sorting_1">
-                                            Sessione
-                                        </td>
-                                        <td>
-                                            Valutativa
-                                        </td>
-                                        <td>
-                                            14/12/15
-                                        </td>
-                                        <td class="center">
-                                            14:00
-                                        </td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-md-offset-2 col-md-3">
-                                                    <a href="" class="label label-sm label-warning">
-                                                        Terminata
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="gradeX odd" role="row">
-                                        <td>
-                                            3
-                                        </td>
-                                        <td class="sorting_1">
-                                            Sessione
-                                        </td>
-                                        <td>
-                                            Valutativa
-                                        </td>
-                                        <td>
-                                            25/10/15
-                                        </td>
-                                        <td class="center">
-                                            12:00
-                                        </td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-md-offset-2 col-md-3">
-                                                    <a href="" class="label label-sm label-warning">
-                                                        Terminata
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="gradeX even" role="row">
-                                        <td>
-                                            4
-                                        </td>
-                                        <td class="sorting_1">
-                                            Sessione
-                                        </td>
-                                        <td>Valutativa
-                                        </td>
-                                        <td>
-                                            20/10/15
-                                        </td>
-                                        <td class="center">
-                                            18:00
-                                        </td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-md-offset-2 col-md-3">
-                                                    <a href="" class="label label-sm label-warning">
-                                                        Terminata
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="gradeX odd" role="row">
-                                        <td>
-                                            5
-                                        </td>
-                                        <td class="sorting_1">
-                                            Sessione
-                                        </td>
-                                        <td>
-                                            Valutativa
-                                        </td>
-                                        <td>
-                                            21/11/15
-                                        </td>
-                                        <td class="center">
-                                            15:00
-                                        </td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-md-offset-2 col-md-3">
-                                                    <a href="" class="label label-sm label-warning">
-                                                        Terminata
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="tools">
+                            <a href="javascript:;" class="collapse" data-original-title="" title="">
+                            </a>
+                        </div>
+                        <div class="actions">
+                            <button type="submit" class="btn btn-default btn-sm">
+                                <i class="fa fa-plus"></i> Azione
+                            </button>
                         </div>
                     </div>
-                    <!-- END EXAMPLE TABLE PORTLET-->
+                    <div class="portlet-body">
+                        <div id="tabella_4_wrapper" class="dataTables_wrapper no-footer">
+                            <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                                   id="tabella_4" role="grid" aria-describedby="tabella_4_info">
+                                <thead>
+                                <tr role="row">
+                                    <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                        colspan="1" aria-label="Username: activate to sort column ascending"
+                                        aria-sort="ascending" style="width: 78px;">
+                                        Id
+                                    </th>
+                                    <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                        colspan="1" aria-label="Username: activate to sort column ascending"
+                                        aria-sort="ascending" style="width: 78px;">
+                                        Matricola
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Email: activate to sort column ascending" style="width: 137px;">
+                                        Nome
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Status: activate to sort column ascending" style="width: 36px;">
+                                        Cognome
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Status: activate to sort column ascending" style="width: 36px;">
+                                        Matricola CdL
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                if ($sessioni == null) {
+                                    echo "l'array è null";
+                                } else {
+                                    foreach ($sessioni as $s) {
+                                        printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                        printf("<td class=\"sorting_1\">%s</td>", $d->getMatricola());
+                                        printf("<td class=\"sorting_1\">%s</td>", $d->getMatricola());
+                                        printf("<td class=\"sorting_1\"><a href=\"../../utente/%s\">%s</a></td>", $d->getMatricola(), $d->getNome());
+                                        printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $d->getCognome());
+                                        printf("<td>%s</td>", $d->getCdlMatricola());
+                                        printf("</tr>");
+                                    }
+                                }
+                                ?>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-
-
+            </form>
             <!-- END PAGE CONTENT-->
         </div>
     </div>
@@ -288,7 +203,8 @@ $controller = new Esempio();
 <!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
 <script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<script type="text/javascript"
+        src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <!-- END PAGE LEVEL PLUGINS aggiunta da me-->
 
 <script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>
@@ -304,7 +220,7 @@ $controller = new Esempio();
         Layout.init(); // init current layout
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
-        TableManaged.init();
+        TableManaged2.init("tabella_4", "tabella_4_wrapper");
     });
 </script>
 <!-- END JAVASCRIPTS -->

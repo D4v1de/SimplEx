@@ -156,6 +156,12 @@ if (!defined("TESTING")) {
         case 'visualizzacorsi':
             include_once VIEW_DIR . "/Studente/visualizzaCorsi.php";
             break;
+        case 'visualizzacdl':
+            include_once VIEW_DIR . "/Studente/visualizzaCdL.php";
+            break;
+        case 'visualizzacorso':
+            include_once VIEW_DIR . "/Studente/visualizzaCorso.php";
+            break;
         case 'selezionestudenti':
             include_once VIEW_DIR . "/Docente/SelezioneStudenti.php";
             break;
@@ -164,9 +170,6 @@ if (!defined("TESTING")) {
             break;
         case 'provaargomenti':
             include_once VIEW_DIR . "/Docente/ProvaArgomenti.php";
-            break;
-        case 'visualizzacorso':
-            include_once VIEW_DIR . "Studente/visualizzaCorso.php";
             break;
         default:
             echo "Route inesistente";
