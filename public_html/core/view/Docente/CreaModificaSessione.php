@@ -69,8 +69,8 @@ $controller = new Esempio();
             <div class="row">
                 <div class="col-md-12">
 
-                    <div class="col-md-6">
-                        <div class="col-md-6">
+                    <div class="col-md-8">
+                        <div class="col-md-4">
                             <label class="control-label">Avvio:</label>
 
                             <div class="input-group date form_datetime">
@@ -83,7 +83,9 @@ $controller = new Esempio();
                             <span class="help-block"><br></span>
 
                         </div>
-                        <div class="col-md-6">
+
+                        <div class="col-md-1"></div>
+                        <div class="col-md-4">
                             <label class="control-label">Termine:</label>
 
                             <div class="input-group date form_datetime">
@@ -96,59 +98,13 @@ $controller = new Esempio();
                         </div>
 
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group form-md-radios">
-                            <label>Seleziona tipologia</label>
-                            <div class="md-radio-list">
-                                <div class="md-radio">
-                                    <input type="radio" id="radio1" name="radio1" class="md-radiobtn">
-                                    <label for="radio1">
-                                    <span></span>
-                                    <span class="check"></span>
-                                    <span class="box"></span>
-                                    Valutativa </label>
-                                </div>
-                                <div class="md-radio">
-                                    <input type="radio" id="radio2" name="radio1" class="md-radiobtn">
-                                    <label for="radio2">
-                                    <span></span>
-                                    <span class="check"></span>
-                                    <span class="box"></span>
-                                    Esercitativa </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group form-md-checkboxes">
-                            <label>Seleziona preferenze</label>
-                            <div class="md-checkbox-list">
-                                <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox1" class="md-check">
-                                    <label for="checkbox1">
-                                    <span></span>
-                                    <span class="check"></span>
-                                    <span class="box"></span>
-                                    Mostra esiti </label>
-                                </div>
-                                <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox2" class="md-check">
-                                    <label for="checkbox2">
-                                    <span></span>
-                                    <span class="check"></span>
-                                    <span class="box"></span>
-                                    Mostra risposte corrette </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
             <div class="portlet box blue-madison">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="fa fa-file-text-o"></i>Test
+                        <i class="fa fa-user"></i>Test
                     </div>
 
                     <div class="tools">
@@ -445,19 +401,25 @@ $controller = new Esempio();
 
 
 
-            <div class="form-actions">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-9">
-                                <a href="javascript:;" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
-                                    Salva
-                                </a>
-                                <a href="javascript:;" class="btn sm red-intense">
-                                    Annulla
-                                </a>
-                            </div>
-                        </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4">
+                        <a href="javascript:;" class="btn sm green-jungle">
+                            Avvia Ora
+                        </a>
+                        <a href="javascript:;" class="btn sm red-intense">
+                            Elimina Sessione
+                        </a>
+                    </div>
+                    <div class="col-md-3"></div>
+                    <div class="col-md-4">
+                        <a href="javascript:;" class="btn sm green-jungle">
+                            Conferma
+                        </a>
+                        <a href="javascript:;" class="btn sm red-intense">
+                            Annulla
+                        </a>
                     </div>
                 </div>
             </div>

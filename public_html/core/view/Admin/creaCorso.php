@@ -10,18 +10,27 @@
 include_once CONTROL_DIR . "CdlController.php";
 $controller = new CdlController();
 
+print_r($_POST);
+
 if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricola']) && isset($_POST['cdlmatricola'])) {
+
+    echo "ricevo i parametri!";
 
     $nome = $_POST['nome'];
     $tipologia = $_POST['tipologia'];
     $matricola = $_POST['matricola'];
     $cdlMatricola = $_POST['cdlmatricola'];
+    $id = 0;
 
     $corso = new Corso($id, $matricola, $nome, $tipologia, $cdlMatricola);
 
+    echo "oggetto creato!";
+
     $controller->creaCorso($corso);
 
-    header('location: ../gestionecorsi');
+    echo "corso inserito!";
+
+    /*header('location: gestioneCdl.php');*/
 }
 ?>
 <!DOCTYPE html>
@@ -79,20 +88,19 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
             <div class="row">
                 <div class="col-md-12">
                     <!-- BEGIN EXAMPLE TABLE PORTLET-->
-
-                    <form method="post" action="creacorso">
-
-                        <div class="portlet box blue-madison">
-                            <div class="portlet-title">
-                                <div class="caption">
-                                    <i class="fa fa-globe"></i>Crea nuovo Corso
-                                </div>
-                                <div class="tools">
-                                    <a href="javascript:;" class="collapse" data-original-title="" title="">
-                                    </a>
-                                </div>
+                    <div class="portlet box blue-madison">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-globe"></i>Crea nuovo Corso
                             </div>
-                            <div class="portlet-body">
+                            <div class="tools">
+                                <a href="javascript:;" class="collapse" data-original-title="" title="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+
+                            <form method="post" action="creacorso">
 
                                 <div class="portlet-body form">
                                     <div class="form-group form-md-line-input">
@@ -101,7 +109,6 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                                 <option value="Semestrale">Semestrale</option>
                                                 <option value="Annuale">Annuale</option>
                                             </select>
-
                                             <div class="form-control-focus">
                                             </div>
                                         </div>
@@ -126,8 +133,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                     </div>
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" id="cdlmatricolaCorso"
-                                                   name="cdlmatricola"
+                                            <input type="text" class="form-control" id="cdlmatricolaCorso" name="cdlmatricola"
                                                    placeholder="Inserisci cdlmatricola">
 
                                             <div class="form-control-focus">
@@ -135,23 +141,27 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                         </div>
                                     </div>
 
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-actions">
+                                                <div class="col-md-3">
+                                                    <button type="submit" class="btn green-jungle">Conferma</button>
+                                                </div>
+                                                <div class="col-md-offset-1 col-md-3">
+                                                    <button type="reset" class="btn red-intense">Annulla</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
 
-                            </div>
+                            </form>
+
+
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-actions">
-                                    <div class="col-md-3">
-                                        <button type="submit" class="btn green-jungle">Conferma</button>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <button type="reset" class="btn red-intense">Annulla</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                     <!-- END EXAMPLE TABLE PORTLET-->
                 </div>
             </div>

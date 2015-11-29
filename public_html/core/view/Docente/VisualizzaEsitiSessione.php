@@ -22,9 +22,6 @@ $controller = new Esempio();
 <head>
     <meta charset="utf-8"/>
     <title>Metronic | Page Layouts - Blank Page</title>
-     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
-    <link rel="stylesheet" type="text/css"
-          href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
     <?php include VIEW_DIR . "header.php"; ?>
 </head>
 <!-- END HEAD -->
@@ -80,21 +77,23 @@ $controller = new Esempio();
         </div>
             <!-- TABELLA 1 -->
 
-            <div class="portlet box blue-madison">
-                <div class="portlet-title">
-                    <div class="caption">
-                        <i class="fa fa-file-text-o"></i>Test
-                    </div>
-                    <div class="tools">
-                        <a href="javascript:;" class="collapse" data-original-title="" title="">
-                        </a>
-                    </div>
-                </div>
-                <div class="portlet-body">
-                    <div id="tabella_test2_wrapper" class="dataTables_wrapper no-footer">
-                        <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                   id="tabella_test2" role="grid" aria-describedby="tabella_test2_info">
-                                <thead>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="portlet box grey-cascade">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-globe"></i>Test
+                            </div>
+                            <div class="tools">
+                                <a href="javascript:;" class="collapse" data-original-title="" title="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
+                                <div class="table-scrollable">
+                                    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
+                                        <thead>
                                         <tr role="row">
                                             <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
                                          Username
@@ -129,7 +128,7 @@ $controller = new Esempio();
                                 " style="width: 119px;">
                                                 Superato
                                             </th>
-
+                                         
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -205,20 +204,26 @@ $controller = new Esempio();
                                                 15%
                                             </td>
                                         </tr>
-                                </tbody>
-                            </table>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
+                    
                 </div>
-            </div>
+    </div>
 
             <!-- TABELLA 2 -->
 
             <div class="row">
                 <div class="col-md-12">
-                    <div class="portlet box blue-madison">
+                    <div class="portlet box grey-cascade">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-user"></i>Studenti
+                                <i class="fa fa-globe"></i>Studenti
                             </div>
                             <div class="tools">
                                 <a href="javascript:;" class="collapse" data-original-title="" title="">
@@ -226,9 +231,9 @@ $controller = new Esempio();
                             </div>
                         </div>
                         <div class="portlet-body">
-                            <div id="tabella_studenti_esiti_wrapper" class="dataTables_wrapper no-footer">
+                            <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
                                 <div class="table-scrollable">
-                                    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="tabella_studenti_esiti" role="grid" aria-describedby="tabella_studenti_esiti_info">
+                                    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
                                         <thead>
                                         <tr role="row">
                                             <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
@@ -262,7 +267,7 @@ $controller = new Esempio();
                                             </th>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Email
-                                " style="width: 25%;">
+                                " style="width: 200px;">
                                                 Azioni
                                             </th>
                                         </tr>
@@ -289,10 +294,10 @@ $controller = new Esempio();
                                                 <font color="green"> Corretto </font>
                                             </td>
                                             <td>
-                                                <a href="correggitest" class="btn btn-sm blue-madison">
-                                                    <i class="fa fa-pencil"></i> Correggi
+                                                <a href="javascript:;" class="btn btn-sm default" disabled="true">
+                                                    Correggi
                                                 </a>
-                                                <a href="visualizzatestdocente" class="btn btn-sm default" disabled="true">
+                                                <a href="javascript:;" class="btn btn-sm default" disabled="true">
                                                     Visualizza
                                                 </a>
                                             </td>
@@ -319,10 +324,10 @@ $controller = new Esempio();
                                                 <font color="green"> Corretto </font>
                                             </td>
                                             <td>
-                                                <a href="correggitest" class="btn btn-sm blue-madison">
-                                                    <i class="fa fa-pencil"></i> Correggi
+                                                <a href="javascript:;" class="btn btn-sm default" disabled="true">
+                                                    Correggi
                                                 </a>
-                                                <a href="visualizzatestdocente" class="btn btn-sm default">
+                                                <a href="javascript:;" class="btn btn-sm default">
                                                     Visualizza
                                                 </a>
                                             </td>                                            
@@ -348,10 +353,10 @@ $controller = new Esempio();
                                                 <font color="green"> Corretto </font>
                                             </td>
                                             <td>
-                                                <a href="correggitest" class="btn btn-sm blue-madison">
-                                                    <i class="fa fa-pencil"></i> Correggi
+                                                <a href="javascript:;" class="btn btn-sm default" disabled="true">
+                                                    Correggi
                                                 </a>
-                                                <a href="visualizzatestdocente" class="btn btn-sm default">
+                                                <a href="javascript:;" class="btn btn-sm default">
                                                     Visualizza
                                                 </a>
                                             </td>
@@ -377,10 +382,10 @@ $controller = new Esempio();
                                                 <font color="green"> Corretto </font>
                                             </td>
                                             <td>
-                                                <a href="correggitest" class="btn btn-sm blue-madison">
-                                                    <i class="fa fa-pencil"></i> Correggi
+                                                <a href="javascript:;" class="btn btn-sm default" disabled="true">
+                                                    Correggi
                                                 </a>
-                                                <a href="visualizzatestdocente" class="btn btn-sm default">
+                                                <a href="javascript:;" class="btn btn-sm default">
                                                     Visualizza
                                                 </a>
                                             </td>
@@ -397,7 +402,7 @@ $controller = new Esempio();
                                                 0512100005
                                             </td>
                                             <td>
-                                                35/60*
+                                                35/60
                                             </td>
                                             <td>
                                                 
@@ -406,10 +411,10 @@ $controller = new Esempio();
                                                 <font color="red"> Non Corretto </font>
                                             </td>
                                             <td>
-                                                <a href="correggitest" class="btn btn-sm blue-madison">
-                                                    <i class="fa fa-pencil"></i> Correggi
+                                                <a href="javascript:;" class="btn btn-sm default">
+                                                    Correggi
                                                 </a>
-                                                <a href="visualizzatestdocente" class="btn btn-sm default">
+                                                <a href="javascript:;" class="btn btn-sm default">
                                                     Visualizza
                                                 </a>
                                             </td>
@@ -435,10 +440,10 @@ $controller = new Esempio();
                                                 <font color="green"> Corretto </font>
                                             </td>
                                             <td>
-                                                <a href="correggitest" class="btn btn-sm blue-madison">
-                                                    <i class="fa fa-pencil"></i> Correggi
+                                                <a href="javascript:;" class="btn btn-sm default"  disabled="true">
+                                                    Correggi
                                                 </a>
-                                                <a href="visualizzatestdocente" class="btn btn-sm default">
+                                                <a href="javascript:;" class="btn btn-sm default">
                                                     Visualizza
                                                 </a>
                                             </td>
@@ -474,29 +479,12 @@ $controller = new Esempio();
 <!--Script specifici per la pagina -->
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
-<!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
-<script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
-<script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript"
-        src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
-<!-- END PAGE LEVEL PLUGINS aggiunta da me-->
-
-<script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>
-<script src="/assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
-<script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
-<script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
-<!-- BEGIN aggiunta da me -->
-<script src="/assets/admin/pages/scripts/table-managed.js"></script>
-<!-- END aggiunta da me -->
 <script>
     jQuery(document).ready(function () {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
-        TableManaged2.init("tabella_test2","tabella_test2_wrapper");
-        TableManaged2.init("tabella_studenti_esiti","tabella_studenti_esiti_wrapper");
-        //TableManaged.init(3);
     });
 </script>
 <!-- END JAVASCRIPTS -->

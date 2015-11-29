@@ -334,7 +334,7 @@ $numArgomenti = count($argomenti);
         Layout.init(); // init current layout
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
-        UINestable.init(<?php $numArgomenti ?>); //Il numero equivale al n° di tabelle presenti nella pagina
+        UINestable.init(6); //Il numero equivale al n° di tabelle presenti nella pagina
 
     });
 

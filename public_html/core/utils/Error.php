@@ -5,6 +5,7 @@
  * Date: 24/11/15
  * Time: 19:38
  */
+
 class Error {
     public static $INSERIMENTO_FALLITO = "Impossibile inserire nel database";
     public static $AGGIORNAMENTO_FALLITO = "Impossibile aggiornare il database";
@@ -22,13 +23,5 @@ class Error {
     public static $DOMANDA_APERTA_NON_TROVATA = "Nessuna domanda aperta trovata";
     public static $DOMANDA_MULTIPLA_NON_TROVATA = "Nessuna domanda mutlipla trovata";
     public static $ALTERNATIVA_NON_TROVATA = "Nessuna alternativa trovata";
-
-
-    /*
-     * Account model exceptions
-     */
-
-    public static $UTENTE_NON_TROVATO = "Utente non trovato";
 }
-
 ?>
