@@ -146,7 +146,7 @@ if (isset($_POST['checkbox'])) {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="visualizzacorso"><?php echo $corso->getNome(); ?></a>
+                        <a href="../gestionecorso/<?php echo $corso->getId(); ?>"><?php echo $corso->getNome(); ?></a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
@@ -177,7 +177,7 @@ if (isset($_POST['checkbox'])) {
                                 </div>
                                 <div class="col-md-offset-3 col-md-2">
                                     <h3></h3>
-                                    <a href="<?php printf('../../modificacorso/%s/', $corso->getId()); ?>">
+                                    <a href="<?php printf('../../modificacorso/%s', $corso->getId()); ?>">
                                         <button type="button" class="btn green-jungle">Modifica</button>
                                     </a>
                                 </div>

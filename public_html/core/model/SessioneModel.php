@@ -8,8 +8,8 @@
  */
 include_once MODEL_DIR . "Model.php";
 include_once BEAN_DIR . "Sessione.php";
-include_once BEAN_DIR . "Sessione_test.php";
-include_once BEAN_DIR . "Abilitazione.php";
+//include_once BEAN_DIR . "Sessione_test.php"; non esiste questa classe
+//include_once BEAN_DIR . "Abilitazione.php"; non esiste questa classe
 
 class SessioneModel extends Model {
     private static $CREATE_SESSIONE = "INSERT INTO `sessione` (data_inizio, data_fine, soglia_ammissione, tipologia, corso_id) VALUES ('%s','%s','%f','%s','%d)";
@@ -87,7 +87,7 @@ class SessioneModel extends Model {
         $sessioni = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $sessioni[] = new Sessione($obj['id'], $obj['dataInizio'], $obj['data_fine'], $obj['soglia_ammissione'], $obj['tipologia'], $obj['corso_id']);
+                $sessioni[] = new Sessione($obj['id'], $obj['data_inizio'], $obj['data_fine'], $obj['soglia_ammissione'], $obj['tipologia'], $obj['corso_id']);
             }
         }
         return $sessioni;

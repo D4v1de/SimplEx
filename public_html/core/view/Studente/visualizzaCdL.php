@@ -3,17 +3,14 @@
  * Created by PhpStorm.
  * User: fede_dr
  * Date: 23/11/15
- * Time: 21:59
+ * Time: 21:48
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "CdlController.php";
 $controller = new CdlController();
 
-$cdl = $controller->readCdl($_URL[1]);
 
-$corsi = Array();
-$corsi = $controller->getCorsiCdl($cdl->getMatricola());
 
 ?>
 <!DOCTYPE html>
@@ -27,10 +24,11 @@ $corsi = $controller->getCorsiCdl($cdl->getMatricola());
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>CdL <?php echo $cdl->getNome(); ?></title>
+    <title>CdL</title>
     <?php include VIEW_DIR . "header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
-    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css"
+          href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -46,7 +44,7 @@ $corsi = $controller->getCorsiCdl($cdl->getMatricola());
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                CdL in <?php echo $cdl->getNome(); ?>
+                CdL
             </h3>
 
             <div class="page-bar">
@@ -57,11 +55,7 @@ $corsi = $controller->getCorsiCdl($cdl->getMatricola());
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../../visualizzacdl/">CdL</a>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
-                    <li>
-                        <a href="../../visualizzacorsi/<?php echo $cdl->getMatricola(); ?>"><?php echo $cdl->getNome(); ?></a>
+                        <a href="visualizzacdl">CdL</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
@@ -69,19 +63,20 @@ $corsi = $controller->getCorsiCdl($cdl->getMatricola());
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
 
-            <form method="post" action="">
+            <form method="post" action="gestionecdl">
 
-                <div class="portlet box blue-madison">
+            <div class="portlet box blue-madison">
+
                     <div class="portlet-title">
-                        <div class="caption">
-                            <i class="fa fa-university"></i>Corsi CdL <?php echo $cdl->getNome(); ?>
-                        </div>
                         <div class="tools">
                             <a href="javascript:;" class="collapse" data-original-title="" title="">
                             </a>
                         </div>
+                        <div class="caption">
+                            <i class="fa fa-graduation-cap"></i>Corsi di Laurea
+                        </div>
                         <div class="actions">
-                            <a href="" class="btn btn-default btn-sm">
+                            <a href="creacdl" class="btn btn-default btn-sm">
                                 <i class="fa fa-plus"></i> Qualcosa </a>
                         </div>
                     </div>
@@ -94,44 +89,40 @@ $corsi = $controller->getCorsiCdl($cdl->getMatricola());
                                     <tr role="row">
                                         <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
                                             colspan="1" aria-label="Username: activate to sort column ascending"
-                                            aria-sort="ascending" style="width: 24px;">
-                                            Iscrizione
+                                            aria-sort="ascending" style="width: 28px;">
+                                            Id
                                         </th>
                                         <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
                                             colspan="1" aria-label="Username: activate to sort column ascending"
                                             aria-sort="ascending" style="width: 78px;">
-                                            Matricola
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                            colspan="1"
-                                            aria-label="Email: activate to sort column ascending" style="width: 137px;">
                                             Nome
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
                                             colspan="1"
-                                            aria-label="Status: activate to sort column ascending" style="width: 36px;">
-                                            Tipologia
+                                            aria-label="Email: activate to sort column ascending" style="width: 137px;">
+                                            Matricola
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
                                             colspan="1"
-                                            aria-label="Status: activate to sort column ascending" style="width: 36px;">
-                                            Matricola CdL
+                                            aria-label="Status: activate to sort column ascending" style="width: 71px;">
+                                            Tipologia
                                         </th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <?php
-                                    if ($corsi == null) {
+                                    $array = Array();
+                                    $array = $controller->getCdl();
+                                    if ($array == null) {
                                         echo "l'array è null";
                                     }
                                     else {
-                                        foreach ($corsi as $c) {
+                                        foreach ($array as $c) {
                                             printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                            printf("<td class=\"gradeX odd\"></td>");
-                                            printf("<td class=\"sorting_1\">%s</td>", $c->getMatricola());
-                                            printf("<td class=\"sorting_1\"><a href=\"../visualizzacorso/%s\">%s</a></td>", $c->getId(), $c->getNome());
+                                            printf("<td class=\"gradeX odd\">%s</td>", $c->getMatricola());
+                                            printf("<td class=\"sorting_1\"><a href=\"../visualizzacorsi/%s\">%s</a></td>", $c->getMatricola(), $c->getNome());
+                                            printf("<td>%s</td>", $c->getMatricola());
                                             printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
-                                            printf("<td>%s</td>", $c->getCdlMatricola());
                                             printf("</tr>");
                                         }
                                     }
@@ -142,8 +133,9 @@ $corsi = $controller->getCorsiCdl($cdl->getMatricola());
 
                         </div>
                     </div>
-                </div>
-            </form>
+
+            </div>
+                </form>
 
 
             <!-- END PAGE CONTENT-->
