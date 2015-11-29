@@ -157,7 +157,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                         <button type="reset" class="btn red-intense">Annulla</button>
                                     </div>
                                     <div class="col-md-offset-1 col-md-3">
-                                        <a href="<?php printf('../../gestionecorso/%s/', $_URL[1]); ?>"
+                                        <a href="<?php printf('../../gestionecorso/%s', $_URL[1]); ?>"
                                            class="btn blue-madison">Associa Docente</a>
                                     </div>
                                 </div>

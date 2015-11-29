@@ -62,7 +62,7 @@ $controller = new CdlController();
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
 
-            <form method="post" action="gestionecdl">
+            <form method="post" action="">
 
                 <div class="portlet box blue-madison">
 

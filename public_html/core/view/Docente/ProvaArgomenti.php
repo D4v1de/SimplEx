@@ -26,11 +26,12 @@ $num = $controller->getNumArgomenti();
     <?php include VIEW_DIR . "header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/jquery-nestable/jquery.nestable.css">
 
-    <!--QUESTO CSS PERMETTE DI ...-->
-    <style>
-        #tabellatest {
-            position: fixed;
-            width: 531px;
+    <style type="text/css">
+        div.scroll {
+            height: 580px;
+            width: 500px;
+            overflow: auto;
+            padding: 8px;
         }
     </style>
 
@@ -56,7 +57,7 @@ $num = $controller->getNumArgomenti();
             <!-- BEGIN PAGE CONTENT-->
 
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6 scroll">
 
                     <?php
                     $argomenti = array();
