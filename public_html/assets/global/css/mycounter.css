@@ -1,0 +1,26 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 29-nov-2015, 15.14.08
+    Author     : Fabiano
+*/
+
+#countdown {
+  color: #FFFFFF;
+}
+
+#countdown span {
+  font-size: 22px;  
+  font-weight: normal;
+  margin-left: 20px;
+  margin-right: 20px;
+  text-align: center;
+  font: "DS-DIGI.TTF"
+}
+
+#countdown ruby rp {
+    color: #E5E5E5
+}
