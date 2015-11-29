@@ -8,7 +8,11 @@
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "ControllerTest.php";
+include_once CONTROL_DIR . "SessioneController.php";
+include_once CONTROL_DIR . "CdLController.php";
+$cdlController = new CdlController();
 $testController = new ControllerTest();
+$sessioneController = new SessioneController();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -60,6 +64,10 @@ $testController = new ControllerTest();
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
             <?php
+            $sessId = 3;
+            $sessione = $sessioneController->readSessione($sessId);
+            $cdlMat = '051210';
+            $cdl = $cdlController->readCdl($cdlMat);
             $matricola = "0512102390";
             $studente = $testController->getUtentebyMatricola($matricola);
             $nome = $studente->getNome();
@@ -190,7 +198,8 @@ $testController = new ControllerTest();
     jQuery(document).ready(function () {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
-        StartCounter();
+        var dataFine = "<?= $sessione->getDataFine(); ?>";
+        StartCounter(dataFine);
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
     });

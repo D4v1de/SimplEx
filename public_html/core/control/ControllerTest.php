@@ -15,6 +15,7 @@ include_once MODEL_DIR . "AccountModel.php";
 include_once MODEL_DIR . "ArgomentoModel.php";
 include_once MODEL_DIR . "SessioneModel.php";
 include_once MODEL_DIR . "TestModel.php";
+include_once MODEL_DIR . "AlternativaModel.php";
 
 class ControllerTest extends Controller {
     
@@ -56,8 +57,8 @@ class ControllerTest extends Controller {
     
     //restituisce le risposte multiple di una specifica domanda
     public function getRispMult($id, $argomentoId, $argomentoCorsoId) {
-        $argomentoModel = new ArgomentoModel();
-        return $argomentoModel->getAllAlternativaByDomanda($id, $argomentoId, $argomentoCorsoId);
+        $alternativaModel = new AlternativaModel();
+        return $alternativaModel->getAllAlternativaByDomanda($id, $argomentoId, $argomentoCorsoId);
     }
     
     //ricerca un utente attraverso la matricola
