@@ -26,7 +26,7 @@ class AccountModel extends Model {
     private static $GET_ALL_STUDENTI_SESSIONE = "SELECT u.* FROM `abilitazione` AS a, `utente` AS u WHERE `a.sessione_id` = '%s' AND `a.studente_matricola` = `u.matricola`";
 
     // Aggiunto da Federico
-    private static $GET_ALL_DOCENTI = "SELECT u.* FROM `utente` u WHERE `u.tipologia` = 'Docente'";
+    private static $SELECT_ALL_DOCENTI = "SELECT * FROM `utente` WHERE `tipologia` = 'Docente'";
 
     /**
      * Restituisce utente dato email e password
@@ -142,7 +142,7 @@ class AccountModel extends Model {
      * @throws ConnectionException
      */
     public function getAllDocenti() {
-        $res = Model::getDB()->query(self::$GET_ALL_DOCENTI);
+        $res = Model::getDB()->query(self::$SELECT_ALL_DOCENTI);
         $ret = array();
         while ($obj = $res->fetch_assoc()) {
             $ret[] = new Utente($obj['matricola'], $obj['username'], $obj['password'], $obj['tipologia'], $obj['nome'], $obj['cognome'], $obj['cdl_matricola']);

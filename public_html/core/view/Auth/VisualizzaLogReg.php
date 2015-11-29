@@ -47,6 +47,10 @@ $error = null;
 <!-- BEGIN LOGIN -->
 <div class="content">
     <!-- BEGIN LOGIN FORM -->
+    <div id="preloader" align="center" style="display: none">
+        <img src="/assets/admin/pages/img/preloader.gif"/>
+    </div>
+
     <form class="login-form" action="" method="post">
         <input type="hidden" name="action" value="login">
 
@@ -54,14 +58,9 @@ $error = null;
 
         <div class="alert alert-danger display-hide">
             <button class="close" data-close="alert"></button>
-			<span>
+			<span id="alert_message">
 			Inserisci e-mail e password. </span>
         </div>
-        <?php
-        if ($error != null && $error instanceof UserNotFoundException) {
-            echo "<h4>" . $error->getMessage() . "</h4>";
-        }
-        ?>
 
         <div class="form-group">
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
@@ -143,6 +142,12 @@ $error = null;
             Inserisci i dati personali:
         </p>
 
+        <div class="alert alert-danger display-hide">
+            <button class="close" data-close="alert"></button>
+			<span id="alert_message">
+			Inserisci e-mail e password. </span>
+        </div>
+
         <div class="form-group">
             <label class="control-label visible-ie8 visible-ie9">Nome</label>
 
@@ -171,7 +176,7 @@ $error = null;
 
         <div class="form-group">
             <label class="control-label visible-ie8 visible-ie9">Corso di laurea</label>
-            <select name="country" id="select2_sample4" class="select2 form-control">
+            <select name="cdl_matricola" id="select2_sample4" class="select2 form-control">
                 <option value=""></option>
                 <?php
                 $corsi = $controller->getCDL();
@@ -249,7 +254,7 @@ $error = null;
 <script src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
 <script src="/assets/global/plugins/backstretch/jquery.backstretch.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
-<script src="/assets/admin/pages/scripts/login-soft.js" type="text/javascript"></script>
+<script src="/assets/admin/pages/scripts/login-custom.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <script>
     jQuery(document).ready(function () {

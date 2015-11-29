@@ -15,7 +15,7 @@ class AlternativaModel extends Model{
 
 
 
-    private static $CREATE_ALTERNATIVA = "INSERT INTO `alternativa` (domanda_multipla_id, domanda_multipla_argomento_id, domanda_multipla_argomento_corso_id, testo, percentuale_scelta, corretta) VALUES ('%d','%d','%d','%s','%f','%s')";
+    private static $CREATE_ALTERNATIVA = "INSERT INTO `alternativa` (id, domanda_multipla_id, domanda_multipla_argomento_id, domanda_multipla_argomento_corso_id, testo, percentuale_scelta, corretta) VALUES (null, '%d','%d','%d','%s','%f','%s')";
     private static $UPDATE_ALTERNATIVA = "UPDATE `alternativa` SET testo = '%s', percentuale_scelta = '%f', corretta = '%s' WHERE id = '%d' AND domanda_multipla_id = '%d' AND domanda_multipla_argomento_id = '%d' AND domanda_multipla_argomento_corso_id = '%d'";
     private static $DELETE_ALTERNATIVA = "DELETE FROM `alternativa` WHERE id = '%d' AND domanda_multipla_id = '%d' AND domanda_multipla_argomento_id = '%d' AND domanda_multipla_argomento_corso_id = '%d'";
     private static $READ_ALTERNATIVA = "SELECT * FROM `alternativa` WHERE id = '%d' AND domanda_multipla_id = '%d' AND domanda_multipla_argomento_id = '%d' AND domanda_multipla_argomento_corso_id = '%d'";
@@ -49,9 +49,7 @@ class AlternativaModel extends Model{
      * @throws ApplicationException
      */
     public function updateAlternativa($id, $domandaMultiplaId, $domandaMultiplaArgomentoId, $domandaMultiplaArgomentoCorsoId, $updatedAlternativa) {
-        $query = sprintf(self::$UPDATE_ALTERNATIVA, $updatedAlternativa->getDomandaMultiplaId(), $updatedAlternativa->getDomandaMultiplaArgomentoId(),
-            $updatedAlternativa->getDomandaMultiplaArgomentoCorsoId(), $updatedAlternativa->getTesto(), $updatedAlternativa->getPercentualeScelta(), $updatedAlternativa->getCorretta(),
-            $id, $domandaMultiplaId, $domandaMultiplaArgomentoId, $domandaMultiplaArgomentoCorsoId);
+        $query = sprintf(self::$UPDATE_ALTERNATIVA,  $updatedAlternativa->getTesto(), $updatedAlternativa->getPercentualeScelta(), $updatedAlternativa->getCorretta(), $id, $domandaMultiplaId, $domandaMultiplaArgomentoId, $domandaMultiplaArgomentoCorsoId);
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
@@ -87,8 +85,7 @@ class AlternativaModel extends Model{
         $query = sprintf(self::$READ_ALTERNATIVA, $id, $domandaMultiplaId, $domandaMultiplaArgomentoId, $domandaMultiplaArgomentoCorsoId);
         $res = Model::getDB()->query($query);
         if ($obj = $res->fetch_assoc()) {
-            $alternativa = new Alternativa($obj['id'], $obj['domanda_multipla_id'], $obj['domanda_multipla_argomento_id'], $obj['domanda_multipla_argomento_corso_id'], $obj['testo'],
-                $obj['percentuale_scelta'], $obj['corretta']);
+            $alternativa = new Alternativa($obj['id'], $obj['domanda_multipla_id'], $obj['domanda_multipla_argomento_id'], $obj['domanda_multipla_argomento_corso_id'], $obj['testo'], $obj['percentuale_scelta'], $obj['corretta']);
             return $alternativa;
         } else {
             throw new ApplicationException(Error::$ALTERNATIVA_NON_TROVATA);

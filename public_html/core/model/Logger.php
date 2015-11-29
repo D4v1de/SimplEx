@@ -38,7 +38,7 @@
 include_once MODEL_DIR . "Model.php";
 
 final class Logger extends Model {
-    public static $INSERT_QUERY = "INSERT INTO `log` (`id`, `level`, `message`, `date`) VALUES (NULL, '%s', '%s', CURRENT_TIMESTAMP)";
+    public static $INSERT_QUERY = "INSERT INTO `log` (`id`, `level`, `message`) VALUES (NULL, '%s', '%s')";
     public static $DEBUG = "Debug"; //rappresentazione nel db
     public static $INFO = "Info";
     public static $WARN = "Warning";
