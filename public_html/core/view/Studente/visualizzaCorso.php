@@ -63,11 +63,15 @@ $docenteassociato = $controller->getDocenteAssociato($corso->getId());
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../../visualizzacorsi/<?php echo $corso->getCdlMatricola(); ?>">CdL in <?php echo $cdl->getNome(); ?></a>
+                        <a href="../../visualizzacdl/">CdL</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="visualizzacorso/<?php echo $corso->getId(); ?>"><?php echo $corso->getNome(); ?></a>
+                        <a href="../../visualizzacorsi/<?php echo $cdl->getMatricola(); ?>"><?php echo $cdl->getNome(); ?></a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="../visualizzacorso/<?php echo $corso->getId(); ?>"><?php echo $corso->getNome(); ?></a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
@@ -80,7 +84,7 @@ $docenteassociato = $controller->getDocenteAssociato($corso->getId());
                     <div class="form">
                         <form action="#" class="form-horizontal form-bordered form-row-stripped">
                             <div class="form-actions">
-                                <div class="col-md col-md-7">
+                                <div class="col-md col-md-12">
                                     <h3><?php echo $corso->getNome(); ?></h3>
                                     <h5>Matricola: <?php echo $corso->getMatricola(); ?></h5>
                                     <h5>Tipologia: <?php echo $corso->getTipologia(); ?></h5>
@@ -96,12 +100,6 @@ $docenteassociato = $controller->getDocenteAssociato($corso->getId());
                                     }
                                     ?>
                                 </div>
-                                <div class="col-md-offset-3 col-md-2">
-                                    <h3></h3>
-                                    <a href="">
-                                        <button type="button" class="btn green-jungle">Link</button>
-                                    </a>
-                                </div>
                             </div>
                         </form>
                     </div>
@@ -112,7 +110,7 @@ $docenteassociato = $controller->getDocenteAssociato($corso->getId());
                 <h3></h3>
             </div>
 
-            <form method="post" action="../visualizzacorso/<?php echo $corso->getId(); ?>">
+            <form method="post" action="">
 
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
@@ -143,22 +141,27 @@ $docenteassociato = $controller->getDocenteAssociato($corso->getId());
                                     <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
                                         colspan="1" aria-label="Username: activate to sort column ascending"
                                         aria-sort="ascending" style="width: 78px;">
-                                        Matricola
+                                        Data Inizio
+                                    </th>
+                                    <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                        colspan="1" aria-label="Username: activate to sort column ascending"
+                                        aria-sort="ascending" style="width: 78px;">
+                                        Data Fine
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
                                         colspan="1"
                                         aria-label="Email: activate to sort column ascending" style="width: 137px;">
-                                        Nome
+                                        Soglia Ammissione
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
                                         colspan="1"
                                         aria-label="Status: activate to sort column ascending" style="width: 36px;">
-                                        Cognome
+                                        Tipologia
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
                                         colspan="1"
                                         aria-label="Status: activate to sort column ascending" style="width: 36px;">
-                                        Matricola CdL
+                                        Corso ID
                                     </th>
                                 </tr>
                                 </thead>
@@ -169,11 +172,12 @@ $docenteassociato = $controller->getDocenteAssociato($corso->getId());
                                 } else {
                                     foreach ($sessioni as $s) {
                                         printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                        printf("<td class=\"sorting_1\">%s</td>", $d->getMatricola());
-                                        printf("<td class=\"sorting_1\">%s</td>", $d->getMatricola());
-                                        printf("<td class=\"sorting_1\"><a href=\"../../utente/%s\">%s</a></td>", $d->getMatricola(), $d->getNome());
-                                        printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $d->getCognome());
-                                        printf("<td>%s</td>", $d->getCdlMatricola());
+                                        printf("<td class=\"sorting_1\">%s</td>", $s->getId());
+                                        printf("<td class=\"sorting_1\">%s</td>", $s->getDataInizio());
+                                        printf("<td class=\"sorting_1\">%s</td>", $s->getDataFine());
+                                        printf("<td class=\"sorting_1\"><a href=\"\">%s</a></td>", $s->getSogliaAmmissione());
+                                        printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $s->getTipologia());
+                                        printf("<td>%s</td>", $s->getCorsoId());
                                         printf("</tr>");
                                     }
                                 }

@@ -77,7 +77,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="modificacorso">ModificaCorso</a>
+                        <a href="../../modificacorso/<?php echo $array->getId(); ?>"><?php echo $nome; ?></a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
