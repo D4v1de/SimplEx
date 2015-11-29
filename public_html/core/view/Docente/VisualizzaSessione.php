@@ -21,7 +21,7 @@ $controller = new Esempio();
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>Metronic | Page Layouts - Blank Page</title>
+    <title>Visualizza Sessione</title>
     <link rel="stylesheet" type="text/css"
           href="/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" type="text/css"
@@ -44,7 +44,7 @@ $controller = new Esempio();
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                Crea Sessione / Modifica Sessione
+                Visualizza Sessione
             </h3>
 
             <div class="page-bar">
@@ -59,7 +59,7 @@ $controller = new Esempio();
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="#">Nome Sessione</a>
+                        Nome Sessione
                     </li>
                 </ul>
             </div>
@@ -74,7 +74,7 @@ $controller = new Esempio();
                             <label class="control-label">Avvio:</label>
 
                             <div class="input-group date form_datetime">
-                                <input type="text" size="16" readonly="" class="form-control"/>
+                                <input type="text" size="16" readonly="" class="form-control" value="28/11/2015 12:00" disabled="true"/>
                                         <span class="input-group-btn">
                                             <button class="btn default date-set" type="button"><i
                                                     class="fa fa-calendar"></i></button>
@@ -87,7 +87,7 @@ $controller = new Esempio();
                             <label class="control-label">Termine:</label>
 
                             <div class="input-group date form_datetime">
-                                <input type="text" size="16" readonly="" class="form-control"/>
+                                <input type="text" size="16" readonly="" class="form-control" value="28/11/2015 12:00" disabled="true"/>
                                         <span class="input-group-btn">
                                             <button class="btn default date-set" type="button"><i
                                                     class="fa fa-calendar"></i></button>
@@ -101,7 +101,7 @@ $controller = new Esempio();
                             <label>Seleziona tipologia</label>
                             <div class="md-radio-list">
                                 <div class="md-radio">
-                                    <input type="radio" id="radio1" name="radio1" class="md-radiobtn">
+                                    <input type="radio" id="radio1" name="radio1" class="md-radiobtn" disabled="true" checked="">
                                     <label for="radio1">
                                     <span></span>
                                     <span class="check"></span>
@@ -109,7 +109,7 @@ $controller = new Esempio();
                                     Valutativa </label>
                                 </div>
                                 <div class="md-radio">
-                                    <input type="radio" id="radio2" name="radio1" class="md-radiobtn">
+                                    <input type="radio" id="radio2" name="radio1" class="md-radiobtn" disabled="true">
                                     <label for="radio2">
                                     <span></span>
                                     <span class="check"></span>
@@ -124,7 +124,7 @@ $controller = new Esempio();
                             <label>Seleziona preferenze</label>
                             <div class="md-checkbox-list">
                                 <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox1" class="md-check">
+                                    <input type="checkbox" id="checkbox1" class="md-check" disabled="true" checked="">
                                     <label for="checkbox1">
                                     <span></span>
                                     <span class="check"></span>
@@ -132,7 +132,7 @@ $controller = new Esempio();
                                     Mostra esiti </label>
                                 </div>
                                 <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox2" class="md-check">
+                                    <input type="checkbox" id="checkbox2" class="md-check" disabled="true">
                                     <label for="checkbox2">
                                     <span></span>
                                     <span class="check"></span>
@@ -183,10 +183,6 @@ $controller = new Esempio();
                         <table class="table table-striped table-bordered table-hover dataTable no-footer" id="tabella_test" role="grid" aria-describedby="tabella_studenti_info">
                             <thead>
                             <tr role="row">
-                                <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                                        " style="width: 24px;">
-                                    <input type="checkbox" class="group-checkable" data-set="#tabella_test .checkboxes">
-                                </th>
                                 <th class="sorting-disabled" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" aria-label="
                                                                  Email
                                                         : activate to sort column ascending" style="width: 106px;">
@@ -227,9 +223,6 @@ $controller = new Esempio();
                             <tbody>
 
                             <tr class="gradeX odd" role="row">
-                                <td>
-                                    <input type="checkbox" class="checkboxes" value="1">
-                                </td>
                                 <td class="sorting_1">
                                     Test 1
                                 </td>
@@ -243,9 +236,6 @@ $controller = new Esempio();
                                 <td>0%</td>
 
                             </tr><tr class="gradeX even" role="row">
-                                <td>
-                                    <input type="checkbox" class="checkboxes" value="1">
-                                </td>
                                 <td class="sorting_1">
                                     Test 2
                                 </td>
@@ -258,9 +248,6 @@ $controller = new Esempio();
                                 <td>10%</td>
                                 <td>70%</td>
                             </tr><tr class="gradeX odd" role="row">
-                                <td>
-                                    <input type="checkbox" class="checkboxes" value="1">
-                                </td>
                                 <td class="sorting_1">
                                     Test 3
                                 </td>
@@ -317,10 +304,6 @@ $controller = new Esempio();
                         <table class="table table-striped table-bordered table-hover dataTable no-footer" id="tabella_studenti" role="grid" aria-describedby="tabella_studenti_info">
                             <thead>
                             <tr role="row">
-                                <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                                        " style="width: 24px;">
-                                    <input type="checkbox" class="group-checkable" data-set="#tabella_studenti .checkboxes">
-                                </th>
                                 <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
                                                                  Username
                                                         : activate to sort column ascending" style="width: 106px;">
@@ -341,9 +324,6 @@ $controller = new Esempio();
                             <tbody>
 
                             <tr class="gradeX odd" role="row">
-                                <td>
-                                    <input type="checkbox" class="checkboxes" value="1">
-                                </td>
                                 <td class="sorting_1">
                                     Mario
                                 </td>
@@ -352,9 +332,6 @@ $controller = new Esempio();
                                 </td>
                                 <td>0512100001</td>
                             </tr><tr class="gradeX even" role="row">
-                                <td>
-                                    <input type="checkbox" class="checkboxes" value="1">
-                                </td>
                                 <td class="sorting_1">
                                     Giacomo
                                 </td>
@@ -363,9 +340,6 @@ $controller = new Esempio();
                                 </td>
                                 <td>0512100002</td>
                             </tr><tr class="gradeX odd" role="row">
-                                <td>
-                                    <input type="checkbox" class="checkboxes" value="1">
-                                </td>
                                 <td class="sorting_1">
                                     Diego Armando
                                 </td>
@@ -374,9 +348,6 @@ $controller = new Esempio();
                                 </td>
                                 <td>0512100003</td>
                             </tr><tr class="gradeX even" role="row">
-                                <td>
-                                    <input type="checkbox" class="checkboxes" value="1">
-                                </td>
                                 <td class="sorting_1">
                                     Francesco
                                 </td>
@@ -387,9 +358,6 @@ $controller = new Esempio();
                             </tr>
 
                             <tr class="gradeX odd" role="row">
-                                <td>
-                                    <input type="checkbox" class="checkboxes" value="1">
-                                </td>
                                 <td class="sorting_1">
                                     Gianluca
                                 </td>
@@ -400,9 +368,6 @@ $controller = new Esempio();
                             </tr>
 
                             <tr class="gradeX odd" role="row">
-                                <td>
-                                    <input type="checkbox" class="checkboxes" value="1">
-                                </td>
                                 <td class="sorting_1">
                                     Riccardo
                                 </td>
@@ -413,9 +378,6 @@ $controller = new Esempio();
                             </tr>
 
                             <tr class="gradeX odd" role="row">
-                                <td>
-                                    <input type="checkbox" class="checkboxes" value="1">
-                                </td>
                                 <td class="sorting_1">
                                     Inacio
                                 </td>
@@ -426,9 +388,6 @@ $controller = new Esempio();
                             </tr>
 
                             <tr class="gradeX odd" role="row">
-                                <td>
-                                    <input type="checkbox" class="checkboxes" value="1">
-                                </td>
                                 <td class="sorting_1">
                                     Raffaele
                                 </td>
@@ -451,10 +410,13 @@ $controller = new Esempio();
                         <div class="row">
                             <div class="col-md-9">
                                 <a href="javascript:;" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
-                                    Salva
+                                    <i class="fa fa-play-circle-o"></i>Avvia ora
+                                </a>
+                                <a href="javascript:;" class="btn sm blue-madison">
+                                    <i class="fa fa-edit"></i>Modifica Sessione
                                 </a>
                                 <a href="javascript:;" class="btn sm red-intense">
-                                    Annulla
+                                    <i class="fa fa-trash-o"></i>Elimina Sessione
                                 </a>
                             </div>
                         </div>
@@ -489,15 +451,15 @@ $controller = new Esempio();
             Layout.init(); // init current layout
             //QuickSidebar.init(); // init quick sidebar
             //Demo.init(); // init demo features
-            TableManaged.init('tabella_test','tabella_test_wrapper');
-            TableManaged.init('tabella_studenti','tabella_studenti_wrapper');
+            TableManaged2.init('tabella_test','tabella_test_wrapper');
+            TableManaged2.init('tabella_studenti','tabella_studenti_wrapper');
 
         });
     </script>
 
     <script>
         //SCRIPT PER AVVIARE DATETIMEPICKER
-        $(".form_datetime").datetimepicker({format: 'dd-mm-yyyy hh:ii'});
+        //$(".form_datetime").datetimepicker({format: 'dd-mm-yyyy hh:ii'});
     </script>
 
     <!-- END JAVASCRIPTS -->

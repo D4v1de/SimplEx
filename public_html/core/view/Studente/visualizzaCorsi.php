@@ -61,7 +61,7 @@ $corsi = $controller->getCorsiCdl($cdl->getMatricola());
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../../visualizzacorsi/<?php echo $cdl->getMatricola(); ?>">Corsi<?php echo $cdl->getNome(); ?></a>
+                        <a href="../../visualizzacorsi/<?php echo $cdl->getMatricola(); ?>"><?php echo $cdl->getNome(); ?></a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>

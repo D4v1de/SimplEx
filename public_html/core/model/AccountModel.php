@@ -1,7 +1,6 @@
 <?php
 include_once MODEL_DIR . "Model.php";
 include_once BEAN_DIR . "Utente.php";
-include_once EXCEPTION_DIR . "UserNotFoundException.php";
 
 /**
  * Created by PhpStorm.
@@ -17,23 +16,24 @@ class AccountModel extends Model {
     private static $DELETE_UTENTE = "DELETE FROM `utente` WHERE `matricola` = '%s' LIMIT 1";
     private static $SELECT_ALL_UTENTI = "SELECT * FROM `utente`";
     private static $UPDATE_UTENTE = "UPDATE `utente` SET `username` = '%s', `password` = '%s', `tipologia` = '%s', `nome` = '%s', `cognome` = '%s', `matricola` = '%s' WHERE `matricola` = '%s' LIMIT 1";
-    
-    
+
+
     // Aggiunti da Elvira
     private static $GET_ALL_DOCENTI_CORSO = "SELECT u.* FROM insegnamento i, utente u WHERE i.docente_matricola = u.matricola AND i.corso_id = '%d'";
     private static $GET_ALL_STUDENTI_CDL = "SELECT u.* FROM utente u WHERE u.cdl_matricola = '%s'";
-    private static $GET_ALL_STUDENTI_CORSO = "SELECT u.* FROM utente u, frequenta f WHERE f.studente_matricola = u.matricola AND f.corso_matricola = '%d'"; 
-    private static $GET_ALL_STUDENTI_SESSIONE = "SELECT u.* FROM `abilitazione` as a, `utente` as u WHERE "
-            . "a.sessione_id='%s' AND a.studente_matricola=u.matricola";
-    
-    
+    private static $GET_ALL_STUDENTI_CORSO = "SELECT u.* FROM utente u, frequenta f WHERE f.studente_matricola = u.matricola AND f.corso_matricola = '%d'";
+    private static $GET_ALL_STUDENTI_SESSIONE = "SELECT u.* FROM `abilitazione` AS a, `utente` AS u WHERE a.sessione_id='%s' AND a.studente_matricola=u.matricola";
+
+    // Aggiunto da Federico
+    private static $GET_ALL_DOCENTI = "SELECT u.* FROM utente u WHERE u.tipologia = 'Docente'";
+
     /**
      * Restituisce utente dato email e password
      * @param $email
      * @param $password
      * @return Utente
      * @throws ConnectionException
-     * @throws UserNotFoundException
+     * @throws ApplicationException
      */
     public function getUtente($email, $password) {
         return $this->getUtenteByIdentity(self::createIdentity($email, $password));
@@ -43,7 +43,7 @@ class AccountModel extends Model {
      * @param $identity
      * @return Utente
      * @throws ConnectionException
-     * @throws UserNotFoundException
+     * @throws ApplicationException
      */
     public function getUtenteByIdentity($identity) {
         $qr = sprintf(self::$SELECT_UTENTE, $identity);
@@ -56,13 +56,12 @@ class AccountModel extends Model {
      * @param $matricola
      * @return Utente
      * @throws ConnectionException
-     * @throws UserNotFoundException
+     * @throws ApplicationException
      */
     public function getUtenteByMatricola($matricola) {
         $qr = sprintf(self::$SELECT_UTENTE_MATRICOLA, $matricola);
 
         $res = Model::getDB()->query($qr);
-        print_r(Model::getDB()->error_list);
         return $this->parseUtente($res);
     }
 
@@ -78,10 +77,9 @@ class AccountModel extends Model {
 
     /**
      * @param Utente $utente
-     *
-     * @throws ConnectionException
-     * @throws RuntimeException
      * @return Utente
+     * @throws ApplicationException [$INSERIMENTO_FALLITO]
+     * @throws ConnectionException
      */
     public function createUtente($utente) {
         $ident = self::createIdentity($utente->getUsername(), $utente->getPassword());
@@ -90,9 +88,9 @@ class AccountModel extends Model {
         $utente->setCognome(mysqli_real_escape_string(Model::getDB(), $utente->getCognome()));
 
         $query = sprintf(self::$INSERT_UTENTE, $utente->getMatricola(), $utente->getUsername(),
-            $ident, $utente->getPassword(), $utente->getNome(), $utente->getCognome(), $utente->getCdlMatricola());
+            $ident, $utente->getTipologia(), $utente->getNome(), $utente->getCognome(), $utente->getCdlMatricola());
         if (!Model::getDB()->query($query)) {
-            throw new RuntimeException(Model::getDB()->error, Model::getDB()->errno);
+            throw new ApplicationException(Error::$INSERIMENTO_FALLITO, Model::getDB()->error, Model::getDB()->errno);
         }
         return $utente;
     }
@@ -107,20 +105,20 @@ class AccountModel extends Model {
         $qr = sprintf(self::$DELETE_UTENTE, $matricola);
         Model::getDB()->query($qr);
 
-        return (Model::getDB()->affected_rows = 1);
+        return (Model::getDB()->affected_rows == 1);
     }
 
     /**
      * Serializza tupla dal db in un oggetto Utente
      * @param mysqli_result $res
      * @return Utente
-     * @throws UserNotFoundException
+     * @throws ApplicationException [$UTENTE_NON_TROVATO]
      */
-    public function parseUtente(&$res) {
+    private function parseUtente(&$res) {
         if ($obj = $res->fetch_assoc()) {
-            return new Utente($obj['username'], $obj['password'], $obj['matricola'], $obj['nome'], $obj['cognome'], $obj['tipologia'], $obj['cdl_matricola']);
+            return new Utente($obj['matricola'], $obj['username'], $obj['password'], $obj['tipologia'], $obj['nome'], $obj['cognome'], $obj['cdl_matricola']);
         } else {
-            throw new UserNotFoundException("Utente non trovato");
+            throw new ApplicationException(Error::$UTENTE_NON_TROVATO);
         }
     }
 
@@ -132,7 +130,21 @@ class AccountModel extends Model {
         $res = Model::getDB()->query(self::$SELECT_ALL_UTENTI);
         $ret = array();
         while ($obj = $res->fetch_assoc()) {
-            $ret[] = new Utente($obj['username'], $obj['password'], $obj['matricola'], $obj['nome'], $obj['cognome'], $obj['tipologia'], $obj['cdl_matricola']);
+            $ret[] = new Utente($obj['matricola'], $obj['username'], $obj['password'], $obj['tipologia'], $obj['nome'], $obj['cognome'], $obj['cdl_matricola']);
+        }
+        return $ret;
+    }
+
+    /**
+     * Aggiunta da federico
+     * @return array Docenti
+     * @throws ConnectionException
+     */
+    public function getAllDocenti() {
+        $res = Model::getDB()->query(self::$GET_ALL_DOCENTI);
+        $ret = array();
+        while ($obj = $res->fetch_assoc()) {
+            $ret[] = new Utente($obj['matricola'], $obj['username'], $obj['password'], $obj['tipologia'], $obj['nome'], $obj['cognome'], $obj['cdl_matricola']);
         }
         return $ret;
     }
@@ -150,78 +162,77 @@ class AccountModel extends Model {
         Model::getDB()->query($qr);
         return (Model::getDB()->affected_rows == 1);
     }
-    
+
     //Aggiunti da Elvira
-    
+
     /**
      * Restituisce tutti i docenti che insegnano il corso
      * @param int $id L'id del corso per la quale si vogliono conoscere i docenti che lo insegnano
      * @return Utente[] Tutti i docenti che insegnano il corso
      */
-     public function getAllDocentiByCorso($id) {
-        $query = sprintf(self::$$GET_ALL_DOCENTI_CORSO, $id);
+    public function getAllDocentiByCorso($id) {
+        $query = sprintf(self::$GET_ALL_DOCENTI_CORSO, $id);
         $res = Model::getDB()->query($query);
         $docenti = array();
-        if($res){
+        if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $docente = new Utente($obj['username'], $obj['password'],$obj['matricola'], $obj['nome'],$obj['cognome'],$obj['tipologia'],$obj['cdl_matricola']);
-                $docenti[]= $docente;
+                $docenti[] = new Utente($obj['matricola'], $obj['username'], $obj['password'], $obj['tipologia'], $obj['nome'], $obj['cognome'], $obj['cdl_matricola']);
             }
         }
-        return $docenti;   
-    } 
-    
+        return $docenti;
+    }
+
     /**
      * Restituisce tutti gli studenti abilitati ad una sessione
      * @param string $matricolaCdl La matricola del cdl per il quale si vogliono conoscere gli studenti iscritti
      * @return Utente[] Tutti gli studenti che sono iscritti al cdl
      */
-     public function getAllStudentiByCdl($matricolaCdl) {
+    public function getAllStudentiByCdl($matricolaCdl) {
         $query = sprintf(self::$GET_ALL_STUDENTI_CDL, $matricolaCdl);
         $res = Model::getDB()->query($query);
         $studenti = array();
-        if($res){
+        if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $studente = new Utente($obj['username'], $obj['password'],$obj['matricola'], $obj['nome'],$obj['cognome'],$obj['tipologia'],$obj['cdl_matricola']);
-                $studenti[]= $studente;
+                $studente = new Utente($obj['username'], $obj['password'], $obj['matricola'], $obj['nome'], $obj['cognome'], $obj['tipologia'], $obj['cdl_matricola']);
+                $studenti[] = $studente;
             }
         }
-        return $studenti;   
-    } 
-    
+        return $studenti;
+    }
+
     /**
      * Restituisce tutti gli studenti iscritti ad un corso
      * @param int $idCorso L'id del corso per il quale si vogliono conoscere gli studenti iscritti
      * @return Studente[] Tutti gli studenti iscritti al corso
      */
-     public function getAllStudentiByCorso($idCorso) {
+    public function getAllStudentiByCorso($idCorso) {
         $query = sprintf(self::$GET_ALL_STUDENTI_CORSO, $idCorso);
         $res = Model::getDB()->query($query);
         $studenti = array();
-        if($res){
+        if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $studente = new Utente($obj['username'], $obj['password'],$obj['matricola'], $obj['nome'],$obj['cognome'],$obj['tipologia'],$obj['cdl_matricola']);
-                $studenti[]= $studente;
+                $studente = new Utente($obj['username'], $obj['password'], $obj['nome'], $obj['cognome'], $obj['tipologia'], $obj['cdl_matricola']);
+                $studenti[] = $studente;
             }
         }
-        return $studenti;   
-    } 
-    
+        return $studenti;
+    }
+
     /**
      * Restituisce tutti gli studenti abilitati ad una sessione
      * @param int $id L'id della sessione per la quale si vogliono conoscere gli studenti abilitati
      * @return Utente[] Tutti gli studenti che sono abilitati alla sessione
      */
-     public function getAllStudentiSessione($id) {
+    public function getAllStudentiSessione($id) {
         $query = sprintf(self::$GET_ALL_STUDENTI_SESSIONE, $id);
         $res = Model::getDB()->query($query);
         $studenti = array();
-        if($res){
+        if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $studentiSessione = new Utente($obj['username'], $obj['password'],$obj['matricola'], $obj['nome'],$obj['cognome'],$obj['tipologia'],$obj['cdl_matricola']);
-                $studenti[]= $studentiSessione;
+                $studentiSessione = new Utente($obj['username'], $obj['password'], $obj['matricola'], $obj['nome'], $obj['cognome'], $obj['tipologia'], $obj['cdl_matricola']);
+                $studenti[] = $studentiSessione;
             }
         }
-        return $studenti;   
-    } 
+        return $studenti;
+    }
 }
