@@ -22,6 +22,7 @@ $controller = new Esempio();
 <head>
     <meta charset="utf-8"/>
     <title>Metronic | Page Layouts - Blank Page</title>
+    <link rel="stylesheet" type="text/css" href="/assets/global/css/mycounter.css" />
     <?php include VIEW_DIR . "header.php"; ?>
 </head>
 <!-- END HEAD -->
@@ -38,7 +39,7 @@ $controller = new Esempio();
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
                 <h3 class="page-title">
-                    Visualizza Test
+                    Esegui Test
                 </h3>
                 <div class="page-bar">
                     <ul class="page-breadcrumb">
@@ -48,7 +49,11 @@ $controller = new Esempio();
                             <i class="fa fa-angle-right"></i>
                         </li>
                         <li>
-                            <a href="#">Esegui Test</a>
+                            <a href="#">Nome Corso</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            Esegui Test
                         </li>
                     </ul>
                 </div>
@@ -56,48 +61,57 @@ $controller = new Esempio();
             <!-- BEGIN PAGE CONTENT-->
             
             <div class="form-body">
-                <div class="portlet box grey-cascade">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group form-md-line-input has-success">
+                            <div class="input-icon">
+                                <input type="text" class="form-control">
+                                    <label for="form_control_1">Nome</label>
+                                        <span class="help-block">Inserire il nome</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group form-md-line-input has-success">
+                            <div class="input-icon">
+                                <input type="text" class="form-control">
+                                    <label for="form_control_1">Cognome</label>
+                                        <span class="help-block">Inserire il cognome</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group form-md-line-input has-success">
+                            <div class="input-icon">
+                                <input type="text" class="form-control">
+                                    <label for="form_control_1">Matricola</label>
+                                        <span class="help-block">Inserire la matricola</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1">
+                        <a href="javascript:void StartCounter();" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                            Esegui
+                        </a>
+                    </div>
+                </div>
+                <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-globe"></i>Test
+                            <i class="fa fa-file-text-o"></i>Test
                         </div>
                         <div class="tools">
-                            <div class="caption">
-                                <font size="3">Tempo rimasto: ???</font>
-                            </div>
+                            <a href="javascript:;" class="collapse" data-original-title="" title="">
+                            </a>
+                        </div>
+                        <div class="actions">
+                            <div id="countdown"></div>
                         </div>
                     </div>
 
                     <div class="portlet-body">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group form-md-line-input has-success">
-                                    <div class="input-icon">
-                                        <input type="text" class="form-control">
-                                            <label for="form_control_1">Nome</label>
-                                                <span class="help-block">Inserire il nome</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group form-md-line-input has-success">
-                                    <div class="input-icon">
-                                        <input type="text" class="form-control">
-                                            <label for="form_control_1">Cognome</label>
-                                                <span class="help-block">Inserire il cognome</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group form-md-line-input has-success">
-                                    <div class="input-icon">
-                                        <input type="text" class="form-control">
-                                            <label for="form_control_1">Matricola</label>
-                                                <span class="help-block">Inserire la matricola</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                         <h3> Domanda 1 (multipla) </h3>
                         <div class="form-group form-md-radios">
                             <div class="md-radio-list">
@@ -177,15 +191,22 @@ $controller = new Esempio();
                                 </div>
                             </div>
                         </div>
-
-
+                    </div>
+                </div>
+                <div class="form-actions">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="col-md-9"></div>
-                            <button type="submit" class="btn green-jungle">Conegna</button>
-                            <button type="button" class="btn red-intense">Abbandona</button> 
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <a href="javascript:;" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                        Consegna
+                                    </a>
+                                    <a href="javascript:;" class="btn sm red-intense">
+                                        Abbandona
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </div>
             </div>
@@ -202,6 +223,7 @@ $controller = new Esempio();
 
 <!--Script specifici per la pagina -->
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+<script src="/assets/global/scripts/mycountdown.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <script>
     jQuery(document).ready(function () {
