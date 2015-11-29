@@ -29,6 +29,8 @@ class Error {
      */
 
     public static $UTENTE_NON_TROVATO = "Utente non trovato";
+    public static $EMAIL_NON_VALIDA="Email non è valida";
+    public static $PASS_CORTA="La password inserita è troppo corta";
 }
 
 ?>
