@@ -45,19 +45,30 @@ class ControllerTest extends Controller {
     //restituisce le domande multiple di uno specifico test
     public function getMultTest($id) {
         $testModel = new TestModel();
-        return $testModel->getAllDomandeMultipleTest($id);
+        return $testModel->getAllDomandeMultipleByTest($id);
     }
     
     //restituisce le domande aperte di uno specifico test
     public function getAperteTest($id) {
         $testModel = new TestModel();
-        return $testModel->getAllDomandeAperteTest($id);
+        return $testModel->getAllDomandeAperteByTest($id);
     }
     
     //restituisce le risposte multiple di una specifica domanda
-    public function getRispMult($id) {
+    public function getRispMult($id, $argomentoId, $argomentoCorsoId) {
         $argomentoModel = new ArgomentoModel();
-        return $argomentoModel->getAllAlternativaByDomanda($id);
+        return $argomentoModel->getAllAlternativaByDomanda($id, $argomentoId, $argomentoCorsoId);
     }
     
+    //ricerca un utente attraverso la matricola
+    public function getUtentebyMatricola($matricola) {
+        $accountModel = new AccountModel();
+        return $accountModel->getUtenteByMatricola($matricola);
+    }
+    
+    //ricerca un test attraverso l'a matricola'id
+    public function getTestbyId($id) {
+        $testModel = new TestModel();
+        return $testModel->readTest($i);
+    }
 }

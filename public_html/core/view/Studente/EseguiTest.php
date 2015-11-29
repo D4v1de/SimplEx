@@ -1,14 +1,14 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: sergio
+ * User: Fabiano
  * Date: 18/11/15
  * Time: 09:58
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "Esempio.php";
-$controller = new Esempio();
+include_once CONTROL_DIR . "ControllerTest.php";
+$testController = new ControllerTest();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -59,43 +59,12 @@ $controller = new Esempio();
                 </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            
-            <div class="form-body">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group form-md-line-input has-success">
-                            <div class="input-icon">
-                                <input type="text" class="form-control">
-                                    <label for="form_control_1">Nome</label>
-                                        <span class="help-block">Inserire il nome</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group form-md-line-input has-success">
-                            <div class="input-icon">
-                                <input type="text" class="form-control">
-                                    <label for="form_control_1">Cognome</label>
-                                        <span class="help-block">Inserire il cognome</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group form-md-line-input has-success">
-                            <div class="input-icon">
-                                <input type="text" class="form-control">
-                                    <label for="form_control_1">Matricola</label>
-                                        <span class="help-block">Inserire la matricola</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-1"></div>
-                    <div class="col-md-1">
-                        <a href="javascript:void StartCounter();" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
-                            Esegui
-                        </a>
-                    </div>
-                </div>
+            <?php
+            $matricola = "0512102390";
+            $studente = $testController->getUtentebyMatricola($matricola);
+            $nome = $studente->getNome();
+            $cognome = $studente->getCognome();
+            ?>
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">
@@ -111,85 +80,77 @@ $controller = new Esempio();
                     </div>
 
                     <div class="portlet-body">
-                        
-                        <h3> Domanda 1 (multipla) </h3>
-                        <div class="form-group form-md-radios">
-                            <div class="md-radio-list">
-                                <div class="md-radio">
-                                    <input type="radio" id="d1r1" name="radio1" class="md-radiobtn">
-                                    <label for="d1r1">
-                                    <span class="inc"></span>
-                                    <span class="check"></span>
-                                    <span class="box"></span>
-                                    Riposta 1 </label>
+                        <div class="form-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <div class="input">
+                                            <input type="text" class="form-control" value="<?php echo $nome; ?>" disabled="">
+                                                <label for="form_control_1">Nome</label>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="md-radio">
-                                    <input type="radio" id="d1r2" name="radio1" class="md-radiobtn">
-                                    <label for="d1r2">
-                                    <span class="inc"></span>
-                                    <span class="check"></span>
-                                    <span class="box"></span>
-                                    Riposta 2 </label>
+                                <div class="col-md-4">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <div class="input">
+                                            <input type="text" class="form-control" value="<?php echo $cognome; ?>" disabled="">
+                                                <label for="form_control_1">Cognome</label>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="md-radio">
-                                    <input type="radio" id="d1r3" name="radio1" class="md-radiobtn">
-                                    <label for="d1r3">
-                                    <span class="inc"></span>
-                                    <span class="check"></span>
-                                    <span class="box"></span>
-                                    Riposta 3 </label>
-                                </div>
-                                <div class="md-radio">
-                                    <input type="radio" id="d1r4" name="radio1" class="md-radiobtn">
-                                    <label for="d1r4">
-                                    <span class="inc"></span>
-                                    <span class="check"></span>
-                                    <span class="box"></span>
-                                    Riposta 4 </label>
+                                <div class="col-md-4">
+                                    <div class="form-group form-md-line-input has-success">
+                                        <div class="input">
+                                            <input type="text" class="form-control" value="<?php echo $matricola; ?>" disabled="">
+                                                <label for="form_control_1">Matricola</label>
+                                                    <span class="help-block">Inserire la matricola</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            <?php
+                                $testId = 2;
+                                $multiple = $testController->getMultTest($testId);
+                                $aperte = $testController->getAperteTest($testId);
+                                $i = 1;
+                                foreach ($multiple as $m) {
+                                    $j = 1;
+                                    $testo = $m->getTesto();
+                                    echo "<h3>".$testo."</h3>";
+                                    echo '<div class="form-group form-md-radios">';
+                                    echo '<div class="md-radio-list">';
+                                    $alternative = $testController->getRispMult($m->getId(),$m->getArgomentoId(),$m->getArgomentoCorsoId());
+                                    foreach ($alternative as $r){
+                                        $domId = "d%dr%d";
+                                        $domId = sprintf($domId,$i,$j);
+                                        $nome = "d%";
+                                        $nome = sprintf($nome,$i);
+                                        echo    '<div class="md-radio">
+                                                    <input type="radio" id="'.$domId.'" name="'.$nome.'" class="md-radiobtn">
+                                                    <label for="'.$domId.'">
+                                                    <span class="inc"></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span>
+                                                    '.$r->getTesto().'</label>
+                                                </div>';
+                                        $j++;
+                                    }
+                                    $i++;
+                                }
+                                echo '</div>';
+                                echo '</div>';
 
-                        <h3> Domanda 2 (aperta)</h3>
-                        <div class="form-group">
-                            <textarea class="form-control" rows="3" placeholder="Inserisci risposta" style="resize:none"></textarea>
-                        </div>
-                        <h3> Domanda 3 (multipla)</h3>
-                        <div class="form-group form-md-radios">
-                            <div class="md-radio-list">
-                                <div class="md-radio">
-                                    <input type="radio" id="d2r1" name="radio1" class="md-radiobtn">
-                                    <label for="d2r1">
-                                    <span class="inc"></span>
-                                    <span class="check"></span>
-                                    <span class="box"></span>
-                                    Riposta 1 </label>
-                                </div>
-                                <div class="md-radio">
-                                    <input type="radio" id="d2r2" name="radio1" class="md-radiobtn">
-                                    <label for="d2r2">
-                                    <span class="inc"></span>
-                                    <span class="check"></span>
-                                    <span class="box"></span>
-                                    Riposta 2 </label>
-                                </div>
-                                <div class="md-radio">
-                                    <input type="radio" id="d2r3" name="radio1" class="md-radiobtn">
-                                    <label for="d2r3">
-                                    <span class="inc"></span>
-                                    <span class="check"></span>
-                                    <span class="box"></span>
-                                    Riposta 3 </label>
-                                </div>
-                                <div class="md-radio">
-                                    <input type="radio" id="d2r4" name="radio1" class="md-radiobtn">
-                                    <label for="d2r4">
-                                    <span class="inc"></span>
-                                    <span class="check"></span>
-                                    <span class="box"></span>
-                                    Riposta 4 </label>
-                                </div>
-                            </div>
+                                foreach ($aperte as $a) {
+                                    $testo = $a->getTesto();
+                                    $domId = "d%d";
+                                    $domId = sprintf($domId,$i);
+                                    echo '<h3>'.$testo.'</h3>';
+                                    echo    '<div class="form-group">
+                                                <textarea class="form-control" id="'.$domId.'" rows="3" placeholder="Inserisci risposta" style="resize:none"></textarea>
+                                            </div>';
+                                    $i++;
+                                }
+                            ?>                        
                         </div>
                     </div>
                 </div>
@@ -229,6 +190,7 @@ $controller = new Esempio();
     jQuery(document).ready(function () {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
+        StartCounter();
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
     });
