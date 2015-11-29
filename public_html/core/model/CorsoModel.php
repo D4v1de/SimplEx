@@ -15,7 +15,7 @@ class CorsoModel extends Model {
     private static $READ_CORSO = "SELECT * FROM `corso` WHERE id = '%d'";
     private static $GET_ALL_CORSI = "SELECT * FROM `corso`";
     private static $GET_ALL_CORSI_CDL = "SELECT * FROM `corso` WHERE cdl_matricola = '%s'";
-    private static $CREATE_INSEGNAMENTO = "INSERT INTO `insegnamento` (corso_id, docente_matricola) VALUES ('%d',%s')";
+    private static $CREATE_INSEGNAMENTO = "INSERT INTO `insegnamento` (corso_id, docente_matricola) VALUES ('%d','%s')";
     private static $DELETE_INSEGNAMENTO = "DELETE FROM `insegnamento` WHERE corso_id = '%d' AND docente_matricola = '%s'";
     private static $GET_ALL_CORSI_DOCENTE = "SELECT c.* FROM `insegnamento` as i,`corso` as c WHERE i.corso_id = c.id AND i.docente_matricola = '%s'";
     
@@ -68,7 +68,7 @@ class CorsoModel extends Model {
         $query = sprintf(self::$READ_CORSO, $id);
         $res = Model::getDB()->query($query);
         if($obj = $res->fetch_assoc()) {
-            $corso = new Corso($obj['id'],$obj['matricola'], $obj['nome'], $obj['tipologia'], $obj['cdl_matricola']);
+            $corso = new Corso($obj['id'], $obj['matricola'], $obj['nome'], $obj['tipologia'], $obj['cdl_matricola']);
             return $corso;
         }
         else{

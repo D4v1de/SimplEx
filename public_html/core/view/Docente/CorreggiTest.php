@@ -105,12 +105,20 @@ $controller = new Esempio();
                     <p><div class="checker disabled"><span class="checked"><input type="checkbox" disabled="true" checked="true"></span></div><font color="#78a300">Risposta 4</font></p>
                     </div>
                     </div>
-                    <div class="form-actions row">
-                        <div class="col-md-9">
-                        </div>
-                        <div class="col-md-3">
-                            <button type="submit" class="btn green-jungle">Salva</button>
-                            <button type="button" class="btn red-intense">Annulla</button>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <a href="javascript:;" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                            Salva
+                                        </a>
+                                        <a href="javascript:;" class="btn sm red-intense">
+                                            Annulla
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
             <!-- END PAGE CONTENT-->

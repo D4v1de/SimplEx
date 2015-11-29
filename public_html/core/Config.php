@@ -21,4 +21,5 @@ class Config {
      */
     public static $MIN_PASSWORD_LEN = 6;    //minima lunghezza della password
     public static $TIPI_UTENTE = array('studente', 'utente', 'admin');
+    public static $LOG_LEVEL = 0; //0 Debug, 1 Info, 2 Warning, 3 Error
 }

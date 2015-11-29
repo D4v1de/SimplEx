@@ -19,16 +19,18 @@ $cdlmatricola = $array->getCdlMatricola();
 
 if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricola']) && isset($_POST['cdlmatricola'])) {
 
+    echo "sei dentro!!!";
+
     $nome = $_POST['nome'];
     $tipologia = $_POST['tipologia'];
     $matricola = $_POST['matricola'];
-    $cdlmatricola = $_POST['matricola'];
+    $cdlmatricola = $_POST['cdlmatricola'];
 
-    $corso = new Corso($matricola, $nome, $tipologia, $cdlmatricola);
+    $corso = new Corso($_URL[1], $matricola, $nome, $tipologia, $cdlmatricola);
 
-    $controller->modificaCdl($_URL[1], $cdl);
+    $controller->modificaCorso($_URL[1], $corso);
 
-    /*header('location: gestioneCdl.php');*/
+    header('location: ../../gestionecorsi');
 }
 
 ?>
@@ -71,7 +73,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="gestionecorsi">GestioneCorsi</a>
+                        <a href="../gestionecorsi">GestioneCorsi</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
@@ -84,29 +86,40 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
             <!-- BEGIN PAGE CONTENT-->
 
 
-
             <div class="row">
                 <div class="col-md-12">
-                    <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                    <div class="portlet box grey-cascade">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                <i class="fa fa-globe"></i>Modifica Corso
+
+                    <form method="post" action="modificacorso">
+
+                        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                        <div class="portlet box blue-madison">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-globe"></i>Modifica Corso
+                                </div>
+                                <div class="tools">
+                                    <a href="javascript:;" class="collapse" data-original-title="" title="">
+                                    </a>
+                                </div>
                             </div>
-                            <div class="tools">
-                                <a href="javascript:;" class="collapse" data-original-title="" title="">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="portlet-body">
-                            <div class="table-scrollable">
+                            <div class="portlet-body">
 
+                                <div class="form-group form-md-line-input">
+                                    <div class="col-md-10">
+                                        <select class="form-control" id="tipologiaCorso" name="tipologia">
+                                            <option value="Semestrale" <?php if($tipologia == 'Semestrale'){echo "selected";}?>>Semestrale</option>
+                                            <option value="Annuale" <?php if($tipologia == 'Annuale'){echo "selected";}?>>Annuale</option>
+                                        </select>
 
-
+                                        <div class="form-control-focus">
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="portlet-body form">
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" id="form_control_1" Value="nomeAttuale">
+                                            <input type="text" class="form-control" name="nome" id="nomeCorso"
+                                                   Value="<?php echo $nome; ?>">
 
                                             <div class="form-control-focus">
                                             </div>
@@ -114,7 +127,8 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                     </div>
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" id="form_control_1" value="tipologiaAttuale">
+                                            <input type="text" class="form-control" name="matricola"
+                                                   id="matricolaCorso" value="<?php echo $matricola; ?>">
 
                                             <div class="form-control-focus">
                                             </div>
@@ -122,47 +136,41 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                     </div>
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" id="form_control_1" value="matricolaAttuale">
+                                            <input type="text" class="form-control" name="cdlmatricola"
+                                                   id="matricolacdlCorso" value="<?php echo $cdlmatricola; ?>">
 
                                             <div class="form-control-focus">
                                             </div>
                                         </div>
                                     </div>
-
-
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-actions">
-                                                <div class="col-md-3">
-                                                    <button type="button" class="btn green-jungle">Conferma</button>
-                                                </div>
-                                                <div class="col-md-offset-1 col-md-3">
-                                                    <button type="button" class="btn red-intense">Annulla</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
 
                                 </div>
-
-
-
                             </div>
-
-
-
                         </div>
-                    </div>
-                    <!-- END EXAMPLE TABLE PORTLET-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-actions">
+                                    <div class="col-md-3">
+                                        <button type="submit" class="btn green-jungle">Conferma</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="reset" class="btn red-intense">Annulla</button>
+                                    </div>
+                                    <div class="col-md-offset-1 col-md-3">
+                                        <a href="<?php printf('../../gestionecorso/%s/', $_URL[1]); ?>"
+                                           class="btn blue-madison">Associa Docente</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
+                <!-- END EXAMPLE TABLE PORTLET-->
             </div>
-
-
-
-            <!-- END PAGE CONTENT-->
         </div>
+
+
+        <!-- END PAGE CONTENT-->
     </div>
     <!-- END CONTENT -->
 </div>
@@ -178,7 +186,8 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 <!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
 <script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<script type="text/javascript"
+        src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <!-- END PAGE LEVEL PLUGINS aggiunta da me-->
 
 <script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>
