@@ -5,9 +5,9 @@
  */
 
 
-var StartCounter = function(){
+var StartCounter = function(endDate){
 	// set the date we're counting down to
-	var target_date = new Date('2015-11-29 16:55:00').getTime();
+	var target_date = new Date(endDate).getTime();
 	 
 	// variables for time units
 	var days, hours, minutes, seconds;

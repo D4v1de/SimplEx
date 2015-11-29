@@ -38,6 +38,7 @@ if (isset($_SERVER['HTTP_X_REAL_IP'])) {
     define('IP', $_SERVER['REMOTE_ADDR']);
 }
 
+include_once BEAN_DIR . "Utente.php"; //è necessario per mantenere l'utente nella sessione
 session_start(); //facciamo partire la sessione
 
 include_once UTILS_DIR . "Patterns.php";
@@ -59,6 +60,9 @@ if (!defined("TESTING")) {
                     break;
                 case 'login':
                     include_once VIEW_DIR . "Auth/Login.php";
+                    break;
+                case 'logout':
+                    include_once VIEW_DIR . "Auth/Logout.php";
                     break;
             }
         }

@@ -11,7 +11,6 @@ include_once CONTROL_DIR . "CdlController.php";
 $controller = new CdlController();
 
 
-
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -65,7 +64,7 @@ $controller = new CdlController();
 
             <form method="post" action="gestionecdl">
 
-            <div class="portlet box blue-madison">
+                <div class="portlet box blue-madison">
 
                     <div class="portlet-title">
                         <div class="tools">
@@ -82,60 +81,57 @@ $controller = new CdlController();
                     </div>
                     <div class="portlet-body">
                         <div id="tabella_2_wrapper" class="dataTables_wrapper no-footer">
-                            <div class="table-scrollable">
-                                <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                       id="tabella_2" role="grid" aria-describedby="tabella_2_info">
-                                    <thead>
-                                    <tr role="row">
-                                        <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                            colspan="1" aria-label="Username: activate to sort column ascending"
-                                            aria-sort="ascending" style="width: 28px;">
-                                            Id
-                                        </th>
-                                        <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                            colspan="1" aria-label="Username: activate to sort column ascending"
-                                            aria-sort="ascending" style="width: 78px;">
-                                            Nome
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                            colspan="1"
-                                            aria-label="Email: activate to sort column ascending" style="width: 137px;">
-                                            Matricola
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                            colspan="1"
-                                            aria-label="Status: activate to sort column ascending" style="width: 71px;">
-                                            Tipologia
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php
-                                    $array = Array();
-                                    $array = $controller->getCdl();
-                                    if ($array == null) {
-                                        echo "l'array è null";
+                            <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                                   id="tabella_2" role="grid" aria-describedby="tabella_2_info">
+                                <thead>
+                                <tr role="row">
+                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Status: activate to sort column ascending">
+                                        Nome
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Status: activate to sort column ascending">
+                                        Matricola
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Status: activate to sort column ascending">
+                                        Tipologia
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Status: activate to sort column ascending">
+                                        Iscrizione
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                $array = Array();
+                                $array = $controller->getCdl();
+                                if ($array == null) {
+                                    echo "l'array è null";
+                                } else {
+                                    foreach ($array as $c) {
+                                        printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                        printf("<td><button type=\"button\" class=\"btn default\"><span class=\"md-click-circle md-click-animate\"></span><a href=\"../visualizzacorsi/%s\">%s</a></button></td>", $c->getMatricola(), $c->getNome());
+                                        printf("<td>%s</td>", $c->getMatricola());
+                                        printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
+                                        printf("<td><button type=\"button\" class=\"btn green-jungle\"><span class=\"md-click-circle md-click-animate\"></span>Iscriviti</button></td>");
+                                        printf("</tr>");
                                     }
-                                    else {
-                                        foreach ($array as $c) {
-                                            printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                            printf("<td class=\"gradeX odd\">%s</td>", $c->getMatricola());
-                                            printf("<td class=\"sorting_1\"><a href=\"../visualizzacorsi/%s\">%s</a></td>", $c->getMatricola(), $c->getNome());
-                                            printf("<td>%s</td>", $c->getMatricola());
-                                            printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
-                                            printf("</tr>");
-                                        }
-                                    }
-                                    ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                                }
+                                ?>
+                                </tbody>
+                            </table>
 
                         </div>
                     </div>
 
-            </div>
-                </form>
+                </div>
+            </form>
 
 
             <!-- END PAGE CONTENT-->

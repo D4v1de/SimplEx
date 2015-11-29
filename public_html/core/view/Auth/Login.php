@@ -9,8 +9,11 @@
 include_once CONTROL_DIR . "AuthController.php";
 $controller = new AuthController();
 try {
-    $user = $controller->login($_POST['email'], $_POST['password'], ($_POST['remember'] == "1" ? true : false));
+    Logger::info("Richiesta login [" . $_POST['email'] . " " . $_POST['password'] . " " . @$_POST['remember'] . "]");
+    $user = $controller->login($_POST['email'], $_POST['password'], (@$_POST['remember'] == "1" ? true : false));
+    Logger::info("Login effettuato " . $user->getUsername());
     echo json_encode(array('status' => true));
-} catch (UserNotFoundException $ex) {
+} catch (ApplicationException $ex) {
+    Logger::warning("Errore nel login " . $ex);
     echo json_encode(array('status' => false, 'error' => $ex->getMessage()));
 }
