@@ -72,7 +72,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="modificacdl">ModificaCdL</a>
+                        <a href="../modificacdl/<?php echo $matricola; ?>">CdL<?php echo $nome; ?></a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
