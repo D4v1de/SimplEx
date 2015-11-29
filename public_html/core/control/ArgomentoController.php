@@ -12,10 +12,12 @@ include_once BEAN_DIR . "DomandaAperta.php";
 include_once BEAN_DIR . "DomandaMultipla.php";
 include_once BEAN_DIR . "Alternativa.php";
 include_once MODEL_DIR . "ArgomentoModel.php";
+include_once MODEL_DIR . "DomandaModel.php";
+
 
 class ArgomentoController extends Controller {
 
-    
+
     public function getArgomenti() {
         $argomentoModel = new ArgomentoModel();
         return $argomentoModel->getAllArgomento();
@@ -30,5 +32,20 @@ class ArgomentoController extends Controller {
         $argomentoModel = new ArgomentoModel();
         return $argomentoModel->getAllDomandaMultipla();
     }
-    
+
+    public function getNumArgomenti(){
+        //  $argomentoModel = new ArgomentoModel();
+        return 16; //$argomentoModel->getNumArgomenti();
+    }
+
+    public function getAllDomandaMultipla($id,$corso_id){
+        $domandaModel = new DomandaModel();
+        return $domandaModel->getAllDomandaMultiplaByArgomento($id,$corso_id);
+    }
+
+    public function getAllDomandaAperta($id,$corso_id){
+        $argomentoModel = new ArgomentoModel();
+        return $argomentoModel->getAllDomandaApertaByArgomento($id,$corso_id);
+    }
+
 }

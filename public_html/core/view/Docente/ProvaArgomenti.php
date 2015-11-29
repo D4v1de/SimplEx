@@ -9,8 +9,7 @@
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "ArgomentoController.php";
 $controller = new ArgomentoController();
-$argomenti = $controller->getArgomenti();
-$numArgomenti = count($argomenti);
+$num = $controller->getNumArgomenti();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -26,6 +25,15 @@ $numArgomenti = count($argomenti);
     <title>Metronic | Page Layouts - Blank Page</title>
     <?php include VIEW_DIR . "header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/jquery-nestable/jquery.nestable.css">
+
+    <!--QUESTO CSS PERMETTE DI ...-->
+    <style>
+        #tabellatest {
+            position: fixed;
+            width: 531px;
+        }
+    </style>
+
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -47,208 +55,45 @@ $numArgomenti = count($argomenti);
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
 
-<div class="row">
-    <div class="col-md-6">
-                    <div class="portlet box blue-madison">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                <i class="fa fa-comments"></i>Argomento 1
-                            </div>
-                            <div class="tools">
-                                <a href="javascript:;" class="expand" data-original-title="" title="">
-                                </a>
+            <div class="row">
+                <div class="col-md-6">
 
-                            </div>
-                        </div>
-                        <div class="portlet-body collapse">
-                            <div class="dd" id="nestable_list_1">
-                                <ol class="dd-list">
-                                    <li class="dd-item" data-id="11">
-                                        <div class="dd-handle">
-                                            Domanda 1
-                                        </div>
-                                    </li>
-                                    <li class="dd-item" data-id="12">
-                                        <div class="dd-handle">
-                                            Domanda 2
-                                        </div>
+                    <?php
+                    $argomenti = array();
+                    $argomenti = $controller->getArgomenti();
+                    $domandeMultiple = array();
+                    $nargomento = 1;
+                    $ndomanda = 1;
 
-                                    </li>
-                                    <li class="dd-item" data-id="13">
-                                        <div class="dd-handle">
-                                            Domanda 3
-                                        </div>
-                                    </li>
-                                    <li class="dd-item" data-id="14">
-                                        <div class="dd-handle">
-                                            Domanda 4
-                                        </div>
-                                    </li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
+                    if($argomenti == null){echo "NON CI SONO ARGOMENTI";}
+                    foreach($argomenti as $a){
+                        $domandeMultiple = $controller->getAllDomandaMultipla($a->getId(),$a->getCorsoId());
+                        printf("<div class=\"portlet box blue-madison\">");
+                        printf("<div class=\"portlet-title\">");
+                        printf("<div class=\"caption\">");
+                        printf("<i class=\"fa fa-comments\"></i>%s", $a->getNome());
+                        printf("</div>");
+                        printf("<div class=\"tools\">");
+                        printf("<a href=\"javascript:;\" class=\"expand\" data-original-title=\"\" title=\"\"></a>");
+                        printf("</div>");
+                        printf("</div>");
+                        printf("<div class=\"portlet-body collapse\">");
+                        printf("<div class=\"dd\" id=\"nestable_list_%s\">",$nargomento);
+                        printf("<ol class=\"dd-list\">");
+                        foreach($domandeMultiple as $domanda) {
+                            printf("<li class=\"dd-item\" data-id=\"%s%s\">",$nargomento,$ndomanda); //cambiare id
+                            printf("<div class=\"dd-handle\">%s</div>", $domanda->getTesto()); //CAMBIARE NELLA DOMANDA
+                            printf("</li>");
+                            $ndomanda++;
+                        }
+                        printf("</ol>");
+                        printf("</div>");
+                        printf("</div>");
+                        printf("</div>");
+                        $nargomento++;
 
-<!--ARGOMENTO 2-->
-
-        <div class="portlet box blue-madison">
-            <div class="portlet-title">
-                <div class="caption">
-                    <i class="fa fa-comments"></i>Argomento 2
-                </div>
-                <div class="tools">
-                    <a href="javascript:;" class="expand" data-original-title="" title="">
-                    </a>
-
-                </div>
-            </div>
-            <div class="portlet-body collapse">
-                <div class="dd" id="nestable_list_2">
-                    <ol class="dd-list">
-                        <li class="dd-item" data-id="21">
-                            <div class="dd-handle">
-                                Domanda 1
-                            </div>
-                        </li>
-                        <li class="dd-item" data-id="22">
-                            <div class="dd-handle">
-                                Domanda 2
-                            </div>
-
-                        </li>
-                        <li class="dd-item" data-id="23">
-                            <div class="dd-handle">
-                                Domanda 3
-                            </div>
-                        </li>
-                        <li class="dd-item" data-id="24">
-                            <div class="dd-handle">
-                                Domanda 4
-                            </div>
-                        </li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-
-        <div class="portlet box blue-madison">
-            <div class="portlet-title">
-                <div class="caption">
-                    <i class="fa fa-comments"></i>Argomento 3
-                </div>
-                <div class="tools">
-                    <a href="javascript:;" class="expand" data-original-title="" title="">
-                    </a>
-
-                </div>
-            </div>
-            <div class="portlet-body collapse">
-                <div class="dd" id="nestable_list_3">
-                    <ol class="dd-list">
-                        <li class="dd-item" data-id="31">
-                            <div class="dd-handle">
-                                Domanda 1
-                            </div>
-                        </li>
-                        <li class="dd-item" data-id="32">
-                            <div class="dd-handle">
-                                Domanda 2
-                            </div>
-                        </li>
-                        <li class="dd-item" data-id="33">
-                            <div class="dd-handle">
-                                Domanda 3
-                            </div>
-                        </li>
-                        <li class="dd-item" data-id="34">
-                            <div class="dd-handle">
-                                Domanda 4
-                            </div>
-                        </li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-
-        <div class="portlet box blue-madison">
-            <div class="portlet-title">
-                <div class="caption">
-                    <i class="fa fa-comments"></i>Argomento 4
-                </div>
-                <div class="tools">
-                    <a href="javascript:;" class="expand" data-original-title="" title="">
-                    </a>
-
-                </div>
-            </div>
-            <div class="portlet-body collapse">
-                <div class="dd" id="nestable_list_4">
-                    <ol class="dd-list">
-                        <li class="dd-item" data-id="41">
-                            <div class="dd-handle">
-                                Domanda 1
-                            </div>
-                        </li>
-                        <li class="dd-item" data-id="42">
-                            <div class="dd-handle">
-                                Domanda 2
-                            </div>
-
-                        </li>
-                        <li class="dd-item" data-id="43">
-                            <div class="dd-handle">
-                                Domanda 3
-                            </div>
-                        </li>
-                        <li class="dd-item" data-id="44">
-                            <div class="dd-handle">
-                                Domanda 4
-                            </div>
-                        </li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-
-        <div class="portlet box blue-madison">
-            <div class="portlet-title">
-                <div class="caption">
-                    <i class="fa fa-comments"></i>Argomento 5
-                </div>
-                <div class="tools">
-                    <a href="javascript:;" class="expand" data-original-title="" title="">
-                    </a>
-
-                </div>
-            </div>
-            <div class="portlet-body collapse">
-                <div class="dd" id="nestable_list_5">
-                    <ol class="dd-list">
-                        <li class="dd-item" data-id="51">
-                            <div class="dd-handle">
-                                Domanda 1
-                            </div>
-                        </li>
-                        <li class="dd-item" data-id="52">
-                            <div class="dd-handle">
-                                Domanda 2
-                            </div>
-
-                        </li>
-                        <li class="dd-item" data-id="53">
-                            <div class="dd-handle">
-                                Domanda 3
-                            </div>
-                        </li>
-                        <li class="dd-item" data-id="54">
-                            <div class="dd-handle">
-                                Domanda 4
-                            </div>
-                        </li>
-                    </ol>
-                </div>
-            </div>
-        </div>
+                    }
+                    ?>
 
 
 
@@ -259,10 +104,10 @@ $numArgomenti = count($argomenti);
 
 
 
-     </div> <!--chiudi col-md-6-->
+                </div> <!--chiudi col-md-6-->
 
                 <div class="col-md-6">
-                    <div class="portlet box blue-madison">
+                    <div class="portlet box blue-madison" id="tabellatest">
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="fa fa-pencil"></i>Test
@@ -287,6 +132,9 @@ $numArgomenti = count($argomenti);
 
             </div>
 
+
+
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-10"></div>
@@ -301,17 +149,17 @@ $numArgomenti = count($argomenti);
 
 
 
-</div>
-
-
-
-
-
-
-            <!-- END PAGE CONTENT-->
         </div>
+
+
+
+
+
+
+        <!-- END PAGE CONTENT-->
     </div>
-    <!-- END CONTENT -->
+</div>
+<!-- END CONTENT -->
 </div>
 <!-- END CONTAINER -->
 <?php include VIEW_DIR . "footer.php"; ?>
@@ -334,7 +182,7 @@ $numArgomenti = count($argomenti);
         Layout.init(); // init current layout
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
-        UINestable.init(<?php $numArgomenti ?>); //Il numero equivale al n° di tabelle presenti nella pagina
+        UINestable.init(<?php echo $num; ?>); //Il numero equivale al n° di tabelle presenti nella pagina
 
     });
 
