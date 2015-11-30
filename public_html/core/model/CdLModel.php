@@ -11,7 +11,7 @@ include_once BEAN_DIR . "CdL.php";
 
 class CdLModel extends Model {
     private static $CREATE_CDL = "INSERT INTO `cdl` (matricola, nome, tipologia) VALUES ('%s','%s','%s')";
-    private static $UPDATE_CDL = "UPDATE `cdl` SET matricola = '%s', nome = '%s', tipologia = '%s' WHERE matricola = '%s'";
+    private static $UPDATE_CDL = "UPDATE `cdl` SET nome = '%s', tipologia = '%s' WHERE matricola = '%s'";
     private static $DELETE_CDL = "DELETE FROM `cdl` WHERE matricola = '%s'";
     private static $READ_CDL = "SELECT * FROM `cdl` WHERE matricola = '%s'";
     private static $GET_ALL_CDLS = "SELECT * FROM `cdl`";
@@ -21,10 +21,11 @@ class CdLModel extends Model {
      * @param CdL $cdl Il corso di laurea da inserire nel database
      * @throws ApplicationException
      */
+
     public function createCdL($cdl) {
         $query = sprintf(self::$CREATE_CDL, $cdl->getMatricola(), $cdl->getNome(), $cdl->getTipologia());
         Model::getDB()->query($query);
-        if (Model::getDB()->affected_rows==-1) {
+        if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
         }
     }
@@ -36,7 +37,7 @@ class CdLModel extends Model {
      * @throws ApplicationException
      */
     public function updateCdL($matricola, $updatedCdl) {
-        $query = sprintf(self::$UPDATE_CDL, $updatedCdl->getMatricola(), $updatedCdl->getNome(), $updatedCdl->getTipologia(), $matricola);
+        $query = sprintf(self::$UPDATE_CDL, $updatedCdl->getNome(), $updatedCdl->getTipologia(), $matricola);
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
