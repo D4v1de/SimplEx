@@ -164,9 +164,7 @@ if (isset($_POST['checkbox'])) {
                                     <h5>Matricola: <?php echo $corso->getMatricola(); ?></h5>
                                     <h5>Tipologia: <?php echo $corso->getTipologia(); ?></h5>
                                     <?php
-                                    if (count($docenteassociato) == 1) {
-                                        printf('<h5>Docente: %s %s</h5>', $docenteassociato[0]->getNome(), $docenteassociato[0]->getCognome());
-                                    } else if (count($docenteassociato) > 1) {
+                                    if (count($docenteassociato) >= 1) {
                                         foreach ($docenteassociato as $d) {
                                             printf('<h5>Docente: %s %s</h5>', $d->getNome(), $d->getCognome());
                                         }
@@ -255,8 +253,8 @@ if (isset($_POST['checkbox'])) {
                                         } else {
                                             printf("<td><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $d->getMatricola());
                                         }
-                                        printf("<td class=\"sorting_1\">%s</td>", $d->getMatricola());
-                                        printf("<td class=\"sorting_1\"><a href=\"../../utente/%s\">%s</a></td>", $d->getMatricola(), $d->getNome());
+                                        printf("<td>%s</td>", $d->getMatricola());
+                                        printf("<td><a href=\"../../utente/%s\">%s</a></td>", $d->getMatricola(), $d->getNome());
                                         printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $d->getCognome());
                                         printf("<td>%s</td>", $d->getCdlMatricola());
                                         printf("</tr>");

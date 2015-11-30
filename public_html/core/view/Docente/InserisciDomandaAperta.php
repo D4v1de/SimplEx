@@ -20,7 +20,7 @@ $controller = new Esempio();
     <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8"/>
-        <title>Metronic | Page Layouts - Blank Page</title>
+        <title>Inserisci Domanda Aperta</title>
         <?php include VIEW_DIR . "header.php"; ?>
     </head>
     <!-- END HEAD -->
@@ -43,15 +43,15 @@ $controller = new Esempio();
                         <ul class="page-breadcrumb">
                             <li>
                                 <i class="fa fa-home"></i>
-                                <a href="index.html">Home</a>
+                                <a href="">Home</a>
                                 <i class="fa fa-angle-right"></i>
                             </li>
                             <li>
-                                <a href="#">NomeCorso</a>
+                                <a href="">NomeCorso</a>
                                 <i class="fa fa-angle-right"></i>
                             </li>
                             <li>
-                                <a href="#">Nome Argomento</a>
+                                <a href="homecorsodocente">Nome Argomento</a>
                                 <i class="fa fa-angle-right"></i>
                             </li>
                             <li>
@@ -62,19 +62,13 @@ $controller = new Esempio();
                     </div>
                     <!-- END PAGE HEADER-->
                     <!-- BEGIN PAGE CONTENT-->
-                    <div class="portlet box grey-cascade">
+                    <div class="portlet box blue-madison">
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="fa fa-globe"></i>Inserisci Domanda Aperta
                             </div>
                             <div class="tools">
                                 <a href="javascript:;" class="collapse" data-original-title="" title="">
-                                </a>
-                                <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title="">
-                                </a>
-                                <a href="javascript:;" class="reload" data-original-title="" title="">
-                                </a>
-                                <a href="javascript:;" class="remove" data-original-title="" title="">
                                 </a>
                             </div>
                         </div>
@@ -85,7 +79,7 @@ $controller = new Esempio();
                                     <div class="form-group form-md-line-input has-success" style="height: 90px">
                                         <label class="control-label col-md-3">Inserisci Testo Domanda</label>
                                         <div class="col-md-6">
-                                            <input type="text" placeholder="" class="form-control">
+                                            <input type="text" id="" placeholder="" class="form-control">
                                             <span class="help-block">
                                                 Inserisci il testo della domanda </span>
                                         </div>
@@ -93,7 +87,7 @@ $controller = new Esempio();
                                     <div class="form-group form-md-line-input has-success" style="height: 90px">
                                         <label class="control-label col-md-3">Inserisci Punteggio</label>
                                         <div class="col-md-4">
-                                            <input type="number" placeholder="" class="form-control">
+                                            <input type="number" id="" placeholder="" class="form-control">
                                             <span class="help-block">
                                                 Inserisci il punteggio massimo per la domanda </span>
                                         </div>
