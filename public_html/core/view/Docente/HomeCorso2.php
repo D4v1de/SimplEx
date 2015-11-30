@@ -10,6 +10,9 @@
 include_once CONTROL_DIR . "SessioneController.php";
 $controller = new SessioneController();
 
+include_once CONTROL_DIR . "ControllerTest.php";
+$controllerTest = new ControllerTest();
+
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -199,6 +202,26 @@ $controller = new SessioneController();
                             </tr>
                             </thead>
                             <tbody>
+                                
+                                 <?php
+                                        $array = Array();
+                                        $array = $controllerTest->getTestByCorso(1); //Id a caso per il momento
+                                        if($array == null){ echo "l'array è null";}
+                                        foreach($array as $c) {
+                                        printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                        printf("<td>Test %s</td>",$c->getId());
+                                        printf("<td>%s</td>",$c->getData());
+                                        printf("<td>%s</td>",$c->getNumeroMultiple());
+                                        printf("<td>%s</td>",$c->getNumeroAperte());
+                                        printf("<td>%s</td>",$c->getPunteggioMax());
+                                        printf("<td>%s %%</td>",$c->getPercentualeScelto());
+                                        printf("<td>%s %%</td>",$c->getPercentualeSuccesso());
+                                        printf("<td><a href=\"javascript:;\" class=\"btn btn-sm default\"><i class=\"fa fa-info-circle\"></i></a>");
+                                        printf("</tr>");
+                                        }
+                                        ?>
+                                
+                                <!--
                             <tr class="gradeX odd" role="row">
                                 <td>
                                     Test 1
@@ -295,6 +318,7 @@ $controller = new SessioneController();
                                     </a>
                                 </td>
                             </tr>
+                                -->
                             </tbody>
                         </table>
                     </div>

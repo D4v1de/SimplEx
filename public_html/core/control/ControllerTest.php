@@ -72,4 +72,10 @@ class ControllerTest extends Controller {
         $testModel = new TestModel();
         return $testModel->readTest($i);
     }
+    
+    //ricerca i test relativi ad un corso
+    public function getTestbyCorso($id) {
+        $testModel = new TestModel();
+        return $testModel->getAllTestByCorso($id);
+    }
 }
