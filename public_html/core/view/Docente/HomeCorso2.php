@@ -13,6 +13,14 @@ $controller = new SessioneController();
 include_once CONTROL_DIR . "ControllerTest.php";
 $controllerTest = new ControllerTest();
 
+include_once CONTROL_DIR . "ArgomentoController.php";
+$controllerArgomento = new ArgomentoController();
+
+$corso = $controllerArgomento->readCorso(21); //qui dentro andrà $_URL[1];
+
+$docenteassociato = $controllerArgomento->getDocenteAssociato($corso->getId());
+
+
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -45,7 +53,9 @@ $controllerTest = new ControllerTest();
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                Nome Corso
+                <?php
+                echo $corso->getNome();
+                ?>
             </h3>
 
             <div class="page-bar">
@@ -56,13 +66,47 @@ $controllerTest = new ControllerTest();
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        Nome Corso
+                        <a href=""> <?php echo $corso->getNome(); ?></a>
                     </li>
                 </ul>
             </div>
 
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form">
+                        <form action="#" class="form-horizontal form-bordered form-row-stripped">
+                            <div class="form-actions">
+                                <div class="col-md col-md-12">
+                                    <h3><?php echo $corso->getNome(); ?></h3>
+                                    <h5>Matricola: <?php echo $corso->getMatricola(); ?></h5>
+                                    <h5>Tipologia: <?php echo $corso->getTipologia(); ?></h5>
+                                    <?php
+                                    if (count($docenteassociato) == 1) {
+                                        printf('<h5>Docente: %s %s</h5>', $docenteassociato[0]->getNome(), $docenteassociato[0]->getCognome());
+                                    } else if (count($docenteassociato) > 1) {
+                                        foreach ($docenteassociato as $d) {
+                                            printf('<h5>Docente: %s %s</h5>', $d->getNome(), $d->getCognome());
+                                        }
+                                    } else if (count($docenteassociato) < 1) {
+                                        printf('<h5>Questo corso non ha docenti Associati!</h5>');
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <h3></h3>
+            </div>
+
 
             <div class="portlet box blue-madison">
                 <div class="portlet-title">
@@ -350,10 +394,6 @@ $controllerTest = new ControllerTest();
                                          Username
                                 : activate to sort column ascending" style="width: 119px;">
                                     Nome
-                                </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                         Email
-                                " style="width: 210px;">
-                                    Risposte Corrette
                                 </th>
                                 <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Email
@@ -364,57 +404,41 @@ $controllerTest = new ControllerTest();
 
                             </thead>
                             <tbody>
-                            <tr class="gradeX odd" role="row">
-                                <td>
-                                    Argomento 1
-                                </td>
-                                <td class="sorting_1">
-                                    34%
-                                </td>
-                                <td>
-                                    <a href="modificaargomento" class="btn btn-sm blue-madison">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                    <a href="javascript:;" class="btn btn-sm red-intense">
-                                        <i class="fa fa-trash-o"></i>
-                                    </a>
-                                </td>
-                            </tr>
 
 
-                            <tr class="gradeX even" role="row">
-                                <td>
-                                    Argomento 2
-                                </td>
-                                <td class="sorting_1">
-                                    87%
-                                </td>
-                                <td>
-                                    <a href="modificaargomento" class="btn btn-sm blue-madison">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                    <a href="javascript:;" class="btn btn-sm red-intense">
-                                        <i class="fa fa-trash-o"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                            <?php
+                            $argomenti = $controllerArgomento->getArgomenti(21);
+                            print_r($argomenti);
 
-                            <tr class="gradeX even" role="row">
-                                <td>
-                                    Argomento 3
-                                </td>
-                                <td class="sorting_1">
-                                    60%
-                                </td>
-                                <td>
-                                    <a href="modificaargomento" class="btn btn-sm blue-madison">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                    <a href="javascript:;" class="btn btn-sm red-intense">
-                                        <i class="fa fa-trash-o"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                            if($argomenti==null){
+                                printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                printf("<td>");
+                                printf("NON SONO PRESENTI ARGOMENTI");
+                                printf("</td>");
+                                printf("<td>");
+                                printf("</td>");
+
+
+                            }
+                            else {
+                            foreach($argomenti as $a) {
+                                printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                printf("<td>%s</td>", $a->getNome());
+                                printf("<td>");
+                                printf("<a href=\"modificaargomento\" class=\"btn btn-sm blue-madison\">");
+                                printf("<i class=\"fa fa-edit\"></i>");
+                                printf("</a>");
+                                printf("<a href=\"javascript:;\" class=\"btn btn-sm red-intense\">");
+                                printf("<i class=\"fa fa-trash-o\"></i>");
+                                printf("</a>");
+                                printf("</td>");
+                                printf("</tr>");
+                            }
+                            }
+
+                            ?>
+
+
                             </tbody>
                         </table>
                     </div>

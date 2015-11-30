@@ -10,7 +10,7 @@ include_once MODEL_DIR . "Model.php";
 include_once BEAN_DIR . "Sessione.php";
 
 class SessioneModel extends Model {
-    private static $CREATE_SESSIONE = "INSERT INTO `sessione` (data_inizio, data_fine, soglia_ammissione, stato, tipologia, corso_id) VALUES ('%s','%s','%f','%s','%s','%d)";
+    private static $CREATE_SESSIONE = "INSERT INTO `sessione` (data_inizio, data_fine, soglia_ammissione, stato, tipologia, corso_id) VALUES ('%s','%s','%f','%s','%s','%d')";
     private static $UPDATE_SESSIONE = "UPDATE `sessione` SET data_inizio = '%s', data_fine = '%s', soglia_ammissione = '%f', stato = '%s', tipologia = '%s', corso_id = '%d' WHERE id = '%d'";
     private static $DELETE_SESSIONE = "DELETE FROM `sessione` WHERE id = '%d'";
     private static $READ_SESSIONE = "SELECT * FROM `sessione` WHERE id = '%d'";
