@@ -103,7 +103,8 @@ class ArgomentoModel extends Model {
      * @throws ApplicationException
      */
     public function getAllArgomentoCorso($corso_id) {
-        $res = Model::getDB()->query(self::$GET_ALL_ARGOMENTI_BY_CORSO, $corso_id);
+        $query = sprintf(self::$GET_ALL_ARGOMENTI_BY_CORSO, $corso_id);
+        $res = Model::getDB()->query($query);
         $argomento = array();
         if ($res) {
             while ($obj = $res->fetch_assoc()) {
