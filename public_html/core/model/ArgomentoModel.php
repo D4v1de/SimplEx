@@ -16,7 +16,8 @@ class ArgomentoModel extends Model {
     private static $DELETE_ARGOMENTO = "DELETE FROM `argomento` WHERE id = '%d' AND corso_id = '%d'";
     private static $READ_ARGOMENTO = "SELECT * FROM `argomento` WHERE id = '%d' AND corso_id = '%d'";
     private static $GET_ALL_ARGOMENTO = "SELECT * FROM `argomento`";
-
+    private static $GET_ALL_ARGOMENTI_BY_CORSO = "SELECT * FROM `argomento` WHERE corso_id = '%d'";
+    
     /**
      *Inserisce un nuovo argomento nel database
      * @param Argomento L'argomento da inserire nel database
@@ -95,5 +96,21 @@ class ArgomentoModel extends Model {
         return $argomento;
     }
 
+    /**
+     * Restituisce tutti gli Argomenti di un corso del database
+     * @param int $corso_id L'id del corso per il quale si vogliono conoscere tutti gli argomenti
+     * @return Argomento[] Tutti gli argomenti di un corso del database
+     * @throws ApplicationException
+     */
+    public function getAllArgomentoCorso($corso_id) {
+        $res = Model::getDB()->query(self::$GET_ALL_ARGOMENTI_BY_CORSO, $corso_id);
+        $argomento = array();
+        if ($res) {
+            while ($obj = $res->fetch_assoc()) {
+                $argomento[] = new Argomento($obj['id'], $obj['corso_id'], $obj['nome']);
+            }
+        }
+        return $argomento;
+    }
 
 }
