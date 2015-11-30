@@ -78,5 +78,8 @@ class SessioneController extends Controller {
         $this->sessioneModel->deleteSessione($idSessione);
     }
 
+    public function getAllSessioni() {
+        return $this->sessioneModel->getAllSessioni();
+    }
 
 }
