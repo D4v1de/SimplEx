@@ -12,12 +12,10 @@ class AccountModel extends Model {
     private static $SALT = "r#*1542&ztnsa7uABN83gtkw7lcSjy";
     private static $SELECT_UTENTE = "SELECT * FROM `utente` WHERE `password`='%s' LIMIT 1";
     private static $SELECT_UTENTE_MATRICOLA = "SELECT * FROM `utente` WHERE `matricola`='%s' LIMIT 1";
-    private static $INSERT_UTENTE = "INSERT INTO `utente` (`matricola`, `username`, `password`, `tipologia`, "
-            . "`nome`, `cognome`, `cdl_matricola`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s');";
+    private static $INSERT_UTENTE = "INSERT INTO `utente` (`matricola`, `username`, `password`, `tipologia`, `nome`, `cognome`, `cdl_matricola`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s');";
     private static $DELETE_UTENTE = "DELETE FROM `utente` WHERE `matricola` = '%s' LIMIT 1";
     private static $SELECT_ALL_UTENTI = "SELECT * FROM `utente`";
-    private static $UPDATE_UTENTE = "UPDATE `utente` SET `username` = '%s', `password` = '%s', `tipologia` = '%s', "
-            . "`nome` = '%s', `cognome` = '%s', `matricola` = '%s' WHERE `matricola` = '%s' LIMIT 1";
+    private static $UPDATE_UTENTE = "UPDATE `utente` SET `username` = '%s', `password` = '%s', `tipologia` = '%s', `nome` = '%s', `cognome` = '%s', `matricola` = '%s' WHERE `matricola` = '%s' LIMIT 1";
 
     // Aggiunti da Elvira
     private static $GET_ALL_DOCENTI_CORSO = "SELECT u.* FROM `insegnamento` i, `utente` u WHERE i.docente_matricola = u.matricola AND i.corso_id = '%d'";

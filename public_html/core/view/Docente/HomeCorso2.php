@@ -7,8 +7,9 @@
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "Esempio.php";
-$controller = new Esempio();
+include_once CONTROL_DIR . "SessioneController.php";
+$controller = new SessioneController();
+
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -68,7 +69,7 @@ $controller = new Esempio();
                     <div class="tools">
                         <a href="javascript:;" class="collapse" data-original-title="" title="">
                         </a>
-                    </div> 
+                    </div>
                     <div class="actions">
                         <a href="creamodificasessione" class="btn btn-default btn-sm">
                             <i class="fa fa-plus"></i> Crea Sessione </a>
@@ -79,95 +80,54 @@ $controller = new Esempio();
                         <table class="table table-striped table-bordered table-hover dataTable no-footer"
                                id="tabella_sessioni" role="grid" aria-describedby="tabella_sessioni_info">
                             <thead>
-                                <tr role="row">
-                                    <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                            <tr role="row">
+                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                                  sortAscending
                                         " style="width: 210px;">
-                                                 Nome
-                                        </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                    Nome
+                                </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                                  Email
                                         " style="width: 210px;">
-                                                 Data e ora
-                                        </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                    Data e ora
+                                </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                                  Points
                                         " style="width: 73px;">
-                                                 Stato
-                                        </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                    Stato
+                                </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                                  Status
                                         " style="width: 20%;">
-                                                 Azioni
-                                        </th></tr>
-                                </thead>
-                                <tbody>
-                                <tr class="gradeX odd" role="row">
-                                        <td class="sorting_1">
-                                            <a>Sessione 1</a>
-                                        </td>
-                                        <td class="sorting_1">
-                                            19/11/2015 16:00
-                                        </td>
-                                        <td>
-                                            Eseguita
-                                        </td>
-                                        <td class="center">
-                                            <a href="visualizzaesitisessione" class="btn btn-sm default">
+                                    Azioni
+                                </th></tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            $array = Array();
+                            $array = $controller->getAllSessioni();
+                            if ($array == null) {
+                                echo "l'array è null";
+                            }
+                            else {
+                                foreach ($array as $c) {
+                                    printf("<tr class=\"gradeX odd\" role=\"row\">");
+
+                                    printf("<td class=\"sorting_1\"><a href=\"visualizzasessione/%s\">%s</a></td>", $c->getId(), "Sessione ".$c->getId());
+                                    printf("<td>%s</td>", $c->getDataInizio());
+                                    printf("<td>%s</td>", $c->getTipologia());
+                                    printf("<td class=\"center\">
+                                            <a href=\"visualizzaesitisessione\" class=\"btn btn-sm default\">
                                               Esiti
                                             </a>
-                                            <a href="creamodificasessione" class="btn btn-sm blue-madison">
-                                                <i class="fa fa-edit"></i>
-                                            </a>  
-                                            <a href="javascript:;" class="btn btn-sm red-intense">
-                                                <i class="fa fa-trash-o"></i>
-                                            </a>  
-                                        </td>
-
-                                </tr>
-                                <tr class="gradeX even" role="row">
-                                        <td class="sorting_1">
-                                            Sessione 2
-                                        </td>
-                                        <td class="sorting_1">
-                                                 04/10/2015 15:00
-                                        </td>
-                                        <td>
-                                            Eseguita
-                                        </td>
-                                        <td class="center">
-                                            <a href="visualizzaesitisessione" class="btn btn-sm default">
-                                              Esiti
+                                            <a href=\"creamodificasessione\" class=\"btn btn-sm blue-madison\">
+                                                <i class=\"fa fa-edit\"></i>
                                             </a>
-                                            <a href="creamodificasessione" class="btn btn-sm blue-madison">
-                                                <i class="fa fa-edit"></i>
-                                            </a> 
-                                            <a href="javascript:;" class="btn btn-sm red-intense">
-                                                <i class="fa fa-trash-o"></i>
+                                            <a href=\"javascript:;\" class=\"btn btn-sm red-intense\">
+                                                <i class=\"fa fa-trash-o\"></i>
                                             </a>
-                                        </td>
-
-                                </tr>
-                                <tr class="gradeX even" role="row">
-                                        <td class="sorting_1">
-                                            Sessione 3
-                                        </td>
-                                        <td class="sorting_1">
-                                                 04/11/2015 16:00
-                                        </td>
-                                        <td>
-                                            Non Eseguita
-                                        </td>
-                                        <td class="center">
-                                            <a href="visualizzaesitisessione" class="btn btn-sm default" disabled=true">
-                                              Esiti
-                                            </a>
-                                            <a href="creamodificasessione" class="btn btn-sm blue-madison">
-                                                <i class="fa fa-edit"></i>
-                                            </a> 
-                                            <a href="javascript:;" class="btn btn-sm red-intense">
-                                                <i class="fa fa-trash-o"></i>
-                                            </a>
-                                        </td>
-
-                                </tr>                        
+                                        </td>");
+                                    printf("</tr>");
+                                }
+                            }
+                            ?>
                             </tbody>
                         </table>
                     </div>
@@ -193,150 +153,150 @@ $controller = new Esempio();
                 <div class="portlet-body">
                     <div id="tabella_test_wrapper" class="dataTables_wrapper no-footer">
                         <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                   id="tabella_test" role="grid" aria-describedby="tabella_test_info">
-                                <thead>
-                                        <tr role="row">
-                                            <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
+                               id="tabella_test" role="grid" aria-describedby="tabella_test_info">
+                            <thead>
+                            <tr role="row">
+                                <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
                                          Username
                                 : activate to sort column ascending" style="width: 119px;">
-                                                Nome
-                                            </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                    Nome
+                                </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Email
                                 " style="width: 210px;">
-                                                Data creazione
-                                            </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                    Data creazione
+                                </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Points
                                 " style="width: 73px;">
-                                                N° multiple
-                                            </th>
-                                            <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                    N° multiple
+                                </th>
+                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Status
                                 " style="width: 119px;">
-                                                N° aperte
-                                            </th>
-                                            <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                    N° aperte
+                                </th>
+                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Status
                                 " style="width: 119px;">
-                                                Punteggio massimo
-                                            </th>
-                                            <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                    Punteggio massimo
+                                </th>
+                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Status
                                 " style="width: 119px;">
-                                                Inserito
-                                            </th>
-                                            <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                    Inserito
+                                </th>
+                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Status
                                 " style="width: 119px;">
-                                                Superato
-                                            </th>
-                                            <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                    Superato
+                                </th>
+                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Status
                                 " style="width: 14%;">
-                                                Azioni
-                                            </th>
+                                    Azioni
+                                </th>
 
 
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr class="gradeX odd" role="row">
-                                            <td>
-                                                Test 1
-                                            </td>
-                                            <td class="sorting_1">
-                                                10/11/2015
-                                            </td>
-                                            <td>
-                                                10
-                                            </td>
-                                            <td>
-                                                2
-                                            </td>
-                                            <td>
-                                                30
-                                            </td>
-                                            <td>
-                                                0%
-                                            </td>
-                                            <td>
-                                                0%
-                                            </td>
-                                            <td class="center">
-                                                <a href="javascript:;" class="btn btn-sm blue-madison">
-                                                <i class="fa fa-edit"></i>
-                                                </a>  
-                                                <a href="javascript:;" class="btn btn-sm red-intense">
-                                                    <i class="fa fa-trash-o"></i>
-                                                </a> 
-                                            </td>
-                                        </tr>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="gradeX odd" role="row">
+                                <td>
+                                    Test 1
+                                </td>
+                                <td class="sorting_1">
+                                    10/11/2015
+                                </td>
+                                <td>
+                                    10
+                                </td>
+                                <td>
+                                    2
+                                </td>
+                                <td>
+                                    30
+                                </td>
+                                <td>
+                                    0%
+                                </td>
+                                <td>
+                                    0%
+                                </td>
+                                <td class="center">
+                                    <a href="javascript:;" class="btn btn-sm blue-madison">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a href="javascript:;" class="btn btn-sm red-intense">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </td>
+                            </tr>
 
 
-                                        <tr class="gradeX even" role="row">
-                                            <td>
-                                                Test 2
-                                            </td>
-                                            <td class="sorting_1">
-                                                23/03/2016
-                                            </td>
-                                            <td>
-                                                30
-                                            </td>
-                                            <td>
-                                                0
-                                            </td>
-                                            <td>
-                                                60
-                                            </td>
-                                            <td>
-                                                10%
-                                            </td>
-                                            <td>
-                                                70%
-                                            </td>
-                                            <td class="center">
-                                                <a href="javascript:;" class="btn btn-sm blue-madison">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>  
-                                                <a href="javascript:;" class="btn btn-sm red-intense">
-                                                    <i class="fa fa-trash-o"></i>
-                                                </a> 
-                                            </td>
-                                        </tr>
+                            <tr class="gradeX even" role="row">
+                                <td>
+                                    Test 2
+                                </td>
+                                <td class="sorting_1">
+                                    23/03/2016
+                                </td>
+                                <td>
+                                    30
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    60
+                                </td>
+                                <td>
+                                    10%
+                                </td>
+                                <td>
+                                    70%
+                                </td>
+                                <td class="center">
+                                    <a href="javascript:;" class="btn btn-sm blue-madison">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a href="javascript:;" class="btn btn-sm red-intense">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </td>
+                            </tr>
 
-                                        <tr class="gradeX even" role="row">
-                                            <td>
-                                                Test 3
-                                            </td>
-                                            <td class="sorting_1">
-                                                15/11/2015
-                                            </td>
-                                            <td>
-                                                0
-                                            </td>
-                                            <td>
-                                                10
-                                            </td>
-                                            <td>
-                                                100
-                                            </td>
-                                            <td>
-                                                5%
-                                            </td>
-                                            <td>
-                                                15%
-                                            </td>
-                                            <td class="center">
-                                                <a href="javascript:;" class="btn btn-sm blue-madison">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>  
-                                                <a href="javascript:;" class="btn btn-sm red-intense">
-                                                    <i class="fa fa-trash-o"></i>
-                                                </a> 
-                                            </td>
-                                        </tr>
-                                </tbody>
-                            </table>
+                            <tr class="gradeX even" role="row">
+                                <td>
+                                    Test 3
+                                </td>
+                                <td class="sorting_1">
+                                    15/11/2015
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    10
+                                </td>
+                                <td>
+                                    100
+                                </td>
+                                <td>
+                                    5%
+                                </td>
+                                <td>
+                                    15%
+                                </td>
+                                <td class="center">
+                                    <a href="javascript:;" class="btn btn-sm blue-madison">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a href="javascript:;" class="btn btn-sm red-intense">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -358,81 +318,81 @@ $controller = new Esempio();
                 </div>
                 <div class="portlet-body">
                     <div id="tabella_argomenti_wrapper" class="dataTables_wrapper no-footer">
-                       <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                   id="tabella_argomenti" role="grid" aria-describedby="tabella_argomenti_info">
-                                <thead>
-                                        <tr role="row">
-                                            <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
+                        <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                               id="tabella_argomenti" role="grid" aria-describedby="tabella_argomenti_info">
+                            <thead>
+                            <tr role="row">
+                                <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
                                          Username
                                 : activate to sort column ascending" style="width: 119px;">
-                                                Nome
-                                            </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                    Nome
+                                </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Email
                                 " style="width: 210px;">
-                                                Risposte Corrette
-                                            </th>
-                                            <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                    Risposte Corrette
+                                </th>
+                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Email
                                 " style="width: 14%;">
-                                                Azioni
-                                            </th>
-                                        </tr>
-                                        
-                                        </thead>
-                                        <tbody>
-                                        <tr class="gradeX odd" role="row">
-                                            <td>
-                                                Argomento 1
-                                            </td>
-                                            <td class="sorting_1">
-                                                34%
-                                            </td>
-                                            <td>
-                                                <a href="modificaargomento" class="btn btn-sm blue-madison">
-                                                     <i class="fa fa-edit"></i>
-                                                </a>
-                                                <a href="javascript:;" class="btn btn-sm red-intense">
-                                                     <i class="fa fa-trash-o"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
+                                    Azioni
+                                </th>
+                            </tr>
+
+                            </thead>
+                            <tbody>
+                            <tr class="gradeX odd" role="row">
+                                <td>
+                                    Argomento 1
+                                </td>
+                                <td class="sorting_1">
+                                    34%
+                                </td>
+                                <td>
+                                    <a href="modificaargomento" class="btn btn-sm blue-madison">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a href="javascript:;" class="btn btn-sm red-intense">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </td>
+                            </tr>
 
 
-                                        <tr class="gradeX even" role="row">
-                                            <td>
-                                                Argomento 2
-                                            </td>
-                                            <td class="sorting_1">
-                                                87%
-                                            </td>
-                                            <td>
-                                                <a href="modificaargomento" class="btn btn-sm blue-madison">
-                                                     <i class="fa fa-edit"></i>
-                                                </a>
-                                                <a href="javascript:;" class="btn btn-sm red-intense">
-                                                     <i class="fa fa-trash-o"></i>
-                                                </a>
-                                            </td>                                            
-                                        </tr>
+                            <tr class="gradeX even" role="row">
+                                <td>
+                                    Argomento 2
+                                </td>
+                                <td class="sorting_1">
+                                    87%
+                                </td>
+                                <td>
+                                    <a href="modificaargomento" class="btn btn-sm blue-madison">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a href="javascript:;" class="btn btn-sm red-intense">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </td>
+                            </tr>
 
-                                        <tr class="gradeX even" role="row">
-                                            <td>
-                                                Argomento 3
-                                            </td>
-                                            <td class="sorting_1">
-                                                60%
-                                            </td>
-                                            <td>
-                                                <a href="modificaargomento" class="btn btn-sm blue-madison">
-                                                     <i class="fa fa-edit"></i>
-                                                </a>
-                                                <a href="javascript:;" class="btn btn-sm red-intense">
-                                                     <i class="fa fa-trash-o"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                            </table>
+                            <tr class="gradeX even" role="row">
+                                <td>
+                                    Argomento 3
+                                </td>
+                                <td class="sorting_1">
+                                    60%
+                                </td>
+                                <td>
+                                    <a href="modificaargomento" class="btn btn-sm blue-madison">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a href="javascript:;" class="btn btn-sm red-intense">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
