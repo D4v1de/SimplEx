@@ -20,7 +20,7 @@ class DomandaModel extends Model {
     private static $GET_ALL_DOMANDA_APERTA = "SELECT * FROM `domanda_aperta`";
     private static $GET_ALL_DOMANDA_APERTA_BY_ARGOMENTO = "SELECT * FROM `domanda_aperta` WHERE argomento_id = '%d' AND argomento_corso_id = '%d'";
     private static $GET_ALL_DOMANDE_APERTE_TEST = "SELECT d.* FROM `domanda_aperta` as d,`compone_aperta` as c WHERE c.test_id = '%s' AND c.domanda_aperta_id = d.id AND c.domanda_aperta_argomento_id = d.argomento_id AND c.domanda_aperta_argomento_corso_id = d.argomento_corso_id";
-    private static $CREATE_DOMANDA_MULTIPLA = "INSERT INTO `domanda_multipla` (argomento_id, argomento_corso_id, testo, punteggio_corretta, punteggio_errata, percentuale_scelta, percentuale_risposta_corretta) VALUES ('%d','%d','%s', '%f','%f','%f','%f')";
+    private static $CREATE_DOMANDA_MULTIPLA = "INSERT INTO `domanda_multipla` (argomento_id, argomento_corso_id, testo, punteggio_corretta, punteggio_errata, percentuale_scelta, percentuale_risposta_corretta) VALUES ('%d','%d','%s','%f','%f','%f','%f')";
     private static $UPDATE_DOMANDA_MULTIPLA = "UPDATE `domanda_multipla` SET testo = '%s', punteggio_corretta = '%f', punteggio_errata = '%f', percentuale_scelta = '%f', percentuale_risposta_corretta = '%f' WHERE id = '%d' AND argomento_id = '%d' AND argomento_corso_id = '%d'";
     private static $DELETE_DOMANDA_MULTIPLA = "DELETE FROM `domanda_multipla` WHERE id = '%d' AND argomento_id = '%d' AND argomento_corso_id = '%d'";
     private static $READ_DOMANDA_MULTIPLA = "SELECT * FROM `domanda_multipla` WHERE id = '%d' AND argomento_id = '%d' AND argomento_corso_id = '%d'";
