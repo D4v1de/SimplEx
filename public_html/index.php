@@ -67,6 +67,20 @@ if (!defined("TESTING")) {
             }
         }
             break;
+        case 'adm': {
+            switch (isset($_URL[1]) ? $_URL[1] : '') {
+                case 'utenti':
+                    switch (isset($_URL[2]) ? $_URL[2] : '') {
+                        case 'view':
+                            include_once VIEW_DIR . "Admin/visualizzaUtente.php";
+                            break;
+                        default:
+                            include_once VIEW_DIR . "Admin/home.php";
+                    }
+
+            }
+        }
+            break;
         case 'esempio':
             include_once VIEW_DIR . "VisualizzaEsempio.php";
             break;
