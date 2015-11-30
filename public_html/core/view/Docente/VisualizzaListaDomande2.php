@@ -20,7 +20,7 @@ $controller = new Esempio();
     <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8"/>
-        <title>Metronic | Page Layouts - Blank Page</title>
+        <title>Lista Domande "Nome Argomento"</title>
         <?php include VIEW_DIR . "header.php"; ?>
     </head>
     <!-- END HEAD -->
@@ -43,7 +43,7 @@ $controller = new Esempio();
                         <ul class="page-breadcrumb">
                             <li>
                                 <i class="fa fa-home"></i>
-                                <a href="index.html">Home</a>
+                                <a href="index">Home</a>
                                 <i class="fa fa-angle-right"></i>
                             </li>
                             <li>
@@ -51,7 +51,7 @@ $controller = new Esempio();
                                 <i class="fa fa-angle-right"></i>
                             </li>
                             <li>
-                                <a href="#">NomeArgomento</a>
+                                <a href="homecorsodocente">NomeArgomento</a>
                                 <i class="fa fa-angle-right"></i>
                             </li>
                         </ul>
@@ -62,12 +62,12 @@ $controller = new Esempio();
                     <div class="row">
                         <!--TOP menu -->
                         <div class="col-md-offset-3 col-md-3">
-                            <a href="javascript:;" class="btn sm green-jungle">
+                            <a href="inseriscidomandaaperta" class="btn sm green-jungle">
                                 <i class="fa fa-plus"></i> Nuova Domanda Aperta
                             </a>
                         </div>
                         <div class="col-md-3">
-                            <a href="javascript:;" class="btn sm green-jungle">
+                            <a href="inseriscidomandamultipla" class="btn sm green-jungle">
                                 <i class="fa fa-plus"></i> Nuova Domanda Multipla
                             </a>
                         </div>
