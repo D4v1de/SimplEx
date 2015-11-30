@@ -31,6 +31,7 @@ if(isset($_POST['checkbox'])) {
     foreach($checkbox as $c) {
         $docente = $controller->getUtenteByMatricola($c);
         if(!in_array($docente, $docenteassociato)) {
+            echo "aggiungi";
             $controller->creaInsegnamento($corso->getId(), $c);
         }
     }
@@ -40,6 +41,7 @@ if(isset($_POST['checkbox'])) {
 if(!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
 
     foreach($docenteassociato as $da) {
+        echo "aggiungi";
         $controller->eliminaInsegnamento($corso->getId(), $da->getMatricola());
     }
     header('location: ../../gestionecorso/'.$corso->getId());

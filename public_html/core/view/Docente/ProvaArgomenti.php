@@ -67,7 +67,7 @@ $num = $controller->getNumArgomenti();
                     $ndomanda = 1;
 
                     if($argomenti == null){echo "NON CI SONO ARGOMENTI";}
-                    foreach($argomenti as $a){
+                    foreach($argomenti as $a) {
                         $domandeMultiple = $controller->getAllDomandaMultipla($a->getId(),$a->getCorsoId());
                         printf("<div class=\"portlet box blue-madison\">");
                         printf("<div class=\"portlet-title\">");

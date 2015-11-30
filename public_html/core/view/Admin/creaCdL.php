@@ -11,15 +11,31 @@ include_once CONTROL_DIR . "CdlController.php";
 $controller = new CdlController();
 
 if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricola'])) {
+
     $nome = $_POST['nome'];
     $tipologia = $_POST['tipologia'];
     $matricola = $_POST['matricola'];
 
-    $cdl = new CdL($matricola, $nome, $tipologia);
+    echo "sta tutto qua ---->";
+    echo $nome;
 
-    $controller->creaCdl($cdl);
+    if(empty($nome) && empty($matricola)) {
+        echo "<script type='text/javascript'>alert('devi riempire tutti i campi!');</script>";
+    }
+    else if (empty($nome)) {
+        echo "<script type='text/javascript'>alert('devi inserire il nome!');</script>";
+    }
+    else if (empty($matricola)) {
+        echo "<script type='text/javascript'>alert('devi inserire la matricola!');</script>";
+    }
+    else {
 
-    header('location: ../gestionecdl');
+        $cdl = new CdL($matricola, $nome, $tipologia);
+        $controller->creaCdl($cdl);
+
+        header('location: ../gestionecdl');
+    }
+
 }
 ?>
 <!DOCTYPE html>
@@ -123,6 +139,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 
                                             <div class="form-control-focus">
                                             </div>
+                                            <span class="help-block">Some help goes here...</span>
                                         </div>
                                     </div>
                                 </div>

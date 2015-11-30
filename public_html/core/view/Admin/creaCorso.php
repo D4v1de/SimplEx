@@ -17,11 +17,21 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     $matricola = $_POST['matricola'];
     $cdlMatricola = $_POST['cdlmatricola'];
 
-    $corso = new Corso($id, $matricola, $nome, $tipologia, $cdlMatricola);
+    if (empty($nome) && empty($matricola) && empty($cdlMatricola)) {
+        echo "<script type='text/javascript'>alert('devi riempire tutti i campi!');</script>";
+    } else if (empty($nome)) {
+        echo "<script type='text/javascript'>alert('devi inserire il nome!');</script>";
+    } else if (empty($matricola)) {
+        echo "<script type='text/javascript'>alert('devi inserire la matricola!');</script>";
+    } else if (empty($cdlMatricola)) {
+        echo "<script type='text/javascript'>alert('devi inserire la matricola del CdL!');</script>";
+    } else {
 
-    $controller->creaCorso($corso);
+        $corso = new Corso($id, $matricola, $nome, $tipologia, $cdlMatricola);
+        $controller->creaCorso($corso);
 
-    header('location: ../gestionecorsi');
+        header('location: ../gestionecorsi');
+    }
 }
 ?>
 <!DOCTYPE html>

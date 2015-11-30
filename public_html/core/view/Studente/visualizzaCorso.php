@@ -52,7 +52,7 @@ $docenteassociato = $controller->getDocenteAssociato($corso->getId());
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                Corso Cdl in <?php echo $cdl->getNome(); ?>
+                Corso di <?php echo $cdl->getNome(); ?>
             </h3>
 
             <div class="page-bar">
@@ -120,11 +120,6 @@ $docenteassociato = $controller->getDocenteAssociato($corso->getId());
                         <div class="tools">
                             <a href="javascript:;" class="collapse" data-original-title="" title="">
                             </a>
-                        </div>
-                        <div class="actions">
-                            <button type="submit" class="btn btn-default btn-sm">
-                                <i class="fa fa-plus"></i> Azione
-                            </button>
                         </div>
                     </div>
                     <div class="portlet-body">

@@ -81,10 +81,6 @@ $corsi = $controller->getCorsiCdl($cdl->getMatricola());
                             <a href="javascript:;" class="collapse" data-original-title="" title="">
                             </a>
                         </div>
-                        <div class="actions">
-                            <a href="" class="btn btn-default btn-sm">
-                                <i class="fa fa-plus"></i> Qualcosa </a>
-                        </div>
                     </div>
                     <div class="portlet-body">
                         <div id="tabella_2_wrapper" class="dataTables_wrapper no-footer">
@@ -121,7 +117,7 @@ $corsi = $controller->getCorsiCdl($cdl->getMatricola());
                                 } else {
                                     foreach ($corsi as $c) {
                                         printf("<tr class=\"sorting_1\" role=\"row\">");
-                                        printf("<td><button type=\"button\" class=\"btn default\"><span class=\"md-click-circle md-click-animate\"></span><a href=\"../visualizzacorso/%s\">%s</a></button></td>", $c->getId(), $c->getNome());
+                                        printf("<td><a href=\"../visualizzacorso/%s\">%s</a></td>", $c->getId(), $c->getNome());
                                         printf("<td>%s</td>", $c->getMatricola());
                                         printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
                                         printf("<td><button type=\"button\" class=\"btn green-jungle\"><span class=\"md-click-circle md-click-animate\"></span>Iscriviti</button></td>");

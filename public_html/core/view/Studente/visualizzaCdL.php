@@ -74,10 +74,6 @@ $controller = new CdlController();
                         <div class="caption">
                             <i class="fa fa-graduation-cap"></i>Corsi di Laurea
                         </div>
-                        <div class="actions">
-                            <a href="creacdl" class="btn btn-default btn-sm">
-                                <i class="fa fa-plus"></i> Qualcosa </a>
-                        </div>
                     </div>
                     <div class="portlet-body">
                         <div id="tabella_2_wrapper" class="dataTables_wrapper no-footer">
@@ -100,11 +96,6 @@ $controller = new CdlController();
                                         aria-label="Status: activate to sort column ascending">
                                         Tipologia
                                     </th>
-                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                        colspan="1"
-                                        aria-label="Status: activate to sort column ascending">
-                                        Iscrizione
-                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -116,10 +107,9 @@ $controller = new CdlController();
                                 } else {
                                     foreach ($array as $c) {
                                         printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                        printf("<td><button type=\"button\" class=\"btn default\"><span class=\"md-click-circle md-click-animate\"></span><a href=\"../visualizzacorsi/%s\">%s</a></button></td>", $c->getMatricola(), $c->getNome());
+                                        printf("<td><a href=\"../visualizzacorsi/%s\">%s</a></td>", $c->getMatricola(), $c->getNome());
                                         printf("<td>%s</td>", $c->getMatricola());
                                         printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
-                                        printf("<td><button type=\"button\" class=\"btn green-jungle\"><span class=\"md-click-circle md-click-animate\"></span>Iscriviti</button></td>");
                                         printf("</tr>");
                                     }
                                 }

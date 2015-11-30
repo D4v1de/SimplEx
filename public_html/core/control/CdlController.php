@@ -151,7 +151,7 @@ class CdlController extends Controller {
 
     /**
      * Restituisce tutti i Docenti
-     * @return array con tutti i Docenti
+     * @return array con tutti i Docenti SSSTTTUUUBBBB ------->
      */
     public function getDocenti() {
         $accountModel = new AccountModel();
@@ -161,7 +161,7 @@ class CdlController extends Controller {
     /**
      * Restituisce i Docenti associati a un Corso
      * @param id del Corso
-     * @return array con i Docenti associati al corso specificato
+     * @return array con i Docenti associati al corso specificato SSSTTTUUUBBBB ------->
      */
     public function getDocenteAssociato($corsoID) {
         $accountModel = new AccountModel();
@@ -171,7 +171,7 @@ class CdlController extends Controller {
     /**
      * Restituisce un Utente
      * @param matricola dell'Utente da cercare
-     * @return Utente con la matricola specificata
+     * @return Utente con la matricola specificata SSSTTTUUUBBBB ------->
      */
     public function getUtenteByMatricola($matricola) {
         $accountModel = new AccountModel();
@@ -179,9 +179,9 @@ class CdlController extends Controller {
     }
 
     /**
-     * Restituisce tutte le Sessioni di un Corso DAAGIUSTARE
+     * Restituisce tutte le Sessioni di un Corso
      * @param matricola dell'Utente da cercare
-     * @return Utente con la matricola specificata
+     * @return Utente con la matricola specificata SSSTTTUUUBBBB ------->
      */
     public function getSessioni() {
         $sessioneModel = new SessioneModel();
