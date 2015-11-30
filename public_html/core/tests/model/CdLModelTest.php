@@ -12,7 +12,7 @@
 class CdLModelTest extends \PHPUnit_Framework_TestCase
 {
 
-    const MATRICOLA = '051234949';
+    const MATRICOLA = '0512345';
     const NOME = 'Nome corso';
     const TIPOLOGIA = 'Triennale';
     const NOME2 = 'Nome corso2';
@@ -23,10 +23,12 @@ class CdLModelTest extends \PHPUnit_Framework_TestCase
 
         $model = new \CdLModel();
         //creo cdl
-        $model->createCdL(new CdL(self::MATRICOLA, self::NOME, 'Triennale'));
+        $model->createCdL(new CdL(self::MATRICOLA, self::NOME, self::TIPOLOGIA));
 
-        //leggo dal db cdl creato
+
+        //leggo dal db cdl creato e verifico la lettura
         $cdl = $model->readCdL(self::MATRICOLA);
+        print_r($cdl);
 
         //confronto se i due cdl sono equivalenti
         $this->assertEquals(self::MATRICOLA, $cdl->getMatricola());
@@ -34,10 +36,11 @@ class CdLModelTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(self::TIPOLOGIA, $cdl->getTipologia());
 
         //eseguo una modifica sul cdl creato prima
-        $model->updateCdL(self::NOME2, self::TIPOLOGIA2);
+        $model->updateCdL(self::MATRICOLA,(new CdL(self::MATRICOLA,self::NOME2, self::TIPOLOGIA2)));
 
-        //leggo cdl modificato dal db
+        //leggo cdl modificato dal db e verifico la correzione
         $cdlModificato = $model->readCdL(self::MATRICOLA);
+        print_r($cdlModificato);
 
         //confronto i due cdl
         $this->assertEquals(self::MATRICOLA, $cdlModificato->getMatricola());
