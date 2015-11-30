@@ -11,10 +11,10 @@ class CdL {
     private $tipologia;
 
     /**
-     * Cotruttore di CdL
+     * Costruttore di CdL
      * @param string $matricola La matricola del CdL
      * @param string $nome Il nome del CdL
-     * @param enum $tipologia La tipologia del CdL
+     * @param string $tipologia La tipologia del CdL
      */
     public function __construct($matricola, $nome, $tipologia) {
         $this->matricola = $matricola;
@@ -37,7 +37,7 @@ class CdL {
     }
     
     /**
-     * @return enum La tipologia del CdL
+     * @return string La tipologia del CdL
      */
     public function getTipologia() {
         return $this->tipologia;
@@ -61,7 +61,7 @@ class CdL {
     
     /**
      * Setta la tipologia del CdL
-     * @param enum $tipologia La tipologia del CdL
+     * @param string $tipologia La tipologia del CdL
      */
     public function setTipologia($tipologia) {
         $this->tipologia = $tipologia;

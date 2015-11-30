@@ -41,6 +41,10 @@ class ArgomentoModelTest extends \PHPUnit_Framework_TestCase
         //confronto i due argomenti
         $this->assertEquals(self::NOMEARG2,$argomentoModificato->getNome());
 
+        //restituisco tutti gli argomenti di un corso (NON FUNZIONA!)
+//        $allArgC = $model->getAllArgomentoCorso(self::IDCORSO);
+ //       print_r($allArgC);
+
         //elimino l'argomento dal db
         $model->deleteArgomento($idArg, self::IDCORSO);
 
