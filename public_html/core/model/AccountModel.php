@@ -20,7 +20,7 @@ class AccountModel extends Model {
             . "`nome` = '%s', `cognome` = '%s', `matricola` = '%s' WHERE `matricola` = '%s' LIMIT 1";
 
     // Aggiunti da Elvira
-    private static $GET_ALL_DOCENTI_CORSO = "SELECT u.* FROM `insegnamento` i, `utente` u WHERE `i.docente_matricola` = `u.matricola` AND `i.corso_id` = '%d'";
+    private static $GET_ALL_DOCENTI_CORSO = "SELECT u.* FROM `insegnamento` i, `utente` u WHERE i.docente_matricola = u.matricola AND i.corso_id = '%d'";
     private static $GET_ALL_STUDENTI_CDL = "SELECT u.* FROM `utente` u WHERE `u.cdl_matricola` = '%s'";
     private static $GET_ALL_STUDENTI_CORSO = "SELECT u.* FROM `utente` u, `frequenta` f WHERE `f.studente_matricola` = u.matricola AND `f.corso_matricola` = '%d'";
     private static $GET_ALL_STUDENTI_SESSIONE = "SELECT u.* FROM `abilitazione` AS a, `utente` AS u WHERE `a.sessione_id` = '%s' AND `a.studente_matricola` = `u.matricola`";
