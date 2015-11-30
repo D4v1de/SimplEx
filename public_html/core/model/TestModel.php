@@ -15,7 +15,7 @@ class TestModel extends Model {
     private static $DELETE_TEST = "DELETE FROM `test` WHERE id = '%d'";
     private static $READ_TEST = "SELECT * FROM `test` WHERE id = '%d'";
     private static $GET_ALL_TESTS = "SELECT * FROM `test`";
-    private static $GET_ALL_TEST_CORSO = "SELECT * FROM `test` WHERE id IN (SELECT DISTINCT test_id FROM `compone_aperta` WHERE domanda_aperta_compone_argomento_corso_id = '%d') OR id IN (SELECT DISTINCT test_id FROM `compone_multipla` WHERE domanda_multipla_argomento_corso_id = '%d') ";
+    private static $GET_ALL_TEST_CORSO = "SELECT * FROM `test` WHERE id IN (SELECT DISTINCT test_id FROM `compone_aperta` WHERE domanda_aperta_argomento_corso_id = '%d') OR id IN (SELECT DISTINCT test_id FROM `compone_multipla` WHERE domanda_multipla_argomento_corso_id = '%d') ";
     private static $GET_ALL_TEST_SESSIONE = "SELECT t.* FROM `sessione_test` as s, `test` as t WHERE s.sessione_id = '%d' AND s.test_id = t.id";
     private static $GET_TEST_ELABORATO = "SELECT t.* FROM `test` as t, `elaborato` as e where e.test_id = t.id AND e.studente_matricola = '%s' AND e.sessione_id = '%d'";
     
