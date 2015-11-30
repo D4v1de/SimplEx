@@ -10,6 +10,7 @@ class Sessione {
     private $dataInizio;
     private $dataFine;
     private $sogliaAmmissione;
+    private $stato;
     private $tipologia;
     private $corsoId;
     
@@ -19,16 +20,18 @@ class Sessione {
      * @param date $dataInizio La data di inizio della sessione
      * @param date $dataFine La data di termine della sessione
      * @param float $sogliaAmmissione La soglia di ammissione della sessione
+     * @param enum $stato Lo stato della sessione
      * @param enum $tipologia La tipologia della sessione
      * @param int $corsoId L'id dell'insegnamento a cui appartiene la sessione
      */
-    public function __construct($id, $dataInizio, $dataFine, $sogliaAmmissione, $tipologia, $corsoId) {
-        $this->id=$id;
-        $this->dataInizio=$dataInizio;
-        $this->dataFine=$dataFine;
-        $this->sogliaAmmissione=$sogliaAmmissione;
-        $this->tipologia=$tipologia;
-        $this->corsoId=$corsoId;
+    public function __construct($id, $dataInizio, $dataFine, $sogliaAmmissione, $stato, $tipologia, $corsoId) {
+        $this->id = $id;
+        $this->dataInizio = $dataInizio;
+        $this->dataFine = $dataFine;
+        $this->sogliaAmmissione = $sogliaAmmissione;
+        $this->stato = $stato;
+        $this->tipologia = $tipologia;
+        $this->corsoId = $corsoId;
     } 
 
     /**
@@ -59,6 +62,13 @@ class Sessione {
         return $this->sogliaAmmissione;
     }
     
+    /**
+     * @return enum Lo stato della sessione
+     */
+    public function getStato() {
+        return $this->stato;
+    }        
+            
     /**
      * @return enum La tipologia della sessione
      */
@@ -105,6 +115,14 @@ class Sessione {
         $this->sogliaAmmissione = $sogliaAmmissione;
     }
     
+    /**
+     * Setta lo stato della sessione
+     * @param enum $stato Lo stato della sessione
+     */
+    public function setStato($stato) {
+        $this->stato = $stato;
+    }        
+            
     /**
      * Setta la tipologia della sessione
      * @param enum $tipologia La tipologia della sessione

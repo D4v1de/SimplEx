@@ -10,8 +10,8 @@ include_once MODEL_DIR . "Model.php";
 include_once BEAN_DIR . "Sessione.php";
 
 class SessioneModel extends Model {
-    private static $CREATE_SESSIONE = "INSERT INTO `sessione` (data_inizio, data_fine, soglia_ammissione, tipologia, corso_id) VALUES ('%s','%s','%f','%s','%d)";
-    private static $UPDATE_SESSIONE = "UPDATE `sessione` SET data_inizio = '%s', data_fine = '%s', soglia_ammissione= '%f', tipologia= '%s', corso_id='%d' WHERE id = '%d'";
+    private static $CREATE_SESSIONE = "INSERT INTO `sessione` (data_inizio, data_fine, soglia_ammissione, stato, tipologia, corso_id) VALUES ('%s','%s','%f','%s','%s','%d)";
+    private static $UPDATE_SESSIONE = "UPDATE `sessione` SET data_inizio = '%s', data_fine = '%s', soglia_ammissione = '%f', stato = '%s', tipologia = '%s', corso_id = '%d' WHERE id = '%d'";
     private static $DELETE_SESSIONE = "DELETE FROM `sessione` WHERE id = '%d'";
     private static $READ_SESSIONE = "SELECT * FROM `sessione` WHERE id = '%d'";
     private static $GET_ALL_SESSIONI = "SELECT * FROM `sessione`";
@@ -24,7 +24,7 @@ class SessioneModel extends Model {
      */
     public function createSessione($sessione) {
         $query = sprintf(self::$CREATE_SESSIONE, $sessione->getDataInizio(), $sessione->getDataFine(), $sessione->getSogliaAmmissione(), 
-                $sessione->getTipologia(), $sessione->getCorsoId());
+                $sessione->getStato(), $sessione->getTipologia(), $sessione->getCorsoId());
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows == 1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
@@ -39,7 +39,7 @@ class SessioneModel extends Model {
      */
     public function updateSessione($id, $updatedSessione) {
         $query = sprintf(self::$UPDATE_SESSIONE, $updatedSessione->getDataInizio(), $updatedSessione->getDataFine(), $updatedSessione->getSogliaAmmissione(), 
-                $updatedSessione->getTipologia(), $updatedSessione->getCorsoId(),  $id);
+                $updatedSessione->getStato(), $updatedSessione->getTipologia(), $updatedSessione->getCorsoId(),  $id);
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows == 1) {
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
@@ -68,7 +68,7 @@ class SessioneModel extends Model {
         $query = sprintf(self::$READ_SESSIONE, $id);
         $res = Model::getDB()->query($query);
         if ($obj = $res->fetch_assoc()) {
-            $sessione = new Sessione($obj['id'], $obj['data_inizio'], $obj['data_fine'],  $obj['soglia_ammissione'],  $obj['tipologia'],  $obj['corso_id']);
+            $sessione = new Sessione($obj['id'], $obj['data_inizio'], $obj['data_fine'],  $obj['soglia_ammissione'], $obj['stato'], $obj['tipologia'], $obj['corso_id']);
             return $sessione;
         }
         else{
@@ -85,7 +85,7 @@ class SessioneModel extends Model {
         $sessioni = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $sessioni[] = new Sessione($obj['id'], $obj['data_inizio'], $obj['data_fine'], $obj['soglia_ammissione'], $obj['tipologia'], $obj['corso_id']);
+                $sessioni[] = new Sessione($obj['id'], $obj['data_inizio'], $obj['data_fine'], $obj['soglia_ammissione'], $obj['stato'], $obj['tipologia'], $obj['corso_id']);
             }
         }
         return $sessioni;
@@ -103,7 +103,7 @@ class SessioneModel extends Model {
         $sessioni = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $sessioni[] = new Sessione($obj['id'], $obj['dataInizio'], $obj['data_fine'], $obj['soglia_ammissione'], $obj['tipologia'], $obj['corso_id']);
+                $sessioni[] = new Sessione($obj['id'], $obj['dataInizio'], $obj['data_fine'], $obj['soglia_ammissione'], $obj['stato'], $obj['tipologia'], $obj['corso_id']);
             }
         }
         return $sessioni;   

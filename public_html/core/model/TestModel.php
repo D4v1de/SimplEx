@@ -8,26 +8,16 @@
  */
 include_once MODEL_DIR . "Model.php";
 include_once BEAN_DIR . "Test.php";
-include_once BEAN_DIR . "DomandaMultipla.php";
-include_once BEAN_DIR . "DomandaAperta.php";
 
 class TestModel extends Model {
-    private static $CREATE_TEST = "INSERT INTO `test` (descrizione, punteggio_max, numero_multiple, numero_aperte, percentuale_scelto, percentuale_successo) VALUES ('%d','%s','%f','%d','%d','%f','%f')";
+    private static $CREATE_TEST = "INSERT INTO `test` (descrizione, punteggio_max, numero_multiple, numero_aperte, percentuale_scelto, percentuale_successo) VALUES ('%s',%f','%d','%d','%f','%f')";
     private static $UPDATE_TEST = "UPDATE `test` SET descrizione = '%s', punteggio_max = '%f', numero_multiple = '%d', numero_aperte = '%d', percentuale_scelto = '%f', percentuale_successo = '%f' WHERE id = '%d'";
     private static $DELETE_TEST = "DELETE FROM `test` WHERE id = '%d'";
     private static $READ_TEST = "SELECT * FROM `test` WHERE id = '%d'";
     private static $GET_ALL_TESTS = "SELECT * FROM `test`";
-    private static $GET_ALL_TEST_CORSO = "SELECT * FROM `test` WHERE id IN (SELECT DISTINCT test_id FROM `compone_aperta` "
-            . "WHERE domanda_aperta_compone_argomento_corso_id = '%d') OR id IN (SELECT DISTINCT test_id FROM `compone_multipla` "
-            . "WHERE domanda_multipla_compone_argomento_corso_id = '%d') ";
-    private static $GET_ALL_TEST_SESSIONE = "SELECT t.* FROM `sessione_test` as s, `test` as t WHERE"
-            . "s.sessione_id='%d' AND s.test_id= t.id";
-    private static $GET_ALL_DOMANDE_APERTE_TEST = "SELECT d.* FROM `domanda_aperta` as d,`compone_aperta` as c WHERE "
-            ."c.test_id = '%s' AND c.domanda_aperta_id = d.id AND c.domanda_aperta_argomento_id = d.argomento_id AND "
-            ."c.domanda_aperta_argomento_corso_id = d.argomento_corso_id";
-    private static $GET_ALL_DOMANDE_MULTIPLE_TEST = "SELECT d.* FROM `domanda_multipla` as d,`compone_multipla` as c WHERE "
-            ."c.test_id = '%s' AND c.domanda_multipla_id = d.id AND c.domanda_multipla_argomento_id = d.argomento_id AND "
-            ."c.domanda_multipla_argomento_corso_id = d.argomento_corso_id";
+    private static $GET_ALL_TEST_CORSO = "SELECT * FROM `test` WHERE id IN (SELECT DISTINCT test_id FROM `compone_aperta` WHERE domanda_aperta_compone_argomento_corso_id = '%d') OR id IN (SELECT DISTINCT test_id FROM `compone_multipla` WHERE domanda_multipla_compone_argomento_corso_id = '%d') ";
+    private static $GET_ALL_TEST_SESSIONE = "SELECT t.* FROM `sessione_test` as s, `test` as t WHERE s.sessione_id = '%d' AND s.test_id = t.id";
+    private static $GET_TEST_ELABORATO = "SELECT t.* FROM `test` as t, `elaborato` as e where e.test_id = t.id AND e.studente_matricola = '%s' AND e.sessione_id = '%d'";
     
     /**
      * Inserisce un nuovo test nel database
@@ -78,7 +68,7 @@ class TestModel extends Model {
         $query = sprintf(self::$READ_TEST, $id);
         $res = Model::getDB()->query($query);
         if ($obj = $res->fetch_assoc()) {
-            $test = new Test($obj['id'], $obj['descrizione'], $obj['punteggio_max'], $obj['numero_multiple'], $obj['numero_aperte'], $obj['pecentuale_scelto'], $obj['percentuale_successo'] );
+            $test = new Test($obj['id'], $obj['descrizione'], $obj['punteggio_max'], $obj['numero_multiple'], $obj['numero_aperte'], $obj['percentuale_scelto'], $obj['percentuale_successo']);
             return $test;
         }
         else{
@@ -95,7 +85,7 @@ class TestModel extends Model {
         $tests = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $tests[]= new Test($obj['id'], $obj['descrizione'], $obj['punteggio_max'], $obj['numero_multiple'], $obj['numero_aperte'], $obj['pecentuale_scelto'], $obj['percentuale_successo'] );
+                $tests[]= new Test($obj['id'], $obj['descrizione'], $obj['punteggio_max'], $obj['numero_multiple'], $obj['numero_aperte'], $obj['percentuale_scelto'], $obj['percentuale_successo']);
             }  
         }
         return $tests;
@@ -113,7 +103,7 @@ class TestModel extends Model {
         $tests = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $tests[]= new Test($obj['id'], $obj['descrizione'], $obj['punteggio_max'], $obj['numero_multiple'], $obj['numero_aperte'], $obj['pecentuale_scelto'], $obj['percentuale_successo'] );
+                $tests[]= new Test($obj['id'], $obj['descrizione'], $obj['punteggio_max'], $obj['numero_multiple'], $obj['numero_aperte'], $obj['percentuale_scelto'], $obj['percentuale_successo'] );
             }
         }
         return $tests;
@@ -130,45 +120,27 @@ class TestModel extends Model {
         $tests = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $tests[]= new Test($obj['id'], $obj['descrizione'], $obj['punteggio_max'], $obj['numero_multiple'], $obj['numero_aperte'], $obj['pecentuale_scelto'], $obj['percentuale_successo'] );
+                $tests[]= new Test($obj['id'], $obj['descrizione'], $obj['punteggio_max'], $obj['numero_multiple'], $obj['numero_aperte'], $obj['percentuale_scelto'], $obj['percentuale_successo'] );
             }
         }
         return $tests;
     }
     
     /**
-     * Restituisce tutte le domande aperte che costituiscono un test
-     * @param int $id L'id del test per il quale si vogliono conoscere tutte le domande aperte che lo compongono
-     * @return DomandaAperta[] Tutte le domande aperte che costituiscono il test
+     * Restituisce il test associato ad un elaborato del database
+     * @param string $studenteMatricola La matricola dello studente a cui appartiene l'elaborato
+     * @param int $sessioneId l'id della sessione a cui appartiene l'elaborato
+     * @return Test Il test associato all'elaborato
      */
-    public function getAllDomandeAperteByTest($id) {
-        $query = sprintf(self::$GET_ALL_DOMANDE_APERTE_TEST, $id);
+    public function getTestByElaborato($studenteMatricola, $sessioneId) {
+        $query = sprintf(self::$GET_TEST_ELABORATO, $studenteMatricola, $sessioneId);
         $res = Model::getDB()->query($query);
-        $domande = array();
-        if($res){
-            while ($obj = $res->fetch_assoc()) {
-                $domande[] = new DomandaAperta($obj['id'],$obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_max'], 
-                        $obj['percentule_scelta']);
-            }  
+        if ($obj = $res->fetch_assoc()) {
+            $test = new Test($obj['id'], $obj['descrizione'], $obj['punteggio_max'], $obj['numero_multiple'], $obj['numero_aperte'], $obj['percentuale_scelto'], $obj['percentuale_successo'] );
+            return $test;
         }
-        return $domande;
-    }
-    
-    /**
-     * Restituisce tutte le domande multiple che costituiscono un test
-     * @param int $id L'id del test per il quale si vogliono conoscere tutte le domande multiple che lo compongono
-     * @return Test[] Tutte le domande multiple che costituiscono un test
-     */
-    public function getAllDomandeMultipleByTest($id) {
-        $query = sprintf(self::$GET_ALL_DOMANDE_MULTIPLE_TEST, $id, $id);
-        $res = Model::getDB()->query($query);
-        $domande = array();
-        if($res){
-            while ($obj = $res->fetch_assoc()) {
-                $domande[]= new DomandaMultipla($obj['id'], $obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_corretta'], 
-                    $obj['punteggio_errata'], $obj['percentuale_scelta'], $obj['percentuale_risposta_corretta']);
-            }  
+        else{
+            throw new ApplicationException(Error::$TEST_NON_TROVATO);
         }
-        return $domande;
     }
 }
