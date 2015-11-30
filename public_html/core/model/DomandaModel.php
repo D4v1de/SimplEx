@@ -11,22 +11,22 @@ include_once MODEL_DIR . "Model.php";
 include_once BEAN_DIR . "DomandaAperta.php";
 include_once BEAN_DIR . "DomandaMultipla.php";
 
-class DomandaModel extends \Model
-{
+class DomandaModel extends Model {
+    
     private static $CREATE_DOMANDA_APERTA = "INSERT INTO `domanda_aperta` (id, argomento_id, argomento_corso_id, testo, punteggio_max, percentuale_scelta) VALUES (NULL,'%d','%d','%s','%f','%f')";
     private static $UPDATE_DOMANDA_APERTA = "UPDATE `domanda_aperta` SET testo = '%s', punteggio_max = '%f', percentuale_scelta = '%f' WHERE id = '%d' AND argomento_id = '%d' AND argomento_corso_id = '%d'";
     private static $DELETE_DOMANDA_APERTA = "DELETE FROM `domanda_aperta` WHERE id = '%d' AND argomento_id = '%d' AND argomento_corso_id = '%d'";
     private static $READ_DOMANDA_APERTA = "SELECT * FROM `domanda_aperta` WHERE id = '%d' AND argomento_id = '%d' AND argomento_corso_id = '%d'";
     private static $GET_ALL_DOMANDA_APERTA = "SELECT * FROM `domanda_aperta`";
     private static $GET_ALL_DOMANDA_APERTA_BY_ARGOMENTO = "SELECT * FROM `domanda_aperta` WHERE argomento_id = '%d' AND argomento_corso_id = '%d'";
+    private static $GET_ALL_DOMANDE_APERTE_TEST = "SELECT d.* FROM `domanda_aperta` as d,`compone_aperta` as c WHERE c.test_id = '%s' AND c.domanda_aperta_id = d.id AND c.domanda_aperta_argomento_id = d.argomento_id AND c.domanda_aperta_argomento_corso_id = d.argomento_corso_id";
     private static $CREATE_DOMANDA_MULTIPLA = "INSERT INTO `domanda_multipla` (argomento_id, argomento_corso_id, testo, punteggio_corretta, punteggio_errata, percentuale_scelta, percentuale_risposta_corretta) VALUES ('%d','%d','%s', '%f','%f','%f','%f')";
     private static $UPDATE_DOMANDA_MULTIPLA = "UPDATE `domanda_multipla` SET testo = '%s', punteggio_corretta = '%f', punteggio_errata = '%f', percentuale_scelta = '%f', percentuale_risposta_corretta = '%f' WHERE id = '%d' AND argomento_id = '%d' AND argomento_corso_id = '%d'";
     private static $DELETE_DOMANDA_MULTIPLA = "DELETE FROM `domanda_multipla` WHERE id = '%d' AND argomento_id = '%d' AND argomento_corso_id = '%d'";
     private static $READ_DOMANDA_MULTIPLA = "SELECT * FROM `domanda_multipla` WHERE id = '%d' AND argomento_id = '%d' AND argomento_corso_id = '%d'";
     private static $GET_ALL_DOMANDA_MULTIPLA = "SELECT * FROM `domanda_multipla`";
     private static $GET_ALL_DOMANDA_MULTIPLA_BY_ARGOMENTO = "SELECT * FROM `domanda_multipla` WHERE argomento_id = '%d' AND argomento_corso_id = '%d'";
-
-
+    private static $GET_ALL_DOMANDE_MULTIPLE_TEST = "SELECT d.* FROM `domanda_multipla` as d,`compone_multipla` as c WHERE c.test_id = '%s' AND c.domanda_multipla_id = d.id AND c.domanda_multipla_argomento_id = d.argomento_id AND c.domanda_multipla_argomento_corso_id = d.argomento_corso_id";
 
     /**
      * Inserisce una nuova DomandaAperta nel database
@@ -236,6 +236,40 @@ class DomandaModel extends \Model
         }
         return $domandeMultiple;
     }
-
-
+    
+    /**
+     * Restituisce tutte le domande aperte che costituiscono un test
+     * @param int $id L'id del test per il quale si vogliono conoscere tutte le domande aperte che lo compongono
+     * @return DomandaAperta[] Tutte le domande aperte che costituiscono il test
+     */
+    public function getAllDomandeAperteByTest($id) {
+        $query = sprintf(self::$GET_ALL_DOMANDE_APERTE_TEST, $id);
+        $res = Model::getDB()->query($query);
+        $domande = array();
+        if($res){
+            while ($obj = $res->fetch_assoc()) {
+                $domande[] = new DomandaAperta($obj['id'],$obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_max'], 
+                        $obj['percentule_scelta']);
+            }  
+        }
+        return $domande;
+    }
+    
+    /**
+     * Restituisce tutte le domande multiple che costituiscono un test
+     * @param int $id L'id del test per il quale si vogliono conoscere tutte le domande multiple che lo compongono
+     * @return Test[] Tutte le domande multiple che costituiscono un test
+     */
+    public function getAllDomandeMultipleByTest($id) {
+        $query = sprintf(self::$GET_ALL_DOMANDE_MULTIPLE_TEST, $id, $id);
+        $res = Model::getDB()->query($query);
+        $domande = array();
+        if($res){
+            while ($obj = $res->fetch_assoc()) {
+                $domande[]= new DomandaMultipla($obj['id'], $obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_corretta'], 
+                    $obj['punteggio_errata'], $obj['percentuale_scelta'], $obj['percentuale_risposta_corretta']);
+            }  
+        }
+        return $domande;
+    }
 }
