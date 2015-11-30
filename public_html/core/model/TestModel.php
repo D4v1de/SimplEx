@@ -10,7 +10,7 @@ include_once MODEL_DIR . "Model.php";
 include_once BEAN_DIR . "Test.php";
 
 class TestModel extends Model {
-    private static $CREATE_TEST = "INSERT INTO `test` (descrizione, punteggio_max, numero_multiple, numero_aperte, percentuale_scelto, percentuale_successo) VALUES ('%d','%s','%f','%d','%d','%f','%f')";
+    private static $CREATE_TEST = "INSERT INTO `test` (descrizione, punteggio_max, numero_multiple, numero_aperte, percentuale_scelto, percentuale_successo) VALUES ('%s',%f','%d','%d','%f','%f')";
     private static $UPDATE_TEST = "UPDATE `test` SET descrizione = '%s', punteggio_max = '%f', numero_multiple = '%d', numero_aperte = '%d', percentuale_scelto = '%f', percentuale_successo = '%f' WHERE id = '%d'";
     private static $DELETE_TEST = "DELETE FROM `test` WHERE id = '%d'";
     private static $READ_TEST = "SELECT * FROM `test` WHERE id = '%d'";
