@@ -116,7 +116,7 @@ if (!defined("TESTING")) {
             include_once CONTROL_DIR . "TestController.php";
             break;
         case 'visualizzalistadomande':
-            include_once VIEW_DIR . "/Docente/VisualizzaListaDomande.php";
+            include_once VIEW_DIR . "/Docente/VisualizzaListaDomande2.php";
             break;
         case 'inseriscidomandaaperta':
             include_once VIEW_DIR . "/Docente/InserisciDomandaAperta.php";
