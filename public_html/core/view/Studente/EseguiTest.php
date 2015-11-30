@@ -13,15 +13,6 @@ include_once CONTROL_DIR . "CdLController.php";
 $cdlController = new CdlController();
 $testController = new ControllerTest();
 $sessioneController = new SessioneController();
-
-$sessId = $_URL['1'];
-$sessione = $sessioneController->readSessione($sessId);
-$cdlMat = '051210';
-$cdl = $cdlController->readCdl($cdlMat);
-$matricola = "0512102390";
-$studente = $testController->getUtentebyMatricola($matricola);
-$nome = $studente->getNome();
-$cognome = $studente->getCognome();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -72,6 +63,16 @@ $cognome = $studente->getCognome();
                 </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
+            <?php
+            $sessId = 3;
+            $sessione = $sessioneController->readSessione($sessId);
+            $cdlMat = '051210';
+            $cdl = $cdlController->readCdl($cdlMat);
+            $matricola = "0512102390";
+            $studente = $testController->getUtentebyMatricola($matricola);
+            $nome = $studente->getNome();
+            $cognome = $studente->getCognome();
+            ?>
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">
@@ -143,9 +144,9 @@ $cognome = $studente->getCognome();
                                         $j++;
                                     }
                                     $i++;
-                                echo '</div>';
-                                echo '</div>';
                                 }
+                                echo '</div>';
+                                echo '</div>';
 
                                 foreach ($aperte as $a) {
                                     $testo = $a->getTesto();

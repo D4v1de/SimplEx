@@ -16,7 +16,6 @@ include_once MODEL_DIR . "ArgomentoModel.php";
 include_once MODEL_DIR . "SessioneModel.php";
 include_once MODEL_DIR . "TestModel.php";
 include_once MODEL_DIR . "AlternativaModel.php";
-include_once MODEL_DIR . "DomandaModel.php";
 
 class ControllerTest extends Controller {
     
@@ -46,14 +45,14 @@ class ControllerTest extends Controller {
     
     //restituisce le domande multiple di uno specifico test
     public function getMultTest($id) {
-        $domandaModel = new DomandaModel();
-        return $domandaModel->getAllDomandeMultipleByTest($id);
+        $testModel = new TestModel();
+        return $testModel->getAllDomandeMultipleByTest($id);
     }
     
     //restituisce le domande aperte di uno specifico test
     public function getAperteTest($id) {
-        $domandaModel = new DomandaModel();
-        return $domandaModel->getAllDomandeAperteByTest($id);
+        $testModel = new TestModel();
+        return $testModel->getAllDomandeAperteByTest($id);
     }
     
     //restituisce le risposte multiple di una specifica domanda
