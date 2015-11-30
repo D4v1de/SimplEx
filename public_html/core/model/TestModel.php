@@ -68,7 +68,7 @@ class TestModel extends Model {
         $query = sprintf(self::$READ_TEST, $id);
         $res = Model::getDB()->query($query);
         if ($obj = $res->fetch_assoc()) {
-            $test = new Test($obj['id'], $obj['descrizione'], $obj['punteggio_max'], $obj['numero_multiple'], $obj['numero_aperte'], $obj['pecentuale_scelto'], $obj['percentuale_successo'] );
+            $test = new Test($obj['id'], $obj['descrizione'], $obj['punteggio_max'], $obj['numero_multiple'], $obj['numero_aperte'], $obj['percentuale_scelto'], $obj['percentuale_successo']);
             return $test;
         }
         else{
@@ -85,7 +85,7 @@ class TestModel extends Model {
         $tests = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $tests[]= new Test($obj['id'], $obj['descrizione'], $obj['punteggio_max'], $obj['numero_multiple'], $obj['numero_aperte'], $obj['pecentuale_scelto'], $obj['percentuale_successo'] );
+                $tests[]= new Test($obj['id'], $obj['descrizione'], $obj['punteggio_max'], $obj['numero_multiple'], $obj['numero_aperte'], $obj['percentuale_scelto'], $obj['percentuale_successo']);
             }  
         }
         return $tests;
@@ -103,7 +103,7 @@ class TestModel extends Model {
         $tests = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $tests[]= new Test($obj['id'], $obj['descrizione'], $obj['punteggio_max'], $obj['numero_multiple'], $obj['numero_aperte'], $obj['pecentuale_scelto'], $obj['percentuale_successo'] );
+                $tests[]= new Test($obj['id'], $obj['descrizione'], $obj['punteggio_max'], $obj['numero_multiple'], $obj['numero_aperte'], $obj['percentuale_scelto'], $obj['percentuale_successo'] );
             }
         }
         return $tests;
@@ -120,7 +120,7 @@ class TestModel extends Model {
         $tests = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $tests[]= new Test($obj['id'], $obj['descrizione'], $obj['punteggio_max'], $obj['numero_multiple'], $obj['numero_aperte'], $obj['pecentuale_scelto'], $obj['percentuale_successo'] );
+                $tests[]= new Test($obj['id'], $obj['descrizione'], $obj['punteggio_max'], $obj['numero_multiple'], $obj['numero_aperte'], $obj['percentuale_scelto'], $obj['percentuale_successo'] );
             }
         }
         return $tests;
@@ -136,7 +136,7 @@ class TestModel extends Model {
         $query = sprintf(self::$GET_TEST_ELABORATO, $studenteMatricola, $sessioneId);
         $res = Model::getDB()->query($query);
         if ($obj = $res->fetch_assoc()) {
-            $test = new Test($obj['id'], $obj['descrizione'], $obj['punteggio_max'], $obj['numero_multiple'], $obj['numero_aperte'], $obj['pecentuale_scelto'], $obj['percentuale_successo'] );
+            $test = new Test($obj['id'], $obj['descrizione'], $obj['punteggio_max'], $obj['numero_multiple'], $obj['numero_aperte'], $obj['percentuale_scelto'], $obj['percentuale_successo'] );
             return $test;
         }
         else{
