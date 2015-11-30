@@ -6,8 +6,16 @@
  * Time: 09:58
  */
 //TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "Esempio.php";
-$controller = new Esempio();
+include_once CONTROL_DIR . "ArgomentoController.php";
+include_once CONTROL_DIR . "DomandaController.php";
+include_once CONTROL_DIR . "AlternativaController.php";
+
+$controller = new ArgomentoController();
+$controllerDomande = new DomandaController();
+$controllerRisposte = new AlternativaController();
+$corso = $controller->readCorso(21); //qui dentro andrà $_URL[1];
+$argomento = $controller->readArgomento(10,21); //qui dentro andrà $_URL[?];
+
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -47,7 +55,7 @@ $controller = new Esempio();
                                 <i class="fa fa-angle-right"></i>
                             </li>
                             <li>
-                                <a href="#">Nome Corso</a>
+                                <a href="#"><?php echo $corso->getNome(); ?></a>
                                 <i class="fa fa-angle-right"></i>
                             </li>
                             <li>
@@ -76,12 +84,12 @@ $controller = new Esempio();
                         </div>
                         <div class="portlet-body form">
                             <!-- BEGIN FORM-->
-                            <form action="#" class="form-horizontal form-bordered">
+                            <form action="<?php echo $_SERVER['PHP_SELF']?>" class="form-horizontal form-bordered">
                                 <div class="form-body">
                                     <div class="form-group form-md-line-input has-success" style="height: 100px">
                                         <label class="control-label col-md-3">Inserisci Titolo</label>
                                         <div class="col-md-6">
-                                            <input type="text" value="Precedente titolo argomento" class="form-control">
+                                            <input type="text" name="nomeargomento" value="<?php echo $argomento->getNome(); ?>" class="form-control">
                                             <span class="help-block">
                                                 Inserisci il titolo del nuovo argomento </span>
                                         </div>
@@ -92,9 +100,8 @@ $controller = new Esempio();
                                         <div class="col-md-12">
                                             <div class="row">
                                                 <div class="col-md-9">
-                                                    <a href="javascript:;" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
-                                                        Conferma
-                                                    </a>
+                                                    <input type="submit" href="javascript:;" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                                    </input>
                                                     <a href="javascript:;" class="btn sm red-intense">
                                                         Annulla
                                                     </a>
@@ -104,9 +111,76 @@ $controller = new Esempio();
                                     </div>
                                 </div>
                             </form>
+
+                            <?php
+                            if(isset($_POST['nomeargomento'])){
+                                $nome = $_POST['nomeargomento'];
+                                $argomento->setNome($nome);
+                                $controller->modificaArgomento($argomento->getId(),$argomento->getCorsoId(), $argomento);
+                            }
+                            ?>
+
+
                             <!-- END FORM-->
                         </div>
                     </div>
+
+                    <div class="row">
+                        <!--TOP menu -->
+                        <div class="col-md-offset-3 col-md-3">
+                            <a href="inseriscidomandaaperta" class="btn sm green-jungle">
+                                <i class="fa fa-plus"></i> Nuova Domanda Aperta
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="inseriscidomandamultipla" class="btn sm green-jungle">
+                                <i class="fa fa-plus"></i> Nuova Domanda Multipla
+                            </a>
+                        </div>
+                    </div>
+                    <br>
+                    <!--INIZIO TABELLA DOMANDA1-->
+
+                    <?php
+                    $domandeArgomento = $controllerDomande->getAllMultiple(10,21); //Questo dev'essere automatico
+
+                    foreach($domandeArgomento as $d) {
+                        $risposte = $controllerRisposte->getAllAlternativa($d->getId(), $d->getArgomentoId(),$d->getArgomentoCorsoId());
+
+                        printf("<div class=\"portlet box blue-madison\">");
+                        printf("<div class=\"portlet-title\">");
+                        printf("<div class=\"caption\">");
+                        printf("<i class=\"fa fa-book\"></i>%s", $d->getTesto());
+                        printf("</div>");
+                        printf("<div class=\"tools\">");
+                        printf("<a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a>");
+                        printf("</div>");
+                        printf("<div class=\"actions\">");
+                        printf("<a href=\"javascript:;\" class=\"btn btn-default btn-sm\"><i class=\"fa fa-edit\"></i> Modifica </a>");
+                        printf("<a href=\"javascript:;\" class=\"btn btn-default btn-sm\"><i class=\"fa fa-remove\"></i> Rimuovi </a>");
+                        printf("</div>");
+                        printf("</div>");
+                        printf("<div class=\"portlet-body\">");
+                        printf("<div id=\"tabella_domanda1_wrapper\" class=\"dataTables_wrapper no-footer\">");
+                        printf("<table class=\"table table-striped table-bordered table-hover dataTable no-footer\"id=\"tabella_domanda1\" role=\"grid\" aria-describedby=\"tabella_domanda1_info\">");
+                        printf("<tbody>");
+                        foreach($risposte as $r) {
+                            printf("<tr class=\"gradeX odd\" role=\"row\">");
+                            printf("<td width='30'>");
+                            printf("<input type=\"checkbox\" disabled=\"\" checked=\"\">");
+                            printf("</td>");
+                            printf("<td>%s</td>", $r->getTesto());
+                            printf("</tr>");
+                        }
+                        printf("</tbody>");
+                        printf("</table>");
+                        printf("</div>");
+                        printf("</div>");
+                        printf("</div>");
+                    }
+
+                    ?>
+
                     <!-- END PAGE CONTENT-->
                 </div>
             </div>

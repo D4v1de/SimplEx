@@ -6,8 +6,8 @@
  * Time: 09:58
  */
 //TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "Esempio.php";
-$controller = new Esempio();
+include_once CONTROL_DIR . "ArgomentoController.php";
+$controller = new ArgomentoController();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -76,12 +76,12 @@ $controller = new Esempio();
                         </div>
                         <div class="portlet-body form">
                             <!-- BEGIN FORM-->
-                            <form action="#" class="form-horizontal form-bordered">
+                            <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="POST" class="form-horizontal form-bordered">
                                 <div class="form-body">
                                     <div class="form-group form-md-line-input has-success" style="height: 90px">
                                         <label class="control-label col-md-3">Inserisci Titolo</label>
                                         <div class="col-md-6">
-                                            <input type="text" placeholder="" class="form-control">
+                                            <input type="text" placeholder="" class="form-control" name="nomeargomento">
                                             <span class="help-block">
                                                 Inserisci il titolo del nuovo argomento </span>
                                         </div>
@@ -92,9 +92,9 @@ $controller = new Esempio();
                                         <div class="col-md-12">
                                             <div class="row">
                                                 <div class="col-md-9">
-                                                    <a href="javascript:;" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
-                                                        Conferma
-                                                    </a>
+                                                    <input type="submit" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+
+                                                    </input>
                                                     <a href="javascript:;" class="btn sm red-intense">
                                                         Annulla
                                                     </a>
@@ -104,6 +104,14 @@ $controller = new Esempio();
                                     </div>
                                 </div>
                             </form>
+
+                            <?php
+                            if(isset($_POST['nomeargomento'])){
+                                $nome = $_POST['nomeargomento'];
+                                $argomento = new Argomento('', $nome, 21); //al posto di 21, ci va $_URL[?]
+                                $controller->creaArgomento($argomento);
+                            }
+                            ?>
                             <!-- END FORM-->
                         </div>
                     </div>

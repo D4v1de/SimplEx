@@ -7,7 +7,7 @@
  */
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "Esempio.php";
-$controller = new Esempio();
+$controller = new DomandaController();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
