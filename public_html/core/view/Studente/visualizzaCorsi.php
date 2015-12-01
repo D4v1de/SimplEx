@@ -14,7 +14,7 @@ $cdl = null;
 $corsi = Array();
 
 try {
-    $cdl = $controller->readCdl($_URL[1]);
+    $cdl = $controller->readCdl($_URL[3]);
     $corsi = $controller->getCorsiCdl($cdl->getMatricola());
 } catch (ApplicationException $ex) {
     echo "<h1>errore! ApplicationException->manca matricolacdl nel path</h1>";
@@ -65,11 +65,11 @@ try {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../../visualizzacdl/">CdL</a>
+                        <a href="../cdl">CdL</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../../visualizzacorsi/<?php echo $cdl->getMatricola(); ?>"><?php echo $cdl->getNome(); ?></a>
+                        <a href="../corsi/<?php echo $cdl->getMatricola(); ?>"><?php echo $cdl->getNome(); ?></a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
@@ -121,7 +121,7 @@ try {
                                 <?php
                                 foreach ($corsi as $c) {
                                     printf("<tr class=\"sorting_1\" role=\"row\">");
-                                    printf("<td><a href=\"../visualizzacorso/%s\">%s</a></td>", $c->getId(), $c->getNome());
+                                    printf("<td><a href=\"../corso/%s\">%s</a></td>", $c->getId(), $c->getNome());
                                     printf("<td>%s</td>", $c->getMatricola());
                                     printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
                                     printf("<td><button type=\"button\" class=\"btn green-jungle\"><span class=\"md-click-circle md-click-animate\"></span>Iscriviti</button></td>");
