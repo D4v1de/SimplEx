@@ -10,27 +10,39 @@
 include_once CONTROL_DIR . "CdlController.php";
 $controller = new CdlController();
 
-$array = $controller->readCorso($_URL[1]);
+$corso = null;
 
-$nome = $array->getNome();
-$tipologia = $array->getTipologia();
-$matricola = $array->getMatricola();
-$cdlmatricola = $array->getCdlMatricola();
+try {
+    $corso = $controller->readCorso($_URL[1]);
+}
+catch (ApplicationException $ex) {
+    echo "<h1>errore! ApplicationException->manca id corso nel path</h1>";
+    echo "<h4>".$ex."</h4>";
+    //header('Location: ../visualizzacorso');
+}
+
+$nome = $corso->getNome();
+$tipologia = $corso->getTipologia();
+$matricola = $corso->getMatricola();
+$cdlmatricola = $corso->getCdlMatricola();
 
 if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricola']) && isset($_POST['cdlmatricola'])) {
-
-    echo "sei dentro!!!";
 
     $nome = $_POST['nome'];
     $tipologia = $_POST['tipologia'];
     $matricola = $_POST['matricola'];
     $cdlmatricola = $_POST['cdlmatricola'];
 
-    $corso = new Corso($_URL[1], $matricola, $nome, $tipologia, $cdlmatricola);
-
-    $controller->modificaCorso($_URL[1], $corso);
-
-    header('location: ../../gestionecorsi');
+    try {
+        $corso = new Corso($_URL[1], $matricola, $nome, $tipologia, $cdlmatricola);
+        $controller->modificaCorso($_URL[1], $corso);
+        header('location: ../../gestionecorsi');
+    }
+    catch (ApplicationException $ex) {
+        echo "<h1>errore! ApplicationException->errore modifica corso</h1>";
+        echo "<h4>".$ex."</h4>";
+        //header('Location: ../visualizzacorso');
+    }
 }
 
 ?>
@@ -77,7 +89,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../../modificacorso/<?php echo $array->getId(); ?>"><?php echo $nome; ?></a>
+                        <a href="../../modificacorso/<?php echo $corso->getId(); ?>"><?php echo $nome; ?></a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
@@ -89,7 +101,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
             <div class="row">
                 <div class="col-md-12">
 
-                    <form method="post" action="modificacorso">
+                    <form method="post" action="">
 
                         <!-- BEGIN EXAMPLE TABLE PORTLET-->
                         <div class="portlet box blue-madison">
@@ -157,7 +169,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                         <button type="reset" class="btn red-intense">Annulla</button>
                                     </div>
                                     <div class="col-md-offset-1 col-md-3">
-                                        <a href="<?php printf('../../gestionecorso/%s', $_URL[1]); ?>"
+                                        <a href="<?php printf('../../gestionecorso/%s', $corso->getId()); ?>"
                                            class="btn blue-madison">Associa Docente</a>
                                     </div>
                                 </div>

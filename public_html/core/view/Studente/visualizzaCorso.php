@@ -10,15 +10,22 @@
 include_once CONTROL_DIR . "CdlController.php";
 $controller = new CdlController();
 
-$corso = $controller->readCorso($_URL[1]);
-
-$cdl = $controller->readCdl($corso->getCdlMatricola());
-
+//utilizzare controller sessione
 $sessioni = $controller->getSessioni();
 
+$corso = null;
+$cdl = null;
 $docenteassociato = Array();
-$docenteassociato = $controller->getDocenteAssociato($corso->getId());
 
+try {
+    $corso = $controller->readCorso($_URL[1]);
+    $cdl = $controller->readCdl($corso->getCdlMatricola());
+    $docenteassociato = $controller->getDocenteAssociato($corso->getId());
+} catch (ApplicationException $ex) {
+    echo "<h1>errore! ApplicationException->manca id corso nel path</h1>";
+    echo "<h4>" . $ex . "</h4>";
+    //header('Location: ../visualizzacorso');
+}
 
 ?>
 <!DOCTYPE html>
@@ -35,7 +42,8 @@ $docenteassociato = $controller->getDocenteAssociato($corso->getId());
     <title><?php echo $corso->getNome(); ?></title>
     <?php include VIEW_DIR . "header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
-    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css"
+          href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
 
 </head>
 <!-- END HEAD -->
@@ -89,9 +97,7 @@ $docenteassociato = $controller->getDocenteAssociato($corso->getId());
                                     <h5>Matricola: <?php echo $corso->getMatricola(); ?></h5>
                                     <h5>Tipologia: <?php echo $corso->getTipologia(); ?></h5>
                                     <?php
-                                    if (count($docenteassociato) == 1) {
-                                        printf('<h5>Docente: %s %s</h5>', $docenteassociato[0]->getNome(), $docenteassociato[0]->getCognome());
-                                    } else if (count($docenteassociato) > 1) {
+                                    if (count($docenteassociato) >= 1) {
                                         foreach ($docenteassociato as $d) {
                                             printf('<h5>Docente: %s %s</h5>', $d->getNome(), $d->getCognome());
                                         }
@@ -162,19 +168,15 @@ $docenteassociato = $controller->getDocenteAssociato($corso->getId());
                                 </thead>
                                 <tbody>
                                 <?php
-                                if ($sessioni == null) {
-                                    echo "l'array è null";
-                                } else {
-                                    foreach ($sessioni as $s) {
-                                        printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                        printf("<td class=\"sorting_1\">%s</td>", $s->getId());
-                                        printf("<td class=\"sorting_1\">%s</td>", $s->getDataInizio());
-                                        printf("<td class=\"sorting_1\">%s</td>", $s->getDataFine());
-                                        printf("<td class=\"sorting_1\"><a href=\"\">%s</a></td>", $s->getSogliaAmmissione());
-                                        printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $s->getTipologia());
-                                        printf("<td>%s</td>", $s->getCorsoId());
-                                        printf("</tr>");
-                                    }
+                                foreach ($sessioni as $s) {
+                                    printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                    printf("<td class=\"sorting_1\">%s</td>", $s->getId());
+                                    printf("<td class=\"sorting_1\">%s</td>", $s->getDataInizio());
+                                    printf("<td class=\"sorting_1\">%s</td>", $s->getDataFine());
+                                    printf("<td class=\"sorting_1\"><a href=\"\">%s</a></td>", $s->getSogliaAmmissione());
+                                    printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $s->getTipologia());
+                                    printf("<td>%s</td>", $s->getCorsoId());
+                                    printf("</tr>");
                                 }
                                 ?>
                                 </tbody>

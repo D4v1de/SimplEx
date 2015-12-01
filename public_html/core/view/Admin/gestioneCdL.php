@@ -10,17 +10,30 @@
 include_once CONTROL_DIR . "CdlController.php";
 $controller = new CdlController();
 
-if(isset($_POST['checkbox'])) {
+$cdls = Array();
+
+try {
+    $cdls = $controller->getCdl();
+} catch (ApplicationException $ex) {
+    echo "<h1>errore! ApplicationException->non ci sono cdl nel db!</h1>";
+    echo "<h4>" . $ex . "</h4>";
+    //header('Location: ../visualizzacorso');
+}
+
+if (isset($_POST['checkbox'])) {
+    $checkbox = Array();
     $checkbox = $_POST['checkbox'];
-    if(count($checkbox) == 1) {
-        $controller->eliminaCdl($checkbox[0]);
-    }
-    else if(count($checkbox) > 1) {
-        foreach($checkbox as $c) {
-            $controller->eliminaCdl($c);
+    if (count($checkbox) >= 1) {
+        foreach ($checkbox as $c) {
+            try {
+                $controller->eliminaCdl($c);
+            } catch (ApplicationException $ex) {
+                echo "<h1>errore! ApplicationException->cdl non eliminato!</h1>";
+                echo "<h4>" . $ex . "</h4>";
+                //header('Location: ../visualizzacorso');
+            }
         }
-    }
-    else if(count($checkbox) < 1) {
+    } else if (count($checkbox) < 1) {
         echo "errore nessun elemento da eliminare!";
     }
 }
@@ -78,7 +91,7 @@ if(isset($_POST['checkbox'])) {
 
             <form method="post" action="gestionecdl">
 
-            <div class="portlet box blue-madison">
+                <div class="portlet box blue-madison">
 
                     <div class="portlet-title">
                         <div class="tools">
@@ -94,7 +107,8 @@ if(isset($_POST['checkbox'])) {
                         </div>
                         <div class="actions">
                             <button type="submit" class="btn btn-default btn-sm">
-                                <i class="fa fa-minus"></i> Elimina Cdl </button>
+                                <i class="fa fa-minus"></i> Elimina Cdl
+                            </button>
                         </div>
                     </div>
                     <div class="portlet-body">
@@ -129,20 +143,13 @@ if(isset($_POST['checkbox'])) {
                                     </thead>
                                     <tbody>
                                     <?php
-                                    $array = Array();
-                                    $array = $controller->getCdl();
-                                    if ($array == null) {
-                                        echo "l'array è null";
-                                    }
-                                    else {
-                                        foreach ($array as $c) {
-                                            printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                            printf("<td><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $c->getMatricola());
-                                            printf("<td class=\"sorting_1\"><a href=\"modificacdl/%s\">%s</a></td>", $c->getMatricola(), $c->getNome());
-                                            printf("<td>%s</td>", $c->getMatricola());
-                                            printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
-                                            printf("</tr>");
-                                        }
+                                    foreach ($cdls as $c) {
+                                        printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                        printf("<td><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $c->getMatricola());
+                                        printf("<td class=\"sorting_1\"><a href=\"modificacdl/%s\">%s</a></td>", $c->getMatricola(), $c->getNome());
+                                        printf("<td>%s</td>", $c->getMatricola());
+                                        printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
+                                        printf("</tr>");
                                     }
                                     ?>
                                     </tbody>
@@ -152,8 +159,8 @@ if(isset($_POST['checkbox'])) {
                         </div>
                     </div>
 
-            </div>
-                </form>
+                </div>
+            </form>
 
 
             <!-- END PAGE CONTENT-->
