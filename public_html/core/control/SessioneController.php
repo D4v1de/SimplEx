@@ -88,4 +88,7 @@ class SessioneController extends Controller {   //UTLIZZARE ALTRO CONTROLLER..NO
     }
     //MANCA IL METODO CHE TI DA TUTTE LE SESSIONI DATO UN CORSO
 
+    public function getAllSessioniByStudente($matricola) {
+        return $this->sessioneModel->getAllSessioniByStudente($matricola);
+    }
 }
