@@ -17,8 +17,7 @@ class Argomento {
      * @param string $corsoId L'id del corso a cui appartiene l'argomento
      * @param string $nome Il nome dell'argomento
      */
-    public function __construct($id, $corsoId, $nome){
-            $this->id = $id;
+    public function __construct($corsoId, $nome){
             $this->corsoId = $corsoId;
             $this->nome = $nome;
     }

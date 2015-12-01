@@ -10,11 +10,21 @@
 include_once CONTROL_DIR . "CdlController.php";
 $controller = new CdlController();
 
-$array = $controller->readCdl($_URL[1]);
+$cdl = null;
+$corso = null;
 
-$nome = $array->getNome();
-$tipologia = $array->getTipologia();
-$matricola = $array->getMatricola();
+try {
+    $corso = $controller->readCdl($_URL[1]);
+}
+catch (ApplicationException $ex) {
+    echo "<h1>errore! ApplicationException->errore manca id corso nel path!</h1>";
+    echo "<h4>" . $ex . "</h4>";
+    //header('Location: ../visualizzacorso');
+}
+
+$nome = $corso->getNome();
+$tipologia = $corso->getTipologia();
+$matricola = $corso->getMatricola();
 
 if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricola'])) {
 
@@ -22,11 +32,16 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     $tipologia = $_POST['tipologia'];
     $matricola = $_POST['matricola'];
 
-    $cdl = new CdL($matricola, $nome, $tipologia);
-
-    $controller->modificaCdl($_URL[1], $cdl);
-
-    header('location: ../gestionecdl');
+    try {
+        $cdl = new CdL($matricola, $nome, $tipologia);
+        $controller->modificaCdl($_URL[1], $cdl);
+        header('location: ../gestionecdl');
+    }
+    catch (ApplicationException $ex) {
+        echo "<h1>errore! ApplicationException->errore modifica Cdl!</h1>";
+        echo "<h4>" . $ex . "</h4>";
+        //header('Location: ../visualizzacorso');
+    }
 }
 ?>
 <!DOCTYPE html>

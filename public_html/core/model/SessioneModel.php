@@ -52,10 +52,10 @@ class SessioneModel extends Model {
      * @param int $id L'id della sessione da eliminare
      * @throws ApplicationException
      */
-    public function deleteSessione($id) {
+    public function deleteSessione($id, $corso_id) {
         $query = sprintf(self::$DELETE_SESSIONE, $id);
         Model::getDB()->query($query);
-        if (Model::getDB()->affected_rows == 1) {
+        if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
         }
     }
