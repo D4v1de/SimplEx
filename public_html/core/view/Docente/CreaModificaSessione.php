@@ -7,8 +7,10 @@
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "Esempio.php";
-$controller = new Esempio();
+include_once CONTROL_DIR . "SessioneController.php";
+$controller = new SessioneController();
+$idCorso = $_URL[1];
+
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -338,105 +340,26 @@ $controller = new Esempio();
 
                             </tr>
                             </thead>
+
                             <tbody>
 
-                            <tr class="gradeX odd" role="row">
-                                <td>
-                                    <input type="checkbox" class="checkboxes" value="1">
-                                </td>
-                                <td class="sorting_1">
-                                    Mario
-                                </td>
-                                <td>
-                                    Rossi
-                                </td>
-                                <td>0512100001</td>
-                            </tr><tr class="gradeX even" role="row">
-                                <td>
-                                    <input type="checkbox" class="checkboxes" value="1">
-                                </td>
-                                <td class="sorting_1">
-                                    Giacomo
-                                </td>
-                                <td>
-                                    Bonaventura
-                                </td>
-                                <td>0512100002</td>
-                            </tr><tr class="gradeX odd" role="row">
-                                <td>
-                                    <input type="checkbox" class="checkboxes" value="1">
-                                </td>
-                                <td class="sorting_1">
-                                    Diego Armando
-                                </td>
-                                <td>
-                                    Maradona
-                                </td>
-                                <td>0512100003</td>
-                            </tr><tr class="gradeX even" role="row">
-                                <td>
-                                    <input type="checkbox" class="checkboxes" value="1">
-                                </td>
-                                <td class="sorting_1">
-                                    Francesco
-                                </td>
-                                <td>
-                                    Totti
-                                </td>
-                                <td>0512100004</td>
-                            </tr>
-
-                            <tr class="gradeX odd" role="row">
-                                <td>
-                                    <input type="checkbox" class="checkboxes" value="1">
-                                </td>
-                                <td class="sorting_1">
-                                    Gianluca
-                                </td>
-                                <td>
-                                    Di Marzio
-                                </td>
-                                <td>0512100005</td>
-                            </tr>
-
-                            <tr class="gradeX odd" role="row">
-                                <td>
-                                    <input type="checkbox" class="checkboxes" value="1">
-                                </td>
-                                <td class="sorting_1">
-                                    Riccardo
-                                </td>
-                                <td>
-                                    Montolivo
-                                </td>
-                                <td>0512100006</td>
-                            </tr>
-
-                            <tr class="gradeX odd" role="row">
-                                <td>
-                                    <input type="checkbox" class="checkboxes" value="1">
-                                </td>
-                                <td class="sorting_1">
-                                    Inacio
-                                </td>
-                                <td>
-                                    Pia
-                                </td>
-                                <td>0512100007</td>
-                            </tr>
-
-                            <tr class="gradeX odd" role="row">
-                                <td>
-                                    <input type="checkbox" class="checkboxes" value="1">
-                                </td>
-                                <td class="sorting_1">
-                                    Raffaele
-                                </td>
-                                <td>
-                                    Auriemma
-                                </td>
-                                <td>0512100008</td>
-                            </tr>
+                            <?php
+                            $array = Array();
+                            $array = $controller->getAllStudentiByCorso($idCorso); //SERVE L'ID DEL CORSO.....!?..lo prendo dall'URL
+                            if ($array == null) {
+                                echo "l'array è null";
+                            }
+                            else {
+                                foreach ($array as $c) {
+                                    printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                    printf("<td><input type=\"checkbox\" class=\"checkboxes\" value=\"1\"></td>");
+                                    printf("<td class=\"sorting_1\">$s</td>", $s->getNome());
+                                    printf("<td>%s</td>", $s->getCognome());
+                                    printf("<td>%s</td>", $s->getMatricola);
+                                    printf("</tr>");
+                                }
+                            }
+                            ?>
                             </tbody>
                         </table>
                     </div>
@@ -444,6 +367,7 @@ $controller = new Esempio();
             </div>
 
 
+            <form action="" method="post">
 
             <div class="form-actions">
                 <div class="row">
@@ -461,6 +385,7 @@ $controller = new Esempio();
                     </div>
                 </div>
             </div>
+            </form>
             <!-- END PAGE CONTENT-->
         </div>
         <!-- END CONTENT -->
