@@ -27,8 +27,6 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
     $id = $_POST['id'];
     $idcorso = $_POST['idcorso'];
 
-    echo "sei uno stronzo!";
-
     $controllerArgomento->rimuoviArgomento($id, $idcorso);
 }
 
@@ -416,6 +414,7 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
 
 
                             <?php
+
                             $argomenti = $controllerArgomento->getArgomenti(21);
 
                             if($argomenti==null){
@@ -431,7 +430,7 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
                             else {
                             foreach($argomenti as $a) {
                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                printf("<td>%s</td>", $a->getNome());
+                                printf("<td>%s %d</td>", $a->getNome(), $a->getId());
                                 printf("<td>");
                                 printf("<a href=\"modificaargomento/%d\" class=\"btn btn-sm blue-madison\">",$a->getId()); //DEVE ESSERE DINAMICO
                                 printf("<i class=\"fa fa-edit\"></i>");

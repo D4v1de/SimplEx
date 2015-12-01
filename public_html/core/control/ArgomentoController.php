@@ -91,7 +91,7 @@ class ArgomentoController extends Controller {
 
     public function rimuoviArgomento($id, $corsoId){
         $argomentoModel = new ArgomentoModel();
-        return $argomentoModel->updateArgomento($id, $corsoId);
+        return $argomentoModel->deleteArgomento($id, $corsoId);
     }
 
 
