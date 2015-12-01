@@ -16,7 +16,6 @@ class Sessione {
     
     /**
      * Costruttore di Sessione
-     * @param int $id L'id della sessione
      * @param date $dataInizio La data di inizio della sessione
      * @param date $dataFine La data di termine della sessione
      * @param float $sogliaAmmissione La soglia di ammissione della sessione
@@ -24,8 +23,7 @@ class Sessione {
      * @param enum $tipologia La tipologia della sessione
      * @param int $corsoId L'id dell'insegnamento a cui appartiene la sessione
      */
-    public function __construct($id, $dataInizio, $dataFine, $sogliaAmmissione, $stato, $tipologia, $corsoId) {
-        $this->id = $id;
+    public function __construct($dataInizio, $dataFine, $sogliaAmmissione, $stato, $tipologia, $corsoId) {
         $this->dataInizio = $dataInizio;
         $this->dataFine = $dataFine;
         $this->sogliaAmmissione = $sogliaAmmissione;

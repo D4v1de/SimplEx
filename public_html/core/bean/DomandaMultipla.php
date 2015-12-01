@@ -17,7 +17,6 @@ class DomandaMultipla {
     
     /**
      * DomandaMultipla constructor.
-     * @param int $id L'id della domanda
      * @param int $argomentoId L'id dell'argomento a cui appartiene la domanda
      * @param int $argomentoCorsoId L'id dell'insegnamento a cui appartiene l'argomento relativo
      * @param string $testo Il testo della domanda
@@ -26,8 +25,7 @@ class DomandaMultipla {
      * @param float $percentualeScelta La percentuale di volte in cui viene scelta
      * @param float $percentualeRispostaCorretta La percentuale di risposte corrette per la domanda
      */
-    public function __construct($id, $argomentoId, $argomentoCorsoId, $testo, $punteggioCorretta, $punteggioErrata,$percentualeScelta, $percentualeRispostaCorretta) {
-        $this->id = $id;
+    public function __construct($argomentoId, $argomentoCorsoId, $testo, $punteggioCorretta, $punteggioErrata,$percentualeScelta, $percentualeRispostaCorretta) {
         $this->argomentoId = $argomentoId;
         $this->argomentoCorsoId = $argomentoCorsoId;
         $this->testo = $testo;

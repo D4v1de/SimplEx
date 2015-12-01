@@ -17,7 +17,6 @@ class RispostaMultipla {
     
     /**
      * Costruttore di Risposta_multipla
-     * @param int $id L'identificatore della risposta multipla
      * @param int $elaboratoSessioneId L'id della sessione a cui appartiene l'elaborato relativo
      * @param int $elaboratoStudenteMatricola La matricola dello studente a cui appartiene l'elaborato relativo
      * @param float $punteggio Il punteggio assegnato alla risposta
@@ -26,9 +25,8 @@ class RispostaMultipla {
      * @param int $alternativaDomandaMultiplaArgomentoId L'id dell'argomento a cui appartiene la domanda multipla relativa
      * @param int $alternativaDomandaMultiplaArgomentoCorsoId L'id del corso a cui appartiene l'argomento relativo alla domanda multipla
      */
-    public function __construct($id, $elaboratoSessioneId, $elaboratoStudenteMatricola, $punteggio, $alternativaId, $alternativaDomandaMultiplaId, 
+    public function __construct($elaboratoSessioneId, $elaboratoStudenteMatricola, $punteggio, $alternativaId, $alternativaDomandaMultiplaId, 
             $alternativaDomandaMultiplaArgomentoId, $alternativaDomandaMultiplaArgomentoCorsoId) {
-        $this->id=$id;
         $this->elaboratoSessioneId=$elaboratoSessioneId;
         $this->elaboratoStudenteMatricola=$elaboratoStudenteMatricola;
         $this->punteggio=$punteggio;
