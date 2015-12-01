@@ -11,24 +11,16 @@ include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "SessioneController.php";
 $controller = new CdlController();
 $sessioneController = new SessioneController();
+$corso = $controller->readCorso($_URL[1]);
 
+$cdl = $controller->readCdl($corso->getCdlMatricola());
 $matricolaStudente = "0512109993";
 
-$sessioni = $sessioneController->getAllSessioniByStudente($matricolaStudente);
+$sessioni = $sessioneController->getAllSessioni();
 
-$corso = null;
-$cdl = null;
 $docenteassociato = Array();
+$docenteassociato = $controller->getDocenteAssociato($corso->getId());
 
-try {
-    $corso = $controller->readCorso($_URL[1]);
-    $cdl = $controller->readCdl($corso->getCdlMatricola());
-    $docenteassociato = $controller->getDocenteAssociato($corso->getId());
-} catch (ApplicationException $ex) {
-    echo "<h1>errore! ApplicationException->manca id corso nel path</h1>";
-    echo "<h4>" . $ex . "</h4>";
-    //header('Location: ../visualizzacorso');
-}
 
 ?>
 <!DOCTYPE html>
@@ -81,8 +73,7 @@ try {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../visualizzacorso/<?php echo $corso->getId(); ?>"><?php echo $corso->getNome(); ?></a>
-                        <i class="fa fa-angle-right"></i>
+                        <?php echo $corso->getNome(); ?>
                     </li>
                 </ul>
             </div>
@@ -95,18 +86,33 @@ try {
                         <form action="#" class="form-horizontal form-bordered form-row-stripped">
                             <div class="form-actions">
                                 <div class="col-md col-md-12">
-                                    <h3><?php echo $corso->getNome(); ?></h3>
-                                    <h5>Matricola: <?php echo $corso->getMatricola(); ?></h5>
-                                    <h5>Tipologia: <?php echo $corso->getTipologia(); ?></h5>
-                                    <?php
-                                    if (count($docenteassociato) >= 1) {
-                                        foreach ($docenteassociato as $d) {
-                                            printf('<h5>Docente: %s %s</h5>', $d->getNome(), $d->getCognome());
-                                        }
-                                    } else if (count($docenteassociato) < 1) {
-                                        printf('<h5>Questo corso non ha docenti Associati!</h5>');
-                                    }
-                                    ?>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <h3><i class="fa fa-university"></i></h3>
+                                            </td>
+                                            <td>
+                                                <h3>&nbsp;<?php echo $corso->getNome(); ?></h3>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><h3></h3></td>
+                                            <td>
+                                                <h5>&nbsp;Matricola: <?php echo $corso->getMatricola(); ?></h5>
+                                                <h5>&nbsp;Tipologia: <?php echo $corso->getTipologia(); ?></h5>
+
+                                                <?php
+                                                if (count($docenteassociato) == 1) {
+                                                    printf('<h5>&nbsp;Docente: %s %s</h5>', $docenteassociato[0]->getNome(), $docenteassociato[0]->getCognome());
+                                                } else if (count($docenteassociato) > 1) {
+                                                    foreach ($docenteassociato as $d) {
+                                                        printf('<h5>&nbsp;Docente: %s %s</h5>', $d->getNome(), $d->getCognome());
+                                                    }
+                                                } else if (count($docenteassociato) < 1) {
+                                                    printf('<h5>Questo corso non ha docenti Associati!</h5>');
+                                                }
+                                                echo '</td></tr></table>';
+                                                ?>
                                 </div>
                             </div>
                         </form>
@@ -165,6 +171,9 @@ try {
                                 </thead>
                                 <tbody>
                                 <?php
+                                if ($sessioni == null) {
+                                    echo "l'array è null";
+                                } else {
                                     foreach ($sessioni as $s) {
                                         printf("<tr class=\"gradeX odd\" role=\"row\">");
                                         printf("<td class=\"sorting_1\">Sessione %s</td>", $s->getId());
@@ -177,6 +186,7 @@ try {
                                         printf("<td class=\"center\"><a href=\"javascript:;\" class=\"btn btn-sm default\" disabled=\"true\">Visualizza</a>");
                                         printf("<a href=\"../eseguitest/%d\" class=\"btn btn-sm default blue-madison\"><i class=\"fa fa-pencil\"></i> Partecipa</a></td>",$s->getId());
                                         printf("</tr>");
+                                    }
                                 }
                                 ?>
                                 </tbody>
