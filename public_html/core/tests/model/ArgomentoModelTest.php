@@ -9,7 +9,7 @@
 
 class ArgomentoModelTest extends \PHPUnit_Framework_TestCase
 {
-
+    const IDARGOMENTO = 1;//CI DEVE ESSERE SEMPRE NEL DB UN ARGOMENTO CON QUESTO ID
     const NOMEARG = "Funzioni";
     const IDCORSO = 18;
     const NOMEARG2 = "Funzioni complesse";
@@ -20,6 +20,11 @@ class ArgomentoModelTest extends \PHPUnit_Framework_TestCase
         $model = new ArgomentoModel();
 
         //Funziona perfettamente
+
+
+        //testo la read
+        $argomento = $model->readArgomento(self::IDARGOMENTO, self::IDCORSO);
+        print_r($argomento);
 
         //creo l'argomento
         $idArg = $model->createArgomento(new \Argomento(null, self::IDCORSO, self::NOMEARG));
@@ -42,8 +47,8 @@ class ArgomentoModelTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(self::NOMEARG2,$argomentoModificato->getNome());
 
         //restituisco tutti gli argomenti di un corso (NON FUNZIONA!)
-//        $allArgC = $model->getAllArgomentoCorso(self::IDCORSO);
- //       print_r($allArgC);
+        $allArgC = $model->getAllArgomentoCorso(self::IDCORSO);
+        print_r($allArgC);
 
         //elimino l'argomento dal db
         $model->deleteArgomento($idArg, self::IDCORSO);
@@ -52,11 +57,7 @@ class ArgomentoModelTest extends \PHPUnit_Framework_TestCase
         $allAr = $model->getAllArgomento();
         print_r($allAr);
 
-
-
     }
-
-
 
 
 }

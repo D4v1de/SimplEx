@@ -12,7 +12,8 @@
 class AlternativaModelTest extends \PHPUnit_Framework_TestCase
 {
 
-    const IDDOMMULTIPLA =  2;
+    const IDALTERNATIVA = 40;//CI DEVE STARE NEL DB ALTERNATIVA CON QUESTO ID
+    const IDDOMMULTIPLA =  46;
     const IDARGOMENTO = 2;
     const CORSOID = 19;
     const TESTO = "Risposta di prova";
@@ -26,6 +27,11 @@ class AlternativaModelTest extends \PHPUnit_Framework_TestCase
     {
 
         $model = new AlternativaModel();
+
+
+        //testo la read
+        $altern = $model->readAlternativa(self::IDALTERNATIVA, self::IDDOMMULTIPLA,self::IDARGOMENTO, self::CORSOID);
+
         //crea un'alterntaiva
         $idAlt = $model->createAlternativa(new Alternativa(null, self::IDDOMMULTIPLA, self::IDARGOMENTO, self::CORSOID, self::TESTO, self::PERCSCELTA, self::CORRETTA));
 
