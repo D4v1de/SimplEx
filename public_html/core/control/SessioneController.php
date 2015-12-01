@@ -82,4 +82,7 @@ class SessioneController extends Controller {
         return $this->sessioneModel->getAllSessioni();
     }
 
+    public function getAllSessioniByStudente($matricola) {
+        return $this->sessioneModel->getAllSessioniByStudente($matricola);
+    }
 }

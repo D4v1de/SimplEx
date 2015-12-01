@@ -33,7 +33,7 @@ $docenteassociato = $controllerArgomento->getDocenteAssociato($corso->getId());
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>Nome Corso</title>
+    <title><?php echo $corso->getNome(); ?></title>
     <?php include VIEW_DIR . "header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
     <link rel="stylesheet" type="text/css"
@@ -52,11 +52,6 @@ $docenteassociato = $controllerArgomento->getDocenteAssociato($corso->getId());
     <div class="page-content-wrapper">
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
-            <h3 class="page-title">
-                <?php
-                echo $corso->getNome();
-                ?>
-            </h3>
 
             <div class="page-bar">
                 <ul class="page-breadcrumb">
@@ -249,18 +244,19 @@ $docenteassociato = $controllerArgomento->getDocenteAssociato($corso->getId());
                                 
                                  <?php
                                         $array = Array();
-                                        $array = $controllerTest->getTestByCorso(1); //Id a caso per il momento
+                                        $array = $controllerTest->getTestByCorso(20); //Id a caso per il momento
                                         if($array == null){ echo "l'array è null";}
                                         foreach($array as $c) {
                                         printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                        printf("<td>Test %s</td>",$c->getId());
+                                        printf("<td class=\"sorting_1\"><a href=\"visualizzatest/%s\">%s</a></td>", $c->getId(), "Test ".$c->getId());
                                         printf("<td>%s</td>",$c->getData());
                                         printf("<td>%s</td>",$c->getNumeroMultiple());
                                         printf("<td>%s</td>",$c->getNumeroAperte());
                                         printf("<td>%s</td>",$c->getPunteggioMax());
                                         printf("<td>%s %%</td>",$c->getPercentualeScelto());
                                         printf("<td>%s %%</td>",$c->getPercentualeSuccesso());
-                                        printf("<td><a href=\"javascript:;\" class=\"btn btn-sm default\"><i class=\"fa fa-info-circle\"></i></a>");
+                                        printf("<td><a href=\"javascript:;\" class=\"btn btn-sm default\"><i class=\"fa fa-edit\"></i></i></a>");
+                                        printf("<a href=\"javascript:;\" class=\"btn btn-sm red-intense\"><i class=\"fa fa-trash-o\"></i></i></a></td>");
                                         printf("</tr>");
                                         }
                                         ?>
@@ -408,7 +404,6 @@ $docenteassociato = $controllerArgomento->getDocenteAssociato($corso->getId());
 
                             <?php
                             $argomenti = $controllerArgomento->getArgomenti(21);
-                            print_r($argomenti);
 
                             if($argomenti==null){
                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
@@ -425,7 +420,7 @@ $docenteassociato = $controllerArgomento->getDocenteAssociato($corso->getId());
                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
                                 printf("<td>%s</td>", $a->getNome());
                                 printf("<td>");
-                                printf("<a href=\"modificaargomento\" class=\"btn btn-sm blue-madison\">");
+                                printf("<a href=\"modificaargomento\" class=\"btn btn-sm blue-madison\">"); //DEVE ESSERE DINAMICO
                                 printf("<i class=\"fa fa-edit\"></i>");
                                 printf("</a>");
                                 printf("<a href=\"javascript:;\" class=\"btn btn-sm red-intense\">");

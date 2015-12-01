@@ -9,7 +9,9 @@
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "ArgomentoController.php";
 $controller = new ArgomentoController();
-$num = $controller->getNumArgomenti();
+$corso = $controller->readCorso(20); //QUI DEVE ANDARCI L'ID DEL CORSO DOVE CI TROVIAMO
+$num = $controller->getNumArgomenti(); //STUB
+
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -22,7 +24,7 @@ $num = $controller->getNumArgomenti();
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>Metronic | Page Layouts - Blank Page</title>
+    <title>Seleziona Domande Test</title>
     <?php include VIEW_DIR . "header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/jquery-nestable/jquery.nestable.css">
 
@@ -50,7 +52,7 @@ $num = $controller->getNumArgomenti();
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                Creazione Test
+                Seleziona Domande:  <?php echo $corso->getNome(); ?>
             </h3>
 
             <!-- END PAGE HEADER-->
@@ -61,7 +63,7 @@ $num = $controller->getNumArgomenti();
 
                     <?php
                     $argomenti = array();
-                    $argomenti = $controller->getArgomenti();
+                    $argomenti = $controller->getArgomenti($corso->getId());
                     $domandeMultiple = array();
                     $nargomento = 1;
                     $ndomanda = 1;
@@ -141,7 +143,7 @@ $num = $controller->getNumArgomenti();
                     <div class="col-md-10"></div>
                     <div class="col-md-2">
                         <a href="javascript:;" class="btn green-jungle">
-                            Crea Test <i class="fa fa-plus"></i>
+                            Conferma <i class="fa fa-plus"></i>
                         </a>
                         <span class="help-block"> <br> </span>
                     </div>

@@ -8,10 +8,13 @@
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "CdlController.php";
+include_once CONTROL_DIR . "SessioneController.php";
 $controller = new CdlController();
+$sessioneController = new SessioneController();
 
-//utilizzare controller sessione
-$sessioni = $controller->getSessioni();
+$matricolaStudente = "0512109993";
+
+$sessioni = $sessioneController->getAllSessioniByStudente($matricolaStudente);
 
 $corso = null;
 $cdl = null;
@@ -42,8 +45,7 @@ try {
     <title><?php echo $corso->getNome(); ?></title>
     <?php include VIEW_DIR . "header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
-    <link rel="stylesheet" type="text/css"
-          href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
 
 </head>
 <!-- END HEAD -->
@@ -137,46 +139,44 @@ try {
                                     <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
                                         colspan="1" aria-label="Username: activate to sort column ascending"
                                         aria-sort="ascending" style="width: 78px;">
-                                        Id
+                                        Nome
                                     </th>
                                     <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
                                         colspan="1" aria-label="Username: activate to sort column ascending"
                                         aria-sort="ascending" style="width: 78px;">
-                                        Data Inizio
-                                    </th>
-                                    <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                        colspan="1" aria-label="Username: activate to sort column ascending"
-                                        aria-sort="ascending" style="width: 78px;">
-                                        Data Fine
+                                        Data e ora
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
                                         colspan="1"
                                         aria-label="Email: activate to sort column ascending" style="width: 137px;">
-                                        Soglia Ammissione
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                        colspan="1"
-                                        aria-label="Status: activate to sort column ascending" style="width: 36px;">
                                         Tipologia
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
                                         colspan="1"
                                         aria-label="Status: activate to sort column ascending" style="width: 36px;">
-                                        Corso ID
+                                        Esito
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Status: activate to sort column ascending" style="width: 23%">
+                                        Azioni
                                     </th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
-                                foreach ($sessioni as $s) {
-                                    printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    printf("<td class=\"sorting_1\">%s</td>", $s->getId());
-                                    printf("<td class=\"sorting_1\">%s</td>", $s->getDataInizio());
-                                    printf("<td class=\"sorting_1\">%s</td>", $s->getDataFine());
-                                    printf("<td class=\"sorting_1\"><a href=\"\">%s</a></td>", $s->getSogliaAmmissione());
-                                    printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $s->getTipologia());
-                                    printf("<td>%s</td>", $s->getCorsoId());
-                                    printf("</tr>");
+                                    foreach ($sessioni as $s) {
+                                        printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                        printf("<td class=\"sorting_1\">Sessione %s</td>", $s->getId());
+                                        printf("<td class=\"sorting_1\">%s</td>", $s->getDataInizio());
+                                        if (!strcmp($s->getTipologia(),"Esercitativa"))
+                                            printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $s->getTipologia());
+                                        else
+                                            printf("<td><span class=\"label label-sm label-danger\">%s</span></td>", $s->getTipologia());
+                                        printf("<td class=\"sorting_1\"><a href=\"\">%s</a></td>", $s->getSogliaAmmissione());
+                                        printf("<td class=\"center\"><a href=\"javascript:;\" class=\"btn btn-sm default\" disabled=\"true\">Visualizza</a>");
+                                        printf("<a href=\"../eseguitest/%d\" class=\"btn btn-sm default blue-madison\"><i class=\"fa fa-pencil\"></i> Partecipa</a></td>",$s->getId());
+                                        printf("</tr>");
                                 }
                                 ?>
                                 </tbody>

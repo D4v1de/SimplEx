@@ -121,7 +121,17 @@ class DomandaController extends Controller
     {
         $domandaModel = new DomandaModel();
         return $domandaModel->getAllDomandaMultiplaByArgomento($argomentoId, $argomentoCorsoId);
-
-
+    }
+    
+    //restituisce le domande multiple di uno specifico test
+    public function getMultTest($id) {
+        $domandaModel = new DomandaModel();
+        return $domandaModel->getAllDomandeMultipleByTest($id);
+    }
+    
+    //restituisce le domande aperte di uno specifico test
+    public function getAperteTest($id) {
+        $domandaModel = new DomandaModel();
+        return $domandaModel->getAllDomandeAperteByTest($id);
     }
 }
