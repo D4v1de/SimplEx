@@ -12,8 +12,9 @@ $controller = new ArgomentoController();
 
 if(isset($_POST['nomeargomento'])){
     $nome = $_POST['nomeargomento'];
-    $argomento = new Argomento($nome, 21); //al posto di 21, ci va $_URL[?]
+    $argomento = new Argomento(21, $nome); //al posto di 21, ci va $_URL[?] con id_corso
     $controller->creaArgomento($argomento);
+    header('location:homecorsodocente');
 }
 
 ?>

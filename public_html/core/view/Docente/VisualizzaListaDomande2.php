@@ -6,7 +6,7 @@
  * Time: 09:58
  */
 //TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "Esempio.php";
+include_once CONTROL_DIR . "DomandaController.php";
 $controller = new DomandaController();
 ?>
 <!DOCTYPE html>

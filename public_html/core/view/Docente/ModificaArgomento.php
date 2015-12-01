@@ -20,6 +20,13 @@ $argomento = null;
 $corso = $controllerCdl->readCorso(21); //qui dentro andrà $_URL[1];
 $argomento = $controller->readArgomento(10,21); //qui dentro andrà $_URL[?];
 
+
+if(isset($_POST['nomeargomento'])){
+    $nome = $_POST['nomeargomento'];
+    $argomento->setNome($nome);
+    $controller->modificaArgomento($argomento->getId(),$argomento->getCorsoId(), $argomento);
+    header('location:../homecorsodocente');
+}
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -88,7 +95,7 @@ $argomento = $controller->readArgomento(10,21); //qui dentro andrà $_URL[?];
                         </div>
                         <div class="portlet-body form">
                             <!-- BEGIN FORM-->
-                            <form action="<?php echo $_SERVER['PHP_SELF']?>" class="form-horizontal form-bordered">
+                            <form action="modificaargomento" method="POST" class="form-horizontal form-bordered">
                                 <div class="form-body">
                                     <div class="form-group form-md-line-input has-success" style="height: 100px">
                                         <label class="control-label col-md-3">Inserisci Titolo</label>
@@ -104,7 +111,7 @@ $argomento = $controller->readArgomento(10,21); //qui dentro andrà $_URL[?];
                                         <div class="col-md-12">
                                             <div class="row">
                                                 <div class="col-md-9">
-                                                    <input type="submit" href="javascript:;" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                                    <input type="submit" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                                                     </input>
                                                     <a href="javascript:;" class="btn sm red-intense">
                                                         Annulla
@@ -116,13 +123,7 @@ $argomento = $controller->readArgomento(10,21); //qui dentro andrà $_URL[?];
                                 </div>
                             </form>
 
-                            <?php
-                            if(isset($_POST['nomeargomento'])){
-                                $nome = $_POST['nomeargomento'];
-                                $argomento->setNome($nome);
-                                $controller->modificaArgomento($argomento->getId(),$argomento->getCorsoId(), $argomento);
-                            }
-                            ?>
+
 
 
                             <!-- END FORM-->

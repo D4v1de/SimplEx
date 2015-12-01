@@ -430,7 +430,7 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
                             else {
                             foreach($argomenti as $a) {
                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                printf("<td>%s %d</td>", $a->getNome(), $a->getId());
+                                printf("<td>%s</td>", $a->getNome());
                                 printf("<td>");
                                 printf("<a href=\"modificaargomento/%d\" class=\"btn btn-sm blue-madison\">",$a->getId()); //DEVE ESSERE DINAMICO
                                 printf("<i class=\"fa fa-edit\"></i>");
