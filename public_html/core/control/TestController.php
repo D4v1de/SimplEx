@@ -2,23 +2,53 @@
 
 /**
  * Created by PhpStorm.
- * User: sergio
+ * User: Fabio
  * Date: 22/11/15
  * Time: 19:17
  */
+include_once MODEL_DIR . "TestModel.php";
+include_once MODEL_DIR . "AlternativaModel.php";
 include_once MODEL_DIR . "AccountModel.php";
-include_once CONTROL_DIR . "AuthController.php";
 
-Logger::debug("Ciaoo, prima loggata");
-//$am = new AuthController();
-//$aModel = new AccountModel();
-//$aModel->getUtenteByMatricola("ss");
+class TestController extends Controller {
+    
+    private $testModel;
 
-//$am->login("shevchenk2ser@gmail.com", "password", true);
-//print_r($am->checkPermanentLogin());
+    public function __construct() {
+        $this->testModel = new TestModel();
+    }
+    
+    //Restituisce tutti i test
+    public function getAllTest() {
+        return $testModel->getAllTest();
+    }
+    
+    //ricerca un test attraverso l'a matricola'id
+    public function getTestbyId($id) {
+        return $testModel->readTest($id);
+    }
+    
+    //ricerca i test relativi ad un corso
+    public function getAllTestbyCorso($id) {
+        $testModel = new TestModel();
+        return $testModel->getAllTestByCorso($id);
+    }
+    
+    
+    
+    
+    
+    //SPOSTARE!!!
 
-//print_r($am->register("13332132", "shevchenk2ser@gmail.com", "password", "studente", "nome", "cognome", "01234567"));
-
-//$r = $aModel->getUtente("shevchenk2ser@gmail.com", "password");
-//print_r($r);
-//$aModel->removeUtente("13332132");
+    //restituisce le risposte multiple di una specifica domanda
+    public function getRispMult($id, $argomentoId, $argomentoCorsoId) {
+        $alternativaModel = new AlternativaModel();
+        return $alternativaModel->getAllAlternativaByDomanda($id, $argomentoId, $argomentoCorsoId);
+    }
+    
+    //ricerca un utente attraverso la matricola
+    public function getUtentebyMatricola($matricola) {
+        $accountModel = new AccountModel();
+        return $accountModel->getUtenteByMatricola($matricola);
+    }
+}

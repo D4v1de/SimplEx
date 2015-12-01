@@ -17,11 +17,11 @@ var StartCounter = function(endDate){
 	 
 	// update the tag with id "countdown" every 1 second
 	setInterval(function () {
-	 
+                
 		// find the amount of "seconds" between now and target
 		var current_date = new Date().getTime();
 		var seconds_left = (target_date - current_date) / 1000;
-	 
+                var remaining_time = seconds_left;
 		// do some time calculations
 		days = parseInt(seconds_left / 86400);
 		seconds_left = seconds_left % 86400;
@@ -35,8 +35,8 @@ var StartCounter = function(endDate){
 		seconds = parseInt(seconds_left % 60);
 		 
 		// format countdown string + set tag value
-                if (seconds_left > 0)
-                    if (seconds_left >= 600)
+                if (remaining_time > 0)
+                    if (remaining_time >= 600)
                         countdown.innerHTML = '<span  style="color: #cf6"><span class="days">' + days +  ' <b>Giorni</b></span> <span class="hours">' + hours + ' <b>Ore</b></span> <span class="minutes">'
 		+ minutes + ' <b>Minuti</b></span> <span class="seconds">' + seconds + ' <b>Secondi</b></span></span>';
                        // countdown.innerHTML = '<span class="time" style="color: #cf6"> '+ hours + ':' + minutes +':' + seconds + ' </span>';  
