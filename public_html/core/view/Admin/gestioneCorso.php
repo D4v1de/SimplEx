@@ -10,41 +10,65 @@
 include_once CONTROL_DIR . "CdlController.php";
 $controller = new CdlController();
 
-$corso = $controller->readCorso($_URL[1]);
-
-$docenti = $controller->getDocenti();
-
 $docenteassociato = Array();
-$docenteassociato = $controller->getDocenteAssociato($corso->getId());
+$corso = null;
+$docenti = null;
+$docente = null;
 
-if(isset($_POST['checkbox'])) {
+try {
+    $corso = $controller->readCorso($_URL[1]);
+    $docenti = $controller->getDocenti();
+    $docenteassociato = $controller->getDocenteAssociato($corso->getId());
+} catch (ApplicationException $ex) {
+    echo "<h1>errore! ApplicationException->errore manca id corso nel path!</h1>";
+    echo "<h4>" . $ex . "</h4>";
+    //header('Location: ../visualizzacorso');
+}
+
+if (isset($_POST['checkbox'])) {
 
     $checkbox = Array();
     $checkbox = $_POST['checkbox'];
 
-    foreach($docenteassociato as $da) {
-        if(!in_array($da->getMatricola(), $checkbox)) {
-            $controller->eliminaInsegnamento($corso->getId(), $da->getMatricola());
+    foreach ($docenteassociato as $da) {
+        if (!in_array($da->getMatricola(), $checkbox)) {
+            try {
+                $controller->eliminaInsegnamento($corso->getId(), $da->getMatricola());
+            } catch (ApplicationException $ex) {
+                echo "<h1>errore! ApplicationException->errore eliminazione insegnamento!</h1>";
+                echo "<h4>" . $ex . "</h4>";
+                //header('Location: ../visualizzacorso');
+            }
         }
     }
 
-    foreach($checkbox as $c) {
+    foreach ($checkbox as $c) {
         $docente = $controller->getUtenteByMatricola($c);
-        if(!in_array($docente, $docenteassociato)) {
-            echo "aggiungi";
-            $controller->creaInsegnamento($corso->getId(), $c);
+        if (!in_array($docente, $docenteassociato)) {
+            try {
+                $controller->creaInsegnamento($corso->getId(), $c);
+            } catch (ApplicationException $ex) {
+                echo "<h1>errore! ApplicationException->errore creazione insegnamento!</h1>";
+                echo "<h4>" . $ex . "</h4>";
+                //header('Location: ../visualizzacorso');
+            }
         }
     }
-    header('location: ../../gestionecorso/'.$corso->getId());
+    header('location: ../../gestionecorso/' . $corso->getId());
 }
 
-if(!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
+if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
 
-    foreach($docenteassociato as $da) {
-        echo "aggiungi";
-        $controller->eliminaInsegnamento($corso->getId(), $da->getMatricola());
+    foreach ($docenteassociato as $da) {
+        try {
+            $controller->eliminaInsegnamento($corso->getId(), $da->getMatricola());
+        } catch (ApplicationException $ex) {
+            echo "<h1>errore! ApplicationException->errore creazione insegnamento!</h1>";
+            echo "<h4>" . $ex . "</h4>";
+            //header('Location: ../visualizzacorso');
+        }
     }
-    header('location: ../../gestionecorso/'.$corso->getId());
+    header('location: ../../gestionecorso/' . $corso->getId());
 }
 
 
@@ -116,7 +140,8 @@ if (isset($_POST['checkbox'])) {
     <title><?php echo $corso->getNome(); ?></title>
     <?php include VIEW_DIR . "header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
-    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css"
+          href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
 
 </head>
 <!-- END HEAD -->
@@ -245,22 +270,18 @@ if (isset($_POST['checkbox'])) {
                                 </thead>
                                 <tbody>
                                 <?php
-                                if ($docenti == null) {
-                                    echo "l'array è null";
-                                } else {
-                                    foreach ($docenti as $d) {
-                                        printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                        if (in_array($d, $docenteassociato)) {
-                                            printf("<td><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\" checked></td>", $d->getMatricola());
-                                        } else {
-                                            printf("<td><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $d->getMatricola());
-                                        }
-                                        printf("<td>%s</td>", $d->getMatricola());
-                                        printf("<td><a href=\"../../utente/%s\">%s</a></td>", $d->getMatricola(), $d->getNome());
-                                        printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $d->getCognome());
-                                        printf("<td>%s</td>", $d->getCdlMatricola());
-                                        printf("</tr>");
+                                foreach ($docenti as $d) {
+                                    printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                    if (in_array($d, $docenteassociato)) {
+                                        printf("<td><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\" checked></td>", $d->getMatricola());
+                                    } else {
+                                        printf("<td><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $d->getMatricola());
                                     }
+                                    printf("<td>%s</td>", $d->getMatricola());
+                                    printf("<td><a href=\"../../utente/%s\">%s</a></td>", $d->getMatricola(), $d->getNome());
+                                    printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $d->getCognome());
+                                    printf("<td>%s</td>", $d->getCdlMatricola());
+                                    printf("</tr>");
                                 }
                                 ?>
                                 </tbody>

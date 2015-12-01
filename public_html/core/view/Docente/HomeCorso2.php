@@ -256,18 +256,19 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
                                 
                                  <?php
                                         $array = Array();
-                                        $array = $controllerTest->getTestByCorso(1); //Id a caso per il momento
+                                        $array = $controllerTest->getTestByCorso(20); //Id a caso per il momento
                                         if($array == null){ echo "l'array è null";}
                                         foreach($array as $c) {
                                         printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                        printf("<td>Test %s</td>",$c->getId());
+                                        printf("<td class=\"sorting_1\"><a href=\"visualizzatest/%s\">%s</a></td>", $c->getId(), "Test ".$c->getId());
                                         printf("<td>%s</td>",$c->getData());
                                         printf("<td>%s</td>",$c->getNumeroMultiple());
                                         printf("<td>%s</td>",$c->getNumeroAperte());
                                         printf("<td>%s</td>",$c->getPunteggioMax());
                                         printf("<td>%s %%</td>",$c->getPercentualeScelto());
                                         printf("<td>%s %%</td>",$c->getPercentualeSuccesso());
-                                        printf("<td><a href=\"javascript:;\" class=\"btn btn-sm default\"><i class=\"fa fa-info-circle\"></i></a>");
+                                        printf("<td><a href=\"javascript:;\" class=\"btn btn-sm default\"><i class=\"fa fa-edit\"></i></i></a>");
+                                        printf("<a href=\"javascript:;\" class=\"btn btn-sm red-intense\"><i class=\"fa fa-trash-o\"></i></i></a></td>");
                                         printf("</tr>");
                                         }
                                         ?>

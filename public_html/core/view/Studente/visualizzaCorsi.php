@@ -10,10 +10,17 @@
 include_once CONTROL_DIR . "CdlController.php";
 $controller = new CdlController();
 
-$cdl = $controller->readCdl($_URL[1]);
-
+$cdl = null;
 $corsi = Array();
-$corsi = $controller->getCorsiCdl($cdl->getMatricola());
+
+try {
+    $cdl = $controller->readCdl($_URL[1]);
+    $corsi = $controller->getCorsiCdl($cdl->getMatricola());
+} catch (ApplicationException $ex) {
+    echo "<h1>errore! ApplicationException->manca matricolacdl nel path</h1>";
+    echo "<h4>" . $ex . "</h4>";
+    //header('Location: ../visualizzacorsi');
+}
 
 ?>
 <!DOCTYPE html>
@@ -112,17 +119,13 @@ $corsi = $controller->getCorsiCdl($cdl->getMatricola());
                                 </thead>
                                 <tbody>
                                 <?php
-                                if ($corsi == null) {
-                                    echo "l'array è null";
-                                } else {
-                                    foreach ($corsi as $c) {
-                                        printf("<tr class=\"sorting_1\" role=\"row\">");
-                                        printf("<td><a href=\"../visualizzacorso/%s\">%s</a></td>", $c->getId(), $c->getNome());
-                                        printf("<td>%s</td>", $c->getMatricola());
-                                        printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
-                                        printf("<td><button type=\"button\" class=\"btn green-jungle\"><span class=\"md-click-circle md-click-animate\"></span>Iscriviti</button></td>");
-                                        printf("</tr>");
-                                    }
+                                foreach ($corsi as $c) {
+                                    printf("<tr class=\"sorting_1\" role=\"row\">");
+                                    printf("<td><a href=\"../visualizzacorso/%s\">%s</a></td>", $c->getId(), $c->getNome());
+                                    printf("<td>%s</td>", $c->getMatricola());
+                                    printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
+                                    printf("<td><button type=\"button\" class=\"btn green-jungle\"><span class=\"md-click-circle md-click-animate\"></span>Iscriviti</button></td>");
+                                    printf("</tr>");
                                 }
                                 ?>
                                 </tbody>

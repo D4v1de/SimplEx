@@ -16,15 +16,13 @@ class Alternativa {
 
     /**
      * Alternativa constructor.
-     * @param int $id L'identificatore dell'alternativa
      * @param int $domandaMultiplaId L'identificatore della domanda multipla relativa
      * @param int $domandaMultiplaArgomentoCorsoId L'identificatore dell'insegnamento a cui appartiene l'argomento relativo alla domanda multipla di riferimento
      * @param string $testo Il testo dell'alternativa
      * @param float $percentualeScelta La percentuale di volte in cui è stata scelta
      * @param Enum $corretta Indica se l'alternativa è corretta
      **/
-    function __construct($id, $domandaMultiplaId, $domandaMultiplaArgomentoId, $domandaMultiplaArgomentoCorsoId, $testo, $percentualeScelta, $corretta) {
-        $this->id = $id;
+    function __construct($domandaMultiplaId, $domandaMultiplaArgomentoId, $domandaMultiplaArgomentoCorsoId, $testo, $percentualeScelta, $corretta) {
         $this->domandaMultiplaId = $domandaMultiplaId;
         $this->domandaMultiplaArgomentoId = $domandaMultiplaArgomentoId;
         $this->domandaMultiplaArgomentoCorsoId = $domandaMultiplaArgomentoCorsoId;

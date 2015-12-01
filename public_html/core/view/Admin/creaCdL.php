@@ -16,9 +16,6 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     $tipologia = $_POST['tipologia'];
     $matricola = $_POST['matricola'];
 
-    echo "sta tutto qua ---->";
-    echo $nome;
-
     if(empty($nome) && empty($matricola)) {
         echo "<script type='text/javascript'>alert('devi riempire tutti i campi!');</script>";
     }
@@ -29,11 +26,17 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
         echo "<script type='text/javascript'>alert('devi inserire la matricola!');</script>";
     }
     else {
+        try {
+            $cdl = new CdL($matricola, $nome, $tipologia);
+            $controller->creaCdl($cdl);
 
-        $cdl = new CdL($matricola, $nome, $tipologia);
-        $controller->creaCdl($cdl);
-
-        header('location: ../gestionecdl');
+            header('location: ../gestionecdl');
+        }
+        catch (ApplicationException $ex) {
+            echo "<h1>errore! ApplicationException->errore creazione cdl</h1>";
+            echo "<h4>".$ex."</h4>";
+            //header('Location: ../visualizzacorso');
+        }
     }
 
 }
@@ -139,7 +142,6 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 
                                             <div class="form-control-focus">
                                             </div>
-                                            <span class="help-block">Some help goes here...</span>
                                         </div>
                                     </div>
                                 </div>

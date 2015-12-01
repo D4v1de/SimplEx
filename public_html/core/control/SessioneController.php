@@ -14,7 +14,7 @@ include_once MODEL_DIR . "SessioneModel.php";
 include_once BEAN_DIR . "Sessione.php";
 
 
-class SessioneController extends Controller {
+class SessioneController extends Controller {   //UTLIZZARE ALTRO CONTROLLER..NON ALTRO MODEL
 
 
     private $sessioneModel;
@@ -82,4 +82,13 @@ class SessioneController extends Controller {
         return $this->sessioneModel->getAllSessioni();
     }
 
+
+        public function getAllStudentiByCorso($idCorso) {
+        return $this->accountModel->getAllStudentiByCorso($idCorso);
+    }
+    //MANCA IL METODO CHE TI DA TUTTE LE SESSIONI DATO UN CORSO
+
+    public function getAllSessioniByStudente($matricola) {
+        return $this->sessioneModel->getAllSessioniByStudente($matricola);
+    }
 }

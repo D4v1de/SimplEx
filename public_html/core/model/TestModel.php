@@ -98,7 +98,7 @@ class TestModel extends Model {
      * @throws ApplicationException
      */
     public function getAllTestByCorso($id) {
-        $query = sprintf(self::$GET_ALL_TEST_CORSO, $id);
+        $query = sprintf(self::$GET_ALL_TEST_CORSO, $id, $id);
         $res = Model::getDB()->query($query);
         $tests = array();
         if($res){

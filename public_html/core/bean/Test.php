@@ -16,7 +16,6 @@ class Test {
 
     /**
      * Costruttore di Test
-     * @param int $id L'id del test
      * @param string $descrizione La descrizione del test
      * @param float $punteggioMax Il punteggio massimo del test
      * @param int $numeroMultiple Numero di domande multiple
@@ -24,8 +23,7 @@ class Test {
      * @param float $percentualeScelto Percentuale di volte in cui il test viene scelto
      * @param float $percentualeSuccesso Percentuale di successo del test
      */
-    public function __construct($id, $descrizione, $punteggioMax, $numeroMultiple, $numeroAperte, $percentualeScelto, $percentualeSuccesso) {
-        $this->id=$id;
+    public function __construct($descrizione, $punteggioMax, $numeroMultiple, $numeroAperte, $percentualeScelto, $percentualeSuccesso) {
         $this->descrizione=$descrizione;
         $this->punteggioMax=$punteggioMax;
         $this->numeroMultiple=$numeroMultiple;

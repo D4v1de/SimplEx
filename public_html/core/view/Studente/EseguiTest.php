@@ -9,10 +9,21 @@
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "ControllerTest.php";
 include_once CONTROL_DIR . "SessioneController.php";
-include_once CONTROL_DIR . "CdLController.php";
-$cdlController = new CdlController();
+include_once CONTROL_DIR . "DomandaController.php";
+$domandaController = new DomandaController();
 $testController = new ControllerTest();
 $sessioneController = new SessioneController();
+
+$sessId = $_URL[1];
+$sessione = $sessioneController->readSessione($sessId);
+$matricola = "0512102390";
+$studente = $testController->getUtentebyMatricola($matricola);
+$nome = $studente->getNome();
+$cognome = $studente->getCognome();
+
+$testId = 2;
+$multiple = $domandaController->getMultTest($testId);
+$aperte = $domandaController->getAperteTest($testId);
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -63,16 +74,6 @@ $sessioneController = new SessioneController();
                 </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <?php
-            $sessId = 3;
-            $sessione = $sessioneController->readSessione($sessId);
-            $cdlMat = '051210';
-            $cdl = $cdlController->readCdl($cdlMat);
-            $matricola = "0512102390";
-            $studente = $testController->getUtentebyMatricola($matricola);
-            $nome = $studente->getNome();
-            $cognome = $studente->getCognome();
-            ?>
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">
@@ -117,9 +118,6 @@ $sessioneController = new SessioneController();
                                 </div>
                             </div>
                             <?php
-                                $testId = 2;
-                                $multiple = $testController->getMultTest($testId);
-                                $aperte = $testController->getAperteTest($testId);
                                 $i = 1;
                                 foreach ($multiple as $m) {
                                     $j = 1;
@@ -144,9 +142,9 @@ $sessioneController = new SessioneController();
                                         $j++;
                                     }
                                     $i++;
+                                    echo '</div>';
+                                    echo '</div>';
                                 }
-                                echo '</div>';
-                                echo '</div>';
 
                                 foreach ($aperte as $a) {
                                     $testo = $a->getTesto();

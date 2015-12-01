@@ -27,10 +27,17 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
         echo "<script type='text/javascript'>alert('devi inserire la matricola del CdL!');</script>";
     } else {
 
-        $corso = new Corso($id, $matricola, $nome, $tipologia, $cdlMatricola);
-        $controller->creaCorso($corso);
+        try {
+            $corso = new Corso($id, $matricola, $nome, $tipologia, $cdlMatricola);
+            $controller->creaCorso($corso);
 
-        header('location: ../gestionecorsi');
+            header('location: ../gestionecorsi');
+        }
+        catch (ApplicationException $ex) {
+            echo "<h1>errore! ApplicationException->errore creazione corso</h1>";
+            echo "<h4>".$ex."</h4>";
+            //header('Location: ../visualizzacorso');
+        }
     }
 }
 ?>

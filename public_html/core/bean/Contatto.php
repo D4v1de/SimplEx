@@ -13,13 +13,11 @@ class Contatto {
 
     /**
      * Costruttore di Contatto.
-     * @param int $id L'id del contatto
      * @param string $valore Il valore del contatto
      * @param enum $tipologia La tipologia del contatto
      * @param string $utenteMatricola La matricola dell'utente a cui appartiene il contatto
      */
-    public function __construct($id, $valore, $tipologia, $utenteMatricola) {
-        $this->id = $id;
+    public function __construct($valore, $tipologia, $utenteMatricola) {
         $this->valore = $valore;
         $this->tipologia = $tipologia;
         $this->utenteMatricola = $utenteMatricola;

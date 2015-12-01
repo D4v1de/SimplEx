@@ -29,7 +29,10 @@ class ArgomentoModel extends Model {
         if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
         }else{
-            return Model::getDB()->insert_id;
+            $id = Model::getDB()->insert_id;
+            return $id;
+
+
         }
     }
 
@@ -73,7 +76,8 @@ class ArgomentoModel extends Model {
         $query = sprintf(self::$READ_ARGOMENTO, $id, $corsoId);
         $res = Model::getDB()->query($query);
         if ($obj = $res->fetch_assoc()) {
-            $argomento = new Argomento($obj['id'], $obj['corso_id'], $obj['nome']);
+            $argomento = new Argomento( $obj['corso_id'], $obj['nome']);
+            $argomento->setId($obj['id']);
             return $argomento;
         } else {
             throw new ApplicationException(Error::$ARGOMENTO_NON_TROVATO);
