@@ -22,13 +22,17 @@ class SessioneModel extends Model {
      * Inserisce una nuova sessione nel database
      * @param Sessione $sessione La sessione da inserire nel database
      * @throws ApplicationException
+     * @return int Id della sessione
      */
     public function createSessione($sessione) {
         $query = sprintf(self::$CREATE_SESSIONE, $sessione->getDataInizio(), $sessione->getDataFine(), $sessione->getSogliaAmmissione(), 
                 $sessione->getStato(), $sessione->getTipologia(), $sessione->getCorsoId());
         Model::getDB()->query($query);
-        if (Model::getDB()->affected_rows == 1) {
+        if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
+        }else{
+            $id = Model::getDB()->insert_id;
+            return $id;
         }
     }
 
@@ -42,10 +46,11 @@ class SessioneModel extends Model {
         $query = sprintf(self::$UPDATE_SESSIONE, $updatedSessione->getDataInizio(), $updatedSessione->getDataFine(), $updatedSessione->getSogliaAmmissione(), 
                 $updatedSessione->getStato(), $updatedSessione->getTipologia(), $updatedSessione->getCorsoId(),  $id);
         Model::getDB()->query($query);
-        if (Model::getDB()->affected_rows == 1) {
+        if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
         }
     }
+
 
     /**
      * Cancella una sessione nel database
@@ -55,7 +60,7 @@ class SessioneModel extends Model {
     public function deleteSessione($id) {
         $query = sprintf(self::$DELETE_SESSIONE, $id);
         Model::getDB()->query($query);
-        if (Model::getDB()->affected_rows == 1) {
+        if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
         }
     }
@@ -64,12 +69,14 @@ class SessioneModel extends Model {
      * Cerca una sessione nel database
      * @param int $id L'id della sessione da cercare
      * @throws ApplicationException
+     * @return Sessione
      */
     public function readSessione($id) {
         $query = sprintf(self::$READ_SESSIONE, $id);
         $res = Model::getDB()->query($query);
         if ($obj = $res->fetch_assoc()) {
-            $sessione = new Sessione($obj['id'], $obj['data_inizio'], $obj['data_fine'],  $obj['soglia_ammissione'], $obj['stato'], $obj['tipologia'], $obj['corso_id']);
+            $sessione = new Sessione($obj['data_inizio'], $obj['data_fine'],  $obj['soglia_ammissione'], $obj['stato'], $obj['tipologia'], $obj['corso_id']);
+            $sessione->setId($obj['id']);
             return $sessione;
         }
         else{
@@ -86,7 +93,10 @@ class SessioneModel extends Model {
         $sessioni = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $sessioni[] = new Sessione($obj['id'], $obj['data_inizio'], $obj['data_fine'], $obj['soglia_ammissione'], $obj['stato'], $obj['tipologia'], $obj['corso_id']);
+                $sessione = new Sessione( $obj['data_inizio'], $obj['data_fine'], $obj['soglia_ammissione'], $obj['stato'], $obj['tipologia'], $obj['corso_id']);
+                $sessione->setId($obj['id']);
+                $sessioni[]=$sessione;
+
             }
         }
         return $sessioni;
@@ -104,7 +114,9 @@ class SessioneModel extends Model {
         $sessioni = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $sessioni[] = new Sessione($obj['id'], $obj['dataInizio'], $obj['data_fine'], $obj['soglia_ammissione'], $obj['stato'], $obj['tipologia'], $obj['corso_id']);
+                $sessione = new Sessione($obj['data_inizio'], $obj['data_fine'], $obj['soglia_ammissione'], $obj['stato'], $obj['tipologia'], $obj['corso_id']);
+                $sessione->setId($obj['id']);
+                $sessioni[]=$sessione;
             }
         }
         return $sessioni;   
@@ -121,7 +133,9 @@ class SessioneModel extends Model {
         $sessioni = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $sessioni[] = new Sessione($obj['id'], $obj['dataInizio'], $obj['data_fine'], $obj['soglia_ammissione'], $obj['stato'], $obj['tipologia'], $obj['corso_id']);
+                $sessione = new Sessione($obj['id'], $obj['data_inizio'], $obj['data_fine'], $obj['soglia_ammissione'], $obj['stato'], $obj['tipologia'], $obj['corso_id']);
+                $sessione->setId($obj['id']);
+                $sessioni[]=$sessione;
             }
         }
         return $sessioni;   

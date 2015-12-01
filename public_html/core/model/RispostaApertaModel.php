@@ -15,7 +15,7 @@ class RispostaApertaModel extends Model {
     public static $READ_RISPOSTA_APERTA = "SELECT * FROM `risposta_aperta` WHERE id = '%d' AND elaborato_sessione_id = '%d' AND elaborato_studente_matricola = '%s'";
     public static $UPDATE_RISPOSTA_APERTA = "UPDATE `risposta_aperta` SET testo = '%s', punteggio = '%f', domanda_aperta_id = '%d', domanda_aperta_argomento_id = '%d', domanda_aperta_argomento_corso_id = '%d' WHERE id = '%d' AND elaborato_sessione_id = '%d' AND elaborato_studente_matricola = '%s'";
     public static $DELETE_RISPOSTA_APERTA = "DELETE FROM `risposta_aperta` WHERE id = '%d' AND elaborato_sessione_id = '%d' AND elaborato_studente_matricola = '%s'";
-    public static $GET_ALL_RISPOSTA_APERTA_ELABORATO = "SELECT * FROM `risposta_aperta` WHERE 'elaborato_sessione_id' = '%d' AND 'elaborato_studente_matricola' = '%s'";
+    public static $GET_ALL_RISPOSTA_APERTA_ELABORATO = "SELECT * FROM `risposta_aperta` WHERE elaborato_sessione_id = '%d' AND elaborato_studente_matricola = '%s'";
     
     /**
      * Inserisce una risposta aperta nel database
@@ -26,6 +26,8 @@ class RispostaApertaModel extends Model {
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
+        }else{
+            return Model::getDB()->insert_id;
         }
     }
     
@@ -41,8 +43,8 @@ class RispostaApertaModel extends Model {
         $query = sprintf(self::$READ_RISPOSTA_APERTA, $id, $$elaboratoSessioneId, $elaboratoStudenteMatricola);
         $res = Model::getDB()->query($query);
         if($obj = $res->fetch_assoc()) {
-            $risposta = new RispostaAperta($obj['id'],$obj['elaborato_sessione_id'],$obj['elaborato_studente_matricola'],$obj['testo'],
-                    $obj['punteggio'],$obj['domanda_aperta_id'],$obj['domanda_aperta_argomento_id'],$obj['domanda_aperta_argomento_corso_id']);
+            $risposta = new RispostaAperta($obj['elaborato_sessione_id'],$obj['elaborato_studente_matricola'],$obj['testo'],$obj['punteggio'],$obj['domanda_aperta_id'],$obj['domanda_aperta_argomento_id'],$obj['domanda_aperta_argomento_corso_id']);
+            $risposta->setId($obj['id']);
             return $risposta;
         }
         else{
@@ -91,8 +93,9 @@ class RispostaApertaModel extends Model {
         $risposte = array();
         if($res){
             while($obj=$res->fetch_assoc()) {
-                $risposte[] = new RispostaAperta($obj['id'],$obj['elaborato_sessione_id'],$obj['elaborato_studente_matricola'],$obj['testo'],
-                    $obj['punteggio'],$obj['domanda_aperta_id'],$obj['domanda_aperta_argomento_id'],$obj['domanda_aperta_argomento_corso_id']);
+                $risposta = new RispostaAperta($obj['elaborato_sessione_id'],$obj['elaborato_studente_matricola'],$obj['testo'],$obj['punteggio'],$obj['domanda_aperta_id'],$obj['domanda_aperta_argomento_id'],$obj['domanda_aperta_argomento_corso_id']);
+                $risposta->setId($obj['id']);
+                $risposte[] = $risposta;
             }  
         }
         return $risposte;

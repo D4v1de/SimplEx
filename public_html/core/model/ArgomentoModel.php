@@ -29,7 +29,10 @@ class ArgomentoModel extends Model {
         if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
         }else{
-            return Model::getDB()->insert_id;
+            $id = Model::getDB()->insert_id;
+            return $id;
+
+
         }
     }
 
@@ -73,7 +76,8 @@ class ArgomentoModel extends Model {
         $query = sprintf(self::$READ_ARGOMENTO, $id, $corsoId);
         $res = Model::getDB()->query($query);
         if ($obj = $res->fetch_assoc()) {
-            $argomento = new Argomento($obj['id'], $obj['corso_id'], $obj['nome']);
+            $argomento = new Argomento( $obj['corso_id'], $obj['nome']);
+            $argomento->setId($obj['id']);
             return $argomento;
         } else {
             throw new ApplicationException(Error::$ARGOMENTO_NON_TROVATO);
@@ -87,13 +91,15 @@ class ArgomentoModel extends Model {
      */
     public function getAllArgomento() {
         $res = Model::getDB()->query(self::$GET_ALL_ARGOMENTO);
-        $argomento = array();
+        $argomenti = array();
         if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $argomento[] = new Argomento($obj['id'], $obj['corso_id'], $obj['nome']);
+                $argomento = new Argomento( $obj['corso_id'], $obj['nome']);
+                $argomento->setId($obj['id']);
+                $argomenti[] = $argomento;
             }
         }
-        return $argomento;
+        return $argomenti;
     }
 
     /**
@@ -105,13 +111,14 @@ class ArgomentoModel extends Model {
     public function getAllArgomentoCorso($corso_id) {
         $query = sprintf(self::$GET_ALL_ARGOMENTI_BY_CORSO, $corso_id);
         $res = Model::getDB()->query($query);
-        $argomento = array();
+        $argomenti = array();
         if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $argomento[] = new Argomento($obj['id'], $obj['corso_id'], $obj['nome']);
-            }
+                $argomento = new Argomento( $obj['corso_id'], $obj['nome']);
+                $argomento->setId($obj['id']);
+                $argomenti[] = $argomento;            }
         }
-        return $argomento;
+        return $argomenti;
     }
 
 }

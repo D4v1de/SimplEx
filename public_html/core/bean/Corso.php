@@ -14,14 +14,12 @@ class Corso {
 
     /**
      * Costruttore di Corso.
-     * @param int $id L'id del corso
      * @param string $matricola La matricola del corso
      * @param string $nome Il nome del corso
      * @param enum $tipologia La tipologia del corso
      * @param string $cdlMatricola La matricola del CdL a cui il corso appartiene
      */
-    public function __construct($id, $matricola, $nome, $tipologia, $cdlMatricola) {
-        $this->id = $id;
+    public function __construct($matricola, $nome, $tipologia, $cdlMatricola) {
         $this->matricola = $matricola;
         $this->nome = $nome;
         $this->tipologia = $tipologia;

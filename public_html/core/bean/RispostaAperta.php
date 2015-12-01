@@ -17,7 +17,6 @@ class RispostaAperta {
     
     /**
      * Costruttore di Risposta_multipla
-     * @param int $id L'id della risposta aperta
      * @param int $elaboratoSessioneId L'id della sessione a cui appartiene l'elaborato relativo
      * @param string $elaboratoStudenteMatricola La matricola dello studente a cui appartiene l'elaborato 
      * @param string $testo Il testo della risposta aperta
@@ -25,9 +24,8 @@ class RispostaAperta {
      * @param int $domandaApertaArgomentoId L'id dell'argomento della domanda aperta
      * @param int $domandaApertaArgomentoCorsoId L'id del corso a cui appartiene l'argomento relativo alla domanda aperta
      */
-    public function __construct($id, $elaboratoSessioneId, $elaboratoStudenteMatricola, $testo, $punteggio, $domandaApertaId, 
+    public function __construct($elaboratoSessioneId, $elaboratoStudenteMatricola, $testo, $punteggio, $domandaApertaId, 
             $domandaApertaArgomentoId,$domandaApertaArgomentoCorsoId){
-        $this->id=$id;
         $this->elaboratoSessioneId=$elaboratoSessioneId;
         $this->elaboratoStudenteMatricola=$elaboratoStudenteMatricola;
         $this->testo=$testo;

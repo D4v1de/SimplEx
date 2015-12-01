@@ -8,8 +8,14 @@
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "ArgomentoController.php";
+include_once CONTROL_DIR . "CdlController.php";
+include_once CONTROL_DIR . "DomandaController.php";
+
 $controller = new ArgomentoController();
-$corso = $controller->readCorso(20); //QUI DEVE ANDARCI L'ID DEL CORSO DOVE CI TROVIAMO
+$controllerCorso = new CdlController();
+$controllerDomande  = new DomandaController();
+
+$corso = $controllerCorso->readCorso(20); //QUI DEVE ANDARCI L'ID DEL CORSO DOVE CI TROVIAMO
 $num = $controller->getNumArgomenti(); //STUB
 
 ?>

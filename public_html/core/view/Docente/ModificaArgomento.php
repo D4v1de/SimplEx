@@ -9,11 +9,15 @@
 include_once CONTROL_DIR . "ArgomentoController.php";
 include_once CONTROL_DIR . "DomandaController.php";
 include_once CONTROL_DIR . "AlternativaController.php";
+include_once CONTROL_DIR . "CdlController.php";
 
 $controller = new ArgomentoController();
 $controllerDomande = new DomandaController();
 $controllerRisposte = new AlternativaController();
-$corso = $controller->readCorso(21); //qui dentro andrà $_URL[1];
+$controllerCdl = new CdlController();
+$corso = null;
+$argomento = null;
+$corso = $controllerCdl->readCorso(21); //qui dentro andrà $_URL[1];
 $argomento = $controller->readArgomento(10,21); //qui dentro andrà $_URL[?];
 
 ?>
@@ -125,61 +129,7 @@ $argomento = $controller->readArgomento(10,21); //qui dentro andrà $_URL[?];
                         </div>
                     </div>
 
-                    <div class="row">
-                        <!--TOP menu -->
-                        <div class="col-md-offset-3 col-md-3">
-                            <a href="inseriscidomandaaperta" class="btn sm green-jungle">
-                                <i class="fa fa-plus"></i> Nuova Domanda Aperta
-                            </a>
-                        </div>
-                        <div class="col-md-3">
-                            <a href="inseriscidomandamultipla" class="btn sm green-jungle">
-                                <i class="fa fa-plus"></i> Nuova Domanda Multipla
-                            </a>
-                        </div>
-                    </div>
-                    <br>
-                    <!--INIZIO TABELLA DOMANDA1-->
 
-                    <?php
-                    $domandeArgomento = $controllerDomande->getAllMultiple(10,21); //Questo dev'essere automatico
-
-                    foreach($domandeArgomento as $d) {
-                        $risposte = $controllerRisposte->getAllAlternativa($d->getId(), $d->getArgomentoId(),$d->getArgomentoCorsoId());
-
-                        printf("<div class=\"portlet box blue-madison\">");
-                        printf("<div class=\"portlet-title\">");
-                        printf("<div class=\"caption\">");
-                        printf("<i class=\"fa fa-book\"></i>%s", $d->getTesto());
-                        printf("</div>");
-                        printf("<div class=\"tools\">");
-                        printf("<a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a>");
-                        printf("</div>");
-                        printf("<div class=\"actions\">");
-                        printf("<a href=\"javascript:;\" class=\"btn btn-default btn-sm\"><i class=\"fa fa-edit\"></i> Modifica </a>");
-                        printf("<a href=\"javascript:;\" class=\"btn btn-default btn-sm\"><i class=\"fa fa-remove\"></i> Rimuovi </a>");
-                        printf("</div>");
-                        printf("</div>");
-                        printf("<div class=\"portlet-body\">");
-                        printf("<div id=\"tabella_domanda1_wrapper\" class=\"dataTables_wrapper no-footer\">");
-                        printf("<table class=\"table table-striped table-bordered table-hover dataTable no-footer\"id=\"tabella_domanda1\" role=\"grid\" aria-describedby=\"tabella_domanda1_info\">");
-                        printf("<tbody>");
-                        foreach($risposte as $r) {
-                            printf("<tr class=\"gradeX odd\" role=\"row\">");
-                            printf("<td width='30'>");
-                            printf("<input type=\"checkbox\" disabled=\"\" checked=\"\">");
-                            printf("</td>");
-                            printf("<td>%s</td>", $r->getTesto());
-                            printf("</tr>");
-                        }
-                        printf("</tbody>");
-                        printf("</table>");
-                        printf("</div>");
-                        printf("</div>");
-                        printf("</div>");
-                    }
-
-                    ?>
 
                     <!-- END PAGE CONTENT-->
                 </div>

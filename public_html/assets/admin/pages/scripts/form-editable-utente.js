@@ -35,64 +35,6 @@ var FormEditable = function () {
         $('#console').val(s.join('\n') + $('#console').val());
     }
 
-    var initAjaxMock = function () {
-        //ajax mocks
-
-        $.mockjax({
-            url: '/post',
-            response: function (settings) {
-                log(settings, this);
-            }
-        });
-
-        $.mockjax({
-            url: '/error',
-            status: 400,
-            statusText: 'Bad Request',
-            response: function (settings) {
-                this.responseText = 'Please input correct value';
-                log(settings, this);
-            }
-        });
-
-        $.mockjax({
-            url: '/status',
-            status: 500,
-            response: function (settings) {
-                this.responseText = 'Internal Server Error';
-                log(settings, this);
-            }
-        });
-
-        $.mockjax({
-            url: '/groups',
-            response: function (settings) {
-                this.responseText = [{
-                        value: 0,
-                        text: 'Guest'
-                    }, {
-                        value: 1,
-                        text: 'Service'
-                    }, {
-                        value: 2,
-                        text: 'Customer'
-                    }, {
-                        value: 3,
-                        text: 'Operator'
-                    }, {
-                        value: 4,
-                        text: 'Support'
-                    }, {
-                        value: 5,
-                        text: 'Admin'
-                    }
-                ];
-                log(settings, this);
-            }
-        });
-
-    }
-
     var initEditables = function () {
 
         //set editable mode based on URL parameter
@@ -107,52 +49,29 @@ var FormEditable = function () {
 
         //global settings 
         $.fn.editable.defaults.inputclass = 'form-control';
-        $.fn.editable.defaults.url = '/post';
+        $.fn.editable.defaults.url = '/adm/utenti/edit';
 
         //editables element samples 
-        $('#username').editable({
-            url: '/post',
+        $('#name').editable({
             type: 'text',
             pk: 1,
-            name: 'username',
-            title: 'Enter username'
-        });
-
-        $('#firstname').editable({
+            name: 'name',
+            title: 'Inserisci il nome',
             validate: function (value) {
-                if ($.trim(value) == '') return 'This field is required';
+                if ($.trim(value) == '') return 'Questo campo è obbligatorio';
             }
         });
 
-        $('#sex').editable({
-            prepend: "not selected",
-            inputclass: 'form-control',
-            source: [{
-                    value: 1,
-                    text: 'Male'
-                }, {
-                    value: 2,
-                    text: 'Female'
-                }
-            ],
-            display: function (value, sourceData) {
-                var colors = {
-                    "": "gray",
-                    1: "green",
-                    2: "blue"
-                },
-                    elem = $.grep(sourceData, function (o) {
-                        return o.value == value;
-                    });
-
-                if (elem.length) {
-                    $(this).text(elem[0].text).css("color", colors[value]);
-                } else {
-                    $(this).empty();
-                }
+        $('#surname').editable({
+            type: 'text',
+            pk: 1,
+            name: 'surname',
+            title: 'Inserisci il cognome',
+            validate: function (value) {
+                if ($.trim(value) == '') return 'Questo campo è obbligatorio';
             }
         });
-
+        
         $('#status').editable();
 
         $('#group').editable({
