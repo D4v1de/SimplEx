@@ -10,11 +10,11 @@
 include_once CONTROL_DIR . "CdlController.php";
 $controller = new CdlController();
 
+$new = null;
 $cdl = null;
-$corso = null;
 
 try {
-    $corso = $controller->readCdl($_URL[1]);
+    $cdl = $controller->readCdl($_URL[3]);
 }
 catch (ApplicationException $ex) {
     echo "<h1>errore! ApplicationException->errore manca id corso nel path!</h1>";
@@ -22,20 +22,20 @@ catch (ApplicationException $ex) {
     //header('Location: ../visualizzacorso');
 }
 
-$nome = $corso->getNome();
-$tipologia = $corso->getTipologia();
-$matricola = $corso->getMatricola();
+$nome = $cdl->getNome();
+$tipologia = $cdl->getTipologia();
+$matricola = $cdl->getMatricola();
 
 if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricola'])) {
 
-    $nome = $_POST['nome'];
-    $tipologia = $_POST['tipologia'];
-    $matricola = $_POST['matricola'];
+    $nomenew = $_POST['nome'];
+    $tipologianew = $_POST['tipologia'];
+    $matricolanew = $_POST['matricola'];
 
     try {
-        $cdl = new CdL($matricola, $nome, $tipologia);
-        $controller->modificaCdl($_URL[1], $cdl);
-        header('location: ../gestionecdl');
+        $new = new CdL($matricolanew, $nomenew, $tipologianew);
+        $controller->modificaCdl($cdl->getMatricola(), $new);
+        header('location: ../view');
     }
     catch (ApplicationException $ex) {
         echo "<h1>errore! ApplicationException->errore modifica Cdl!</h1>";
@@ -83,11 +83,11 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../gestionecdl">GestioneCdL</a>
+                        <a href="../view">GestioneCdL</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../modificacdl/<?php echo $matricola; ?>">CdL<?php echo $nome; ?></a>
+                        <a href="../modifica/<?php echo $matricola; ?>">CdL<?php echo $nome; ?></a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>

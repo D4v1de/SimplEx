@@ -28,10 +28,10 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     } else {
 
         try {
-            $corso = new Corso($id, $matricola, $nome, $tipologia, $cdlMatricola);
+            $corso = new Corso(null ,$matricola, $nome, $tipologia, $cdlMatricola);
             $controller->creaCorso($corso);
 
-            header('location: ../gestionecorsi');
+            header('location: view');
         }
         catch (ApplicationException $ex) {
             echo "<h1>errore! ApplicationException->errore creazione corso</h1>";
@@ -80,11 +80,11 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="gestionecorsi">GestioneCorsi</a>
+                        <a href="view">GestioneCorsi</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="creacorso">CreaCorso</a>
+                        <a href="crea">CreaCorso</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
@@ -97,7 +97,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                 <div class="col-md-12">
                     <!-- BEGIN EXAMPLE TABLE PORTLET-->
 
-                    <form method="post" action="creacorso">
+                    <form method="post" action="">
 
                         <div class="portlet box blue-madison">
                             <div class="portlet-title">
