@@ -104,9 +104,65 @@ try {
                                         Nome
                                     </td>
                                     <td style="width:50%">
-                                        <a href="javascript:;" id="username" data-type="text" data-pk="1"
-                                           data-original-title="Enter username" class="editable editable-click">
-                                            superuser </a>
+                                        <a href="javascript:;" id="name" data-type="text" data-pk="1"
+                                           data-original-title="Nome utente" class="editable editable-click">
+                                            <?= $user->getNome() ?>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:15%">
+                                        Cognome
+                                    </td>
+                                    <td style="width:50%">
+                                        <a href="javascript:;" id="surname" data-type="text" data-pk="1"
+                                           data-original-title="Cognome utente" class="editable editable-click">
+                                            <?= $user->getCognome() ?>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:15%">
+                                        Matricola
+                                    </td>
+                                    <td style="width:50%">
+                                        <a href="javascript:;" id="matricola" data-type="text" data-pk="1"
+                                           data-original-title="Matricola" class="editable editable-click">
+                                            <?= $user->getMatricola() ?>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:15%">
+                                        E-mail
+                                    </td>
+                                    <td style="width:50%">
+                                        <a href="javascript:;" id="email" data-type="text" data-pk="1"
+                                           data-original-title="Email" class="editable editable-click">
+                                            <?= $user->getUsername() ?>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:15%">
+                                        Tipo utente
+                                    </td>
+                                    <td style="width:50%">
+                                        <a href="javascript:;" id="tipo" data-type="select" data-pk="1" data-value="0"
+                                           data-source="/adm/utenti/groups" data-original-title="Select group"
+                                           class="editable editable-click">
+                                            <?= $user->getTipologia() ?> </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:15%">
+                                       Corso di laurea
+                                    </td>
+                                    <td style="width:50%">
+                                        <a href="javascript:;" id="cdl" data-type="select2" data-pk="1"
+                                           data-value="<?= $cdl->getNome() ?>"
+                                           data-original-title="Seleziona CdL"
+                                           class="editable editable-click">Bahamas</a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -161,7 +217,7 @@ try {
         src="/assets/global/plugins/bootstrap-editable/inputs-ext/wysihtml5/wysihtml5.js"></script>
 <!-- END XEDITABLE -->
 
-<script src="/assets/admin/pages/scripts/form-editable.js"></script>
+<script src="/assets/admin/pages/scripts/form-editable-utente.js"></script>
 
 
 <script>
