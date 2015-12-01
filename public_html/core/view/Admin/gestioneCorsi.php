@@ -10,16 +10,30 @@
 include_once CONTROL_DIR . "CdlController.php";
 $controller = new CdlController();
 
+$corsi = Array();
+
+try {
+    $corsi = $controller->getCorsi();
+}
+catch (ApplicationException $ex) {
+    echo "<h1>errore! ApplicationException->non ci sono Corsi nel db!</h1>";
+    echo "<h4>".$ex."</h4>";
+    //header('Location: ../visualizzacorso');
+}
+
 if (isset($_POST['checkbox'])) {
+    $checkbox = Array();
     $checkbox = $_POST['checkbox'];
-    if (count($checkbox) == 1) {
-        $controller->eliminaCorso($checkbox[0]);
-    } else if (count($checkbox) > 1) {
+    if (count($checkbox) >= 1) {
         foreach ($checkbox as $c) {
-            $controller->eliminaCorso($c);
+            try {
+                $controller->eliminaCorso($c);
+            } catch (ApplicationException $ex) {
+                echo "<h1>errore! ApplicationException->il corso non è stato eliminato!</h1>";
+                echo "<h4>" . $ex . "</h4>";
+                //header('Location: ../visualizzacorso');
+            }
         }
-    } else if (count($checkbox) < 1) {
-        echo "errore nessun elemento da eliminare!";
     }
 }
 
@@ -38,7 +52,8 @@ if (isset($_POST['checkbox'])) {
     <title>Gestione Corsi</title>
     <?php include VIEW_DIR . "header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
-    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css"
+          href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -131,21 +146,14 @@ if (isset($_POST['checkbox'])) {
                                     </thead>
                                     <tbody>
                                     <?php
-                                    $array = Array();
-                                    $array = $controller->getCorsi();
-                                    if ($array == null) {
-                                        echo "l'array è null";
-                                    }
-                                    else {
-                                        foreach ($array as $c) {
-                                            printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                            printf("<td><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $c->getId());
-                                            printf("<td class=\"sorting_1\">%s</td>", $c->getMatricola());
-                                            printf("<td class=\"sorting_1\"><a href=\"modificacorso/%s\">%s</a></td>", $c->getId(), $c->getNome());
-                                            printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
-                                            printf("<td>%s</td>", $c->getCdlMatricola());
-                                            printf("</tr>");
-                                        }
+                                    foreach ($corsi as $c) {
+                                        printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                        printf("<td><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $c->getId());
+                                        printf("<td class=\"sorting_1\">%s</td>", $c->getMatricola());
+                                        printf("<td class=\"sorting_1\"><a href=\"modificacorso/%s\">%s</a></td>", $c->getId(), $c->getNome());
+                                        printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
+                                        printf("<td>%s</td>", $c->getCdlMatricola());
+                                        printf("</tr>");
                                     }
                                     ?>
                                     </tbody>

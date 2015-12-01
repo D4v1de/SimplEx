@@ -16,7 +16,7 @@ $corso = $controller->readCorso($_URL[1]);
 $cdl = $controller->readCdl($corso->getCdlMatricola());
 $matricolaStudente = "0512109993";
 
-$sessioni = $sessioneController->getAllSessioniByStudente($matricolaStudente);
+$sessioni = $sessioneController->getAllSessioni();
 
 $docenteassociato = Array();
 $docenteassociato = $controller->getDocenteAssociato($corso->getId());
@@ -100,19 +100,19 @@ $docenteassociato = $controller->getDocenteAssociato($corso->getId());
                                             <td>
                                                 <h5>&nbsp;Matricola: <?php echo $corso->getMatricola(); ?></h5>
                                                 <h5>&nbsp;Tipologia: <?php echo $corso->getTipologia(); ?></h5>
-                                            
-                                    <?php
-                                    if (count($docenteassociato) == 1) {
-                                        printf('<h5>&nbsp;Docente: %s %s</h5>', $docenteassociato[0]->getNome(), $docenteassociato[0]->getCognome());
-                                    } else if (count($docenteassociato) > 1) {
-                                        foreach ($docenteassociato as $d) {
-                                            printf('<h5>&nbsp;Docente: %s %s</h5>', $d->getNome(), $d->getCognome());
-                                        }
-                                    } else if (count($docenteassociato) < 1) {
-                                        printf('<h5>Questo corso non ha docenti Associati!</h5>');
-                                    }
-                                    echo '</td></tr></table>';
-                                    ?>
+
+                                                <?php
+                                                if (count($docenteassociato) == 1) {
+                                                    printf('<h5>&nbsp;Docente: %s %s</h5>', $docenteassociato[0]->getNome(), $docenteassociato[0]->getCognome());
+                                                } else if (count($docenteassociato) > 1) {
+                                                    foreach ($docenteassociato as $d) {
+                                                        printf('<h5>&nbsp;Docente: %s %s</h5>', $d->getNome(), $d->getCognome());
+                                                    }
+                                                } else if (count($docenteassociato) < 1) {
+                                                    printf('<h5>Questo corso non ha docenti Associati!</h5>');
+                                                }
+                                                echo '</td></tr></table>';
+                                                ?>
                                 </div>
                             </div>
                         </form>

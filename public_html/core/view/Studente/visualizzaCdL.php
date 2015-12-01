@@ -10,6 +10,15 @@
 include_once CONTROL_DIR . "CdlController.php";
 $controller = new CdlController();
 
+$cdls = Array();
+
+try {
+    $cdls = $controller->getCdl();
+} catch (ApplicationException $ex) {
+    echo "<h1>errore! ApplicationException->non ci sono CdL</h1>";
+    echo "<h4>" . $ex . "</h4>";
+    //header('Location: ../visualizzacorso');
+}
 
 ?>
 <!DOCTYPE html>
@@ -100,18 +109,12 @@ $controller = new CdlController();
                                 </thead>
                                 <tbody>
                                 <?php
-                                $array = Array();
-                                $array = $controller->getCdl();
-                                if ($array == null) {
-                                    echo "l'array è null";
-                                } else {
-                                    foreach ($array as $c) {
-                                        printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                        printf("<td><a href=\"../visualizzacorsi/%s\">%s</a></td>", $c->getMatricola(), $c->getNome());
-                                        printf("<td>%s</td>", $c->getMatricola());
-                                        printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
-                                        printf("</tr>");
-                                    }
+                                foreach ($cdls as $c) {
+                                    printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                    printf("<td><a href=\"../visualizzacorsi/%s\">%s</a></td>", $c->getMatricola(), $c->getNome());
+                                    printf("<td>%s</td>", $c->getMatricola());
+                                    printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
+                                    printf("</tr>");
                                 }
                                 ?>
                                 </tbody>
