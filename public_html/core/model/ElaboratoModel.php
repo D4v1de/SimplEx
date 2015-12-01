@@ -11,7 +11,7 @@ include_once BEAN_DIR . "Elaborato.php";
 
 class ElaboratoModel extends Model {
     
-    public static $CREATE_ELABORATO = "INSERT INTO `elaborato` (studente_matricola, sessione_id, esito_finale, esito_parziale, test_id) VALUES ('%s',%d','%f','%f','%d')";
+    public static $CREATE_ELABORATO = "INSERT INTO `elaborato` (studente_matricola, sessione_id, esito_finale, esito_parziale, test_id) VALUES ('%s','%d','%f','%f','%d')";
     public static $READ_ELABORATO = "SELECT * FROM `elaborato` WHERE studente_matricola = '%s' AND sessione_id = '%d'";
     public static $UPDATE_ELABORATO ="UPDATE `elaborato` SET test_id = '%d', esito_parziale = '%f', esito_finale = '%f' WHERE studente_matricola = '%s' AND sessione_id = '%d'";
     public static $DELETE_ELABORATO ="DELETE FROM `elaborato` WHERE studente_matricola = '%s' AND sessione_id = '%d'";
