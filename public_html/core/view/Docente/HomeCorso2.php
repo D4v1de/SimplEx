@@ -33,7 +33,7 @@ $docenteassociato = $controllerArgomento->getDocenteAssociato($corso->getId());
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>Nome Corso</title>
+    <title><?php echo $corso->getNome(); ?></title>
     <?php include VIEW_DIR . "header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
     <link rel="stylesheet" type="text/css"
@@ -52,11 +52,6 @@ $docenteassociato = $controllerArgomento->getDocenteAssociato($corso->getId());
     <div class="page-content-wrapper">
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
-            <h3 class="page-title">
-                <?php
-                echo $corso->getNome();
-                ?>
-            </h3>
 
             <div class="page-bar">
                 <ul class="page-breadcrumb">
@@ -408,7 +403,6 @@ $docenteassociato = $controllerArgomento->getDocenteAssociato($corso->getId());
 
                             <?php
                             $argomenti = $controllerArgomento->getArgomenti(21);
-                            print_r($argomenti);
 
                             if($argomenti==null){
                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
@@ -425,7 +419,7 @@ $docenteassociato = $controllerArgomento->getDocenteAssociato($corso->getId());
                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
                                 printf("<td>%s</td>", $a->getNome());
                                 printf("<td>");
-                                printf("<a href=\"modificaargomento\" class=\"btn btn-sm blue-madison\">");
+                                printf("<a href=\"modificaargomento\" class=\"btn btn-sm blue-madison\">"); //DEVE ESSERE DINAMICO
                                 printf("<i class=\"fa fa-edit\"></i>");
                                 printf("</a>");
                                 printf("<a href=\"javascript:;\" class=\"btn btn-sm red-intense\">");
