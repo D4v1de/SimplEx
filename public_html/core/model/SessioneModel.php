@@ -16,6 +16,7 @@ class SessioneModel extends Model {
     private static $READ_SESSIONE = "SELECT * FROM `sessione` WHERE id = '%d'";
     private static $GET_ALL_SESSIONI = "SELECT * FROM `sessione`";
     private static $GET_ALL_SESSIONI_STUDENTE = "SELECT s.* FROM `abilitazione` as a, `sessione` as s WHERE a.studente_matricola = '%s' AND a.sessione_id = s.id"; 
+    private static $GET_ALL_SESSIONI_CORSO = "SELECT * FROM `sessione` WHERE corso_id = '%d'";
     
     /**
      * Inserisce una nuova sessione nel database
@@ -99,6 +100,23 @@ class SessioneModel extends Model {
      */
      public function getAllSessioniByStudente($matricola) {
         $query = sprintf(self::$GET_ALL_SESSIONI_STUDENTE, $matricola);
+        $res = Model::getDB()->query($query);
+        $sessioni = array();
+        if($res){
+            while ($obj = $res->fetch_assoc()) {
+                $sessioni[] = new Sessione($obj['id'], $obj['dataInizio'], $obj['data_fine'], $obj['soglia_ammissione'], $obj['stato'], $obj['tipologia'], $obj['corso_id']);
+            }
+        }
+        return $sessioni;   
+    } 
+    
+    /**
+     * Restituisce tutte le sessioni di un corso
+     * @param int $idCorso L'id del corso per il quale si vogliono conoscere le sessioni a cui è abilitato
+     * @return Sessione[] Tutte le sessioni di un corso
+     */
+     public function getAllSessioniByCorso($idCorso) {
+        $query = sprintf(self::$GET_ALL_SESSIONI_CORSO, $idCorso);
         $res = Model::getDB()->query($query);
         $sessioni = array();
         if($res){
