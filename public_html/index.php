@@ -74,6 +74,9 @@ if (!defined("TESTING")) {
                         case 'view':
                             include_once VIEW_DIR . "Admin/visualizzaUtente.php";
                             break;
+                        case 'groups':
+                            include_once VIEW_DIR . "Admin/Groups.php";
+                            break;
                         default:
                             include_once VIEW_DIR . "Admin/home.php";
                     }
