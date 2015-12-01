@@ -30,7 +30,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
             $cdl = new CdL($matricola, $nome, $tipologia);
             $controller->creaCdl($cdl);
 
-            header('location: ../gestionecdl');
+            header('location: view');
         }
         catch (ApplicationException $ex) {
             echo "<h1>errore! ApplicationException->errore creazione cdl</h1>";
@@ -55,8 +55,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     <title>Crea CdL</title>
     <?php include VIEW_DIR . "header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
-    <link rel="stylesheet" type="text/css"
-          href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -83,11 +82,11 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="gestionecdl">GestioneCdL</a>
+                        <a href="view">GestioneCdL</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="creacdl">CreaCdL</a>
+                        <a href="crea">CreaCdL</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
@@ -100,7 +99,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                 <div class="col-md-12">
                     <!-- BEGIN EXAMPLE TABLE PORTLET-->
 
-                    <form method="post" action="creacdl">
+                    <form method="post" action="">
 
                         <div class="portlet box blue-madison">
                             <div class="portlet-title">
