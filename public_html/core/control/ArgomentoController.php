@@ -59,6 +59,7 @@ class ArgomentoController extends Controller {
      *
      * NB. NECESSARIO CHE VENGA IMPLEMENTATA LA HOME DEL DOCENTE
      */
+
     public function getDocenteAssociato($corsoID) {
         $accountModel = new AccountModel();
         return $accountModel->getAllDocentiByCorso($corsoID);
@@ -86,6 +87,11 @@ class ArgomentoController extends Controller {
     public function modificaArgomento($id, $corsoId, $updatedArgomento){
         $argomentoModel = new ArgomentoModel();
         return $argomentoModel->updateArgomento($id, $corsoId, $updatedArgomento);
+    }
+
+    public function rimuoviArgomento($id, $corsoId){
+        $argomentoModel = new ArgomentoModel();
+        return $argomentoModel->updateArgomento($id, $corsoId);
     }
 
 

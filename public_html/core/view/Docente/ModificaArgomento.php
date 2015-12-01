@@ -9,11 +9,15 @@
 include_once CONTROL_DIR . "ArgomentoController.php";
 include_once CONTROL_DIR . "DomandaController.php";
 include_once CONTROL_DIR . "AlternativaController.php";
+include_once CONTROL_DIR . "CdlController.php";
 
 $controller = new ArgomentoController();
 $controllerDomande = new DomandaController();
 $controllerRisposte = new AlternativaController();
-$corso = $controller->readCorso(21); //qui dentro andrà $_URL[1];
+$controllerCdl = new CdlController();
+$corso = null;
+$argomento = null;
+$corso = $controllerCdl->readCorso(21); //qui dentro andrà $_URL[1];
 $argomento = $controller->readArgomento(10,21); //qui dentro andrà $_URL[?];
 
 ?>
@@ -139,6 +143,7 @@ $argomento = $controller->readArgomento(10,21); //qui dentro andrà $_URL[?];
                         </div>
                     </div>
                     <br>
+
                     <!--INIZIO TABELLA DOMANDA1-->
 
                     <?php

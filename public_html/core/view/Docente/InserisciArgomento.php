@@ -8,6 +8,13 @@
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "ArgomentoController.php";
 $controller = new ArgomentoController();
+
+
+if(isset($_POST['nomeargomento'])){
+    $nome = $_POST['nomeargomento'];
+    $argomento = new Argomento(,$nome, 21); //al posto di 21, ci va $_URL[?]
+    $controller->creaArgomento($argomento);
+}
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -76,7 +83,7 @@ $controller = new ArgomentoController();
                         </div>
                         <div class="portlet-body form">
                             <!-- BEGIN FORM-->
-                            <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="POST" class="form-horizontal form-bordered">
+                            <form action="inserisciargomento" method="POST" class="form-horizontal form-bordered">
                                 <div class="form-body">
                                     <div class="form-group form-md-line-input has-success" style="height: 90px">
                                         <label class="control-label col-md-3">Inserisci Titolo</label>
@@ -93,7 +100,6 @@ $controller = new ArgomentoController();
                                             <div class="row">
                                                 <div class="col-md-9">
                                                     <input type="submit" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
-
                                                     </input>
                                                     <a href="javascript:;" class="btn sm red-intense">
                                                         Annulla
@@ -105,13 +111,7 @@ $controller = new ArgomentoController();
                                 </div>
                             </form>
 
-                            <?php
-                            if(isset($_POST['nomeargomento'])){
-                                $nome = $_POST['nomeargomento'];
-                                $argomento = new Argomento('', $nome, 21); //al posto di 21, ci va $_URL[?]
-                                $controller->creaArgomento($argomento);
-                            }
-                            ?>
+
                             <!-- END FORM-->
                         </div>
                     </div>

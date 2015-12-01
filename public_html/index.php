@@ -14,12 +14,14 @@ define('MODEL_DIR', CORE_DIR . "model" . DIRECTORY_SEPARATOR);
 define('CONTROL_DIR', CORE_DIR . "control" . DIRECTORY_SEPARATOR);
 define('BEAN_DIR', CORE_DIR . "bean" . DIRECTORY_SEPARATOR);
 define('UTILS_DIR', CORE_DIR . "utils" . DIRECTORY_SEPARATOR);
+
 /*
  * URL Parsing, in pratica qualsiasi richiesta al sito arriva a questo file,
  * e quindi possiamo ricavare la richiesta da $_SERVER['SCRIPT_NAME']
  *
  * Successivamente rimuovo tutto ciò che non dovrebbe stare nella richiesta e faccio split
- * */
+ *
+ */
 $_URL = preg_replace("/^(.*?)index.php$/", "$1", $_SERVER['SCRIPT_NAME']);
 $_URL = preg_replace("/^" . preg_quote($_URL, "/") . "/", "", urldecode($_SERVER['REQUEST_URI']));
 $_URL = preg_replace("/(\/?)(\?.*)?$/", "", $_URL);

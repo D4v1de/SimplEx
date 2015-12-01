@@ -8,17 +8,29 @@
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "SessioneController.php";
-$controller = new SessioneController();
-
 include_once CONTROL_DIR . "ControllerTest.php";
-$controllerTest = new ControllerTest();
-
 include_once CONTROL_DIR . "ArgomentoController.php";
-$controllerArgomento = new ArgomentoController();
+include_once CONTROL_DIR . "CdlController.php";
 
-$corso = $controllerArgomento->readCorso(21); //qui dentro andrà $_URL[1];
+$controller = new SessioneController();
+$controllerTest = new ControllerTest();
+$controllerArgomento = new ArgomentoController();
+$controllerCorso = new CdlController();
+
+$corso = $controllerCorso->readCorso(21); //qui dentro andrà $_URL[1];
 
 $docenteassociato = $controllerArgomento->getDocenteAssociato($corso->getId());
+
+
+
+if(isset($_POST['id']) && isset($_POST['idcorso'])){
+    $id = $_POST['id'];
+    $idcorso = $_POST['idcorso'];
+
+    echo "sei uno stronzo!";
+
+    $controllerArgomento->rimuoviArgomento($id, $idcorso);
+}
 
 
 ?>
@@ -365,6 +377,7 @@ $docenteassociato = $controllerArgomento->getDocenteAssociato($corso->getId());
             </div>
 
 
+        <form action="homecorsodocente" method="post">
             <div class="portlet box blue-madison">
                 <div class="portlet-title">
                     <div class="caption">
@@ -419,12 +432,12 @@ $docenteassociato = $controllerArgomento->getDocenteAssociato($corso->getId());
                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
                                 printf("<td>%s</td>", $a->getNome());
                                 printf("<td>");
-                                printf("<a href=\"modificaargomento\" class=\"btn btn-sm blue-madison\">"); //DEVE ESSERE DINAMICO
+                                printf("<a href=\"modificaargomento/%d\" class=\"btn btn-sm blue-madison\">",$a->getId()); //DEVE ESSERE DINAMICO
                                 printf("<i class=\"fa fa-edit\"></i>");
                                 printf("</a>");
-                                printf("<a href=\"javascript:;\" class=\"btn btn-sm red-intense\">");
-                                printf("<i class=\"fa fa-trash-o\"></i>");
-                                printf("</a>");
+                                printf("<input type='hidden' name='id' value='%d' />", $a->getId());
+                                printf("<input type='hidden' name='idcorso' value='%d' />", $a->getCorsoId());
+                                printf("<button type='submit' value='' class='btn btn-sm red-intense'><i class=\"fa fa-trash-o\"></i></button>");
                                 printf("</td>");
                                 printf("</tr>");
                             }
@@ -438,6 +451,7 @@ $docenteassociato = $controllerArgomento->getDocenteAssociato($corso->getId());
                     </div>
                 </div>
             </div>
+            </form>
 
 
 
