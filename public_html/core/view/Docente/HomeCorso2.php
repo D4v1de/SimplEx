@@ -20,10 +20,10 @@ $controllerCorso = new CdlController();
 $identidicativoCorso = $_URL[4];
 
 
-$corso = $controllerCorso->readCorso(21); //qui dentro andrà $_URL[4];
+$corso = null;
 
 try {
-    $corso = $controllerCorso->readCorso($_URL[3]);
+    $corso = $controllerCorso->readCorso($_URL[4]);
 }catch(ApplicationException $exception){
     echo "ERRORE IN READ CORSO " . $exception;
 }
@@ -35,7 +35,7 @@ $idsSessione = $controllerSessione->getAllSessioniByCorso($identidicativoCorso);
 if(isset($_POST['IdSes'])){
         $idSes = $_POST['IdSes'];
         $controllerSessione->deleteSessione($idSes);
-        header("Refresh:0");
+       // header("Refresh:0");
 }
 else echo "non settato niente";
 

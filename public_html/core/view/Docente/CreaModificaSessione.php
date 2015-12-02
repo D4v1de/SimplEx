@@ -10,7 +10,7 @@
 include_once CONTROL_DIR . "SessioneController.php";
 
 $controller = new SessioneController();
-$idCorso = $_URL[1];
+$idCorso = $_URL[3];
 
 if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo']) ) {
     $dataFrom = $_POST['dataFrom'];
@@ -18,7 +18,7 @@ if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo'
     $tipoSessione = $_POST['radio1'];
     $sogliAmm= 18;                             //dove la prendo?
     $stato='Non Eseguita';                     //dove la prendo?
-    if (isset($_POST['tests'])) {   //aggiungere studenti
+    if (isset($_POST['tests']) && isset($_POST['students'])) {   //aggiungere studenti
         $cbTest = Array();
         $cbTest = $_POST['tests'];
 
@@ -247,54 +247,27 @@ if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo'
                             </tr>
                             </thead>
                             <tbody>
-
-                            <tr class="gradeX odd" role="row">
-                                <td>
-                                    <input name="tests[]" type="checkbox" class="checkboxes" value="1">
-                                </td>
-                                <td class="sorting_1">
-                                    Test 1
-                                </td>
-                                <td>
-                                    10/11/2015
-                                </td>
-                                <td>10</td>
-                                <td>2</td>
-                                <td>60</td>
-                                <td>0%</td>
-                                <td>0%</td>
-
-                            </tr><tr class="gradeX even" role="row">
-                                <td>
-                                    <input name="tests[]" type="checkbox" class="checkboxes" value="2">
-                                </td>
-                                <td class="sorting_1">
-                                    Test 2
-                                </td>
-                                <td>
-                                    15/2/2016
-                                </td>
-                                <td>10</td>
-                                <td>0</td>
-                                <td>60</td>
-                                <td>10%</td>
-                                <td>70%</td>
-                            </tr><tr class="gradeX odd" role="row">
-                                <td>
-                                    <input name="tests[]" type="checkbox" class="checkboxes" value="3">
-                                </td>
-                                <td class="sorting_1">
-                                    Test 3
-                                </td>
-                                <td>
-                                    16/11/2015
-                                </td>
-                                <td>0</td>
-                                <td>10</td>
-                                <td>60</td>
-                                <td>5%</td>
-                                <td>15%</td>
-                            </tr>
+                            <?php
+                            $array = Array();
+                            $array = $controller->getAllTestByCorso($idCorso);
+                            if ($array == null) {
+                                echo "l'array è null"." ".$idCorso;
+                            }
+                            else {
+                                foreach ($array as $c) {
+                                    printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                    printf("<td><input name=\"tests[]\" type=\"checkbox\" class=\"checkboxes\" value='%d'></td>", $c->getId());
+                                    printf("<td class=\"sorting_1\">%s</td>", $c->getDescrizione());
+                                    printf("<td>\"doveLaPrendo?\"</td>");
+                                    printf("<td>%d</td>", $c->getNumeroMultiple());
+                                    printf("<td>%d</td>", $c->getNumeroAperte());
+                                    printf("<td>%d</td>", $c->getPunteggioMax());
+                                    printf("<td>%d</td>", $c->getPercentualeScelto());
+                                    printf("<td>%d</td>", $c->getPercentualeSuccesso());
+                                    printf("</tr>");
+                                }
+                            }
+                            ?>
                             </tbody>
                         </table>
                     </div>
@@ -365,7 +338,7 @@ if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo'
 
                             <?php
                             $array = Array();
-                            $array = $controller->getAllStudentiByCorso(18); //SERVE L'ID DEL CORSO.....!?..lo prendo dall'URL
+                            $array = $controller->getAllStudentiByCorso($idCorso);
                             if ($array == null) {
                                 echo "l'array è null";
                             }

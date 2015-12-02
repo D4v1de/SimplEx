@@ -12,6 +12,7 @@ include_once MODEL_DIR . "Model.php";
 include_once MODEL_DIR . "AccountModel.php";
 include_once MODEL_DIR . "SessioneModel.php";
 include_once BEAN_DIR . "Sessione.php";
+include_once MODEL_DIR . "TestModel.php";
 
 
 class SessioneController extends Controller {   //UTLIZZARE ALTRO CONTROLLER..NON ALTRO MODEL
@@ -19,12 +20,14 @@ class SessioneController extends Controller {   //UTLIZZARE ALTRO CONTROLLER..NO
 
     private $sessioneModel;
     private $accountModel;
+    private $testModel;
     private $accountController;
     private $testController;
 
     public function __construct() {
         $this->sessioneModel = new SessioneModel();
         $this->accountModel = new AccountModel();
+        $this->testModel = new TestModel();
     }
 
     /**
@@ -95,5 +98,9 @@ class SessioneController extends Controller {   //UTLIZZARE ALTRO CONTROLLER..NO
 
     public function getAllSessioniByStudente($matricola) {
         return $this->sessioneModel->getAllSessioniByStudente($matricola);
+    }
+
+    public function getAllTestByCorso($idCorso) {
+        return $this->testModel->getAllTestByCorso($idCorso);
     }
 }
