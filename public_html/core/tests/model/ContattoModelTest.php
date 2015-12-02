@@ -20,9 +20,8 @@ class ContattoModelTest extends \PHPUnit_Framework_TestCase
     const MATRICOLAUTENTE2 = "0512109999";
     
 
-    public function contattoTest()
+    public function testContatto()
     {
-
         $model = new ContattoModel();
 
         //testo la read
@@ -57,7 +56,7 @@ class ContattoModelTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(self::MATRICOLAUTENTE2, $contattoModificato->getUtenteMatricola());
 
         //elimino il contatto dal db
-        $model->deleteTest($idContatto);
+        $model->deleteContatto($idContatto);
 
         //leggo tutti i contatti e verifico che il contatto sia stato eliminato
         $allContatti = $model->getAllContatti();
