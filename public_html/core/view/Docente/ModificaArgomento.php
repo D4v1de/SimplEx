@@ -25,7 +25,7 @@ if(isset($_POST['nomeargomento'])){
     $nome = $_POST['nomeargomento'];
     $argomento->setNome($nome);
     $controller->modificaArgomento($argomento->getId(),$argomento->getCorsoId(), $argomento);
-    header('location:../../../corso/home');
+    header('location:../../../../corso/'.$corso->getId());
 }
 ?>
 <!DOCTYPE html>

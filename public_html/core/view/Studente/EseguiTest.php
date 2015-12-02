@@ -14,7 +14,7 @@ $domandaController = new DomandaController();
 $testController = new ControllerTest();
 $sessioneController = new SessioneController();
 
-$sessId = $_URL[1];
+$sessId = $_URL[6];
 $sessione = $sessioneController->readSessione($sessId);
 $matricola = "0512102390";
 $studente = $testController->getUtentebyMatricola($matricola);

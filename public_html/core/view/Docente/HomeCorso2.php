@@ -17,40 +17,38 @@ $controllerTest = new ControllerTest();
 $controllerArgomento = new ArgomentoController();
 $controllerCorso = new CdlController();
 
-$identidicativoCorso = $_URL[3];
-
-
 $corso = null;
+$identidicativoCorso = $_URL[3];
+$id = null;
+$idcorso = null;
+$argomenti = Array();
 
 try {
-    $corso = $controllerCorso->readCorso($_URL[3]);
     $corso = $controllerCorso->readCorso($_URL[3]);
 }catch(ApplicationException $exception){
     echo "ERRORE IN READ CORSO " . $exception;
 }
 //$docenteassociato = $controllerArgomento->getDocenteAssociato($corso->getId());
 
+try{
+    $argomenti = $controllerArgomento->getArgomenti($corso->getId());
+}catch(ApplicationException $exception){
+    echo "ERRORE IN READ ARGOMENTO" . $exception;
+}
 
 
 $idsSessione = $controllerSessione->getAllSessioniByCorso($identidicativoCorso);
 if(isset($_POST['IdSes'])){
         $idSes = $_POST['IdSes'];
         $controllerSessione->deleteSessione($idSes);
-       // header("Refresh:0");
-}
-else echo "non settato niente";
-
-
-if(isset($_POST['id'])) {
-
+        header("Refresh:0");
 }
 
-
-if(isset($_POST['id']) && isset($_POST['idcorso'])){
+if(isset($_POST['id'])){
     $id = $_POST['id'];
-    $idcorso = $_POST['idcorso'];
-
+    $idcorso = $corso->getId();
     $controllerArgomento->rimuoviArgomento($id, $idcorso);
+    header("Refresh:0");
 }
 
 
@@ -395,7 +393,7 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
             </div>
 
 
-        <form action="homecorsodocente" method="post">
+        <form action="" method="post">
             <div class="portlet box blue-madison">
                 <div class="portlet-title">
                     <div class="caption">
@@ -406,7 +404,7 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
                         </a>
                     </div>
                     <div class="actions">
-                        <a href="inserisciargomento" class="btn btn-default btn-sm">
+                        <a href="<?php echo $corso->getId(); ?>/argomento/inserisci" class="btn btn-default btn-sm">
                             <i class="fa fa-plus"></i> Aggiungi Argomento </a>
                     </div>
                 </div>
@@ -434,32 +432,16 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
 
                             <?php
 
-                            $argomenti = $controllerArgomento->getArgomenti($corso->getId());
-
-                            if($argomenti==null){
-                                printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                printf("<td>");
-                                printf("NON SONO PRESENTI ARGOMENTI");
-                                printf("</td>");
-                                printf("<td>");
-                                printf("</td>");
-
-
-                            }
-                            else {
                             foreach($argomenti as $a) {
                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                printf("<td>%s</td>", $a->getNome());
+                                printf("<td><a href=\"%d/argomento/domande/%d \">%s</a></td>", $a->getCorsoId() , $a->getId() , $a->getNome());
                                 printf("<td>");
-                                printf("<a href=\"argomento/modifica/%d\" class=\"btn btn-sm blue-madison\">",$a->getId()); //DEVE ESSERE DINAMICO
+                                printf("<a href=\"%d/argomento/modifica/%d\" class=\"btn btn-sm blue-madison\">", $a->getCorsoId(),$a->getId());
                                 printf("<i class=\"fa fa-edit\"></i>");
                                 printf("</a>");
-                                printf("<input type='hidden' name='id' value='%d' />", $a->getId());
-                                printf("<input type='hidden' name='idcorso' value='%d' />", $a->getCorsoId());
-                                printf("<button type='submit' value='' class='btn btn-sm red-intense'><i class=\"fa fa-trash-o\"></i></button>");
+                                printf("<button name='id' type='submit' value='%d' class='btn btn-sm red-intense'><i class=\"fa fa-trash-o\"></i></button>", $a->getId());
                                 printf("</td>");
                                 printf("</tr>");
-                            }
                             }
 
                             ?>
