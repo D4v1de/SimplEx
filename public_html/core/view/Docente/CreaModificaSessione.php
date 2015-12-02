@@ -18,7 +18,7 @@ if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo'
     $tipoSessione = $_POST['radio1'];
     $sogliAmm= 18;                             //dove la prendo?
     $stato='Non Eseguita';                     //dove la prendo?
-    if (isset($_POST['tests']) && isset($_POST['students'])) {   //aggiungere studenti
+    if (isset($_POST['tests'])  && isset($_POST['students'])) {   //aggiungere studenti  && isset($_POST['students']
         $cbTest = Array();
         $cbTest = $_POST['tests'];
 
@@ -345,7 +345,7 @@ if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo'
                             else {
                                 foreach ($array as $c) {
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    printf("<td><input name=\"students[]\" type=\"checkbox\" class=\"checkboxes\" value=\"1\"></td>");
+                                    printf("<td><input name=\"students[]\" type=\"checkbox\" class=\"checkboxes\" value='%s'></td>", $c->getMatricola());
                                     printf("<td class=\"sorting_1\">%s</td>", $c->getNome());
                                     printf("<td>%s</td>", $c->getCognome());
                                     printf("<td>%s</td>", $c->getMatricola());

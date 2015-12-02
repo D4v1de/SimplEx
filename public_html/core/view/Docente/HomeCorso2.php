@@ -17,13 +17,14 @@ $controllerTest = new ControllerTest();
 $controllerArgomento = new ArgomentoController();
 $controllerCorso = new CdlController();
 
-$identidicativoCorso = $_URL[4];
+$identidicativoCorso = $_URL[3];
 
 
 $corso = null;
 
 try {
-    $corso = $controllerCorso->readCorso($_URL[4]);
+    $corso = $controllerCorso->readCorso($_URL[3]);
+    $corso = $controllerCorso->readCorso($_URL[3]);
 }catch(ApplicationException $exception){
     echo "ERRORE IN READ CORSO " . $exception;
 }
