@@ -34,7 +34,7 @@ class ContattoModel extends Model {
     /**
      * Modifica un contatto nel database
      * @param int $id L'id del contatto da modificare
-     * @param Corìntatto $updatedContatto Il contatto modificato da aggiornare nel database
+     * @param Contatto $updatedContatto Il contatto modificato da aggiornare nel database
      * @throws ApplicationException
      */
     public function updateContatto($id,$updatedContatto){
