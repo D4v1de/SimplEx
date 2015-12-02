@@ -17,22 +17,23 @@ $controllerTest = new ControllerTest();
 $controllerArgomento = new ArgomentoController();
 $controllerCorso = new CdlController();
 
-$identidicativoCorso = $_URL[1];
-echo $identidicativoCorso;
-$corso = $controllerCorso->readCorso(21); //qui dentro andrà $_URL[1];
+$identidicativoCorso = $_URL[4];
+
+
+$corso = $controllerCorso->readCorso(21); //qui dentro andrà $_URL[4];
 
 $docenteassociato = $controllerArgomento->getDocenteAssociato($corso->getId());
 
 
-$idsSessione = $controllerSessione->getAllSessioniByCorso($identidicativoCorso);  //array di Sessioni
-if ($idsSessione == null) {
-    echo "non ci sono sessioni";
+
+$idsSessione = $controllerSessione->getAllSessioniByCorso($identidicativoCorso);
+if(isset($_POST['IdSes'])){
+        $idSes = $_POST['IdSes'];
+        $controllerSessione->deleteSessione($idSes);
+        header("Refresh:0");
 }
-foreach ($idsSessione as $i) {
-    if(isset($_POST['$idsSessione->getId()'])){
-        $controllerSessione->deleteSessione($idsSessione->getId());
-    }
-}
+else echo "non settato niente";
+
 
 if(isset($_POST['id'])) {
 
@@ -173,29 +174,25 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
                             <tbody>
                             <?php
                             $array = Array();
-                            $array = $controllerSessione->getAllSessioniByCorso($identidicativoCorso);
+                            $array = $idsSessione;
                             if ($array == null) {
                                 echo "l'array è null";
                             }
                             else {
                                 foreach ($array as $c) {
                                     $sesId=$c->getId();
+
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
 
                                     printf("<td class=\"sorting_1\"><a href=\"visualizzasessione/%s\">%s</a></td>", $c->getId(), "Sessione ".$c->getId());
                                     printf("<td>%s</td>", $c->getDataInizio());
                                     printf("<td>%s</td>", $c->getTipologia());
-                                    printf("<td class=\"center\">
-                                            <a href=\"visualizzaesitisessione\" class=\"btn btn-sm default\">
-                                              Esiti
-                                            </a>
-                                            <a href=\"creamodificasessione\" class=\"btn btn-sm blue-madison\">
-                                                <i class=\"fa fa-edit\"></i>
-                                            </a>
-                                            <input type='submit' name='$sesId' class=\"btn btn-sm red-intense\">
-                                                <i class=\"fa fa-trash-o\"></i>
-                                            </input>
-                                        </td>");
+                                    printf("<td class=\"center\"><a href=\"visualizzaesitisessione\" class=\"btn btn-sm default\">Esiti");
+                                    printf("</a>");
+                                    printf("<a href=\"creamodificasessione\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i>");
+                                    printf("</a>");
+                                    printf("<input type='hidden' name='IdSes' value='%d' class=\"btn btn-sm red-intense\" >", $sesId );
+                                    printf("<button type='submit' value='' class='btn btn-sm red-intense'> <i class=\"fa fa-trash-o\"></i></button></td>");
                                     printf("</tr>");
                                 }
                             }

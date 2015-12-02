@@ -8,15 +8,17 @@
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "SessioneController.php";
+
 $controller = new SessioneController();
 $idCorso = $_URL[1];
+
 if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo']) ) {
     $dataFrom = $_POST['dataFrom'];
     $dataTo = $_POST['dataTo'];
     $tipoSessione = $_POST['radio1'];
     $sogliAmm= 18;                             //dove la prendo?
     $stato='Non Eseguita';                     //dove la prendo?
-    if (isset($_POST['tests'])) {
+    if (isset($_POST['tests'])) {   //aggiungere studenti
         $cbTest = Array();
         $cbTest = $_POST['tests'];
 
@@ -371,9 +373,9 @@ if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo'
                                 foreach ($array as $c) {
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
                                     printf("<td><input name=\"students[]\" type=\"checkbox\" class=\"checkboxes\" value=\"1\"></td>");
-                                    printf("<td class=\"sorting_1\">$s</td>", $s->getNome());
-                                    printf("<td>%s</td>", $s->getCognome());
-                                    printf("<td>%s</td>", $s->getMatricola);
+                                    printf("<td class=\"sorting_1\">%s</td>", $c->getNome());
+                                    printf("<td>%s</td>", $c->getCognome());
+                                    printf("<td>%s</td>", $c->getMatricola());
                                     printf("</tr>");
                                 }
                             }
