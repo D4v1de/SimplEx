@@ -104,7 +104,8 @@ try {
                                         Nome
                                     </td>
                                     <td style="width:50%">
-                                        <a href="javascript:;" id="name" data-type="text" data-pk="1"
+                                        <a href="javascript:;" id="nome" data-type="text"
+                                           data-pk="<?= $user->getMatricola() ?>"
                                            data-original-title="Nome utente" class="editable editable-click">
                                             <?= $user->getNome() ?>
                                         </a>
@@ -115,7 +116,8 @@ try {
                                         Cognome
                                     </td>
                                     <td style="width:50%">
-                                        <a href="javascript:;" id="surname" data-type="text" data-pk="1"
+                                        <a href="javascript:;" id="cognome" data-type="text"
+                                           data-pk="<?= $user->getMatricola() ?>"
                                            data-original-title="Cognome utente" class="editable editable-click">
                                             <?= $user->getCognome() ?>
                                         </a>
@@ -126,7 +128,8 @@ try {
                                         Matricola
                                     </td>
                                     <td style="width:50%">
-                                        <a href="javascript:;" id="matricola" data-type="text" data-pk="1"
+                                        <a href="javascript:;" id="matricola" data-type="text"
+                                           data-pk="<?= $user->getMatricola() ?>"
                                            data-original-title="Matricola" class="editable editable-click">
                                             <?= $user->getMatricola() ?>
                                         </a>
@@ -137,7 +140,8 @@ try {
                                         E-mail
                                     </td>
                                     <td style="width:50%">
-                                        <a href="javascript:;" id="email" data-type="text" data-pk="1"
+                                        <a href="javascript:;" id="username" data-type="text"
+                                           data-pk="<?= $user->getMatricola() ?>"
                                            data-original-title="Email" class="editable editable-click">
                                             <?= $user->getUsername() ?>
                                         </a>
@@ -148,21 +152,24 @@ try {
                                         Tipo utente
                                     </td>
                                     <td style="width:50%">
-                                        <a href="javascript:;" id="tipo" data-type="select" data-pk="1" data-value="0"
-                                           data-source="/adm/utenti/groups" data-original-title="Select group"
+                                        <a href="javascript:;" id="tipologia" data-type="select" data-value="0"
+                                           data-source="/adm/utenti/groups" data-original-title="Selezione tipo utente"
+                                           data-pk="<?= $user->getMatricola() ?>"
                                            class="editable editable-click">
                                             <?= $user->getTipologia() ?> </a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="width:15%">
-                                       Corso di laurea
+                                        Corso di laurea
                                     </td>
                                     <td style="width:50%">
-                                        <a href="javascript:;" id="cdl" data-type="select2" data-pk="1"
-                                           data-value="<?= $cdl->getNome() ?>"
-                                           data-original-title="Seleziona CdL"
-                                           class="editable editable-click">Bahamas</a>
+                                        <a href="javascript:;" id="cdl_matricola" data-type="select"
+                                           data-value="<?= $cdl->getMatricola() ?>"
+                                           data-pk="<?= $user->getMatricola() ?>"
+                                           data-source="/adm/utenti/cdls" data-original-title="Seleziona CdL"
+                                           class="editable editable-click">
+                                            <?= $cdl->getNome() ?> </a>
                                     </td>
                                 </tr>
                                 </tbody>
