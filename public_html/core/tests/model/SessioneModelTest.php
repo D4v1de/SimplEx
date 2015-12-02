@@ -28,14 +28,14 @@ class SessioneModelTest extends \PHPUnit_Framework_TestCase
 
         //testo la read
         $sessione1 = $model->readSessione(self::IDSESSIONE);
-        print_r($sessione1);
+       // print_r($sessione1);
 
         //creo la sessione
         $idSess = $model->createSessione(new Sessione(self::DATAI, self::DATAF, self::SOGLIAAMM, self::STATO, self::TIPOLOGIASESS, self::CORSOID));
 
         //leggo dal db la sessione creata
         $sessione = $model->readSessione($idSess);
-        print_r($sessione);
+       // print_r($sessione);
 
         //confronto se le sessioni sono equivalenti
         $this->assertEquals(self::DATAI, $sessione->getDataInizio());
@@ -65,11 +65,11 @@ class SessioneModelTest extends \PHPUnit_Framework_TestCase
 
         //leggo tutte le sessioni e verifico se la sessione è stata eliminata
         $allSess = $model->getAllSessioni();
-        print_r($allSess);
+       // print_r($allSess);
 
         //leggo tutte le sessioni di uno studente
         $allSbS = $model->getAllSessioniByStudente(self::MATRICOLA);
-        print_r($allSbS);
+      //  print_r($allSbS);
 
         //leggo tutte le sessioni di un corso
         $allSC = $model ->getAllSessioniByCorso(self::CORSOID);

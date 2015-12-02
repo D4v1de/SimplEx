@@ -133,7 +133,7 @@ class SessioneModel extends Model {
         $sessioni = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $sessione = new Sessione($obj['id'], $obj['data_inizio'], $obj['data_fine'], $obj['soglia_ammissione'], $obj['stato'], $obj['tipologia'], $obj['corso_id']);
+                $sessione = new Sessione($obj['data_inizio'], $obj['data_fine'], $obj['soglia_ammissione'], $obj['stato'], $obj['tipologia'], $obj['corso_id']);
                 $sessione->setId($obj['id']);
                 $sessioni[]=$sessione;
             }
