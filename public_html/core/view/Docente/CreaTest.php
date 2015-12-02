@@ -9,6 +9,16 @@
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "Esempio.php";
 $controller = new Esempio();
+include_once CONTROL_DIR . "ArgomentoController.php";
+include_once CONTROL_DIR . "CdlController.php";
+include_once CONTROL_DIR . "DomandaController.php";
+
+$controller = new ArgomentoController();
+$controllerCorso = new CdlController();
+$controllerDomande  = new DomandaController();
+
+$corso = $controllerCorso->readCorso(20); //QUI DEVE ANDARCI L'ID DEL CORSO DOVE CI TROVIAMO
+$num = $controller->getNumArgomenti(); //STUB
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -26,6 +36,16 @@ $controller = new Esempio();
     <link rel="stylesheet" type="text/css"
           href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
     <?php include VIEW_DIR . "header.php"; ?>
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/jquery-nestable/jquery.nestable.css">
+
+    <style type="text/css">
+        div.scroll {
+            height: auto;
+            width: 500px;
+            overflow: auto;
+            padding: 8px;
+        }
+    </style>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -86,16 +106,16 @@ $controller = new Esempio();
                                             <div class="col-md-10">
                                                     <div class="md-radio-inline">
                                                             <div class="md-radio">
-                                                                    <input type="radio" id="radio53" name="radio2" class="md-radiobtn">
-                                                                    <label for="radio53">
+                                                                    <input type="radio" id="man" checked="" onclick="javascript: SetContent();" name="tipologia" class="md-radiobtn">
+                                                                    <label for="man">
                                                                     <span></span>
                                                                     <span class="check"></span>
                                                                     <span class="box"></span>
                                                                     Manuale </label>
                                                             </div>
                                                             <div class="md-radio">
-                                                                    <input type="radio" id="radio54" name="radio2" class="md-radiobtn">
-                                                                    <label for="radio54">
+                                                                    <input type="radio" id="rand" onclick="javascript: SetContent();" name="tipologia" class="md-radiobtn">
+                                                                    <label for="rand">
                                                                     <span></span>
                                                                     <span class="check"></span>
                                                                     <span class="box"></span>
@@ -104,133 +124,104 @@ $controller = new Esempio();
                                                     </div>
                                             </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group form-md-line-input has-success">
-                                            <div class="input-icon">
-                                                <input type="text" class="form-control">
-                                                    <label for="form_control_1">Numero domande a risposta aperta:</label>
-                                                        <span class="help-block">Inserire numero</span>
+                                    <div class="col-md-8" id="scelte_random" style="visibility: hidden" >
+                                        <div class="col-md-6">
+                                            <div class="form-group form-md-line-input has-success">
+                                                <div class="input-icon">
+                                                    <input type="text" class="form-control">
+                                                        <label for="form_control_1">Numero domande a risposta aperta:</label>
+                                                            <span class="help-block">Inserire numero</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group form-md-line-input has-success">
-                                            <div class="input-icon">
-                                                <input type="text" class="form-control">
-                                                    <label for="form_control_1">Numero domande a risposta aperta:</label>
-                                                        <span class="help-block">Inserire numero</span>
+                                        <div class="col-md-6">
+                                            <div class="form-group form-md-line-input has-success">
+                                                <div class="input-icon">
+                                                    <input type="text" class="form-control">
+                                                        <label for="form_control_1">Numero domande a risposta aperta:</label>
+                                                            <span class="help-block">Inserire numero</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                         </div>
                     </div>
-                    <div class="portlet box blue-madison">
-                <div class="portlet-title">
-                    <div class="caption">
-                        <i class="fa fa-book"></i>Argomenti
-                    </div>
-                    <div class="tools">
-                        <a href="javascript:;" class="collapse" data-original-title="" title="">
-                        </a>
-                    </div>
-                    <div class="actions">
-                        <a href="inserisciargomento" class="btn btn-default btn-sm">
-                            <i class="fa fa-plus"></i> Aggiungi Argomento </a>
+                    <div class="row" id="domande">
+                <div class="col-md-6 scroll">
+
+                    <?php
+                    $argomenti = array();
+                    $argomenti = $controller->getArgomenti($corso->getId());
+                    $domandeMultiple = array();
+                    $nargomento = 1;
+                    $ndomanda = 1;
+
+                    if($argomenti == null){echo "NON CI SONO ARGOMENTI";}
+                    foreach($argomenti as $a) {
+                        $domandeMultiple = $controller->getAllDomandaMultipla($a->getId(),$a->getCorsoId());
+                        printf("<div class=\"portlet box blue-madison\">");
+                        printf("<div class=\"portlet-title\">");
+                        printf("<div class=\"caption\">");
+                        printf("<i class=\"fa fa-comments\"></i>%s", $a->getNome());
+                        printf("</div>");
+                        printf("<div class=\"tools\">");
+                        printf("<a href=\"javascript:;\" class=\"expand\" data-original-title=\"\" title=\"\"></a>");
+                        printf("</div>");
+                        printf("</div>");
+                        printf("<div class=\"portlet-body collapse\">");
+                        printf("<div class=\"dd\" id=\"nestable_list_%s\">",$nargomento);
+                        printf("<ol class=\"dd-list\">");
+                        foreach($domandeMultiple as $domanda) {
+                            printf("<li class=\"dd-item\" data-id=\"%s%s\">",$nargomento,$ndomanda); //cambiare id
+                            printf("<div class=\"dd-handle\">%s</div>", $domanda->getTesto()); //CAMBIARE NELLA DOMANDA
+                            printf("</li>");
+                            $ndomanda++;
+                        }
+                        printf("</ol>");
+                        printf("</div>");
+                        printf("</div>");
+                        printf("</div>");
+                        $nargomento++;
+
+                    }
+                    ?>
+
+
+
+
+
+
+
+
+
+
+                </div> <!--chiudi col-md-6-->
+
+                <div class="col-md-6">
+                    <div class="portlet box blue-madison" id="tabellatest">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-pencil"></i>Test
+                            </div>
+                            <div class="tools">
+                                <a href="javascript:;" class="collapse" data-original-title="" title="">
+                                </a>
+
+                            </div>
+                        </div>
+                        <div class="portlet-body ">
+                            <div class="dd" id="nestable_list_0">
+                                <div class="dd-empty">
+                                    <div>
+                                        <h3>Trascina le domande qui...</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="portlet-body">
-                    <div id="tabella_argomenti2_wrapper" class="dataTables_wrapper no-footer">
-                       <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                   id="tabella_argomenti2" role="grid" aria-describedby="tabella_argomenti2_info">
-                                <thead>
-                                        <tr role="row">
-                                            <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                                        " style="width: 24px;">
-                                                <input type="checkbox" class="group-checkable" data-set="#tabella_argomenti2 .checkboxes">
-                                            </th>
-                                            <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
-                                         Username
-                                : activate to sort column ascending" style="width: 119px;">
-                                                Nome
-                                            </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                         Email
-                                " style="width: 210px;">
-                                                Risposte Corrette
-                                            </th>
-                                            <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                         Email
-                                " style="width: 14%;">
-                                                Azioni
-                                            </th>
-                                        </tr>
-                                        
-                                        </thead>
-                                        <tbody>
-                                        <tr class="gradeX odd" role="row">
-                                            <td>
-                                                <input type="checkbox" class="checkboxes" value="1">
-                                            </td>
-                                            <td>
-                                                Argomento 1
-                                            </td>
-                                            <td class="sorting_1">
-                                                34%
-                                            </td>
-                                            <td>
-                                                <a href="modificaargomento" class="btn btn-sm blue-madison">
-                                                     <i class="fa fa-edit"></i>
-                                                </a>
-                                                <a href="javascript:;" class="btn btn-sm red-intense">
-                                                     <i class="fa fa-trash-o"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
 
-
-                                        <tr class="gradeX even" role="row">
-                                            <td>
-                                                <input type="checkbox" class="checkboxes" value="1">
-                                            </td>
-                                            <td>
-                                                Argomento 2
-                                            </td>
-                                            <td class="sorting_1">
-                                                87%
-                                            </td>
-                                            <td>
-                                                <a href="modificaargomento" class="btn btn-sm blue-madison">
-                                                     <i class="fa fa-edit"></i>
-                                                </a>
-                                                <a href="javascript:;" class="btn btn-sm red-intense">
-                                                     <i class="fa fa-trash-o"></i>
-                                                </a>
-                                            </td>                                            
-                                        </tr>
-
-                                        <tr class="gradeX even" role="row">
-                                            <td>
-                                                <input type="checkbox" class="checkboxes" value="1">
-                                            </td>
-                                            <td>
-                                                Argomento 3
-                                            </td>
-                                            <td class="sorting_1">
-                                                60%
-                                            </td>
-                                            <td>
-                                                <a href="modificaargomento" class="btn btn-sm blue-madison">
-                                                     <i class="fa fa-edit"></i>
-                                                </a>
-                                                <a href="javascript:;" class="btn btn-sm red-intense">
-                                                     <i class="fa fa-trash-o"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                            </table>
-                    </div>
-                </div>
             </div>
 
                 <div class="form-actions">
@@ -241,7 +232,7 @@ $controller = new Esempio();
                                     <a href="javascript:;" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                                         Conferma
                                     </a>
-                                    <a href="javascript:;" class="btn sm red-intense">
+                                    <a href="../" class="btn sm red-intense">
                                         Annulla
                                     </a>
                                 </div>
@@ -262,6 +253,7 @@ $controller = new Esempio();
 <?php include VIEW_DIR . "js.php"; ?>
 
 <!--Script specifici per la pagina -->
+<script src="/assets/global/scripts/manuale_random.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
@@ -270,11 +262,12 @@ $controller = new Esempio();
 <script type="text/javascript"
         src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <!-- END PAGE LEVEL PLUGINS aggiunta da me-->
-
-<script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>
-<script src="/assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="/assets/admin/pages/scripts/ui-nestable.js"></script>
+<script src="/assets/global/plugins/jquery-nestable/jquery.nestable.js"></script>
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="/assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
 <!-- BEGIN aggiunta da me -->
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
 <!-- END aggiunta da me -->
@@ -285,6 +278,7 @@ $controller = new Esempio();
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
         TableManaged.init("tabella_argomenti2","tabella_argomenti2_wrapper");
+        UINestable.init(<?php echo $num; ?>);
         //TableManaged.init(3);
     });
 </script>
