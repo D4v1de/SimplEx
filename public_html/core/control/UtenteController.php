@@ -20,7 +20,7 @@ class UtenteController extends Controller {
     /**
      * Restituisce i Docenti associati a un Corso
      * @param id del Corso
-     * @return array con i Docenti associati al corso specificato SSSTTTUUUBBBB ------->
+     * @return array con i Docenti associati al corso specificato 
      */
     public function getDocenteAssociato($corsoID) {
         $accountModel = new AccountModel();
