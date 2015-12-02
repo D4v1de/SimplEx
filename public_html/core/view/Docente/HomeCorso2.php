@@ -22,7 +22,12 @@ $identidicativoCorso = $_URL[4];
 
 $corso = $controllerCorso->readCorso(21); //qui dentro andrà $_URL[4];
 
-$docenteassociato = $controllerArgomento->getDocenteAssociato($corso->getId());
+try {
+    $corso = $controllerCorso->readCorso($_URL[3]);
+}catch(ApplicationException $exception){
+    echo "ERRORE IN READ CORSO " . $exception;
+}
+//$docenteassociato = $controllerArgomento->getDocenteAssociato($corso->getId());
 
 
 
@@ -46,8 +51,6 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
 
     $controllerArgomento->rimuoviArgomento($id, $idcorso);
 }
-
-
 
 
 ?>
@@ -108,7 +111,8 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
                                     <h3><?php echo $corso->getNome(); ?></h3>
                                     <h5>Matricola: <?php echo $corso->getMatricola(); ?></h5>
                                     <h5>Tipologia: <?php echo $corso->getTipologia(); ?></h5>
-                                    <?php
+
+                                    <?php /*
                                     if (count($docenteassociato) == 1) {
                                         printf('<h5>Docente: %s %s</h5>', $docenteassociato[0]->getNome(), $docenteassociato[0]->getCognome());
                                     } else if (count($docenteassociato) > 1) {
@@ -118,7 +122,9 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
                                     } else if (count($docenteassociato) < 1) {
                                         printf('<h5>Questo corso non ha docenti Associati!</h5>');
                                     }
+                                        */
                                     ?>
+
                                 </div>
                             </div>
                         </form>
@@ -230,10 +236,6 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
                                 : activate to sort column ascending" style="width: 119px;">
                                     Nome
                                 </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                         Email
-                                " style="width: 210px;">
-                                    Data creazione
-                                </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Points
                                 " style="width: 73px;">
                                     N° multiple
@@ -271,18 +273,17 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
                                 
                                  <?php
                                         $array = Array();
-                                        $array = $controllerTest->getTestByCorso(20); //Id a caso per il momento
+                                        $array = $controllerTest->getTestByCorso(19); //Id a caso per il momento
                                         if($array == null){ echo "l'array è null";}
                                         foreach($array as $c) {
                                         printf("<tr class=\"gradeX odd\" role=\"row\">");
                                         printf("<td class=\"sorting_1\"><a href=\"visualizzatest/%s\">%s</a></td>", $c->getId(), "Test ".$c->getId());
-                                        printf("<td>%s</td>",$c->getData());
                                         printf("<td>%s</td>",$c->getNumeroMultiple());
                                         printf("<td>%s</td>",$c->getNumeroAperte());
                                         printf("<td>%s</td>",$c->getPunteggioMax());
                                         printf("<td>%s %%</td>",$c->getPercentualeScelto());
                                         printf("<td>%s %%</td>",$c->getPercentualeSuccesso());
-                                        printf("<td><a href=\"javascript:;\" class=\"btn btn-sm default\"><i class=\"fa fa-edit\"></i></i></a>");
+                                        printf("<td><a href=\"javascript:;\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></i></a>");
                                         printf("<a href=\"javascript:;\" class=\"btn btn-sm red-intense\"><i class=\"fa fa-trash-o\"></i></i></a></td>");
                                         printf("</tr>");
                                         }
@@ -432,7 +433,7 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
 
                             <?php
 
-                            $argomenti = $controllerArgomento->getArgomenti(21);
+                            $argomenti = $controllerArgomento->getArgomenti($corso->getId());
 
                             if($argomenti==null){
                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
@@ -447,9 +448,9 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
                             else {
                             foreach($argomenti as $a) {
                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                printf("<td>%s %d</td>", $a->getNome(), $a->getId());
+                                printf("<td>%s</td>", $a->getNome());
                                 printf("<td>");
-                                printf("<a href=\"modificaargomento/%d\" class=\"btn btn-sm blue-madison\">",$a->getId()); //DEVE ESSERE DINAMICO
+                                printf("<a href=\"argomento/modifica/%d\" class=\"btn btn-sm blue-madison\">",$a->getId()); //DEVE ESSERE DINAMICO
                                 printf("<i class=\"fa fa-edit\"></i>");
                                 printf("</a>");
                                 printf("<input type='hidden' name='id' value='%d' />", $a->getId());
