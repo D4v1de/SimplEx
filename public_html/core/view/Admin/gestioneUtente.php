@@ -81,6 +81,11 @@ $utenti = $controller->getUtenti();
                             <div class="actions">
                            <input type="hidden" id="elimina" name="elimina" value="elimina">
                         </div>
+                         <div class="actions">
+                            <button type="submit" class="btn btn-default btn-sm">
+                                <i class="fa fa-minus"></i> Elimina Corso
+                            </button>
+                        </div>    
                     </div>
                     <div class="portlet-body">
                         <div id="tabella_4_wrapper" class="dataTables_wrapper no-footer">
@@ -109,11 +114,7 @@ $utenti = $controller->getUtenti();
                                         aria-label="Status: activate to sort column ascending" style="width: 36px;">
                                         Cognome
                                     </th>
-                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                        colspan="1"
-                                        aria-label="Status: activate to sort column ascending" style="width: 36px;">
-                                        Matricola CdL
-                                    </th>
+                                    
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -127,7 +128,6 @@ $utenti = $controller->getUtenti();
                                         printf("<td>%s</td>", $d->getMatricola());
                                         printf("<td><a href=\"../../utente/%s\">%s</a></td>", $d->getMatricola(), $d->getNome());
                                         printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $d->getCognome());
-                                        printf("<td>%s</td>", $d->getCdlMatricola());
                                         printf("</tr>");
                                     }
                                 }
