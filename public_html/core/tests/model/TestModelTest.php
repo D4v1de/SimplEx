@@ -54,7 +54,7 @@ class TestModelTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(self::PERCENTUALESUCCESSO, $test->getPercentualeSuccesso());
 
         //eseguo una modifica sul test creato
-        $model->updatetest($idTest, (new Test(self::DESCRIZIONE2, self::PUNTEGGIOMAX2, self::NMULTIPLETEST2, self::NAPERTETEST2, self::PERCENTUALESCELTO2, self::PERCENTUALESUCCESSO2)));
+        $model->updateTest($idTest, (new Test(self::DESCRIZIONE2, self::PUNTEGGIOMAX2, self::NMULTIPLETEST2, self::NAPERTETEST2, self::PERCENTUALESCELTO2, self::PERCENTUALESUCCESSO2)));
 
         //leggo il test modificato dal db
         $testModificato = $model->readTest($idTest);
