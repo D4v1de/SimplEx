@@ -159,33 +159,34 @@ try {
                                             <?= $user->getTipologia() ?> </a>
                                     </td>
                                 </tr>
-                                <?php if ($user->getTipologia()=="Studente") {?> <tr>
-                                    <td style="width:15%">
-                                        Corso di laurea
-                                    </td>
-                                    <td style="width:50%">
-                                        <a href="javascript:;" id="cdl_matricola" data-type="select"
-                                           data-value="<?= $cdl->getMatricola() ?>"
-                                           data-pk="<?= $user->getMatricola() ?>"
-                                           data-source="/adm/utenti/cdls" data-original-title="Seleziona CdL"
-                                           class="editable editable-click">
-                                            <?= $cdl->getNome() ?> </a>
-                                    </td>
-                                </tr> 
-                                <?php } else { ?> 
-                                <tr>
-                                    <td style="width:15%">
-                                        Corsi tenuti
-                                    </td>
-                                    <td style="width:50%">
-                                        <a href="javascript:;" id="cdl_matricola" data-type="select"
-                                           data-value="<?= $cdl->getMatricola() ?>"
-                                           data-pk="<?= $user->getMatricola() ?>"
-                                           data-source="/adm/utenti/cdls" data-original-title="Seleziona CdL"
-                                           class="editable editable-click">
-                                            <?= $cdl->getNome() ?> </a>
-                                    </td>
-                                </tr> <?php } ?> 
+                                <?php if ($user->getTipologia() == "Studente") { ?>
+                                    <tr>
+                                        <td style="width:15%">
+                                            Corso di laurea
+                                        </td>
+                                        <td style="width:50%">
+                                            <a href="javascript:;" id="cdl_matricola" data-type="select"
+                                               data-value="<?= $cdl->getMatricola() ?>"
+                                               data-pk="<?= $user->getMatricola() ?>"
+                                               data-source="/adm/utenti/cdls" data-original-title="Seleziona CdL"
+                                               class="editable editable-click">
+                                                <?= $cdl->getNome() ?> </a>
+                                        </td>
+                                    </tr>
+                                <?php } else { ?>
+                                    <tr>
+                                        <td style="width:15%">
+                                            Corsi tenuti
+                                        </td>
+                                        <td style="width:50%">
+                                            <a href="javascript:;" id="corsi_tenuti" data-type="select2"
+                                               data-pk="<?= $user->getMatricola() ?>"
+                                               data-source="/adm/utenti/cdls/?namesOnly=1"
+                                               data-original-title="Seleziona CdL"
+                                               class="editable editable-click">
+                                                <?= $cdl->getNome() ?> </a>
+                                        </td>
+                                    </tr> <?php } ?>
                                 </tbody>
                             </table>
                         </div>
