@@ -8,12 +8,12 @@
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "SessioneController.php";
-include_once CONTROL_DIR . "ControllerTest.php";
+include_once CONTROL_DIR . "TestController.php";
 include_once CONTROL_DIR . "ArgomentoController.php";
 include_once CONTROL_DIR . "CdlController.php";
 
 $controllerSessione = new SessioneController();
-$controllerTest = new ControllerTest();
+$controllerTest = new TestController();
 $controllerArgomento = new ArgomentoController();
 $controllerCorso = new CdlController();
 
@@ -236,6 +236,10 @@ if(isset($_POST['id'])){
                                     Nome
                                 </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Points
+                                " style="width: 140px;">
+                                    Descrizione
+                                </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                         Points
                                 " style="width: 73px;">
                                     N° multiple
                                 </th>
@@ -246,17 +250,17 @@ if(isset($_POST['id'])){
                                 </th>
                                 <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Status
-                                " style="width: 119px;">
+                                " style="width: 100px;">
                                     Punteggio massimo
                                 </th>
                                 <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Status
-                                " style="width: 119px;">
+                                " style="width: 100px;">
                                     Inserito
                                 </th>
                                 <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Status
-                                " style="width: 119px;">
+                                " style="width: 100px;">
                                     Superato
                                 </th>
                                 <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
@@ -277,6 +281,7 @@ if(isset($_POST['id'])){
                                         foreach($array as $c) {
                                         printf("<tr class=\"gradeX odd\" role=\"row\">");
                                         printf("<td class=\"sorting_1\"><a href=\"visualizzatest/%s\">%s</a></td>", $c->getId(), "Test ".$c->getId());
+                                        printf("<td>%s</td>",$c->getDescrizione());
                                         printf("<td>%s</td>",$c->getNumeroMultiple());
                                         printf("<td>%s</td>",$c->getNumeroAperte());
                                         printf("<td>%s</td>",$c->getPunteggioMax());
