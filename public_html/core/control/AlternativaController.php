@@ -18,6 +18,11 @@ class AlternativaController extends Controller
 {
 
 
+    public function creaAlternativa($alternativa){
+        $alternativaModel = new AlternativaModel();
+        $alternativaModel->createAlternativa($alternativa);
+    }
+
     public function getArgomenti()
     {
         $argomentoModel = new ArgomentoModel();

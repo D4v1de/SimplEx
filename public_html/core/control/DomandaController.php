@@ -49,13 +49,15 @@ class DomandaController extends Controller
         $domandaModel->createDomandaMultipla($domandaMultipla);
     }
 
+
+    /*INUTILE?*/
     /**
      * Assegna i punteggi di default ad una domanda multipla
      * @param DomandaMultipla $domandaMultipla Una domanda mutlipla a cui assegnare punteggi default
      */
     public function assegnaPunteggioDefaultEsatta($domandaMultipla)
     {
-        /*Creare funzione nel model*/
+        /*Creare funzione*/
     }
 
     /**
@@ -64,7 +66,7 @@ class DomandaController extends Controller
      */
     public function assegnaPunteggioDefaultErrata($domandaMultipla)
     {
-        /*Creare funzione nel model*/
+        /*Creare funzione*/
     }
 
     /**
@@ -117,18 +119,46 @@ class DomandaController extends Controller
         $domandaModel->updateDomandaMultipla($id, $argomentoId, $argomentoCorsoId, $updatedDomandaMultipla);
     }
 
+    public function getDomandaAperta($id, $argomentoId, $argomentoCorsoId){
+        $domandaModel = new DomandaModel();
+        return $domandaModel->readDomandaAperta($id,$argomentoId, $argomentoCorsoId);
+    }
+
+    public function getDomandaMultipla($id, $argomentoId, $argomentoCorsoId){
+        $domandaModel = new DomandaModel();
+        return $domandaModel->readDomandaMultipla($id,$argomentoId, $argomentoCorsoId);
+    }
+
+    /**
+     * Restituisce una lista con tutte le domande aperte
+     * @param $argomentoId L'id dell'argomento delle domande da restituire
+     * @param $argomentoCorsoId L'id del corso.
+     * @return DomandaAperta[] La lista di domande aperte
+     */
+    public function getAllAperte($argomentoId, $argomentoCorsoId)
+    {
+        $domandaModel = new DomandaModel();
+        return $domandaModel->getAllDomandaApertaByArgomento($argomentoId, $argomentoCorsoId);
+    }
+
+    /**
+     * Restituisce una lista con tutte le domande multiple
+     * @param $argomentoId L'id dell'argomento delle domande da restituire
+     * @param $argomentoCorsoId L'id del corso.
+     * @return DomandaMultipla[] La lista di domande multiple
+     */
     public function getAllMultiple($argomentoId, $argomentoCorsoId)
     {
         $domandaModel = new DomandaModel();
         return $domandaModel->getAllDomandaMultiplaByArgomento($argomentoId, $argomentoCorsoId);
     }
-    
+
     //restituisce le domande multiple di uno specifico test
     public function getMultTest($id) {
         $domandaModel = new DomandaModel();
         return $domandaModel->getAllDomandeMultipleByTest($id);
     }
-    
+
     //restituisce le domande aperte di uno specifico test
     public function getAperteTest($id) {
         $domandaModel = new DomandaModel();
