@@ -57,7 +57,7 @@ class Utente {
     }
 
     /**
-     * @return enum La tipologia dell'utente
+     * @return string La tipologia dell'utente
      */
     public function getTipologia() {
         return $this->tipologia;
@@ -110,7 +110,7 @@ class Utente {
 
     /**
      * Setta la tipologia dell'utente
-     * @param enum $tipologia La tipologia dell'utente
+     * @param string $tipologia La tipologia dell'utente
      */
     public function setTipologia($tipologia) {
         $this->tipologia = $tipologia;

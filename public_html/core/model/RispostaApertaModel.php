@@ -40,7 +40,7 @@ class RispostaApertaModel extends Model {
      * @throws ApplicationException Eccezione lanciata se non viene trovata alcuna risposta
      */
     public function readRispostaAperta($id, $elaboratoSessioneId, $elaboratoStudenteMatricola) {
-        $query = sprintf(self::$READ_RISPOSTA_APERTA, $id, $$elaboratoSessioneId, $elaboratoStudenteMatricola);
+        $query = sprintf(self::$READ_RISPOSTA_APERTA, $id, $elaboratoSessioneId, $elaboratoStudenteMatricola);
         $res = Model::getDB()->query($query);
         if($obj = $res->fetch_assoc()) {
             $risposta = new RispostaAperta($obj['elaborato_sessione_id'],$obj['elaborato_studente_matricola'],$obj['testo'],$obj['punteggio'],$obj['domanda_aperta_id'],$obj['domanda_aperta_argomento_id'],$obj['domanda_aperta_argomento_corso_id']);
@@ -54,7 +54,7 @@ class RispostaApertaModel extends Model {
     
     /**
      * Aggiorna una risposta aperta presente nel database
-     * @param RipostaAperta $updatedRisposta La risposta aperta modificata da aggiornare nel db
+     * @param RispostaAperta $updatedRisposta La risposta aperta modificata da aggiornare nel db
      * @param int $id L'id della risposta aperta da aggiornare nel db
      * @param int $elaboratoSessioneId L'id della sessione a cui appartiene l'elaborato relativo
      * @param string $elaboratoStudenteMatricola La matricola dello studente a cui appartiene l'elaborato relativo
@@ -88,7 +88,7 @@ class RispostaApertaModel extends Model {
      * @return RispostaMultipla[] $risposte Elenco delle risposte aperte dell'elaborato
      */
     public function getAperteByElaborato($elaborato) {
-        $query = sprintf(self::$GET_ELABORATO_APERTE, $elaborato->getSessioneId(), $elaborato->getStudenteMatricola());
+        $query = sprintf(self::$GET_ALL_RISPOSTA_APERTA_ELABORATO, $elaborato->getSessioneId(), $elaborato->getStudenteMatricola());
         $res = Model::getDB()->query($query);
         $risposte = array();
         if($res){

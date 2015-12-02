@@ -9,11 +9,13 @@
 include_once CONTROL_DIR . "ArgomentoController.php";
 $controller = new ArgomentoController();
 
+$corsoid = $_URL[3];
 
 if(isset($_POST['nomeargomento'])){
     $nome = $_POST['nomeargomento'];
-    $argomento = new Argomento($nome, 21); //al posto di 21, ci va $_URL[?]
+    $argomento = new Argomento($corsoid, $nome);
     $controller->creaArgomento($argomento);
+    header('location:../../'.$corsoid);
 }
 
 ?>
@@ -84,7 +86,7 @@ if(isset($_POST['nomeargomento'])){
                         </div>
                         <div class="portlet-body form">
                             <!-- BEGIN FORM-->
-                            <form action="inserisciargomento" method="POST" class="form-horizontal form-bordered">
+                            <form action="" method="POST" class="form-horizontal form-bordered">
                                 <div class="form-body">
                                     <div class="form-group form-md-line-input has-success" style="height: 90px">
                                         <label class="control-label col-md-3">Inserisci Titolo</label>

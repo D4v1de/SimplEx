@@ -37,10 +37,10 @@ class RispostaMultiplaModel extends Model {
      * @param int $id L'id della risposta multipla da cercare
      * @param int $elaboratoSessioneId L'id della sessione a cui appartiene l'elaborato di cui fa parte la risposta multipla
      * @param string $elaboratoStudenteMatricola La matricola dello studente a cui appartiene l'elaborato di cui fa parte la risposta multipla
-     * @return RispostaAperta $risposta La risposta multipla presente nel database
+     * @return RispostaMultipla $risposta La risposta multipla presente nel database
      */
     public function readRispostaMultipla($id, $elaboratoSessioneId, $elaboratoStudenteMatricola) {
-        $query = sprintf(self::$READ_RISPOSTA_APERTA, $id, $elaboratoSessioneId, $elaboratoStudenteMatricola);
+        $query = sprintf(self::$READ_RISPOSTA_MULTIPLA, $id, $elaboratoSessioneId, $elaboratoStudenteMatricola);
         $res = Model::getDB()->query($query);
         if($obj = $res->fetch_assoc()) {
             $risposta = new RispostaMultipla( $obj['elaborato_sessione_id'],$obj['elaborato_studente_matricola'], $obj['punteggio'], $obj['alternativa_id'],$obj['alternativa_domanda_multipla_id'],$obj['alternativa_domanda_multipla_argomento_id'],$obj['alternativa_domanda_multipla_argomento_corso_id']);
@@ -54,13 +54,13 @@ class RispostaMultiplaModel extends Model {
     
     /**
      * Aggiorna una risposta multipla presente nel database
-     * @param RipostaAperta $updatedRisposta La risposta multipla modificata da aggiornare nel db
+     * @param RispostaMultipla $updatedRisposta La risposta multipla modificata da aggiornare nel db
      * @param int $id L'id della risposta multipla da aggiornare nel db
      * @param int $elaboratoSessioneId L'id della sessione a cui appartiene l'elaborato relativo
      * @param string $elaboratoStudenteMatricola La matricola dello studente a cui appartiene l'elaborato relativo
      **/
     public function updateRispostaMultipla($updatedRisposta,$id,$elaboratoSessioneId, $elaboratoStudenteMatricola){
-        $query = sprintf(self::$UPDATE_RISPOSTA_MULTIPLA, $updatedRisposta->getPunteggio(), $updatedRisposta->getAlternativaId(), $updatedRisposta->getAlternativaDomandaMultiplaId(), 
+        $query = sprintf(self::$UPDATE_RISPOSTA_MULTIPLA, $updatedRisposta->getPunteggio(), $updatedRisposta->getAlternativaId(), $updatedRisposta->getAlternativaDomandaMultiplaId(),
                 $updatedRisposta->getAlternativaDomandaMultiplaArgomentoId(), $updatedRisposta->getAlternativaDomandaMultiplaArgomentoCorsoId(), $id, $elaboratoSessioneId, 
                 $elaboratoStudenteMatricola);
         Model::getDB()->query($query);
@@ -89,7 +89,7 @@ class RispostaMultiplaModel extends Model {
      * @return RispostaMultipla[] $risposte Elenco delle risposte multiple dell'elaborato
      */
     public function getMultipleByElaborato($elaborato) {
-        $query = sprintf(self::$GET_ELABORATO_MULTIPLE, $elaborato->getSessioneId(), $elaborato->getStudenteMatricola());
+        $query = sprintf(self::$GET_ALL_RISPOSTA_MULTIPLA_ELABORATO , $elaborato->getSessioneId(), $elaborato->getStudenteMatricola());
         $res = Model::getDB()->query($query);
         $risposte = array();
         if($res){

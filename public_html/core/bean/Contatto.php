@@ -14,7 +14,7 @@ class Contatto {
     /**
      * Costruttore di Contatto.
      * @param string $valore Il valore del contatto
-     * @param enum $tipologia La tipologia del contatto
+     * @param string $tipologia La tipologia del contatto
      * @param string $utenteMatricola La matricola dell'utente a cui appartiene il contatto
      */
     public function __construct($valore, $tipologia, $utenteMatricola) {
@@ -38,7 +38,7 @@ class Contatto {
     }
     
     /**
-     * @return enum La tipologia del contatto
+     * @return string La tipologia del contatto
      */
     public function getTipologia() {
         return $this->tipologia;
@@ -69,7 +69,7 @@ class Contatto {
     
     /**
      * Setta la tipologia del contatto
-     * @param enum $tipologia La tipologia del contatto
+     * @param string $tipologia La tipologia del contatto
      */
     public function setTipologia($tipologia) {
         $this->tipologia = $tipologia;
