@@ -20,7 +20,7 @@ class Alternativa {
      * @param int $domandaMultiplaArgomentoCorsoId L'identificatore dell'insegnamento a cui appartiene l'argomento relativo alla domanda multipla di riferimento
      * @param string $testo Il testo dell'alternativa
      * @param float $percentualeScelta La percentuale di volte in cui è stata scelta
-     * @param Enum $corretta Indica se l'alternativa è corretta
+     * @param string $corretta Indica se l'alternativa è corretta
      **/
     function __construct($domandaMultiplaId, $domandaMultiplaArgomentoId, $domandaMultiplaArgomentoCorsoId, $testo, $percentualeScelta, $corretta) {
         $this->domandaMultiplaId = $domandaMultiplaId;
@@ -74,7 +74,7 @@ class Alternativa {
     }
 
     /**
-     * @return Enum La correttezza dell'alternativa
+     * @return string La correttezza dell'alternativa
      */
     function getCorretta() {
         return $this->corretta;
@@ -130,7 +130,7 @@ class Alternativa {
 
     /**
      * Setta la correttezza dell'alternativa
-     * @param Enum $corretta La correttezza dell'alternativa
+     * @param string $corretta La correttezza dell'alternativa
      */
     function setCorretta($corretta) {
         $this->corretta = $corretta;

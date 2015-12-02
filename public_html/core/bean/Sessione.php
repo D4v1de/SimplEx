@@ -16,11 +16,11 @@ class Sessione {
     
     /**
      * Costruttore di Sessione
-     * @param date $dataInizio La data di inizio della sessione
-     * @param date $dataFine La data di termine della sessione
+     * @param string $dataInizio La data di inizio della sessione
+     * @param string $dataFine La data di termine della sessione
      * @param float $sogliaAmmissione La soglia di ammissione della sessione
-     * @param enum $stato Lo stato della sessione
-     * @param enum $tipologia La tipologia della sessione
+     * @param string $stato Lo stato della sessione
+     * @param string $tipologia La tipologia della sessione
      * @param int $corsoId L'id dell'insegnamento a cui appartiene la sessione
      */
     public function __construct($dataInizio, $dataFine, $sogliaAmmissione, $stato, $tipologia, $corsoId) {
@@ -40,14 +40,14 @@ class Sessione {
     }
 
     /**
-     * @return date La dataInizio della sessione
+     * @return string La dataInizio della sessione
      */
      public function getDataInizio() {
         return $this->dataInizio;
     }
     
     /**
-     * @return date La data di termine della sessione
+     * @return string La data di termine della sessione
      */
      public function getDataFine() {
         return $this->dataFine;
@@ -61,14 +61,14 @@ class Sessione {
     }
     
     /**
-     * @return enum Lo stato della sessione
+     * @return string Lo stato della sessione
      */
     public function getStato() {
         return $this->stato;
     }        
             
     /**
-     * @return enum La tipologia della sessione
+     * @return string La tipologia della sessione
      */
     public function getTipologia() {
         return $this->tipologia;
@@ -91,7 +91,7 @@ class Sessione {
     
     /**
      * Setta la data di inizio della sessione
-     * @param date $dataInizio La data di inizio della sessione
+     * @param string $dataInizio La data di inizio della sessione
      */
     public function setDataInizio($dataInizio) {
         $this->dataInizio = $dataInizio;
@@ -99,7 +99,7 @@ class Sessione {
    
     /**
      * Setta la data di termine della sessione
-     * @param date $dataFine La data di termine della sessione
+     * @param string $dataFine La data di termine della sessione
      */
     public function setDataFine($dataFine) {
         $this->dataFine = $dataFine;
@@ -115,7 +115,7 @@ class Sessione {
     
     /**
      * Setta lo stato della sessione
-     * @param enum $stato Lo stato della sessione
+     * @param string $stato Lo stato della sessione
      */
     public function setStato($stato) {
         $this->stato = $stato;
@@ -123,7 +123,7 @@ class Sessione {
             
     /**
      * Setta la tipologia della sessione
-     * @param enum $tipologia La tipologia della sessione
+     * @param string $tipologia La tipologia della sessione
      */
     public function setTipologia($tipologia) {
         $this->tipologia = $tipologia;
