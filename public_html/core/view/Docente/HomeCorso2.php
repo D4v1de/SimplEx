@@ -12,15 +12,31 @@ include_once CONTROL_DIR . "ControllerTest.php";
 include_once CONTROL_DIR . "ArgomentoController.php";
 include_once CONTROL_DIR . "CdlController.php";
 
-$controller = new SessioneController();
+$controllerSessione = new SessioneController();
 $controllerTest = new ControllerTest();
 $controllerArgomento = new ArgomentoController();
 $controllerCorso = new CdlController();
 
+$identidicativoCorso = $_URL[1];
+echo $identidicativoCorso;
 $corso = $controllerCorso->readCorso(21); //qui dentro andrà $_URL[1];
 
 $docenteassociato = $controllerArgomento->getDocenteAssociato($corso->getId());
 
+
+$idsSessione = $controllerSessione->getAllSessioniByCorso($identidicativoCorso);  //array di Sessioni
+if ($idsSessione == null) {
+    echo "non ci sono sessioni";
+}
+foreach ($idsSessione as $i) {
+    if(isset($_POST['$idsSessione->getId()'])){
+        $controllerSessione->deleteSessione($idsSessione->getId());
+    }
+}
+
+if(isset($_POST['id'])) {
+
+}
 
 
 if(isset($_POST['id']) && isset($_POST['idcorso'])){
@@ -29,6 +45,8 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
 
     $controllerArgomento->rimuoviArgomento($id, $idcorso);
 }
+
+
 
 
 ?>
@@ -113,6 +131,7 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
             </div>
 
 
+            <form action="" method="post">
             <div class="portlet box blue-madison">
                 <div class="portlet-title">
                     <div class="caption">
@@ -154,12 +173,13 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
                             <tbody>
                             <?php
                             $array = Array();
-                            $array = $controller->getAllSessioni();
+                            $array = $controllerSessione->getAllSessioniByCorso($identidicativoCorso);
                             if ($array == null) {
                                 echo "l'array è null";
                             }
                             else {
                                 foreach ($array as $c) {
+                                    $sesId=$c->getId();
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
 
                                     printf("<td class=\"sorting_1\"><a href=\"visualizzasessione/%s\">%s</a></td>", $c->getId(), "Sessione ".$c->getId());
@@ -172,9 +192,9 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
                                             <a href=\"creamodificasessione\" class=\"btn btn-sm blue-madison\">
                                                 <i class=\"fa fa-edit\"></i>
                                             </a>
-                                            <a href=\"javascript:;\" class=\"btn btn-sm red-intense\">
+                                            <input type='submit' name='$sesId' class=\"btn btn-sm red-intense\">
                                                 <i class=\"fa fa-trash-o\"></i>
-                                            </a>
+                                            </input>
                                         </td>");
                                     printf("</tr>");
                                 }
@@ -185,7 +205,7 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
                     </div>
                 </div>
             </div>
-
+            </form>
 
 
             <div class="portlet box blue-madison">

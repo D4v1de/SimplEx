@@ -14,8 +14,8 @@ if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo'
     $dataFrom = $_POST['dataFrom'];
     $dataTo = $_POST['dataTo'];
     $tipoSessione = $_POST['radio1'];
-    $sogliAmm= 18;
-    $stato='Non Eseguita';
+    $sogliAmm= 18;                             //dove la prendo?
+    $stato='Non Eseguita';                     //dove la prendo?
     if (isset($_POST['tests'])) {
         $cbTest = Array();
         $cbTest = $_POST['tests'];
