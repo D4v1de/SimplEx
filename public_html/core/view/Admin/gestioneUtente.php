@@ -83,7 +83,7 @@ $utenti = $controller->getUtenti();
                         </div>
                          <div class="actions">
                             <button type="submit" class="btn btn-default btn-sm">
-                                <i class="fa fa-minus"></i> Elimina Corso
+                                <i class="fa fa-minus"></i> Elimina Utente
                             </button>
                         </div>    
                     </div>
