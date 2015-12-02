@@ -17,10 +17,8 @@ $controllerTest = new ControllerTest();
 $controllerArgomento = new ArgomentoController();
 $controllerCorso = new CdlController();
 
+$corso = null;
 $identidicativoCorso = $_URL[4];
-
-
-$corso = $controllerCorso->readCorso(21); //qui dentro andrà $_URL[4];
 
 try {
     $corso = $controllerCorso->readCorso($_URL[3]);
@@ -38,11 +36,6 @@ if(isset($_POST['IdSes'])){
         header("Refresh:0");
 }
 else echo "non settato niente";
-
-
-if(isset($_POST['id'])) {
-
-}
 
 
 if(isset($_POST['id']) && isset($_POST['idcorso'])){
@@ -394,7 +387,7 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
             </div>
 
 
-        <form action="homecorsodocente" method="post">
+        <form action="" method="post">
             <div class="portlet box blue-madison">
                 <div class="portlet-title">
                     <div class="caption">
@@ -405,7 +398,7 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
                         </a>
                     </div>
                     <div class="actions">
-                        <a href="inserisciargomento" class="btn btn-default btn-sm">
+                        <a href="<?php echo $corso->getId(); ?>/argomento/inserisci" class="btn btn-default btn-sm">
                             <i class="fa fa-plus"></i> Aggiungi Argomento </a>
                     </div>
                 </div>
@@ -450,7 +443,7 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
                                 printf("<td>%s</td>", $a->getNome());
                                 printf("<td>");
-                                printf("<a href=\"argomento/modifica/%d\" class=\"btn btn-sm blue-madison\">",$a->getId()); //DEVE ESSERE DINAMICO
+                                printf("<a href=\"%d/argomento/modifica/%d\" class=\"btn btn-sm blue-madison\">", $a->getCorsoId(),$a->getId());
                                 printf("<i class=\"fa fa-edit\"></i>");
                                 printf("</a>");
                                 printf("<input type='hidden' name='id' value='%d' />", $a->getId());
