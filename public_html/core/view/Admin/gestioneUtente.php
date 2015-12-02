@@ -97,7 +97,7 @@ if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
                         </div>
                         <div class="actions">
                             <button type="submit" class="btn btn-default btn-sm">
-                                <i class="fa fa-minus"></i> Elimina
+                                <i class="fa fa-minus"></i> Elimina Utente
                             </button>
                             <input type="hidden" id="elimina" name="elimina" value="elimina">
                         </div>
