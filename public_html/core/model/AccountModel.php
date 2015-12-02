@@ -18,10 +18,10 @@ class AccountModel extends Model {
     private static $UPDATE_UTENTE = "UPDATE `utente` SET `username` = '%s', `password` = '%s', `tipologia` = '%s', `nome` = '%s', `cognome` = '%s', `matricola` = '%s' WHERE `matricola` = '%s' LIMIT 1";
 
     // Aggiunti da Elvira
-    private static $GET_ALL_DOCENTI_CORSO = "SELECT u.* FROM `insegnamento` AS i, `utente` AS u WHERE `i.docente_matricola` = `u.matricola` AND `i.corso_id` = '%d'";
-    private static $GET_ALL_STUDENTI_CDL = "SELECT u.* FROM `utente` AS u WHERE `u.cdl_matricola` = '%s'";
-    private static $GET_ALL_STUDENTI_CORSO = "SELECT u.* FROM `utente` AS u, `frequenta` AS f WHERE `f.studente_matricola` = `u.matricola` AND `f.corso_matricola` = '%d'";
-    private static $GET_ALL_STUDENTI_SESSIONE = "SELECT u.* FROM `abilitazione` AS a, `utente` AS u WHERE `a.sessione_id` = '%s' AND `a.studente_matricola` = `u.matricola`";
+    private static $GET_ALL_DOCENTI_CORSO = "SELECT u.* FROM `insegnamento` as i, `utente` as u WHERE `i.docente_matricola` = `u.matricola` AND `i.corso_id` = '%d'";
+    private static $GET_ALL_STUDENTI_CDL = "SELECT u.* FROM `utente` as u WHERE `u.cdl_matricola` = '%s'";
+    private static $GET_ALL_STUDENTI_CORSO = "SELECT u.* FROM `utente` as u, `frequenta` as f WHERE `f.studente_matricola` = `u.matricola` AND `f.corso_matricola` = '%d'";
+    private static $GET_ALL_STUDENTI_SESSIONE = "SELECT u.* FROM `abilitazione` as a, `utente` as u WHERE `a.sessione_id` = '%s' AND `a.studente_matricola` = `u.matricola`";
 
     // Aggiunto da Federico
     private static $SELECT_ALL_DOCENTI = "SELECT * FROM `utente` WHERE `tipologia` = 'Docente'";
@@ -173,9 +173,9 @@ class AccountModel extends Model {
         $query = sprintf(self::$GET_ALL_DOCENTI_CORSO, $idCorso);
         $res = Model::getDB()->query($query);
         $docenti = array();
-        if ($res) {
+        if($res){
             while ($obj = $res->fetch_assoc()) {
-                $docenti[] = new Utente($obj['matricola'], $obj['username'], $obj['password'], $obj['tipologia'], $obj['nome'], $obj['cognome'], $obj['cdl_matricola']);
+                $docenti[] = Utente($obj['matricola'], $obj['username'], $obj['password'], $obj['tipologia'], $obj['nome'], $obj['cognome'], $obj['cdl_matricola']);
             }
         }
         return $docenti;
@@ -190,11 +190,8 @@ class AccountModel extends Model {
         $query = sprintf(self::$GET_ALL_STUDENTI_CDL, $matricolaCdl);
         $res = Model::getDB()->query($query);
         $studenti = array();
-        if ($res) {
-            while ($obj = $res->fetch_assoc()) {
-                $studente = new Utente($obj['username'], $obj['password'], $obj['matricola'], $obj['nome'], $obj['cognome'], $obj['tipologia'], $obj['cdl_matricola']);
-                $studenti[] = $studente;
-            }
+        while($obj = $res->fetch_assoc()) {
+            $studenti[] = new Utente($obj['matricola'], $obj['username'], $obj['password'], $obj['tipologia'], $obj['nome'], $obj['cognome'], $obj['cdl_matricola']);
         }
         return $studenti;
     }
@@ -210,7 +207,7 @@ class AccountModel extends Model {
         $studenti = array();
         if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $studente = new Utente($obj['username'], $obj['password'], $obj['nome'], $obj['cognome'], $obj['tipologia'], $obj['cdl_matricola']);
+                $studente = new Utente($obj['matricola'], $obj['username'], $obj['password'], $obj['tipologia'], $obj['nome'], $obj['cognome'], $obj['cdl_matricola']);
                 $studenti[] = $studente;
             }
         }
@@ -228,7 +225,7 @@ class AccountModel extends Model {
         $studenti = array();
         if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $studentiSessione = new Utente($obj['username'], $obj['password'], $obj['matricola'], $obj['nome'], $obj['cognome'], $obj['tipologia'], $obj['cdl_matricola']);
+                $studentiSessione = Utente($obj['matricola'], $obj['username'], $obj['password'], $obj['tipologia'], $obj['nome'], $obj['cognome'], $obj['cdl_matricola']);
                 $studenti[] = $studentiSessione;
             }
         }

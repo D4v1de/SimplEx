@@ -31,9 +31,9 @@ if (isset($_POST['checkbox'])) {
             } catch (ApplicationException $ex) {
                 echo "<h1>errore! ApplicationException->il corso non è stato eliminato!</h1>";
                 echo "<h4>" . $ex . "</h4>";
-                //header('Location: ../visualizzacorso');
             }
         }
+        header('Location: view');
     }
 }
 
@@ -80,7 +80,7 @@ if (isset($_POST['checkbox'])) {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="gestionecorsi">GestioneCorsi</a>
+                        <a href="view">GestioneCorsi</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
@@ -88,7 +88,7 @@ if (isset($_POST['checkbox'])) {
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
 
-            <form method="post" action="gestionecorsi">
+            <form method="post" action="">
 
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
@@ -100,7 +100,7 @@ if (isset($_POST['checkbox'])) {
                             </a>
                         </div>
                         <div class="actions">
-                            <a href="creacorso" class="btn btn-default btn-sm">
+                            <a href="crea" class="btn btn-default btn-sm">
                                 <i class="fa fa-plus"></i> Crea Corso </a>
                         </div>
                         <div class="actions">
@@ -150,7 +150,7 @@ if (isset($_POST['checkbox'])) {
                                         printf("<tr class=\"gradeX odd\" role=\"row\">");
                                         printf("<td><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $c->getId());
                                         printf("<td class=\"sorting_1\">%s</td>", $c->getMatricola());
-                                        printf("<td class=\"sorting_1\"><a href=\"modificacorso/%s\">%s</a></td>", $c->getId(), $c->getNome());
+                                        printf("<td class=\"sorting_1\"><a href=\"modifica/%s\">%s</a></td>", $c->getId(), $c->getNome());
                                         printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
                                         printf("<td>%s</td>", $c->getCdlMatricola());
                                         printf("</tr>");

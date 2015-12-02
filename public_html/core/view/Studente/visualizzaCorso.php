@@ -11,7 +11,7 @@ include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "SessioneController.php";
 $controller = new CdlController();
 $sessioneController = new SessioneController();
-$corso = $controller->readCorso($_URL[1]);
+$corso = $controller->readCorso($_URL[3]);
 
 $cdl = $controller->readCdl($corso->getCdlMatricola());
 $matricolaStudente = "0512109993";
@@ -65,11 +65,11 @@ $docenteassociato = $controller->getDocenteAssociato($corso->getId());
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../../visualizzacdl/">CdL</a>
+                        <a href="../cdl">CdL</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../../visualizzacorsi/<?php echo $cdl->getMatricola(); ?>"><?php echo $cdl->getNome(); ?></a>
+                        <a href="../corsi/<?php echo $cdl->getMatricola(); ?>"><?php echo $cdl->getNome(); ?></a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
@@ -102,9 +102,7 @@ $docenteassociato = $controller->getDocenteAssociato($corso->getId());
                                                 <h5>&nbsp;Tipologia: <?php echo $corso->getTipologia(); ?></h5>
 
                                                 <?php
-                                                if (count($docenteassociato) == 1) {
-                                                    printf('<h5>&nbsp;Docente: %s %s</h5>', $docenteassociato[0]->getNome(), $docenteassociato[0]->getCognome());
-                                                } else if (count($docenteassociato) > 1) {
+                                                if (count($docenteassociato) >= 1) {
                                                     foreach ($docenteassociato as $d) {
                                                         printf('<h5>&nbsp;Docente: %s %s</h5>', $d->getNome(), $d->getCognome());
                                                     }

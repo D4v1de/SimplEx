@@ -27,6 +27,8 @@ class RispostaMultiplaModel extends Model {
         Model::getDB()->query($query);
         if(Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
+        }else{
+            return Model::getDB()->insert_id;
         }
     }
     
@@ -41,8 +43,8 @@ class RispostaMultiplaModel extends Model {
         $query = sprintf(self::$READ_RISPOSTA_APERTA, $id, $elaboratoSessioneId, $elaboratoStudenteMatricola);
         $res = Model::getDB()->query($query);
         if($obj = $res->fetch_assoc()) {
-            $risposta = new RispostaMultipla($obj['id'], $obj['elaborato_sessione_id'],$obj['elaborato_studente_matricola'], $obj['punteggio'], $obj['alternativa_id'],
-                    $obj['alternativa_domanda_multipla_id'],$obj['alternativa_domanda_multipla_argomento_id'],$obj['alternativa_domanda_multipla_argomento_corso_id']);
+            $risposta = new RispostaMultipla( $obj['elaborato_sessione_id'],$obj['elaborato_studente_matricola'], $obj['punteggio'], $obj['alternativa_id'],$obj['alternativa_domanda_multipla_id'],$obj['alternativa_domanda_multipla_argomento_id'],$obj['alternativa_domanda_multipla_argomento_corso_id']);
+            $risposta->setId($obj['id']);
             return $risposta;
         }
         else{
@@ -92,9 +94,10 @@ class RispostaMultiplaModel extends Model {
         $risposte = array();
         if($res){
             while($obj=$res->fetch_assoc()) {
-                $risposte[] = new RispostaMultipla($obj['id'], $obj['elaborato_sessione_id'],$obj['elaborato_studente_matricola'], $obj['punteggio'], $obj['alternativa_id'],
-                    $obj['alternativa_domanda_multipla_id'],$obj['alternativa_domanda_multipla_argomento_id'],$obj['alternativa_domanda_multipla_argomento_corso_id']);
-            }     
+                $risposta = new RispostaMultipla($obj['elaborato_sessione_id'],$obj['elaborato_studente_matricola'], $obj['punteggio'], $obj['alternativa_id'],$obj['alternativa_domanda_multipla_id'],$obj['alternativa_domanda_multipla_argomento_id'],$obj['alternativa_domanda_multipla_argomento_corso_id']);
+                $risposta->setId($obj['id']);
+                $risposte[] = $risposta;
+            }
         }
         return $risposte;
     }

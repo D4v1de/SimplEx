@@ -13,7 +13,7 @@ include_once BEAN_DIR . "DomandaMultipla.php";
 
 class DomandaModel extends Model {
     
-    private static $CREATE_DOMANDA_APERTA = "INSERT INTO `domanda_aperta` (id, argomento_id, argomento_corso_id, testo, punteggio_max, percentuale_scelta) VALUES (NULL,'%d','%d','%s','%f','%f')";
+    private static $CREATE_DOMANDA_APERTA = "INSERT INTO `domanda_aperta` (argomento_id, argomento_corso_id, testo, punteggio_max, percentuale_scelta) VALUES ('%d','%d','%s','%f','%f')";
     private static $UPDATE_DOMANDA_APERTA = "UPDATE `domanda_aperta` SET testo = '%s', punteggio_max = '%f', percentuale_scelta = '%f' WHERE id = '%d' AND argomento_id = '%d' AND argomento_corso_id = '%d'";
     private static $DELETE_DOMANDA_APERTA = "DELETE FROM `domanda_aperta` WHERE id = '%d' AND argomento_id = '%d' AND argomento_corso_id = '%d'";
     private static $READ_DOMANDA_APERTA = "SELECT * FROM `domanda_aperta` WHERE id = '%d' AND argomento_id = '%d' AND argomento_corso_id = '%d'";
@@ -87,7 +87,8 @@ class DomandaModel extends Model {
         $query = sprintf(self::$READ_DOMANDA_APERTA, $id, $argomentoId, $argomentoCorsoId);
         $res = Model::getDB()->query($query);
         if ($obj = $res->fetch_assoc()) {
-            $domandaAperta = new DomandaAperta($obj['id'], $obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_max'], $obj['percentuale_scelta']);
+            $domandaAperta = new DomandaAperta($obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_max'], $obj['percentuale_scelta']);
+            $domandaAperta->setId($obj['id']);
             return $domandaAperta;
         } else {
             throw new ApplicationException(Error::$DOMANDA_APERTA_NON_TROVATA);
@@ -104,7 +105,9 @@ class DomandaModel extends Model {
         $domandeAperte[] = array();
         if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $domandeAperte[] = new DomandaAperta($obj['id'], $obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_max'], $obj['percentuale_scelta']);
+                $domandaAperta = new DomandaAperta($obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_max'], $obj['percentuale_scelta']);
+                $domandaAperta->setId($obj['id']);
+                $domandeAperte[] = $domandaAperta;
             }
         }
         return $domandeAperte;
@@ -123,7 +126,9 @@ class DomandaModel extends Model {
         $domandeAperte = array();
         if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $domandeAperte[] = new DomandaAperta($obj['id'], $obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_max'],$obj['percentuale_scelta']);
+                $domandaAperta = new DomandaAperta($obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_max'], $obj['percentuale_scelta']);
+                $domandaAperta->setId($obj['id']);
+                $domandeAperte[] = $domandaAperta;
             }
         }
         return $domandeAperte;
@@ -191,8 +196,8 @@ class DomandaModel extends Model {
         $query = sprintf(self::$READ_DOMANDA_MULTIPLA, $id, $argomentoId, $argomentoCorsoId);
         $res = Model::getDB()->query($query);
         if ($obj = $res->fetch_assoc()) {
-            $domandaMultipla = new DomandaMultipla($obj['id'], $obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_corretta'],
-                $obj['punteggio_errata'], $obj['percentuale_scelta'], $obj['percentuale_risposta_corretta']);
+            $domandaMultipla = new DomandaMultipla($obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_corretta'],$obj['punteggio_errata'], $obj['percentuale_scelta'], $obj['percentuale_risposta_corretta']);
+            $domandaMultipla->setId($obj['id']);
             return $domandaMultipla;
         } else {
             throw new ApplicationException(Error::$DOMANDA_MULTIPLA_NON_TROVATA);
@@ -209,8 +214,9 @@ class DomandaModel extends Model {
         $domandeMultiple = array();
         if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $domandeMultiple[] = new DomandaMultipla($obj['id'], $obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_corretta'],
-                    $obj['punteggio_errata'], $obj['percentuale_scelta'], $obj['percentuale_risposta_corretta']);
+                $domandaMultipla = new DomandaMultipla($obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_corretta'],$obj['punteggio_errata'], $obj['percentuale_scelta'], $obj['percentuale_risposta_corretta']);
+                $domandaMultipla->setId($obj['id']);
+                $domandeMultiple[] = $domandaMultipla;
             }
         }
         return $domandeMultiple;
@@ -230,8 +236,9 @@ class DomandaModel extends Model {
         $domandeMultiple = array();
         if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $domandeMultiple[] = new DomandaMultipla($obj['id'], $obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_corretta'],
-                    $obj['punteggio_errata'], $obj['percentuale_scelta'], $obj['percentuale_risposta_corretta']);
+                $domandaMultipla = new DomandaMultipla($obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_corretta'],$obj['punteggio_errata'], $obj['percentuale_scelta'], $obj['percentuale_risposta_corretta']);
+                $domandaMultipla->setId($obj['id']);
+                $domandeMultiple[] = $domandaMultipla;
             }
         }
         return $domandeMultiple;
@@ -245,14 +252,15 @@ class DomandaModel extends Model {
     public function getAllDomandeAperteByTest($id) {
         $query = sprintf(self::$GET_ALL_DOMANDE_APERTE_TEST, $id);
         $res = Model::getDB()->query($query);
-        $domande = array();
+        $domandeAperte = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $domande[] = new DomandaAperta($obj['id'],$obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_max'], 
-                        $obj['percentule_scelta']);
+                $domandaAperta = new DomandaAperta($obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_max'], $obj['percentuale_scelta']);
+                $domandaAperta->setId($obj['id']);
+                $domandeAperte[] = $domandaAperta;
             }  
         }
-        return $domande;
+        return $domandeAperte;
     }
     
     /**
@@ -263,13 +271,14 @@ class DomandaModel extends Model {
     public function getAllDomandeMultipleByTest($id) {
         $query = sprintf(self::$GET_ALL_DOMANDE_MULTIPLE_TEST, $id, $id);
         $res = Model::getDB()->query($query);
-        $domande = array();
+        $domandeMultiple = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $domande[]= new DomandaMultipla($obj['id'], $obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_corretta'], 
-                    $obj['punteggio_errata'], $obj['percentuale_scelta'], $obj['percentuale_risposta_corretta']);
+                $domandaMultipla = new DomandaMultipla($obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_corretta'],$obj['punteggio_errata'], $obj['percentuale_scelta'], $obj['percentuale_risposta_corretta']);
+                $domandaMultipla->setId($obj['id']);
+                $domandeMultiple[] = $domandaMultipla;
             }  
         }
-        return $domande;
+        return $domandeMultiple;
     }
 }

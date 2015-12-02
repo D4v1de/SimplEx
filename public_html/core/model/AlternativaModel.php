@@ -15,7 +15,7 @@ class AlternativaModel extends Model{
 
 
 
-    private static $CREATE_ALTERNATIVA = "INSERT INTO `alternativa` (id, domanda_multipla_id, domanda_multipla_argomento_id, domanda_multipla_argomento_corso_id, testo, percentuale_scelta, corretta) VALUES (null, '%d','%d','%d','%s','%f','%s')";
+    private static $CREATE_ALTERNATIVA = "INSERT INTO `alternativa` (domanda_multipla_id, domanda_multipla_argomento_id, domanda_multipla_argomento_corso_id, testo, percentuale_scelta, corretta) VALUES ( '%d','%d','%d','%s','%f','%s')";
     private static $UPDATE_ALTERNATIVA = "UPDATE `alternativa` SET testo = '%s', percentuale_scelta = '%f', corretta = '%s' WHERE id = '%d' AND domanda_multipla_id = '%d' AND domanda_multipla_argomento_id = '%d' AND domanda_multipla_argomento_corso_id = '%d'";
     private static $DELETE_ALTERNATIVA = "DELETE FROM `alternativa` WHERE id = '%d' AND domanda_multipla_id = '%d' AND domanda_multipla_argomento_id = '%d' AND domanda_multipla_argomento_corso_id = '%d'";
     private static $READ_ALTERNATIVA = "SELECT * FROM `alternativa` WHERE id = '%d' AND domanda_multipla_id = '%d' AND domanda_multipla_argomento_id = '%d' AND domanda_multipla_argomento_corso_id = '%d'";
@@ -85,7 +85,8 @@ class AlternativaModel extends Model{
         $query = sprintf(self::$READ_ALTERNATIVA, $id, $domandaMultiplaId, $domandaMultiplaArgomentoId, $domandaMultiplaArgomentoCorsoId);
         $res = Model::getDB()->query($query);
         if ($obj = $res->fetch_assoc()) {
-            $alternativa = new Alternativa($obj['id'], $obj['domanda_multipla_id'], $obj['domanda_multipla_argomento_id'], $obj['domanda_multipla_argomento_corso_id'], $obj['testo'], $obj['percentuale_scelta'], $obj['corretta']);
+            $alternativa = new Alternativa( $obj['domanda_multipla_id'], $obj['domanda_multipla_argomento_id'], $obj['domanda_multipla_argomento_corso_id'], $obj['testo'], $obj['percentuale_scelta'], $obj['corretta']);
+            $alternativa->setId($obj['id']);
             return $alternativa;
         } else {
             throw new ApplicationException(Error::$ALTERNATIVA_NON_TROVATA);
@@ -102,8 +103,9 @@ class AlternativaModel extends Model{
         $alternative = array();
         if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $alternative[] = new Alternativa($obj['id'], $obj['domanda_multipla_id'], $obj['domanda_multipla_argomento_id'], $obj['domanda_multipla_argomento_corso_id'], $obj['testo'],
-                    $obj['percentuale_scelta'], $obj['corretta']);
+                $alternativa = new Alternativa($obj['domanda_multipla_id'], $obj['domanda_multipla_argomento_id'], $obj['domanda_multipla_argomento_corso_id'], $obj['testo'], $obj['percentuale_scelta'], $obj['corretta']);
+                $alternativa->setId($obj['id']);
+                $alternative[] = $alternativa;
             }
         }
         return $alternative;
@@ -121,8 +123,9 @@ class AlternativaModel extends Model{
         $res = Model::getDB()->query(sprintf(self::$GET_ALL_ALTERNATIVA_BY_DOMANDA, $domandaMultiplaId, $domandaMultiplaArgomentoId, $domandaMultiplaArgomentoCorsoId));
         if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $alternative[] = new Alternativa($obj['id'], $obj['domanda_multipla_id'], $obj['domanda_multipla_argomento_id'], $obj['domanda_multipla_argomento_corso_id'], $obj['testo'],
-                    $obj['percentuale_scelta'], $obj['corretta']);
+                $alternativa = new Alternativa($obj['domanda_multipla_id'], $obj['domanda_multipla_argomento_id'], $obj['domanda_multipla_argomento_corso_id'], $obj['testo'], $obj['percentuale_scelta'], $obj['corretta']);
+                $alternativa->setId($obj['id']);
+                $alternative[] = $alternativa;
             }
         }
         return $alternative;
@@ -140,8 +143,8 @@ class AlternativaModel extends Model{
         $query = sprintf(self::$GET_ALTERNATIVA_CORRETTA_BY_DOMANDA, $domandaMultiplaId, $domandaMultiplaArgomentoId, $domandaMultiplaArgomentoCorsoId);
         $res = Model::getDB()->query($query);
         if ($obj = $res->fetch_assoc()) {
-            $alternativa = new Alternativa($obj['id'], $obj['domanda_multipla_id'], $obj['domanda_multipla_argomento_id'], $obj['domanda_multipla_argomento_corso_id'], $obj['testo'],
-                $obj['percentuale_scelta'], $obj['corretta']);
+            $alternativa = new Alternativa($obj['domanda_multipla_id'], $obj['domanda_multipla_argomento_id'], $obj['domanda_multipla_argomento_corso_id'], $obj['testo'], $obj['percentuale_scelta'], $obj['corretta']);
+            $alternativa->setId($obj['id']);
             return $alternativa;
         } else {
             throw new ApplicationException(Error::$ALTERNATIVA_NON_TROVATA);

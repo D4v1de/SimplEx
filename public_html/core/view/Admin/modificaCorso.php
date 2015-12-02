@@ -13,7 +13,7 @@ $controller = new CdlController();
 $corso = null;
 
 try {
-    $corso = $controller->readCorso($_URL[1]);
+    $corso = $controller->readCorso($_URL[3]);
 }
 catch (ApplicationException $ex) {
     echo "<h1>errore! ApplicationException->manca id corso nel path</h1>";
@@ -34,9 +34,9 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     $cdlmatricola = $_POST['cdlmatricola'];
 
     try {
-        $corso = new Corso($_URL[1], $matricola, $nome, $tipologia, $cdlmatricola);
-        $controller->modificaCorso($_URL[1], $corso);
-        header('location: ../../gestionecorsi');
+        $new = new Corso(null, $matricola, $nome, $tipologia, $cdlmatricola);
+        $controller->modificaCorso($corso->getId(), $new);
+        header('location: ../view');
     }
     catch (ApplicationException $ex) {
         echo "<h1>errore! ApplicationException->errore modifica corso</h1>";
@@ -85,11 +85,11 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../gestionecorsi">GestioneCorsi</a>
+                        <a href="../view">GestioneCorsi</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../../modificacorso/<?php echo $corso->getId(); ?>"><?php echo $nome; ?></a>
+                        <a href="../modifica/<?php echo $corso->getId(); ?>"><?php echo $nome; ?></a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
@@ -169,7 +169,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                         <button type="reset" class="btn red-intense">Annulla</button>
                                     </div>
                                     <div class="col-md-offset-1 col-md-3">
-                                        <a href="<?php printf('../../gestionecorso/%s', $corso->getId()); ?>"
+                                        <a href="<?php printf('../gestione/%s', $corso->getId()); ?>"
                                            class="btn blue-madison">Associa Docente</a>
                                     </div>
                                 </div>

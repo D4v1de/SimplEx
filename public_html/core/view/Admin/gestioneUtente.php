@@ -1,26 +1,16 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: fede_dr
- * Date: 23/11/15
- * Time: 21:59
+ * User: Giuseppina
+ * Date: 30/11/15
+ * Time: 21:09
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "CdlController.php";
 $controller = new CdlController();
 
-$cdl = null;
-$corsi = Array();
-
-try {
-    $cdl = $controller->readCdl($_URL[3]);
-    $corsi = $controller->getCorsiCdl($cdl->getMatricola());
-} catch (ApplicationException $ex) {
-    echo "<h1>errore! ApplicationException->manca matricolacdl nel path</h1>";
-    echo "<h4>" . $ex . "</h4>";
-    //header('Location: ../visualizzacorsi');
-}
+$utenti = $controller->getUtenti();
 
 ?>
 <!DOCTYPE html>
@@ -34,11 +24,11 @@ try {
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>CdL <?php echo $cdl->getNome(); ?></title>
+    <title> GESTIONE UTENTI </title>
     <?php include VIEW_DIR . "header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
-    <link rel="stylesheet" type="text/css"
-          href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -54,7 +44,7 @@ try {
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                CdL in <?php echo $cdl->getNome(); ?>
+                GESTIONE UTENTI
             </h3>
 
             <div class="page-bar">
@@ -65,11 +55,7 @@ try {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../cdl">CdL</a>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
-                    <li>
-                        <a href="../corsi/<?php echo $cdl->getMatricola(); ?>"><?php echo $cdl->getNome(); ?></a>
+                        <a href="../../gestioneutenti">GestioneUtenti</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
@@ -77,55 +63,73 @@ try {
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
 
-            <form method="post" action="">
+            <form method="post" action=" ">
 
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-university"></i>Corsi CdL <?php echo $cdl->getNome(); ?>
+                            <i class="fa fa-university"></i>Scegli un Utente
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="collapse" data-original-title="" title="">
                             </a>
                         </div>
+                        <div class="actions">
+                            <button type="button" class="btn btn-default btn-sm">
+                                <i class="fa fa-plus"></i> Crea Utente
+                            </button>
+                            <div class="actions">
+                           <input type="hidden" id="elimina" name="elimina" value="elimina">
+                        </div>
+                         <div class="actions">
+                            <button type="submit" class="btn btn-default btn-sm">
+                                <i class="fa fa-minus"></i> Elimina Corso
+                            </button>
+                        </div>    
                     </div>
                     <div class="portlet-body">
-                        <div id="tabella_2_wrapper" class="dataTables_wrapper no-footer">
+                        <div id="tabella_4_wrapper" class="dataTables_wrapper no-footer">
                             <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                   id="tabella_2" role="grid" aria-describedby="tabella_2_info">
+                                   id="tabella_4" role="grid" aria-describedby="tabella_4_info">
                                 <thead>
                                 <tr role="row">
-                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                        colspan="1"
-                                        aria-label="Status: activate to sort column ascending">
-                                        Nome
+                                    <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1"
+                                        aria-label=""
+                                        style="width: 24px;">
+                                        <input type="checkbox" class="group-checkable"
+                                               data-set="#tabella_4 .checkboxes">
                                     </th>
-                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                        colspan="1"
-                                        aria-label="Email: activate to sort column ascending">
+                                    <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                        colspan="1" aria-label="Username: activate to sort column ascending"
+                                        aria-sort="ascending" style="width: 78px;">
                                         Matricola
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
                                         colspan="1"
-                                        aria-label="Status: activate to sort column ascending">
-                                        Tipologia
+                                        aria-label="Email: activate to sort column ascending" style="width: 137px;">
+                                        Nome
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
                                         colspan="1"
-                                        aria-label="Status: activate to sort column ascending">
-                                        Iscrizione
+                                        aria-label="Status: activate to sort column ascending" style="width: 36px;">
+                                        Cognome
                                     </th>
+                                    
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
-                                foreach ($corsi as $c) {
-                                    printf("<tr class=\"sorting_1\" role=\"row\">");
-                                    printf("<td><a href=\"../corso/%s\">%s</a></td>", $c->getId(), $c->getNome());
-                                    printf("<td>%s</td>", $c->getMatricola());
-                                    printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
-                                    printf("<td><button type=\"button\" class=\"btn green-jungle\"><span class=\"md-click-circle md-click-animate\"></span>Iscriviti</button></td>");
-                                    printf("</tr>");
+                                if ($utenti == null) {
+                                    echo "l'array è null";
+                                } else {
+                                    foreach ($utenti as $d) {
+                                        printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                        printf("<td><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $d->getMatricola());
+                                        printf("<td>%s</td>", $d->getMatricola());
+                                        printf("<td><a href=\"../../utente/%s\">%s</a></td>", $d->getMatricola(), $d->getNome());
+                                        printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $d->getCognome());
+                                        printf("</tr>");
+                                    }
                                 }
                                 ?>
                                 </tbody>
@@ -134,9 +138,8 @@ try {
                         </div>
                     </div>
                 </div>
+
             </form>
-
-
             <!-- END PAGE CONTENT-->
         </div>
     </div>
@@ -171,7 +174,7 @@ try {
         Layout.init(); // init current layout
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
-        TableManaged2.init("tabella_2", "tabella_2_wrapper");
+        TableManaged.init("tabella_4", "tabella_4_wrapper");
     });
 </script>
 <!-- END JAVASCRIPTS -->

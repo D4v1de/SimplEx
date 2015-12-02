@@ -29,6 +29,8 @@ class CorsoModel extends Model {
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
+        }else{
+            return Model::getDB()->insert_id;
         }
     }
     
@@ -68,7 +70,8 @@ class CorsoModel extends Model {
         $query = sprintf(self::$READ_CORSO, $id);
         $res = Model::getDB()->query($query);
         if($obj = $res->fetch_assoc()) {
-            $corso = new Corso($obj['id'], $obj['matricola'], $obj['nome'], $obj['tipologia'], $obj['cdl_matricola']);
+            $corso = new Corso( $obj['matricola'], $obj['nome'], $obj['tipologia'], $obj['cdl_matricola']);
+            $corso->setId($obj['id']);
             return $corso;
         }
         else{
@@ -85,7 +88,9 @@ class CorsoModel extends Model {
         $corsi = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $corsi[] = new Corso($obj['id'],$obj['matricola'],$obj['nome'],$obj['tipologia'],$obj['cdl_matricola']);
+                $corso = new Corso($obj['matricola'],$obj['nome'],$obj['tipologia'],$obj['cdl_matricola']);
+                $corso->setId($obj['id']);
+                $corsi[] = $corso;
             }
         }
         return $corsi;
@@ -102,8 +107,9 @@ class CorsoModel extends Model {
         $corsi = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $corsi[] = new Corso($obj['id'],$obj['matricola'], $obj['nome'], $obj['tipologia'], $obj['cdl_matricola']);
-            }
+                $corso = new Corso($obj['matricola'],$obj['nome'],$obj['tipologia'],$obj['cdl_matricola']);
+                $corso->setId($obj['id']);
+                $corsi[] = $corso;            }
         }
         return $corsi;
     }
@@ -148,7 +154,9 @@ class CorsoModel extends Model {
         $corsi = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $corsi[] = new Corso($obj['id'],$obj['matricola'], $obj['nome'], $obj['tipologia'], $obj['cdl_matricola']);
+                $corso = new Corso($obj['matricola'], $obj['nome'], $obj['tipologia'], $obj['cdl_matricola']);
+                $corso->setId($obj['id']);
+                $corsi[] = $corso;
             }
         }
         return $corsi;
