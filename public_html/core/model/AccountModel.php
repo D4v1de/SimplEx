@@ -26,9 +26,9 @@ class AccountModel extends Model {
 
     /**
      * Restituisce utente dato email e password
-     * @param $email
-     * @param $password
-     * @return Utente
+     * @param $email La mail dell'utente
+     * @param $password La password dell'utente
+     * @return Utente L'utente
      * @throws ConnectionException
      * @throws ApplicationException
      */
@@ -37,8 +37,8 @@ class AccountModel extends Model {
     }
 
     /**
-     * @param $identity
-     * @return Utente
+     * @param $identity L'identità dell'utente
+     * @return Utente L'utente trovato
      * @throws ConnectionException
      * @throws ApplicationException
      */
@@ -50,8 +50,8 @@ class AccountModel extends Model {
     }
 
     /**
-     * @param $matricola
-     * @return Utente
+     * @param $matricola La matricola dell'utente da cercare
+     * @return Utente L'utente trovato
      * @throws ConnectionException
      * @throws ApplicationException
      */
@@ -65,9 +65,9 @@ class AccountModel extends Model {
 
     /**
      * Genera identità per salvare le pass ed effettuare le ricerche nel db in modo sicuro
-     * @param $email
-     * @param $pass
-     * @return string identity
+     * @param $email La mail dell'utente
+     * @param $pass La password dell'utente
+     * @return string identity identità per salvare le pass ed effettuare le ricerche nel db in modo sicuro
      */
 
     private static function createIdentity($email, $pass) {
@@ -75,9 +75,9 @@ class AccountModel extends Model {
     }
 
     /**
-     * @param Utente $utente
-     * @return Utente
-     * @throws ApplicationException [$INSERIMENTO_FALLITO]
+     * @param Utente $utente L'utente da creare
+     * @return Utente L'utente creato
+     * @throws ApplicationException
      * @throws ConnectionException
      */
 
@@ -97,8 +97,7 @@ class AccountModel extends Model {
 
     /**
      * Il metodo rimuove l'utente dato la matricola
-     * @param $matricola
-     * @return bool Cancellato oppure no
+     * @param $matricola La matricola dell'utente da cancellare
      * @throws ConnectionException
      */
 
@@ -113,7 +112,7 @@ class AccountModel extends Model {
     /**
      * Serializza tupla dal db in un oggetto Utente
      * @param mysqli_result $res
-     * @return Utente
+     * @return Utente 
      * @throws ApplicationException [$UTENTE_NON_TROVATO]
      */
 
@@ -126,17 +125,17 @@ class AccountModel extends Model {
     }
 
     /**
-     * @return array Utente
+     * @return Utente[] Tutti gli utenti del db
      * @throws ConnectionException
      */
 
     public function getAllUtenti() {
         $res = Model::getDB()->query(self::$SELECT_ALL_UTENTI);
-        $ret = array();
+        $utenti = array();
         while ($obj = $res->fetch_assoc()) {
-            $ret[] = new Utente($obj['matricola'], $obj['username'], $obj['password'], $obj['tipologia'], $obj['nome'], $obj['cognome'], $obj['cdl_matricola']);
+            $utenti[] = new Utente($obj['matricola'], $obj['username'], $obj['password'], $obj['tipologia'], $obj['nome'], $obj['cognome'], $obj['cdl_matricola']);
         }
-        return $ret;
+        return $utenti;
     }
 
     /**
