@@ -5,14 +5,24 @@
  * Date: 18/11/15
  * Time: 09:58
  */
-//TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "DomandaController.php";
+include_once CONTROL_DIR . "ArgomentoController.php";
+include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "AlternativaController.php";
+$cdlController = new CdlController();
+$domandaController = new DomandaController();
+$argomentoController = new ArgomentoController();
+$alternativaController = new AlternativaController();
 
 $idCorso = $_URL[3];
 $idArgomento = $_URL[6];
-$alternativaController = new AlternativaController();
-$domandaController = new DomandaController();
+$corso = $cdlController->readCorso($idCorso);
+$argomento = $argomentoController->readArgomento($idArgomento, $idCorso);
+
+if (isset($_POST['domanda'])){
+    $domandaController->rimuoviDomandaAperta($_POST['domanda'],$idArgomento,$idCorso);
+    header('Refresh:0');
+}
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -25,7 +35,9 @@ $domandaController = new DomandaController();
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>Lista Domande "Nome Argomento"</title>
+    <?php
+    printf("<title>%s</title>", $argomento->getNome());
+    ?>
     <?php include VIEW_DIR . "header.php"; ?>
 </head>
 <!-- END HEAD -->
@@ -47,42 +59,48 @@ $domandaController = new DomandaController();
 
             <div class="page-bar">
                 <ul class="page-breadcrumb">
-                    <li>
-                        <i class="fa fa-home"></i>
-                        <a href="index">Home</a>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
-                    <li>
-                        <a href="">NomeCorso</a>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
-                    <li>
-                        <a href="homecorsodocente">NomeArgomento</a>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
+                    <?php
+                    printf("<li>");
+                    printf("<i class=\"fa fa-home\"></i>");
+                    printf("<a href=\"../../../../\">Home</a>");
+                    printf("<i class=\"fa fa-angle-right\"></i>");
+                    printf("</li>");
+                    printf("<li>");
+                    printf("<i></i>");
+                    printf("<a href=\"../../../%d\">%s</a>", $corso->getId(), $corso->getNome());
+                    printf("<i class=\"fa fa-angle-right\"></i>");
+                    printf("</li>");
+                    printf("<li>");
+                    printf("<i></i>");
+                    printf("<a href=\"\">%s</a>", $argomento->getNome());
+                    printf("<i class=\"fa fa-angle-right\"></i>");
+                    printf("</li>");
+                    ?>
                 </ul>
             </div>
 
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
+            <!-- Da scegliere quali pulsanti lasciare
             <div class="row">
-                <!--TOP menu -->
+
                 <div class="col-md-offset-3 col-md-3">
                     <?php
-                    printf("<a href=\"inserisciaperta/%d\" class=\"btn sm green-jungle\">",$idArgomento);
+                    printf("<a href=\"inserisciaperta/%d\" class=\"btn sm green-jungle\">", $idArgomento);
                     ?>
-                        <i class="fa fa-plus"></i> Nuova Domanda Aperta
+                    <i class="fa fa-plus"></i> Nuova Domanda Aperta
                     </a>
-                </div>
+               </div>
                 <div class="col-md-3">
                     <?php
-                    printf("<a href=\"inseriscimultipla/%d\" class=\"btn sm green-jungle\">",$idArgomento);
+                    printf("<a href=\"inseriscimultipla/%d\" class=\"btn sm green-jungle\">", $idArgomento);
                     ?>
-                        <i class="fa fa-plus"></i> Nuova Domanda Multipla
+                    <i class="fa fa-plus"></i> Nuova Domanda Multipla
                     </a>
                 </div>
             </div>
-            <br>
+            <br> -->
+
             <!--INIZIO TABELLA DOMANDE APERTE-->
             <div class="portlet box blue-madison">
                 <div class="portlet-title">
@@ -93,24 +111,29 @@ $domandaController = new DomandaController();
                         <a href="javascript:;" class="collapse" data-original-title="" title="">
                         </a>
                     </div>
-
+                    <div class="actions">
+                        <?php
+                        printf("<a href=\"inserisciaperta/%d\" class=\"btn btn-default btn-sm\">", $idArgomento);
+                        ?>
+                        <i class="fa fa-plus"></i> Nuova Domanda Aperta
+                        </a>
+                    </div>
                 </div>
                 <div class="portlet-body">
                     <?php
-                    $domandeAperte = $domandaController->getAllAperte($idArgomento,$idCorso);
+                    $domandeAperte = $domandaController->getAllAperte($idArgomento, $idCorso);
                     foreach ($domandeAperte as $d) {
                         printf("<div class=\"portlet\">");
                         printf("<div class=\"portlet-title \">");
                         printf("<div class=\"caption\">");
                         printf("<i class=\"fa fa-file-o\"></i>%s", $d->getTesto());
                         printf("</div>");
-                        printf("<div class=\"actions\">");
+                        printf("<form method=\"post\" action=\"\" class=\"actions\">");
                         printf("<a href=\"modificaaperta/%d/%d\" class=\"btn green-jungle\"><i class=\"fa fa-edit\"></i> Modifica </a>", $idArgomento, $d->getId());
-                        printf("<a href=\"javascript:;\" class=\"btn red-intense\"><i class=\"fa fa-remove\"></i> Rimuovi </a>");
+                        printf("<button class=\"btn sm red-intense\" type=\"submit\" name=\"domanda\" value=\"%d\"><i class=\"fa fa-remove\"></i> Rimuovi </button>", $d->getId());
+                        printf("</form>");
                         printf("</div>");
                         printf("</div>");
-                        printf("</div>");
-
                     }
                     ?>
                 </div>
@@ -127,11 +150,17 @@ $domandaController = new DomandaController();
                         <a href="javascript:;" class="collapse" data-original-title="" title="">
                         </a>
                     </div>
-
+                    <div class="actions">
+                        <?php
+                        printf("<a href=\"inseriscimultipla/%d\" class=\"btn btn-default btn-sm\">", $idArgomento);
+                        ?>
+                        <i class="fa fa-plus"></i> Nuova Domanda Multipla
+                        </a>
+                    </div>
                 </div>
                 <div class="portlet-body">
                     <?php
-                    $domandeMultiple = $domandaController->getAllMultiple($idArgomento,$idCorso);
+                    $domandeMultiple = $domandaController->getAllMultiple($idArgomento, $idCorso);
                     foreach ($domandeMultiple as $d) {
                         $risposte = $alternativaController->getAllAlternativa($d->getId(), $d->getArgomentoId(), $d->getArgomentoCorsoId());
 

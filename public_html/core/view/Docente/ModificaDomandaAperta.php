@@ -103,7 +103,7 @@ if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-globe"></i>Modifica Domanda Aperta
+                            <i class="fa fa-edit"></i>Modifica Domanda Aperta
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="collapse" data-original-title="" title="">
