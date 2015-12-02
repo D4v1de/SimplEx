@@ -76,12 +76,16 @@ if (!defined("TESTING")) {
                         case 'view':
                             include_once VIEW_DIR . "Admin/visualizzaUtente.php";
                             break;
+                        case 'gestione':
+                            include_once VIEW_DIR . "Admin/gestioneUtente.php";
+                            break;
                         case 'groups':
                             include_once VIEW_DIR . "Admin/Groups.php";
                             break;
                         default:
                             include_once VIEW_DIR . "Admin/home.php";
                     }
+                    break;
                 case 'cdl':
                     switch (isset($_URL[2]) ? $_URL[2] : '') {
                         case 'crea':
@@ -97,6 +101,7 @@ if (!defined("TESTING")) {
                         default:
                             include_once VIEW_DIR . "Admin/home.php";
                     }
+                    break;
                 case 'corsi':
                     switch (isset($_URL[2]) ? $_URL[2] : '') {
                         case 'crea':
@@ -115,6 +120,7 @@ if (!defined("TESTING")) {
                         default:
                             include_once VIEW_DIR . "Admin/home.php";
                     }
+                    break;
             }
         }
             break;
@@ -141,6 +147,7 @@ if (!defined("TESTING")) {
                                     }
                             }
                     }
+                    break;
                 case 'studente':
                     switch (isset($_URL[2]) ? $_URL[2] : '') {
                         case 'cdl':
@@ -155,6 +162,7 @@ if (!defined("TESTING")) {
                         default:
                             include_once VIEW_DIR . "Studente/visualizzaCdL.php";
                     }
+                    break;
 
             }
         }

@@ -159,16 +159,6 @@ class CdlController extends Controller {
     }
 
     /**
-     * Restituisce i Docenti associati a un Corso
-     * @param id del Corso
-     * @return array con i Docenti associati al corso specificato SSSTTTUUUBBBB ------->
-     */
-    public function getDocenteAssociato($corsoID) {
-        $accountModel = new AccountModel();
-        return $accountModel->getAllDocentiByCorso($corsoID);
-    }
-
-    /**
      * Restituisce un Utente
      * @param matricola dell'Utente da cercare
      * @return Utente con la matricola specificata SSSTTTUUUBBBB ------->
