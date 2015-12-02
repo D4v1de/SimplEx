@@ -169,10 +169,9 @@ var FormEditable = function () {
             Metronic.initUniform();
         });
 
-        $('#tags').editable({
+        $('#corsi_tenuti').editable({
             inputclass: 'form-control input-medium',
             select2: {
-                tags: ['html', 'javascript', 'css', 'ajax'],
                 tokenSeparators: [",", " "]
             }
         });

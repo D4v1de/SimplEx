@@ -20,7 +20,7 @@ class UtenteController extends Controller {
     /**
      * Restituisce i Docenti associati a un Corso
      * @param id del Corso
-     * @return array con i Docenti associati al corso specificato 
+     * @return array con i Docenti associati al corso specificato
      */
     public function getDocenteAssociato($corsoID) {
         $accountModel = new AccountModel();
@@ -56,6 +56,46 @@ class UtenteController extends Controller {
 
     public function modificaUtente($matricola, $fieldName, $value) {
         //TODO verifiche in più
-        //update
+        if (!is_numeric($matricola)) {
+            throw new ApplicationException(Error::$MATRICOLA_INESISTENTE."sss");
+        }
+        $aModel = new AccountModel();
+        $utente = $aModel->getUtenteByMatricola($matricola);
+
+        //!!! CRAZY CODE START
+        if ($fieldName == "matricola" && preg_match(Patterns::$MATRICOLA, $value)) {
+            $utente->setMatricola($value);
+        } else {
+            throw new ApplicationException(Error::$MATRICOLA_INESISTENTE);
+        }
+
+        if ($fieldName == "username" && preg_match(Patterns::$EMAIL, $value)) {
+            $utente->setUsername($value);
+        } else {
+            throw new ApplicationException(Error::$EMAIL_NON_VALIDA);
+        }
+
+        if ($fieldName == "nome" && preg_match(Patterns::$NAME_GENERIC, $value)) {
+            $utente->setNome($value);
+        } else {
+            throw new ApplicationException(Error::$NOME_NON_VALIDO);
+        }
+        if ($fieldName == "cognome" && preg_match(Patterns::$NAME_GENERIC, $value)) {
+            $utente->setCognome($value);
+        } else {
+            throw new ApplicationException(Error::$CONGNOME_NON_VALIDO);
+        }
+
+        if ($fieldName == "tipologia" && is_numeric($value)) {
+            $utente->setCognome($value);
+        } else {
+            throw new ApplicationException(Error::$TIPO_UTENTE_ERRATO);
+        }
+
+        if($fieldName=="corsi_tenuti"){
+            //todo settare i corsi
+        }
+
+        $aModel->updateUtente($matricola, $utente);
     }
 }

@@ -12,12 +12,13 @@ include_once CONTROL_DIR . "ControllerTest.php";
 include_once CONTROL_DIR . "ArgomentoController.php";
 include_once CONTROL_DIR . "CdlController.php";
 
-$controller = new SessioneController();
+$controllerSessione = new SessioneController();
 $controllerTest = new ControllerTest();
 $controllerArgomento = new ArgomentoController();
 $controllerCorso = new CdlController();
 
 $corso = null;
+$identidicativoCorso = $_URL[4];
 
 try {
     $corso = $controllerCorso->readCorso($_URL[3]);
@@ -28,9 +29,19 @@ try {
 
 
 
+$idsSessione = $controllerSessione->getAllSessioniByCorso($identidicativoCorso);
+if(isset($_POST['IdSes'])){
+        $idSes = $_POST['IdSes'];
+        $controllerSessione->deleteSessione($idSes);
+        header("Refresh:0");
+}
+else echo "non settato niente";
+
+
 if(isset($_POST['id']) && isset($_POST['idcorso'])){
     $id = $_POST['id'];
     $idcorso = $_POST['idcorso'];
+
     $controllerArgomento->rimuoviArgomento($id, $idcorso);
 }
 
@@ -120,6 +131,7 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
             </div>
 
 
+            <form action="" method="post">
             <div class="portlet box blue-madison">
                 <div class="portlet-title">
                     <div class="caption">
@@ -161,28 +173,25 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
                             <tbody>
                             <?php
                             $array = Array();
-                            $array = $controller->getAllSessioni();
+                            $array = $idsSessione;
                             if ($array == null) {
                                 echo "l'array è null";
                             }
                             else {
                                 foreach ($array as $c) {
+                                    $sesId=$c->getId();
+
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
 
                                     printf("<td class=\"sorting_1\"><a href=\"visualizzasessione/%s\">%s</a></td>", $c->getId(), "Sessione ".$c->getId());
                                     printf("<td>%s</td>", $c->getDataInizio());
                                     printf("<td>%s</td>", $c->getTipologia());
-                                    printf("<td class=\"center\">
-                                            <a href=\"visualizzaesitisessione\" class=\"btn btn-sm default\">
-                                              Esiti
-                                            </a>
-                                            <a href=\"creamodificasessione\" class=\"btn btn-sm blue-madison\">
-                                                <i class=\"fa fa-edit\"></i>
-                                            </a>
-                                            <a href=\"javascript:;\" class=\"btn btn-sm red-intense\">
-                                                <i class=\"fa fa-trash-o\"></i>
-                                            </a>
-                                        </td>");
+                                    printf("<td class=\"center\"><a href=\"visualizzaesitisessione\" class=\"btn btn-sm default\">Esiti");
+                                    printf("</a>");
+                                    printf("<a href=\"creamodificasessione\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i>");
+                                    printf("</a>");
+                                    printf("<input type='hidden' name='IdSes' value='%d' class=\"btn btn-sm red-intense\" >", $sesId );
+                                    printf("<button type='submit' value='' class='btn btn-sm red-intense'> <i class=\"fa fa-trash-o\"></i></button></td>");
                                     printf("</tr>");
                                 }
                             }
@@ -192,7 +201,7 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
                     </div>
                 </div>
             </div>
-
+            </form>
 
 
             <div class="portlet box blue-madison">

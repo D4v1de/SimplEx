@@ -12,6 +12,12 @@ $ctr = new CdlController();
 $cdls = $ctr->getCdl();
 $arr = array();
 /** @var Cdl $item */
-foreach ($cdls as $item)
-    $arr[] = array('value' => $item->getMatricola(), 'text' => $item->getNome());
+foreach ($cdls as $item) {
+    if (isset($_GET['namesOnly'])) {
+        $arr[] = $item->getNome();
+    } else {
+        $arr[] = array('value' => $item->getMatricola(), 'text' => $item->getNome());
+    }
+
+}
 echo json_encode($arr);

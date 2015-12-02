@@ -19,6 +19,8 @@ class SessioneController extends Controller {   //UTLIZZARE ALTRO CONTROLLER..NO
 
     private $sessioneModel;
     private $accountModel;
+    private $accountController;
+    private $testController;
 
     public function __construct() {
         $this->sessioneModel = new SessioneModel();
@@ -86,7 +88,10 @@ class SessioneController extends Controller {   //UTLIZZARE ALTRO CONTROLLER..NO
         public function getAllStudentiByCorso($idCorso) {
         return $this->accountModel->getAllStudentiByCorso($idCorso);
     }
-    //MANCA IL METODO CHE TI DA TUTTE LE SESSIONI DATO UN CORSO
+
+    public function getAllSessioniByCorso($idCorso) {
+        return $this->sessioneModel->getAllSessioniByCorso($idCorso);
+    }
 
     public function getAllSessioniByStudente($matricola) {
         return $this->sessioneModel->getAllSessioniByStudente($matricola);
