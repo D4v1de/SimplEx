@@ -80,7 +80,13 @@ if (!defined("TESTING")) {
                             include_once VIEW_DIR . "Admin/GestioneUtente.php";
                             break;
                         case 'groups':
-                            include_once VIEW_DIR . "Admin/Groups.php";
+                            include_once VIEW_DIR . "Admin/ajaxGroups.php";
+                            break;
+                        case 'cdls':
+                            include_once VIEW_DIR . "Admin/ajaxCdls.php";
+                            break;
+                        case 'edit':
+                            include_once VIEW_DIR . "Admin/ajaxModifica.php";
                             break;
                         default:
                             include_once VIEW_DIR . "Admin/Home.php";
