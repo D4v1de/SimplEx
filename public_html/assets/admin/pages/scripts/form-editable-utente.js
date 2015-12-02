@@ -71,7 +71,7 @@ var FormEditable = function () {
                 if ($.trim(value) == '') return 'Questo campo è obbligatorio';
             }
         });
-        
+
         $('#status').editable();
 
         $('#group').editable({
