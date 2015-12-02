@@ -218,7 +218,7 @@ if (!defined("TESTING")) {
                                     }
                                     break;
                                 default:
-                                    include_once VIEW_DIR . "Studente/HomeCorso.php";
+                                    include_once VIEW_DIR . "Studente/VisualizzaCorso.php";
                             }
                             break;
                         default:
