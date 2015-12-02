@@ -35,4 +35,22 @@ class UtenteController extends Controller {
         $accountModel = new AccountModel();
         return $accountModel->getAllUtenti();
     }
+    
+     /**
+     * Restituisce tutti gli Studenti
+     * @return array con tutti gli Studenti
+     */
+    public function getStudenti() { //da vedere
+        $accountModel = new AccountModel();
+        return $accountModel->getAllStudenti();
+    }
+    
+     /**
+     * Restituisce tutti i Docenti
+     * @return array con tutti i Docenti
+     */
+    public function getDocenti() {
+        $accountModel = new AccountModel();
+        return $accountModel->getAllDocenti();
+    }
 }
