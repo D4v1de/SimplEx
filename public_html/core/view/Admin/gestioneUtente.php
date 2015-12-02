@@ -76,17 +76,13 @@ if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../gestione </a>
+                        <a href="../gestione"></a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-
-            <div class="row">
-                <h3></h3>
-            </div>
 
             <form method="post" action="">
 
@@ -107,16 +103,16 @@ if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
                         </div>
                     </div>
                     <div class="portlet-body">
-                        <div id="tabella_4_wrapper" class="dataTables_wrapper no-footer">
+                        <div id="tabella_5_wrapper" class="dataTables_wrapper no-footer">
                             <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                   id="tabella_4" role="grid" aria-describedby="tabella_4_info">
+                                   id="tabella_5" role="grid" aria-describedby="tabella_5_info">
                                 <thead>
                                 <tr role="row">
                                     <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1"
                                         aria-label=""
                                         style="width: 24px;">
                                         <input type="checkbox" class="group-checkable"
-                                               data-set="#tabella_4 .checkboxes">
+                                               data-set="#tabella_5 .checkboxes">
                                     </th>
                                     <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
                                         colspan="1" aria-label="Username: activate to sort column ascending"
@@ -171,8 +167,7 @@ if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
 <!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
 <script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript"
-        src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <!-- END PAGE LEVEL PLUGINS aggiunta da me-->
 
 <script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>
@@ -188,7 +183,7 @@ if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
         Layout.init(); // init current layout
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
-        TableManaged.init("tabella_4", "tabella_4_wrapper");
+        TableManaged.init("tabella_5", "tabella_5_wrapper");
     });
 </script>
 <!-- END JAVASCRIPTS -->

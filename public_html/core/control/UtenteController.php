@@ -7,6 +7,7 @@
  * Time: 20:59
  */
 include_once BEAN_DIR . "Utente.php";
+include_once MODEL_DIR . "AccountModel.php";
 include_once CONTROL_DIR."Controller.php";
 
 class UtenteController extends Controller {
@@ -20,7 +21,7 @@ class UtenteController extends Controller {
      * Restituisce tutti gli Utenti
      * @return array con tutti gli Utenti 
      */
-    public function getUtentii() {
+    public function getUtenti() {
         $accountModel = new AccountModel();
         return $accountModel->getAllUtenti();
     }
