@@ -97,7 +97,7 @@ if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
                         </div>
                         <div class="actions">
                             <button type="submit" class="btn btn-default btn-sm">
-                                <i class="fa fa-minus"></i> Elimina
+                                <i class="fa fa-minus"></i> Elimina Utente
                             </button>
                             <input type="hidden" id="elimina" name="elimina" value="elimina">
                         </div>
@@ -126,9 +126,14 @@ if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
                                         colspan="1"
-                                        aria-label="Status: activate to sort column ascending" style="width: 36px;">
+                                        aria-label="Email: activate to sort column ascending" style="width: 137px;">
                                         Cognome
-                                    </th>                                   
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Status: activate to sort column ascending" style="width: 36px;">
+                                        Tipologia
+                                    </th>  
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -138,7 +143,8 @@ if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
                                     printf("<td><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $d->getMatricola());                                    
                                     printf("<td>%s</td>", $d->getMatricola());
                                     printf("<td><a href=\"../../utenti/view/%s\">%s</a></td>", $d->getMatricola(), $d->getNome());
-                                    printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $d->getCognome());                                    
+                                    printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $d->getCognome());
+                                    printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $d->getTipologia()); 
                                     printf("</tr>");
                                 }
                                 ?>

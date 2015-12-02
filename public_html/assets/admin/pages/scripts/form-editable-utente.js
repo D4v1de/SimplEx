@@ -52,9 +52,8 @@ var FormEditable = function () {
         $.fn.editable.defaults.url = '/adm/utenti/edit';
 
         //editables element samples 
-        $('#name').editable({
+        $('#nome').editable({
             type: 'text',
-            pk: 1,
             name: 'name',
             title: 'Inserisci il nome',
             validate: function (value) {
@@ -62,9 +61,8 @@ var FormEditable = function () {
             }
         });
 
-        $('#surname').editable({
+        $('#cognome').editable({
             type: 'text',
-            pk: 1,
             name: 'surname',
             title: 'Inserisci il cognome',
             validate: function (value) {
@@ -72,14 +70,35 @@ var FormEditable = function () {
             }
         });
 
-        $('#status').editable();
+        $('#matricola').editable({
+            type: 'text',
+            name: 'name',
+            title: 'Inserisci il nome',
+            validate: function (value) {
+                if ($.trim(value) == '') return 'Questo campo è obbligatorio';
+            }
+        });
 
-        $('#group').editable({
+        $('#username').editable({
+            type: 'text',
+            name: 'name',
+            title: 'Inserisci il nome',
+            validate: function (value) {
+                if ($.trim(value) == '') return 'Questo campo è obbligatorio';
+            }
+        });
+
+        $('#tipologia').editable({
             showbuttons: false
         });
 
+        $('#cdl_matricola').editable({
+            showbuttons: false,
+            inputclass: 'form-control input-medium'
+        });
+
         $('#vacation').editable({
-            rtl : Metronic.isRTL() 
+            rtl: Metronic.isRTL()
         });
 
         $('#dob').editable({
@@ -100,7 +119,7 @@ var FormEditable = function () {
                 if (v && v.getDate() == 10) return 'Day cant be 10!';
             },
             datetimepicker: {
-                rtl : Metronic.isRTL(),
+                rtl: Metronic.isRTL(),
                 todayBtn: 'linked',
                 weekStart: 1
             }
@@ -111,7 +130,7 @@ var FormEditable = function () {
         });
 
         $('#note').editable({
-            showbuttons : (Metronic.isRTL() ? 'left' : 'right')
+            showbuttons: (Metronic.isRTL() ? 'left' : 'right')
         });
 
         $('#pencil').click(function (e) {
@@ -128,25 +147,25 @@ var FormEditable = function () {
             pk: 1,
             limit: 3,
             source: [{
-                    value: 1,
-                    text: 'banana'
-                }, {
-                    value: 2,
-                    text: 'peach'
-                }, {
-                    value: 3,
-                    text: 'apple'
-                }, {
-                    value: 4,
-                    text: 'watermelon'
-                }, {
-                    value: 5,
-                    text: 'orange'
-                }
+                value: 1,
+                text: 'banana'
+            }, {
+                value: 2,
+                text: 'peach'
+            }, {
+                value: 3,
+                text: 'apple'
+            }, {
+                value: 4,
+                text: 'watermelon'
+            }, {
+                value: 5,
+                text: 'orange'
+            }
             ]
         });
 
-        $('#fruits').on('shown', function(e, reason) {
+        $('#fruits').on('shown', function (e, reason) {
             Metronic.initUniform();
         });
 
@@ -450,11 +469,11 @@ var FormEditable = function () {
         init: function () {
 
             // inii ajax simulation
-           // initAjaxMock();
+            // initAjaxMock();
 
             // init editable elements
             initEditables();
-            
+
             // init editable toggler
             $('#enable').click(function () {
                 $('#user .editable').editable('toggleDisabled');
