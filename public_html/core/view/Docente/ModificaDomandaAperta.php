@@ -6,8 +6,27 @@
  * Time: 09:58
  */
 //TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "Esempio.php";
-$controller = new Esempio();
+include_once CONTROL_DIR . "DomandaController.php";
+$domandaController = new DomandaController();
+$domandaOld = $domandaController->getDomandaAperta(35,9,20);
+
+if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
+    $testo = $_POST['testo'];
+    $punteggio = $_POST['punteggio'];
+
+    if (empty($testo) && empty($punteggio)) {
+        echo "<script type='text/javascript'>alert('Devi riempire tutti i campi!');</script>";
+    } else if (empty($testo)) {
+        echo "<script type='text/javascript'>alert('Devi inserire il testo!');</script>";
+    } else if (empty($punteggio)) {
+        echo "<script type='text/javascript'>alert('Devi inserire il punteggio!');</script>";
+    } else {
+        $updatedDomanda = new DomandaAperta(9, 20, $testo, $punteggio, 0);
+        $domandaController->modificaDomandaAperta($domandaOld->getId(),$domandaOld->getArgomentoId(),$domandaOld->getArgomentoCorsoId(),$updatedDomanda);
+
+        header('location: ../../listadomande');
+    }
+}
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -16,109 +35,108 @@ $controller = new Esempio();
 <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
 <html lang="en">
-    <!--<![endif]-->
-    <!-- BEGIN HEAD -->
-    <head>
-        <meta charset="utf-8"/>
-        <title>Metronic | Page Layouts - Blank Page</title>
-        <?php include VIEW_DIR . "header.php"; ?>
-    </head>
-    <!-- END HEAD -->
-    <!-- BEGIN BODY -->
-    <body class="page-md page-header-fixed page-quick-sidebar-over-content">
-        <?php include VIEW_DIR . "headMenu.php"; ?>
-        <div class="clearfix">
-        </div>
-        <!-- BEGIN CONTAINER -->
-        <div class="page-container">
-            <?php include VIEW_DIR . "sideBar.php"; ?>
-            <!-- BEGIN CONTENT -->
-            <div class="page-content-wrapper">
-                <div class="page-content">
-                    <!-- BEGIN PAGE HEADER-->
-                    <h3 class="page-title">
-                        Modifica una domanda a risposta aperta
-                    </h3>
-                    <div class="page-bar">
-                        <ul class="page-breadcrumb">
-                            <li>
-                                <i class="fa fa-home"></i>
-                                <a href="index.html">Home</a>
-                                <i class="fa fa-angle-right"></i>
-                            </li>
-                            <li>
-                                <a href="#">Nome Corso</a>
-                                <i class="fa fa-angle-right"></i>
-                            </li>
-                            <li>
-                                <a href="#">Nome Argomento</a>
-                                <i class="fa fa-angle-right"></i>
-                            </li>
-                            <li>
-                                <a href="#">Modifica Domanda Aperta</a>
-                                <i class="fa fa-angle-right"></i>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- END PAGE HEADER-->
-                    <!-- BEGIN PAGE CONTENT-->
-                    <div class="portlet box grey-cascade">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                <i class="fa fa-globe"></i>Modifica Domanda Aperta
-                            </div>
-                            <div class="tools">
-                                <a href="javascript:;" class="collapse" data-original-title="" title="">
-                                </a>
-                                <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title="">
-                                </a>
-                                <a href="javascript:;" class="reload" data-original-title="" title="">
-                                </a>
-                                <a href="javascript:;" class="remove" data-original-title="" title="">
-                                </a>
-                            </div>
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title>Modifica Domanda Aperta</title>
+    <?php include VIEW_DIR . "header.php"; ?>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="page-md page-header-fixed page-quick-sidebar-over-content">
+<?php include VIEW_DIR . "headMenu.php"; ?>
+<div class="clearfix">
+</div>
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <?php include VIEW_DIR . "sideBar.php"; ?>
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <!-- BEGIN PAGE HEADER-->
+            <h3 class="page-title">
+                Modifica una domanda a risposta aperta
+            </h3>
+
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li>
+                        <i class="fa fa-home"></i>
+                        <a href="index.html">Home</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="#">Nome Corso</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="#">Nome Argomento</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="#">Modifica Domanda Aperta</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                </ul>
+            </div>
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+            <form method="post" action="modifica" class="form-horizontal form-bordered">
+                <div class="portlet box blue-madison">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-globe"></i>Modifica Domanda Aperta
                         </div>
-                        <div class="portlet-body form">
-                            <!-- BEGIN FORM-->
-                            <form action="#" class="form-horizontal form-bordered">
-                                <div class="form-body">
-                                    <div class="form-group form-md-line-input has-success" style="height: 100px">
-                                        <label class="control-label col-md-3">Inserisci Testo Domanda</label>
-                                        <div class="col-md-6">
-                                            <input type="text" value="Precedente Testo Domanda" class="form-control">
-                                            <span class="help-block">
-                                                Inserisci il testo della domanda </span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group form-md-line-input has-success" style="height: 100px">
-                                        <label class="control-label col-md-3">Inserisci Punteggio</label>
-                                        <div class="col-md-4">
-                                            <input type="number" value="Precedente punteggio" class="form-control">
-                                            <span class="help-block">
-                                                Inserisci il punteggio massimo per la domanda </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-actions">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="row">
-                                                <div class="col-md-9">
-                                                    <a href="javascript:;" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
-                                                        Conferma
-                                                    </a>
-                                                    <a href="javascript:;" class="btn sm red-intense">
-                                                        Annulla
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                            <!-- END FORM-->
+                        <div class="tools">
+                            <a href="javascript:;" class="collapse" data-original-title="" title="">
+                            </a>
                         </div>
                     </div>
+                    <div class="portlet-body form">
+                        <!-- BEGIN FORM-->
+
+                        <div class="form-body">
+                            <div class="form-group form-md-line-input has-success" style="height: 100px">
+                                <label class="control-label col-md-3">Inserisci Testo Domanda</label>
+
+                                <div class="col-md-6">
+                                    <?php
+                                    printf("<input type=\"text\" id=\"testoDomanda\" name=\"testo\" value=\"%s\" class=\"form-control\">",$domandaOld->getTesto());
+                                    printf("<span class=\"help-block\">");
+                                    printf("Inserisci il testo della domanda </span>");
+                                    ?>
+                                </div>
+                            </div>
+                            <div class="form-group form-md-line-input has-success" style="height: 100px">
+                                <label class="control-label col-md-3">Inserisci Punteggio</label>
+
+                                <div class="col-md-4">
+                                    <?php
+                                    printf("<input type=\"number\" id=\"punteggioDomanda\" name=\"punteggio\" value=\"%d\" class=\"form-control\">",$domandaOld->getPunteggioMax());
+                                    printf("<span class=\"help-block\">");
+                                    printf("Inserisci il punteggio della domanda </span>");
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <button type="submit" class="btn sm green-jungle">Conferma</button>
+                                    <a href="../../listadomande" class="btn sm red-intense">
+                                        Annulla
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
             <!-- END CONTENT -->
         </div>
         <!-- END CONTAINER -->
@@ -139,6 +157,6 @@ $controller = new Esempio();
             });
         </script>
         <!-- END JAVASCRIPTS -->
-    </body>
-    <!-- END BODY -->
+</body>
+<!-- END BODY -->
 </html>
