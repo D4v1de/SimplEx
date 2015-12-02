@@ -26,11 +26,12 @@ class TestModel extends Model {
      */
     public function createTest($test) {
         $query = sprintf(self::$CREATE_TEST, $test->getDescrizione(), $test->getPunteggioMax(), $test->getNumeroMultiple(), $test->getNumeroAperte(), $test->getPercentualeScelto(), $test->getPercentualeSuccesso());
-        $res = Model::getDB()->query($query);
-        if ($res->affected_rows==-1) {
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
         }else{
-            return Model::getDB()->insert_id;
+            $id = Model::getDB()->insert_id;
+            return $id;
         }
     }
 

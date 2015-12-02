@@ -173,8 +173,10 @@ class AccountModel extends Model {
         $query = sprintf(self::$GET_ALL_DOCENTI_CORSO, $idCorso);
         $res = Model::getDB()->query($query);
         $docenti = array();
-        while ($obj = $res->fetch_assoc()) {
+        if($res){
+            while ($obj = $res->fetch_assoc()) {
                 $docenti[] = Utente($obj['matricola'], $obj['username'], $obj['password'], $obj['tipologia'], $obj['nome'], $obj['cognome'], $obj['cdl_matricola']);
+            }
         }
         return $docenti;
     }
