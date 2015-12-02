@@ -8,7 +8,9 @@
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "CdlController.php";
+include_once CONTROL_DIR . "UtenteController.php";
 $controller = new CdlController();
+$controllerUtenti = new UtenteController();
 
 $docenteassociato = Array();
 $corso = null;
@@ -18,7 +20,7 @@ $docente = null;
 try {
     $corso = $controller->readCorso($_URL[3]);
     $docenti = $controller->getDocenti();
-    $docenteassociato = $controller->getDocenteAssociato($corso->getId());
+    $docenteassociato = $controllerUtenti->getDocenteAssociato($corso->getId());
 }
 catch (ApplicationException $ex) {
     echo "<h1>errore! ApplicationException->errore manca id corso nel path!</h1>";
