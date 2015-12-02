@@ -73,7 +73,7 @@ class RispostaAperta {
      /**
      * @return int l'id della domanda aperta
      */
-    function getDomandApertaId() {
+    function getDomandaApertaId() {
         return $this->domandaApertaId;
     }
 
@@ -101,7 +101,7 @@ class RispostaAperta {
     
     /**
      * Setta il testo della risposta aperta
-     * @param stirng $testo Il testo della risposta aperta
+     * @param string $testo Il testo della risposta aperta
      */
     function setTesto($testo) {
         $this->testo = $testo;
