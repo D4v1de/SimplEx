@@ -17,12 +17,14 @@ class AccountModelTest extends PHPUnit_Framework_TestCase {
     const CDL_MAT = "051210";
     const NOME2 = "Ss";
     const IDCORSO = 18;
+    const MATRICOLACDL = "051211";
+    const IDSESSIONE = 1;
 
     public function testCreateRemoveEditUtente() {
         $model = new AccountModel();
 
         //Nel caso se l'utente già esiste nel db lo rimuovo
-        $model->removeUtente(self::MATRICOLA);
+        $model->deleteUtente(self::MATRICOLA);
 
 
         // Siamo sicuri che l'utente non esiste, quindi ora lo creiamo
@@ -60,13 +62,33 @@ class AccountModelTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(self::NOME2, $utente->getNome());
 
         //cancello (ovviamente verificando se mi restituisce TRUE)
-        $this->assertTrue($model->removeUtente(self::MATRICOLA));
+        $model->deleteUtente(self::MATRICOLA);
 
         //cancello di nuovo, la seconda volta dovrebbe restituire false (utente non esiste)
-        $this->assertFalse($model->removeUtente(self::MATRICOLA));
+        $model->deleteUtente(self::MATRICOLA);
 
+        //restituisco tutti gli studenti
+        $allStudenti = $model->getAllStudenti();
+        print("Restituisce tutti gli studenti\n");
+        print_r($allStudenti);
+
+        //cerco tutti gli studenti di un corso
         $studenti = $model->getAllStudentiByCorso(self::IDCORSO);
+        print("Restituisce tutti gli studenti di un corso\n");
         print_r($studenti);
+
+        //cerco tutti i docenti di un corso
+        $docenti = $model->getAllDocentiByCorso(self::IDCORSO);
+        print("Restituisce tutti i docenti di un corso\n");
+        print_r($docenti);
+
+        $studenteCdl = $model->getAllStudentiByCdl(self::MATRICOLACDL);
+        print("Restituisce tutti gli studenti di un cdl\n");
+        print_r($studenteCdl);
+
+        $studentiSess = $model->getAllStudentiSessione(self::IDSESSIONE);
+        print("Restituisce tutti gli studenti di una sessione\n");
+        print_r($studentiSess);
 
     }
 
