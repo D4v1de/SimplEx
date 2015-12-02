@@ -107,7 +107,8 @@ class ContattoModel extends Model {
             while ($obj = $res->fetch_assoc()) {
                 $contatto = new Contatto($obj['valore'], $obj['tipologia'], $obj['utente_matricola']);
                 $contatto->setId($obj['id']);
-                $contatti[] = $contatto;            }
+                $contatti[] = $contatto;
+            }
         }
         return $contatti;
     }

@@ -30,7 +30,6 @@ class TestModelTest extends \PHPUnit_Framework_TestCase
 
     public function testTest()
     {
-
         $model = new TestModel();
 
         //testo la read
