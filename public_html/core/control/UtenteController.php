@@ -15,4 +15,13 @@ class UtenteController extends Controller {
         //Prendo dal model l'utente oppure lancio eccezzione ApplicationException
         return new Utente("343343", "pippo@pippo.com", "sksdaksmdkasmd", "Studente", "Pippo", "Mastronzo", "051210");
     }
+    
+     /**
+     * Restituisce tutti gli Utenti
+     * @return array con tutti gli Utenti 
+     */
+    public function getUtentii() {
+        $accountModel = new AccountModel();
+        return $accountModel->getAllUtenti();
+    }
 }
