@@ -8,7 +8,9 @@
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "CdlController.php";
+include_once CONTROL_DIR . "UtenteController.php";
 $controller = new CdlController();
+$controllerUtenti = new UtenteController();
 
 $docenteassociato = Array();
 $corso = null;
@@ -16,10 +18,11 @@ $docenti = null;
 $docente = null;
 
 try {
-    $corso = $controller->readCorso($_URL[1]);
+    $corso = $controller->readCorso($_URL[3]);
     $docenti = $controller->getDocenti();
-    $docenteassociato = $controller->getDocenteAssociato($corso->getId());
-} catch (ApplicationException $ex) {
+    $docenteassociato = $controllerUtenti->getDocenteAssociato($corso->getId());
+}
+catch (ApplicationException $ex) {
     echo "<h1>errore! ApplicationException->errore manca id corso nel path!</h1>";
     echo "<h4>" . $ex . "</h4>";
     //header('Location: ../visualizzacorso');
@@ -41,7 +44,6 @@ if (isset($_POST['checkbox'])) {
             }
         }
     }
-
     foreach ($checkbox as $c) {
         $docente = $controller->getUtenteByMatricola($c);
         if (!in_array($docente, $docenteassociato)) {
@@ -54,7 +56,7 @@ if (isset($_POST['checkbox'])) {
             }
         }
     }
-    header('location: ../../gestionecorso/' . $corso->getId());
+    header('location: ../gestione/' . $corso->getId());
 }
 
 if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
@@ -68,7 +70,7 @@ if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
             //header('Location: ../visualizzacorso');
         }
     }
-    header('location: ../../gestionecorso/' . $corso->getId());
+    header('location: ../gestione/' . $corso->getId());
 }
 
 
@@ -140,9 +142,7 @@ if (isset($_POST['checkbox'])) {
     <title><?php echo $corso->getNome(); ?></title>
     <?php include VIEW_DIR . "header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
-    <link rel="stylesheet" type="text/css"
-          href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
-
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -169,11 +169,11 @@ if (isset($_POST['checkbox'])) {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../../gestionecorsi">GestioneCorsi</a>
+                        <a href="../view">GestioneCorsi</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../gestionecorso/<?php echo $corso->getId(); ?>"><?php echo $corso->getNome(); ?></a>
+                        <a href="../gestione/<?php echo $corso->getId(); ?>"><?php echo $corso->getNome(); ?></a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
@@ -202,7 +202,7 @@ if (isset($_POST['checkbox'])) {
                                 </div>
                                 <div class="col-md-offset-3 col-md-2">
                                     <h3></h3>
-                                    <a href="<?php printf('../../modificacorso/%s', $corso->getId()); ?>">
+                                    <a href="<?php printf('../modifica/%s', $corso->getId()); ?>">
                                         <button type="button" class="btn green-jungle">Modifica</button>
                                     </a>
                                 </div>
@@ -216,7 +216,7 @@ if (isset($_POST['checkbox'])) {
                 <h3></h3>
             </div>
 
-            <form method="post" action="../gestionecorso/<?php echo $corso->getId(); ?>">
+            <form method="post" action="../gestione/<?php echo $corso->getId(); ?>">
 
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
@@ -278,7 +278,7 @@ if (isset($_POST['checkbox'])) {
                                         printf("<td><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $d->getMatricola());
                                     }
                                     printf("<td>%s</td>", $d->getMatricola());
-                                    printf("<td><a href=\"../../utente/%s\">%s</a></td>", $d->getMatricola(), $d->getNome());
+                                    printf("<td><a href=\"../../utenti/view/%s\">%s</a></td>", $d->getMatricola(), $d->getNome());
                                     printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $d->getCognome());
                                     printf("<td>%s</td>", $d->getCdlMatricola());
                                     printf("</tr>");

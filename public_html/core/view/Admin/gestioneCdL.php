@@ -33,6 +33,7 @@ if (isset($_POST['checkbox'])) {
                 //header('Location: ../visualizzacorso');
             }
         }
+        header('Location: view');
     } else if (count($checkbox) < 1) {
         echo "errore nessun elemento da eliminare!";
     }
@@ -81,7 +82,7 @@ if (isset($_POST['checkbox'])) {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="gestionecdl">GestioneCdL</a>
+                        <a href="view">GestioneCdL</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
@@ -89,7 +90,7 @@ if (isset($_POST['checkbox'])) {
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
 
-            <form method="post" action="gestionecdl">
+            <form method="post" action="">
 
                 <div class="portlet box blue-madison">
 
@@ -102,7 +103,7 @@ if (isset($_POST['checkbox'])) {
                             <i class="fa fa-graduation-cap"></i>Gestione dei Corsi di Laurea
                         </div>
                         <div class="actions">
-                            <a href="creacdl" class="btn btn-default btn-sm">
+                            <a href="crea" class="btn btn-default btn-sm">
                                 <i class="fa fa-plus"></i> Crea CdL </a>
                         </div>
                         <div class="actions">
@@ -112,17 +113,17 @@ if (isset($_POST['checkbox'])) {
                         </div>
                     </div>
                     <div class="portlet-body">
-                        <div id="tabella_2_wrapper" class="dataTables_wrapper no-footer">
+                        <div id="tabella_5_wrapper" class="dataTables_wrapper no-footer">
                             <div class="table-scrollable">
                                 <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                       id="tabella_2" role="grid" aria-describedby="tabella_2_info">
+                                       id="tabella_5" role="grid" aria-describedby="tabella_5_info">
                                     <thead>
                                     <tr role="row">
                                         <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1"
                                             aria-label=""
                                             style="width: 24px;">
                                             <input type="checkbox" class="group-checkable"
-                                                   data-set="#tabella_2 .checkboxes">
+                                                   data-set="#tabella_5 .checkboxes">
                                         </th>
                                         <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
                                             colspan="1" aria-label="Username: activate to sort column ascending"
@@ -146,7 +147,7 @@ if (isset($_POST['checkbox'])) {
                                     foreach ($cdls as $c) {
                                         printf("<tr class=\"gradeX odd\" role=\"row\">");
                                         printf("<td><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $c->getMatricola());
-                                        printf("<td class=\"sorting_1\"><a href=\"modificacdl/%s\">%s</a></td>", $c->getMatricola(), $c->getNome());
+                                        printf("<td class=\"sorting_1\"><a href=\"modifica/%s\">%s</a></td>", $c->getMatricola(), $c->getNome());
                                         printf("<td>%s</td>", $c->getMatricola());
                                         printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
                                         printf("</tr>");
@@ -197,7 +198,7 @@ if (isset($_POST['checkbox'])) {
         Layout.init(); // init current layout
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
-        TableManaged.init("tabella_2", "tabella_2_wrapper");
+        TableManaged.init("tabella_5", "tabella_5_wrapper");
     });
 </script>
 <!-- END JAVASCRIPTS -->

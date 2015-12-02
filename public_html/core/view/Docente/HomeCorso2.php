@@ -12,15 +12,37 @@ include_once CONTROL_DIR . "ControllerTest.php";
 include_once CONTROL_DIR . "ArgomentoController.php";
 include_once CONTROL_DIR . "CdlController.php";
 
-$controller = new SessioneController();
+$controllerSessione = new SessioneController();
 $controllerTest = new ControllerTest();
 $controllerArgomento = new ArgomentoController();
 $controllerCorso = new CdlController();
 
-$corso = $controllerCorso->readCorso(21); //qui dentro andrà $_URL[1];
+$identidicativoCorso = $_URL[4];
 
-$docenteassociato = $controllerArgomento->getDocenteAssociato($corso->getId());
 
+$corso = $controllerCorso->readCorso(21); //qui dentro andrà $_URL[4];
+
+try {
+    $corso = $controllerCorso->readCorso($_URL[3]);
+}catch(ApplicationException $exception){
+    echo "ERRORE IN READ CORSO " . $exception;
+}
+//$docenteassociato = $controllerArgomento->getDocenteAssociato($corso->getId());
+
+
+
+$idsSessione = $controllerSessione->getAllSessioniByCorso($identidicativoCorso);
+if(isset($_POST['IdSes'])){
+        $idSes = $_POST['IdSes'];
+        $controllerSessione->deleteSessione($idSes);
+        header("Refresh:0");
+}
+else echo "non settato niente";
+
+
+if(isset($_POST['id'])) {
+
+}
 
 
 if(isset($_POST['id']) && isset($_POST['idcorso'])){
@@ -89,7 +111,8 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
                                     <h3><?php echo $corso->getNome(); ?></h3>
                                     <h5>Matricola: <?php echo $corso->getMatricola(); ?></h5>
                                     <h5>Tipologia: <?php echo $corso->getTipologia(); ?></h5>
-                                    <?php
+
+                                    <?php /*
                                     if (count($docenteassociato) == 1) {
                                         printf('<h5>Docente: %s %s</h5>', $docenteassociato[0]->getNome(), $docenteassociato[0]->getCognome());
                                     } else if (count($docenteassociato) > 1) {
@@ -99,7 +122,9 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
                                     } else if (count($docenteassociato) < 1) {
                                         printf('<h5>Questo corso non ha docenti Associati!</h5>');
                                     }
+                                        */
                                     ?>
+
                                 </div>
                             </div>
                         </form>
@@ -113,6 +138,7 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
             </div>
 
 
+            <form action="" method="post">
             <div class="portlet box blue-madison">
                 <div class="portlet-title">
                     <div class="caption">
@@ -154,28 +180,25 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
                             <tbody>
                             <?php
                             $array = Array();
-                            $array = $controller->getAllSessioni();
+                            $array = $idsSessione;
                             if ($array == null) {
                                 echo "l'array è null";
                             }
                             else {
                                 foreach ($array as $c) {
+                                    $sesId=$c->getId();
+
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
 
                                     printf("<td class=\"sorting_1\"><a href=\"visualizzasessione/%s\">%s</a></td>", $c->getId(), "Sessione ".$c->getId());
                                     printf("<td>%s</td>", $c->getDataInizio());
                                     printf("<td>%s</td>", $c->getTipologia());
-                                    printf("<td class=\"center\">
-                                            <a href=\"visualizzaesitisessione\" class=\"btn btn-sm default\">
-                                              Esiti
-                                            </a>
-                                            <a href=\"creamodificasessione\" class=\"btn btn-sm blue-madison\">
-                                                <i class=\"fa fa-edit\"></i>
-                                            </a>
-                                            <a href=\"javascript:;\" class=\"btn btn-sm red-intense\">
-                                                <i class=\"fa fa-trash-o\"></i>
-                                            </a>
-                                        </td>");
+                                    printf("<td class=\"center\"><a href=\"visualizzaesitisessione\" class=\"btn btn-sm default\">Esiti");
+                                    printf("</a>");
+                                    printf("<a href=\"creamodificasessione\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i>");
+                                    printf("</a>");
+                                    printf("<input type='hidden' name='IdSes' value='%d' class=\"btn btn-sm red-intense\" >", $sesId );
+                                    printf("<button type='submit' value='' class='btn btn-sm red-intense'> <i class=\"fa fa-trash-o\"></i></button></td>");
                                     printf("</tr>");
                                 }
                             }
@@ -185,7 +208,7 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
                     </div>
                 </div>
             </div>
-
+            </form>
 
 
             <div class="portlet box blue-madison">
@@ -212,10 +235,6 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
                                          Username
                                 : activate to sort column ascending" style="width: 119px;">
                                     Nome
-                                </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                         Email
-                                " style="width: 210px;">
-                                    Data creazione
                                 </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Points
                                 " style="width: 73px;">
@@ -254,18 +273,17 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
                                 
                                  <?php
                                         $array = Array();
-                                        $array = $controllerTest->getTestByCorso(20); //Id a caso per il momento
+                                        $array = $controllerTest->getTestByCorso(19); //Id a caso per il momento
                                         if($array == null){ echo "l'array è null";}
                                         foreach($array as $c) {
                                         printf("<tr class=\"gradeX odd\" role=\"row\">");
                                         printf("<td class=\"sorting_1\"><a href=\"visualizzatest/%s\">%s</a></td>", $c->getId(), "Test ".$c->getId());
-                                        printf("<td>%s</td>",$c->getData());
                                         printf("<td>%s</td>",$c->getNumeroMultiple());
                                         printf("<td>%s</td>",$c->getNumeroAperte());
                                         printf("<td>%s</td>",$c->getPunteggioMax());
                                         printf("<td>%s %%</td>",$c->getPercentualeScelto());
                                         printf("<td>%s %%</td>",$c->getPercentualeSuccesso());
-                                        printf("<td><a href=\"javascript:;\" class=\"btn btn-sm default\"><i class=\"fa fa-edit\"></i></i></a>");
+                                        printf("<td><a href=\"javascript:;\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></i></a>");
                                         printf("<a href=\"javascript:;\" class=\"btn btn-sm red-intense\"><i class=\"fa fa-trash-o\"></i></i></a></td>");
                                         printf("</tr>");
                                         }
@@ -415,7 +433,7 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
 
                             <?php
 
-                            $argomenti = $controllerArgomento->getArgomenti(21);
+                            $argomenti = $controllerArgomento->getArgomenti($corso->getId());
 
                             if($argomenti==null){
                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
@@ -430,9 +448,9 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
                             else {
                             foreach($argomenti as $a) {
                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                printf("<td>%s %d</td>", $a->getNome(), $a->getId());
+                                printf("<td>%s</td>", $a->getNome());
                                 printf("<td>");
-                                printf("<a href=\"modificaargomento/%d\" class=\"btn btn-sm blue-madison\">",$a->getId()); //DEVE ESSERE DINAMICO
+                                printf("<a href=\"argomento/modifica/%d\" class=\"btn btn-sm blue-madison\">",$a->getId()); //DEVE ESSERE DINAMICO
                                 printf("<i class=\"fa fa-edit\"></i>");
                                 printf("</a>");
                                 printf("<input type='hidden' name='id' value='%d' />", $a->getId());
