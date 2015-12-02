@@ -13,8 +13,8 @@ include_once CONTROL_DIR . "Controller.php";
 class UtenteController extends Controller {
 
     public function getUtenteByMatricola($matricola) {
-        //Prendo dal model l'utente oppure lancio eccezzione ApplicationException
-        return new Utente("343343", "pippo@pippo.com", "sksdaksmdkasmd", "Studente", "Pippo", "Mastronzo", "051210");
+        $accModel = new AccountModel();
+        return $accModel->getUtenteByMatricola($matricola);
     }
 
     /**
