@@ -67,11 +67,12 @@ class AccountModelTest extends PHPUnit_Framework_TestCase {
         //cancello di nuovo, la seconda volta dovrebbe restituire false (utente non esiste ahah)
         $this->assertFalse($model->removeUtente(self::MATRICOLA));
 
+        $studenti = $model->getAllStudentiByCorso(18);
+        print_r($studenti);
+
     }
 
-    public function testgetAllDocentiByCorso() {
-        //tocca a voi :)
-    }
+
 
 
 }
