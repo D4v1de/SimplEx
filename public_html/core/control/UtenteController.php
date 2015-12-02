@@ -17,6 +17,16 @@ class UtenteController extends Controller {
         return new Utente("343343", "pippo@pippo.com", "sksdaksmdkasmd", "Studente", "Pippo", "Mastronzo", "051210");
     }
     
+    /**
+     * Restituisce i Docenti associati a un Corso
+     * @param id del Corso
+     * @return array con i Docenti associati al corso specificato SSSTTTUUUBBBB ------->
+     */
+    public function getDocenteAssociato($corsoID) {
+        $accountModel = new AccountModel();
+        return $accountModel->getAllDocentiByCorso($corsoID);
+    }
+    
      /**
      * Restituisce tutti gli Utenti
      * @return array con tutti gli Utenti 
