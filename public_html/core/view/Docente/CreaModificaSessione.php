@@ -10,6 +10,24 @@
 include_once CONTROL_DIR . "SessioneController.php";
 $controller = new SessioneController();
 $idCorso = $_URL[1];
+if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo']) ) {
+    $dataFrom = $_POST['dataFrom'];
+    $dataTo = $_POST['dataTo'];
+    $tipoSessione = $_POST['radio1'];
+    $sogliAmm= 18;
+    $stato='Non Eseguita';
+    if (isset($_POST['tests'])) {
+        $cbTest = Array();
+        $cbTest = $_POST['tests'];
+
+        //TODO VEDERE DATA TUTTI 0s
+        //Fare query
+        $sessione = new Sessione($dataFrom, $dataTo, $sogliAmm, $stato, $tipoSessione, $idCorso);
+        $controller->creaSessione($sessione);
+    }
+
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -67,7 +85,7 @@ $idCorso = $_URL[1];
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-
+            <form action="" method="post">
             <div class="row">
                 <div class="col-md-12">
 
@@ -76,7 +94,7 @@ $idCorso = $_URL[1];
                             <label class="control-label">Avvio:</label>
 
                             <div class="input-group date form_datetime">
-                                <input type="text" size="16" readonly="" class="form-control"/>
+                                <input name="dataFrom" type="text" size="16" readonly="" class="form-control"/>
                                         <span class="input-group-btn">
                                             <button class="btn default date-set" type="button"><i
                                                     class="fa fa-calendar"></i></button>
@@ -89,7 +107,7 @@ $idCorso = $_URL[1];
                             <label class="control-label">Termine:</label>
 
                             <div class="input-group date form_datetime">
-                                <input type="text" size="16" readonly="" class="form-control"/>
+                                <input name="dataTo" type="text" size="16" readonly="" class="form-control"/>
                                         <span class="input-group-btn">
                                             <button class="btn default date-set" type="button"><i
                                                     class="fa fa-calendar"></i></button>
@@ -103,7 +121,7 @@ $idCorso = $_URL[1];
                             <label>Seleziona tipologia</label>
                             <div class="md-radio-list">
                                 <div class="md-radio">
-                                    <input type="radio" id="radio1" name="radio1" class="md-radiobtn">
+                                    <input type="radio" value="Valutativa" id="radio1" name="radio1" class="md-radiobtn">
                                     <label for="radio1">
                                     <span></span>
                                     <span class="check"></span>
@@ -111,7 +129,7 @@ $idCorso = $_URL[1];
                                     Valutativa </label>
                                 </div>
                                 <div class="md-radio">
-                                    <input type="radio" id="radio2" name="radio1" class="md-radiobtn">
+                                    <input type="radio" value="Esercitativa" id="radio2" name="radio1" class="md-radiobtn">
                                     <label for="radio2">
                                     <span></span>
                                     <span class="check"></span>
@@ -230,7 +248,7 @@ $idCorso = $_URL[1];
 
                             <tr class="gradeX odd" role="row">
                                 <td>
-                                    <input type="checkbox" class="checkboxes" value="1">
+                                    <input name="tests[]" type="checkbox" class="checkboxes" value="1">
                                 </td>
                                 <td class="sorting_1">
                                     Test 1
@@ -246,7 +264,7 @@ $idCorso = $_URL[1];
 
                             </tr><tr class="gradeX even" role="row">
                                 <td>
-                                    <input type="checkbox" class="checkboxes" value="1">
+                                    <input name="tests[]" type="checkbox" class="checkboxes" value="2">
                                 </td>
                                 <td class="sorting_1">
                                     Test 2
@@ -261,7 +279,7 @@ $idCorso = $_URL[1];
                                 <td>70%</td>
                             </tr><tr class="gradeX odd" role="row">
                                 <td>
-                                    <input type="checkbox" class="checkboxes" value="1">
+                                    <input name="tests[]" type="checkbox" class="checkboxes" value="3">
                                 </td>
                                 <td class="sorting_1">
                                     Test 3
@@ -345,14 +363,14 @@ $idCorso = $_URL[1];
 
                             <?php
                             $array = Array();
-                            $array = $controller->getAllStudentiByCorso($idCorso); //SERVE L'ID DEL CORSO.....!?..lo prendo dall'URL
+                            $array = $controller->getAllStudentiByCorso(18); //SERVE L'ID DEL CORSO.....!?..lo prendo dall'URL
                             if ($array == null) {
                                 echo "l'array è null";
                             }
                             else {
                                 foreach ($array as $c) {
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    printf("<td><input type=\"checkbox\" class=\"checkboxes\" value=\"1\"></td>");
+                                    printf("<td><input name=\"students[]\" type=\"checkbox\" class=\"checkboxes\" value=\"1\"></td>");
                                     printf("<td class=\"sorting_1\">$s</td>", $s->getNome());
                                     printf("<td>%s</td>", $s->getCognome());
                                     printf("<td>%s</td>", $s->getMatricola);
@@ -367,16 +385,16 @@ $idCorso = $_URL[1];
             </div>
 
 
-            <form action="" method="post">
+
 
             <div class="form-actions">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-9">
-                                <a href="javascript:;" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                <button type="submit"  href="javascript:;" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                                     Salva
-                                </a>
+                                </button>
                                 <a href="javascript:;" class="btn sm red-intense">
                                     Annulla
                                 </a>
