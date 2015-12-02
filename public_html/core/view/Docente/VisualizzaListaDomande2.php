@@ -9,6 +9,8 @@
 include_once CONTROL_DIR . "DomandaController.php";
 include_once CONTROL_DIR . "AlternativaController.php";
 
+$idCorso = $_URL[3];
+$idArgomento = $_URL[6];
 $alternativaController = new AlternativaController();
 $domandaController = new DomandaController();
 ?>
@@ -66,12 +68,16 @@ $domandaController = new DomandaController();
             <div class="row">
                 <!--TOP menu -->
                 <div class="col-md-offset-3 col-md-3">
-                    <a href="domanda/aperta/inserisci" class="btn sm green-jungle">
+                    <?php
+                    printf("<a href=\"inserisciaperta/%d\" class=\"btn sm green-jungle\">",$idArgomento);
+                    ?>
                         <i class="fa fa-plus"></i> Nuova Domanda Aperta
                     </a>
                 </div>
                 <div class="col-md-3">
-                    <a href="domanda/multipla/inserisci" class="btn sm green-jungle">
+                    <?php
+                    printf("<a href=\"inseriscimultipla/%d\" class=\"btn sm green-jungle\">",$idArgomento);
+                    ?>
                         <i class="fa fa-plus"></i> Nuova Domanda Multipla
                     </a>
                 </div>
@@ -91,16 +97,16 @@ $domandaController = new DomandaController();
                 </div>
                 <div class="portlet-body">
                     <?php
-                    $domandeAperte = $domandaController->getAllAperte(9, 20);
+                    $domandeAperte = $domandaController->getAllAperte($idArgomento,$idCorso);
                     foreach ($domandeAperte as $d) {
-                        printf("<div class=\"portlet box blue-madison\">");
-                        printf("<div class=\"portlet-title\">");
+                        printf("<div class=\"portlet\">");
+                        printf("<div class=\"portlet-title \">");
                         printf("<div class=\"caption\">");
-                        printf("<i class=\"fa fa-book\"></i>%s", $d->getTesto());
+                        printf("<i class=\"fa fa-file-o\"></i>%s", $d->getTesto());
                         printf("</div>");
                         printf("<div class=\"actions\">");
-                        printf("<a href=\"domanda/aperta/modifica\" class=\"btn btn-default btn-sm\"><i class=\"fa fa-edit\"></i> Modifica </a>");
-                        printf("<a href=\"javascript:;\" class=\"btn btn-default btn-sm\"><i class=\"fa fa-remove\"></i> Rimuovi </a>");
+                        printf("<a href=\"modificaaperta/%d/%d\" class=\"btn green-jungle\"><i class=\"fa fa-edit\"></i> Modifica </a>", $idArgomento, $d->getId());
+                        printf("<a href=\"javascript:;\" class=\"btn red-intense\"><i class=\"fa fa-remove\"></i> Rimuovi </a>");
                         printf("</div>");
                         printf("</div>");
                         printf("</div>");
@@ -125,21 +131,21 @@ $domandaController = new DomandaController();
                 </div>
                 <div class="portlet-body">
                     <?php
-                    $domandeMultiple = $domandaController->getAllMultiple(8, 20); //Questo dev'essere automatico
+                    $domandeMultiple = $domandaController->getAllMultiple($idArgomento,$idCorso);
                     foreach ($domandeMultiple as $d) {
                         $risposte = $alternativaController->getAllAlternativa($d->getId(), $d->getArgomentoId(), $d->getArgomentoCorsoId());
 
-                        printf("<div class=\"portlet box blue-madison\">");
+                        printf("<div class=\"portlet \">");
                         printf("<div class=\"portlet-title\">");
                         printf("<div class=\"caption\">");
-                        printf("<i class=\"fa fa-book\"></i>%s", $d->getTesto());
+                        printf("<i class=\"fa fa-file-o\"></i>%s", $d->getTesto());
                         printf("</div>");
                         printf("<div class=\"tools\">");
                         printf("<a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a>");
                         printf("</div>");
                         printf("<div class=\"actions\">");
-                        printf("<a href=\"javascript:;\" class=\"btn btn-default btn-sm\"><i class=\"fa fa-edit\"></i> Modifica </a>");
-                        printf("<a href=\"javascript:;\" class=\"btn btn-default btn-sm\"><i class=\"fa fa-remove\"></i> Rimuovi </a>");
+                        printf("<a href=\"javascript:;\" class=\"btn green-jungle\"><i class=\"fa fa-edit\"></i> Modifica </a>");
+                        printf("<a href=\"javascript:;\" class=\"btn red-intense\"><i class=\"fa fa-remove\"></i> Rimuovi </a>");
                         printf("</div>");
                         printf("</div>");
                         printf("<div class=\"portlet-body\">");
