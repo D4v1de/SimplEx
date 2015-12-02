@@ -129,12 +129,12 @@ if (!defined("TESTING")) {
                 case 'docente':
                     switch (isset($_URL[2]) ? $_URL[2] : '') {
                         case 'corso':
-                            switch (isset($_URL[3]) ? $_URL[3] : '') {
+                            switch (isset($_URL[4]) ? $_URL[4] : '') {
                                 case 'home':
                                     include_once VIEW_DIR . "Docente/HomeCorso2.php";
                                     break;
                                 case 'argomento':
-                                    switch (isset($_URL[4]) ? $_URL[4] : '') {
+                                    switch (isset($_URL[5]) ? $_URL[5] : '') {
                                         case 'inserisci':
                                             include_once VIEW_DIR . "Docente/InserisciArgomento.php";
                                             break;
