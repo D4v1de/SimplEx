@@ -17,15 +17,15 @@ $controllerRisposte = new AlternativaController();
 $controllerCdl = new CdlController();
 $corso = null;
 $argomento = null;
-$corso = $controllerCdl->readCorso(21); //qui dentro andrà $_URL[1];
-$argomento = $controller->readArgomento(10,21); //qui dentro andrà $_URL[?];
+$corso = $controllerCdl->readCorso($_URL[3]); //qui dentro andrà $_URL[..]; IDCORSO
+$argomento = $controller->readArgomento($_URL[6],$corso->getId()); //qui dentro andrà $_URL[..]; IDCORSO
 
 
 if(isset($_POST['nomeargomento'])){
     $nome = $_POST['nomeargomento'];
     $argomento->setNome($nome);
     $controller->modificaArgomento($argomento->getId(),$argomento->getCorsoId(), $argomento);
-    header('location:../homecorsodocente');
+    header('location:../../../corso/home');
 }
 ?>
 <!DOCTYPE html>
@@ -95,7 +95,7 @@ if(isset($_POST['nomeargomento'])){
                         </div>
                         <div class="portlet-body form">
                             <!-- BEGIN FORM-->
-                            <form action="modificaargomento" method="POST" class="form-horizontal form-bordered">
+                            <form action="" method="POST" class="form-horizontal form-bordered">
                                 <div class="form-body">
                                     <div class="form-group form-md-line-input has-success" style="height: 100px">
                                         <label class="control-label col-md-3">Inserisci Titolo</label>

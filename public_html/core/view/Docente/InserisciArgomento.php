@@ -85,7 +85,7 @@ if(isset($_POST['nomeargomento'])){
                         </div>
                         <div class="portlet-body form">
                             <!-- BEGIN FORM-->
-                            <form action="inserisciargomento" method="POST" class="form-horizontal form-bordered">
+                            <form action="../argomento/inserisciargomento" method="POST" class="form-horizontal form-bordered">
                                 <div class="form-body">
                                     <div class="form-group form-md-line-input has-success" style="height: 90px">
                                         <label class="control-label col-md-3">Inserisci Titolo</label>

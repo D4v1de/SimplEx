@@ -17,9 +17,14 @@ $controllerTest = new ControllerTest();
 $controllerArgomento = new ArgomentoController();
 $controllerCorso = new CdlController();
 
-$corso = $controllerCorso->readCorso(21); //qui dentro andrà $_URL[1];
+$corso=null;
 
-$docenteassociato = $controllerArgomento->getDocenteAssociato($corso->getId());
+try {
+    $corso = $controllerCorso->readCorso($_URL[3]);
+}catch(ApplicationException $exception){
+    echo "ERRORE IN READ CORSO " . $exception;
+}
+//$docenteassociato = $controllerArgomento->getDocenteAssociato($corso->getId());
 
 
 
@@ -89,7 +94,8 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
                                     <h3><?php echo $corso->getNome(); ?></h3>
                                     <h5>Matricola: <?php echo $corso->getMatricola(); ?></h5>
                                     <h5>Tipologia: <?php echo $corso->getTipologia(); ?></h5>
-                                    <?php
+
+                                    <?php /*
                                     if (count($docenteassociato) == 1) {
                                         printf('<h5>Docente: %s %s</h5>', $docenteassociato[0]->getNome(), $docenteassociato[0]->getCognome());
                                     } else if (count($docenteassociato) > 1) {
@@ -99,7 +105,9 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
                                     } else if (count($docenteassociato) < 1) {
                                         printf('<h5>Questo corso non ha docenti Associati!</h5>');
                                     }
+                                        */
                                     ?>
+
                                 </div>
                             </div>
                         </form>
@@ -415,7 +423,7 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
 
                             <?php
 
-                            $argomenti = $controllerArgomento->getArgomenti(21);
+                            $argomenti = $controllerArgomento->getArgomenti($corso->getId());
 
                             if($argomenti==null){
                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
@@ -432,7 +440,7 @@ if(isset($_POST['id']) && isset($_POST['idcorso'])){
                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
                                 printf("<td>%s</td>", $a->getNome());
                                 printf("<td>");
-                                printf("<a href=\"modificaargomento/%d\" class=\"btn btn-sm blue-madison\">",$a->getId()); //DEVE ESSERE DINAMICO
+                                printf("<a href=\"argomento/modifica/%d\" class=\"btn btn-sm blue-madison\">",$a->getId()); //DEVE ESSERE DINAMICO
                                 printf("<i class=\"fa fa-edit\"></i>");
                                 printf("</a>");
                                 printf("<input type='hidden' name='id' value='%d' />", $a->getId());
