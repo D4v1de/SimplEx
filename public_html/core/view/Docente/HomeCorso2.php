@@ -28,8 +28,12 @@ try {
 }catch(ApplicationException $exception){
     echo "ERRORE IN READ CORSO " . $exception;
 }
-//$docenteassociato = $controllerArgomento->getDocenteAssociato($corso->getId());
 
+try {
+    $docenteassociato = $controllerArgomento->getDocenteAssociato($corso->getId());
+}catch(ApplicationException $exception){
+    echo "ERRORE IN GETDOCENTEASSOCIATO" . $exception;
+}
 try{
     $argomenti = $controllerArgomento->getArgomenti($corso->getId());
 }catch(ApplicationException $exception){
@@ -88,11 +92,15 @@ if(isset($_POST['id'])){
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="index">Home</a>
+                        <a href="../">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href=""> <?php echo $corso->getNome(); ?></a>
+                        <a href="../cdl/<?php echo $corso->getCdlMatricola(); ?>"> <?php echo $controllerCorso->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                       <?php echo $corso->getNome(); ?>
                     </li>
                 </ul>
             </div>
@@ -111,7 +119,7 @@ if(isset($_POST['id'])){
                                     <h5>Matricola: <?php echo $corso->getMatricola(); ?></h5>
                                     <h5>Tipologia: <?php echo $corso->getTipologia(); ?></h5>
 
-                                    <?php /*
+                                    <?php
                                     if (count($docenteassociato) == 1) {
                                         printf('<h5>Docente: %s %s</h5>', $docenteassociato[0]->getNome(), $docenteassociato[0]->getCognome());
                                     } else if (count($docenteassociato) > 1) {
@@ -121,7 +129,7 @@ if(isset($_POST['id'])){
                                     } else if (count($docenteassociato) < 1) {
                                         printf('<h5>Questo corso non ha docenti Associati!</h5>');
                                     }
-                                        */
+
                                     ?>
 
                                 </div>
@@ -220,7 +228,7 @@ if(isset($_POST['id'])){
                         </a>
                     </div>
                     <div class="actions">
-                        <a href="createst" class="btn btn-default btn-sm">
+                        <a href="test/crea" class="btn btn-default btn-sm">
                             <i class="fa fa-plus"></i> Crea Test </a>
                     </div>
                 </div>
@@ -276,7 +284,7 @@ if(isset($_POST['id'])){
                                 
                                  <?php
                                         $array = Array();
-                                        $array = $controllerTest->getTestByCorso(19); //Id a caso per il momento
+                                        $array = $controllerTest->getAllTestByCorso(19); //Id a caso per il momento
                                         if($array == null){ echo "l'array è null";}
                                         foreach($array as $c) {
                                         printf("<tr class=\"gradeX odd\" role=\"row\">");
@@ -291,106 +299,7 @@ if(isset($_POST['id'])){
                                         printf("<a href=\"javascript:;\" class=\"btn btn-sm red-intense\"><i class=\"fa fa-trash-o\"></i></i></a></td>");
                                         printf("</tr>");
                                         }
-                                        ?>
-                                
-                                <!--
-                            <tr class="gradeX odd" role="row">
-                                <td>
-                                    Test 1
-                                </td>
-                                <td class="sorting_1">
-                                    10/11/2015
-                                </td>
-                                <td>
-                                    10
-                                </td>
-                                <td>
-                                    2
-                                </td>
-                                <td>
-                                    30
-                                </td>
-                                <td>
-                                    0%
-                                </td>
-                                <td>
-                                    0%
-                                </td>
-                                <td class="center">
-                                    <a href="javascript:;" class="btn btn-sm blue-madison">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                    <a href="javascript:;" class="btn btn-sm red-intense">
-                                        <i class="fa fa-trash-o"></i>
-                                    </a>
-                                </td>
-                            </tr>
-
-
-                            <tr class="gradeX even" role="row">
-                                <td>
-                                    Test 2
-                                </td>
-                                <td class="sorting_1">
-                                    23/03/2016
-                                </td>
-                                <td>
-                                    30
-                                </td>
-                                <td>
-                                    0
-                                </td>
-                                <td>
-                                    60
-                                </td>
-                                <td>
-                                    10%
-                                </td>
-                                <td>
-                                    70%
-                                </td>
-                                <td class="center">
-                                    <a href="javascript:;" class="btn btn-sm blue-madison">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                    <a href="javascript:;" class="btn btn-sm red-intense">
-                                        <i class="fa fa-trash-o"></i>
-                                    </a>
-                                </td>
-                            </tr>
-
-                            <tr class="gradeX even" role="row">
-                                <td>
-                                    Test 3
-                                </td>
-                                <td class="sorting_1">
-                                    15/11/2015
-                                </td>
-                                <td>
-                                    0
-                                </td>
-                                <td>
-                                    10
-                                </td>
-                                <td>
-                                    100
-                                </td>
-                                <td>
-                                    5%
-                                </td>
-                                <td>
-                                    15%
-                                </td>
-                                <td class="center">
-                                    <a href="javascript:;" class="btn btn-sm blue-madison">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                    <a href="javascript:;" class="btn btn-sm red-intense">
-                                        <i class="fa fa-trash-o"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                                -->
+                                 ?>
                             </tbody>
                         </table>
                     </div>

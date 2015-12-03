@@ -8,9 +8,13 @@
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "CdlController.php";
+include_once CONTROL_DIR . "UtenteController.php";
 include_once CONTROL_DIR . "SessioneController.php";
+
 $controller = new CdlController();
+$utenteController = new UtenteController();
 $sessioneController = new SessioneController();
+
 $corso = $controller->readCorso($_URL[3]);
 
 $cdl = $controller->readCdl($corso->getCdlMatricola());
@@ -19,7 +23,7 @@ $matricolaStudente = "0512109993";
 $sessioni = $sessioneController->getAllSessioni();
 
 $docenteassociato = Array();
-$docenteassociato = $controller->getDocenteAssociato($corso->getId());
+$docenteassociato = $utenteController->getDocenteAssociato($corso->getId());
 
 
 ?>
@@ -65,11 +69,11 @@ $docenteassociato = $controller->getDocenteAssociato($corso->getId());
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../cdl">CdL</a>
+                        <a href="../">CdL</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../corsi/<?php echo $cdl->getMatricola(); ?>"><?php echo $cdl->getNome(); ?></a>
+                        <a href="../cdl/<?php echo $cdl->getMatricola(); ?>"><?php echo $cdl->getNome(); ?></a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>

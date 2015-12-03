@@ -7,15 +7,27 @@
  */
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "ArgomentoController.php";
+include_once CONTROL_DIR . "CdlController.php";
 $controller = new ArgomentoController();
-
+$controllerCorso = new CdlController();
 $corsoid = $_URL[3];
+
+try{
+    $corso = $controllerCorso->readCorso($corsoid);
+}catch(ApplicationException $exception){
+    echo "ERRORE IN READ CORSO" . $exception;
+}
 
 if(isset($_POST['nomeargomento'])){
     $nome = $_POST['nomeargomento'];
-    $argomento = new Argomento($corsoid, $nome);
-    $controller->creaArgomento($argomento);
-    header('location:../../'.$corsoid);
+
+    if(empty($nome)){
+        echo "<script type='text/javascript'>alert('Inserisci il titolo!');</script>";
+    }else {
+        $argomento = new Argomento($corsoid, $nome);
+        $controller->creaArgomento($argomento);
+        header('location:../../' . $corsoid);
+    }
 }
 
 ?>
@@ -53,16 +65,19 @@ if(isset($_POST['nomeargomento'])){
                         <ul class="page-breadcrumb">
                             <li>
                                 <i class="fa fa-home"></i>
-                                <a href="index.html">Home</a>
+                                <a href="../../../">Home</a>
                                 <i class="fa fa-angle-right"></i>
                             </li>
                             <li>
-                                <a href="#">Nome Corso</a>
+                                <a href="../../../cdl/<?php echo $corso->getCdlMatricola(); ?>"> <?php echo $controllerCorso->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
                                 <i class="fa fa-angle-right"></i>
                             </li>
                             <li>
-                                <a href="#">Nuovo Argomento</a>
+                                <a href="../../<?php echo $corso->getId(); ?>"><?php echo $corso->getNome(); ?></a>
                                 <i class="fa fa-angle-right"></i>
+                            </li>
+                            <li>
+                                Nuovo Argomento
                             </li>
                         </ul>
                     </div>
@@ -104,7 +119,7 @@ if(isset($_POST['nomeargomento'])){
                                                 <div class="col-md-9">
                                                     <input type="submit" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                                                     </input>
-                                                    <a href="javascript:;" class="btn sm red-intense">
+                                                    <a href="../../<?php echo $corsoid ?>" class="btn sm red-intense">
                                                         Annulla
                                                     </a>
                                                 </div>
