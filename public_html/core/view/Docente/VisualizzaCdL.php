@@ -111,7 +111,7 @@ try {
                                 <?php
                                 foreach ($cdls as $c) {
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    printf("<td><a href=\"corsi/%s\">%s</a></td>", $c->getMatricola(), $c->getNome());
+                                    printf("<td><a href=\"cdl/%s\">%s</a></td>", $c->getMatricola(), $c->getNome());
                                     printf("<td>%s</td>", $c->getMatricola());
                                     printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
                                     printf("</tr>");

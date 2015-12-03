@@ -134,6 +134,9 @@ if (!defined("TESTING")) {
             switch (isset($_URL[1]) ? $_URL[1] : '') {
                 case 'docente':
                     switch (isset($_URL[2]) ? $_URL[2] : '') {
+                        case 'cdl':
+                            include_once VIEW_DIR . "Docente/VisualizzaCorsi.php";
+                            break;
                         case 'corso':
                             switch (isset($_URL[4]) ? $_URL[4] : '') {
                                 case 'argomento':
