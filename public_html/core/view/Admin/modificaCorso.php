@@ -11,14 +11,17 @@ include_once CONTROL_DIR . "CdlController.php";
 $controller = new CdlController();
 
 $corso = null;
+$url = null;
+
+$url = $_URL[3];
+if (!is_numeric($url)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
 
 try {
-    $corso = $controller->readCorso($_URL[3]);
-}
-catch (ApplicationException $ex) {
-    echo "<h1>errore! ApplicationException->manca id corso nel path</h1>";
-    echo "<h4>".$ex."</h4>";
-    //header('Location: ../visualizzacorso');
+    $corso = $controller->readCorso($url);
+} catch (ApplicationException $ex) {
+    echo "<h1>INSERIRE ID CORSO NEL PATH</h1>".$ex;
 }
 
 $nome = $corso->getNome();
@@ -33,15 +36,24 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     $matricola = $_POST['matricola'];
     $cdlmatricola = $_POST['cdlmatricola'];
 
-    try {
-        $new = new Corso($matricola, $nome, $tipologia, $cdlmatricola);
-        $controller->modificaCorso($corso->getId(), $new);
-        header('location: ../view');
-    }
-    catch (ApplicationException $ex) {
-        echo "<h1>errore! ApplicationException->errore modifica corso</h1>";
-        echo "<h4>".$ex."</h4>";
-        //header('Location: ../visualizzacorso');
+
+    if (empty($nome) && empty($matricola) && empty($cdlMatricola)) {
+        echo "<script type='text/javascript'>alert('devi riempire tutti i campi!');</script>";
+    } else if (empty($nome)) {
+        echo "<script type='text/javascript'>alert('devi inserire il nome!');</script>";
+    } else if (empty($matricola)) {
+        echo "<script type='text/javascript'>alert('devi inserire la matricola!');</script>";
+    } else if (empty($cdlMatricola)) {
+        echo "<script type='text/javascript'>alert('devi inserire la matricola del CdL!');</script>";
+    } else {
+
+        try {
+            $new = new Corso($matricola, $nome, $tipologia, $cdlmatricola);
+            $controller->modificaCorso($corso->getId(), $new);
+            header('location: ../view');
+        } catch (ApplicationException $ex) {
+            echo "<h1>MODIFICACORSO FALLITO!</h1>".$ex;
+        }
     }
 }
 
@@ -119,8 +131,14 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                 <div class="form-group form-md-line-input">
                                     <div class="col-md-10">
                                         <select class="form-control" id="tipologiaCorso" name="tipologia">
-                                            <option value="Semestrale" <?php if($tipologia == 'Semestrale'){echo "selected";}?>>Semestrale</option>
-                                            <option value="Annuale" <?php if($tipologia == 'Annuale'){echo "selected";}?>>Annuale</option>
+                                            <option value="Semestrale" <?php if ($tipologia == 'Semestrale') {
+                                                echo "selected";
+                                            } ?>>Semestrale
+                                            </option>
+                                            <option value="Annuale" <?php if ($tipologia == 'Annuale') {
+                                                echo "selected";
+                                            } ?>>Annuale
+                                            </option>
                                         </select>
 
                                         <div class="form-control-focus">
@@ -166,7 +184,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                         <button type="submit" class="btn green-jungle">Conferma</button>
                                     </div>
                                     <div class="col-md-3">
-                                        <button type="reset" class="btn red-intense">Annulla</button>
+                                        <input type="reset" value="Annulla" class="btn red-intense"/>
                                     </div>
                                     <div class="col-md-offset-1 col-md-3">
                                         <a href="<?php printf('../gestione/%s', $corso->getId()); ?>"

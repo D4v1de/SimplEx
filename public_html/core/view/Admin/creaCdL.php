@@ -33,9 +33,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
             header('location: view');
         }
         catch (ApplicationException $ex) {
-            echo "<h1>errore! ApplicationException->errore creazione cdl</h1>";
-            echo "<h4>".$ex."</h4>";
-            //header('Location: ../visualizzacorso');
+            echo "<h1>CREACDL FALLITO!</h1>".$ex;
         }
     }
 
@@ -128,7 +126,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
                                             <input type="text" class="form-control" name="nome" id="nomeCdl"
-                                                   placeholder="Inserisci nome" required>
+                                                   placeholder="Inserisci nome" value="<?php if(isset($nome)) echo $nome; ?>" required>
 
                                             <div class="form-control-focus">
                                             </div>
@@ -136,8 +134,8 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                     </div>
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" name="matricola" id="matricolaCdl"
-                                                   placeholder="Inserisci matricola" required>
+                                            <input type="number" class="form-control" name="matricola" id="matricolaCdl"
+                                                   placeholder="Inserisci matricola" value="<?php if(isset($matricola)) echo $matricola; ?>" required>
 
                                             <div class="form-control-focus">
                                             </div>
@@ -154,7 +152,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                         <button type="submit" class="btn green-jungle">Conferma</button>
                                     </div>
                                     <div class="col-md-3">
-                                        <button type="reset" class="btn red-intense">Annulla</button>
+                                        <input type="reset" value="Annulla" class="btn red-intense"/>
                                     </div>
                                 </div>
                             </div>

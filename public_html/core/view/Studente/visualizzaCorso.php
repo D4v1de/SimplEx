@@ -10,20 +10,41 @@
 include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "UtenteController.php";
 include_once CONTROL_DIR . "SessioneController.php";
-
 $controller = new CdlController();
 $utenteController = new UtenteController();
 $sessioneController = new SessioneController();
 
-$corso = $controller->readCorso($_URL[3]);
-
-$cdl = $controller->readCdl($corso->getCdlMatricola());
-$matricolaStudente = "0512109993";
-
-$sessioni = $sessioneController->getAllSessioni();
-
 $docenteassociato = Array();
-$docenteassociato = $utenteController->getDocenteAssociato($corso->getId());
+$corso = null;
+$cdl = null;
+$matricolaStudente = "0512109993";
+$url = null;
+
+$url = $_URL[3];
+if (!is_numeric($url)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
+
+try {
+    $corso = $controller->readCorso($url);
+} catch (ApplicationException $ex) {
+    echo "<h1>INSERIRE ID CORSO NEL PATH!</h1>".$ex;
+}
+try {
+    $cdl = $controller->readCdl($corso->getCdlMatricola());
+} catch (ApplicationException $ex) {
+    echo "<h1>READCDL FALLITO!</h1>".$ex;
+}
+try {
+    $sessioni = $sessioneController->getAllSessioni();
+} catch (ApplicationException $ex) {
+    echo "<h1>GETALLSESSIONI FALLITO!</h1>".$ex;
+}
+try {
+    $docenteassociato = $utenteController->getDocenteAssociato($corso->getId());
+} catch (ApplicationException $ex) {
+    echo "<h1>GETDOCENTIASSOCIATI FALLITO</h1>".$ex;
+}
 
 
 ?>
@@ -42,7 +63,6 @@ $docenteassociato = $utenteController->getDocenteAssociato($corso->getId());
     <?php include VIEW_DIR . "header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
-
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -146,49 +166,44 @@ $docenteassociato = $utenteController->getDocenteAssociato($corso->getId());
                                 <tr role="row">
                                     <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
                                         colspan="1" aria-label="Username: activate to sort column ascending"
-                                        aria-sort="ascending" style="width: 78px;">
+                                        aria-sort="ascending">
                                         Nome
                                     </th>
                                     <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
                                         colspan="1" aria-label="Username: activate to sort column ascending"
-                                        aria-sort="ascending" style="width: 78px;">
+                                        aria-sort="ascending">
                                         Data e ora
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
                                         colspan="1"
-                                        aria-label="Email: activate to sort column ascending" style="width: 137px;">
+                                        aria-label="Email: activate to sort column ascending">
                                         Tipologia
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
                                         colspan="1"
-                                        aria-label="Status: activate to sort column ascending" style="width: 36px;">
+                                        aria-label="Status: activate to sort column ascending">
                                         Esito
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
                                         colspan="1"
-                                        aria-label="Status: activate to sort column ascending" style="width: 23%">
+                                        aria-label="Status: activate to sort column ascending">
                                         Azioni
                                     </th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
-                                if ($sessioni == null) {
-                                    echo "l'array è null";
-                                } else {
-                                    foreach ($sessioni as $s) {
-                                        printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                        printf("<td class=\"sorting_1\">Sessione %s</td>", $s->getId());
-                                        printf("<td class=\"sorting_1\">%s</td>", $s->getDataInizio());
-                                        if (!strcmp($s->getTipologia(),"Esercitativa"))
-                                            printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $s->getTipologia());
-                                        else
-                                            printf("<td><span class=\"label label-sm label-danger\">%s</span></td>", $s->getTipologia());
-                                        printf("<td class=\"sorting_1\"><a href=\"\">%s</a></td>", $s->getSogliaAmmissione());
-                                        printf("<td class=\"center\"><a href=\"javascript:;\" class=\"btn btn-sm default\" disabled=\"true\">Visualizza</a>");
-                                        printf("<a href=\"../eseguitest/%d\" class=\"btn btn-sm default blue-madison\"><i class=\"fa fa-pencil\"></i> Partecipa</a></td>",$s->getId());
-                                        printf("</tr>");
-                                    }
+                                foreach ($sessioni as $s) {
+                                    printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                    printf("<td class=\"sorting_1\"><a href=\"#\">Sessione %s</a></td>", $s->getId());
+                                    printf("<td class=\"sorting_1\">%s</td>", $s->getDataInizio());
+                                    if (!strcmp($s->getTipologia(), "Esercitativa"))
+                                        printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $s->getTipologia());
+                                    else
+                                        printf("<td class=\"sorting_1\"><span class=\"label label-sm label-danger\">%s</span></td>", $s->getTipologia());
+                                    printf("<td class=\"sorting_1\"><a href=\"\">%s</a></td>", $s->getSogliaAmmissione());
+                                    printf("<td class=\"sorting_1\"><a href=\"../eseguitest/%d\" class=\"btn btn-sm default blue-madison\"><i class=\"fa fa-pencil\"></i> Partecipa</a></td>", $s->getId());
+                                    printf("</tr>");
                                 }
                                 ?>
                                 </tbody>

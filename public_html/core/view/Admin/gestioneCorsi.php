@@ -11,26 +11,23 @@ include_once CONTROL_DIR . "CdlController.php";
 $controller = new CdlController();
 
 $corsi = Array();
+$checkbox = Array();
 
 try {
     $corsi = $controller->getCorsi();
 }
 catch (ApplicationException $ex) {
-    echo "<h1>errore! ApplicationException->non ci sono Corsi nel db!</h1>";
-    echo "<h4>".$ex."</h4>";
-    //header('Location: ../visualizzacorso');
+    echo "<h1>GETCORSI FALLITO!</h1>".$ex;
 }
 
 if (isset($_POST['checkbox'])) {
-    $checkbox = Array();
     $checkbox = $_POST['checkbox'];
     if (count($checkbox) >= 1) {
         foreach ($checkbox as $c) {
             try {
                 $controller->eliminaCorso($c);
             } catch (ApplicationException $ex) {
-                echo "<h1>errore! ApplicationException->il corso non è stato eliminato!</h1>";
-                echo "<h4>" . $ex . "</h4>";
+                echo "<h1>ELIMINACORSO FALLITO!</h1>".$ex;
             }
         }
         header('Location: view');
@@ -110,36 +107,36 @@ if (isset($_POST['checkbox'])) {
                         </div>
                     </div>
                     <div class="portlet-body">
-                        <div id="tabella_2_wrapper" class="dataTables_wrapper no-footer">
+                        <div id="tabella_8_wrapper" class="dataTables_wrapper no-footer">
                             <div class="table-scrollable">
                                 <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                       id="tabella_2" role="grid" aria-describedby="tabella_2_info">
+                                       id="tabella_8" role="grid" aria-describedby="tabella_8_info">
                                     <thead>
                                     <tr role="row">
                                         <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1"
                                             aria-label=""
                                             style="width: 24px;">
                                             <input type="checkbox" class="group-checkable"
-                                                   data-set="#tabella_2 .checkboxes">
+                                                   data-set="#tabella_8 .checkboxes">
                                         </th>
                                         <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
                                             colspan="1" aria-label="Username: activate to sort column ascending"
-                                            aria-sort="ascending" style="width: 78px;">
+                                            aria-sort="ascending">
                                             Matricola
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
                                             colspan="1"
-                                            aria-label="Email: activate to sort column ascending" style="width: 137px;">
+                                            aria-label="Email: activate to sort column ascending">
                                             Nome
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
                                             colspan="1"
-                                            aria-label="Status: activate to sort column ascending" style="width: 36px;">
+                                            aria-label="Status: activate to sort column ascending">
                                             Tipologia
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
                                             colspan="1"
-                                            aria-label="Status: activate to sort column ascending" style="width: 36px;">
+                                            aria-label="Status: activate to sort column ascending">
                                             Matricola CdL
                                         </th>
                                     </tr>
@@ -148,11 +145,11 @@ if (isset($_POST['checkbox'])) {
                                     <?php
                                     foreach ($corsi as $c) {
                                         printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                        printf("<td><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $c->getId());
+                                        printf("<td class=\"sorting_1\"><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $c->getId());
                                         printf("<td class=\"sorting_1\">%s</td>", $c->getMatricola());
                                         printf("<td class=\"sorting_1\"><a href=\"modifica/%s\">%s</a></td>", $c->getId(), $c->getNome());
-                                        printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
-                                        printf("<td>%s</td>", $c->getCdlMatricola());
+                                        printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
+                                        printf("<td class=\"sorting_1\">%s</td>", $c->getCdlMatricola());
                                         printf("</tr>");
                                     }
                                     ?>
@@ -200,7 +197,7 @@ if (isset($_POST['checkbox'])) {
         Layout.init(); // init current layout
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
-        TableManaged.init("tabella_2", "tabella_2_wrapper");
+        TableManaged.init("tabella_8", "tabella_8_wrapper");
     });
 </script>
 <!-- END JAVASCRIPTS -->

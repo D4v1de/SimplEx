@@ -150,12 +150,12 @@ class CdlController extends Controller {
     }
 
     /**
-     * Restituisce tutti i Corsi a cui l'utente è iscritto
+     * Restituisce tutti i Corsi a cui lo Studente è iscritto
      * @param matricola dello Studente
-     * @return Corsi a cui lo Studente è iscritto SSSTTTUUUBBBB ------->
+     * @return Corsi a cui lo Studente è iscritto
      */
     public function getCorsiStudente($studente_matricola) {
-        $accountModel = new AccountModel();
-        //$accountModel->getAllCorsiByStudente($studente_matricola);
+        $corsoModel = new CorsoModel();
+        $corsoModel->getAllCorsiByStudente($studente_matricola);
     }
 }
