@@ -28,6 +28,7 @@ class SessioneController extends Controller {   //UTLIZZARE ALTRO CONTROLLER..NO
         $this->sessioneModel = new SessioneModel();
         $this->accountModel = new AccountModel();
         $this->testModel = new TestModel();
+
     }
 
     /**
@@ -36,7 +37,7 @@ class SessioneController extends Controller {   //UTLIZZARE ALTRO CONTROLLER..NO
      * @return type array di Test
      */
     public function getAllTestBySessione($idSessione) {
-        return $this->sessioneModel->getAllTestBySessione($idSessione);
+        return $this->testModel->getAllTestBySessione($idSessione);
     }
 
     /**
@@ -107,5 +108,10 @@ class SessioneController extends Controller {   //UTLIZZARE ALTRO CONTROLLER..NO
     public function associaTestASessione($idSes, $idTest) {
             $this->sessioneModel->associaTestSessione($idSes,$idTest);
     }
+
+    public function deleteAllTestFromSessione($idSes) {
+        $this->sessioneModel->DeleteAllTestFromSessione($idSes);
+    }
+
 
 }

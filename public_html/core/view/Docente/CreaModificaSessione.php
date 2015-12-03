@@ -30,10 +30,16 @@ if($_URL[6]!=0) {  //CASO IN CUI SI VOGLIA MODIFICARE LA SESSIONE
             $valu = "Checked";
         else $eser = "Checked";
 
+        //carico i corsi
+        $tests= Array();
+        $tests=$controller->getAllTestBySessione($_URL[6]);
+        //ora prendersi tutti gli id dei test presenti..e nella creazione degli elementi della tabella
+        //se appare un test presente tra questi..metto checked!..altrimenti no..
+        //quindi dovrei scorrere ogni volta che devo inserire il test nella tabella l'array degli dei test
+
     } catch (ApplicationException $ex) {
         echo "<h1>errore! ApplicationException->errore manca id sessione nel path!</h1>";
         echo "<h4>" . $ex . "</h4>";
-        //header('Location: ../visualizzacorso');
     }
 }
 
@@ -81,8 +87,22 @@ if($_URL[6]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
 }
 
 if($_URL[6]!=0) {  //CASO DI MODIFICA..DEVE ESSERE SETTATO !ALMENO! UNO.
-    if($dataFromSettato=isset($_POST['dataFrom']) || $radio1Settato=isset($_POST['radio1']) || $dataToSettatoisset=($_POST['dataTo']) ) {
-        //dalle variabili prese so quali sono settati..quelli costituiranno la nuova sessione
+    if($dataFromSettato=isset($_POST['dataFrom']) || $radio1Settato=isset($_POST['radio1']) || $dataToSettato=isset($_POST['dataTo'])  ) {
+
+        if($dataFromSettato)
+            $newOrOldDataFrom = $_POST['dataFrom'];
+        else
+            $newOrOldDataFrom= $dataFrom;
+        if($dataToSettato)
+            $newOrOldDataTo = $_POST['dataTo'];
+        else
+            $newOrOldDataTo = $_POST['dataTo'];
+
+        $sessioneAggiornata = new Sessione($newOrOldDataFrom,$newOrOldDataTo,$sogliAmm,$stato,$tipoSessione,$idCorso);
+        $controller->updateSessione($_URL[6],$sessioneAggiornata);
+
+        $tornaACasa= "Location: "."/usr/docente/corso/"."$idCorso";
+        header($tornaACasa);
     }
 }
 
@@ -272,7 +292,7 @@ if($_URL[6]!=0) {  //CASO DI MODIFICA..DEVE ESSERE SETTATO !ALMENO! UNO.
                                 </th><th class="sorting-disabled" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" aria-label="
                                                                  Email
                                                         : activate to sort column ascending" style="width: 181px;">
-                                    Data Creazione
+                                    Descrizione
                                 </th>
                                 <th class="sorting-disabled" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" aria-label="
                                                                  Email
@@ -314,7 +334,7 @@ if($_URL[6]!=0) {  //CASO DI MODIFICA..DEVE ESSERE SETTATO !ALMENO! UNO.
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
                                     printf("<td><input name=\"tests[]\" type=\"checkbox\" class=\"checkboxes\" value='%d'></td>", $c->getId());
                                     printf("<td class=\"sorting_1\">%s</td>", $c->getDescrizione());
-                                    printf("<td>\"doveLaPrendo?\"</td>");
+                                    printf("<td>%s</td>", $c->getDescrizione());
                                     printf("<td>%d</td>", $c->getNumeroMultiple());
                                     printf("<td>%d</td>", $c->getNumeroAperte());
                                     printf("<td>%d</td>", $c->getPunteggioMax());

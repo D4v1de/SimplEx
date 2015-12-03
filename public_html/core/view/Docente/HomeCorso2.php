@@ -40,13 +40,16 @@ try{
     echo "ERRORE IN READ ARGOMENTO" . $exception;
 }
 
-
 $idsSessione = $controllerSessione->getAllSessioniByCorso($identidicativoCorso);
 if(isset($_POST['IdSes'])){
-    print_r($_POST['IdSes']);
-        $idSes = $_POST['IdSes'];
+    $idSes = $_POST['IdSes'];
+    try {
         $controllerSessione->deleteSessione($idSes);
         header("Refresh:0");
+    }
+    catch(ApplicationException $ex) {
+        echo "CAZZO PERCHè NON FUNZIONI?".$ex;
+    }
 }
 
 if(isset($_POST['id'])){
@@ -194,19 +197,15 @@ if(isset($_POST['id'])){
                             }
                             else {
                                 foreach ($array as $c) {
-                                    $sesId=$c->getId();
-                                    $vaiA= "/usr/docente/corso/".$identidicativoCorso."/sessione"."/"."creamodificasessione"."/".$sesId;
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
 
                                     printf("<td class=\"sorting_1\"><a href=\"visualizzasessione/%s\">%s</a></td>", $c->getId(), "Sessione ".$c->getId());
                                     printf("<td>%s</td>", $c->getDataInizio());
                                     printf("<td>%s</td>", $c->getTipologia());
-                                    printf("<td class=\"center\"><a href=\"visualizzaesitisessione\" class=\"btn btn-sm default\">Esiti");
-                                    printf("</a>");
-                                    printf("<a href='%s' class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i>", $vaiA);
-                                    printf("</a>");
-                                    printf("<input type='hidden' name='IdSes[]' value='%d' class=\"btn btn-sm red-intense\" >", $sesId );
-                                    printf("<button type='submit' value='' class='btn btn-sm red-intense'> <i class=\"fa fa-trash-o\"></i></button></td>");
+                                    printf("<td class=\"center\"><a href=\"visualizzaesitisessione\" class=\"btn btn-sm default\">Esiti</a>
+                                                                 <a href=\"creamodificasessione\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></a>
+                                                                 <button type='submit' name='IdSes' value='%d' class='btn btn-sm red-intense'><i class=\"fa fa-trash-o\"></i></button>
+                                           </td>", $c->getId());
                                     printf("</tr>");
                                 }
                             }
@@ -265,12 +264,12 @@ if(isset($_POST['id'])){
                                 <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Status
                                 " style="width: 100px;">
-                                    Inserito
+                                    % Inserito
                                 </th>
                                 <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Status
                                 " style="width: 100px;">
-                                    Superato
+                                    % Superato
                                 </th>
                                 <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Status
