@@ -53,7 +53,7 @@ class SessioneController extends Controller {   //UTLIZZARE ALTRO CONTROLLER..NO
      * @param type $sessione ovvero Una Sessione
      */
     public function creaSessione($sessione) {          //verrà chiamato premuto il salva button..sessione è un bean..con diverse variabili..
-        $this->sessioneModel->createSessione($sessione);     //che verranno aggiunte nella view... stile :  $cdl = new CdL($matricola, $nome, $tipologia);
+        return $this->sessioneModel->createSessione($sessione);     //che verranno aggiunte nella view... stile :  $cdl = new CdL($matricola, $nome, $tipologia);
     }                                                       //e poi passate a questo control! ..toglierò questi commenti, promesso XD
 
     /**
@@ -103,4 +103,9 @@ class SessioneController extends Controller {   //UTLIZZARE ALTRO CONTROLLER..NO
     public function getAllTestByCorso($idCorso) {
         return $this->testModel->getAllTestByCorso($idCorso);
     }
+
+    public function associaTestASessione($idSes, $idTest) {
+            $this->sessioneModel->associaTestSessione($idSes,$idTest);
+    }
+
 }

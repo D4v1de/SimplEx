@@ -46,7 +46,6 @@ if($_URL[6]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
         $newdataFrom = $_POST['dataFrom'];
         $newdataTo = $_POST['dataTo'];
         $newtipoSessione = $_POST['radio1'];
-        echo $newdataFrom;
 
         $sogliAmm= 18;                             //dove la prendo?
         $stato='Non Eseguita';                     //dove lo prendo?
@@ -55,10 +54,29 @@ if($_URL[6]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
             $cbTest = Array();
             $cbTest = $_POST['tests'];
             $sessione = new Sessione($newdataFrom, $newdataTo, $sogliAmm, $stato, $newtipoSessione, $idCorso);
-            $controller->creaSessione($sessione);
-            $tornaCasa= "Location: "."/usr/docente/corso/"."$idCorso";
-            header($tornaCasa);
+            //creo la Sessione
+            $idNuovaSessione=$controller->creaSessione($sessione);
+            echo "idSessioneNuova=...(".$idNuovaSessione. ")......";
+
+            //creo l'associazione tests-sessione
+            if($cbTest!=null) {
+                print_r($cbTest);
+            }
+            else
+                echo "cbtests vuoto";
+
+            foreach($cbTest as $t) {
+                echo $t." ".$idNuovaSessione;
+                $controller->associaTestASessione($idNuovaSessione,$t);
+            }
+
+            //torna a pagina corso del docente
+            $tornaACasa= "Location: "."/usr/docente/corso/"."$idCorso";
+            header($tornaACasa);
+
         }
+        else
+            echo "non entro nell if dei set delle cb";
     }
 }
 
