@@ -17,6 +17,7 @@ class SessioneModel extends Model {
     private static $GET_ALL_SESSIONI = "SELECT * FROM `sessione`";
     private static $GET_ALL_SESSIONI_STUDENTE = "SELECT s.* FROM `abilitazione` as a, `sessione` as s WHERE a.studente_matricola = '%s' AND a.sessione_id = s.id"; 
     private static $GET_ALL_SESSIONI_CORSO = "SELECT * FROM `sessione` WHERE corso_id = '%d'";
+    private static $ASSOCIA_TEST_SESSIONE = "INSERT INTO `sessione_test` (sessione_id, test_id) VALUES ('%d','%d')";
     
     /**
      * Inserisce una nuova sessione nel database
@@ -140,4 +141,18 @@ class SessioneModel extends Model {
         }
         return $sessioni;   
     } 
+    
+    /**
+     * Associa un test ad una sessione del database
+     * @param int $idSessione L'id della sessione per la quale si vuole associare il test
+     * @param int $idTest L'id del test da associare alla sessione
+     * @throws ApplicationException
+     */
+    public function associaTestSessione($idSessione, $idTest) {
+        $query = sprintf(self::$ASSOCIA_TEST_SESSIONE, $idSessione, $idTest);
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows == -1) {
+            throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
+        }
+    }
 }

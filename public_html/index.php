@@ -144,20 +144,26 @@ if (!defined("TESTING")) {
                                         case 'modifica':
                                             include_once VIEW_DIR . "Docente/ModificaArgomento.php";
                                             break;
-                                        case 'inserisciaperta':
-                                            include_once VIEW_DIR . "Docente/InserisciDomandaAperta.php";
-                                            break;
-                                        case 'modificaaperta':
-                                            include_once VIEW_DIR . "Docente/ModificaDomandaAperta.php";
-                                            break;
-                                        case 'inseriscimultipla':
-                                            include_once VIEW_DIR . "Docente/InserisciDomandaMultipla.php";
-                                            break;
-                                        case 'modificamultipla':
-                                            include_once VIEW_DIR . "Docente/ModificaDomandaMultipla.php";
+                                        case 'domande':
+                                            switch (isset($_URL[6]) ? $_URL[6] : '') {
+                                                case 'inserisciaperta':
+                                                    include_once VIEW_DIR . "Docente/InserisciDomandaAperta.php";
+                                                    break;
+                                                case 'modificaaperta':
+                                                    include_once VIEW_DIR . "Docente/ModificaDomandaAperta.php";
+                                                    break;
+                                                case 'inseriscimultipla':
+                                                    include_once VIEW_DIR . "Docente/InserisciDomandaMultipla.php";
+                                                    break;
+                                                case 'modificamultipla':
+                                                    include_once VIEW_DIR . "Docente/ModificaDomandaMultipla.php";
+                                                    break;
+                                                default:
+                                                    include_once VIEW_DIR . "Docente/VisualizzaListaDomande2.php";
+                                            }
                                             break;
                                         default:
-                                            include_once VIEW_DIR . "Docente/VisualizzaListaDomande2.php";
+                                            include_once VIEW_DIR . "Docente/HomeCorso2.php";
                                     }
                                     break;
                                 case 'test':
@@ -212,7 +218,7 @@ if (!defined("TESTING")) {
                                     }
                                     break;
                                 default:
-                                    include_once VIEW_DIR . "Studente/HomeCorso.php";
+                                    include_once VIEW_DIR . "Studente/VisualizzaCorso.php";
                             }
                             break;
                         default:

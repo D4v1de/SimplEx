@@ -5,12 +5,22 @@
  * Date: 18/11/15
  * Time: 09:58
  */
-//TODO qui la logica iniziale, caricamento dei controller ecc
+
 include_once CONTROL_DIR . "DomandaController.php";
+include_once CONTROL_DIR . "ArgomentoController.php";
+include_once CONTROL_DIR . "CdlController.php";
+
+$cdlController = new CdlController();
 $domandaController = new DomandaController();
-$domandaOld = $domandaController->getDomandaAperta(35,9,20);
+$argomentoController = new ArgomentoController();
+
+$idCorso = $_URL[3];
+$idArgomento = $_URL[7];
+$idDomanda = $_URL[8];
+$domandaOld = $domandaController->getDomandaAperta($idDomanda,$idArgomento,$idCorso);
 
 if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
+
     $testo = $_POST['testo'];
     $punteggio = $_POST['punteggio'];
 
@@ -21,10 +31,10 @@ if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
     } else if (empty($punteggio)) {
         echo "<script type='text/javascript'>alert('Devi inserire il punteggio!');</script>";
     } else {
-        $updatedDomanda = new DomandaAperta(9, 20, $testo, $punteggio, 0);
-        $domandaController->modificaDomandaAperta($domandaOld->getId(),$domandaOld->getArgomentoId(),$domandaOld->getArgomentoCorsoId(),$updatedDomanda);
+        $updatedDomanda = new DomandaAperta($idArgomento,$idCorso, $testo, $punteggio, 0);
+        $domandaController->modificaDomandaAperta($idDomanda,$idArgomento,$idCorso,$updatedDomanda);
 
-        header('location: ../../listadomande');
+        header('location: ../../'.$idArgomento);
     }
 }
 ?>
@@ -61,32 +71,39 @@ if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
 
             <div class="page-bar">
                 <ul class="page-breadcrumb">
-                    <li>
-                        <i class="fa fa-home"></i>
-                        <a href="index.html">Home</a>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
-                    <li>
-                        <a href="#">Nome Corso</a>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
-                    <li>
-                        <a href="#">Nome Argomento</a>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
-                    <li>
-                        <a href="#">Modifica Domanda Aperta</a>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
+                    <?php
+                    $corso = $cdlController->readCorso($idCorso);
+                    $argomento = $argomentoController->readArgomento($idArgomento,$idCorso);
+
+                    printf("<li>");
+                    printf("<i class=\"fa fa-home\"></i>");
+                    printf("<a href=\"../../../../../../\">Home</a>");
+                    printf("<i class=\"fa fa-angle-right\"></i>");
+                    printf("</li>");
+                    printf("<li>");
+                    printf("<i></i>");
+                    printf("<a href=\"../../../../\">%s</a>",$corso->getNome());
+                    printf("<i class=\"fa fa-angle-right\"></i>");
+                    printf("</li>");
+                    printf("<li>");
+                    printf("<i></i>");
+                    printf("<a href=\"../../%d\">%s</a>",$idArgomento, $argomento->getNome());
+                    printf("<i class=\"fa fa-angle-right\"></i>");
+                    printf("</li>");
+                    printf("<li>");
+                    printf("<i></i>");
+                    printf("<a href=\"\">Modifica Domanda</a>");
+                    printf("</li>");
+                    ?>
                 </ul>
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <form method="post" action="modifica" class="form-horizontal form-bordered">
+            <form method="post" action="" class="form-horizontal form-bordered">
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-globe"></i>Modifica Domanda Aperta
+                            <i class="fa fa-edit"></i>Modifica Domanda Aperta
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="collapse" data-original-title="" title="">
@@ -128,7 +145,9 @@ if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
                             <div class="row">
                                 <div class="col-md-9">
                                     <button type="submit" class="btn sm green-jungle">Conferma</button>
-                                    <a href="../../listadomande" class="btn sm red-intense">
+                                    <?php
+                                    printf("<a href=\"../../%d\" class=\"btn sm red-intense\">",$idArgomento);
+                                    ?>
                                         Annulla
                                     </a>
                                 </div>

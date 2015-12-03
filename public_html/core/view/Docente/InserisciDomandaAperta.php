@@ -6,7 +6,15 @@
  * Time: 09:58
  */
 include_once CONTROL_DIR . "DomandaController.php";
+include_once CONTROL_DIR . "ArgomentoController.php";
+include_once CONTROL_DIR . "CdlController.php";
+
+$cdlController = new CdlController();
 $domandaController = new DomandaController();
+$argomentoController = new ArgomentoController();
+
+$idCorso = $_URL[3];
+$idArgomento = $_URL[7];
 
 if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
     $testo = $_POST['testo'];
@@ -19,10 +27,10 @@ if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
     } else if (empty($punteggio)) {
         echo "<script type='text/javascript'>alert('Devi inserire il punteggio!');</script>";
     } else {
-        $domanda = new DomandaAperta(9, 20, $testo, $punteggio, 0);
+        $domanda = new DomandaAperta($idArgomento, $idCorso, $testo, $punteggio, 0);
         $domandaController->creaDomandaAperta($domanda);
 
-        header('location: ../../listadomande');
+        header('location: ../'.$idArgomento);
     }
 }
 
@@ -60,33 +68,40 @@ if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
 
             <div class="page-bar">
                 <ul class="page-breadcrumb">
-                    <li>
-                        <i class="fa fa-home"></i>
-                        <a href="">Home</a>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
-                    <li>
-                        <a href="">NomeCorso</a>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
-                    <li>
-                        <a href="homecorsodocente">Nome Argomento</a>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
-                    <li>
-                        <a href="#">Nuova Domanda Aperta</a>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
+                    <?php
+                    $corso = $cdlController->readCorso($idCorso);
+                    $argomento = $argomentoController->readArgomento($idArgomento,$idCorso);
+
+                    printf("<li>");
+                    printf("<i class=\"fa fa-home\"></i>");
+                    printf("<a href=\"../../../../../\">Home</a>");
+                    printf("<i class=\"fa fa-angle-right\"></i>");
+                    printf("</li>");
+                    printf("<li>");
+                    printf("<i></i>");
+                    printf("<a href=\"../../../\">%s</a>", $corso->getNome());
+                    printf("<i class=\"fa fa-angle-right\"></i>");
+                    printf("</li>");
+                    printf("<li>");
+                    printf("<i></i>");
+                    printf("<a href=\"../%d\">%s</a>",$idArgomento, $argomento->getNome());
+                    printf("<i class=\"fa fa-angle-right\"></i>");
+                    printf("</li>");
+                    printf("<li>");
+                    printf("<i></i>");
+                    printf("<a href=\"\">Inserisci Domanda</a>");
+                    printf("</li>");
+                    ?>
                 </ul>
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
             <!-- BEGIN FORM-->
-            <form method="post" action="inserisci" class="form-horizontal form-bordered">
+            <form method="post" action="" class="form-horizontal form-bordered">
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-globe"></i>Inserisci Domanda Aperta
+                            <i class="fa fa-edit"></i>Inserisci Domanda Aperta
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="collapse" data-original-title="" title="">
@@ -124,7 +139,9 @@ if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
                             <button class="btn sm green-jungle" type="submit">Conferma</button>
 
                             </a>
-                            <a href="../../listadomande" class="btn sm red-intense">
+                            <?php
+                            printf("<a href=\"../%d\" class=\"btn sm red-intense\">",$idArgomento);
+                            ?>
                                 Annulla
                             </a>
                         </div>

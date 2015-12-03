@@ -9,6 +9,7 @@ class Error {
     public static $INSERIMENTO_FALLITO = "Impossibile inserire nel database";
     public static $AGGIORNAMENTO_FALLITO = "Impossibile aggiornare il database";
     public static $CANCELLAZIONE_FALLITA = "Impossibile cancellare dal database";
+    public static $CONTATTO_NON_TROVATO = "Nessun contatto trovato";
     public static $ELABORATO_NON_TROVATO = "Nessun elaborato trovato";
     public static $RISPOSTA_NON_TROVATA = "Nessuna risposta trovata";
     public static $NO_APERTE = "L'elaborato non ha risposte aperte";
@@ -29,8 +30,12 @@ class Error {
      */
 
     public static $UTENTE_NON_TROVATO = "Utente non trovato";
-    public static $EMAIL_NON_VALIDA="Email non è valida";
-    public static $PASS_CORTA="La password inserita è troppo corta";
+    public static $EMAIL_NON_VALIDA = "Email non è valida";
+    public static $PASS_CORTA = "La password inserita è troppo corta";
+    public static $MATRICOLA_INESISTENTE = "Matricola inesistente";
+    public static $NOME_NON_VALIDO = "Nome non valido";
+    public static $CONGNOME_NON_VALIDO = "Cognome non valido";
+    public static $TIPO_UTENTE_ERRATO = "Tipo utente errato";
 }
 
 ?>
