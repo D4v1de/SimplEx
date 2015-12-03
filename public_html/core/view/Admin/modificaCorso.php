@@ -34,7 +34,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     $cdlmatricola = $_POST['cdlmatricola'];
 
     try {
-        $new = new Corso(null, $matricola, $nome, $tipologia, $cdlmatricola);
+        $new = new Corso($matricola, $nome, $tipologia, $cdlmatricola);
         $controller->modificaCorso($corso->getId(), $new);
         header('location: ../view');
     }

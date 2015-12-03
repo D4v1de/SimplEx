@@ -76,7 +76,7 @@ if (!defined("TESTING")) {
                         case 'view':
                             include_once VIEW_DIR . "Admin/VisualizzaUtente.php";
                             break;
-                        case 'gestione':
+                        case '':
                             include_once VIEW_DIR . "Admin/GestioneUtente.php";
                             break;
                         case 'groups':
@@ -218,7 +218,7 @@ if (!defined("TESTING")) {
                                     }
                                     break;
                                 default:
-                                    include_once VIEW_DIR . "Studente/HomeCorso.php";
+                                    include_once VIEW_DIR . "Studente/VisualizzaCorso.php";
                             }
                             break;
                         default:

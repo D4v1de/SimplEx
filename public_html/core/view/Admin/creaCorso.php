@@ -28,7 +28,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     } else {
 
         try {
-            $corso = new Corso(null ,$matricola, $nome, $tipologia, $cdlMatricola);
+            $corso = new Corso($matricola, $nome, $tipologia, $cdlMatricola);
             $controller->creaCorso($corso);
 
             header('location: view');
