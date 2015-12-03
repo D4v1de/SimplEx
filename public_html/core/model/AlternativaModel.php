@@ -121,6 +121,7 @@ class AlternativaModel extends Model{
      */
     public function getAllAlternativaByDomanda($domandaMultiplaId, $domandaMultiplaArgomentoId, $domandaMultiplaArgomentoCorsoId) {
         $res = Model::getDB()->query(sprintf(self::$GET_ALL_ALTERNATIVA_BY_DOMANDA, $domandaMultiplaId, $domandaMultiplaArgomentoId, $domandaMultiplaArgomentoCorsoId));
+        $alternative = array();
         if ($res) {
             while ($obj = $res->fetch_assoc()) {
                 $alternativa = new Alternativa($obj['domanda_multipla_id'], $obj['domanda_multipla_argomento_id'], $obj['domanda_multipla_argomento_corso_id'], $obj['testo'], $obj['percentuale_scelta'], $obj['corretta']);
