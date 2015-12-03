@@ -18,6 +18,7 @@ class CorsoModel extends Model {
     private static $CREATE_INSEGNAMENTO = "INSERT INTO `insegnamento` (corso_id, docente_matricola) VALUES ('%d','%s')";
     private static $DELETE_INSEGNAMENTO = "DELETE FROM `insegnamento` WHERE corso_id = '%d' AND docente_matricola = '%s'";
     private static $GET_ALL_CORSI_DOCENTE = "SELECT c.* FROM `insegnamento` as i,`corso` as c WHERE i.corso_id = c.id AND i.docente_matricola = '%s'";
+    private static $GET_ALL_CORSI_STUDENTE = "SELECT c.* FROM `frequenta` as f,`corso` as c WHERE f.corso_id = c.id AND f.studente_matricola = '%s'";
     
     /**
      * Inserisce un nuovo corso nel database
@@ -146,7 +147,7 @@ class CorsoModel extends Model {
     /**
      * Restituisce tutti corsi di un docente del database
      * @param string $docente_matricola La matricola del docente per il quale si vogliono conoscere i corsi
-     * @return Insegnamento[] Tutti i corsi di un docente del database
+     * @return Corso[] Tutti i corsi di un docente del database
      */
     public function getAllCorsiByDocente($docente_matricola) {
         $query = sprintf(self::$GET_ALL_CORSI_DOCENTE, $docente_matricola);
@@ -160,5 +161,24 @@ class CorsoModel extends Model {
             }
         }
         return $corsi;
-    } 
+    }
+    
+    /**
+     * Restituisce tutti corsi di uno studente del database
+     * @param string $studente_matricola La matricola dello studente per il quale si vogliono conoscere i corsi
+     * @return Corso[] Tutti i corsi di uno studente del database
+     */
+    public function getAllCorsiByStudente($studente_matricola) {
+        $query = sprintf(self::$GET_ALL_CORSI_STUDENTE, $studente_matricola);
+        $res = Model::getDB()->query($query);
+        $corsi = array();
+        if($res){
+            while ($obj = $res->fetch_assoc()) {
+                $corso = new Corso($obj['matricola'], $obj['nome'], $obj['tipologia'], $obj['cdl_matricola']);
+                $corso->setId($obj['id']);
+                $corsi[] = $corso;
+            }
+        }
+        return $corsi;
+    }
 }

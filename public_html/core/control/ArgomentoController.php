@@ -38,8 +38,8 @@ class ArgomentoController extends Controller {
     }
 
     public function getAllDomandaAperta($id,$corso_id){
-        $argomentoModel = new ArgomentoModel();
-        return $argomentoModel->getAllDomandaApertaByArgomento($id,$corso_id);
+        $domandaModel = new DomandaModel();
+        return $domandaModel->getAllDomandaApertaByArgomento($id,$corso_id);
     }
 
     /**

@@ -92,18 +92,13 @@ if(isset($_POST['id'])){
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="index">Home</a>
+                        <a href="../">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../"> CdL</a>
+                        <a href="../cdl/<?php echo $corso->getCdlMatricola(); ?>"> <?php echo $controllerCorso->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
                         <i class="fa fa-angle-right"></i>
                     </li>
-                    <li>
-                        <a href=""> <?php echo $corso->getCdlMatricola() . " - " . $controllerCorso->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
-
                     <li>
                        <?php echo $corso->getNome(); ?>
                     </li>
@@ -233,7 +228,7 @@ if(isset($_POST['id'])){
                         </a>
                     </div>
                     <div class="actions">
-                        <a href="createst" class="btn btn-default btn-sm">
+                        <a href="test/crea" class="btn btn-default btn-sm">
                             <i class="fa fa-plus"></i> Crea Test </a>
                     </div>
                 </div>
