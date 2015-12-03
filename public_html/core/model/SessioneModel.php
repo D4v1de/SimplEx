@@ -18,7 +18,7 @@ class SessioneModel extends Model {
     private static $GET_ALL_SESSIONI_STUDENTE = "SELECT s.* FROM `abilitazione` as a, `sessione` as s WHERE a.studente_matricola = '%s' AND a.sessione_id = s.id"; 
     private static $GET_ALL_SESSIONI_CORSO = "SELECT * FROM `sessione` WHERE corso_id = '%d'";
     private static $ASSOCIA_TEST_SESSIONE = "INSERT INTO `sessione_test` (sessione_id, test_id) VALUES ('%d','%d')";
-    
+    private static $DELETE_ALL_TEST_FROM_SESSIONE = "DELETE FROM `sessione_test` where sessione_id = '%d'";
     /**
      * Inserisce una nuova sessione nel database
      * @param Sessione $sessione La sessione da inserire nel database
@@ -153,6 +153,19 @@ class SessioneModel extends Model {
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
+        }
+    }
+    
+    /**
+     * Rimuove tutti i test da una sessione del database
+     * @param int $id L'id della sessione
+     * @throws ApplicationException
+     */
+    public function DeleteAllTestFromSessione($id) {
+        $query = sprintf(self::$DELETE_ALL_TEST_FROM_SESSIONE, $id);
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows == -1) {
+            throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
         }
     }
 }

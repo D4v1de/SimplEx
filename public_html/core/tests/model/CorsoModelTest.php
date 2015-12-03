@@ -13,6 +13,8 @@ class CorsoModelTest extends PHPUnit_Framework_TestCase
     const TIPOLOGIA = "Semestrale";
     const TIPOLOGIA2 = "Annuale";
     const CDLMATRICOLA = "051214";
+    const STUDENTEMATRICOLA = "0512102396";
+    const DOCENTEMATRICOLA = "0512109999";
 
     public function testCorso() {
 
@@ -34,6 +36,12 @@ class CorsoModelTest extends PHPUnit_Framework_TestCase
         $model->deleteCorso($idCorso);
         $allCorsi = $model->getAllCorsi();
         print_r($allCorsi);
+
+        $allCorsiDocente = $model->getAllCorsiByDocente(self::DOCENTEMATRICOLA);
+        print_r($allCorsiDocente);
+
+        $allCorsiStudente = $model->getAllCorsiByStudente(self::STUDENTEMATRICOLA);
+        print_r($allCorsiStudente);
 
     }
 }

@@ -17,7 +17,7 @@ $controller = new ArgomentoController();
 $controllerCorso = new CdlController();
 $controllerDomande  = new DomandaController();
 
-$corso = $controllerCorso->readCorso(20); //QUI DEVE ANDARCI L'ID DEL CORSO DOVE CI TROVIAMO
+$corso = $controllerCorso->readCorso($_URL[3]); //QUI DEVE ANDARCI L'ID DEL CORSO DOVE CI TROVIAMO
 $num = $controller->getNumArgomenti(); //STUB
 ?>
 <!DOCTYPE html>
@@ -128,7 +128,7 @@ $num = $controller->getNumArgomenti(); //STUB
                                         <div class="col-md-6">
                                             <div class="form-group form-md-line-input has-success">
                                                 <div class="input-icon">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" id="numAperte" class="form-control">
                                                         <label for="form_control_1">Numero domande a risposta aperta:</label>
                                                             <span class="help-block">Inserire numero</span>
                                                 </div>
@@ -137,8 +137,8 @@ $num = $controller->getNumArgomenti(); //STUB
                                         <div class="col-md-6">
                                             <div class="form-group form-md-line-input has-success">
                                                 <div class="input-icon">
-                                                    <input type="text" class="form-control">
-                                                        <label for="form_control_1">Numero domande a risposta aperta:</label>
+                                                    <input type="text" id="numMultiple" class="form-control">
+                                                        <label for="form_control_1">Numero domande a risposta multipla:</label>
                                                             <span class="help-block">Inserire numero</span>
                                                 </div>
                                             </div>
@@ -158,31 +158,81 @@ $num = $controller->getNumArgomenti(); //STUB
                     $ndomanda = 1;
 
                     if($argomenti == null){echo "NON CI SONO ARGOMENTI";}
-                    foreach($argomenti as $a) {
-                        $domandeMultiple = $controller->getAllDomandaMultipla($a->getId(),$a->getCorsoId());
-                        printf("<div class=\"portlet box blue-madison\">");
-                        printf("<div class=\"portlet-title\">");
+                    else {
+
+                        printf("<div class=\"portlet\">");
+                        printf("<div class=\"portlet-title \">");
                         printf("<div class=\"caption\">");
-                        printf("<i class=\"fa fa-comments\"></i>%s", $a->getNome());
-                        printf("</div>");
-                        printf("<div class=\"tools\">");
-                        printf("<a href=\"javascript:;\" class=\"expand\" data-original-title=\"\" title=\"\"></a>");
+                        printf("<div> DOMANDE MULTIPLE</div>");
                         printf("</div>");
                         printf("</div>");
-                        printf("<div class=\"portlet-body collapse\">");
-                        printf("<div class=\"dd\" id=\"nestable_list_%s\">",$nargomento);
-                        printf("<ol class=\"dd-list\">");
-                        foreach($domandeMultiple as $domanda) {
-                            printf("<li class=\"dd-item\" data-id=\"%s%s\">",$nargomento,$ndomanda); //cambiare id
-                            printf("<div class=\"dd-handle\">%s</div>", $domanda->getTesto()); //CAMBIARE NELLA DOMANDA
-                            printf("</li>");
-                            $ndomanda++;
+                        printf("</div>");
+
+
+
+                        foreach ($argomenti as $a) {
+                            $domandeMultiple = $controller->getAllDomandaMultipla($a->getId(), $a->getCorsoId());
+                            printf("<div class=\"portlet box blue-madison\">");
+                            printf("<div class=\"portlet-title\">");
+                            printf("<div class=\"caption\">");
+                            printf("<i class=\"fa fa-comments\"></i>%s", $a->getNome());
+                            printf("</div>");
+                            printf("<div class=\"tools\">");
+                            printf("<a href=\"javascript:;\" class=\"expand\" data-original-title=\"\" title=\"\"></a>");
+                            printf("</div>");
+                            printf("</div>");
+                            printf("<div class=\"portlet-body collapse\">");
+                            printf("<div class=\"dd\" id=\"nestable_list_%s\">", $nargomento);
+                            printf("<ol class=\"dd-list\">");
+                            foreach ($domandeMultiple as $domanda) {
+                                printf("<li class=\"dd-item\" data-id=\"%s%s\">", $nargomento, $ndomanda); //cambiare id
+                                printf("<div class=\"dd-handle\">%s</div>", $domanda->getTesto()); //CAMBIARE NELLA DOMANDA
+                                printf("</li>");
+                                $ndomanda++;
+                            }
+                            printf("</ol>");
+                            printf("</div>");
+                            printf("</div>");
+                            printf("</div>");
+                            $nargomento++;
+
                         }
-                        printf("</ol>");
+
+                        printf("<div class=\"portlet\">");
+                        printf("<div class=\"portlet-title \">");
+                        printf("<div class=\"caption\">");
+                        printf("<div> DOMANDE APERTE</div>");
                         printf("</div>");
                         printf("</div>");
                         printf("</div>");
-                        $nargomento++;
+
+                        foreach ($argomenti as $b) {
+                            $domandeAperte = $controllerDomande->getAllAperte($b->getId(), $b->getCorsoId());
+                            printf("<div class=\"portlet box blue-madison\">");
+                            printf("<div class=\"portlet-title\">");
+                            printf("<div class=\"caption\">");
+                            printf("<i class=\"fa fa-comments\"></i>%s", $b->getNome());
+                            printf("</div>");
+                            printf("<div class=\"tools\">");
+                            printf("<a href=\"javascript:;\" class=\"expand\" data-original-title=\"\" title=\"\"></a>");
+                            printf("</div>");
+                            printf("</div>");
+                            printf("<div class=\"portlet-body collapse\">");
+                            printf("<div class=\"dd\" id=\"nestable_list_%s\">", $nargomento);
+                            printf("<ol class=\"dd-list\">");
+                            foreach ($domandeAperte as $domanda) {
+                                printf("<li class=\"dd-item\" data-id=\"%s%s\">", $nargomento, $ndomanda); //cambiare id
+                                printf("<div class=\"dd-handle\">%s</div>", $domanda->getTesto()); //CAMBIARE NELLA DOMANDA
+                                printf("</li>");
+                                $ndomanda++;
+                            }
+                            printf("</ol>");
+                            printf("</div>");
+                            printf("</div>");
+                            printf("</div>");
+                            $nargomento++;
+
+                        }
 
                     }
                     ?>
@@ -229,7 +279,7 @@ $num = $controller->getNumArgomenti(); //STUB
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-9">
-                                    <a href="javascript:;" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                    <a href="../" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                                         Conferma
                                     </a>
                                     <a href="../" class="btn sm red-intense">
