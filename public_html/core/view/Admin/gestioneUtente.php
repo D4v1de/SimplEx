@@ -143,7 +143,7 @@ if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
                                     printf("<td><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $d->getMatricola());                                    
                                     printf("<td>%s</td>", $d->getMatricola());
                                     printf("<td><a href=\"../../utenti/view/%s\">%s</a></td>", $d->getMatricola(), $d->getNome());
-                                    printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $d->getCognome());
+                                    printf("<td><span>%s</span></td>", $d->getCognome());
                                     printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $d->getTipologia()); 
                                     printf("</tr>");
                                 }
