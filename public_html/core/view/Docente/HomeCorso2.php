@@ -42,7 +42,9 @@ try{
 
 
 $idsSessione = $controllerSessione->getAllSessioniByCorso($identidicativoCorso);
+
 if(isset($_POST['IdSes'])){
+    echo $_POST['IdSes'];
         $idSes = $_POST['IdSes'];
         $controllerSessione->deleteSessione($idSes);
         header("Refresh:0");
@@ -156,7 +158,7 @@ if(isset($_POST['id'])){
                         </a>
                     </div>
                     <div class="actions">
-                        <a href="creamodificasessione" class="btn btn-default btn-sm">
+                        <a href="<?php printf("%s","/usr/docente/corso/".$identidicativoCorso."/sessione"."/"."creamodificasessione"."/"."0") ?>" class="btn btn-default btn-sm">
                             <i class="fa fa-plus"></i> Crea Sessione </a>
                     </div>
                 </div>
