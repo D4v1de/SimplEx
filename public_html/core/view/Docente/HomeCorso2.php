@@ -42,7 +42,9 @@ try{
 
 
 $idsSessione = $controllerSessione->getAllSessioniByCorso($identidicativoCorso);
+
 if(isset($_POST['IdSes'])){
+    echo $_POST['IdSes'];
         $idSes = $_POST['IdSes'];
         $controllerSessione->deleteSessione($idSes);
         header("Refresh:0");
@@ -156,7 +158,7 @@ if(isset($_POST['id'])){
                         </a>
                     </div>
                     <div class="actions">
-                        <a href="creamodificasessione" class="btn btn-default btn-sm">
+                        <a href="<?php printf("%s","/usr/docente/corso/".$identidicativoCorso."/sessione"."/"."creamodificasessione"."/"."0") ?>" class="btn btn-default btn-sm">
                             <i class="fa fa-plus"></i> Crea Sessione </a>
                     </div>
                 </div>
@@ -194,7 +196,7 @@ if(isset($_POST['id'])){
                             else {
                                 foreach ($array as $c) {
                                     $sesId=$c->getId();
-
+                                    $vaiA= "/usr/docente/corso/".$identidicativoCorso."/sessione"."/"."creamodificasessione"."/".$sesId;
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
 
                                     printf("<td class=\"sorting_1\"><a href=\"visualizzasessione/%s\">%s</a></td>", $c->getId(), "Sessione ".$c->getId());
@@ -202,7 +204,7 @@ if(isset($_POST['id'])){
                                     printf("<td>%s</td>", $c->getTipologia());
                                     printf("<td class=\"center\"><a href=\"visualizzaesitisessione\" class=\"btn btn-sm default\">Esiti");
                                     printf("</a>");
-                                    printf("<a href=\"creamodificasessione\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i>");
+                                    printf("<a href='%s' class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i>", $vaiA);
                                     printf("</a>");
                                     printf("<input type='hidden' name='IdSes' value='%d' class=\"btn btn-sm red-intense\" >", $sesId );
                                     printf("<button type='submit' value='' class='btn btn-sm red-intense'> <i class=\"fa fa-trash-o\"></i></button></td>");
@@ -228,7 +230,7 @@ if(isset($_POST['id'])){
                         </a>
                     </div>
                     <div class="actions">
-                        <a href="test/crea" class="btn btn-default btn-sm">
+                        <a href="<?php echo $corso->getId(); ?>/test/crea" class="btn btn-default btn-sm">
                             <i class="fa fa-plus"></i> Crea Test </a>
                     </div>
                 </div>
@@ -357,6 +359,7 @@ if(isset($_POST['id'])){
                                 printf("</td>");
                                 printf("</tr>");
                             }
+
 
                             ?>
 

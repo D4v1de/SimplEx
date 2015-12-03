@@ -23,6 +23,16 @@ class AlternativaController extends Controller
         $alternativaModel->createAlternativa($alternativa);
     }
 
+    public function modificaAlternativa($id, $domandaMultiplaId, $domandaMultiplaArgomentoId, $domandaMultiplaArgomentoCorsoId, $updatedAlternativa) {
+        $alternativaModel = new AlternativaModel();
+        $alternativaModel->updateAlternativa($id, $domandaMultiplaId, $domandaMultiplaArgomentoId, $domandaMultiplaArgomentoCorsoId, $updatedAlternativa);
+    }
+
+    public function cancellaAllAlternativa($domandaMultiplaId, $domandaMultiplaArgomentoId, $domandaMultiplaArgomentoCorsoId){
+        $alternativaModel = new AlternativaModel();
+        $alternativaModel->getAllAlternativaByDomanda($domandaMultiplaId, $domandaMultiplaArgomentoId, $domandaMultiplaArgomentoCorsoId);
+    }
+
     public function getArgomenti()
     {
         $argomentoModel = new ArgomentoModel();

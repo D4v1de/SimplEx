@@ -10,24 +10,80 @@
 include_once CONTROL_DIR . "SessioneController.php";
 
 $controller = new SessioneController();
-$idCorso = $_URL[1];
+$idCorso = $_URL[3];
+//$sessioneByUrl = null;
 
-if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo']) ) {
-    $dataFrom = $_POST['dataFrom'];
-    $dataTo = $_POST['dataTo'];
-    $tipoSessione = $_POST['radio1'];
-    $sogliAmm= 18;                             //dove la prendo?
-    $stato='Non Eseguita';                     //dove la prendo?
-    if (isset($_POST['tests'])) {   //aggiungere studenti
-        $cbTest = Array();
-        $cbTest = $_POST['tests'];
+$perModificaDataFrom =  null;
+$perModificaDataTo = null;
+$valu = null;
+$eser = null;
 
-        //TODO VEDERE DATA TUTTI 0s
-        //Fare query
-        $sessione = new Sessione($dataFrom, $dataTo, $sogliAmm, $stato, $tipoSessione, $idCorso);
-        $controller->creaSessione($sessione);
+if($_URL[6]!=0) {  //CASO IN CUI SI VOGLIA MODIFICARE LA SESSIONE
+    try {
+        $sessioneByUrl = $controller->readSessione($_URL[6]);
+        $dataFrom = $sessioneByUrl->getDataInizio();
+        $dataTo = $sessioneByUrl->getDataFine();
+        $tipoSessione = $sessioneByUrl->getTipologia();
+        $perModificaDataFrom = $dataFrom;
+        $perModificaDataTo = $dataTo;
+        if ($tipoSessione == "Valutativa")
+            $valu = "Checked";
+        else $eser = "Checked";
+
+    } catch (ApplicationException $ex) {
+        echo "<h1>errore! ApplicationException->errore manca id sessione nel path!</h1>";
+        echo "<h4>" . $ex . "</h4>";
+        //header('Location: ../visualizzacorso');
     }
+}
 
+else {  //CASO IN CUI SI VUOLE CREARE LA SESSIONE
+
+}
+
+if($_URL[6]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tutti i campi
+    if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo']) ) {
+        $newdataFrom = $_POST['dataFrom'];
+        $newdataTo = $_POST['dataTo'];
+        $newtipoSessione = $_POST['radio1'];
+
+        $sogliAmm= 18;                             //dove la prendo?
+        $stato='Non Eseguita';                     //dove lo prendo?
+
+        if (isset($_POST['tests'])  && isset($_POST['students'])) {
+            $cbTest = Array();
+            $cbTest = $_POST['tests'];
+            $sessione = new Sessione($newdataFrom, $newdataTo, $sogliAmm, $stato, $newtipoSessione, $idCorso);
+            //creo la Sessione
+            $idNuovaSessione=$controller->creaSessione($sessione);
+            echo "idSessioneNuova=...(".$idNuovaSessione. ")......";
+
+            //creo l'associazione tests-sessione
+            if($cbTest!=null) {
+                print_r($cbTest);
+            }
+            else
+                echo "cbtests vuoto";
+
+            foreach($cbTest as $t) {
+                echo $t." ".$idNuovaSessione;
+                $controller->associaTestASessione($idNuovaSessione,$t);
+            }
+
+            //torna a pagina corso del docente
+            $tornaACasa= "Location: "."/usr/docente/corso/"."$idCorso";
+            header($tornaACasa);
+
+        }
+        else
+            echo "non entro nell if dei set delle cb";
+    }
+}
+
+if($_URL[6]!=0) {  //CASO DI MODIFICA..DEVE ESSERE SETTATO !ALMENO! UNO.
+    if($dataFromSettato=isset($_POST['dataFrom']) || $radio1Settato=isset($_POST['radio1']) || $dataToSettatoisset=($_POST['dataTo']) ) {
+        //dalle variabili prese so quali sono settati..quelli costituiranno la nuova sessione
+    }
 }
 
 
@@ -96,7 +152,7 @@ if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo'
                             <label class="control-label">Avvio:</label>
 
                             <div class="input-group date form_datetime">
-                                <input name="dataFrom" type="text" size="16" readonly="" class="form-control"/>
+                                <input name="dataFrom" type="text" value='<?php printf("%s", $perModificaDataFrom ); ?>' size="16" readonly="" class="form-control"/>
                                         <span class="input-group-btn">
                                             <button class="btn default date-set" type="button"><i
                                                     class="fa fa-calendar"></i></button>
@@ -109,7 +165,7 @@ if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo'
                             <label class="control-label">Termine:</label>
 
                             <div class="input-group date form_datetime">
-                                <input name="dataTo" type="text" size="16" readonly="" class="form-control"/>
+                                <input name="dataTo" type="text" value='<?php printf("%s",$perModificaDataTo ); ?>' size="16" readonly="" class="form-control"/>
                                         <span class="input-group-btn">
                                             <button class="btn default date-set" type="button"><i
                                                     class="fa fa-calendar"></i></button>
@@ -123,7 +179,7 @@ if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo'
                             <label>Seleziona tipologia</label>
                             <div class="md-radio-list">
                                 <div class="md-radio">
-                                    <input type="radio" value="Valutativa" id="radio1" name="radio1" class="md-radiobtn">
+                                    <?php printf("<input type=\"radio\" value=\"Valutativa\" id=\"radio1\" %s name=\"radio1\" class=\"md-radiobtn\">", $valu);?>
                                     <label for="radio1">
                                     <span></span>
                                     <span class="check"></span>
@@ -131,7 +187,7 @@ if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo'
                                     Valutativa </label>
                                 </div>
                                 <div class="md-radio">
-                                    <input type="radio" value="Esercitativa" id="radio2" name="radio1" class="md-radiobtn">
+                                    <?php printf("<input type=\"radio\" value=\"Esercitativa\" id=\"radio1\" %s name=\"radio2\" class=\"md-radiobtn\">", $eser);?>
                                     <label for="radio2">
                                     <span></span>
                                     <span class="check"></span>
@@ -247,54 +303,27 @@ if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo'
                             </tr>
                             </thead>
                             <tbody>
-
-                            <tr class="gradeX odd" role="row">
-                                <td>
-                                    <input name="tests[]" type="checkbox" class="checkboxes" value="1">
-                                </td>
-                                <td class="sorting_1">
-                                    Test 1
-                                </td>
-                                <td>
-                                    10/11/2015
-                                </td>
-                                <td>10</td>
-                                <td>2</td>
-                                <td>60</td>
-                                <td>0%</td>
-                                <td>0%</td>
-
-                            </tr><tr class="gradeX even" role="row">
-                                <td>
-                                    <input name="tests[]" type="checkbox" class="checkboxes" value="2">
-                                </td>
-                                <td class="sorting_1">
-                                    Test 2
-                                </td>
-                                <td>
-                                    15/2/2016
-                                </td>
-                                <td>10</td>
-                                <td>0</td>
-                                <td>60</td>
-                                <td>10%</td>
-                                <td>70%</td>
-                            </tr><tr class="gradeX odd" role="row">
-                                <td>
-                                    <input name="tests[]" type="checkbox" class="checkboxes" value="3">
-                                </td>
-                                <td class="sorting_1">
-                                    Test 3
-                                </td>
-                                <td>
-                                    16/11/2015
-                                </td>
-                                <td>0</td>
-                                <td>10</td>
-                                <td>60</td>
-                                <td>5%</td>
-                                <td>15%</td>
-                            </tr>
+                            <?php
+                            $array = Array();
+                            $array = $controller->getAllTestByCorso($idCorso);
+                            if ($array == null) {
+                                echo "l'array è null"." ".$idCorso;
+                            }
+                            else {
+                                foreach ($array as $c) {
+                                    printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                    printf("<td><input name=\"tests[]\" type=\"checkbox\" class=\"checkboxes\" value='%d'></td>", $c->getId());
+                                    printf("<td class=\"sorting_1\">%s</td>", $c->getDescrizione());
+                                    printf("<td>\"doveLaPrendo?\"</td>");
+                                    printf("<td>%d</td>", $c->getNumeroMultiple());
+                                    printf("<td>%d</td>", $c->getNumeroAperte());
+                                    printf("<td>%d</td>", $c->getPunteggioMax());
+                                    printf("<td>%d</td>", $c->getPercentualeScelto());
+                                    printf("<td>%d</td>", $c->getPercentualeSuccesso());
+                                    printf("</tr>");
+                                }
+                            }
+                            ?>
                             </tbody>
                         </table>
                     </div>
@@ -365,14 +394,14 @@ if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo'
 
                             <?php
                             $array = Array();
-                            $array = $controller->getAllStudentiByCorso(18); //SERVE L'ID DEL CORSO.....!?..lo prendo dall'URL
+                            $array = $controller->getAllStudentiByCorso($idCorso);
                             if ($array == null) {
                                 echo "l'array è null";
                             }
                             else {
                                 foreach ($array as $c) {
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    printf("<td><input name=\"students[]\" type=\"checkbox\" class=\"checkboxes\" value=\"1\"></td>");
+                                    printf("<td><input name=\"students[]\" type=\"checkbox\" class=\"checkboxes\" value='%s'></td>", $c->getMatricola());
                                     printf("<td class=\"sorting_1\">%s</td>", $c->getNome());
                                     printf("<td>%s</td>", $c->getCognome());
                                     printf("<td>%s</td>", $c->getMatricola());
