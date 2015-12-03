@@ -150,32 +150,12 @@ class CdlController extends Controller {
     }
 
     /**
-     * Restituisce tutti i Docenti
-     * @return array con tutti i Docenti SSSTTTUUUBBBB ------->
+     * Restituisce tutti i Corsi a cui l'utente è iscritto
+     * @param matricola dello Studente
+     * @return Corsi a cui lo Studente è iscritto SSSTTTUUUBBBB ------->
      */
-    public function getDocenti() {
+    public function getCorsiStudente($studente_matricola) {
         $accountModel = new AccountModel();
-        return $accountModel->getAllDocenti();
-    }
-
-    /**
-     * Restituisce un Utente
-     * @param matricola dell'Utente da cercare
-     * @return Utente con la matricola specificata SSSTTTUUUBBBB ------->
-     */
-    public function getUtenteByMatricola($matricola) {
-        $accountModel = new AccountModel();
-        return $accountModel->getUtenteByMatricola($matricola);
-    }
-
-    /**
-     * Restituisce tutte le Sessioni di un Corso
-     * @param matricola dell'Utente da cercare
-     * @return Utente con la matricola specificata SSSTTTUUUBBBB ------->
-     */
-    public function getSessioni() {
-        $sessioneModel = new SessioneModel();
-        //return $sessioneModel->getAllSessioniByCorso();
-        return $sessioneModel->getAllSessioni();
+        //$accountModel->getAllCorsiByStudente($studente_matricola);
     }
 }
