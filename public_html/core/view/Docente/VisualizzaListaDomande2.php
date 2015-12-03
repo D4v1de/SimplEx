@@ -19,8 +19,14 @@ $idArgomento = $_URL[6];
 $corso = $cdlController->readCorso($idCorso);
 $argomento = $argomentoController->readArgomento($idArgomento, $idCorso);
 
-if (isset($_POST['domanda'])){
-    $domandaController->rimuoviDomandaAperta($_POST['domanda'],$idArgomento,$idCorso);
+if (isset($_POST['domandaaperta'])){
+    $idAperta =$_POST['domandaaperta'];
+    $domandaController->rimuoviDomandaAperta($idAperta,$idArgomento,$idCorso);
+    header('Refresh:0');
+}
+if (isset($_POST['domandamultipla'])){
+    $idMultipla = $_POST['domandamultipla'];
+    $domandaController->rimuoviDomandaMultipla($idMultipla,$idArgomento,$idCorso);
     header('Refresh:0');
 }
 ?>
@@ -72,8 +78,7 @@ if (isset($_POST['domanda'])){
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"\">%s</a>", $argomento->getNome());
-                    printf("<i class=\"fa fa-angle-right\"></i>");
+                    printf("%s", $argomento->getNome());
                     printf("</li>");
                     ?>
                 </ul>
@@ -172,19 +177,23 @@ if (isset($_POST['domanda'])){
                         printf("<div class=\"tools\">");
                         printf("<a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a>");
                         printf("</div>");
-                        printf("<div class=\"actions\">");
-                        printf("<a href=\"javascript:;\" class=\"btn green-jungle\"><i class=\"fa fa-edit\"></i> Modifica </a>");
-                        printf("<a href=\"javascript:;\" class=\"btn red-intense\"><i class=\"fa fa-remove\"></i> Rimuovi </a>");
-                        printf("</div>");
-                        printf("</div>");
+                        printf("<form method=\"post\" action=\"\" class=\"actions\">");
+                        printf("<a href=\"modificamultipla/%d/%d\" class=\"btn green-jungle\"><i class=\"fa fa-edit\"></i> Modifica </a>",$idArgomento, $d->getId());
+                        printf("<button class=\"btn sm red-intense\" type=\"submit\" name=\"domandamultipla\" value=\"%d\"><i class=\"fa fa-remove\"></i> Rimuovi </button>", $d->getId());                        printf("</div>");
+                        printf("</form>");
                         printf("<div class=\"portlet-body\">");
                         printf("<div id=\"tabella_domanda1_wrapper\" class=\"dataTables_wrapper no-footer\">");
                         printf("<table class=\"table table-striped table-bordered table-hover dataTable no-footer\"id=\"tabella_domanda1\" role=\"grid\" aria-describedby=\"tabella_domanda1_info\">");
                         printf("<tbody>");
+
                         foreach ($risposte as $r) {
                             printf("<tr class=\"gradeX odd\" role=\"row\">");
                             printf("<td width='30'>");
+                            if(!strcmp($r->getCorretta(),'Si')){
                             printf("<input type=\"checkbox\" disabled=\"\" checked=\"\">");
+                            } else  {
+                            printf("<input type=\"checkbox\" disabled=\"\">");
+                            }
                             printf("</td>");
                             printf("<td>%s</td>", $r->getTesto());
                             printf("</tr>");

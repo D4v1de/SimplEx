@@ -12,14 +12,17 @@ $controller = new CdlController();
 
 $new = null;
 $cdl = null;
+$url = null;
+
+$url = $_URL[3];
+if(!is_numeric($url)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
 
 try {
-    $cdl = $controller->readCdl($_URL[3]);
-}
-catch (ApplicationException $ex) {
-    echo "<h1>errore! ApplicationException->errore manca id corso nel path!</h1>";
-    echo "<h4>" . $ex . "</h4>";
-    //header('Location: ../visualizzacorso');
+    $cdl = $controller->readCdl($url);
+} catch (ApplicationException $ex) {
+    echo "<h1>INSERIRE ID CDL NEL PATH!</h1>".$ex;
 }
 
 $nome = $cdl->getNome();
@@ -32,15 +35,21 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     $tipologianew = $_POST['tipologia'];
     $matricolanew = $_POST['matricola'];
 
-    try {
-        $new = new CdL($matricolanew, $nomenew, $tipologianew);
-        $controller->modificaCdl($cdl->getMatricola(), $new);
-        header('location: ../view');
-    }
-    catch (ApplicationException $ex) {
-        echo "<h1>errore! ApplicationException->errore modifica Cdl!</h1>";
-        echo "<h4>" . $ex . "</h4>";
-        //header('Location: ../visualizzacorso');
+    if (empty($nomenew) && empty($matricolanew)) {
+        echo "<script type='text/javascript'>alert('devi riempire tutti i campi!');</script>";
+    } else if (empty($nomenew)) {
+        echo "<script type='text/javascript'>alert('devi inserire il nome!');</script>";
+    } else if (empty($matricolanew)) {
+        echo "<script type='text/javascript'>alert('devi inserire la matricola!');</script>";
+    } else {
+
+        try {
+            $new = new CdL($matricolanew, $nomenew, $tipologianew);
+            $controller->modificaCdl($cdl->getMatricola(), $new);
+            header('location: ../view');
+        } catch (ApplicationException $ex) {
+            echo "<h1>MODIFICACDL FALLITO!</h1>".$ex;
+        }
     }
 }
 ?>
@@ -116,8 +125,14 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                 <div class="form-group form-md-line-input">
                                     <div class="col-md-10">
                                         <select class="form-control" id="tipologiaCdl" name="tipologia">
-                                            <option value="Triennale" <?php if($tipologia == 'Triennale'){echo "selected";}?>>Triennale</option>
-                                            <option value="Magistrale" <?php if($tipologia == 'Magistrale'){echo "selected";}?>>Magistrale</option>
+                                            <option value="Triennale" <?php if ($tipologia == 'Triennale') {
+                                                echo "selected";
+                                            } ?>>Triennale
+                                            </option>
+                                            <option value="Magistrale" <?php if ($tipologia == 'Magistrale') {
+                                                echo "selected";
+                                            } ?>>Magistrale
+                                            </option>
                                         </select>
 
                                         <div class="form-control-focus">
@@ -154,7 +169,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                         <button type="submit" class="btn green-jungle">Conferma</button>
                                     </div>
                                     <div class="col-md-3">
-                                        <button type="reset" class="btn red-intense">Annulla</button>
+                                        <input type="reset" value="Annulla" class="btn red-intense"/>
                                     </div>
                                 </div>
                             </div>

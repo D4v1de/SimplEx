@@ -82,7 +82,7 @@ if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"../../../../\">%s</a>",$corso->getNome());
+                    printf("<a href=\"../../../../../%d\">%s</a>",$corso->getId(),$corso->getNome());
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
@@ -92,7 +92,7 @@ if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"\">Modifica Domanda</a>");
+                    printf("Modifica Domanda");
                     printf("</li>");
                     ?>
                 </ul>
@@ -112,7 +112,6 @@ if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
                     </div>
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
-
                         <div class="form-body">
                             <div class="form-group form-md-line-input has-success" style="height: 100px">
                                 <label class="control-label col-md-3">Inserisci Testo Domanda</label>

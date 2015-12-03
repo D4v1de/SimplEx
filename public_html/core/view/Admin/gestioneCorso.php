@@ -13,24 +13,38 @@ $controller = new CdlController();
 $controllerUtenti = new UtenteController();
 
 $docenteassociato = Array();
+$checkbox = Array();
 $corso = null;
 $docenti = null;
 $docente = null;
+$url = null;
+
+$url = $_URL[3];
+if(!is_numeric($url)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
 
 try {
-    $corso = $controller->readCorso($_URL[3]);
-    $docenti = $controller->getDocenti();
+    $corso = $controller->readCorso($url);
+}
+catch (ApplicationException $ex) {
+    echo "<h1>INSERIRE ID CORSO NEL PATH!</h1>".$ex;
+}
+try {
+    $docenti = $controllerUtenti->getDocenti();
+}
+catch (ApplicationException $ex) {
+    echo "<h1>GETDOCENTI FALLITA!</h1>".$ex;
+}
+try {
     $docenteassociato = $controllerUtenti->getDocenteAssociato($corso->getId());
 }
 catch (ApplicationException $ex) {
-    echo "<h1>errore! ApplicationException->errore manca id corso nel path!</h1>";
-    echo "<h4>" . $ex . "</h4>";
-    //header('Location: ../visualizzacorso');
+    echo "<h1>GETDOCENTIASSOCIATI FALLITO!</h1>".$ex;
 }
 
 if (isset($_POST['checkbox'])) {
 
-    $checkbox = Array();
     $checkbox = $_POST['checkbox'];
 
     foreach ($docenteassociato as $da) {
@@ -38,9 +52,7 @@ if (isset($_POST['checkbox'])) {
             try {
                 $controller->eliminaInsegnamento($corso->getId(), $da->getMatricola());
             } catch (ApplicationException $ex) {
-                echo "<h1>errore! ApplicationException->errore eliminazione insegnamento!</h1>";
-                echo "<h4>" . $ex . "</h4>";
-                //header('Location: ../visualizzacorso');
+                echo "<h1>ELIMINAINSEGNAMENTO FALLITO!</h1>".$ex;
             }
         }
     }
@@ -50,9 +62,7 @@ if (isset($_POST['checkbox'])) {
             try {
                 $controller->creaInsegnamento($corso->getId(), $c);
             } catch (ApplicationException $ex) {
-                echo "<h1>errore! ApplicationException->errore creazione insegnamento!</h1>";
-                echo "<h4>" . $ex . "</h4>";
-                //header('Location: ../visualizzacorso');
+                echo "<h1>CREAZIONEINSEGNAMENTO FALLITO!</h1>".$ex;
             }
         }
     }
@@ -65,66 +75,11 @@ if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
         try {
             $controller->eliminaInsegnamento($corso->getId(), $da->getMatricola());
         } catch (ApplicationException $ex) {
-            echo "<h1>errore! ApplicationException->errore creazione insegnamento!</h1>";
-            echo "<h4>" . $ex . "</h4>";
-            //header('Location: ../visualizzacorso');
+            echo "<h1>ELIMINAINSEGNAMENTI FALLITO!</h1>".$ex;
         }
     }
     header('location: ../gestione/' . $corso->getId());
 }
-
-
-/* vecchia vecchia configurazione
-if (isset($_POST['checkbox'])) {
-
-    echo "sei entrato!!!!";
-
-    $checkbox = $_POST['checkbox'];
-    if (count($checkbox) == 1) {
-
-        echo "prima opzione!!! ==1";
-
-        if (count($docenteassociato) < 1) ;
-        else if (count($docenteassociato) == 1) {
-            $controller->eliminaInsegnamento($corso->getId(), $docenteassociato[0]->getMatricola());
-        } else if (count($docenteassociato) > 1) {
-            foreach ($docenteassociato as $d) {
-                $controller->eliminaInsegnamento($corso->getId(), $d->getMatricola());
-            }
-        }
-        $controller->creaInsegnamento($corso->getId(), $checkbox[0]);
-        //header('location: ../../gestionecorso/'.$corso->getId());
-    } else if (count($checkbox) > 1) {
-
-        echo "seconda opzione!!! >1";
-
-        if (count($docenteassociato) < 1) ;
-        else if (count($docenteassociato) == 1) {
-            $controller->eliminaInsegnamento($corso->getId(), $docenteassociato[0]->getMatricola());
-        } else if (count($docenteassociato) > 1) {
-            foreach ($docenteassociato as $d) {
-                $controller->eliminaInsegnamento($corso->getId(), $d->getMatricola());
-            }
-        }
-        foreach ($checkbox as $c) {
-            $controller->creaInsegnamento($corso->getId(), $c);
-        }
-        //header('location: ../../gestionecorso/'.$corso->getId());
-    } else {
-
-        echo "terza opzione!!! <1";
-
-        if (count($docenteassociato) < 1) ;
-        else if (count($docenteassociato) == 1) {
-            $controller->eliminaInsegnamento($corso->getId(), $docenteassociato[0]->getMatricola());
-        } else if (count($docenteassociato) > 1) {
-            foreach ($docenteassociato as $d) {
-                $controller->eliminaInsegnamento($corso->getId(), $d->getMatricola());
-            }
-        }
-        //header('location: ../../gestionecorso/'.$corso->getId());
-    }
-}*/
 
 
 ?>

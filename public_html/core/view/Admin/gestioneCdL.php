@@ -11,31 +11,25 @@ include_once CONTROL_DIR . "CdlController.php";
 $controller = new CdlController();
 
 $cdls = Array();
+$checkbox = Array();
 
 try {
     $cdls = $controller->getCdl();
 } catch (ApplicationException $ex) {
-    echo "<h1>errore! ApplicationException->non ci sono cdl nel db!</h1>";
-    echo "<h4>" . $ex . "</h4>";
-    //header('Location: ../visualizzacorso');
+    echo "<h1>GETCDL FALLITO!</h1>".$ex;
 }
 
 if (isset($_POST['checkbox'])) {
-    $checkbox = Array();
     $checkbox = $_POST['checkbox'];
     if (count($checkbox) >= 1) {
         foreach ($checkbox as $c) {
             try {
                 $controller->eliminaCdl($c);
             } catch (ApplicationException $ex) {
-                echo "<h1>errore! ApplicationException->cdl non eliminato!</h1>";
-                echo "<h4>" . $ex . "</h4>";
-                //header('Location: ../visualizzacorso');
+                echo "<h1>ELIMINACDL FALLITO!</h1>".$ex;
             }
         }
         header('Location: view');
-    } else if (count($checkbox) < 1) {
-        echo "errore nessun elemento da eliminare!";
     }
 }
 
@@ -120,24 +114,23 @@ if (isset($_POST['checkbox'])) {
                                     <thead>
                                     <tr role="row">
                                         <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1"
-                                            aria-label=""
-                                            style="width: 24px;">
+                                            aria-label="">
                                             <input type="checkbox" class="group-checkable"
                                                    data-set="#tabella_5 .checkboxes">
                                         </th>
                                         <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
                                             colspan="1" aria-label="Username: activate to sort column ascending"
-                                            aria-sort="ascending" style="width: 78px;">
+                                            aria-sort="ascending">
                                             Nome
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
                                             colspan="1"
-                                            aria-label="Email: activate to sort column ascending" style="width: 137px;">
+                                            aria-label="Email: activate to sort column ascending">
                                             Matricola
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
                                             colspan="1"
-                                            aria-label="Status: activate to sort column ascending" style="width: 71px;">
+                                            aria-label="Status: activate to sort column ascending">
                                             Tipologia
                                         </th>
                                     </tr>
@@ -146,10 +139,10 @@ if (isset($_POST['checkbox'])) {
                                     <?php
                                     foreach ($cdls as $c) {
                                         printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                        printf("<td><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $c->getMatricola());
+                                        printf("<td class=\"sorting_1\"><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $c->getMatricola());
                                         printf("<td class=\"sorting_1\"><a href=\"modifica/%s\">%s</a></td>", $c->getMatricola(), $c->getNome());
-                                        printf("<td>%s</td>", $c->getMatricola());
-                                        printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
+                                        printf("<td class=\"sorting_1\">%s</td>", $c->getMatricola());
+                                        printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
                                         printf("</tr>");
                                     }
                                     ?>

@@ -8,19 +8,52 @@
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "CdlController.php";
+include_once CONTROL_DIR . "UtenteController.php";
+
 $controller = new CdlController();
+$controllerUtente = new UtenteController();
 
 $cdl = null;
 $corsi = Array();
+$studente = null;
+$corsistudente = Array();
+$url = null;
+
+$url = $_URL[3];
+if(!is_numeric($url)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
 
 try {
-    $cdl = $controller->readCdl($_URL[3]);
-    $corsi = $controller->getCorsiCdl($cdl->getMatricola());
+    $cdl = $controller->readCdl($url);
+
 } catch (ApplicationException $ex) {
-    echo "<h1>errore! ApplicationException->manca matricolacdl nel path</h1>";
-    echo "<h4>" . $ex . "</h4>";
-    //header('Location: ../visualizzacorsi');
+    echo "<h1>INSERIRE MATRICOLA CDL NEL PATH!</h1>".$ex;
 }
+try {
+    $corsi = $controller->getCorsiCdl($cdl->getMatricola());
+
+} catch (ApplicationException $ex) {
+    echo "GETCORSICDL FALLITO!</h1>".$ex;
+}
+try {
+    $studente = $controllerUtente->getUtenteByMatricola('0512102396');
+
+} catch (ApplicationException $ex) {
+    echo "<h1>GETUTENTEBYMATRICOLA FALLITO!</h1>".$ex;
+}
+try {
+    $corsistudente = $controller->getCorsiStudente($studente->getMatricola());
+
+} catch (ApplicationException $ex) {
+    echo "<h1>GETCORSISTUDENTE FALLITO!</h1>".$ex;
+}
+
+echo $studente->getMatricola()." ".$studente->getNome();
+echo "---array---";
+print_r($corsistudente);
+if($corsistudente == null) {echo "è null!!!";}
+
 
 ?>
 <!DOCTYPE html>
@@ -37,8 +70,7 @@ try {
     <title>CdL <?php echo $cdl->getNome(); ?></title>
     <?php include VIEW_DIR . "header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
-    <link rel="stylesheet" type="text/css"
-          href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -120,11 +152,16 @@ try {
                                 <tbody>
                                 <?php
                                 foreach ($corsi as $c) {
-                                    printf("<tr class=\"sorting_1\" role=\"row\">");
-                                    printf("<td><a href=\"../corso/%s\">%s</a></td>", $c->getId(), $c->getNome());
-                                    printf("<td>%s</td>", $c->getMatricola());
-                                    printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
-                                    printf("<td><button type=\"button\" class=\"btn green-jungle\"><span class=\"md-click-circle md-click-animate\"></span>Iscriviti</button></td>");
+                                    printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                    printf("<td class=\"sorting_1\"><a href=\"../corso/%s\">%s</a></td>", $c->getId(), $c->getNome());
+                                    printf("<td class=\"sorting_1\">%s</td>", $c->getMatricola());
+                                    printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
+                                    if(in_array($c, $corsistudente)) {
+                                        printf("<td class=\"sorting_1\"><button type=\"button\" class=\"btn red-intense\"><span class=\"md-click-circle md-click-animate\"></span>Disiscriviti</button></td>");
+                                    }
+                                    else {
+                                        printf("<td class=\"sorting_1\"><button type=\"button\" class=\"btn green-jungle\"><span class=\"md-click-circle md-click-animate\"></span>Iscriviti</button></td>");
+                                    }
                                     printf("</tr>");
                                 }
                                 ?>

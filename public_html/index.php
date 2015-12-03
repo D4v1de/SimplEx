@@ -95,34 +95,34 @@ if (!defined("TESTING")) {
                 case 'cdl':
                     switch (isset($_URL[2]) ? $_URL[2] : '') {
                         case 'crea':
-                            include_once VIEW_DIR . "Admin/CreaCdL.php";
+                            include_once VIEW_DIR . "Admin/creaCdL.php";
                             break;
                         case 'modifica':
-                            include_once VIEW_DIR . "Admin/ModificaCdL.php";
+                            include_once VIEW_DIR . "Admin/modificaCdL.php";
                             break;
                         case 'view':
-                            include_once VIEW_DIR . "Admin/GestioneCdL.php";
+                            include_once VIEW_DIR . "Admin/gestioneCdL.php";
                             break;
                         default:
-                            include_once VIEW_DIR . "Admin/Home.php";
+                            include_once VIEW_DIR . "Admin/gestioneCdL.php";
                     }
                     break;
                 case 'corsi':
                     switch (isset($_URL[2]) ? $_URL[2] : '') {
                         case 'crea':
-                            include_once VIEW_DIR . "Admin/CreaCorso.php";
+                            include_once VIEW_DIR . "Admin/creaCorso.php";
                             break;
                         case 'modifica':
-                            include_once VIEW_DIR . "Admin/ModificaCorso.php";
+                            include_once VIEW_DIR . "Admin/modificaCorso.php";
                             break;
                         case 'view':
-                            include_once VIEW_DIR . "Admin/GestioneCorsi.php";
+                            include_once VIEW_DIR . "Admin/gestioneCorsi.php";
                             break;
                         case 'gestione':
-                            include_once VIEW_DIR . "Admin/GestioneCorso.php";
+                            include_once VIEW_DIR . "Admin/gestioneCorso.php";
                             break;
                         default:
-                            include_once VIEW_DIR . "Admin/Home.php";
+                            include_once VIEW_DIR . "Admin/gestioneCorsi.php";
                     }
                     break;
                 default:
@@ -135,7 +135,7 @@ if (!defined("TESTING")) {
                 case 'docente':
                     switch (isset($_URL[2]) ? $_URL[2] : '') {
                         case 'cdl':
-                            include_once VIEW_DIR . "Docente/VisualizzaCorsi.php";
+                            include_once VIEW_DIR . "Docente/visualizzaCorsi.php";
                             break;
                         case 'corso':
                             switch (isset($_URL[4]) ? $_URL[4] : '') {
@@ -201,13 +201,13 @@ if (!defined("TESTING")) {
                             }
                             break;
                         default:
-                            include_once VIEW_DIR . "Docente/VisualizzaCdL.php";
+                            include_once VIEW_DIR . "Docente/visualizzaCdL.php";
                     }
                     break;
                 case 'studente':
                     switch (isset($_URL[2]) ? $_URL[2] : '') {
                         case 'cdl':
-                            include_once VIEW_DIR . "Studente/VisualizzaCorsi.php";
+                            include_once VIEW_DIR . "Studente/visualizzaCorsi.php";
                             break;
                         case 'corso':
                             switch (isset($_URL[4]) ? $_URL[4] : '') {
@@ -221,11 +221,11 @@ if (!defined("TESTING")) {
                                     }
                                     break;
                                 default:
-                                    include_once VIEW_DIR . "Studente/VisualizzaCorso.php";
+                                    include_once VIEW_DIR . "Studente/visualizzaCorso.php";
                             }
                             break;
                         default:
-                            include_once VIEW_DIR . "Studente/VisualizzaCdL.php";
+                            include_once VIEW_DIR . "Studente/visualizzaCdL.php";
                     }
                     break;
 
