@@ -5,30 +5,43 @@
  * Date: 18/11/15
  * Time: 09:58
  */
-//TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "DomandaController.php";
+include_once CONTROL_DIR . "ArgomentoController.php";
+include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "AlternativaController.php";
-$alternativaController = new AlternativaController();
+
+$cdlController = new CdlController();
 $domandaController = new DomandaController();
-if (isset($_POST['testoD']) && isset($_POST['punteggioErr']) && isset($_POST['punteggioEs'])) {
-    $testoDomanda = $_POST['testoD'];
-    $punteggioErr = $_POST['punteggioErr'];
-    $punteggioEs = $_POST['punteggioEs'];
+$argomentoController = new ArgomentoController();
+$alternativaController = new AlternativaController();
 
-    if (empty($testo) && empty($punteggio)) {
+$idCorso = $_URL[3];
+$idArgomento = $_URL[7];
+
+
+if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErr']) && isset($_POST['punteggioEs']) && isset($_POST['risposte']) ) {
+
+    $testoDomanda = $_POST['testoDomanda'];
+    $punteggioErrata = $_POST['punteggioErr'];
+    $punteggioEsatta = $_POST['punteggioEs'];
+    $testoRisposte = $_POST['risposte'];
+    $radio = $_POST['radio'];
+
+    if (empty($testoDomanda) && empty($punteggioErrata) && empty($punteggioEsatta)){
         echo "<script type='text/javascript'>alert('Devi riempire tutti i campi!');</script>";
-    } else if (empty($testo)) {
+    } else if (empty($testoDomanda)) {
         echo "<script type='text/javascript'>alert('Devi inserire il testo!');</script>";
-    } else if (empty($punteggio)) {
-        echo "<script type='text/javascript'>alert('Devi inserire il punteggio!');</script>";
-    } else {
-        $domandaController->creaDomandaAperta($domanda);
+    } else if (empty($punteggioEsatta)) {
+        echo "<script type='text/javascript'>alert('Devi inserire il punteggio esatta diverso da 0!');</script>";
+    }else {
+        $domanda = new DomandaMultipla($idArgomento,$idCorso,$testoDomanda,$punteggioEsatta,$punteggioErrata,0,0);
+        $domandaController->creaDomandaMultipla($domanda);
 
-        header('location: ../../listadomande');
+        header('location: ../'.$idArgomento);
     }
 }
-
 ?>
+
 <!DOCTYPE html>
 <!--[if IE 8]>
 <html lang="en" class="ie8 no-js"> <![endif]-->
@@ -62,32 +75,39 @@ if (isset($_POST['testoD']) && isset($_POST['punteggioErr']) && isset($_POST['pu
 
             <div class="page-bar">
                 <ul class="page-breadcrumb">
-                    <li>
-                        <i class="fa fa-home"></i>
-                        <a href="index.html">Home</a>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
-                    <li>
-                        <a href="#">Nome Corso</a>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
-                    <li>
-                        <a href="#">Nome Argomento</a>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
-                    <li>
-                        <a href="#">Nuova Domanda Multipla</a>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
+                    <?php
+                    $corso = $cdlController->readCorso($idCorso);
+                    $argomento = $argomentoController->readArgomento($idArgomento,$idCorso);
+
+                    printf("<li>");
+                    printf("<i class=\"fa fa-home\"></i>");
+                    printf("<a href=\"../../../../../\">Home</a>");
+                    printf("<i class=\"fa fa-angle-right\"></i>");
+                    printf("</li>");
+                    printf("<li>");
+                    printf("<i></i>");
+                    printf("<a href=\"../../../../%d\">%s</a>",$corso->getId(),$corso->getNome());
+                    printf("<i class=\"fa fa-angle-right\"></i>");
+                    printf("</li>");
+                    printf("<li>");
+                    printf("<i></i>");
+                    printf("<a href=\"../%d\">%s</a>",$idArgomento, $argomento->getNome());
+                    printf("<i class=\"fa fa-angle-right\"></i>");
+                    printf("</li>");
+                    printf("<li>");
+                    printf("<i></i>");
+                    printf("Inserisci Domanda");
+                    printf("</li>");
+                    ?>
                 </ul>
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <form method="post" action="inserisci" class="form-horizontal form-bordered">
+            <form method="post" action="" class="form-horizontal form-bordered">
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-globe"></i>Inserisci Domanda Multipla
+                            <i class="fa fa-edit"></i>Inserisci Domanda Multipla
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="collapse" data-original-title="" title="">
@@ -102,19 +122,19 @@ if (isset($_POST['testoD']) && isset($_POST['punteggioErr']) && isset($_POST['pu
                                 <label class="control-label col-md-3">Inserisci Testo Domanda</label>
 
                                 <div class="col-md-6">
-                                    <input type="text" id="testoDomanda" nome="testoD" placeholder="" class="form-control">
+                                    <input type="text" id="testoDomanda" nome="testoDomanda" placeholder="" class="form-control">
                                             <span class="help-block">
                                                 Inserisci il testo della domanda </span>
                                 </div>
                             </div>
                             <div class="form-group form-md-line-input has-success ratio" style="height: 90px">
                                 <label class="control-label col-md-3">
-                                    <span class="checked"><input type="radio" name="optionsRadios2"
-                                                                 value="option1"></span>
+                                    <input type="radio" name="radio"
+                                                                 value="0">
                                     Inserisci Testo Risposta</label>
 
                                 <div class="col-md-6">
-                                    <input type="text" placeholder="" class="form-control">
+                                    <input type="text" id="risposte" name="risposte[]" placeholder="" class="form-control">
                                             <span class="help-block">
                                                 Inserisci il testo della risposta </span>
                                 </div>
@@ -129,12 +149,12 @@ if (isset($_POST['testoD']) && isset($_POST['punteggioErr']) && isset($_POST['pu
                             </div>
                             <div class="form-group form-md-line-input has-success ratio" style="height: 90px">
                                 <label class="control-label col-md-3">
-                                    <span class="checked"><input type="radio" name="optionsRadios2"
-                                                                 value="option2"></span>
+                                    <input type="radio" name="radio"
+                                                                 value="1">
                                     Inserisci Testo Risposta</label>
 
                                 <div class="col-md-6">
-                                    <input type="text" placeholder="" class="form-control">
+                                    <input type="text" id="risposte" name="risposte[]" placeholder="" class="form-control">
                                             <span class="help-block">
                                                 Inserisci il testo della risposta </span>
                                 </div>
@@ -151,7 +171,7 @@ if (isset($_POST['testoD']) && isset($_POST['punteggioErr']) && isset($_POST['pu
                                 <label class="control-label col-md-3">Inserisci Punteggio Esatta</label>
 
                                 <div class="col-md-4">
-                                    <input type="number" placeholder="" class="form-control">
+                                    <input type="number" id="punteggioEs" name="punteggioEs" placeholder="" class="form-control">
                                             <span class="help-block">
                                                 Inserisci il punteggio per risposta esatta </span>
                                 </div>
@@ -160,33 +180,31 @@ if (isset($_POST['testoD']) && isset($_POST['punteggioErr']) && isset($_POST['pu
                                 <label class="control-label col-md-3">Inserisci Punteggio Errata</label>
 
                                 <div class="col-md-4">
-                                    <input type="number" placeholder="" class="form-control">
+                                    <input type="number" id="punteggioErr" name="punteggioErr" placeholder="" class="form-control">
                                             <span class="help-block">
                                                 Inserisci il punteggio per risposta errata </span>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-actions">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-9">
-                                            <button type="submit" class="btn sm green-jungle">
-                                                Conferma
-                                            </button>
-                                            </a>
-                                            <a href="../../listadomande" class="btn sm red-intense">
-                                                Annulla
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                         <!-- END FORM-->
                     </div>
                 </div>
+                <div class="form-actions">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <button type="submit" class="btn sm green-jungle">Conferma</button>
+                                <?php
+                                printf("<a href=\"../%d\" class=\"btn sm red-intense\">", $idArgomento);
+                                ?>
+                                Annulla
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
             </form>
             <!-- END PAGE CONTENT-->
         </div>
