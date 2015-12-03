@@ -12,9 +12,14 @@ $controller = new CdlController();
 
 $cdl = null;
 $corsi = Array();
+$url = $_URL[3];
+
+if(!is_numeric($url)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
 
 try {
-    $cdl = $controller->readCdl($_URL[3]);
+    $cdl = $controller->readCdl($url);
     $corsi = $controller->getCorsiCdl($cdl->getMatricola());
 } catch (ApplicationException $ex) {
     echo "<h1>errore! ApplicationException->manca matricolacdl nel path</h1>";
@@ -110,11 +115,6 @@ try {
                                         aria-label="Status: activate to sort column ascending">
                                         Tipologia
                                     </th>
-                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                        colspan="1"
-                                        aria-label="Status: activate to sort column ascending">
-                                        Iscrizione
-                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -124,7 +124,6 @@ try {
                                     printf("<td><a href=\"../corso/%s\">%s</a></td>", $c->getId(), $c->getNome());
                                     printf("<td>%s</td>", $c->getMatricola());
                                     printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
-                                    printf("<td><button type=\"button\" class=\"btn green-jungle\"><span class=\"md-click-circle md-click-animate\"></span>Iscriviti</button></td>");
                                     printf("</tr>");
                                 }
                                 ?>
