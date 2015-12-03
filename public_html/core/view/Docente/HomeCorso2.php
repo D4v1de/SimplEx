@@ -230,7 +230,7 @@ if(isset($_POST['id'])){
                         </a>
                     </div>
                     <div class="actions">
-                        <a href="test/crea" class="btn btn-default btn-sm">
+                        <a href="<?php echo $corso->getId(); ?>/test/crea" class="btn btn-default btn-sm">
                             <i class="fa fa-plus"></i> Crea Test </a>
                     </div>
                 </div>
