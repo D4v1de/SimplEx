@@ -29,7 +29,7 @@ try {
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>Nome Corso</title>
+    <title>Visualizza Utente</title>
     <?php include VIEW_DIR . "header.php"; ?>
     <!-- BEGIN PLUGINS USED BY X-EDITABLE -->
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css"/>
@@ -159,7 +159,7 @@ try {
                                             <?= $user->getTipologia() ?> </a>
                                     </td>
                                 </tr>
-                                <?php if ($user->getTipologia()=="Studente") {?> <tr>
+                                <?php if ($user->getTipologia()=="Docente") {?> <tr>
                                     <td style="width:15%">
                                         Corso di laurea
                                     </td>
@@ -175,7 +175,7 @@ try {
                                 <?php } else { ?> 
                                 <tr>
                                     <td style="width:15%">
-                                        Corsi tenuti
+                                        Cdl Appartenente
                                     </td>
                                     <td style="width:50%">
                                         <a href="javascript:;" id="cdl_matricola" data-type="select"
