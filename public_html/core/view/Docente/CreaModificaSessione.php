@@ -11,20 +11,43 @@ include_once CONTROL_DIR . "SessioneController.php";
 
 $controller = new SessioneController();
 $idCorso = $_URL[3];
+//$sessioneByUrl = null;
 
+try {
+    $sessioneByUrl = $controller->readSessione($_URL[6]);
+    $dataFrom = $sessioneByUrl->getDataInizio();
+    $dataTo =  $sessioneByUrl->getDataFine();
+    $tipoSessione = $sessioneByUrl->getTipologia();
+    $valu=null;
+    $eser=null;
+    if($tipoSessione=="Valutativa")
+        $valu="Checked";
+    else $eser="Checked";
+
+    echo "qualcoasa stampaaaaaa";
+    echo $dataFrom." ".$dataTo." ".$tipoSessione;
+}
+catch (ApplicationException $ex) {
+    echo "<h1>errore! ApplicationException->errore manca id sessione nel path!</h1>";
+    echo "<h4>" . $ex . "</h4>";
+    //header('Location: ../visualizzacorso');
+}
+
+
+//non considerato se non sottometto nulla
 if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo']) ) {
-    $dataFrom = $_POST['dataFrom'];
-    $dataTo = $_POST['dataTo'];
-    $tipoSessione = $_POST['radio1'];
+    $newdataFrom = $_POST['dataFrom'];
+    $newdataTo = $_POST['dataTo'];
+    $newtipoSessione = $_POST['radio1'];
+
     $sogliAmm= 18;                             //dove la prendo?
-    $stato='Non Eseguita';                     //dove la prendo?
-    if (isset($_POST['tests'])  && isset($_POST['students'])) {   //aggiungere studenti  && isset($_POST['students']
+    $stato='Non Eseguita';                     //dove lo prendo?
+
+    if (isset($_POST['tests'])  && isset($_POST['students'])) {
         $cbTest = Array();
         $cbTest = $_POST['tests'];
-
-        //TODO VEDERE DATA TUTTI 0s
         //Fare query
-        $sessione = new Sessione($dataFrom, $dataTo, $sogliAmm, $stato, $tipoSessione, $idCorso);
+        $sessione = new Sessione($newdataFrom, $newdataTo, $sogliAmm, $stato, $tipoSessione, $idCorso);
         $controller->creaSessione($sessione);
     }
 
@@ -96,7 +119,7 @@ if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo'
                             <label class="control-label">Avvio:</label>
 
                             <div class="input-group date form_datetime">
-                                <input name="dataFrom" type="text" size="16" readonly="" class="form-control"/>
+                                <input name="dataFrom" type="text" value="<?php echo $dataFrom; ?>" size="16" readonly="" class="form-control"/>
                                         <span class="input-group-btn">
                                             <button class="btn default date-set" type="button"><i
                                                     class="fa fa-calendar"></i></button>
@@ -109,7 +132,7 @@ if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo'
                             <label class="control-label">Termine:</label>
 
                             <div class="input-group date form_datetime">
-                                <input name="dataTo" type="text" size="16" readonly="" class="form-control"/>
+                                <input name="dataTo" type="text" value="<?php echo $dataTo; ?>" size="16" readonly="" class="form-control"/>
                                         <span class="input-group-btn">
                                             <button class="btn default date-set" type="button"><i
                                                     class="fa fa-calendar"></i></button>
@@ -123,7 +146,7 @@ if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo'
                             <label>Seleziona tipologia</label>
                             <div class="md-radio-list">
                                 <div class="md-radio">
-                                    <input type="radio" value="Valutativa" id="radio1" name="radio1" class="md-radiobtn">
+                                    <?php printf("<input type=\"radio\" value=\"Valutativa\" id=\"radio1\" %s name=\"radio1\" class=\"md-radiobtn\">", $valu);?>
                                     <label for="radio1">
                                     <span></span>
                                     <span class="check"></span>
@@ -131,7 +154,7 @@ if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo'
                                     Valutativa </label>
                                 </div>
                                 <div class="md-radio">
-                                    <input type="radio" value="Esercitativa" id="radio2" name="radio1" class="md-radiobtn">
+                                    <?php printf("<input type=\"radio\" value=\"Esercitativa\" id=\"radio1\" %s name=\"radio2\" class=\"md-radiobtn\">", $eser);?>
                                     <label for="radio2">
                                     <span></span>
                                     <span class="check"></span>
