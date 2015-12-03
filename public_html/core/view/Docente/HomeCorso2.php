@@ -42,9 +42,8 @@ try{
 
 
 $idsSessione = $controllerSessione->getAllSessioniByCorso($identidicativoCorso);
-
 if(isset($_POST['IdSes'])){
-    echo $_POST['IdSes'];
+    print_r($_POST['IdSes']);
         $idSes = $_POST['IdSes'];
         $controllerSessione->deleteSessione($idSes);
         header("Refresh:0");
@@ -206,7 +205,7 @@ if(isset($_POST['id'])){
                                     printf("</a>");
                                     printf("<a href='%s' class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i>", $vaiA);
                                     printf("</a>");
-                                    printf("<input type='hidden' name='IdSes' value='%d' class=\"btn btn-sm red-intense\" >", $sesId );
+                                    printf("<input type='hidden' name='IdSes[]' value='%d' class=\"btn btn-sm red-intense\" >", $sesId );
                                     printf("<button type='submit' value='' class='btn btn-sm red-intense'> <i class=\"fa fa-trash-o\"></i></button></td>");
                                     printf("</tr>");
                                 }

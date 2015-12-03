@@ -471,7 +471,7 @@ if($_URL[6]!=0) {  //CASO DI MODIFICA..DEVE ESSERE SETTATO !ALMENO! UNO.
 
     <script>
         //SCRIPT PER AVVIARE DATETIMEPICKER
-        $(".form_datetime").datetimepicker({format: 'dd-mm-yyyy hh:ii'});
+        $(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii:ss'});
     </script>
 
     <!-- END JAVASCRIPTS -->
