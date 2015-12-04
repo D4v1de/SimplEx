@@ -23,7 +23,10 @@ class AccountModel extends Model {
     private static $GET_ALL_STUDENTI_CORSO = "SELECT u.* FROM `utente` as u, `frequenta` as f WHERE f.studente_matricola = u.matricola AND f.corso_id = '%d'";
     private static $GET_ALL_STUDENTI_SESSIONE = "SELECT u.* FROM `abilitazione` as a, `utente` as u WHERE a.sessione_id = '%s' AND a.studente_matricola = u.matricola";
     private static $SELECT_ALL_DOCENTI = "SELECT * FROM `utente` WHERE tipologia = 'Docente'";
-
+    private static $INSERT_FREQUENTA = "INSERT INTO `frequenta` (studente_matricola, corso_id) VALUES ('%s','%d')";
+    private static $DELETE_FREQUENTA = "DELETE FROM `frequenta` WHERE studente_matricola = '%s' AND corso_id = '%d'";
+    private static $INSERT_INSEGNAMENTO = "INSERT INTO `insegna` (docente_matricola, corso_id) VALUES ('%s','%d')";
+    
     /**
      * Restituisce utente dato email e password
      * @param $email La mail dell'utente
@@ -257,5 +260,47 @@ class AccountModel extends Model {
             }
         }
         return $studenti;
+    }
+    
+    /**
+     * Iscrive uno studente ad un corso nel database
+     * @param string $studenteMatricola la matricola dello studente da iscrivere
+     * @param Corso idCorso L'id del corso a cui iscrivere lo studente
+     * @throws ApplicationException
+     */
+    public function iscriviStudenteCorso($studenteMatricola, $idCorso){
+        $query = sprintf(self::$INSERT_FREQUENTA, $studenteMatricola, $idCorso);
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows==-1) {
+            throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
+        }
+    }
+    
+    /**
+     * Disiscrive uno studente ad un corso nel database
+     * @param string $studenteMatricola la matricola dello studente da disiscrivere
+     * @param Corso idCorso L'id del corso a cui disiscrivere lo studente
+     * @throws ApplicationException
+     */
+    public function disiscriviStudenteCorso($studenteMatricola, $idCorso){
+        $query = sprintf(self::$DELETE_FREQUENTA, $studenteMatricola, $idCorso);
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows==-1) {
+            throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
+        }
+    }
+    
+    /**
+     * Inserisce un insegnamento nel database
+     * @param string $docenteMatricola La matricola del docente che insegna il corso
+     * @param Corso idCorso Il corso insegnato dal docente
+     * @throws ApplicationException
+     */
+    public function inserisciInsegnamento($docenteMatricola, $idCorso){
+        $query = sprintf(self::$INSERT_INSEGNAMENTO, $docenteMatricola, $idCorso);
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows==-1) {
+            throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
+        }
     }
 }
