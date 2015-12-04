@@ -141,6 +141,30 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                             </div>
                                         </div>
                                     </div>
+
+                                    <!--<div class="form-group form-md-line-input">
+                                        <div class="col-md-10">
+                                    <div class="input-icon right">
+                                        <input type="text" class="form-control" placeholder="Right icon">
+                                        <div class="form-control-focus"></div>
+                                        <span class="help-block">Some help goes here...</span>
+                                        <i class="icon-user"></i>
+                                    </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group form-md-line-input">
+                                        <label class="col-md-3 control-label" for="form_control_1">URL
+                                            <span class="required" aria-required="true">*</span>
+                                        </label>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" placeholder="" name="url">
+                                            <div class="form-control-focus"> </div>
+                                        </div>
+                                    </div>-->
+
+
                                 </div>
 
                             </div>
@@ -180,8 +204,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 <!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
 <script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript"
-        src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <!-- END PAGE LEVEL PLUGINS aggiunta da me-->
 
 <script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>
@@ -190,6 +213,10 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN aggiunta da me -->
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
+
+<script src="/assets/pages/scripts/form-validation.min.js" type="text/javascript"></script>
+<script src="/assets/pages/scripts/form-validation-md.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
 <!-- END aggiunta da me -->
 <script>
     jQuery(document).ready(function () {
