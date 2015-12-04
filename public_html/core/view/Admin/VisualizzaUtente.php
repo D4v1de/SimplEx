@@ -159,20 +159,7 @@ try {
                                             <?= $user->getTipologia() ?> </a>
                                     </td>
                                 </tr>
-                                <?php if ($user->getTipologia()=="Docente") {?> <tr>
-                                    <td style="width:15%">
-                                        Corso di laurea
-                                    </td>
-                                    <td style="width:50%">
-                                        <a href="javascript:;" id="cdl_matricola" data-type="select"
-                                           data-value="<?= $cdl->getMatricola() ?>"
-                                           data-pk="<?= $user->getMatricola() ?>"
-                                           data-source="/adm/utenti/cdls" data-original-title="Seleziona CdL"
-                                           class="editable editable-click">
-                                            <?= $cdl->getNome() ?> </a>
-                                    </td>
-                                </tr> 
-                                <?php } else { ?> 
+                                <?php if ($user->getTipologia()=="Studente") {?>                                 
                                 <tr>
                                     <td style="width:15%">
                                         Cdl Appartenente
