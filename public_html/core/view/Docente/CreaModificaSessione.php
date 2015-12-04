@@ -60,10 +60,7 @@ if($_URL[6]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
             $cbTest = Array();
             $cbTest = $_POST['tests'];
             $sessione = new Sessione($newdataFrom, $newdataTo, $sogliAmm, $stato, $newtipoSessione, $idCorso);
-            //creo la Sessione
             $idNuovaSessione=$controller->creaSessione($sessione);
-            echo "idSessioneNuova=...(".$idNuovaSessione. ")......";
-
             //creo l'associazione tests-sessione
             if($cbTest!=null) {
                 print_r($cbTest);
@@ -333,7 +330,7 @@ if($_URL[6]!=0) {  //CASO DI MODIFICA..DEVE ESSERE SETTATO !ALMENO! UNO.
                                 foreach ($array as $c) {
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
                                     printf("<td><input name=\"tests[]\" type=\"checkbox\" class=\"checkboxes\" value='%d'></td>", $c->getId());
-                                    printf("<td class=\"sorting_1\">%s</td>", $c->getDescrizione());
+                                    printf("<td class=\"sorting_1\">Test %s</td>", $c->getId());
                                     printf("<td>%s</td>", $c->getDescrizione());
                                     printf("<td>%d</td>", $c->getNumeroMultiple());
                                     printf("<td>%d</td>", $c->getNumeroAperte());
