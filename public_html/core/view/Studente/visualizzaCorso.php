@@ -10,9 +10,19 @@
 include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "UtenteController.php";
 include_once CONTROL_DIR . "SessioneController.php";
+include_once CONTROL_DIR . "ElaboratoController.php";
+
 $controller = new CdlController();
 $utenteController = new UtenteController();
 $sessioneController = new SessioneController();
+$elaboratoController = new ElaboratoController();
+
+$corso = $controller->readCorso($_URL[3]);
+
+$cdl = $controller->readCdl($corso->getCdlMatricola());
+$matricolaStudente = "0512102390"; //STUB
+
+$sessioni = $sessioneController->getAllSessioniByStudente($matricolaStudente);
 
 $docenteassociato = Array();
 $corso = null;
@@ -193,17 +203,24 @@ try {
                                 </thead>
                                 <tbody>
                                 <?php
-                                foreach ($sessioni as $s) {
-                                    printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    printf("<td class=\"sorting_1\"><a href=\"#\">Sessione %s</a></td>", $s->getId());
-                                    printf("<td class=\"sorting_1\">%s</td>", $s->getDataInizio());
-                                    if (!strcmp($s->getTipologia(), "Esercitativa"))
-                                        printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $s->getTipologia());
-                                    else
-                                        printf("<td class=\"sorting_1\"><span class=\"label label-sm label-danger\">%s</span></td>", $s->getTipologia());
-                                    printf("<td class=\"sorting_1\"><a href=\"\">%s</a></td>", $s->getSogliaAmmissione());
-                                    printf("<td class=\"sorting_1\"><a href=\"../eseguitest/%d\" class=\"btn btn-sm default blue-madison\"><i class=\"fa fa-pencil\"></i> Partecipa</a></td>", $s->getId());
-                                    printf("</tr>");
+                                if ($sessioni == null) {
+                                    echo "l'array è null";
+                                } else {
+                                    foreach ($sessioni as $s) {
+                                        printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                        printf("<td class=\"sorting_1\">Sessione %s</td>", $s->getId());
+                                        printf("<td class=\"sorting_1\">%s</td>", $s->getDataInizio());
+                                        if (!strcmp($s->getTipologia(),"Esercitativa"))
+                                            printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $s->getTipologia());
+                                        else
+                                            printf("<td><span class=\"label label-sm label-danger\">%s</span></td>", $s->getTipologia());
+                                        $elaborato = $elaboratoController->readElaborato($matricolaStudente,$s->getId());
+                                        $esito = ($elaborato->getEsitoFinale())? $elaborato->getEsitoFinale():$elaborato->getEsitoParziale();
+                                        printf("<td class=\"sorting_1\"><a href=\"\">%s</a></td>", $esito);
+                                        printf("<td class=\"center\"><a href=\"javascript:;\" class=\"btn btn-sm default\" disabled=\"true\">Visualizza</a>");
+                                        printf("<a href=\"../eseguitest/%d\" class=\"btn btn-sm default blue-madison\"><i class=\"fa fa-pencil\"></i> Partecipa</a></td>",$s->getId());
+                                        printf("</tr>");
+                                    }
                                 }
                                 ?>
                                 </tbody>
