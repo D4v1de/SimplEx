@@ -260,6 +260,18 @@ if (!defined("TESTING")) {
         case 'selezionestudenti':
             include_once VIEW_DIR . "Docente/SelezioneStudenti.php";
             break;
+        case 'gestoreMultipla':
+            include_once VIEW_DIR . "Studente/gestoreMultipla.php";
+            break;
+        case 'gestoreCountdown':
+            include_once VIEW_DIR . "Studente/gestoreCountdown.php";
+            break;
+        case 'inizializzaAperta':
+            include_once VIEW_DIR . "Studente/inizializzaAperta.php";
+            break;
+        case 'updateAperta':
+            include_once VIEW_DIR . "Studente/updateAperta.php";
+            break;
         default:
             echo "Route inesistente";
     }
