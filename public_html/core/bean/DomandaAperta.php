@@ -8,7 +8,6 @@
 class DomandaAperta {
     private $id;
     private $argomentoId;
-    private $argomentoCorsoId;
     private $testo;
     private $punteggioMax;
     private $percentualeScelta;
@@ -16,14 +15,12 @@ class DomandaAperta {
     /**
      * Costruttore di DomandaAperta.
      * @param int $argomentoId L'id dell'argomento a cui appartiene la domanda
-     * @param int $argomentoCorsoId L'id dell'insegnamento a cui appartiene l'argomento relativo
      * @param string $testo Il testo della domanda
      * @param float $punteggioMax Il punteggio max della domanda
      * @param float $percentualeScelta La percentuale di volte in cui è stata scelta quella domanda
      */
-    function __construct($argomentoId, $argomentoCorsoId, $testo, $punteggioMax, $percentualeScelta) {
+    function __construct($argomentoId, $testo, $punteggioMax, $percentualeScelta) {
         $this->argomentoId = $argomentoId;
-        $this->argomentoCorsoId = $argomentoCorsoId;
         $this->testo = $testo;
         $this->punteggioMax = $punteggioMax;
         $this->percentualeScelta = $percentualeScelta;
@@ -41,13 +38,6 @@ class DomandaAperta {
      */ 
     function getArgomentoId() {
         return $this->argomentoId;
-    }
-
-    /**
-     * @return int L'id del corso a cui appartiene l'argomento relativo
-     */
-    function getArgomentoCorsoId() {
-        return $this->argomentoCorsoId;
     }
 
     /**
@@ -85,14 +75,6 @@ class DomandaAperta {
      */
     function setArgomentoId($argomentoId) {
         $this->argomentoId = $argomentoId;
-    }
-
-    /**
-     * Setta l'id del corso a cui appartiene l'argomento relativo
-     * @param int $argomentoCorsoId L'id del corso a cui appartiene l'argomento relativo
-     */
-    function setArgomentoCorsoId($argomentoCorsoId) {
-        $this->argomentoCorsoId = $argomentoCorsoId;
     }
 
     /**

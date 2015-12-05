@@ -12,8 +12,6 @@ class RispostaAperta {
     private $testo;
     private $punteggio;
     private $domandaApertaId;
-    private $domandaApertaArgomentoId;
-    private $domandaApertaArgomentoCorsoId;
     
     /**
      * Costruttore di Risposta_multipla
@@ -21,18 +19,13 @@ class RispostaAperta {
      * @param string $elaboratoStudenteMatricola La matricola dello studente a cui appartiene l'elaborato 
      * @param string $testo Il testo della risposta aperta
      * @param int $domandaApertaId L'id della domanda aperta a cui si riferisce
-     * @param int $domandaApertaArgomentoId L'id dell'argomento della domanda aperta
-     * @param int $domandaApertaArgomentoCorsoId L'id del corso a cui appartiene l'argomento relativo alla domanda aperta
      */
-    public function __construct($elaboratoSessioneId, $elaboratoStudenteMatricola, $testo, $punteggio, $domandaApertaId, 
-            $domandaApertaArgomentoId,$domandaApertaArgomentoCorsoId){
+    public function __construct($elaboratoSessioneId, $elaboratoStudenteMatricola, $testo, $punteggio, $domandaApertaId){
         $this->elaboratoSessioneId=$elaboratoSessioneId;
         $this->elaboratoStudenteMatricola=$elaboratoStudenteMatricola;
         $this->testo=$testo;
         $this->punteggio=$punteggio;
         $this->domandaApertaId=$domandaApertaId;
-        $this->domandaApertaArgomentoId=$domandaApertaArgomentoId;
-        $this->domandaApertaArgomentoCorsoId=$domandaApertaArgomentoCorsoId;
     } 
     
     /**
@@ -77,20 +70,6 @@ class RispostaAperta {
         return $this->domandaApertaId;
     }
 
-     /**
-     * @return int L'id dell'argomento a cui la domanda aperta appartiene
-     */
-    function getDomandaApertaArgomentoId() {
-        return $this->domandaApertaArgomentoId;
-    }
-    
-     /**
-     * @return int L'id del corso a cui appartiene l'argomento relativo alla domanda aperta
-     */
-    function getDomandaApertaArgomentoCorsoId() {
-        return $this->domandaApertaArgomentoCorsoId;
-    }
-
     /**
      * Setta l'id della risposta aperta
      * @param int $id L'id della risposta aperta
@@ -121,22 +100,6 @@ class RispostaAperta {
      */
     function setDomandaApertaId($domandaApertaId) {
         $this->domandaApertaId = $domandaApertaId;
-    }
-
-    /**
-     * Setta l'id dell'argomento a cui appartiene la domanda aperta
-     * @param int $domandaApertaArgomentoId L'id dell'argomento a cui appartiene la domanda aperta
-     */
-    function setDomandaApertaArgomentoId($domandaApertaArgomentoId) {
-        $this->domandaApertaArgomentoId = $domandaApertaArgomentoId;
-    }
-
-    /**
-     * Setta l'id del corso a cui appartiene l'argomento relativo alla domanda aperta
-     * @param int $domandaApertaArgomentoCorsoId L'id del corso a cui appartiene l'argomento relativo alla domanda aperta
-     */
-    function setDomandaApertaArgomentoCorsoId($domandaApertaArgomentoCorsoId) {
-        $this->domandaApertaArgomentoCorsoId = $domandaApertaArgomentoCorsoId;
     }
 }
     

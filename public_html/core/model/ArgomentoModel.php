@@ -12,11 +12,13 @@ include_once BEAN_DIR . "Argomento.php";
 
 class ArgomentoModel extends Model {
     private static $CREATE_ARGOMENTO = "INSERT INTO `argomento` (corso_id, nome) VALUES ('%d','%s')";
-    private static $UPDATE_ARGOMENTO = "UPDATE `argomento` SET nome = '%s' WHERE id = '%d' AND corso_id = '%d'";
-    private static $DELETE_ARGOMENTO = "DELETE FROM `argomento` WHERE id = '%d' AND corso_id = '%d'";
-    private static $READ_ARGOMENTO = "SELECT * FROM `argomento` WHERE id = '%d' AND corso_id = '%d'";
-    private static $GET_ALL_ARGOMENTO = "SELECT * FROM `argomento`";
-    private static $GET_ALL_ARGOMENTI_BY_CORSO = "SELECT * FROM `argomento` WHERE corso_id = '%d'";
+    private static $UPDATE_ARGOMENTO = "UPDATE `argomento` SET nome = '%s', corso_id = '%d' WHERE id = '%d'";
+    private static $DELETE_ARGOMENTO = "UPDATE `argomento` SET stato='Obsoleto' WHERE id = '%d'";
+    private static $READ_ARGOMENTO = "SELECT * FROM `argomento` WHERE id = '%d' AND stato = 'In uso'";
+    private static $GET_ALL_ARGOMENTO = "SELECT * FROM `argomento` AND stato = 'In uso' ORDER BY nome";
+    private static $GET_ALL_ARGOMENTI_BY_CORSO = "SELECT * FROM `argomento` WHERE corso_id = '%d' AND stato = 'In uso' ORDER BY nome";
+    private static $DELETE_DOMANDA_APERTA_ARGOMENTO = "UPDATE `domanda_aperta` SET stato = 'Obsoleto' WHERE argomento_id = '%d'";
+    private static $DELETE_DOMANDA_MULTIPLA_ARGOMENTO = "UPDATE `domanda_multipla` SET stato = 'Obsoleto' WHERE argomento_id = '%d'";
     
     /**
      *Inserisce un nuovo argomento nel database
@@ -39,12 +41,11 @@ class ArgomentoModel extends Model {
     /**
      * Modifica un argomento nel database
      * @param int $id L'id dell'argomento da aggiornare
-     * @param int $corsoId L'id del corso a cui appartiene l'argomento
      * @param Argomento $updatedArgomento L'argomento modificato da aggiornare nel database
      * @throws ApplicationException
      */
-    public function updateArgomento($id, $corsoId, $updatedArgomento) {
-        $query = sprintf(self::$UPDATE_ARGOMENTO, $updatedArgomento->getNome(), $id, $corsoId);
+    public function updateArgomento($id, $updatedArgomento) {
+        $query = sprintf(self::$UPDATE_ARGOMENTO, $updatedArgomento->getNome(), $updatedArgomento->getCorsoId(), $id);
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
@@ -52,13 +53,22 @@ class ArgomentoModel extends Model {
     }
 
     /**
-     * Cancella un argomento nel database
+     * Cancella un argomento nel database e tutte le domande ad esso relative
      * @param int $id L'id dell'argomento da cancellare
-     * @param int $corsoId L'id del corso a cui appartiene l'argomento
      * @throws ApplicationException
      */
-    public function deleteArgomento($id, $corsoId) {
-        $query = sprintf(self::$DELETE_ARGOMENTO, $id, $corsoId);
+    public function deleteArgomento($id) {
+        $query = sprintf(self::$DELETE_ARGOMENTO, $id);
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows == -1) {
+            throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
+        }
+        $query = sprintf(self::$DELETE_DOMANDA_APERTA_ARGOMENTO, $id);
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows == -1) {
+            throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
+        }
+        $query = sprintf(self:: $DELETE_DOMANDA_MULTIPLA_ARGOMENTO, $id);
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
@@ -68,12 +78,11 @@ class ArgomentoModel extends Model {
     /**
      * Cerca un argomento nel database
      * @param int $id L'id dell'argomento da cercare
-     * @param int $corsoId L'id del corso a cui appartiene l'argomento
      * @return Argomento L'argomento da cercare
      * @throws ApplicationException
      */
-    public function readArgomento($id, $corsoId) {
-        $query = sprintf(self::$READ_ARGOMENTO, $id, $corsoId);
+    public function readArgomento($id) {
+        $query = sprintf(self::$READ_ARGOMENTO, $id);
         $res = Model::getDB()->query($query);
         if ($obj = $res->fetch_assoc()) {
             $argomento = new Argomento( $obj['corso_id'], $obj['nome']);

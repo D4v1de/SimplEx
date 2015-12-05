@@ -12,10 +12,8 @@
 class AlternativaModelTest extends \PHPUnit_Framework_TestCase
 {
 
-    const IDALTERNATIVA = 40;//CI DEVE STARE NEL DB ALTERNATIVA CON QUESTO ID
-    const IDDOMMULTIPLA =  46;
-    const IDARGOMENTO = 2;
-    const CORSOID = 19;
+    const IDALTERNATIVA = 1;//CI DEVE STARE NEL DB ALTERNATIVA CON QUESTO ID
+    const IDDOMMULTIPLA =  3;
     const TESTO = "Risposta di prova";
     const PERCSCELTA = 10;
     const CORRETTA = 'No';
@@ -30,49 +28,45 @@ class AlternativaModelTest extends \PHPUnit_Framework_TestCase
 
 
         //testo la read
-        $altern = $model->readAlternativa(self::IDALTERNATIVA, self::IDDOMMULTIPLA,self::IDARGOMENTO, self::CORSOID);
+        $altern = $model->readAlternativa(self::IDALTERNATIVA);
 
         //crea un'alterntaiva
-        $idAlt = $model->createAlternativa(new Alternativa(null, self::IDDOMMULTIPLA, self::IDARGOMENTO, self::CORSOID, self::TESTO, self::PERCSCELTA, self::CORRETTA));
+        $idAlt = $model->createAlternativa(new Alternativa(self::IDDOMMULTIPLA, self::TESTO, self::PERCSCELTA, self::CORRETTA));
 
         //legge l'arternativa creata
-        $altern = $model->readAlternativa($idAlt, self::IDDOMMULTIPLA,self::IDARGOMENTO, self::CORSOID);
+        $altern = $model->readAlternativa($idAlt);
 
         //confronta le due alternative
         $this->assertEquals(self::IDDOMMULTIPLA, $altern->getDomandaMultiplaId());
-        $this->assertEquals(self::IDARGOMENTO, $altern->getDomandaMultiplaArgomentoId());
-        $this->assertEquals(self::CORSOID, $altern->getDomandaMultiplaArgomentoCorsoId());
         $this->assertEquals(self::TESTO, $altern->getTesto());
         $this->assertEquals(self::PERCSCELTA, $altern->getPercentualeScelta());
         $this->assertEquals(self::CORRETTA, $altern->getCorretta());
 
         //modifico l'alternativa in questione
-        $model->updateAlternativa($idAlt, self::IDDOMMULTIPLA,self::IDARGOMENTO, self::CORSOID, (new Alternativa(null, self::IDDOMMULTIPLA, self::IDARGOMENTO, self::CORSOID, self::TESTO2, self::PERCSCELTA2, self::CORRETTA)));
+        $model->updateAlternativa($idAlt, (new Alternativa(self::IDDOMMULTIPLA, self::TESTO2, self::PERCSCELTA2, self::CORRETTA)));
 
         //leggo l'alternativa modificata
-        $altMod = $model->readAlternativa($idAlt, self::IDDOMMULTIPLA,self::IDARGOMENTO, self::CORSOID);
+        $altMod = $model->readAlternativa($idAlt);
 
         //verifico la modifica
         $this->assertEquals(self::IDDOMMULTIPLA, $altMod->getDomandaMultiplaId());
-        $this->assertEquals(self::IDARGOMENTO, $altMod->getDomandaMultiplaArgomentoId());
-        $this->assertEquals(self::CORSOID, $altMod->getDomandaMultiplaArgomentoCorsoId());
         $this->assertEquals(self::TESTO2, $altMod->getTesto());
         $this->assertEquals(self::PERCSCELTA2, $altMod->getPercentualeScelta());
         $this->assertEquals(self::CORRETTA, $altMod->getCorretta());
 
         //cancello l'alternativa
-        $model->deleteAlternativa($idAlt, self::IDDOMMULTIPLA,self::IDARGOMENTO, self::CORSOID);
+        $model->deleteAlternativa($idAlt);
 
         //verifico la cancellazione
         $allAltern = $model->getAllAlternativa();
         print_r($allAltern);
 
         //leggo tutte le alternative della domanda multipla
-        $allAltByDom = $model->getAllAlternativaByDomanda(self::IDDOMMULTIPLA, self::IDARGOMENTO, self::CORSOID);
+        $allAltByDom = $model->getAllAlternativaByDomanda(self::IDDOMMULTIPLA);
         print_r($allAltByDom);
 
         //trovo l'alternativa corretta di una domanda
-        $altCorretta = $model->getAlternativaCorrettaByDomanda(self::IDDOMMULTIPLA, self::IDARGOMENTO, self::CORSOID);
+        $altCorretta = $model->getAlternativaCorrettaByDomanda(self::IDDOMMULTIPLA);
         print_r($altCorretta);
 
     }

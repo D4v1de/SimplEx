@@ -8,7 +8,6 @@
 class DomandaMultipla {
     private $id;
     private $argomentoId;
-    private $argomentoCorsoId;
     private $testo;
     private $punteggioCorretta;
     private $punteggioErrata;
@@ -18,16 +17,14 @@ class DomandaMultipla {
     /**
      * DomandaMultipla constructor.
      * @param int $argomentoId L'id dell'argomento a cui appartiene la domanda
-     * @param int $argomentoCorsoId L'id dell'insegnamento a cui appartiene l'argomento relativo
      * @param string $testo Il testo della domanda
      * @param float $punteggioCorretta Il punteggio da assegnare in caso di risposta corretta
      * @param float $punteggioErrata Il punteggio da assegnare in caso di risposta errata
      * @param float $percentualeScelta La percentuale di volte in cui viene scelta
      * @param float $percentualeRispostaCorretta La percentuale di risposte corrette per la domanda
      */
-    public function __construct($argomentoId, $argomentoCorsoId, $testo, $punteggioCorretta, $punteggioErrata,$percentualeScelta, $percentualeRispostaCorretta) {
+    public function __construct($argomentoId, $testo, $punteggioCorretta, $punteggioErrata, $percentualeScelta, $percentualeRispostaCorretta) {
         $this->argomentoId = $argomentoId;
-        $this->argomentoCorsoId = $argomentoCorsoId;
         $this->testo = $testo;
         $this->punteggioCorretta = $punteggioCorretta;
         $this->punteggioErrata = $punteggioErrata;
@@ -47,13 +44,6 @@ class DomandaMultipla {
      */ 
     function getArgomentoId() {
         return $this->argomentoId;
-    }
-
-    /**
-     * @return int L'id del corso a cui appartiene l'argomento relativo
-     */
-    function getArgomentoCorsoId() {
-        return $this->argomentoCorsoId;
     }
 
     /**
@@ -105,14 +95,6 @@ class DomandaMultipla {
      */
     function setArgomentoId($argomentoId) {
         $this->argomentoId = $argomentoId;
-    }
-
-    /**
-     * Setta l'id del corso a cui appartiene l'argomento relativo
-     * @param int $argomentoCorsoId L'id del corso a cui appartiene l'argomento relativo
-     */
-    function setArgomentoCorsoId($argomentoCorsoId) {
-        $this->argomentoCorsoId = $argomentoCorsoId;
     }
     
     /**

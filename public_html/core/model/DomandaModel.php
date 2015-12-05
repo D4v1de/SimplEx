@@ -13,20 +13,20 @@ include_once BEAN_DIR . "DomandaMultipla.php";
 
 class DomandaModel extends Model {
     
-    private static $CREATE_DOMANDA_APERTA = "INSERT INTO `domanda_aperta` (argomento_id, argomento_corso_id, testo, punteggio_max, percentuale_scelta) VALUES ('%d','%d','%s','%f','%f')";
-    private static $UPDATE_DOMANDA_APERTA = "UPDATE `domanda_aperta` SET testo = '%s', punteggio_max = '%f', percentuale_scelta = '%f' WHERE id = '%d' AND argomento_id = '%d' AND argomento_corso_id = '%d'";
-    private static $DELETE_DOMANDA_APERTA = "DELETE FROM `domanda_aperta` WHERE id = '%d' AND argomento_id = '%d' AND argomento_corso_id = '%d'";
-    private static $READ_DOMANDA_APERTA = "SELECT * FROM `domanda_aperta` WHERE id = '%d' AND argomento_id = '%d' AND argomento_corso_id = '%d'";
-    private static $GET_ALL_DOMANDA_APERTA = "SELECT * FROM `domanda_aperta`";
-    private static $GET_ALL_DOMANDA_APERTA_BY_ARGOMENTO = "SELECT * FROM `domanda_aperta` WHERE argomento_id = '%d' AND argomento_corso_id = '%d'";
-    private static $GET_ALL_DOMANDE_APERTE_TEST = "SELECT d.* FROM `domanda_aperta` as d,`compone_aperta` as c WHERE c.test_id = '%s' AND c.domanda_aperta_id = d.id AND c.domanda_aperta_argomento_id = d.argomento_id AND c.domanda_aperta_argomento_corso_id = d.argomento_corso_id";
-    private static $CREATE_DOMANDA_MULTIPLA = "INSERT INTO `domanda_multipla` (argomento_id, argomento_corso_id, testo, punteggio_corretta, punteggio_errata, percentuale_scelta, percentuale_risposta_corretta) VALUES ('%d','%d','%s','%f','%f','%f','%f')";
-    private static $UPDATE_DOMANDA_MULTIPLA = "UPDATE `domanda_multipla` SET testo = '%s', punteggio_corretta = '%f', punteggio_errata = '%f', percentuale_scelta = '%f', percentuale_risposta_corretta = '%f' WHERE id = '%d' AND argomento_id = '%d' AND argomento_corso_id = '%d'";
-    private static $DELETE_DOMANDA_MULTIPLA = "DELETE FROM `domanda_multipla` WHERE id = '%d' AND argomento_id = '%d' AND argomento_corso_id = '%d'";
-    private static $READ_DOMANDA_MULTIPLA = "SELECT * FROM `domanda_multipla` WHERE id = '%d' AND argomento_id = '%d' AND argomento_corso_id = '%d'";
-    private static $GET_ALL_DOMANDA_MULTIPLA = "SELECT * FROM `domanda_multipla`";
-    private static $GET_ALL_DOMANDA_MULTIPLA_BY_ARGOMENTO = "SELECT * FROM `domanda_multipla` WHERE argomento_id = '%d' AND argomento_corso_id = '%d'";
-    private static $GET_ALL_DOMANDE_MULTIPLE_TEST = "SELECT d.* FROM `domanda_multipla` as d,`compone_multipla` as c WHERE c.test_id = '%s' AND c.domanda_multipla_id = d.id AND c.domanda_multipla_argomento_id = d.argomento_id AND c.domanda_multipla_argomento_corso_id = d.argomento_corso_id";
+    private static $CREATE_DOMANDA_APERTA = "INSERT INTO `domanda_aperta` (argomento_id, testo, punteggio_max, percentuale_scelta) VALUES ('%d','%s','%f','%f')";
+    private static $UPDATE_DOMANDA_APERTA = "UPDATE `domanda_aperta` SET argomento_id = '%d', testo = '%s', punteggio_max = '%f', percentuale_scelta = '%f' WHERE id = '%d'";
+    private static $DELETE_DOMANDA_APERTA = "UPDATE `domanda_aperta` SET stato = 'Obsoleto' WHERE id = '%d'";
+    private static $READ_DOMANDA_APERTA = "SELECT * FROM `domanda_aperta` WHERE id = '%d'";
+    private static $GET_ALL_DOMANDA_APERTA = "SELECT * FROM `domanda_aperta` WHERE stato = 'In uso' ORDER BY testo";
+    private static $GET_ALL_DOMANDA_APERTA_BY_ARGOMENTO = "SELECT * FROM `domanda_aperta` WHERE argomento_id = '%d' AND stato = 'In uso' ORDER BY testo";
+    private static $GET_ALL_DOMANDE_APERTE_TEST = "SELECT d.* FROM `domanda_aperta` as d,`compone_aperta` as c WHERE c.test_id = '%s' AND c.domanda_aperta_id = d.id ORDER BY d.testo";
+    private static $CREATE_DOMANDA_MULTIPLA = "INSERT INTO `domanda_multipla` (argomento_id, testo, punteggio_corretta, punteggio_errata, percentuale_scelta, percentuale_risposta_corretta) VALUES ('%d','%s','%f','%f','%f','%f')";
+    private static $UPDATE_DOMANDA_MULTIPLA = "UPDATE `domanda_multipla` SET argomento_id = '%d', testo = '%s', punteggio_corretta = '%f', punteggio_errata = '%f', percentuale_scelta = '%f', percentuale_risposta_corretta = '%f'  WHERE id = '%d'";
+    private static $DELETE_DOMANDA_MULTIPLA = "UPDATE `domanda_multipla` SET stato = 'Obsoleto' WHERE id = '%d'";
+    private static $READ_DOMANDA_MULTIPLA = "SELECT * FROM `domanda_multipla` WHERE id = '%d'";
+    private static $GET_ALL_DOMANDA_MULTIPLA = "SELECT * FROM `domanda_multipla` WHERE stato = 'In uso' ORDER BY testo";
+    private static $GET_ALL_DOMANDA_MULTIPLA_BY_ARGOMENTO = "SELECT * FROM `domanda_multipla` WHERE argomento_id = '%d' AND stato = 'In uso' ORDER BY testo";
+    private static $GET_ALL_DOMANDE_MULTIPLE_TEST = "SELECT d.* FROM `domanda_multipla` as d,`compone_multipla` as c WHERE c.test_id = '%s' AND c.domanda_multipla_id = d.id ORDER BY d.testo";
 
     /**
      * Inserisce una nuova DomandaAperta nel database
@@ -34,7 +34,7 @@ class DomandaModel extends Model {
      * @throws ApplicationException
      */
     public function createDomandaAperta($domandaAperta) {
-        $query = sprintf(self::$CREATE_DOMANDA_APERTA, $domandaAperta->getArgomentoId(), $domandaAperta->getArgomentoCorsoId(), $domandaAperta->getTesto(), $domandaAperta->getPunteggioMax(), $domandaAperta->getPercentualeScelta());
+        $query = sprintf(self::$CREATE_DOMANDA_APERTA, $domandaAperta->getArgomentoId(), $domandaAperta->getTesto(), $domandaAperta->getPunteggioMax(), $domandaAperta->getPercentualeScelta());
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
@@ -46,14 +46,11 @@ class DomandaModel extends Model {
     /**
      * Modifica una DomandaAperta nel database
      * @param int $id L'id della domanda aperta da modificare
-     * @param int $argomentoId L'id dell'argomento a cui appartiene la domanda
-     * @param int $argomentoCorsoId L'id del corso a cui appartiene l'argomento relativo
      * @param DomandaAperta $updatedDomandaAperta La domanda aperta aggiornata da modificare nel database
      * @throws ApplicationException
      */
-    public function updateDomandaAperta($id, $argomentoId, $argomentoCorsoId, $updatedDomandaAperta) {
-        $query = sprintf(self::$UPDATE_DOMANDA_APERTA, $updatedDomandaAperta->getTesto(), $updatedDomandaAperta->getPunteggioMax(), $updatedDomandaAperta->getPercentualeScelta(),
-            $id, $argomentoId, $argomentoCorsoId);
+    public function updateDomandaAperta($id, $updatedDomandaAperta) {
+        $query = sprintf(self::$UPDATE_DOMANDA_APERTA,  $updatedDomandaAperta->getArgomentoId(), $updatedDomandaAperta->getTesto(), $updatedDomandaAperta->getPunteggioMax(), $updatedDomandaAperta->getPercentualeScelta(), $id);
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
@@ -63,12 +60,10 @@ class DomandaModel extends Model {
     /**
      * Cancella una domanda aperta nel database
      * @param int $id L'id della domanda aperta da cancellare
-     * @param int $argomentoId L'id dell'argomento a cui appartiene la domanda
-     * @param int $argomentoCorsoId L'id del corso a cui appartiene l'argomento relativo
      * @throws ApplicationException
      */
-    public function deleteDomandaAperta($id, $argomentoId, $argomentoCorsoId) {
-        $query = sprintf(self::$DELETE_DOMANDA_APERTA, $id, $argomentoId, $argomentoCorsoId);
+    public function deleteDomandaAperta($id) {
+        $query = sprintf(self::$DELETE_DOMANDA_APERTA, $id);
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
@@ -78,16 +73,14 @@ class DomandaModel extends Model {
     /**
      * Cerca una domanda aperta nel database
      * @param int $id della domanda aperta da cercare
-     * @param int $argomentoId L'id dell'argomento a cui appartiene la domanda
-     * @param int $argomentoCorsoId L'id del corso a cui appartiene l'argomento relativo
      * @return DomandaAperta La domanda aperta cercata nel database
      * @throws ApplicationException
      */
-    public function readDomandaAperta($id, $argomentoId, $argomentoCorsoId) {
-        $query = sprintf(self::$READ_DOMANDA_APERTA, $id, $argomentoId, $argomentoCorsoId);
+    public function readDomandaAperta($id) {
+        $query = sprintf(self::$READ_DOMANDA_APERTA, $id);
         $res = Model::getDB()->query($query);
         if ($obj = $res->fetch_assoc()) {
-            $domandaAperta = new DomandaAperta($obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_max'], $obj['percentuale_scelta']);
+            $domandaAperta = new DomandaAperta($obj['argomento_id'], $obj['testo'], $obj['punteggio_max'], $obj['percentuale_scelta']);
             $domandaAperta->setId($obj['id']);
             return $domandaAperta;
         } else {
@@ -105,7 +98,7 @@ class DomandaModel extends Model {
         $domandeAperte[] = array();
         if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $domandaAperta = new DomandaAperta($obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_max'], $obj['percentuale_scelta']);
+                $domandaAperta = new DomandaAperta($obj['argomento_id'], $obj['testo'], $obj['punteggio_max'], $obj['percentuale_scelta']);
                 $domandaAperta->setId($obj['id']);
                 $domandeAperte[] = $domandaAperta;
             }
@@ -116,17 +109,16 @@ class DomandaModel extends Model {
     /**
      * Restituisce tutte le domande aperte di un argomento
      * @param int $argomentoId L'id dell'argomento a cui appartiene la domanda
-     * @param int $argomentoCorsoId L'id del corso a cui appartiene l'argomento relativo
      * @return DomandaAperta[] Tutte le domande aperte dell'argomento
      * @throws ApplicationException
      */
-    public function getAllDomandaApertaByArgomento($argomentoId, $argomentoCorsoId) {
-        $query = sprintf(self::$GET_ALL_DOMANDA_APERTA_BY_ARGOMENTO, $argomentoId, $argomentoCorsoId);
+    public function getAllDomandaApertaByArgomento($argomentoId) {
+        $query = sprintf(self::$GET_ALL_DOMANDA_APERTA_BY_ARGOMENTO, $argomentoId);
         $res = Model::getDB()->query($query);
         $domandeAperte = array();
         if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $domandaAperta = new DomandaAperta($obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_max'], $obj['percentuale_scelta']);
+                $domandaAperta = new DomandaAperta($obj['argomento_id'], $obj['testo'], $obj['punteggio_max'], $obj['percentuale_scelta']);
                 $domandaAperta->setId($obj['id']);
                 $domandeAperte[] = $domandaAperta;
             }
@@ -141,8 +133,8 @@ class DomandaModel extends Model {
      */
 
     public function createDomandaMultipla($domandaMultipla) {
-        $query = sprintf(self::$CREATE_DOMANDA_MULTIPLA, $domandaMultipla->getArgomentoId(), $domandaMultipla->getArgomentoCorsoId(), $domandaMultipla->getTesto(),
-            $domandaMultipla->getPunteggioCorretta(), $domandaMultipla->getPunteggioErrata(), $domandaMultipla->getPercentualeScelta(), $domandaMultipla->getPercentualeRispostaCorretta());
+        $query = sprintf(self::$CREATE_DOMANDA_MULTIPLA, $domandaMultipla->getArgomentoId(), $domandaMultipla->getTesto(), $domandaMultipla->getPunteggioCorretta(),
+            $domandaMultipla->getPunteggioErrata(), $domandaMultipla->getPercentualeScelta(), $domandaMultipla->getPercentualeRispostaCorretta());
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
@@ -154,15 +146,13 @@ class DomandaModel extends Model {
     /**
      * Modifica una domanda multipla nel database
      * @param int $id L'id della domanda multipla da modificare
-     * @param int $argomentoId L'id dell'argomento a cui appartiene la domanda
-     * @param int $argomentoCorsoId L'id del corso a cui appartiene l'argomento relativo
      * @param DomandaMultipla $updatedDomandaMultipla La domanda multipla aggiornata da modificare nel database
      * @throws ApplicationException
      */
-    public function updateDomandaMultipla($id, $argomentoId, $argomentoCorsoId, $updatedDomandaMultipla) {
-        $query = sprintf(self::$UPDATE_DOMANDA_MULTIPLA, $updatedDomandaMultipla->getTesto(),
+    public function updateDomandaMultipla($id, $updatedDomandaMultipla) {
+        $query = sprintf(self::$UPDATE_DOMANDA_MULTIPLA, $updatedDomandaMultipla->getArgomentoId(), $updatedDomandaMultipla->getTesto(),
             $updatedDomandaMultipla->getPunteggioCorretta(), $updatedDomandaMultipla->getPunteggioErrata(), $updatedDomandaMultipla->getPercentualeScelta(),
-            $updatedDomandaMultipla->getPercentualeRispostaCorretta(), $id, $argomentoId, $argomentoCorsoId);
+            $updatedDomandaMultipla->getPercentualeRispostaCorretta(), $id);
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
@@ -172,12 +162,10 @@ class DomandaModel extends Model {
     /**
      * Cancella una domanda multipla nel database
      * @param int $id L'id della domanda multipla da cancellare
-     * @param int $argomentoId L'id dell'argomento a cui appartiene la domanda
-     * @param int $argomentoCorsoId L'id del corso a cui appartiene l'argomento relativo
      * @throws ApplicationException
      */
-    public function deleteDomandaMultipla($id, $argomentoId, $argomentoCorsoId) {
-        $query = sprintf(self::$DELETE_DOMANDA_MULTIPLA, $id, $argomentoId, $argomentoCorsoId);
+    public function deleteDomandaMultipla($id) {
+        $query = sprintf(self::$DELETE_DOMANDA_MULTIPLA, $id);
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
@@ -187,16 +175,14 @@ class DomandaModel extends Model {
     /**
      * Cerca una domandaMultipla nel database
      * @param int $id L'id della domanda multipla da cercare
-     * @param int $argomentoId L'id dell'argomento a cui appartiene la domanda
-     * @param int $argomentoCorsoId L'id del corso a cui appartiene l'argomento relativo
      * @return DomandaMultipla La domanda multipla trovata
      * @throws ApplicationException
      */
-    public function readDomandaMultipla($id, $argomentoId, $argomentoCorsoId) {
-        $query = sprintf(self::$READ_DOMANDA_MULTIPLA, $id, $argomentoId, $argomentoCorsoId);
+    public function readDomandaMultipla($id) {
+        $query = sprintf(self::$READ_DOMANDA_MULTIPLA, $id);
         $res = Model::getDB()->query($query);
         if ($obj = $res->fetch_assoc()) {
-            $domandaMultipla = new DomandaMultipla($obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_corretta'],$obj['punteggio_errata'], $obj['percentuale_scelta'], $obj['percentuale_risposta_corretta']);
+            $domandaMultipla = new DomandaMultipla($obj['argomento_id'], $obj['testo'], $obj['punteggio_corretta'],$obj['punteggio_errata'], $obj['percentuale_scelta'], $obj['percentuale_risposta_corretta']);
             $domandaMultipla->setId($obj['id']);
             return $domandaMultipla;
         } else {
@@ -214,7 +200,7 @@ class DomandaModel extends Model {
         $domandeMultiple = array();
         if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $domandaMultipla = new DomandaMultipla($obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_corretta'],$obj['punteggio_errata'], $obj['percentuale_scelta'], $obj['percentuale_risposta_corretta']);
+                $domandaMultipla = new DomandaMultipla($obj['argomento_id'], $obj['testo'], $obj['punteggio_corretta'],$obj['punteggio_errata'], $obj['percentuale_scelta'], $obj['percentuale_risposta_corretta']);
                 $domandaMultipla->setId($obj['id']);
                 $domandeMultiple[] = $domandaMultipla;
             }
@@ -225,18 +211,17 @@ class DomandaModel extends Model {
     /**
      * Restituisce un array con tutte le domande multiple di un argomento
      * @param int $argomentoId L'id dell'argomento a cui appartiene la domanda
-     * @param int $argomentoCorsoId L'id del corso a cui appartiene l'argomento relativo
      * @return DomandaMultipla[] Tutte le domande multiple di un argomento
      * @throws ApplicationException
      */
 
-    public function getAllDomandaMultiplaByArgomento($argomentoId, $argomentoCorsoId) {
-        $query = sprintf(self::$GET_ALL_DOMANDA_MULTIPLA_BY_ARGOMENTO, $argomentoId, $argomentoCorsoId);
+    public function getAllDomandaMultiplaByArgomento($argomentoId) {
+        $query = sprintf(self::$GET_ALL_DOMANDA_MULTIPLA_BY_ARGOMENTO, $argomentoId);
         $res = Model::getDB()->query($query);
         $domandeMultiple = array();
         if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $domandaMultipla = new DomandaMultipla($obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_corretta'],$obj['punteggio_errata'], $obj['percentuale_scelta'], $obj['percentuale_risposta_corretta']);
+                $domandaMultipla = new DomandaMultipla($obj['argomento_id'], $obj['testo'], $obj['punteggio_corretta'], $obj['punteggio_errata'], $obj['percentuale_scelta'], $obj['percentuale_risposta_corretta']);
                 $domandaMultipla->setId($obj['id']);
                 $domandeMultiple[] = $domandaMultipla;
             }
@@ -255,7 +240,7 @@ class DomandaModel extends Model {
         $domandeAperte = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $domandaAperta = new DomandaAperta($obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_max'], $obj['percentuale_scelta']);
+                $domandaAperta = new DomandaAperta($obj['argomento_id'], $obj['testo'], $obj['punteggio_max'], $obj['percentuale_scelta']);
                 $domandaAperta->setId($obj['id']);
                 $domandeAperte[] = $domandaAperta;
             }  
@@ -274,7 +259,7 @@ class DomandaModel extends Model {
         $domandeMultiple = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $domandaMultipla = new DomandaMultipla($obj['argomento_id'], $obj['argomento_corso_id'], $obj['testo'], $obj['punteggio_corretta'],$obj['punteggio_errata'], $obj['percentuale_scelta'], $obj['percentuale_risposta_corretta']);
+                $domandaMultipla = new DomandaMultipla($obj['argomento_id'], $obj['testo'], $obj['punteggio_corretta'],$obj['punteggio_errata'], $obj['percentuale_scelta'], $obj['percentuale_risposta_corretta']);
                 $domandaMultipla->setId($obj['id']);
                 $domandeMultiple[] = $domandaMultipla;
             }  

@@ -11,9 +11,6 @@ class RispostaMultipla {
     private $elaboratoStudenteMatricola;
     private $punteggio;
     private $alternativaId;
-    private $alternativaDomandaMultiplaId;
-    private $alternativaDomandaMultiplaArgomentoId;
-    private $alternativaDomandaMultiplaArgomentoCorsoId;
     
     /**
      * Costruttore di Risposta_multipla
@@ -21,19 +18,12 @@ class RispostaMultipla {
      * @param int $elaboratoStudenteMatricola La matricola dello studente a cui appartiene l'elaborato relativo
      * @param float $punteggio Il punteggio assegnato alla risposta
      * @param int $alternativaId L'id dell'alternativa scelta
-     * @param int $alternativaDomandaMultiplaId L'id della domanda multipla relativa all'alternativa scelta
-     * @param int $alternativaDomandaMultiplaArgomentoId L'id dell'argomento a cui appartiene la domanda multipla relativa
-     * @param int $alternativaDomandaMultiplaArgomentoCorsoId L'id del corso a cui appartiene l'argomento relativo alla domanda multipla
      */
-    public function __construct($elaboratoSessioneId, $elaboratoStudenteMatricola, $punteggio, $alternativaId, $alternativaDomandaMultiplaId, 
-            $alternativaDomandaMultiplaArgomentoId, $alternativaDomandaMultiplaArgomentoCorsoId) {
+    public function __construct($elaboratoSessioneId, $elaboratoStudenteMatricola, $punteggio, $alternativaId) {
         $this->elaboratoSessioneId=$elaboratoSessioneId;
         $this->elaboratoStudenteMatricola=$elaboratoStudenteMatricola;
         $this->punteggio=$punteggio;
         $this->alternativaId=$alternativaId;
-        $this->alternativaDomandaMultiplaId=$alternativaDomandaMultiplaId;
-        $this->alternativaDomandaMultiplaArgomentoId=$alternativaDomandaMultiplaArgomentoId;
-        $this->alternativaDomandaMultiplaArgomentoCorsoId=$alternativaDomandaMultiplaArgomentoCorsoId;
     } 
     
     /**
@@ -69,27 +59,6 @@ class RispostaMultipla {
      */
     function getAlternativaId() {
         return $this->alternativaId;
-    }
-
-    /**
-     * @return int L'id della domanda multipla a cui appartiene l'alternativa scelta
-     */
-    function getAlternativaDomandaMultiplaId() {
-        return $this->alternativaDomandaMultiplaId;
-    }
-    
-    /**
-     * @return int L'id dell'argomento a cui appartiene la domanda multipla relativa
-     */
-    function getAlternativaDomandaMultiplaArgomentoId() {
-        return $this->alternativaDomandaMultiplaArgomentoId;
-    }
-
-    /**
-     * @return int L'id del corso dell'argomento a cui appartiene la domanda multipla relativa
-     */
-    function getAlternativaDomandaMultiplaArgomentoCorsoId() {
-        return $this->alternativaDomandaMultiplaArgomentoCorsoId;
     }
 
     /**
@@ -130,30 +99,6 @@ class RispostaMultipla {
      */
     function setAlternativaId($alternativaId) {
         $this->alternativaId = $alternativaId;
-    }
-
-    /**
-    * Setta l'id della domanda multipla a cui appartiene l'alternativa scelta
-    * @param int $alternativaDomandaMultiplaId L'id della domanda multipla a cui appartiene l'alternativa scelta
-    */
-    function setAlternativaDomandaMultiplaId($alternativaDomandaMultiplaId) {
-        $this->alternativaDomandaMultiplaId = $alternativaDomandaMultiplaId;
-    }
-    
-    /**
-    * Setta l'id dell'argomento a cui appartiene la domanda multipla relativa
-    * @param int $alternativaDomandaMultiplaArgomentoId L'id dell'argomento a cui appartiene la domanda multipla relativa
-    */
-    function setAlternativaDomandaMultiplaArgomentoId($alternativaDomandaMultiplaArgomentoId) {
-        $this->alternativaDomandaMultiplaArgomentoId = $alternativaDomandaMultiplaArgomentoId;
-    }
-
-    /**
-     * Setta l'id del corso dell'argomento a cui appartiene la domanda multipla relativa
-     * @param int $alternativaDomandaMultiplaArgomentoCorsoId L'id del corso dell'argomento a cui appartiene la domanda multipla relativa
-     */
-    function setAlternativaDomandaMultiplaArgomentoCorsoId($alternativaDomandaMultiplaArgomentoCorsoId) {
-        $this->alternativaDomandaMultiplaArgomentoCorsoId = $alternativaDomandaMultiplaArgomentoCorsoId;
     }
 }
     

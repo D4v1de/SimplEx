@@ -13,12 +13,12 @@ class CorsoModel extends Model {
     private static $UPDATE_CORSO = "UPDATE `corso` SET matricola = '%s', nome = '%s', tipologia = '%s' , cdl_matricola = '%s' WHERE id = '%d'";
     private static $DELETE_CORSO = "DELETE FROM `corso` WHERE id = '%d'";
     private static $READ_CORSO = "SELECT * FROM `corso` WHERE id = '%d'";
-    private static $GET_ALL_CORSI = "SELECT * FROM `corso`";
-    private static $GET_ALL_CORSI_CDL = "SELECT * FROM `corso` WHERE cdl_matricola = '%s'";
+    private static $GET_ALL_CORSI = "SELECT * FROM `corso` ORDER BY nome";
+    private static $GET_ALL_CORSI_CDL = "SELECT * FROM `corso` WHERE cdl_matricola = '%s' ORDER BY nome";
     private static $CREATE_INSEGNAMENTO = "INSERT INTO `insegnamento` (corso_id, docente_matricola) VALUES ('%d','%s')";
     private static $DELETE_INSEGNAMENTO = "DELETE FROM `insegnamento` WHERE corso_id = '%d' AND docente_matricola = '%s'";
-    private static $GET_ALL_CORSI_DOCENTE = "SELECT c.* FROM `insegnamento` as i,`corso` as c WHERE i.corso_id = c.id AND i.docente_matricola = '%s'";
-    private static $GET_ALL_CORSI_STUDENTE = "SELECT c.* FROM `frequenta` as f,`corso` as c WHERE f.corso_id = c.id AND f.studente_matricola = '%s'";
+    private static $GET_ALL_CORSI_DOCENTE = "SELECT c.* FROM `insegnamento` as i,`corso` as c WHERE i.corso_id = c.id AND i.docente_matricola = '%s' ORDER BY c.nome";
+    private static $GET_ALL_CORSI_STUDENTE = "SELECT c.* FROM `frequenta` as f,`corso` as c WHERE f.corso_id = c.id AND f.studente_matricola = '%s' ORDER BY c.nome";
     
     /**
      * Inserisce un nuovo corso nel database

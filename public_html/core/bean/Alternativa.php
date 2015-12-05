@@ -8,8 +8,6 @@
 class Alternativa {
     private $id;
     private $domandaMultiplaId;
-    private $domandaMultiplaArgomentoId;
-    private $domandaMultiplaArgomentoCorsoId;
     private $testo;
     private $percentualeScelta;
     private $corretta;
@@ -17,15 +15,12 @@ class Alternativa {
     /**
      * Alternativa constructor.
      * @param int $domandaMultiplaId L'identificatore della domanda multipla relativa
-     * @param int $domandaMultiplaArgomentoCorsoId L'identificatore dell'insegnamento a cui appartiene l'argomento relativo alla domanda multipla di riferimento
      * @param string $testo Il testo dell'alternativa
      * @param float $percentualeScelta La percentuale di volte in cui è stata scelta
      * @param string $corretta Indica se l'alternativa è corretta
      **/
-    function __construct($domandaMultiplaId, $domandaMultiplaArgomentoId, $domandaMultiplaArgomentoCorsoId, $testo, $percentualeScelta, $corretta) {
+    function __construct($domandaMultiplaId, $testo, $percentualeScelta, $corretta) {
         $this->domandaMultiplaId = $domandaMultiplaId;
-        $this->domandaMultiplaArgomentoId = $domandaMultiplaArgomentoId;
-        $this->domandaMultiplaArgomentoCorsoId = $domandaMultiplaArgomentoCorsoId;
         $this->testo = $testo;
         $this->percentualeScelta = $percentualeScelta;
         $this->corretta = $corretta;
@@ -43,20 +38,6 @@ class Alternativa {
      */
     function getDomandaMultiplaId() {
         return $this->domandaMultiplaId;
-    }
-    
-    /**
-     * @return int L'id dell'argomento a cui appartiene la domanda multipla
-     */
-    function getDomandaMultiplaArgomentoId() {
-        return $this->domandaMultiplaArgomentoId;
-    }
-
-    /**
-     * @return int L'id del corso a cui appartiene l'argomento della domanda multipla
-     */
-    function getDomandaMultiplaArgomentoCorsoId() {
-        return $this->domandaMultiplaArgomentoCorsoId;
     }
     
     /**
@@ -94,22 +75,6 @@ class Alternativa {
      */
     function setDomandaMultiplaId($domandaMultiplaId) {
         $this->domandaMultiplaId = $domandaMultiplaId;
-    }
-    
-    /**
-     * Setta l'id dell'argomento a cui appartiene la domanda multipla
-     * @param int $domandaMultiplaArgomentoId L'id dell'argomento a cui appartiniene la domanda multipla
-     */
-    function setDomandaMultiplaArgomentoId($domandaMultiplaArgomentoId) {
-        $this->domandaMultiplaArgomentoId = $domandaMultiplaArgomentoId;
-    }
-
-    /**
-     * Setta l'id del corso a cui appartiene l'argomento della domanda multipla
-     * @param int $domandaMultiplaArgomentoCorsoId L'id del corso a cui appartiene l'argomento della domanda multipla
-     */ 
-    function setDomandaMultiplaArgomentoCorsoId($domandaMultiplaArgomentoCorsoId) {
-        $this->domandaMultiplaArgomentoCorsoId = $domandaMultiplaArgomentoCorsoId;
     }
 
     /**

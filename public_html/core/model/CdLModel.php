@@ -14,7 +14,7 @@ class CdLModel extends Model {
     private static $UPDATE_CDL = "UPDATE `cdl` SET nome = '%s', tipologia = '%s' WHERE matricola = '%s'";
     private static $DELETE_CDL = "DELETE FROM `cdl` WHERE matricola = '%s'";
     private static $READ_CDL = "SELECT * FROM `cdl` WHERE matricola = '%s'";
-    private static $GET_ALL_CDLS = "SELECT * FROM `cdl`";
+    private static $GET_ALL_CDLS = "SELECT * FROM `cdl` ORDER BY nome";
 
     /**
      * Inserisce un nuovo corso di laurea nel database
