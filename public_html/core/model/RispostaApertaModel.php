@@ -11,10 +11,10 @@ include_once BEAN_DIR . "RispostaAperta.php";
 
 class RispostaApertaModel extends Model {
     
-    public static $CREATE_RISPOSTA_APERTA = "INSERT INTO `risposta_aperta` (elaborato_sessione_id, elaborato_studente_matricola, testo, punteggio, domanda_aperta_id) VALUES ('%d', '%s', '%s', '%f', '%d')";
-    public static $READ_RISPOSTA_APERTA = "SELECT * FROM `risposta_aperta` WHERE id = '%d'";
-    public static $UPDATE_RISPOSTA_APERTA = "UPDATE `risposta_aperta` SET testo = '%s', punteggio = '%f', domanda_aperta_id = '%d', elaborato_sessione_id = '%d', elaborato_studente_matricola = '%s' WHERE id = '%d'";
-    public static $DELETE_RISPOSTA_APERTA = "DELETE FROM `risposta_aperta` WHERE id = '%d'";
+    public static $CREATE_RISPOSTA_APERTA = "INSERT INTO `risposta_aperta` (elaborato_sessione_id, elaborato_studente_matricola, domanda_aperta_id, testo, punteggio ) VALUES ('%d', '%s', '%d', '%s', '%f')";
+    public static $READ_RISPOSTA_APERTA = "SELECT * FROM `risposta_aperta` WHERE elaborato_sessione_id = '%d' AND elaborato_studente_matricola = '%s' AND domanda_aperta_id = '%d'";
+    public static $UPDATE_RISPOSTA_APERTA = "UPDATE `risposta_aperta` SET testo = '%s', punteggio = '%f' WHERE elaborato_sessione_id = '%d' AND elaborato_studente_matricola = '%s' AND domanda_aperta_id = '%d'";
+    public static $DELETE_RISPOSTA_APERTA = "DELETE FROM `risposta_aperta` WHERE elaborato_sessione_id = '%d' AND elaborato_studente_matricola = '%s' AND domanda_aperta_id = '%d'";
     public static $GET_ALL_RISPOSTA_APERTA_ELABORATO = "SELECT * FROM `risposta_aperta` WHERE elaborato_sessione_id = '%d' AND elaborato_studente_matricola = '%s'";
     
     /**
@@ -22,7 +22,7 @@ class RispostaApertaModel extends Model {
      * @param RispostaAperta $risposta La nuova risposta da inserire nel database
      */
     public function createRispostaAperta($risposta) {
-        $query = sprintf(self::$CREATE_RISPOSTA_APERTA, $risposta->getElaboratoSessioneId(), $risposta->getElaboratoStudenteMatricola(), $risposta->getTesto(),$risposta->getPunteggio(), $risposta->getDomandaApertaId());
+        $query = sprintf(self::$CREATE_RISPOSTA_APERTA, $risposta->getElaboratoSessioneId(), $risposta->getElaboratoStudenteMatricola(), $risposta->getDomandaApertaId(), $risposta->getTesto(),$risposta->getPunteggio());
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
@@ -33,16 +33,17 @@ class RispostaApertaModel extends Model {
     
     /**
      * Ricerca una risposta aperta nel database
-     * @param int $id L'id della domanda aperta da cercare
+     * @param int $elaboratoSessioneId L'id della sessione a cui appartiene l'elaborato relativo
+     * @param string $elaboratoStudenteMatricola La matricola dello studente a cui appartiene l'elaborato relativo
+     * @param int $domandaApertaId L'id della domanda aperta relativa
      * @return RispostaAperta $risposta La risposta aperta restituita se presente nel database
      * @throws ApplicationException Eccezione lanciata se non viene trovata alcuna risposta
      */
-    public function readRispostaAperta($id) {
-        $query = sprintf(self::$READ_RISPOSTA_APERTA, $id);
+    public function readRispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId) {
+        $query = sprintf(self::$READ_RISPOSTA_APERTA, $elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId);
         $res = Model::getDB()->query($query);
         if($obj = $res->fetch_assoc()) {
-            $risposta = new RispostaAperta($obj['elaborato_sessione_id'],$obj['elaborato_studente_matricola'],$obj['testo'],$obj['punteggio'],$obj['domanda_aperta_id']);
-            $risposta->setId($obj['id']);
+            $risposta = new RispostaAperta($obj['elaborato_sessione_id'],$obj['elaborato_studente_matricola'], $obj['domanda_aperta_id'], $obj['testo'],$obj['punteggio']);
             return $risposta;
         }
         else{
@@ -53,11 +54,12 @@ class RispostaApertaModel extends Model {
     /**
      * Aggiorna una risposta aperta presente nel database
      * @param RispostaAperta $updatedRisposta La risposta aperta modificata da aggiornare nel db
-     * @param int $id L'id della risposta aperta da aggiornare nel db
+     * @param int $elaboratoSessioneId L'id della sessione a cui appartiene l'elaborato relativo
+     * @param string $elaboratoStudenteMatricola La matricola dello studente a cui appartiene l'elaborato relativo
+     * @param int $domandaApertaId L'id della domanda aperta relativa
      **/
-    public function updateRispostaAperta($updatedRisposta, $id){
-        $query = sprintf(self::$UPDATE_RISPOSTA_APERTA, $updatedRisposta->getTesto(),$updatedRisposta->getPunteggio(), $updatedRisposta->getDomandaApertaId(),
-                $updatedRisposta->getElaboratoSessioneId(), $updatedRisposta->getElaboratoStudenteMatricola(), $id);
+    public function updateRispostaAperta($updatedRisposta, $elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId){
+        $query = sprintf(self::$UPDATE_RISPOSTA_APERTA, $updatedRisposta->getTesto(),$updatedRisposta->getPunteggio(), $elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId);
         Model::getDB()->query($query);
         if(Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
@@ -66,10 +68,12 @@ class RispostaApertaModel extends Model {
     
     /**
      * Elimina una risposta aperta dal database
-     * @param int $id L'id della risposta aperta da cercare
+     * @param int $elaboratoSessioneId L'id della sessione a cui appartiene l'elaborato relativo
+     * @param string $elaboratoStudenteMatricola La matricola dello studente a cui appartiene l'elaborato relativo
+     * @param int $domandaApertaId L'id della domanda aperta relativa
      */
-    public function deleteRispostaAperta ($id) {
-        $query = sprintf(self::$DELETE_RISPOSTA_APERTA, $id);
+    public function deleteRispostaAperta ( $elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId) {
+        $query = sprintf(self::$DELETE_RISPOSTA_APERTA,  $elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId);
         Model::getDB()->query($query);
         if(Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
@@ -87,7 +91,7 @@ class RispostaApertaModel extends Model {
         $risposte = array();
         if($res){
             while($obj=$res->fetch_assoc()) {
-                $risposta = new RispostaAperta($obj['elaborato_sessione_id'],$obj['elaborato_studente_matricola'],$obj['testo'],$obj['punteggio'],$obj['domanda_aperta_id']);
+                $risposta = new RispostaAperta($obj['elaborato_sessione_id'],$obj['elaborato_studente_matricola'], $obj['domanda_aperta_id'], $obj['testo'],$obj['punteggio']);
                 $risposta->setId($obj['id']);
                 $risposte[] = $risposta;
             }  

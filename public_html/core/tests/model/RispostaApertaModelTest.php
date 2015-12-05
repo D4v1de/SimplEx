@@ -20,18 +20,18 @@ class RispostaApertaModelTest extends PHPUnit_Framework_TestCase
     public function testCreateRemoveEditRispostaAperta() {
         $model = new RispostaApertaModel();
 
-        $risId = $model->createRispostaAperta(new RispostaAperta(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::TESTO,self::PUNTEGGIO,self::DAID));
-        $ris = $model->readRispostaAperta($risId);
+        $risId = $model->createRispostaAperta(new RispostaAperta(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DAID, self::TESTO,self::PUNTEGGIO));
+        $ris = $model->readRispostaAperta(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DAID);
         $this->assertEquals(self::TESTO,$ris->getTesto());
         $this->assertEquals(self::DAID, $ris->getDomandaApertaId());
         $this->assertEquals(self::SESSIONE_ID,$ris->getElaboratoSessioneId());
         $this->assertEquals(self::STUDENTE_MATRICOLA,$ris->getElaboratoStudenteMatricola());
 
-        $model->updateRispostaAperta(new RispostaAperta(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::TESTO2,self::PUNTEGGIO,self::DAID),$risId);
-        $ris2 = $model->readRispostaAperta($risId,self::SESSIONE_ID, self::STUDENTE_MATRICOLA);
+        $model->updateRispostaAperta(new RispostaAperta(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DAID, self::TESTO2,self::PUNTEGGIO), self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DAID);
+        $ris2 = $model->readRispostaAperta(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DAID);
         $this->assertEquals(self::TESTO2,$ris2->getTesto());
 
-        $model->deleteRispostaAperta($risId);
+        $model->deleteRispostaAperta(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DAID);
 
     }
 
