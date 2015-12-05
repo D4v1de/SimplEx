@@ -156,6 +156,6 @@ class CdlController extends Controller {
      */
     public function getCorsiStudente($studente_matricola) {
         $corsoModel = new CorsoModel();
-        $corsoModel->getAllCorsiByStudente($studente_matricola);
+        return $corsoModel->getAllCorsiByStudente($studente_matricola);
     }
 }

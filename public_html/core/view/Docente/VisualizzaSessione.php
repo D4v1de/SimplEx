@@ -7,8 +7,60 @@
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "Esempio.php";
-$controller = new Esempio();
+include_once CONTROL_DIR . "SessioneController.php";
+include_once CONTROL_DIR . "CdlController.php";
+$controllerSessione = new SessioneController();
+$controlleCdl = new CdlController();
+$idSessione = $_URL[6];
+$identificativoCorso = $_URL[3];
+$sessione = null;
+$valu = null;
+$eser = null;
+
+if (!is_numeric($idSessione)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
+
+try {
+    $sessione = $controllerSessione->readSessione($idSessione);
+} catch (ApplicationException $ex) {
+    echo "<h1>INSERIRE ID SESSIONE NEL PATH</h1>".$ex;
+}
+
+$corso = $controlleCdl->readCorso($identificativoCorso);
+$nomecorso= $corso->getNome();
+
+$dataFrom = $sessione->getDataInizio();
+$dataTo = $sessione->getDataFine();
+$tipoSessione = $sessione->getTipologia();
+if ($tipoSessione == "Valutativa")
+    $valu = "Checked";
+else $eser = "Checked";
+
+
+if(isset($_POST['avvia'])){
+    $idSesToGo=$_POST['avvia'];
+    $dataNow=date('Y/m/d/ h:i:s ', time());
+    $newSessione = new Sessione($dataNow, dataTo, 18, "In Esecuzione", $tipoSessione, $identificativoCorso);
+    $controllerSessione->updateSessione($idSessione,$newSessione);
+    $vaiASessioneInCorso= "Location: /sessioneincorso";
+    header($vaiASessioneInCorso);
+}
+
+
+
+if(isset($_POST['rimuovi'])){
+    $idSes = $_POST['rimuovi'];
+    try {
+        $controllerSessione->deleteSessione($idSes);
+        $tornaACasa= "Location: "."/usr/docente/corso/"."$identificativoCorso";
+        header($tornaACasa);
+    }
+    catch(ApplicationException $ex) {
+        echo "PERCHè NON FUNZIONI?".$ex;
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -55,11 +107,17 @@ $controller = new Esempio();
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="#">Nome Corso</a>
+                        <a href="<?php echo "/usr/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $controlleCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        Nome Sessione
+                        <?php
+                            $vaiANomeCorso="/usr/docente/corso/".$identificativoCorso;
+                            printf("<a href=\"%s\">%s</a><i class=\"fa fa-angle-right\"></i>", $vaiANomeCorso ,$nomecorso);
+                         ?>
+                    </li>
+                    <li>
+                        <?php echo "Sessione ".$sessione->getId() ?>
                     </li>
                 </ul>
             </div>
@@ -74,7 +132,7 @@ $controller = new Esempio();
                             <label class="control-label">Avvio:</label>
 
                             <div class="input-group date form_datetime">
-                                <input type="text" size="16" readonly="" class="form-control" value="28/11/2015 12:00" disabled="true"/>
+                                <input type="text"  size="16" readonly="" class="form-control" value='<?php printf("%s", $dataFrom ); ?>' disabled="true"/>
                                         <span class="input-group-btn">
                                             <button class="btn default date-set" type="button"><i
                                                     class="fa fa-calendar"></i></button>
@@ -87,7 +145,7 @@ $controller = new Esempio();
                             <label class="control-label">Termine:</label>
 
                             <div class="input-group date form_datetime">
-                                <input type="text" size="16" readonly="" class="form-control" value="28/11/2015 12:00" disabled="true"/>
+                                <input type="text" size="16" readonly="" class="form-control" value='<?php printf("%s", $dataTo ); ?>' disabled="true"/>
                                         <span class="input-group-btn">
                                             <button class="btn default date-set" type="button"><i
                                                     class="fa fa-calendar"></i></button>
@@ -101,7 +159,7 @@ $controller = new Esempio();
                             <label>Seleziona tipologia</label>
                             <div class="md-radio-list">
                                 <div class="md-radio">
-                                    <input type="radio" id="radio1" name="radio1" class="md-radiobtn" disabled="true" checked="">
+                                    <?php printf("<input type=\"radio\" disabled value=\"Valutativa\" id=\"radio1\" %s name=\"radio1\" class=\"md-radiobtn\">", $valu);?>
                                     <label for="radio1">
                                     <span></span>
                                     <span class="check"></span>
@@ -109,7 +167,7 @@ $controller = new Esempio();
                                     Valutativa </label>
                                 </div>
                                 <div class="md-radio">
-                                    <input type="radio" id="radio2" name="radio1" class="md-radiobtn" disabled="true">
+                                    <?php printf("<input disabled type=\"radio\" value=\"Esercitativa\" id=\"radio1\" %s name=\"radio2\" class=\"md-radiobtn\">", $eser);?>
                                     <label for="radio2">
                                     <span></span>
                                     <span class="check"></span>
@@ -124,7 +182,7 @@ $controller = new Esempio();
                             <label>Seleziona preferenze</label>
                             <div class="md-checkbox-list">
                                 <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox1" class="md-check" disabled="true" checked="">
+                                    <input type="checkbox" id="checkbox1" class="md-check" disabled="true" >
                                     <label for="checkbox1">
                                     <span></span>
                                     <span class="check"></span>
@@ -190,7 +248,7 @@ $controller = new Esempio();
                                 </th><th class="sorting-disabled" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" aria-label="
                                                                  Email
                                                         : activate to sort column ascending" style="width: 181px;">
-                                    Data Creazione
+                                    Descrizione
                                 </th>
                                 <th class="sorting-disabled" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" aria-label="
                                                                  Email
@@ -221,45 +279,26 @@ $controller = new Esempio();
                             </tr>
                             </thead>
                             <tbody>
-
-                            <tr class="gradeX odd" role="row">
-                                <td class="sorting_1">
-                                    Test 1
-                                </td>
-                                <td>
-                                    10/11/2015
-                                </td>
-                                <td>10</td>
-                                <td>2</td>
-                                <td>60</td>
-                                <td>0%</td>
-                                <td>0%</td>
-
-                            </tr><tr class="gradeX even" role="row">
-                                <td class="sorting_1">
-                                    Test 2
-                                </td>
-                                <td>
-                                    15/2/2016
-                                </td>
-                                <td>10</td>
-                                <td>0</td>
-                                <td>60</td>
-                                <td>10%</td>
-                                <td>70%</td>
-                            </tr><tr class="gradeX odd" role="row">
-                                <td class="sorting_1">
-                                    Test 3
-                                </td>
-                                <td>
-                                    16/11/2015
-                                </td>
-                                <td>0</td>
-                                <td>10</td>
-                                <td>60</td>
-                                <td>5%</td>
-                                <td>15%</td>
-                            </tr>
+                            <?php
+                            $array = Array();
+                            $array = $controllerSessione->getAllTestBySessione($idSessione);
+                            if ($array == null) {
+                                echo "l'array è null"." ".$idSessione;
+                            }
+                            else {
+                                foreach ($array as $c) {
+                                    printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                    printf("<td class=\"sorting_1\">Test %s</td>", $c->getId());
+                                    printf("<td>%s</td>", $c->getDescrizione());
+                                    printf("<td>%d</td>", $c->getNumeroMultiple());
+                                    printf("<td>%d</td>", $c->getNumeroAperte());
+                                    printf("<td>%d</td>", $c->getPunteggioMax());
+                                    printf("<td>%d</td>", $c->getPercentualeScelto());
+                                    printf("<td>%d</td>", $c->getPercentualeSuccesso());
+                                    printf("</tr>");
+                                }
+                            }
+                            ?>
                             </tbody>
                         </table>
                     </div>
@@ -403,26 +442,26 @@ $controller = new Esempio();
             </div>
 
 
-
+        <form action="" method="post">
             <div class="form-actions">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-9">
-                                <a href="javascript:;" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
-                                    <i class="fa fa-play-circle-o"></i>Avvia ora
-                                </a>
-                                <a href="javascript:;" class="btn sm blue-madison">
-                                    <i class="fa fa-edit"></i>Modifica Sessione
-                                </a>
-                                <a href="javascript:;" class="btn sm red-intense">
-                                    <i class="fa fa-trash-o"></i>Elimina Sessione
-                                </a>
+                                <?php
+                                printf("<button name=\"avvia\" value=\"%s\" class=\"btn sm green-jungle\"><span class=\"md-click-circle md-click-animate\" style=\"height: 94px; width: 94px; top: -23px; left: 2px;\"></span><i class=\"fa fa-play-circle-o\"></i>Avvia ora</button>",$idSessione);
+                                $vaiAModifica="/usr/docente/corso/".$identificativoCorso."/sessione"."/"."creamodificasessione"."/".$idSessione;
+                                $vaiAVisu="/usr/docente/corso/".$identificativoCorso."/sessione"."/"."visualizzasessione"."/".$idSessione;
+
+                                printf(" <a href=\"%s\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i>ModificaSessione</a>", $vaiAModifica);
+                                printf("<button type='submit' name='rimuovi' value='%d' class='btn btn-sm red-intense'><i class=\"fa fa-trash-o\"></i>Elimina Sessione</button>",$idSessione);
+                                ?>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </form>
             <!-- END PAGE CONTENT-->
         </div>
         <!-- END CONTENT -->

@@ -20,12 +20,12 @@ class TestController extends Controller {
     
     //Restituisce tutti i test
     public function getAllTest() {
-        return $testModel->getAllTest();
+        return $this->testModel->getAllTest();
     }
     
     //ricerca un test attraverso l'a matricola'id
     public function getTestbyId($id) {
-        return $testModel->readTest($id);
+        return $this->testModel->readTest($id);
     }
     
     //ricerca i test relativi ad un corso
@@ -33,8 +33,8 @@ class TestController extends Controller {
         $testModel = new TestModel();
         return $testModel->getAllTestByCorso($id);
     }
-    
-    
+
+
     
     
     

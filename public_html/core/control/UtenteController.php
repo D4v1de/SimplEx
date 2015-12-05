@@ -98,4 +98,24 @@ class UtenteController extends Controller {
 
         $aModel->updateUtente($matricola, $utente);
     }
+
+    /**
+     * Iscrive uno studente ad un Corso
+     * @param matricola dello Studente
+     * @param id del Corso
+     */
+    public function iscrizioneStudente($matricola_studente, $id_corso) {
+        $accountModel = new AccountModel();
+        $accountModel->iscriviStudenteCorso($matricola_studente, $id_corso);
+    }
+
+    /**
+     * Disiscrive uno studente ad un Corso
+     * @param matricola dello Studente
+     * @param id del Corso
+     */
+    public function disiscrizioneStudente($matricola_studente, $id_corso) {
+        $accountModel = new AccountModel();
+        $accountModel->disiscriviStudenteCorso($matricola_studente, $id_corso);
+    }
 }

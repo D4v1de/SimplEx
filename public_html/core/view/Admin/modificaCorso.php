@@ -109,6 +109,26 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
 
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form">
+                        <form action="#" class="form-horizontal form-bordered form-row-stripped">
+                            <div class="form-actions">
+                                <div class="col-md col-md-7">
+                                    <h3>Architettura degli elaboratori - CL3</h3>
+                                    <h5>Matricola: 0512100001</h5>
+                                    <h5>Tipologia: Semestrale</h5>
+                                    <h5>Docente: Marcella Anselmo</h5>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <h3></h3>
+            </div>
 
             <div class="row">
                 <div class="col-md-12">

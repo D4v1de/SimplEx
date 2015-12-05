@@ -57,7 +57,7 @@ if (isset($_POST['checkbox'])) {
         }
     }
     foreach ($checkbox as $c) {
-        $docente = $controller->getUtenteByMatricola($c);
+        $docente = $controllerUtenti->getUtenteByMatricola($c);
         if (!in_array($docente, $docenteassociato)) {
             try {
                 $controller->creaInsegnamento($corso->getId(), $c);

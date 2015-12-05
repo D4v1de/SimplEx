@@ -18,7 +18,7 @@ $controllerArgomento = new ArgomentoController();
 $controllerCorso = new CdlController();
 
 $corso = null;
-$identidicativoCorso = $_URL[3];
+$identificativoCorso = $_URL[3];
 $id = null;
 $idcorso = null;
 $argomenti = Array();
@@ -40,7 +40,7 @@ try{
     echo "ERRORE IN READ ARGOMENTO" . $exception;
 }
 
-$idsSessione = $controllerSessione->getAllSessioniByCorso($identidicativoCorso);
+$idsSessione = $controllerSessione->getAllSessioniByCorso($identificativoCorso);
 if(isset($_POST['IdSes'])){
     $idSes = $_POST['IdSes'];
     try {
@@ -160,7 +160,7 @@ if(isset($_POST['id'])){
                         </a>
                     </div>
                     <div class="actions">
-                        <a href="<?php printf("%s","/usr/docente/corso/".$identidicativoCorso."/sessione"."/"."creamodificasessione"."/"."0") ?>" class="btn btn-default btn-sm">
+                        <a href="<?php printf("%s","/usr/docente/corso/".$identificativoCorso."/sessione"."/"."creamodificasessione"."/"."0") ?>" class="btn btn-default btn-sm">
                             <i class="fa fa-plus"></i> Crea Sessione </a>
                     </div>
                 </div>
@@ -179,6 +179,10 @@ if(isset($_POST['id'])){
                                         " style="width: 210px;">
                                     Data e ora
                                 </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                                 Status
+                                        " style="width: 20%;">
+                                    Tipologia
+                                </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                                  Points
                                         " style="width: 73px;">
                                     Stato
@@ -196,16 +200,21 @@ if(isset($_POST['id'])){
                                 echo "l'array è null";
                             }
                             else {
+
                                 foreach ($array as $c) {
+                                    $vaiAModifica="/usr/docente/corso/".$identificativoCorso."/sessione"."/"."creamodificasessione"."/".$c->getId();
+                                    $vaiAVisu="/usr/docente/corso/".$identificativoCorso."/sessione"."/"."visualizzasessione"."/".$c->getId();
+
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
 
-                                    printf("<td class=\"sorting_1\"><a href=\"visualizzasessione/%s\">%s</a></td>", $c->getId(), "Sessione ".$c->getId());
-                                    printf("<td>%s</td>", $c->getDataInizio());
+                                    printf("<td class=\"sorting_1\"><a href=\"%s\">%s</a></td>", $vaiAVisu,  "Sessione ".$c->getId());
+                                    printf("<td><b>Inizio:</b>%s<b>  Fine:</b>%s</td>", $c->getDataInizio(),$c->getDataFine());
                                     printf("<td>%s</td>", $c->getTipologia());
+                                    printf("<td>%s</td>", $c->getStato());
                                     printf("<td class=\"center\"><a href=\"visualizzaesitisessione\" class=\"btn btn-sm default\">Esiti</a>
-                                                                 <a href=\"creamodificasessione\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></a>
+                                           <a href=\"%s\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></a>
                                                                  <button type='submit' name='IdSes' value='%d' class='btn btn-sm red-intense'><i class=\"fa fa-trash-o\"></i></button>
-                                           </td>", $c->getId());
+                                           </td>", $vaiAModifica, $c->getId());
                                     printf("</tr>");
                                 }
                             }

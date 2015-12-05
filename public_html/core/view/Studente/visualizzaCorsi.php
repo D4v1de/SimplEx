@@ -49,11 +49,16 @@ try {
     echo "<h1>GETCORSISTUDENTE FALLITO!</h1>".$ex;
 }
 
-echo $studente->getMatricola()." ".$studente->getNome();
-echo "---array---";
-print_r($corsistudente);
-if($corsistudente == null) {echo "è null!!!";}
-
+if(isset($_POST['iscrivi'])) {
+    $iscrivi = $_POST['iscrivi'];
+    $controllerUtente->iscrizioneStudente($studente->getMatricola(), $iscrivi);
+    header("Refresh:0");
+}
+if(isset($_POST['disiscrivi'])) {
+    $disiscrivi = $_POST['disiscrivi'];
+    $controllerUtente->disiscrizioneStudente($studente->getMatricola(), $disiscrivi);
+    header("Refresh:0");
+}
 
 ?>
 <!DOCTYPE html>
@@ -157,10 +162,10 @@ if($corsistudente == null) {echo "è null!!!";}
                                     printf("<td class=\"sorting_1\">%s</td>", $c->getMatricola());
                                     printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
                                     if(in_array($c, $corsistudente)) {
-                                        printf("<td class=\"sorting_1\"><button type=\"button\" class=\"btn red-intense\"><span class=\"md-click-circle md-click-animate\"></span>Disiscriviti</button></td>");
+                                        printf("<td class=\"sorting_1\"><button type=\"submit\" name=\"disiscrivi\" value=\"%d\" class=\"btn red-intense\"><span class=\"md-click-circle md-click-animate\"></span>Disiscriviti</button></td>", $c->getId());
                                     }
                                     else {
-                                        printf("<td class=\"sorting_1\"><button type=\"button\" class=\"btn green-jungle\"><span class=\"md-click-circle md-click-animate\"></span>Iscriviti</button></td>");
+                                        printf("<td class=\"sorting_1\"><button type=\"submit\" name=\"iscrivi\" value=\"%d\" class=\"btn green-jungle\"><span class=\"md-click-circle md-click-animate\"></span>Iscriviti</button></td>", $c->getId());
                                     }
                                     printf("</tr>");
                                 }
@@ -191,8 +196,7 @@ if($corsistudente == null) {echo "è null!!!";}
 <!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
 <script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript"
-        src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <!-- END PAGE LEVEL PLUGINS aggiunta da me-->
 
 <script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>
