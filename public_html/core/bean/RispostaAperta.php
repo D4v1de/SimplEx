@@ -6,13 +6,13 @@
  * Time: 10:36
  */
 class RispostaAperta {
-    private $id;
+
     private $elaboratoSessioneId;
     private $elaboratoStudenteMatricola;
+    private $domandaApertaId;
     private $testo;
     private $punteggio;
-    private $domandaApertaId;
-    
+
     /**
      * Costruttore di Risposta_multipla
      * @param int $elaboratoSessioneId L'id della sessione a cui appartiene l'elaborato relativo
@@ -20,19 +20,12 @@ class RispostaAperta {
      * @param string $testo Il testo della risposta aperta
      * @param int $domandaApertaId L'id della domanda aperta a cui si riferisce
      */
-    public function __construct($elaboratoSessioneId, $elaboratoStudenteMatricola, $testo, $punteggio, $domandaApertaId){
+    public function __construct($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId, $testo, $punteggio){
         $this->elaboratoSessioneId=$elaboratoSessioneId;
         $this->elaboratoStudenteMatricola=$elaboratoStudenteMatricola;
+        $this->domandaApertaId=$domandaApertaId;
         $this->testo=$testo;
         $this->punteggio=$punteggio;
-        $this->domandaApertaId=$domandaApertaId;
-    } 
-    
-    /**
-     * @return int L'id della risposta
-     */
-    function getId() {
-        return $this->id;
     }
     
     /**
@@ -47,6 +40,13 @@ class RispostaAperta {
      */
     function getElaboratoStudenteMatricola() {
         return $this->elaboratoStudenteMatricola;
+    }
+
+    /**
+     * @return int l'id della domanda aperta
+     */
+    function getDomandaApertaId() {
+        return $this->domandaApertaId;
     }
     
     /**
@@ -63,27 +63,12 @@ class RispostaAperta {
         return $this->punteggio;
     }
 
-     /**
-     * @return int l'id della domanda aperta
-     */
-    function getDomandaApertaId() {
-        return $this->domandaApertaId;
-    }
-
     /**
-     * Setta l'id della risposta aperta
-     * @param int $id L'id della risposta aperta
+     * Setta l'id dell'elaborato della sessione
+     * @param int $elaboratoSessioneId L'id dell'elaborato della sessione
      */
-    function setId($id) {
-        $this->id = $id;
-    }
-    
-    /**
-     * Setta il testo della risposta aperta
-     * @param string $testo Il testo della risposta aperta
-     */
-    function setTesto($testo) {
-        $this->testo = $testo;
+    function setElaboratoSessioneId($elaboratoSessioneId) {
+        $this->elaboratoSessioneId = $elaboratoSessioneId;
     }
 
     /**
@@ -100,6 +85,22 @@ class RispostaAperta {
      */
     function setDomandaApertaId($domandaApertaId) {
         $this->domandaApertaId = $domandaApertaId;
+    }
+
+    /**
+     * Setta il testo della risposta aperta
+     * @param string $testo Il testo della risposta aperta
+     */
+    function setTesto($testo) {
+        $this->testo = $testo;
+    }
+
+    /**
+     * Setta il punteggio da asseganre alla risposta
+     * @param float $punteggio Il punteggio da asseganre alla risposta
+     */
+    function setPunteggio($punteggio) {
+        $this->punteggio = $punteggio;
     }
 }
     

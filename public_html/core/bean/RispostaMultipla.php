@@ -6,9 +6,10 @@
  * Time: 10:40
  */
 class RispostaMultipla {
-    private $id;
+
     private $elaboratoSessioneId;
     private $elaboratoStudenteMatricola;
+    private $domandaMultiplaId;
     private $punteggio;
     private $alternativaId;
     
@@ -16,21 +17,16 @@ class RispostaMultipla {
      * Costruttore di Risposta_multipla
      * @param int $elaboratoSessioneId L'id della sessione a cui appartiene l'elaborato relativo
      * @param int $elaboratoStudenteMatricola La matricola dello studente a cui appartiene l'elaborato relativo
+     * @param int $domandaMultiplaId L'id della domanda multipla a cui si riferisce
      * @param float $punteggio Il punteggio assegnato alla risposta
      * @param int $alternativaId L'id dell'alternativa scelta
      */
-    public function __construct($elaboratoSessioneId, $elaboratoStudenteMatricola, $punteggio, $alternativaId) {
+    public function __construct($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId, $punteggio, $alternativaId) {
         $this->elaboratoSessioneId=$elaboratoSessioneId;
         $this->elaboratoStudenteMatricola=$elaboratoStudenteMatricola;
+        $this->domandaMultiplaId=$domandaMultiplaId;
         $this->punteggio=$punteggio;
         $this->alternativaId=$alternativaId;
-    } 
-    
-    /**
-     * @return int L'identificatore della risposta multipla
-     */
-    function getId() {
-        return $this->elaboratoStudenteMatricola;
     }
     
     /**
@@ -48,6 +44,13 @@ class RispostaMultipla {
     }
 
     /**
+     * @return int L'identificatore della domanda multipla a cui si riferisce
+     */
+    function getDomandaMultiplaId() {
+        return $this->domandaMultiplaId;
+    }
+
+    /**
      * @return float Il punteggio assegnato alla risposta
      */
     function getPunteggio() {
@@ -59,14 +62,6 @@ class RispostaMultipla {
      */
     function getAlternativaId() {
         return $this->alternativaId;
-    }
-
-    /**
-     * Setta l'id della risposta multipla
-     * @param int $id L'identificatore della risposta multipla
-     */
-    function setId($id) {
-        $this->id = $id;
     }
     
     /**
@@ -83,6 +78,14 @@ class RispostaMultipla {
      */
     function setElaboratoStudenteMatricola($elaboratoStudenteMatricola) {
         $this->elaboratoStudenteMatricola = $elaboratoStudenteMatricola;
+    }
+
+    /**
+     * Setta l'id della domanda multipla
+     * @param int $domandaMultiplaId L'identificatore della domanda multipla
+     */
+    function setDomandaMultiplaId($domandaMultiplaId) {
+        $this->domandaMultiplaId = $domandaMultiplaId;
     }
 
     /**
