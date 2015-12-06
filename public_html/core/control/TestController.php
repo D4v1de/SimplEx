@@ -24,7 +24,7 @@ class TestController extends Controller {
     }
     
     //ricerca un test attraverso l'a matricola'id
-    public function getTestbyId($id) {
+    public function readTest($id){
         return $this->testModel->readTest($id);
     }
     

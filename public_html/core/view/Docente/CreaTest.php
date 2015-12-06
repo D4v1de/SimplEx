@@ -279,7 +279,7 @@ $num = $controller->getNumArgomenti(); //STUB
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-9">
-                                    <a href="../" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                    <a href="../" onclick="javascript: Creazione();" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                                         Conferma
                                     </a>
                                     <a href="../" class="btn sm red-intense">
@@ -304,6 +304,7 @@ $num = $controller->getNumArgomenti(); //STUB
 
 <!--Script specifici per la pagina -->
 <script src="/assets/global/scripts/manuale_random.js" type="text/javascript"></script>
+<script src="/assets/global/scripts/creazioneTest.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
