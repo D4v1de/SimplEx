@@ -8,8 +8,11 @@
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "CdlController.php";
+include_once CONTROL_DIR . "UtenteController.php";
 $controller = new CdlController();
+$controllerUtenti = new UtenteController();
 
+$docenteassociato = Array();
 $corso = null;
 $url = null;
 
@@ -20,8 +23,15 @@ if (!is_numeric($url)) {
 
 try {
     $corso = $controller->readCorso($url);
-} catch (ApplicationException $ex) {
+}
+catch (ApplicationException $ex) {
     echo "<h1>INSERIRE ID CORSO NEL PATH</h1>".$ex;
+}
+try {
+    $docenteassociato = $controllerUtenti->getDocenteAssociato($corso->getId());
+}
+catch (ApplicationException $ex) {
+    echo "<h1>GETDOCENTIASSOCIATI FALLITO!</h1>".$ex;
 }
 
 $nome = $corso->getNome();
@@ -31,24 +41,24 @@ $cdlmatricola = $corso->getCdlMatricola();
 
 if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricola']) && isset($_POST['cdlmatricola'])) {
 
-    $nome = $_POST['nome'];
-    $tipologia = $_POST['tipologia'];
-    $matricola = $_POST['matricola'];
-    $cdlmatricola = $_POST['cdlmatricola'];
+    $nomenew = $_POST['nome'];
+    $tipologianew = $_POST['tipologia'];
+    $matricolanew = $_POST['matricola'];
+    $cdlmatricolanew = $_POST['cdlmatricola'];
 
 
-    if (empty($nome) && empty($matricola) && empty($cdlMatricola)) {
+    if (empty($nomenew) && empty($matricolanew) && empty($cdlmatricolanew)) {
         echo "<script type='text/javascript'>alert('devi riempire tutti i campi!');</script>";
-    } else if (empty($nome)) {
+    } else if (empty($nomenew)) {
         echo "<script type='text/javascript'>alert('devi inserire il nome!');</script>";
-    } else if (empty($matricola)) {
+    } else if (empty($matricolanew)) {
         echo "<script type='text/javascript'>alert('devi inserire la matricola!');</script>";
-    } else if (empty($cdlMatricola)) {
+    } else if (empty($cdlmatricolanew)) {
         echo "<script type='text/javascript'>alert('devi inserire la matricola del CdL!');</script>";
     } else {
 
         try {
-            $new = new Corso($matricola, $nome, $tipologia, $cdlmatricola);
+            $new = new Corso($matricolanew, $nomenew, $tipologianew, $cdlmatricolanew);
             $controller->modificaCorso($corso->getId(), $new);
             header('location: ../view');
         } catch (ApplicationException $ex) {
@@ -114,11 +124,19 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                     <div class="form">
                         <form action="#" class="form-horizontal form-bordered form-row-stripped">
                             <div class="form-actions">
-                                <div class="col-md col-md-7">
-                                    <h3>Architettura degli elaboratori - CL3</h3>
-                                    <h5>Matricola: 0512100001</h5>
-                                    <h5>Tipologia: Semestrale</h5>
-                                    <h5>Docente: Marcella Anselmo</h5>
+                                <div class="col-md col-md-10">
+                                    <h3><?php echo $corso->getNome(); ?></h3>
+                                    <h5>Matricola: <?php echo $corso->getMatricola(); ?></h5>
+                                    <h5>Tipologia: <?php echo $corso->getTipologia(); ?></h5>
+                                    <?php
+                                    if (count($docenteassociato) >= 1) {
+                                        foreach ($docenteassociato as $d) {
+                                            printf('<h5>Docente: %s %s</h5>', $d->getNome(), $d->getCognome());
+                                        }
+                                    } else if (count($docenteassociato) < 1) {
+                                        printf('<h5>Questo corso non ha docenti Associati!</h5>');
+                                    }
+                                    ?>
                                 </div>
                             </div>
                         </form>
@@ -206,7 +224,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                     <div class="col-md-3">
                                         <input type="reset" value="Annulla" class="btn red-intense"/>
                                     </div>
-                                    <div class="col-md-offset-1 col-md-3">
+                                    <div class="col-md-offset-1 col-md-5">
                                         <a href="<?php printf('../gestione/%s', $corso->getId()); ?>"
                                            class="btn blue-madison">Associa Docente</a>
                                     </div>

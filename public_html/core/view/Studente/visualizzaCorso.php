@@ -5,24 +5,13 @@
  * Date: 23/11/15
  * Time: 21:58
  */
-
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "UtenteController.php";
 include_once CONTROL_DIR . "SessioneController.php";
-include_once CONTROL_DIR . "ElaboratoController.php";
-
 $controller = new CdlController();
 $utenteController = new UtenteController();
 $sessioneController = new SessioneController();
-$elaboratoController = new ElaboratoController();
-
-$corso = $controller->readCorso($_URL[3]);
-
-$cdl = $controller->readCdl($corso->getCdlMatricola());
-$matricolaStudente = "0512102390"; //STUB
-
-$sessioni = $sessioneController->getAllSessioniByStudente($matricolaStudente);
 
 $docenteassociato = Array();
 $corso = null;
@@ -34,7 +23,6 @@ $url = $_URL[3];
 if (!is_numeric($url)) {
     echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
 }
-
 try {
     $corso = $controller->readCorso($url);
 } catch (ApplicationException $ex) {
@@ -55,8 +43,6 @@ try {
 } catch (ApplicationException $ex) {
     echo "<h1>GETDOCENTIASSOCIATI FALLITO</h1>".$ex;
 }
-
-
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -119,32 +105,19 @@ try {
                     <div class="form">
                         <form action="#" class="form-horizontal form-bordered form-row-stripped">
                             <div class="form-actions">
-                                <div class="col-md col-md-12">
-                                    <table>
-                                        <tr>
-                                            <td>
-                                                <h3><i class="fa fa-university"></i></h3>
-                                            </td>
-                                            <td>
-                                                <h3>&nbsp;<?php echo $corso->getNome(); ?></h3>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><h3></h3></td>
-                                            <td>
-                                                <h5>&nbsp;Matricola: <?php echo $corso->getMatricola(); ?></h5>
-                                                <h5>&nbsp;Tipologia: <?php echo $corso->getTipologia(); ?></h5>
-
-                                                <?php
-                                                if (count($docenteassociato) >= 1) {
-                                                    foreach ($docenteassociato as $d) {
-                                                        printf('<h5>&nbsp;Docente: %s %s</h5>', $d->getNome(), $d->getCognome());
-                                                    }
-                                                } else if (count($docenteassociato) < 1) {
-                                                    printf('<h5>Questo corso non ha docenti Associati!</h5>');
-                                                }
-                                                echo '</td></tr></table>';
-                                                ?>
+                                <div class="col-md col-md-10">
+                                    <h3><?php echo $corso->getNome(); ?></h3>
+                                    <h5>Matricola: <?php echo $corso->getMatricola(); ?></h5>
+                                    <h5>Tipologia: <?php echo $corso->getTipologia(); ?></h5>
+                                    <?php
+                                    if (count($docenteassociato) >= 1) {
+                                        foreach ($docenteassociato as $d) {
+                                            printf('<h5>Docente: %s %s</h5>', $d->getNome(), $d->getCognome());
+                                        }
+                                    } else if (count($docenteassociato) < 1) {
+                                        printf('<h5>Questo corso non ha docenti Associati!</h5>');
+                                    }
+                                    ?>
                                 </div>
                             </div>
                         </form>
@@ -203,24 +176,17 @@ try {
                                 </thead>
                                 <tbody>
                                 <?php
-                                if ($sessioni == null) {
-                                    echo "l'array è null";
-                                } else {
-                                    foreach ($sessioni as $s) {
-                                        printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                        printf("<td class=\"sorting_1\">Sessione %s</td>", $s->getId());
-                                        printf("<td class=\"sorting_1\">%s</td>", $s->getDataInizio());
-                                        if (!strcmp($s->getTipologia(),"Esercitativa"))
-                                            printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $s->getTipologia());
-                                        else
-                                            printf("<td><span class=\"label label-sm label-danger\">%s</span></td>", $s->getTipologia());
-                                        $elaborato = $elaboratoController->readElaborato($matricolaStudente,$s->getId());
-                                        $esito = ($elaborato->getEsitoFinale())? $elaborato->getEsitoFinale():$elaborato->getEsitoParziale();
-                                        printf("<td class=\"sorting_1\"><a href=\"\">%s</a></td>", $esito);
-                                        printf("<td class=\"center\"><a href=\"javascript:;\" class=\"btn btn-sm default\" disabled=\"true\">Visualizza</a>");
-                                        printf("<a href=\"../eseguitest/%d\" class=\"btn btn-sm default blue-madison\"><i class=\"fa fa-pencil\"></i> Partecipa</a></td>",$s->getId());
-                                        printf("</tr>");
-                                    }
+                                foreach ($sessioni as $s) {
+                                    printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                    printf("<td class=\"sorting_1\"><a href=\"#\">Sessione N%s</a></td>", $s->getId());
+                                    printf("<td class=\"sorting_1\">%s</td>", $s->getDataInizio());
+                                    if (!strcmp($s->getTipologia(), "Esercitativa"))
+                                        printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $s->getTipologia());
+                                    else
+                                        printf("<td class=\"sorting_1\"><span class=\"label label-sm label-danger\">%s</span></td>", $s->getTipologia());
+                                    printf("<td class=\"sorting_1\"><a href=\"\">%s</a></td>", $s->getSogliaAmmissione());
+                                    printf("<td class=\"sorting_1\"><a href=\"../eseguitest/%d\" class=\"btn btn-sm default blue-madison\"><i class=\"fa fa-pencil\"></i> Partecipa</a></td>", $s->getId());
+                                    printf("</tr>");
                                 }
                                 ?>
                                 </tbody>
@@ -248,8 +214,7 @@ try {
 <!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
 <script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript"
-        src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <!-- END PAGE LEVEL PLUGINS aggiunta da me-->
 
 <script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>
