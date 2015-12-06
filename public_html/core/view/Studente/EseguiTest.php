@@ -207,8 +207,8 @@ $aperte = $domandaController->getAperteTest($testId);
     jQuery(document).ready(function () {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
-       // StartCounter();
-       // setInterval(StartCounter,10000);
+        StartCounter();
+        setInterval(StartCounter,10000);
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
     });

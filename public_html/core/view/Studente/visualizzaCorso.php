@@ -9,14 +9,15 @@
 include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "UtenteController.php";
 include_once CONTROL_DIR . "SessioneController.php";
+include_once CONTROL_DIR . "ElaboratoController.php";
 $controller = new CdlController();
 $utenteController = new UtenteController();
 $sessioneController = new SessioneController();
-
+$elaboratoController = new ElaboratoController();
 $docenteassociato = Array();
 $corso = null;
 $cdl = null;
-$matricolaStudente = "0512109993";
+$matricolaStudente = "0512102390";
 $url = null;
 
 $url = $_URL[3];
@@ -177,15 +178,28 @@ try {
                                 <tbody>
                                 <?php
                                 foreach ($sessioni as $s) {
+                                    $elaborato = null;
+                                    try {
+                                        $elaborato = $elaboratoController->readElaborato($matricolaStudente,$s->getId());
+                                        $parz = $elaborato->getEsitoParziale();
+                                        $fin = $elaborato->getEsitoFinale();
+                                        $esito = ($fin == null)? $parz:$fin;                                        
+                                    } catch (ApplicationException $ex) {
+                                        $esito = null;
+                                    }
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    printf("<td class=\"sorting_1\"><a href=\"#\">Sessione N%s</a></td>", $s->getId());
+                                    printf("<td class=\"sorting_1\"><a href=\"#\">Sessione %s</a></td>", $s->getId());
                                     printf("<td class=\"sorting_1\">%s</td>", $s->getDataInizio());
                                     if (!strcmp($s->getTipologia(), "Esercitativa"))
                                         printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $s->getTipologia());
                                     else
                                         printf("<td class=\"sorting_1\"><span class=\"label label-sm label-danger\">%s</span></td>", $s->getTipologia());
-                                    printf("<td class=\"sorting_1\"><a href=\"\">%s</a></td>", $s->getSogliaAmmissione());
-                                    printf("<td class=\"sorting_1\"><a href=\"../eseguitest/%d\" class=\"btn btn-sm default blue-madison\"><i class=\"fa fa-pencil\"></i> Partecipa</a></td>", $s->getId());
+                                    printf("<td class=\"sorting_1\"><a href=\"\">%s</a></td>", $esito);
+                                    if (($elaborato == null) && (strtotime(date("Y-m-d H:i:s")) < strtotime($s->getDataFine())))
+                                        printf("<td><a href=\"./%d/test/esegui/%d\" onclick=\"javascript: creaElaborato(%d)\" class=\"btn btn-sm default blue-madison\"><i class=\"fa fa-pencil\"></i> Partecipa</a></td>", $url,$s->getId(),$s->getId());
+                                    else
+                                       // printf("<td class=\"sorting_1\"><a class=\"btn btn-sm default blue-madison\" disabled=\"\"><i class=\"fa fa-pencil\"></i> Partecipa</a>", $s->getId());
+                                        printf("<td><a href=\"javascript:;\" class=\"btn btn-sm default\"><i class=\"fa fa-file-text-o\"></i>Visualizza</a></td>");
                                     printf("</tr>");
                                 }
                                 ?>
@@ -232,6 +246,23 @@ try {
         //Demo.init(); // init demo features
         TableManaged2.init("tabella_4", "tabella_4_wrapper");
     });
+</script>
+<script>
+    var creaElaborato = function(sId){
+        var mat = "<?= $matricolaStudente; ?>";
+        if (window.XMLHttpRequest) {
+	  var xhr = new XMLHttpRequest();
+	  //metodo tradizionale di registrazione eventi   
+	  xhr.onreadystatechange =gestoreRichiesta;   
+	  xhr.open("GET", "/creaElaborato?mat="+mat+"&sessId="+sId, true);   
+	  //xhr.open("GET", "/usr/studente/corso/18", true);   
+	  xhr.send(""); 
+	} 
+	function gestoreRichiesta() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+            }
+	}
+    }
 </script>
 <!-- END JAVASCRIPTS -->
 </body>

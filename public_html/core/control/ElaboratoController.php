@@ -19,6 +19,10 @@ class ElaboratoController extends Controller {   //UTLIZZARE ALTRO CONTROLLER..N
     public function __construct() {
         $this->elaboratoModel = new ElaboratoModel();
     }
+    
+    public function createElaborato($elaborato){
+        return $this->elaboratoModel->createElaborato($elaborato);
+    }
 
     public function readElaborato($studenteMatricola,$sessioneId) {
         return $this->elaboratoModel->readElaborato($studenteMatricola,$sessioneId);
