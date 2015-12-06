@@ -20,12 +20,12 @@ class RispostaApertaController extends Controller
         return $this->rispApertaModel->createRispostaAperta($risposta);
     }
     
-     public function updateRispostaAperta($updatedRisposta, $id, $elaboratoSessioneId, $elaboratoStudenteMatricola){
-        return $this->rispApertaModel->updateRispostaAperta($updatedRisposta, $id, $elaboratoSessioneId, $elaboratoStudenteMatricola);
+     public function updateRispostaAperta($updatedRisposta, $elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId){
+        return $this->rispApertaModel->updateRispostaApertaupdateRispostaAperta($updatedRisposta, $elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId);
      }
     
-     public function readRispostaAperta($id, $elaboratoSessioneId, $elaboratoStudenteMatricola){
-         return $this->rispApertaModel->readRispostaAperta($id, $elaboratoSessioneId, $elaboratoStudenteMatricola);
+     public function readRispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId){
+         return $this->rispApertaModel->readRispostaApertareadRispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId);
      }
 
 }
