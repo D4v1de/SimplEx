@@ -11,23 +11,20 @@ include_once BEAN_DIR . "RispostaAperta.php";
 
     $elaboratoSessioneId = $_REQUEST["sessId"];
     $elaboratoStudenteMatricola = $_REQUEST["mat"];
-    $testo = null;
     $domandaApertaId = $_REQUEST["domId"];
+    $testo = null;
     $domandaApertaArgomentoId = 1; //STUB
     $domandaApertaArgomentoCorsoId = $_REQUEST["corsoId"];
     //$punteggio = calcolaPunteggio($alternativaId, $alternativaDomandaMultiplaId, $alternativaDomandaMultiplaArgomentoId, $alternativaDomandaMultiplaArgomentoCorsoId);
     $punteggio = null;
-    creaRisposta($elaboratoSessioneId, $elaboratoStudenteMatricola, $testo, $punteggio, $domandaApertaId, 
-            $domandaApertaArgomentoId,$domandaApertaArgomentoCorsoId);
+    creaRisposta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId, $testo, $punteggio);
     
     //$response = "Sessione:".$elaboratoSessioneId."Matricola:".$elaboratoStudenteMatricola."Domanda:".$alternativaDomandaMultiplaId."Risposta:".$alternativaId."Corso:".$alternativaDomandaMultiplaArgomentoCorsoId;
     $response = $punteggio;
     echo $response;
     
-    function creaRisposta($elaboratoSessioneId, $elaboratoStudenteMatricola, $testo, $punteggio, $domandaApertaId, 
-            $domandaApertaArgomentoId,$domandaApertaArgomentoCorsoId){
+    function creaRisposta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId, $testo, $punteggio){
         $raCon = new RispostaApertaController();
-        $risp = new RispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $testo, $punteggio, $domandaApertaId, 
-            $domandaApertaArgomentoId,$domandaApertaArgomentoCorsoId);
+        $risp = new RispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId, $testo, $punteggio);
         $raCon->createRispostaAperta($risp);
     }
