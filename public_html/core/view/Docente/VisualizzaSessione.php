@@ -11,7 +11,7 @@ include_once CONTROL_DIR . "SessioneController.php";
 include_once CONTROL_DIR . "CdlController.php";
 $controllerSessione = new SessioneController();
 $controlleCdl = new CdlController();
-$idSessione = $_URL[6];
+$idSessione = $_URL[5];
 $identificativoCorso = $_URL[3];
 $sessione = null;
 $valu = null;

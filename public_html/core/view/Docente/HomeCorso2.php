@@ -202,8 +202,8 @@ if(isset($_POST['id'])){
                             else {
 
                                 foreach ($array as $c) {
-                                    $vaiAModifica="/usr/docente/corso/".$identificativoCorso."/sessione"."/"."creamodificasessione"."/".$c->getId();
-                                    $vaiAVisu="/usr/docente/corso/".$identificativoCorso."/sessione"."/"."visualizzasessione"."/".$c->getId();
+                                    $vaiAModifica="/usr/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."creamodificasessione";
+                                    $vaiAVisu="/usr/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."visualizzasessione";
 
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
 

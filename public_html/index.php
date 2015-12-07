@@ -182,7 +182,7 @@ if (!defined("TESTING")) {
                                     }
                                     break;
                                 case 'sessione':
-                                    switch (isset($_URL[5]) ? $_URL[5] : '') {
+                                    switch (isset($_URL[6]) ? $_URL[6] : '') {
                                         case 'aggiungistudenti':
                                             include_once VIEW_DIR . "Docente/AggiungiStudenteTest2.php";
                                             break;
@@ -191,6 +191,9 @@ if (!defined("TESTING")) {
                                             break;
                                         case 'creamodificasessione':
                                             include_once VIEW_DIR . "Docente/CreaModificaSessione.php";
+                                            break;
+                                        case 'sessioneincorso':
+                                            include_once VIEW_DIR . "Docente/SessioneInCorso.php";
                                             break;
                                         default:
                                             include_once VIEW_DIR . "Docente/VisualizzaSessione.php";
@@ -243,10 +246,6 @@ if (!defined("TESTING")) {
             break;
         case 'provaform':
             include_once VIEW_DIR . "Admin/provaform.php";
-            break;
-        //inglobare fabiano
-        case 'sessioneincorso':
-            include_once VIEW_DIR . "Docente/SessioneInCorso.php";
             break;
         //inglobare fabiano
         case 'provaargomenti':
