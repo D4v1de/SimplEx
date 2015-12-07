@@ -308,8 +308,8 @@ if(isset($_POST['id'])){
                                         printf("<td>%s</td>",$c->getPunteggioMax());
                                         printf("<td>%s %%</td>",$c->getPercentualeScelto());
                                         printf("<td>%s %%</td>",$c->getPercentualeSuccesso());
-                                        printf("<td><a href=\"javascript:;\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></i></a>");
-                                        printf("<a href=\"javascript:;\" onclick=\"$c->deleteTest($c->getId())\" class=\"btn btn-sm red-intense\"><i class=\"fa fa-trash-o\"></i></i></a></td>");
+                                        printf("<td><a href=\"test/crea\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></i></a>");
+                                        printf("<a href=\"javascript:;\" class=\"btn btn-sm red-intense\"><i class=\"fa fa-trash-o\"></i></i></a></td>");
                                         printf("</tr>");
                                         }
                                         }
