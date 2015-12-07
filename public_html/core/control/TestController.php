@@ -30,8 +30,12 @@ class TestController extends Controller {
     
     //ricerca i test relativi ad un corso
     public function getAllTestbyCorso($id) {
-        $testModel = new TestModel();
-        return $testModel->getAllTestByCorso($id);
+        return $this->testModel->getAllTestByCorso($id);
+    }
+    
+    //rimuovi test
+    public function deleteTest($id){
+        return $this->testModel->deleteTest($id);
     }
 
 
