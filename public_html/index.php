@@ -244,6 +244,9 @@ if (!defined("TESTING")) {
         case 'provaform':
             include_once VIEW_DIR . "Admin/provaform.php";
             break;
+        case 'provaform2':
+            include_once VIEW_DIR . "Admin/provaform2.php";
+            break;
         //inglobare fabiano
         case 'sessioneincorso':
             include_once VIEW_DIR . "Docente/SessioneInCorso.php";
