@@ -309,7 +309,7 @@ if(isset($_POST['id'])){
                                         printf("<td>%s %%</td>",$c->getPercentualeScelto());
                                         printf("<td>%s %%</td>",$c->getPercentualeSuccesso());
                                         printf("<td><a href=\"test/crea\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></i></a>");
-                                        printf("<a href=\"javascript:;\" class=\"btn btn-sm red-intense\"><i class=\"fa fa-trash-o\"></i></i></a></td>");
+                                        printf("<a href=\"javascript:;\" onclick=\"javascript: elimina(this.id);\" class=\"btn btn-sm red-intense\"><i class=\"fa fa-trash-o\"></i></i></a></td>");
                                         printf("</tr>");
                                         }
                                         }
@@ -432,6 +432,21 @@ if(isset($_POST['id'])){
         TableManaged2.init("tabella_argomenti","tabella_argomenti_wrapper");
         //TableManaged.init(3);
     });
+</script>
+<script>
+        var elimina = function(id){
+	if (window.XMLHttpRequest) {
+	  var xhr = new XMLHttpRequest();  
+	  xhr.onreadystatechange =gestoreRichiesta;   
+	  xhr.open("GET", "/deleteTest?id="+id, true);  
+	  xhr.send(""); 
+	} 
+	function gestoreRichiesta() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                alert(xhr.responseText);
+            }
+	}
+}
 </script>
 <!-- END JAVASCRIPTS -->
 </body>
