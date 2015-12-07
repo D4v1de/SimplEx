@@ -12,7 +12,7 @@ class RispostaMultiplaModelTest extends PHPUnit_Framework_TestCase
     const STUDENTE_MATRICOLA = "0512102390";
     const PUNTEGGIO2 = 5;
     const PUNTEGGIO = 2;
-    const DOMANDAMULTIPLAID = 2;
+    const DOMANDAMULTIPLAID = 12;
     const ALT_ID = 1;
     const TEST_ID = 1;
 
@@ -20,12 +20,13 @@ class RispostaMultiplaModelTest extends PHPUnit_Framework_TestCase
     {
         $model = new RispostaMultiplaModel();
 
-        $risId = $model->createRispostaMultipla(new RispostaMultipla(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID, self::PUNTEGGIO, self::ALT_ID));
+        $model->createRispostaMultipla(new RispostaMultipla(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID, self::PUNTEGGIO, null));
+        print_r($model->readRispostaMultipla(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID));
+
         $ris = $model->readRispostaMultipla(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID);
         $this->assertEquals(self::SESSIONE_ID,$ris->getElaboratoSessioneId());
         $this->assertEquals(self::STUDENTE_MATRICOLA,$ris->getElaboratoStudenteMatricola());
         $this->assertEquals(self::PUNTEGGIO,$ris->getPunteggio());
-        $this->assertEquals(self::ALT_ID,$ris->getAlternativaId());
 
         $model->updateRispostaMultipla(new RispostaMultipla(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID, self::PUNTEGGIO2, self::ALT_ID), self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID);
         $ris2 = $model->readRispostaMultipla(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID);

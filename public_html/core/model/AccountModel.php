@@ -26,8 +26,8 @@ class AccountModel extends Model {
     private static $INSERT_FREQUENTA = "INSERT INTO `frequenta` (studente_matricola, corso_id) VALUES ('%s','%d')";
     private static $DELETE_FREQUENTA = "DELETE FROM `frequenta` WHERE studente_matricola = '%s' AND corso_id = '%d'";
     private static $INSERT_INSEGNAMENTO = "INSERT INTO `insegna` (docente_matricola, corso_id) VALUES ('%s','%d')";
-    private static $INSERT_ABILITA = "INSERT INTO `abilitazione` (sessione_id, studente_matricola) VALUES ('%d', '%s')";
-    private static $DELETE_ABILITA = "DELETE FROM `abilitazione` WHERE sessione_id = '%d' AND studente_matricola = '%s'";
+    private static $INSERT_ABILITAZIONE = "INSERT INTO `abilitazione` (sessione_id, studente_matricola) VALUES ('%d', '%s')";
+    private static $DELETE_ABILITAZIONE = "DELETE FROM `abilitazione` WHERE sessione_id = '%d' AND studente_matricola = '%s'";
     /**
      * Restituisce utente dato email e password
      * @param $email La mail dell'utente
