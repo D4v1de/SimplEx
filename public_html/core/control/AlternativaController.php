@@ -44,5 +44,10 @@ class AlternativaController extends Controller
         $alternativaModel = new AlternativaModel();
         return $alternativaModel->getAllAlternativaByDomanda($domandaMultiplaId, $domandaMultiplaArgomentoId, $domandaMultiplaArgomentoCorsoId);
     }
+    
+     public function getAllAlternativaByDomanda($domandaMultiplaId){
+        $alternativaModel = new AlternativaModel();
+        return $alternativaModel->getAllAlternativaByDomanda($domandaMultiplaId);
+     }
 
 }
