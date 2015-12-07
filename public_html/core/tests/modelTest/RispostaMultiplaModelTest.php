@@ -20,7 +20,7 @@ class RispostaMultiplaModelTest extends PHPUnit_Framework_TestCase
     {
         $model = new RispostaMultiplaModel();
 
-        $model->createRispostaMultipla(new RispostaMultipla(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID, self::PUNTEGGIO));
+        $model->createRispostaMultipla(new RispostaMultipla(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID, self::PUNTEGGIO, null));
         print_r($model->readRispostaMultipla(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID));
 
         $ris = $model->readRispostaMultipla(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID);
@@ -28,10 +28,10 @@ class RispostaMultiplaModelTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(self::STUDENTE_MATRICOLA,$ris->getElaboratoStudenteMatricola());
         $this->assertEquals(self::PUNTEGGIO,$ris->getPunteggio());
 
-       /* $model->updateRispostaMultipla(new RispostaMultipla(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID, self::PUNTEGGIO2), self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID);
+        $model->updateRispostaMultipla(new RispostaMultipla(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID, self::PUNTEGGIO2, self::ALT_ID), self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID);
         $ris2 = $model->readRispostaMultipla(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID);
         $this->assertEquals(self::PUNTEGGIO2,$ris2->getPunteggio());
-        */
+
         $model->deleteRispostaMultipla(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID);
     }
 

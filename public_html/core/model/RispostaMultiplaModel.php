@@ -11,7 +11,7 @@ include_once BEAN_DIR . "RispostaMultipla.php";
 
 class RispostaMultiplaModel extends Model {
     
-    public static $CREATE_RISPOSTA_MULTIPLA = "INSERT INTO `risposta_multipla` (elaborato_sessione_id, elaborato_studente_matricola, domanda_multipla_id, punteggio) VALUES ('%d', '%s', '%d', '%f')";
+    public static $CREATE_RISPOSTA_MULTIPLA = "INSERT INTO `risposta_multipla` (elaborato_sessione_id, elaborato_studente_matricola, domanda_multipla_id, punteggio, alternativa_id) VALUES ('%d', '%s', '%d', '%f', '%d')";
     public static $READ_RISPOSTA_MULTIPLA = "SELECT * FROM `risposta_multipla` WHERE elaborato_sessione_id = '%d' AND  elaborato_studente_matricola = '%s' AND domanda_multipla_id = '%d'";
     public static $UPDATE_RISPOSTA_MULTIPLA = "UPDATE `risposta_multipla` SET punteggio = '%f', alternativa_id = '%d' WHERE elaborato_sessione_id = '%d' AND elaborato_studente_matricola = '%s' AND domanda_multipla_id = '%d'";
     public static $DELETE_RISPOSTA_MULTIPLA = "DELETE FROM `risposta_multipla` WHERE elaborato_sessione_id = '%d' AND elaborato_studente_matricola = '%s' AND domanda_multipla_id = '%d'";
@@ -22,7 +22,7 @@ class RispostaMultiplaModel extends Model {
      * @param RispostaMultipla $risposta La nuova risposta da inserire nel database
      */
     public function createRispostaMultipla($risposta) {
-        $query = sprintf(self::$CREATE_RISPOSTA_MULTIPLA, $risposta->getElaboratoSessioneId(), $risposta->getElaboratoStudenteMatricola(), $risposta->getDomandaMultiplaId(), $risposta->getPunteggio());
+        $query = sprintf(self::$CREATE_RISPOSTA_MULTIPLA, $risposta->getElaboratoSessioneId(), $risposta->getElaboratoStudenteMatricola(), $risposta->getDomandaMultiplaId(), $risposta->getPunteggio(), $risposta->getAlternativaId());
         Model::getDB()->query($query);
         if(Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
@@ -40,8 +40,7 @@ class RispostaMultiplaModel extends Model {
         $query = sprintf(self::$READ_RISPOSTA_MULTIPLA, $elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId);
         $res = Model::getDB()->query($query);
         if($obj = $res->fetch_assoc()) {
-            $risposta = new RispostaMultipla( $obj['elaborato_sessione_id'], $obj['elaborato_studente_matricola'], $obj['domanda_multipla_id'],$obj['punteggio']);
-            $risposta->setAlternativaId($obj['alternativa_id']);
+            $risposta = new RispostaMultipla( $obj['elaborato_sessione_id'], $obj['elaborato_studente_matricola'], $obj['domanda_multipla_id'],$obj['punteggio'], $obj['alternativa_id']);
             return $risposta;
         }
         else{
@@ -89,8 +88,7 @@ class RispostaMultiplaModel extends Model {
         $risposte = array();
         if($res){
             while($obj=$res->fetch_assoc()) {
-                $risposta = new RispostaMultipla($obj['elaborato_sessione_id'], $obj['elaborato_studente_matricola'], $obj['domanda_multipla_id'],$obj['punteggio']);
-                $risposta->setAlternativaId($obj['alternativa_id']);
+                $risposta = new RispostaMultipla($obj['elaborato_sessione_id'], $obj['elaborato_studente_matricola'], $obj['domanda_multipla_id'],$obj['punteggio'], $obj['alternativa_id']);
                 $risposte[] = $risposta;
             }
         }

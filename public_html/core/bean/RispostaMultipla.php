@@ -21,11 +21,12 @@ class RispostaMultipla {
      * @param float $punteggio Il punteggio assegnato alla risposta
      * @param int $alternativaId L'id dell'alternativa scelta
      */
-    public function __construct($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId, $punteggio) {
+    public function __construct($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId, $punteggio, $alternativaId) {
         $this->elaboratoSessioneId=$elaboratoSessioneId;
         $this->elaboratoStudenteMatricola=$elaboratoStudenteMatricola;
         $this->domandaMultiplaId=$domandaMultiplaId;
         $this->punteggio=$punteggio;
+        $this->alternativaId=$alternativaId;
     }
     
     /**
