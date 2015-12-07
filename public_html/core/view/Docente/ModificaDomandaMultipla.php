@@ -18,8 +18,10 @@ $alternativaController = new AlternativaController();
 $idCorso = $_URL[3];
 $idArgomento = $_URL[7];
 $idDomanda = $_URL[8];
-$domandaOld = $domandaController->getDomandaMultipla($idDomanda, $idArgomento, $idCorso);
-$risposte = $alternativaController->getAllAlternativa($idDomanda, $idArgomento, $idCorso);
+$corso = $cdlController->readCorso($idCorso);
+$argomento = $argomentoController->readArgomento($idArgomento, $idCorso); //Chiedere se deve essere modificato
+$domandaOld = $domandaController->getDomandaMultipla($idDomanda);
+$risposte = $alternativaController->getAllAlternativaByDomanda($idDomanda);
 
 
 if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErr']) && isset($_POST['punteggioEs']) && isset($_POST['risposte']) && isset($_POST['radio']) ) {
@@ -39,6 +41,8 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErr']) && isset($_PO
         echo "<script type='text/javascript'>alert('Devi inserire il punteggio esatta diverso da 0!');</script>";
     }else if (empty($radio)) {
         echo "<script type='text/javascript'>alert('Devi inserire una risposta corretta');</script>";
+    }else if (empty($testoRisposte)) {
+        echo "<script type='text/javascript'>alert('Devi inserire una risposta');</script>";
     }else {
         $i =0;
         foreach($risposte as $r) {
@@ -47,12 +51,12 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErr']) && isset($_PO
             } else {
                 $corretta="No";
             }
-            $updatedAlternativa = new Alternativa($idDomanda,$idArgomento,$idCorso, $testoRisposte[$i],0,$corretta);
-            $alternativaController->modificaAlternativa($r->getId(),$idDomanda,$idArgomento,$idCorso,$updatedAlternativa);
+            $updatedAlternativa = new Alternativa($idDomanda, $testoRisposte[$i],0,$corretta);
+            $alternativaController->modificaAlternativa($r->getId(),$updatedAlternativa);
             $i = $i+1;
         }
-        $updatedDomanda = new DomandaMultipla($idArgomento,$idCorso,$testoDomanda,$punteggioEsatta,$punteggioErrata,0,0);
-        $domandaController->modificaDomandaMultipla($idDomanda,$idArgomento,$idCorso,$updatedDomanda);
+        $updatedDomanda = new DomandaMultipla($idArgomento,$testoDomanda,$punteggioEsatta,$punteggioErrata,0,0);
+        $domandaController->modificaDomandaMultipla($idDomanda,$updatedDomanda);
         header('location: ../../'.$idArgomento);
     }
 }
@@ -91,9 +95,6 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErr']) && isset($_PO
             <div class="page-bar">
                 <ul class="page-breadcrumb">
                     <?php
-                    $corso = $cdlController->readCorso($idCorso);
-                    $argomento = $argomentoController->readArgomento($idArgomento,$idCorso);
-
                     printf("<li>");
                     printf("<i class=\"fa fa-home\"></i>");
                     printf("<a href=\"../../../../../../\">Home</a>");

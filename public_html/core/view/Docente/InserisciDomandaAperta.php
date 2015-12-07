@@ -27,7 +27,7 @@ if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
     } else if (empty($punteggio)) {
         echo "<script type='text/javascript'>alert('Devi inserire il punteggio!');</script>";
     } else {
-        $domanda = new DomandaAperta($idArgomento, $idCorso, $testo, $punteggio, 0);
+        $domanda = new DomandaAperta($idArgomento, $testo, $punteggio, 0);
         $domandaController->creaDomandaAperta($domanda);
 
         header('location: ../'.$idArgomento);

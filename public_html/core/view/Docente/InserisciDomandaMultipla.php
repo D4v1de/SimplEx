@@ -17,6 +17,8 @@ $alternativaController = new AlternativaController();
 
 $idCorso = $_URL[3];
 $idArgomento = $_URL[7];
+$corso = $cdlController->readCorso($idCorso);
+$argomento = $argomentoController->readArgomento($idArgomento,$idCorso);
 
 
 if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErr']) && isset($_POST['punteggioEs']) && isset($_POST['risposte']) ) {
@@ -33,10 +35,22 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErr']) && isset($_PO
         echo "<script type='text/javascript'>alert('Devi inserire il testo!');</script>";
     } else if (empty($punteggioEsatta)) {
         echo "<script type='text/javascript'>alert('Devi inserire il punteggio esatta diverso da 0!');</script>";
-    }else {
-        $domanda = new DomandaMultipla($idArgomento,$idCorso,$testoDomanda,$punteggioEsatta,$punteggioErrata,0,0);
-        $domandaController->creaDomandaMultipla($domanda);
-
+    } else if (empty($testoRisposte)) {
+        echo "<script type='text/javascript'>alert('Devi inserire una risposta');</script>";
+    } else if (empty($radio)) {
+        echo "<script type='text/javascript'>alert('Devi inserire una risposta corretta');</script>";
+    } else {
+        $nuovaDomanda = new DomandaMultipla($idArgomento,$testoDomanda,$punteggioEsatta,$punteggioErrata,0,0);
+        $idNuovaDomanda = $domandaController->creaDomandaMultipla($nuovaDomanda);
+        for($i = 0; $i<count($testoRisposte); $i=$i+1){
+            if($i == $radio){
+                $corretta = "Si";
+            } else{
+                $corretta = "No";
+            }
+            $alternativa = new Alternativa($idNuovaDomanda,$testoRisposte[$i],0,$corretta);
+            $alternativaController->creaAlternativa($alternativa);
+        }
         header('location: ../'.$idArgomento);
     }
 }
@@ -76,9 +90,6 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErr']) && isset($_PO
             <div class="page-bar">
                 <ul class="page-breadcrumb">
                     <?php
-                    $corso = $cdlController->readCorso($idCorso);
-                    $argomento = $argomentoController->readArgomento($idArgomento,$idCorso);
-
                     printf("<li>");
                     printf("<i class=\"fa fa-home\"></i>");
                     printf("<a href=\"../../../../../\">Home</a>");
@@ -107,7 +118,7 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErr']) && isset($_PO
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-edit"></i>Inserisci Domanda Multipla
+                            <i class="fa fa-edit"></i>Modifica Domanda Multipla
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="collapse" data-original-title="" title="">
@@ -116,95 +127,103 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErr']) && isset($_PO
                     </div>
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
-
                         <div class="form-body">
-                            <div class="form-group form-md-line-input has-success" style="height: 90px">
+                            <div class="form-group form-md-line-input has-success" style="height: 100px">
                                 <label class="control-label col-md-3">Inserisci Testo Domanda</label>
 
                                 <div class="col-md-6">
-                                    <input type="text" id="testoDomanda" nome="testoDomanda" placeholder="" class="form-control">
-                                            <span class="help-block">
-                                                Inserisci il testo della domanda </span>
+                                    <?php
+                                    printf("<input type=\"text\" id=\"testoDomanda\" name=\"testoDomanda\" value=\"\" class=\"form-control\">");
+                                    printf("<span class=\"help-block\">");
+                                    printf("Inserisci il testo della domanda </span>");
+                                    ?>
                                 </div>
                             </div>
-                            <div class="form-group form-md-line-input has-success ratio" style="height: 90px">
-                                <label class="control-label col-md-3">
-                                    <input type="radio" name="radio"
-                                                                 value="0">
-                                    Inserisci Testo Risposta</label>
-
-                                <div class="col-md-6">
-                                    <input type="text" id="risposte" name="risposte[]" placeholder="" class="form-control">
-                                            <span class="help-block">
-                                                Inserisci il testo della risposta </span>
-                                </div>
-                                <div class="col-md-3">
-                                    <a href="javascript:;" class="btn sm green-jungle">
-                                        <i class="fa fa-plus"></i> Aggiungi
-                                    </a>
-                                    <a href="javascript:;" class="btn sm red-intense">
-                                        <i class="fa fa-minus"></i> Rimuovi
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="form-group form-md-line-input has-success ratio" style="height: 90px">
-                                <label class="control-label col-md-3">
-                                    <input type="radio" name="radio"
-                                                                 value="1">
-                                    Inserisci Testo Risposta</label>
-
-                                <div class="col-md-6">
-                                    <input type="text" id="risposte" name="risposte[]" placeholder="" class="form-control">
-                                            <span class="help-block">
-                                                Inserisci il testo della risposta </span>
-                                </div>
-                                <div class="col-md-3">
-                                    <a href="javascript:;" class="btn sm green-jungle">
-                                        <i class="fa fa-plus"></i> Aggiungi
-                                    </a>
-                                    <a href="javascript:;" class="btn sm red-intense">
-                                        <i class="fa fa-minus"></i> Rimuovi
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="form-group form-md-line-input has-success" style="height: 90px">
+                            <?php
+                            printf("<div class=\"form-group form-md-line-input has-success ratio\" style=\"height: 100px\">");
+                            printf("<div class=\"control-label col-md-1\">");
+                            printf("<input type=\"radio\" id=\"radio\" name=\"radio\" value=\"0\">"); //Rendere dinamico con la creazione delle risposte
+                            printf("</div>");
+                            printf("<label class=\"control-label col-md-2\">");
+                            printf("Inserisci Testo Risposta</label>");
+                            printf("<div class=\"col-md-6\">");
+                            printf("<input type=\"text\" value=\"\" id=\"risposte\" name=\"risposte[]\" class=\"form-control\">");
+                            printf("<span class=\"help-block\">");
+                            printf("Inserisci il testo della risposta </span>");
+                            printf("</div>");
+                            printf("<div class=\"col-md-3\">");
+                            printf("<a href=\"javascript:;\" class=\"btn sm green-jungle\">");
+                            printf("<i class=\"fa fa-plus\"></i> Aggiungi");
+                            printf("</a>");
+                            printf("<a href=\"javascript:;\" class=\"btn sm red-intense\">");
+                            printf("<i class=\"fa fa-minus\"></i> Rimuovi");
+                            printf("</a>");
+                            printf("</div>");
+                            printf("</div>");
+                            ?>
+                            <?php
+                            printf("<div class=\"form-group form-md-line-input has-success ratio\" style=\"height: 100px\">");
+                            printf("<div class=\"control-label col-md-1\">");
+                            printf("<input type=\"radio\" id=\"radio\" name=\"radio\" value=\"1\">");
+                            printf("</div>");
+                            printf("<label class=\"control-label col-md-2\">");
+                            printf("Inserisci Testo Risposta</label>");
+                            printf("<div class=\"col-md-6\">");
+                            printf("<input type=\"text\" value=\"\" id=\"risposte\" name=\"risposte[]\" class=\"form-control\">");
+                            printf("<span class=\"help-block\">");
+                            printf("Inserisci il testo della risposta </span>");
+                            printf("</div>");
+                            printf("<div class=\"col-md-3\">");
+                            printf("<a href=\"javascript:;\" class=\"btn sm green-jungle\">");
+                            printf("<i class=\"fa fa-plus\"></i> Aggiungi");
+                            printf("</a>");
+                            printf("<a href=\"javascript:;\" class=\"btn sm red-intense\">");
+                            printf("<i class=\"fa fa-minus\"></i> Rimuovi");
+                            printf("</a>");
+                            printf("</div>");
+                            printf("</div>");
+                            ?>
+                            <div class="form-group form-md-line-input has-success" style="height: 100px">
                                 <label class="control-label col-md-3">Inserisci Punteggio Esatta</label>
 
                                 <div class="col-md-4">
-                                    <input type="number" id="punteggioEs" name="punteggioEs" placeholder="" class="form-control">
-                                            <span class="help-block">
-                                                Inserisci il punteggio per risposta esatta </span>
+                                    <?php
+                                    printf("<input type=\"number\" id=\"punteggioDomandaEsatta\" name=\"punteggioEs\" value=\"\" class=\"form-control\">");
+                                    printf("<span class=\"help-block\">");
+                                    printf("Inserisci il punteggio della domanda esatta</span>");
+                                    ?>
                                 </div>
                             </div>
-                            <div class="form-group form-md-line-input has-success" style="height: 90px">
+                            <div class="form-group form-md-line-input has-success" style="height: 100px">
                                 <label class="control-label col-md-3">Inserisci Punteggio Errata</label>
 
                                 <div class="col-md-4">
-                                    <input type="number" id="punteggioErr" name="punteggioErr" placeholder="" class="form-control">
-                                            <span class="help-block">
-                                                Inserisci il punteggio per risposta errata </span>
+                                    <?php
+                                    printf("<input type=\"number\" id=\"punteggioDomandaErrata\" name=\"punteggioErr\" value=\"\" class=\"form-control\">");
+                                    printf("<span class=\"help-block\">");
+                                    printf("Inserisci il punteggio della domanda esatta</span>");
+                                    ?>
                                 </div>
                             </div>
                         </div>
-                        <!-- END FORM-->
                     </div>
                 </div>
                 <div class="form-actions">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-9">
-                                <button type="submit" class="btn sm green-jungle">Conferma</button>
-                                <?php
-                                printf("<a href=\"../%d\" class=\"btn sm red-intense\">", $idArgomento);
-                                ?>
-                                Annulla
-                                </a>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <button type="submit" class="btn sm green-jungle">Conferma</button>
+                                    <?php
+                                    printf("<a href=\"../%d\" class=\"btn sm red-intense\">", $idArgomento);
+                                    ?>
+                                    Annulla
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-        </div>
             </form>
             <!-- END PAGE CONTENT-->
         </div>
