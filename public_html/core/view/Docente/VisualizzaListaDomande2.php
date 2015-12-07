@@ -17,16 +17,15 @@ $alternativaController = new AlternativaController();
 $idCorso = $_URL[3];
 $idArgomento = $_URL[6];
 $corso = $cdlController->readCorso($idCorso);
-$argomento = $argomentoController->readArgomento($idArgomento, $idCorso);
+$argomento = $argomentoController->readArgomento($idArgomento, $idCorso); //Chiedere se deve essere aggiustata sta cosa
+
 
 if (isset($_POST['domandaaperta'])){
-    $idAperta =$_POST['domandaaperta'];
-    $domandaController->rimuoviDomandaAperta($idAperta,$idArgomento,$idCorso);
+    $domandaController->rimuoviDomandaAperta($_POST['domandaaperta']);
     header('Refresh:0');
 }
 if (isset($_POST['domandamultipla'])){
-    $idMultipla = $_POST['domandamultipla'];
-    $domandaController->rimuoviDomandaMultipla($idMultipla,$idArgomento,$idCorso);
+    $domandaController->rimuoviDomandaMultipla($_POST['domandamultipla']);
     header('Refresh:0');
 }
 ?>
@@ -86,25 +85,7 @@ if (isset($_POST['domandamultipla'])){
 
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <!-- Da scegliere quali pulsanti lasciare
-            <div class="row">
 
-                <div class="col-md-offset-3 col-md-3">
-                    <?php
-                    printf("<a href=\"inserisciaperta/%d\" class=\"btn sm green-jungle\">", $idArgomento);
-                    ?>
-                    <i class="fa fa-plus"></i> Nuova Domanda Aperta
-                    </a>
-               </div>
-                <div class="col-md-3">
-                    <?php
-                    printf("<a href=\"inseriscimultipla/%d\" class=\"btn sm green-jungle\">", $idArgomento);
-                    ?>
-                    <i class="fa fa-plus"></i> Nuova Domanda Multipla
-                    </a>
-                </div>
-            </div>
-            <br> -->
 
             <!--INIZIO TABELLA DOMANDE APERTE-->
             <div class="portlet box blue-madison">
@@ -126,7 +107,7 @@ if (isset($_POST['domandamultipla'])){
                 </div>
                 <div class="portlet-body">
                     <?php
-                    $domandeAperte = $domandaController->getAllAperte($idArgomento, $idCorso);
+                    $domandeAperte = $domandaController->getAllAperte($idArgomento);
                     foreach ($domandeAperte as $d) {
                         printf("<div class=\"portlet\">");
                         printf("<div class=\"portlet-title \">");
@@ -135,7 +116,7 @@ if (isset($_POST['domandamultipla'])){
                         printf("</div>");
                         printf("<form method=\"post\" action=\"\" class=\"actions\">");
                         printf("<a href=\"modificaaperta/%d/%d\" class=\"btn green-jungle\"><i class=\"fa fa-edit\"></i> Modifica </a>", $idArgomento, $d->getId());
-                        printf("<button class=\"btn sm red-intense\" type=\"submit\" name=\"domanda\" value=\"%d\"><i class=\"fa fa-remove\"></i> Rimuovi </button>", $d->getId());
+                        printf("<button class=\"btn sm red-intense\" type=\"submit\" name=\"domandaaperta\" value=\"%d\"><i class=\"fa fa-remove\"></i> Rimuovi </button>", $d->getId());
                         printf("</form>");
                         printf("</div>");
                         printf("</div>");
@@ -165,9 +146,9 @@ if (isset($_POST['domandamultipla'])){
                 </div>
                 <div class="portlet-body">
                     <?php
-                    $domandeMultiple = $domandaController->getAllMultiple($idArgomento, $idCorso);
+                    $domandeMultiple = $domandaController->getAllMultiple($idArgomento);
                     foreach ($domandeMultiple as $d) {
-                        $risposte = $alternativaController->getAllAlternativa($d->getId(), $d->getArgomentoId(), $d->getArgomentoCorsoId());
+                        $risposte = $alternativaController->getAllAlternativaByDomanda($d->getId());
 
                         printf("<div class=\"portlet \">");
                         printf("<div class=\"portlet-title\">");
@@ -190,9 +171,9 @@ if (isset($_POST['domandamultipla'])){
                             printf("<tr class=\"gradeX odd\" role=\"row\">");
                             printf("<td width='30'>");
                             if(!strcmp($r->getCorretta(),'Si')){
-                            printf("<input type=\"checkbox\" disabled=\"\" checked=\"\">");
+                                printf("<input type=\"checkbox\" disabled=\"\" checked=\"\">");
                             } else  {
-                            printf("<input type=\"checkbox\" disabled=\"\">");
+                                printf("<input type=\"checkbox\" disabled=\"\">");
                             }
                             printf("</td>");
                             printf("<td>%s</td>", $r->getTesto());
