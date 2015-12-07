@@ -41,10 +41,10 @@ else $eser = "Checked";
 if(isset($_POST['avvia'])){
     $idSesToGo=$_POST['avvia'];
     $dataNow=date('Y/m/d/ h:i:s ', time());
-    $newSessione = new Sessione($dataNow, dataTo, 18, "In Esecuzione", $tipoSessione, $identificativoCorso);
+    $newSessione = new Sessione($dataNow, $dataTo, 18, "In Esecuzione", $tipoSessione, $identificativoCorso);
     $controllerSessione->updateSessione($idSessione,$newSessione);
-    $vaiASessioneInCorso= "Location: /sessioneincorso";
-    header($vaiASessioneInCorso);
+    $vaiASesInCorso= "Location: "."/usr/docente/corso/".$identificativoCorso."/sessione"."/".$idSesToGo."/"."sessioneincorso";
+    header($vaiASesInCorso);
 }
 
 
@@ -450,8 +450,8 @@ if(isset($_POST['rimuovi'])){
                             <div class="col-md-9">
                                 <?php
                                 printf("<button name=\"avvia\" value=\"%s\" class=\"btn sm green-jungle\"><span class=\"md-click-circle md-click-animate\" style=\"height: 94px; width: 94px; top: -23px; left: 2px;\"></span><i class=\"fa fa-play-circle-o\"></i>Avvia ora</button>",$idSessione);
-                                $vaiAModifica="/usr/docente/corso/".$identificativoCorso."/sessione"."/"."creamodificasessione"."/".$idSessione;
-                                $vaiAVisu="/usr/docente/corso/".$identificativoCorso."/sessione"."/"."visualizzasessione"."/".$idSessione;
+                                $vaiAModifica="/usr/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."creamodificasessione";
+                                $vaiAVisu="/usr/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."visualizzasessione";
 
                                 printf(" <a href=\"%s\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i>ModificaSessione</a>", $vaiAModifica);
                                 printf("<button type='submit' name='rimuovi' value='%d' class='btn btn-sm red-intense'><i class=\"fa fa-trash-o\"></i>Elimina Sessione</button>",$idSessione);

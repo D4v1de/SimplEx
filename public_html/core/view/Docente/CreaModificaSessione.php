@@ -8,11 +8,14 @@
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "SessioneController.php";
-
 $controller = new SessioneController();
+include_once CONTROL_DIR . "CdlController.php";
+$controlleCdl = new CdlController();
 $idCorso = $_URL[3];
+$corso = $controlleCdl->readCorso($idCorso);
+$nomecorso= $corso->getNome();
 //$sessioneByUrl = null;
-
+$idSessione=0;
 $perModificaDataFrom =  null;
 $perModificaDataTo = null;
 $valu = null;
@@ -20,6 +23,7 @@ $eser = null;
 
 if($_URL[5]!=0) {  //CASO IN CUI SI VOGLIA MODIFICARE LA SESSIONE
     try {
+        $idSessione=$_URL[5];
         $sessioneByUrl = $controller->readSessione($_URL[5]);
         $dataFrom = $sessioneByUrl->getDataInizio();
         $dataTo = $sessioneByUrl->getDataFine();
@@ -29,13 +33,6 @@ if($_URL[5]!=0) {  //CASO IN CUI SI VOGLIA MODIFICARE LA SESSIONE
         if ($tipoSessione == "Valutativa")
             $valu = "Checked";
         else $eser = "Checked";
-
-        //carico i corsi
-        $tests= Array();
-        $tests=$controller->getAllTestBySessione($_URL[5]);
-        //ora prendersi tutti gli id dei test presenti..e nella creazione degli elementi della tabella
-        //se appare un test presente tra questi..metto checked!..altrimenti no..
-        //quindi dovrei scorrere ogni volta che devo inserire il test nella tabella l'array degli dei test
 
     } catch (ApplicationException $ex) {
         echo "<h1>errore! ApplicationException->errore manca id sessione nel path!</h1>";
@@ -48,7 +45,7 @@ else {  //CASO IN CUI SI VUOLE CREARE LA SESSIONE
 }
 
 if($_URL[5]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tutti i campi
-    if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo']) && isset($_POST['students'])) {
+    if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo'])) { // && isset($_POST['students'])
         $newdataFrom = $_POST['dataFrom'];
         $newdataTo = $_POST['dataTo'];
         $newtipoSessione = $_POST['radio1'];
@@ -72,7 +69,7 @@ if($_URL[5]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
                 //creo l'abilitazione students-sessione
                 foreach($cbStudents as $s) {
                          echo $s." ".$idNuovaSessione;
-                          $controller->associaTestASessione($idNuovaSessione,$t);
+                          $controller->abilitaStudenteASessione($idNuovaSessione,$s);
                       }
 
             }
@@ -99,7 +96,7 @@ if($_URL[5]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
 }
 
 if($_URL[5]!=0) {  //CASO DI MODIFICA..DEVE ESSERE SETTATO !ALMENO! UNO.
-    if($dataFromSettato=isset($_POST['dataFrom']) || $radio1Settato=isset($_POST['radio1']) || $dataToSettato=isset($_POST['dataTo'])  ) {
+    if($dataFromSettato=isset($_POST['dataFrom']) || $radio1Settato=isset($_POST['radio1']) || $dataToSettato=isset($_POST['dataTo']) || $someTestsAorD=isset($_POST['tests']) ) {
 
         if($dataFromSettato)
             $newOrOldDataFrom = $_POST['dataFrom'];
@@ -112,6 +109,10 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..DEVE ESSERE SETTATO !ALMENO! UNO.
 
         $sessioneAggiornata = new Sessione($newOrOldDataFrom,$newOrOldDataTo,$sogliAmm,$stato,$tipoSessione,$idCorso);
         $controller->updateSessione($_URL[5],$sessioneAggiornata);
+
+        if($someTestsAorD) {
+
+        }
 
         $tornaACasa= "Location: "."/usr/docente/corso/"."$idCorso";
         header($tornaACasa);
@@ -154,7 +155,14 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..DEVE ESSERE SETTATO !ALMENO! UNO.
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                Crea Sessione / Modifica Sessione
+                <?php
+                $creaSes="Crea Sessione";
+                $modSes= "Modifica Sessione";
+                if($_URL[5]!=0)
+                    printf("%s",$modSes);
+                else
+                    printf("%s",$creaSes);
+                ?>
             </h3>
 
             <div class="page-bar">
@@ -165,11 +173,17 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..DEVE ESSERE SETTATO !ALMENO! UNO.
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="#">Nome Corso</a>
+                        <a href="<?php echo "/usr/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $controlleCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="#">Nome Sessione</a>
+                        <?php
+                        $vaiANomeCorso="/usr/docente/corso/".$idCorso;
+                        printf("<a href=\"%s\">%s</a><i class=\"fa fa-angle-right\"></i>", $vaiANomeCorso ,$nomecorso);
+                        ?>
+                    </li>
+                    <li>
+                        <?php echo "Sessione ".$idSessione ?>
                     </li>
                 </ul>
             </div>
@@ -336,15 +350,22 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..DEVE ESSERE SETTATO !ALMENO! UNO.
                             </thead>
                             <tbody>
                             <?php
+                            $toCheck=null;
                             $array = Array();
                             $array = $controller->getAllTestByCorso($idCorso);
+                            $testsOfSessione= $controller->getAllTestBySessione($_URL[5]);
                             if ($array == null) {
                                 echo "l'array è null"." ".$idCorso;
                             }
                             else {
                                 foreach ($array as $c) {
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    printf("<td><input name=\"tests[]\" type=\"checkbox\" class=\"checkboxes\" value='%d'></td>", $c->getId());
+                                    foreach($testsOfSessione as $t){
+                                        if($c->getId()==$t->getId())
+                                            $toCheck="Checked";
+                                    }
+                                    printf("<td><input name=\"tests[]\" type=\"checkbox\" %s class=\"checkboxes\" value='%d'></td>",$toCheck, $c->getId());
+                                    $toCheck="";
                                     printf("<td class=\"sorting_1\">Test %s</td>", $c->getId());
                                     printf("<td>%s</td>", $c->getDescrizione());
                                     printf("<td>%d</td>", $c->getNumeroMultiple());

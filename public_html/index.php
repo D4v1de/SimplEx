@@ -193,7 +193,12 @@ if (!defined("TESTING")) {
                                             include_once VIEW_DIR . "Docente/CreaModificaSessione.php";
                                             break;
                                         case 'sessioneincorso':
-                                            include_once VIEW_DIR . "Docente/SessioneInCorso.php";
+                                            switch (isset($_URL[7]) ? $_URL[7] : '') {
+                                                case 'aggiungistudente':
+                                                    include_once VIEW_DIR . "Docente/AggiungiStudente.php";
+                                                    break;
+                                                default: include_once VIEW_DIR . "Docente/SessioneInCorso.php";
+                                            }
                                             break;
                                         default:
                                             include_once VIEW_DIR . "Docente/VisualizzaSessione.php";

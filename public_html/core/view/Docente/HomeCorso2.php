@@ -160,7 +160,7 @@ if(isset($_POST['id'])){
                         </a>
                     </div>
                     <div class="actions">
-                        <a href="<?php printf("%s","/usr/docente/corso/".$identificativoCorso."/sessione"."/"."creamodificasessione"."/"."0") ?>" class="btn btn-default btn-sm">
+                        <a href="<?php printf("%s","/usr/docente/corso/".$identificativoCorso."/sessione"."/"."0"."/"."creamodificasessione") ?>" class="btn btn-default btn-sm">
                             <i class="fa fa-plus"></i> Crea Sessione </a>
                     </div>
                 </div>
@@ -204,10 +204,13 @@ if(isset($_POST['id'])){
                                 foreach ($array as $c) {
                                     $vaiAModifica="/usr/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."creamodificasessione";
                                     $vaiAVisu="/usr/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."visualizzasessione";
+                                    $vaiASesInCorso="/usr/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."sessioneincorso";
 
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
-
-                                    printf("<td class=\"sorting_1\"><a href=\"%s\">%s</a></td>", $vaiAVisu,  "Sessione ".$c->getId());
+                                    if($c->getStato()!="In Esecuzione")
+                                        printf("<td class=\"sorting_1\"><a href=\"%s\">%s</a></td>", $vaiAVisu,  "Sessione ".$c->getId());
+                                    else
+                                        printf("<td class=\"sorting_1\"><a href=\"%s\">%s</a></td>", $vaiASesInCorso,  "Sessione ".$c->getId());
                                     printf("<td><b>Inizio:</b>%s<b>  Fine:</b>%s</td>", $c->getDataInizio(),$c->getDataFine());
                                     printf("<td>%s</td>", $c->getTipologia());
                                     printf("<td>%s</td>", $c->getStato());
