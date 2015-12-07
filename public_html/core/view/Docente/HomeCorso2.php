@@ -293,7 +293,7 @@ if(isset($_POST['id'])){
                                 
                                  <?php
                                         $array = Array();
-                                        $array = $controllerTest->getAllTestByCorso($_URL[3]); 
+                                        $array = $controllerTest->getAllTestByCorso($identificativoCorso); 
                                         if($array == null){ 
                                              //echo "l'array è null";
                                              printf("<h4>Nessun Test presente</h4>");
@@ -301,7 +301,7 @@ if(isset($_POST['id'])){
                                         else{    
                                         foreach($array as $c) {
                                         printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                        printf("<td class=\"sorting_1\"><a href=\"test/%s/visualizzatest\">%s</a></td>", $c->getId(),$c->getId());
+                                        printf("<td class=\"sorting_1\"><a href=\"test/%s/visualizzatest\">Test %s</a></td>", $c->getId(),$c->getId());
                                         printf("<td>%s</td>",$c->getDescrizione());
                                         printf("<td>%s</td>",$c->getNumeroMultiple());
                                         printf("<td>%s</td>",$c->getNumeroAperte());
@@ -309,7 +309,7 @@ if(isset($_POST['id'])){
                                         printf("<td>%s %%</td>",$c->getPercentualeScelto());
                                         printf("<td>%s %%</td>",$c->getPercentualeSuccesso());
                                         printf("<td><a href=\"javascript:;\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></i></a>");
-                                        printf("<a href=\"javascript:;\" onclick=\"javascript: EliminaTest();\" class=\"btn btn-sm red-intense\"><i class=\"fa fa-trash-o\"></i></i></a></td>");
+                                        printf("<a href=\"javascript:;\" onclick=\"$c->deleteTest($c->getId())\" class=\"btn btn-sm red-intense\"><i class=\"fa fa-trash-o\"></i></i></a></td>");
                                         printf("</tr>");
                                         }
                                         }
@@ -406,7 +406,6 @@ if(isset($_POST['id'])){
 
 <!--Script specifici per la pagina -->
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
-<script src="/assets/global/scripts/cancellaTest.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
 <script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
