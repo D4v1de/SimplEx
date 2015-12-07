@@ -10,6 +10,8 @@
 include_once CONTROL_DIR . "ControllerTest.php";
 include_once CONTROL_DIR . "SessioneController.php";
 include_once CONTROL_DIR . "DomandaController.php";
+include_once CONTROL_DIR . "RispostaApertaController.php";
+include_once CONTROL_DIR . "RispostaMultiplaController.php";
 $domandaController = new DomandaController();
 $testController = new ControllerTest();
 $sessioneController = new SessioneController();
@@ -118,11 +120,22 @@ $aperte = $domandaController->getAperteTest($testId);
                                 </div>
                             </div>
                             <?php
+                            function creaRispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId, $testo, $punteggio){
+                                $raCon = new RispostaApertaController();
+                                $risp = new RispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId, $testo, $punteggio);
+                                $raCon->createRispostaAperta($risp);
+                            }
+                            function creaRispostaMultipla($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId, $punteggio, $alternativaId){
+                                $rmCon = new RispostaMultiplaController();
+                                $risp = new RispostaMultipla($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId, $punteggio, $alternativaId);
+                                $rmCon->createRispostaMultipla($risp);
+                            }
                                 $i = 1;
                                 foreach ($multiple as $m) {
                                     $j = 1;
                                     $testo = $m->getTesto();
                                     $multId = $m->getId();
+                                   // creaRispostaMultipla($sessId, $matricola, $multId, null, null);
                                     echo "<h3>".$testo."</h3>";
                                     echo '<div class="form-group form-md-radios">';
                                     echo '<div class="md-radio-list">';
@@ -147,6 +160,7 @@ $aperte = $domandaController->getAperteTest($testId);
                                 foreach ($aperte as $a) {
                                     $testo = $a->getTesto();
                                     $apId = $a->getId();
+                                   // creaRispostaAperta($sessId, $matricola, $apId, null, null);
                                     echo '<h3>'.$testo.'</h3>';
                                     echo    '<div class="form-group">
                                                 <textarea class="form-control" onfocus="javascript: ApertaOnFocus(this.id);" id="'.$apId.'" rows="3" placeholder="Inserisci risposta" style="resize:none"></textarea>
@@ -199,30 +213,49 @@ $aperte = $domandaController->getAperteTest($testId);
         //Demo.init(); // init demo features
     });
 </script>
-<!-- risposta multipla -->
+<!-- inizializza risposta multipla 
 <script>
-    var AddMultipla = function(alt,dom){
+    var CreateMultipla = function(dom){
         var mat = "<?= $matricola; ?>";
         var sId = <?= $sessId ?>;
-        var cId = <?= $corsoId ?>;
 	if (window.XMLHttpRequest) {
 	  var xhr = new XMLHttpRequest();
 	  //metodo tradizionale di registrazione eventi   
 	  xhr.onreadystatechange =gestoreRichiesta;   
-	  xhr.open("GET", "/gestoreMultipla?mat="+mat+"&sessId="+sId+"&domId="+dom+"&altId="+alt+"&corsoId="+cId, true);   
+	  xhr.open("GET", "/inizializzaMultipla?mat="+mat+"&sessId="+sId+"&domId="+dom, true);   
 	  //xhr.open("GET", "/usr/studente/corso/18", true);   
 	  xhr.send(""); 
 	} 
 	function gestoreRichiesta() {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 alert(xhr.responseText);
-    }
+            }
 	}
-}
+    }
+</script>
+<!-- inizializza risposta aperta 
+<script>
+    var CreateAperta = function(dom){
+        var mat = "<?= $matricola; ?>";
+        var sId = <?= $sessId ?>;
+	if (window.XMLHttpRequest) {
+	  var xhr = new XMLHttpRequest();
+	  //metodo tradizionale di registrazione eventi   
+	  xhr.onreadystatechange =gestoreRichiesta;   
+	  xhr.open("GET", "/inizializzaAperta?mat="+mat+"&sessId="+sId+"&domId="+dom, true);   
+	  //xhr.open("GET", "/usr/studente/corso/18", true);   
+	  xhr.send(""); 
+	} 
+	function gestoreRichiesta() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                alert(xhr.responseText);
+            }
+	}
+    }
 </script>
 <!-- risposta aperta -->
 <script>
-    var ApertaOnFocus = function(domId){
+    /*var ApertaOnFocus = function(domId){
         var mat = "<?= $matricola; ?>";
         var sId = <?= $sessId ?>;
         var cId = <?= $corsoId ?>;
@@ -240,7 +273,7 @@ $aperte = $domandaController->getAperteTest($testId);
                 setInterval(UpdateAperta(domId),10000);
             }
         }
-    }
+    }*/
     var UpdateAperta = function(domId){
         var mat = "<?= $matricola; ?>";
         var sId = <?= $sessId ?>;

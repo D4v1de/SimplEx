@@ -183,9 +183,9 @@ $num = $controller->getNumArgomenti(); //STUB
                             printf("</div>");
                             printf("<div class=\"portlet-body collapse\">");
                             printf("<div class=\"dd\" id=\"nestable_list_%s\">", $nargomento);
-                            printf("<ol class=\"dd-list\">");
+                            printf("<ol class=\"dd-list\" id=\"lista\">");
                             foreach ($domandeMultiple as $domanda) {
-                                printf("<li class=\"dd-item\" data-id=\"%s%s\">", $nargomento, $ndomanda); //cambiare id
+                                printf("<li class=\"dd-item\" data-id=\"%s\" id=\"%s\">", $domanda->getId(),$domanda->getId()); //cambiare id
                                 printf("<div class=\"dd-handle\">%s</div>", $domanda->getTesto()); //CAMBIARE NELLA DOMANDA
                                 printf("</li>");
                                 $ndomanda++;
@@ -219,9 +219,9 @@ $num = $controller->getNumArgomenti(); //STUB
                             printf("</div>");
                             printf("<div class=\"portlet-body collapse\">");
                             printf("<div class=\"dd\" id=\"nestable_list_%s\">", $nargomento);
-                            printf("<ol class=\"dd-list\">");
+                            printf("<ol class=\"dd-list\" id=\"lista\">");
                             foreach ($domandeAperte as $domanda) {
-                                printf("<li class=\"dd-item\" data-id=\"%s%s\">", $nargomento, $ndomanda); //cambiare id
+                                printf("<li class=\"dd-item\" data-id=\"%s\" id=\"%s\">",  $domanda->getId(),$domanda->getId()); //cambiare id
                                 printf("<div class=\"dd-handle\">%s</div>", $domanda->getTesto()); //CAMBIARE NELLA DOMANDA
                                 printf("</li>");
                                 $ndomanda++;
@@ -262,7 +262,7 @@ $num = $controller->getNumArgomenti(); //STUB
                         </div>
                         <div class="portlet-body ">
                             <div class="dd" id="nestable_list_0">
-                                <div class="dd-empty">
+                                <div class="dd-empty" id="lista">
                                     <div>
                                         <h3>Trascina le domande qui...</h3>
                                     </div>
@@ -273,13 +273,13 @@ $num = $controller->getNumArgomenti(); //STUB
                 </div>
 
             </div>
-
+                    <div id="fabio"></div>
                 <div class="form-actions">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-9">
-                                    <a href="../" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                    <a onclick="javascript: Creazione();" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                                         Conferma
                                     </a>
                                     <a href="../" class="btn sm red-intense">
@@ -304,6 +304,7 @@ $num = $controller->getNumArgomenti(); //STUB
 
 <!--Script specifici per la pagina -->
 <script src="/assets/global/scripts/manuale_random.js" type="text/javascript"></script>
+<script src="/assets/global/scripts/creazioneTest.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->

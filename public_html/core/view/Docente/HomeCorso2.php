@@ -237,7 +237,7 @@ if(isset($_POST['id'])){
                         </a>
                     </div>
                     <div class="actions">
-                        <a href="<?php echo $corso->getId(); ?>/test/crea" class="btn btn-default btn-sm">
+                        <a href="test/crea" class="btn btn-default btn-sm">
                             <i class="fa fa-plus"></i> Crea Test </a>
                     </div>
                 </div>
@@ -293,20 +293,25 @@ if(isset($_POST['id'])){
                                 
                                  <?php
                                         $array = Array();
-                                        $array = $controllerTest->getAllTestByCorso(19); //Id a caso per il momento
-                                        if($array == null){ echo "l'array è null";}
+                                        $array = $controllerTest->getAllTestByCorso($identificativoCorso); 
+                                        if($array == null){ 
+                                             //echo "l'array è null";
+                                             printf("<h4>Nessun Test presente</h4>");
+                                            }
+                                        else{    
                                         foreach($array as $c) {
                                         printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                        printf("<td class=\"sorting_1\"><a href=\"visualizzatest/%s\">%s</a></td>", $c->getId(), "Test ".$c->getId());
+                                        printf("<td class=\"sorting_1\"><a href=\"test/%s/visualizzatest\">Test %s</a></td>", $c->getId(),$c->getId());
                                         printf("<td>%s</td>",$c->getDescrizione());
                                         printf("<td>%s</td>",$c->getNumeroMultiple());
                                         printf("<td>%s</td>",$c->getNumeroAperte());
                                         printf("<td>%s</td>",$c->getPunteggioMax());
                                         printf("<td>%s %%</td>",$c->getPercentualeScelto());
                                         printf("<td>%s %%</td>",$c->getPercentualeSuccesso());
-                                        printf("<td><a href=\"javascript:;\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></i></a>");
+                                        printf("<td><a href=\"test/crea\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></i></a>");
                                         printf("<a href=\"javascript:;\" class=\"btn btn-sm red-intense\"><i class=\"fa fa-trash-o\"></i></i></a></td>");
                                         printf("</tr>");
+                                        }
                                         }
                                  ?>
                             </tbody>

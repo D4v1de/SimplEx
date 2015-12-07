@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Creato il: Dic 05, 2015 alle 18:34
+-- Creato il: Dic 07, 2015 alle 14:29
 -- Versione del server: 5.5.41-0ubuntu0.12.04.1
 -- Versione PHP: 5.3.10-1ubuntu3.15
 
@@ -210,7 +210,6 @@ CREATE TABLE IF NOT EXISTS `log` (
 --
 
 CREATE TABLE IF NOT EXISTS `risposta_aperta` (
-  `id` int(10) NOT NULL,
   `elaborato_sessione_id` int(10) NOT NULL,
   `elaborato_studente_matricola` varchar(10) CHARACTER SET latin1 NOT NULL,
   `testo` varchar(500) CHARACTER SET latin1 DEFAULT NULL,
@@ -225,7 +224,6 @@ CREATE TABLE IF NOT EXISTS `risposta_aperta` (
 --
 
 CREATE TABLE IF NOT EXISTS `risposta_multipla` (
-  `id` int(10) NOT NULL,
   `elaborato_sessione_id` int(10) NOT NULL,
   `elaborato_studente_matricola` varchar(10) CHARACTER SET latin1 NOT NULL,
   `domanda_multipla_id` int(8) NOT NULL,
@@ -273,7 +271,8 @@ CREATE TABLE IF NOT EXISTS `test` (
   `n_multiple` int(4) NOT NULL,
   `n_aperte` int(4) NOT NULL,
   `percentuale_scelto` float NOT NULL DEFAULT '0',
-  `percentuale_successo` float NOT NULL DEFAULT '0'
+  `percentuale_successo` float NOT NULL DEFAULT '0',
+  `corso_id` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -406,7 +405,7 @@ ALTER TABLE `log`
 -- Indici per le tabelle `risposta_aperta`
 --
 ALTER TABLE `risposta_aperta`
-  ADD PRIMARY KEY (`id`) USING BTREE,
+  ADD PRIMARY KEY (`elaborato_sessione_id`,`elaborato_studente_matricola`,`domanda_aperta_id`) USING BTREE,
   ADD KEY `elaborato_sessione_id` (`elaborato_sessione_id`),
   ADD KEY `elaborato_studente_matricola` (`elaborato_studente_matricola`),
   ADD KEY `domanda_aperta_id` (`domanda_aperta_id`);
@@ -440,7 +439,8 @@ ALTER TABLE `sessione_test`
 -- Indici per le tabelle `test`
 --
 ALTER TABLE `test`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `corso_id` (`corso_id`);
 
 --
 -- Indici per le tabelle `utente`
@@ -611,6 +611,12 @@ ALTER TABLE `sessione`
 ALTER TABLE `sessione_test`
   ADD CONSTRAINT `sessione_test_ibfk_1` FOREIGN KEY (`sessione_id`) REFERENCES `sessione` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `sessione_test_ibfk_2` FOREIGN KEY (`test_id`) REFERENCES `test` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Limiti per la tabella `test`
+--
+ALTER TABLE `test`
+  ADD CONSTRAINT `test_ibfk_1` FOREIGN KEY (`corso_id`) REFERENCES `corso` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limiti per la tabella `utente`
