@@ -10,12 +10,12 @@ include_once MODEL_DIR . "Model.php";
 include_once BEAN_DIR . "Test.php";
 
 class TestModel extends Model {
-    private static $CREATE_TEST = "INSERT INTO `test` (descrizione, punteggio_max, n_multiple, n_aperte, percentuale_scelto, percentuale_successo) VALUES ('%s','%f','%d','%d','%f','%f')";
-    private static $UPDATE_TEST = "UPDATE `test` SET descrizione = '%s', punteggio_max = '%f', n_multiple = '%d', n_aperte = '%d', percentuale_scelto = '%f', percentuale_successo = '%f' WHERE id = '%d'";
+    private static $CREATE_TEST = "INSERT INTO `test` (descrizione, punteggio_max, n_multiple, n_aperte, percentuale_scelto, percentuale_successo, corso_id) VALUES ('%s','%f','%d','%d','%f','%f', '%d')";
+    private static $UPDATE_TEST = "UPDATE `test` SET descrizione = '%s', punteggio_max = '%f', n_multiple = '%d', n_aperte = '%d', percentuale_scelto = '%f', percentuale_successo = '%f',  corso_id = '%d' WHERE id = '%d'";
     private static $DELETE_TEST = "DELETE FROM `test` WHERE id = '%d'";
     private static $READ_TEST = "SELECT * FROM `test` WHERE id = '%d'";
     private static $GET_ALL_TESTS = "SELECT * FROM `test`";
-    private static $GET_ALL_TEST_CORSO = "SELECT * FROM `test` WHERE id IN (SELECT DISTINCT test_id FROM `compone_aperta` WHERE domanda_aperta_argomento_corso_id = '%d') OR id IN (SELECT DISTINCT test_id FROM `compone_multipla` WHERE domanda_multipla_argomento_corso_id = '%d') ";
+    private static $GET_ALL_TEST_CORSO = "SELECT * FROM `test` WHERE corso_id = '%d'";
     private static $GET_ALL_TEST_SESSIONE = "SELECT t.* FROM `sessione_test` as s, `test` as t WHERE s.sessione_id = '%d' AND s.test_id = t.id";
     private static $GET_TEST_ELABORATO = "SELECT t.* FROM `test` as t, `elaborato` as e where e.test_id = t.id AND e.studente_matricola = '%s' AND e.sessione_id = '%d'";
     
@@ -25,7 +25,7 @@ class TestModel extends Model {
      * @throws ApplicationException
      */
     public function createTest($test) {
-        $query = sprintf(self::$CREATE_TEST, $test->getDescrizione(), $test->getPunteggioMax(), $test->getNumeroMultiple(), $test->getNumeroAperte(), $test->getPercentualeScelto(), $test->getPercentualeSuccesso());
+        $query = sprintf(self::$CREATE_TEST, $test->getDescrizione(), $test->getPunteggioMax(), $test->getNumeroMultiple(), $test->getNumeroAperte(), $test->getPercentualeScelto(), $test->getPercentualeSuccesso(), $test->getCorsoId());
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
@@ -42,7 +42,7 @@ class TestModel extends Model {
      * @throws ApplicationException
      */
     public function updateTest($id, $updatedTest) {
-        $query = sprintf(self::$UPDATE_TEST, $updatedTest->getDescrizione(), $updatedTest->getPunteggioMax(), $updatedTest->getNumeroMultiple(), $updatedTest->getNumeroAperte(), $updatedTest->getPercentualeScelto(), $updatedTest->getPercentualeSuccesso(), $id);
+        $query = sprintf(self::$UPDATE_TEST, $updatedTest->getDescrizione(), $updatedTest->getPunteggioMax(), $updatedTest->getNumeroMultiple(), $updatedTest->getNumeroAperte(), $updatedTest->getPercentualeScelto(), $updatedTest->getPercentualeSuccesso(), $updatedTest->getCorsoId(), $id);
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
@@ -71,7 +71,7 @@ class TestModel extends Model {
         $query = sprintf(self::$READ_TEST, $id);
         $res = Model::getDB()->query($query);
         if ($obj = $res->fetch_assoc()) {
-            $test = new Test($obj['descrizione'], $obj['punteggio_max'], $obj['n_multiple'], $obj['n_aperte'], $obj['percentuale_scelto'], $obj['percentuale_successo']);
+            $test = new Test($obj['descrizione'], $obj['punteggio_max'], $obj['n_multiple'], $obj['n_aperte'], $obj['percentuale_scelto'], $obj['percentuale_successo'], $obj['corso_id']);
             $test->setId($obj['id']);
             return $test;
         }
@@ -89,7 +89,7 @@ class TestModel extends Model {
         $tests = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $test = new Test($obj['descrizione'], $obj['punteggio_max'], $obj['n_multiple'], $obj['n_aperte'], $obj['percentuale_scelto'], $obj['percentuale_successo']);
+                $test = new Test($obj['descrizione'], $obj['punteggio_max'], $obj['n_multiple'], $obj['n_aperte'], $obj['percentuale_scelto'], $obj['percentuale_successo'], $obj['corso_id']);
                 $test->setId($obj['id']);
                 $tests[] = $test;
             }
@@ -103,13 +103,13 @@ class TestModel extends Model {
      * @return Test[] Tutti i test del database
      * @throws ApplicationException
      */
-    public function getAllTestByCorso($id) {
-        $query = sprintf(self::$GET_ALL_TEST_CORSO, $id, $id);
+    public function getAllTestByCorso($corsoId) {
+        $query = sprintf(self::$GET_ALL_TEST_CORSO, $corsoId);
         $res = Model::getDB()->query($query);
         $tests = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $test = new Test($obj['descrizione'], $obj['punteggio_max'], $obj['n_multiple'], $obj['n_aperte'], $obj['percentuale_scelto'], $obj['percentuale_successo']);
+                $test = new Test($obj['descrizione'], $obj['punteggio_max'], $obj['n_multiple'], $obj['n_aperte'], $obj['percentuale_scelto'], $obj['percentuale_successo'], $obj['corso_id']);
                 $test->setId($obj['id']);
                 $tests[] = $test;            }
         }
@@ -127,7 +127,7 @@ class TestModel extends Model {
         $tests = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $test = new Test($obj['descrizione'], $obj['punteggio_max'], $obj['n_multiple'], $obj['n_aperte'], $obj['percentuale_scelto'], $obj['percentuale_successo']);
+                $test = new Test($obj['descrizione'], $obj['punteggio_max'], $obj['n_multiple'], $obj['n_aperte'], $obj['percentuale_scelto'], $obj['percentuale_successo'], $obj['corso_id']);
                 $test->setId($obj['id']);
                 $tests[] = $test;            }
         }
@@ -144,7 +144,7 @@ class TestModel extends Model {
         $query = sprintf(self::$GET_TEST_ELABORATO, $studenteMatricola, $sessioneId);
         $res = Model::getDB()->query($query);
         if ($obj = $res->fetch_assoc()) {
-            $test = new Test($obj['descrizione'], $obj['punteggio_max'], $obj['n_multiple'], $obj['n_aperte'], $obj['percentuale_scelto'], $obj['percentuale_successo'] );
+            $test = new Test($obj['descrizione'], $obj['punteggio_max'], $obj['n_multiple'], $obj['n_aperte'], $obj['percentuale_scelto'], $obj['percentuale_successo'], $obj['corso_id']);
             $test->setId($obj['id']);
             return $test;
         }

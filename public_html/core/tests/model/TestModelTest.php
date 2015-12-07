@@ -37,11 +37,11 @@ class TestModelTest extends \PHPUnit_Framework_TestCase
         print_r($test1);
 
         //creo test
-        $idTest = $model->createTest(new Test(self::DESCRIZIONE, self::PUNTEGGIOMAX, self::NMULTIPLETEST, self::NAPERTETEST, self::PERCENTUALESCELTO, self::PERCENTUALESUCCESSO));
+        $idTest = $model->createTest(new Test(self::DESCRIZIONE, self::PUNTEGGIOMAX, self::NMULTIPLETEST, self::NAPERTETEST, self::PERCENTUALESCELTO, self::PERCENTUALESUCCESSO, self::IDCORSO));
 
         //leggo dal db test creato
         $test = $model->readTest($idTest);
-        print_r($test1);
+        print_r($test);
 
 
         //confronto se i test sono equivalenti
@@ -53,7 +53,7 @@ class TestModelTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(self::PERCENTUALESUCCESSO, $test->getPercentualeSuccesso());
 
         //eseguo una modifica sul test creato
-        $model->updateTest($idTest, (new Test(self::DESCRIZIONE2, self::PUNTEGGIOMAX2, self::NMULTIPLETEST2, self::NAPERTETEST2, self::PERCENTUALESCELTO2, self::PERCENTUALESUCCESSO2)));
+        $model->updateTest($idTest, (new Test(self::DESCRIZIONE2, self::PUNTEGGIOMAX2, self::NMULTIPLETEST2, self::NAPERTETEST2, self::PERCENTUALESCELTO2, self::PERCENTUALESUCCESSO2, self::IDCORSO)));
 
         //leggo il test modificato dal db
         $testModificato = $model->readTest($idTest);
