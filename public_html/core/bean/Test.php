@@ -13,6 +13,7 @@ class Test {
     private $numeroAperte;
     private $percentualeScelto;
     private $percentualeSuccesso;
+    private $corsoId;
 
     /**
      * Costruttore di Test
@@ -22,14 +23,16 @@ class Test {
      * @param int $numeroAperte Numero di domande aperte
      * @param float $percentualeScelto Percentuale di volte in cui il test viene scelto
      * @param float $percentualeSuccesso Percentuale di successo del test
+     * @param int $corso_id L'id del corso a cui appartiene
      */
-    public function __construct($descrizione, $punteggioMax, $numeroMultiple, $numeroAperte, $percentualeScelto, $percentualeSuccesso) {
+    public function __construct($descrizione, $punteggioMax, $numeroMultiple, $numeroAperte, $percentualeScelto, $percentualeSuccesso, $corso_id) {
         $this->descrizione=$descrizione;
         $this->punteggioMax=$punteggioMax;
         $this->numeroMultiple=$numeroMultiple;
         $this->numeroAperte=$numeroAperte;
         $this->percentualeScelto=$percentualeScelto;
         $this->percentualeSuccesso=$percentualeSuccesso;
+        $this->corso_id = $corso_id;
     } 
     
     /**
@@ -79,6 +82,13 @@ class Test {
      */
     function getPercentualeSuccesso() {
         return $this->percentualeSuccesso;
+    }
+
+    /**
+     * @return int L'id del corso a cui appartiene
+     */
+    function getCorsoId() {
+        return $this->corsoId;
     }
         
     /**
@@ -135,5 +145,13 @@ class Test {
      */
     function setPercentualeSuccesso($percentualeSuccesso) {
         $this->percentualeSuccesso = $percentualeSuccesso;
+    }
+
+    /**
+     * Setta l'id del corso a cui appartiene
+     * @param int $corsoId L'id del corso a cui appartiene
+     */
+    function setCorsoId($corsoId) {
+        $this->corsoId = $corsoId;
     }
 }
