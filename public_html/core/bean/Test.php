@@ -25,14 +25,14 @@ class Test {
      * @param float $percentualeSuccesso Percentuale di successo del test
      * @param int $corso_id L'id del corso a cui appartiene
      */
-    public function __construct($descrizione, $punteggioMax, $numeroMultiple, $numeroAperte, $percentualeScelto, $percentualeSuccesso, $corso_id) {
+    public function __construct($descrizione, $punteggioMax, $numeroMultiple, $numeroAperte, $percentualeScelto, $percentualeSuccesso, $corsoId) {
         $this->descrizione=$descrizione;
         $this->punteggioMax=$punteggioMax;
         $this->numeroMultiple=$numeroMultiple;
         $this->numeroAperte=$numeroAperte;
         $this->percentualeScelto=$percentualeScelto;
         $this->percentualeSuccesso=$percentualeSuccesso;
-        $this->corso_id = $corso_id;
+        $this->corsoId = $corsoId;
     } 
     
     /**

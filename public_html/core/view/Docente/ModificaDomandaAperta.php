@@ -17,7 +17,9 @@ $argomentoController = new ArgomentoController();
 $idCorso = $_URL[3];
 $idArgomento = $_URL[7];
 $idDomanda = $_URL[8];
-$domandaOld = $domandaController->getDomandaAperta($idDomanda,$idArgomento,$idCorso);
+$corso = $cdlController->readCorso($idCorso);
+$argomento = $argomentoController->readArgomento($idArgomento,$idCorso); //Da modificare la chiamata
+$domandaOld = $domandaController->getDomandaAperta($idDomanda);
 
 if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
 
@@ -31,8 +33,8 @@ if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
     } else if (empty($punteggio)) {
         echo "<script type='text/javascript'>alert('Devi inserire il punteggio!');</script>";
     } else {
-        $updatedDomanda = new DomandaAperta($idArgomento,$idCorso, $testo, $punteggio, 0);
-        $domandaController->modificaDomandaAperta($idDomanda,$idArgomento,$idCorso,$updatedDomanda);
+        $updatedDomanda = new DomandaAperta($idArgomento, $testo, $punteggio, 0);
+        $domandaController->modificaDomandaAperta($idDomanda,$updatedDomanda);
 
         header('location: ../../'.$idArgomento);
     }
@@ -72,9 +74,6 @@ if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
             <div class="page-bar">
                 <ul class="page-breadcrumb">
                     <?php
-                    $corso = $cdlController->readCorso($idCorso);
-                    $argomento = $argomentoController->readArgomento($idArgomento,$idCorso);
-
                     printf("<li>");
                     printf("<i class=\"fa fa-home\"></i>");
                     printf("<a href=\"../../../../../../\">Home</a>");

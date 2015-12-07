@@ -26,7 +26,8 @@ class AccountModel extends Model {
     private static $INSERT_FREQUENTA = "INSERT INTO `frequenta` (studente_matricola, corso_id) VALUES ('%s','%d')";
     private static $DELETE_FREQUENTA = "DELETE FROM `frequenta` WHERE studente_matricola = '%s' AND corso_id = '%d'";
     private static $INSERT_INSEGNAMENTO = "INSERT INTO `insegna` (docente_matricola, corso_id) VALUES ('%s','%d')";
-    
+    private static $INSERT_ABILITAZIONE = "INSERT INTO `abilitazione` (sessione_id, studente_matricola) VALUES ('%d', '%s')";
+    private static $DELETE_ABILITAZIONE = "DELETE FROM `abilitazione` WHERE sessione_id = '%d' AND studente_matricola = '%s'";
     /**
      * Restituisce utente dato email e password
      * @param $email La mail dell'utente
@@ -301,6 +302,34 @@ class AccountModel extends Model {
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
+        }
+    }
+
+    /**
+     * Abilita uno studente ad una sessione
+     * @param Corso idSessione L'id della sessione alla quale abilitare lo studente
+     * @param string $studenteMatricola la matricola dello studente da abilitare
+     * @throws ApplicationException
+     */
+    public function abilitaStudenteSessione($idSessione, $studenteMatricola){
+        $query = sprintf(self::$INSERT_ABILITAZIONE, $idSessione, $studenteMatricola);
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows==-1) {
+            throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
+        }
+    }
+
+    /**
+     * Disabilita uno studente da una sessione
+     * @param Corso idSessione L'id della sessione alla quale abilitare lo studente
+     * @param string $studenteMatricola la matricola dello studente da abilitare
+     * @throws ApplicationException
+     */
+    public function disabilitaStudenteSessione($idSessione, $studenteMatricola){
+        $query = sprintf(self::$DELETE_ABILITAZIONE, $idSessione, $studenteMatricola);
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows==-1) {
+            throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
         }
     }
 }

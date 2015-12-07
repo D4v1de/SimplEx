@@ -27,16 +27,7 @@ class DomandaController extends Controller
     public function creaDomandaAperta($domandaAperta)
     {
         $domandaModel = new DomandaModel();
-        $domandaModel->createDomandaAperta($domandaAperta);
-    }
-
-    /**
-     * Assegna una soglia massima ad una domanda aperta
-     * @param DomandaAperta $domandaAperta Una domanda aperta a cui assegnare una soglia massima
-     */
-    public function assegnaSogliaMassima($domandaAperta)
-    {
-        /*Creare funzione nel model*/
+        return $domandaModel->createDomandaAperta($domandaAperta);
     }
 
     /**
@@ -46,27 +37,7 @@ class DomandaController extends Controller
     public function creaDomandaMultipla($domandaMultipla)
     {
         $domandaModel = new DomandaModel();
-        $domandaModel->createDomandaMultipla($domandaMultipla);
-    }
-
-
-    /*INUTILE?*/
-    /**
-     * Assegna i punteggi di default ad una domanda multipla
-     * @param DomandaMultipla $domandaMultipla Una domanda mutlipla a cui assegnare punteggi default
-     */
-    public function assegnaPunteggioDefaultEsatta($domandaMultipla)
-    {
-        /*Creare funzione*/
-    }
-
-    /**
-     * Assegna i punteggi di default ad una domanda multipla
-     * @param DomandaMultipla $domandaMultipla Una domanda mutlipla a cui assegnare punteggi default
-     */
-    public function assegnaPunteggioDefaultErrata($domandaMultipla)
-    {
-        /*Creare funzione*/
+        return $domandaModel->createDomandaMultipla($domandaMultipla);
     }
 
     /**
@@ -75,10 +46,10 @@ class DomandaController extends Controller
      * @param int $argomentoId L'id dell'argomento a cui appartiene la domanda
      * @param int $argomentoCorsoId L'id del corso a cui appartiene l'argomento relativo
      */
-    public function rimuoviDomandaAperta($id, $argomentoId, $argomentoCorsoId)
+    public function rimuoviDomandaAperta($id)
     {
         $domandaModel = new DomandaModel();
-        $domandaModel->deleteDomandaAperta($id, $argomentoId, $argomentoCorsoId);
+        $domandaModel->deleteDomandaAperta($id);
     }
 
     /**
@@ -87,10 +58,10 @@ class DomandaController extends Controller
      * @param int $argomentoId L'id dell'argomento a cui appartiene la domanda
      * @param int $argomentoCorsoId L'id del corso a cui appartiene l'argomento relativo
      */
-    public function rimuoviDomandaMultipla($id, $argomentoId, $argomentoCorsoId)
+    public function rimuoviDomandaMultipla($id)
     {
         $domandaModel = new DomandaModel();
-        $domandaModel->deleteDomandaMultipla($id, $argomentoId, $argomentoCorsoId);
+        $domandaModel->deleteDomandaMultipla($id);
     }
 
     /**
@@ -100,10 +71,10 @@ class DomandaController extends Controller
      * @param int $argomentoCorsoId L'id del corso a cui appartiene l'argomento relativo
      * @param DomandaAperta $updatedDomandaAperta La domanda aperta aggiornata da modificare nel database
      */
-    public function modificaDomandaAperta($id, $argomentoId, $argomentoCorsoId, $updatedDomandaAperta)
+    public function modificaDomandaAperta($id,$updatedDomandaAperta)
     {
         $domandaModel = new DomandaModel();
-        $domandaModel->updateDomandaAperta($id, $argomentoId, $argomentoCorsoId, $updatedDomandaAperta);
+        $domandaModel->updateDomandaAperta($id, $updatedDomandaAperta);
     }
 
     /**
@@ -113,20 +84,20 @@ class DomandaController extends Controller
      * @param int $argomentoCorsoId L'id del corso a cui appartiene l'argomento relativo
      * @param DomandaMultipla $updatedDomandaMultipla La domanda aperta aggiornata da modificare nel database
      */
-    public function modificaDomandaMultipla($id, $argomentoId, $argomentoCorsoId, $updatedDomandaMultipla)
+    public function modificaDomandaMultipla($id, $updatedDomandaMultipla)
     {
         $domandaModel = new DomandaModel();
-        $domandaModel->updateDomandaMultipla($id, $argomentoId, $argomentoCorsoId, $updatedDomandaMultipla);
+        $domandaModel->updateDomandaMultipla($id, $updatedDomandaMultipla);
     }
 
-    public function getDomandaAperta($id, $argomentoId, $argomentoCorsoId){
+    public function getDomandaAperta($id){
         $domandaModel = new DomandaModel();
-        return $domandaModel->readDomandaAperta($id,$argomentoId, $argomentoCorsoId);
+        return $domandaModel->readDomandaAperta($id);
     }
 
-    public function getDomandaMultipla($id, $argomentoId, $argomentoCorsoId){
+    public function getDomandaMultipla($id){
         $domandaModel = new DomandaModel();
-        return $domandaModel->readDomandaMultipla($id,$argomentoId, $argomentoCorsoId);
+        return $domandaModel->readDomandaMultipla($id);
     }
 
     /**
@@ -135,10 +106,10 @@ class DomandaController extends Controller
      * @param $argomentoCorsoId L'id del corso.
      * @return DomandaAperta[] La lista di domande aperte
      */
-    public function getAllAperte($argomentoId, $argomentoCorsoId)
+    public function getAllAperte($argomentoId)
     {
         $domandaModel = new DomandaModel();
-        return $domandaModel->getAllDomandaApertaByArgomento($argomentoId, $argomentoCorsoId);
+        return $domandaModel->getAllDomandaApertaByArgomento($argomentoId);
     }
 
     /**
@@ -147,10 +118,10 @@ class DomandaController extends Controller
      * @param $argomentoCorsoId L'id del corso.
      * @return DomandaMultipla[] La lista di domande multiple
      */
-    public function getAllMultiple($argomentoId, $argomentoCorsoId)
+    public function getAllMultiple($argomentoId)
     {
         $domandaModel = new DomandaModel();
-        return $domandaModel->getAllDomandaMultiplaByArgomento($argomentoId, $argomentoCorsoId);
+        return $domandaModel->getAllDomandaMultiplaByArgomento($argomentoId);
     }
 
     //restituisce le domande multiple di uno specifico test

@@ -20,17 +20,12 @@ class AlternativaController extends Controller
 
     public function creaAlternativa($alternativa){
         $alternativaModel = new AlternativaModel();
-        $alternativaModel->createAlternativa($alternativa);
+        return $alternativaModel->createAlternativa($alternativa);
     }
 
-    public function modificaAlternativa($id, $domandaMultiplaId, $domandaMultiplaArgomentoId, $domandaMultiplaArgomentoCorsoId, $updatedAlternativa) {
+    public function modificaAlternativa($id, $updatedAlternativa) {
         $alternativaModel = new AlternativaModel();
-        $alternativaModel->updateAlternativa($id, $domandaMultiplaId, $domandaMultiplaArgomentoId, $domandaMultiplaArgomentoCorsoId, $updatedAlternativa);
-    }
-
-    public function cancellaAllAlternativa($domandaMultiplaId, $domandaMultiplaArgomentoId, $domandaMultiplaArgomentoCorsoId){
-        $alternativaModel = new AlternativaModel();
-        $alternativaModel->getAllAlternativaByDomanda($domandaMultiplaId, $domandaMultiplaArgomentoId, $domandaMultiplaArgomentoCorsoId);
+        $alternativaModel->updateAlternativa($id, $updatedAlternativa);
     }
 
     public function getArgomenti()
@@ -39,10 +34,10 @@ class AlternativaController extends Controller
         return $argomentoModel->getAllArgomento();
     }
 
-    public function getAllAlternativa($domandaMultiplaId, $domandaMultiplaArgomentoId, $domandaMultiplaArgomentoCorsoId)
+    public function getAllAlternativaByDomanda($idDomandaMultipla)
     {
         $alternativaModel = new AlternativaModel();
-        return $alternativaModel->getAllAlternativaByDomanda($domandaMultiplaId, $domandaMultiplaArgomentoId, $domandaMultiplaArgomentoCorsoId);
+        return $alternativaModel->getAllAlternativaByDomanda($idDomandaMultipla);
     }
 
 }
