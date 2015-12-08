@@ -130,20 +130,19 @@ $aperte = $domandaController->getAperteTest($testId);
                             function creaRispostaMultipla($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId, $punteggio, $alternativaId){
                                 $rmCon = new RispostaMultiplaController();
                                 $risp = new RispostaMultipla($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId, $punteggio, $alternativaId);
-                                print_r($risp);
-                                //$rmCon->createRispostaMultipla($risp);
+                                $rmCon->createRispostaMultipla($risp);
                             }
                                 $i = 1;
                                 foreach ($multiple as $m) {
                                     $j = 1;
                                     $testo = $m->getTesto();
                                     $multId = $m->getId();
-                                   // try{
+                                    try{
                                         creaRispostaMultipla($sessId, $matricola, $multId, null, null);
-                                    //}
-                                    //catch (ApplicationException $ex){
-                                      //  echo '<h3>Impossibile creare risposta</h3>';
-                                    //}
+                                    }
+                                    catch (ApplicationException $ex){
+                                        echo '<h3>Impossibile creare risposta</h3>';
+                                    }
                                     echo "<h3>".$testo."</h3>";
                                     echo '<div class="form-group form-md-radios">';
                                     echo '<div class="md-radio-list">';
@@ -151,8 +150,8 @@ $aperte = $domandaController->getAperteTest($testId);
                                     foreach ($alternative as $r){
                                         $altId = $r->getId();
                                         echo    '<div class="md-radio">
-                                                    <input type="radio" id="alt-'.$altId.'" name=""mul-'.$multId.'" onclick="javascript: " class="md-radiobtn">
-                                                    <label for="'.$altId.'">
+                                                    <input type="radio" id="alt-'.$altId.'" name="mul-'.$multId.'" onclick="javascript: updateMultipla(this.name,this.id);" class="md-radiobtn">
+                                                    <label for="alt-'.$altId.'">
                                                     <span class="inc"></span>
                                                     <span class="check"></span>
                                                     <span class="box"></span>
@@ -226,6 +225,7 @@ $aperte = $domandaController->getAperteTest($testId);
         //Demo.init(); // init demo features
     });
 </script>
+<!-- risposte -->
 <script>
     var mat = "<?= $matricola; ?>";
     var sId = <?= $sessId ?>;
@@ -256,24 +256,24 @@ $aperte = $domandaController->getAperteTest($testId);
         updateAperta(apId);
         clearInterval(intId2);
     }
-    /*var UpdateAperta = function(domId){
-        var mat = "<?= $matricola; ?>";
-        var sId = <?= $sessId ?>;
-        var testo = document.getElementById(domId).value;
-	if (window.XMLHttpRequest) {
-	  var xhr = new XMLHttpRequest();
-	  //metodo tradizionale di registrazione eventi   
-	  xhr.onreadystatechange =gestoreRichiesta;   
-	  xhr.open("GET", "/updateAperta?mat="+mat+"&sessId="+sId+"&testo="+testo, true);   
-	  //xhr.open("GET", "/usr/studente/corso/18", true);   
-	  xhr.send(""); 
-	} 
-	function gestoreRichiesta() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                alert(xhr.responseText);
+    var updateMultipla = function(multId,altId){
+            var res = multId.split('-');
+            var rId = res[1];
+            res = altId.split('-');
+            var aId = res[1];
+            if (window.XMLHttpRequest) {
+                var xhr = new XMLHttpRequest();
+                //metodo tradizionale di registrazione eventi   
+                xhr.onreadystatechange =gestoreRichiesta;   
+                xhr.open("GET", "/updateMultipla?mat="+mat+"&sessId="+sId+"&domId="+rId+"&altId="+aId, true);   
+                xhr.send(""); 
+            } 
+            function gestoreRichiesta() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    alert(xhr.responseText);
+                }
             }
-	}
-}*/
+        }
 </script>
 <!-- countdown -->
 <script>

@@ -20,6 +20,13 @@ class RispostaMultiplaController extends Controller
         return $this->rispMulModel->createRispostaMultipla($risposta);
     }
 
+    public function readRispostaMultipla($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId){
+        return $this->rispMulModel->readRispostaMultipla($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId);
+    }
+    
+    public function updateRispostaMultipla($updatedRisposta, $elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId){
+        return $this->rispMulModel->updateRispostaMultipla($updatedRisposta, $elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId);
+    }
     
 
 }

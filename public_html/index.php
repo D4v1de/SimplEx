@@ -275,6 +275,9 @@ if (!defined("TESTING")) {
         case 'updateAperta':
             include_once VIEW_DIR . "Studente/updateAperta.php";
             break;
+        case 'updateMultipla':
+            include_once VIEW_DIR . "Studente/updateMultipla.php";
+            break;
         case 'creaElaborato':
             include_once VIEW_DIR . "Studente/creaElaborato.php";
             break;
