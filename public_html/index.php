@@ -50,7 +50,7 @@ include_once MODEL_DIR . "Logger.php";
 if (!defined("TESTING")) {
     switch (isset($_URL[0]) ? $_URL[0] : '') {
         case '':
-            include_once VIEW_DIR . "VisualizzaHome.php";
+            include_once VIEW_DIR . "design/VisualizzaHome.php";
             break;
         case 'auth': {
             switch (@$_URL[1]) {

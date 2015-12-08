@@ -25,17 +25,17 @@ $controller = new Esempio();
      <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
     <link rel="stylesheet" type="text/css"
           href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
-    <?php include VIEW_DIR . "header.php"; ?>
+    <?php include VIEW_DIR . "design/header.php"; ?>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
 <body class="page-md page-header-fixed page-quick-sidebar-over-content">
-<?php include VIEW_DIR . "headMenu.php"; ?>
+<?php include VIEW_DIR . "design/headMenu.php"; ?>
 <div class="clearfix">
 </div>
 <!-- BEGIN CONTAINER -->
 <div class="page-container">
-    <?php include VIEW_DIR . "sideBar.php"; ?>
+    <?php include VIEW_DIR . "design/sideBar.php"; ?>
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
         <div class="page-content">
@@ -466,10 +466,10 @@ $controller = new Esempio();
     <!-- END CONTENT -->
 </div>
 <!-- END CONTAINER -->
-<?php include VIEW_DIR . "footer.php"; ?>
+<?php include VIEW_DIR . "design/footer.php"; ?>
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
-<?php include VIEW_DIR . "js.php"; ?>
+<?php include VIEW_DIR . "design/js.php"; ?>
 
 <!--Script specifici per la pagina -->
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
