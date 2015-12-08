@@ -395,7 +395,7 @@ if(isset($_POST['idtest'])){
                         </table>
                     </div>
                 </div>
-            </div>
+                </div>
             </form>
 
 
