@@ -40,4 +40,14 @@ class AlternativaController extends Controller
         return $alternativaModel->getAllAlternativaByDomanda($idDomandaMultipla);
     }
 
+    public function rimuoviAlternativa($idAlternativa)
+    {
+        $alternativaModel = new AlternativaModel();
+        $alternativaModel->deleteAlternativa($idAlternativa);
+    }
+
+    public function readAlternativa($idAlternativa){
+        $alternativaModel = new AlternativaModel();
+        return $alternativaModel->readAlternativa($idAlternativa);
+    }
 }

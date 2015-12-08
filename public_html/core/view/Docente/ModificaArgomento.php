@@ -33,14 +33,12 @@ try{
 
 if(isset($_POST['nomeargomento'])){
     $nome = $_POST['nomeargomento'];
-
-
-if(empty($nome)){
-    echo "<script type='text/javascript'>alert('Inserisci il titolo!');</script>";
-}else {
-    $argomento->setNome($nome);
-    $controller->modificaArgomento($argomento->getId(), $argomento->getCorsoId(), $argomento);
-    header('location:../../../../corso/' . $corso->getId());
+    if(empty($nome)){
+        echo "<script type='text/javascript'>alert('Inserisci il titolo!');</script>";
+    }else {
+        $argomento->setNome($nome);
+        $controller->modificaArgomento($argomento->getId(), $argomento);
+        header('location:../../../../corso/' . $corso->getId());
     }
 }
 ?>

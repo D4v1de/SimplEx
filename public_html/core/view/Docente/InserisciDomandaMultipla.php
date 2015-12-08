@@ -42,8 +42,8 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErr']) && isset($_PO
     } else {
         $nuovaDomanda = new DomandaMultipla($idArgomento,$testoDomanda,$punteggioEsatta,$punteggioErrata,0,0);
         $idNuovaDomanda = $domandaController->creaDomandaMultipla($nuovaDomanda);
-        for($i = 0; $i<count($testoRisposte); $i=$i+1){
-            if($i == $radio){
+        for($i = 0; $i<count($testoRisposte); $i++){
+            if(($i+1) == $radio){
                 $corretta = "Si";
             } else{
                 $corretta = "No";
@@ -69,10 +69,11 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErr']) && isset($_PO
     <meta charset="utf-8"/>
     <title>Inserisci Domanda Multipla</title>
     <?php include VIEW_DIR . "header.php"; ?>
+
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
-<body class="page-md page-header-fixed page-quick-sidebar-over-content">
+<body class="page-md page-header-fixed page-quick-sidebar-over-content" onload="primaRisposta()">
 <?php include VIEW_DIR . "headMenu.php"; ?>
 <div class="clearfix">
 </div>
@@ -139,50 +140,17 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErr']) && isset($_PO
                                     ?>
                                 </div>
                             </div>
-                            <?php
-                            printf("<div class=\"form-group form-md-line-input has-success ratio\" style=\"height: 100px\">");
-                            printf("<div class=\"control-label col-md-1\">");
-                            printf("<input type=\"radio\" id=\"radio\" name=\"radio\" value=\"0\">"); //Rendere dinamico con la creazione delle risposte
-                            printf("</div>");
-                            printf("<label class=\"control-label col-md-2\">");
-                            printf("Inserisci Testo Risposta</label>");
-                            printf("<div class=\"col-md-6\">");
-                            printf("<input type=\"text\" value=\"\" id=\"risposte\" name=\"risposte[]\" class=\"form-control\">");
-                            printf("<span class=\"help-block\">");
-                            printf("Inserisci il testo della risposta </span>");
-                            printf("</div>");
-                            printf("<div class=\"col-md-3\">");
-                            printf("<a href=\"javascript:;\" class=\"btn sm green-jungle\">");
-                            printf("<i class=\"fa fa-plus\"></i> Aggiungi");
-                            printf("</a>");
-                            printf("<a href=\"javascript:;\" class=\"btn sm red-intense\">");
-                            printf("<i class=\"fa fa-minus\"></i> Rimuovi");
-                            printf("</a>");
-                            printf("</div>");
-                            printf("</div>");
-                            ?>
-                            <?php
-                            printf("<div class=\"form-group form-md-line-input has-success ratio\" style=\"height: 100px\">");
-                            printf("<div class=\"control-label col-md-1\">");
-                            printf("<input type=\"radio\" id=\"radio\" name=\"radio\" value=\"1\">");
-                            printf("</div>");
-                            printf("<label class=\"control-label col-md-2\">");
-                            printf("Inserisci Testo Risposta</label>");
-                            printf("<div class=\"col-md-6\">");
-                            printf("<input type=\"text\" value=\"\" id=\"risposte\" name=\"risposte[]\" class=\"form-control\">");
-                            printf("<span class=\"help-block\">");
-                            printf("Inserisci il testo della risposta </span>");
-                            printf("</div>");
-                            printf("<div class=\"col-md-3\">");
-                            printf("<a href=\"javascript:;\" class=\"btn sm green-jungle\">");
-                            printf("<i class=\"fa fa-plus\"></i> Aggiungi");
-                            printf("</a>");
-                            printf("<a href=\"javascript:;\" class=\"btn sm red-intense\">");
-                            printf("<i class=\"fa fa-minus\"></i> Rimuovi");
-                            printf("</a>");
-                            printf("</div>");
-                            printf("</div>");
-                            ?>
+
+
+
+
+
+                            <div id="rispostenuove">
+
+                            </div>
+
+
+
                             <div class="form-group form-md-line-input has-success" style="height: 100px">
                                 <label class="control-label col-md-3">Inserisci Punteggio Esatta</label>
 
@@ -246,6 +214,36 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErr']) && isset($_PO
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
     });
+</script>
+
+<!-- PERMETTE DI INSERIRE LE RISPOSTE DINAMICAMENTE -->
+<script>
+
+    var num = 2;
+
+    function primaRisposta(){
+        var newDiv = document.createElement("DIV");
+        var div = document.getElementById('rispostenuove');
+        div.appendChild(newDiv);
+        newDiv.innerHTML = "<div class=\"form-group form-md-line-input has-success ratio\" style=\"height: 90px\"><label class=\"control-label col-md-3\"><input type=\"radio\" name=\"radio\" value=\"1\" >Inserisci Testo Risposta</label><div class=\"col-md-6\"><input type=\"text\" id=\"risposte\" name=\"risposte[]\" placeholder=\"\" class=\"form-control\"> <span class=\"help-block\">Inserisci il testo della risposta </span> </div> <div class=\"col-md-3\"><a onclick=\"javascript:insRisposte()\" class=\"btn sm green-jungle\"><i class=\"fa fa-plus\"></i> Aggiungi </a> ";
+    }
+
+
+    function insRisposte(){
+        var newDiv = document.createElement("DIV");
+        var div = document.getElementById('rispostenuove');
+        div.appendChild(newDiv);
+        newDiv.innerHTML = "<div class=\"form-group form-md-line-input has-success ratio\" style=\"height: 90px\"><label class=\"control-label col-md-3\"><input type=\"radio\" name=\"radio\" value=" +num+ " >Inserisci Testo Risposta</label><div class=\"col-md-6\"><input type=\"text\" id=\"risposte\" name=\"risposte[]\" placeholder=\"\" class=\"form-control\"> <span class=\"help-block\">Inserisci il testo della risposta </span> </div> <div class=\"col-md-3\"> <a onclick=\"javascript:elimina(this)\"  class=\"btn sm red-intense\"> <i class=\"fa fa-minus\"></i> Rimuovi </a> </div> </div>";
+        num++;
+    }
+
+    function elimina(btn){
+        var daEliminare = btn.parentNode.parentNode.parentNode;
+        daEliminare.parentNode.removeChild(daEliminare);
+
+    }
+
+
 </script>
 <!-- END JAVASCRIPTS -->
 </body>

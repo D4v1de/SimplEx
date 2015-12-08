@@ -22,42 +22,68 @@ $corso = $cdlController->readCorso($idCorso);
 $argomento = $argomentoController->readArgomento($idArgomento, $idCorso); //Chiedere se deve essere modificato
 $domandaOld = $domandaController->getDomandaMultipla($idDomanda);
 $risposte = $alternativaController->getAllAlternativaByDomanda($idDomanda);
+$numRisposte = count($risposte);
+
+if(isset($_POST['eliminatore'])){
+    $idArgomentoDaEliminare = $_POST['eliminatore'];
+    $alternativaController->rimuoviAlternativa($idArgomentoDaEliminare);
+    header("Refresh:0");
+}else {
+
+    if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErr']) && isset($_POST['punteggioEs']) && isset($_POST['risposte']) && isset($_POST['radio'])) {
+
+        $testoDomanda = $_POST['testoDomanda'];
+        $punteggioErrata = $_POST['punteggioErr'];
+        $punteggioEsatta = $_POST['punteggioEs'];
+        $testoRisposte = $_POST['risposte'];
+        $radio = $_POST['radio'];
 
 
-if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErr']) && isset($_POST['punteggioEs']) && isset($_POST['risposte']) && isset($_POST['radio']) ) {
+        if (empty($testoDomanda) && empty($punteggioErrata) && empty($punteggioEsatta)) {
+            echo "<script type='text/javascript'>alert('Devi riempire tutti i campi!');</script>";
+        } else if (empty($testoDomanda)) {
+            echo "<script type='text/javascript'>alert('Devi inserire il testo!');</script>";
+        } else if (empty($punteggioEsatta)) {
+            echo "<script type='text/javascript'>alert('Devi inserire il punteggio esatta diverso da 0!');</script>";
+        } else if (empty($radio)) {
+            echo "<script type='text/javascript'>alert('Devi inserire una risposta corretta');</script>";
+        } else if (empty($testoRisposte)) {
+            echo "<script type='text/javascript'>alert('Devi inserire una risposta');</script>";
+        } else {
 
-    $testoDomanda = $_POST['testoDomanda'];
-    $punteggioErrata = $_POST['punteggioErr'];
-    $punteggioEsatta = $_POST['punteggioEs'];
-    $testoRisposte = $_POST['risposte'];
-    $radio = $_POST['radio'];
+            $updatedDomanda = new DomandaMultipla($idArgomento, $testoDomanda, $punteggioEsatta, $punteggioErrata, 0, 0);
+            $domandaController->modificaDomandaMultipla($idDomanda, $updatedDomanda);
 
+            $alternative = $alternativaController->getAllAlternativaByDomanda($idDomanda);
 
-    if (empty($testoDomanda) && empty($punteggioErrata) && empty($punteggioEsatta)) {
-        echo "<script type='text/javascript'>alert('Devi riempire tutti i campi!');</script>";
-    } else if (empty($testoDomanda)) {
-        echo "<script type='text/javascript'>alert('Devi inserire il testo!');</script>";
-    } else if (empty($punteggioEsatta)) {
-        echo "<script type='text/javascript'>alert('Devi inserire il punteggio esatta diverso da 0!');</script>";
-    }else if (empty($radio)) {
-        echo "<script type='text/javascript'>alert('Devi inserire una risposta corretta');</script>";
-    }else if (empty($testoRisposte)) {
-        echo "<script type='text/javascript'>alert('Devi inserire una risposta');</script>";
-    }else {
-        $i =0;
-        foreach($risposte as $r) {
-            if($radio == $r->getId()){
-                $corretta="Si";
-            } else {
-                $corretta="No";
+            for ($i = 0; $i < count($testoRisposte); $i++) {
+                $idAlternativa = $alternative[$i]->getId();
+                if (($i + 1) == $radio) {
+                    $corretta = "Si";
+                } else {
+                    $corretta = "No";
+                }
+
+                $updatedAlternativa = new Alternativa($idDomanda, $testoRisposte[$i], 0, $corretta);
+                $alternativaController->modificaAlternativa($idAlternativa, $updatedAlternativa);
             }
-            $updatedAlternativa = new Alternativa($idDomanda, $testoRisposte[$i],0,$corretta);
-            $alternativaController->modificaAlternativa($r->getId(),$updatedAlternativa);
-            $i = $i+1;
+
+            if(isset($_POST['risposteNuove'])){
+                $rispostenuove = $_POST['risposteNuove'];
+
+                for($i=0;$i<count($rispostenuove);$i++){
+                    if(($i + 1) == $radio){
+                        $corretta2 = "Si";
+                    }else{
+                        $corretta2 = "No";
+                    }
+                    $nuovaAlternativa = new Alternativa($idDomanda, $rispostenuove[$i], 0, $corretta2);
+                    $alternativaController->creaAlternativa($nuovaAlternativa);
+                }
+            }
+
+            header('location: ../../' . $idArgomento);
         }
-        $updatedDomanda = new DomandaMultipla($idArgomento,$testoDomanda,$punteggioEsatta,$punteggioErrata,0,0);
-        $domandaController->modificaDomandaMultipla($idDomanda,$updatedDomanda);
-        header('location: ../../'.$idArgomento);
     }
 }
 ?>
@@ -145,13 +171,14 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErr']) && isset($_PO
                                 </div>
                             </div>
                             <?php
+                            $numRadio = 1;
                             foreach ($risposte as $r) {
                                 printf("<div class=\"form-group form-md-line-input has-success ratio\" style=\"height: 100px\">");
                                 printf("<div class=\"control-label col-md-1\">");
                                 if(!strcmp($r->getCorretta(),"Si")){
-                                    printf("<input type=\"radio\"  checked=\"\" id=\"radio\" name=\"radio\" value=\"%d\">", $r->getId());
+                                    printf("<input type=\"radio\"  checked=\"\" id=\"radio\" name=\"radio\" value=\"%d\">", $numRadio);
                                 } else {
-                                    printf("<input type=\"radio\" id=\"radio\" name=\"radio\" value=\"%d\">", $r->getId());
+                                    printf("<input type=\"radio\" id=\"radio\" name=\"radio\" value=\"%d\">", $numRadio);
                                 }
                                 printf("</div>");
                                 printf("<label class=\"control-label col-md-2\">");
@@ -162,16 +189,23 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErr']) && isset($_PO
                                 printf("Inserisci il testo della risposta </span>");
                                 printf("</div>");
                                 printf("<div class=\"col-md-3\">");
-                                printf("<a href=\"javascript:;\" class=\"btn sm green-jungle\">");
+                                printf("<a href=\"javascript:insRisposte();\" class=\"btn sm green-jungle\">");
                                 printf("<i class=\"fa fa-plus\"></i> Aggiungi");
                                 printf("</a>");
-                                printf("<a href=\"javascript:;\" class=\"btn sm red-intense\">");
+                                printf("<button name=\"eliminatore\" value=\"%s\" class=\"btn sm red-intense\">", $r->getId());
                                 printf("<i class=\"fa fa-minus\"></i> Rimuovi");
-                                printf("</a>");
+                                printf("</button>");
                                 printf("</div>");
                                 printf("</div>");
+                                $numRadio++;
                             }
                             ?>
+
+                            <div id="rispostenuove">
+
+                            </div>
+
+
                             <div class="form-group form-md-line-input has-success" style="height: 100px">
                                 <label class="control-label col-md-3">Inserisci Punteggio Esatta</label>
 
@@ -239,6 +273,28 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErr']) && isset($_PO
         //Demo.init(); // init demo features
     });
 </script>
+
+<script>
+
+    var num = <?php echo $numRisposte+1; ?>;
+
+    function insRisposte(){
+        var newDiv = document.createElement("DIV");
+        var div = document.getElementById('rispostenuove');
+        div.appendChild(newDiv);
+        newDiv.innerHTML = "<div class=\"form-group form-md-line-input has-success ratio\" style=\"height: 90px\"><label class=\"control-label col-md-3\"><input type=\"radio\" name=\"radio\" value=" +num+ " >Inserisci Testo Risposta</label><div class=\"col-md-6\"><input type=\"text\" id=\"risposte\" name=\"risposteNuove[]\" placeholder=\"\" class=\"form-control\"> <span class=\"help-block\">Inserisci il testo della risposta </span> </div> <div class=\"col-md-3\"> <a onclick=\"javascript:elimina(this)\"  class=\"btn sm red-intense\"> <i class=\"fa fa-minus\"></i> Rimuovi </a> </div> </div>";
+        num++;
+    }
+
+    function elimina(btn){
+        var daEliminare = btn.parentNode.parentNode.parentNode;
+        daEliminare.parentNode.removeChild(daEliminare);
+
+    }
+
+
+</script>
+
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->
