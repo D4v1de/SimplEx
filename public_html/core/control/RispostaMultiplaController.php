@@ -28,5 +28,8 @@ class RispostaMultiplaController extends Controller
         return $this->rispMulModel->updateRispostaMultipla($updatedRisposta, $elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId);
     }
     
-
+     public function getMultipleByElaborato($elaborato){
+        return $this->rispMulModel->getMultipleByElaborato($elaborato);
+    }
+    
 }

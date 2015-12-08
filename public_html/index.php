@@ -267,14 +267,10 @@ if (!defined("TESTING")) {
         case 'selezionestudenti':
             include_once VIEW_DIR . "Docente/SelezioneStudenti.php";
             break;
-        case 'gestoreMultipla':
-            include_once VIEW_DIR . "Studente/gestoreMultipla.php";
-            break;
+        
+        
         case 'gestoreCountdown':
             include_once VIEW_DIR . "Studente/gestoreCountdown.php";
-            break;
-        case 'inizializzaAperta':
-            include_once VIEW_DIR . "Studente/inizializzaAperta.php";
             break;
         case 'updateAperta':
             include_once VIEW_DIR . "Studente/updateAperta.php";
@@ -282,9 +278,17 @@ if (!defined("TESTING")) {
         case 'updateMultipla':
             include_once VIEW_DIR . "Studente/updateMultipla.php";
             break;
+        case 'abbandona':
+            include_once VIEW_DIR . "Studente/abbandona.php";
+            break;
+        case 'consegna':
+            include_once VIEW_DIR . "Studente/consegna.php";
+            break;
         case 'creaElaborato':
             include_once VIEW_DIR . "Studente/creaElaborato.php";
             break;
+        
+        
         case 'homecorsostudente':
             include_once VIEW_DIR . "Studente/HomeCorso.php";
             break;

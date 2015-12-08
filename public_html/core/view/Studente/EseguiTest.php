@@ -26,8 +26,8 @@ $nome = $studente->getNome();
 $cognome = $studente->getCognome();
 
 $testId = 1;
-$multiple = $domandaController->getMultTest($testId);
-$aperte = $domandaController->getAperteTest($testId);
+$multiple = $domandaController->getAllDomandeMultipleByTest($testId);
+$aperte = $domandaController->getAllDomandeAperteByTest($testId);
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -188,10 +188,10 @@ $aperte = $domandaController->getAperteTest($testId);
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-9">
-                                    <a href="javascript:;" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                    <a href="javascript:;" onclick="javascript: Consegna()" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                                         Consegna
                                     </a>
-                                    <a href="javascript:;" class="btn sm red-intense">
+                                    <a onclick="javascript: Abbandona()" class="btn sm red-intense">
                                         Abbandona
                                     </a>
                                 </div>
@@ -225,56 +225,6 @@ $aperte = $domandaController->getAperteTest($testId);
         //Demo.init(); // init demo features
     });
 </script>
-<!-- risposte -->
-<script>
-    var mat = "<?= $matricola; ?>";
-    var sId = <?= $sessId ?>;
-    var intId2 = null;
-    var ApertaOnFocus = function(apId){
-        //var testo = document.getElementById(apId).value;
-        //var countdown = document.getElementById('countdown');
-        //countdown.innerHTML = testo;
-        intId2 = setInterval(function(){updateAperta(apId);},3000);
-    }
-    var updateAperta = function(apId){
-            var testo = document.getElementById(apId).value;
-            var res = apId.split('-');
-            var id = res[1];
-            if (window.XMLHttpRequest) {
-                var xhr = new XMLHttpRequest();
-                //metodo tradizionale di registrazione eventi   
-                xhr.onreadystatechange =gestoreRichiesta;   
-                xhr.open("GET", "/updateAperta?mat="+mat+"&sessId="+sId+"&domId="+id+"&testo="+testo, true);   
-                xhr.send(""); 
-            } 
-            function gestoreRichiesta() {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                }
-            }
-        }
-    var ApertaOnBlur = function(apId){
-        updateAperta(apId);
-        clearInterval(intId2);
-    }
-    var updateMultipla = function(multId,altId){
-            var res = multId.split('-');
-            var rId = res[1];
-            res = altId.split('-');
-            var aId = res[1];
-            if (window.XMLHttpRequest) {
-                var xhr = new XMLHttpRequest();
-                //metodo tradizionale di registrazione eventi   
-                xhr.onreadystatechange =gestoreRichiesta;   
-                xhr.open("GET", "/updateMultipla?mat="+mat+"&sessId="+sId+"&domId="+rId+"&altId="+aId, true);   
-                xhr.send(""); 
-            } 
-            function gestoreRichiesta() {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    alert(xhr.responseText);
-                }
-            }
-        }
-</script>
 <!-- countdown -->
 <script>
     var target_date;
@@ -287,7 +237,6 @@ $aperte = $domandaController->getAperteTest($testId);
               //metodo tradizionale di registrazione eventi   
               xhr.onreadystatechange =gestoreRichiesta;   
               xhr.open("GET", "/gestoreCountdown?sessId="+sId, true);   
-              //xhr.open("GET", "/usr/studente/corso/18", true);   
               xhr.send(""); 
             }
         function gestoreRichiesta() {
@@ -347,6 +296,93 @@ $aperte = $domandaController->getAperteTest($testId);
         }
         current_date = current_date + 1000;
     }
+</script>
+<!-- risposte -->
+<script>
+    var mat = "<?= $matricola; ?>";
+    var sId = <?= $sessId ?>;
+    var intId2 = null;
+    var ApertaOnFocus = function(apId){
+        //var testo = document.getElementById(apId).value;
+        //var countdown = document.getElementById('countdown');
+        //countdown.innerHTML = testo;
+        intId2 = setInterval(function(){updateAperta(apId);},3000);
+    }
+    var updateAperta = function(apId){
+            var testo = document.getElementById(apId).value;
+            var res = apId.split('-');
+            var id = res[1];
+            if (window.XMLHttpRequest) {
+                var xhr = new XMLHttpRequest();
+                //metodo tradizionale di registrazione eventi   
+                xhr.onreadystatechange =gestoreRichiesta;   
+                xhr.open("GET", "/updateAperta?mat="+mat+"&sessId="+sId+"&domId="+id+"&testo="+testo, true);   
+                xhr.send(""); 
+            } 
+            function gestoreRichiesta() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                }
+            }
+        }
+    var ApertaOnBlur = function(apId){
+        updateAperta(apId);
+        clearInterval(intId2);
+    }
+    var updateMultipla = function(multId,altId){
+            var res = multId.split('-');
+            var rId = res[1];
+            res = altId.split('-');
+            var aId = res[1];
+            if (window.XMLHttpRequest) {
+                var xhr = new XMLHttpRequest();
+                //metodo tradizionale di registrazione eventi   
+                xhr.onreadystatechange =gestoreRichiesta;   
+                xhr.open("GET", "/updateMultipla?mat="+mat+"&sessId="+sId+"&domId="+rId+"&altId="+aId, true);   
+                xhr.send(""); 
+            } 
+            function gestoreRichiesta() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                }
+            }
+        }
+</script>
+<!-- consegna e abbandono-->
+<script>
+    var mat = "<?= $matricola; ?>";
+    var sId = <?= $sessId ?>;
+    var intId2 = null;
+    var Consegna = function(){
+         var r = confirm("Sei sicuro di voler consegnare? Non potrai tornare indietro.");
+            if (r == true){
+                if (window.XMLHttpRequest) {
+                    var xhr = new XMLHttpRequest();
+                    //metodo tradizionale di registrazione eventi   
+                    xhr.onreadystatechange =gestoreRichiesta;   
+                    xhr.open("GET", "/consegna?mat="+mat+"&sessId="+sId, true);   
+                    xhr.send(""); 
+                } 
+                function gestoreRichiesta() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                    }
+                }
+            }
+        }
+    var Abbandona = function(){
+        var r = confirm("Sei sicuro di volerti ritirare dalla sessione in corso? Ti verrà assegnato esito nullo.");
+            if (r == true){
+                if (window.XMLHttpRequest) {
+                    var xhr = new XMLHttpRequest();
+                    //metodo tradizionale di registrazione eventi   
+                    xhr.onreadystatechange =gestoreRichiesta;   
+                    xhr.open("GET", "/abbandona?mat="+mat+"&sessId="+sId, true);   
+                    xhr.send(""); 
+                } 
+                function gestoreRichiesta() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                    }
+                }
+            }
+        }
 </script>
 <!-- END JAVASCRIPTS -->
 </body>
