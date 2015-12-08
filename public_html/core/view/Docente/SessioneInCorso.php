@@ -7,8 +7,47 @@
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "Esempio.php";
-$controller = new Esempio();
+include_once CONTROL_DIR . "SessioneController.php";
+include_once CONTROL_DIR . "CdlController.php";
+$controller = new SessioneController();
+$controlleCdl = new CdlController();
+
+$idSessione=$_URL[5];
+$identificativoCorso = $_URL[3];
+$corso = $controlleCdl->readCorso($identificativoCorso);
+$nomecorso= $corso->getNome();
+
+    try {
+        $sessioneByUrl = $controller->readSessione($idSessione);
+        $dataFrom = $sessioneByUrl->getDataInizio();
+        $dataTo = $sessioneByUrl->getDataFine();
+        $tipoSessione = $sessioneByUrl->getTipologia();
+
+    } catch (ApplicationException $ex) {
+        echo "<h1>errore! ApplicationException->errore manca id sessione nel path!</h1>";
+        echo "<h4>" . $ex . "</h4>";
+    }
+
+if(isset( $_POST['termina'])) {
+    $dataNow=date('Y/m/d/ h:i:s ', time());
+    //$dataTo=$dataNow;
+    $newSessione = new Sessione($dataFrom, $dataNow, 18, "In Esecuzione", $tipoSessione, $identificativoCorso);
+    $controller->updateSessione($idSessione,$newSessione);
+    //una volta termina la sessione dove vado? Rivedo gli esiti?
+}
+
+if(isset( $_POST['datato'])) {
+    $dataFineNow=$_POST['datato'];
+    $newSessione = new Sessione($dataFrom, $dataFineNow, 18, "In Esecuzione", $tipoSessione, $identificativoCorso);
+    $controller->updateSessione($idSessione,$newSessione);
+    header("Refresh:0");
+}
+
+if(isset( $_POST['addStu'])) {
+    $vaiAddStu= "Location: "."/usr/docente/corso/".$identificativoCorso."/sessione"."/".$idSesToGo."/"."sessioneincorso/aggiungistudente";
+    header($vaiAddStu);
+}
+
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -22,17 +61,17 @@ $controller = new Esempio();
 <head>
     <meta charset="utf-8"/>
     <title>Metronic | Page Layouts - Blank Page</title>
-    <?php include VIEW_DIR . "header.php"; ?>
+    <?php include VIEW_DIR . "design/header.php"; ?>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
 <body class="page-md page-header-fixed page-quick-sidebar-over-content">
-<?php include VIEW_DIR . "headMenu.php"; ?>
+<?php include VIEW_DIR . "design/headMenu.php"; ?>
 <div class="clearfix">
 </div>
 <!-- BEGIN CONTAINER -->
 <div class="page-container">
-    <?php include VIEW_DIR . "sideBar.php"; ?>
+    <?php include VIEW_DIR . "design/sideBar.php"; ?>
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
         <div class="page-content">
@@ -48,11 +87,17 @@ $controller = new Esempio();
                             <i class="fa fa-angle-right"></i>
                         </li>
                         <li>
-                            <a href="#">Nome Corso</a>
+                            <a href="<?php echo "/usr/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $controlleCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
                             <i class="fa fa-angle-right"></i>
                         </li>
                         <li>
-                            <a href="#">Nome Sessione</a>
+                            <?php
+                            $vaiANomeCorso="/usr/docente/corso/".$identificativoCorso;
+                            printf("<a href=\"%s\">%s</a><i class=\"fa fa-angle-right\"></i>", $vaiANomeCorso ,$nomecorso);
+                            ?>
+                        </li>
+                        <li>
+                            <?php echo "Sessione ".$idSessione ?>
                         </li>
 
                     </ul>
@@ -118,78 +163,26 @@ $controller = new Esempio();
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr class="gradeX odd" role="row">
-                                            <td>
-                                                Test 1
-                                            </td>
-                                            <td class="sorting_1">
-                                                10/11/2015
-                                            </td>
-                                            <td>
-                                                10
-                                            </td>
-                                            <td>
-                                                2
-                                            </td>
-                                            <td>
-                                                30
-                                            </td>
-                                            <td>
-                                                0%
-                                            </td>
-                                            <td>
-                                                0%
-                                            </td>
-                                        </tr>
-
-
-                                        <tr class="gradeX even" role="row">
-                                            <td>
-                                                Test 2
-                                            </td>
-                                            <td class="sorting_1">
-                                                23/03/2016
-                                            </td>
-                                            <td>
-                                                30
-                                            </td>
-                                            <td>
-                                                0
-                                            </td>
-                                            <td>
-                                                60
-                                            </td>
-                                            <td>
-                                                10%
-                                            </td>
-                                            <td>
-                                                70%
-                                            </td>
-                                        </tr>
-
-                                        <tr class="gradeX even" role="row">
-                                            <td>
-                                                Test 3
-                                            </td>
-                                            <td class="sorting_1">
-                                                15/11/2015
-                                            </td>
-                                            <td>
-                                                0
-                                            </td>
-                                            <td>
-                                                10
-                                            </td>
-                                            <td>
-                                                100
-                                            </td>
-                                            <td>
-                                                5%
-                                            </td>
-                                            <td>
-                                                15%
-                                            </td>
-                                        </tr>
+                                        <?php
+                                        $array = Array();
+                                        $array = $controller->getAllTestBySessione($idSessione);
+                                        if ($array == null) {
+                                            echo "l'array è null"." ".$idSessione;
+                                        }
+                                        else {
+                                            foreach ($array as $c) {
+                                                printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                                printf("<td class=\"sorting_1\">Test %s</td>", $c->getId());
+                                                printf("<td>%s</td>", $c->getDescrizione());
+                                                printf("<td>%d</td>", $c->getNumeroMultiple());
+                                                printf("<td>%d</td>", $c->getNumeroAperte());
+                                                printf("<td>%d</td>", $c->getPunteggioMax());
+                                                printf("<td>%d</td>", $c->getPercentualeScelto());
+                                                printf("<td>%d</td>", $c->getPercentualeSuccesso());
+                                                printf("</tr>");
+                                            }
+                                        }
+                                        ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -204,6 +197,7 @@ $controller = new Esempio();
 
 
             <!-- TABELLA 2 -->
+            <form method="post" action="">
 
             <div class="row">
                 <div class="col-md-12">
@@ -221,9 +215,9 @@ $controller = new Esempio();
                               <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
                         <div class="row">
                                 <div class="col-md-12">
-                                        <a href="javascript:;" class="btn btn-sm green-jungle">
-                                            Aggiungi Studente <i class="fa fa-plus"></i>
-                                        </a>
+                                    <button type="submit"  name="addStu" href="javascript:;" class="btn sm green-jungle"><i class="fa fa-plus"></i><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                        Aggiungi Studente
+                                    </button>
                                 </div>
                         </div>
                                 <div class="table-scrollable">
@@ -366,16 +360,37 @@ $controller = new Esempio();
 
                 </div>
             </div>
-            
+
+
+
             <div class="row">
+
                     <div class="col-md-12">
+                        <div class="col-md-2">
+                            <label class="control-label"><h4>Termine Sessione:</h4></label>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group date form_datetime">
+                                <input name="datato" type="text" value='<?php printf("%s", $dataTo) ?>' readonly size="16" class="form-control"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn default date-set" type="button"><i
+                                                    class="fa fa-calendar"></i></button>
+                                        </span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="submit" href="javascript:;" class="btn btn-sm blue-madison"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                Modifica Termine
+                                <i class="fa fa-edit"></i></button>
+                    </div>
                         <div class="col-md-5"></div>
-                            <a href="javascript:;" class="btn green-jungle">
-                                Termina ora
-                            </a>
+                        <button type="submit"  name="termina" value="nada" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                            TERMINA ORA
+                        </button>
 
                     </div>
                 </div>
+            </form>
 
 
             <!-- END PAGE CONTENT-->
@@ -386,14 +401,15 @@ $controller = new Esempio();
     <!-- END CONTENT -->
 </div>
 <!-- END CONTAINER -->
-<?php include VIEW_DIR . "footer.php"; ?>
+<?php include VIEW_DIR . "design/footer.php"; ?>
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
-<?php include VIEW_DIR . "js.php"; ?>
+<?php include VIEW_DIR . "design/js.php"; ?>
 
 <!--Script specifici per la pagina -->
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script type="text/javascript" src="/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 <script>
     jQuery(document).ready(function () {
         Metronic.init(); // init metronic core components
@@ -402,6 +418,10 @@ $controller = new Esempio();
         //Demo.init(); // init demo features
     });
 </script>
+        <script>
+            //SCRIPT PER AVVIARE DATETIMEPICKER
+            $(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii:ss'});
+        </script>
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

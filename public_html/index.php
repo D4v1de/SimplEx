@@ -50,7 +50,7 @@ include_once MODEL_DIR . "Logger.php";
 if (!defined("TESTING")) {
     switch (isset($_URL[0]) ? $_URL[0] : '') {
         case '':
-            include_once VIEW_DIR . "VisualizzaHome.php";
+            include_once VIEW_DIR . "design/VisualizzaHome.php";
             break;
         case 'auth': {
             switch (@$_URL[1]) {
@@ -182,7 +182,7 @@ if (!defined("TESTING")) {
                                     }
                                     break;
                                 case 'sessione':
-                                    switch (isset($_URL[5]) ? $_URL[5] : '') {
+                                    switch (isset($_URL[6]) ? $_URL[6] : '') {
                                         case 'aggiungistudenti':
                                             include_once VIEW_DIR . "Docente/AggiungiStudenteTest2.php";
                                             break;
@@ -191,6 +191,14 @@ if (!defined("TESTING")) {
                                             break;
                                         case 'creamodificasessione':
                                             include_once VIEW_DIR . "Docente/CreaModificaSessione.php";
+                                            break;
+                                        case 'sessioneincorso':
+                                            switch (isset($_URL[7]) ? $_URL[7] : '') {
+                                                case 'aggiungistudente':
+                                                    include_once VIEW_DIR . "Docente/AggiungiStudente.php";
+                                                    break;
+                                                default: include_once VIEW_DIR . "Docente/SessioneInCorso.php";
+                                            }
                                             break;
                                         default:
                                             include_once VIEW_DIR . "Docente/VisualizzaSessione.php";
@@ -243,10 +251,6 @@ if (!defined("TESTING")) {
             break;
         case 'provaform':
             include_once VIEW_DIR . "Admin/provaform.php";
-            break;
-        //inglobare fabiano
-        case 'sessioneincorso':
-            include_once VIEW_DIR . "Docente/SessioneInCorso.php";
             break;
         //inglobare fabiano
         case 'provaargomenti':

@@ -73,7 +73,7 @@ if(isset($_POST['id'])){
 <head>
     <meta charset="utf-8"/>
     <title><?php echo $corso->getNome(); ?></title>
-    <?php include VIEW_DIR . "header.php"; ?>
+    <?php include VIEW_DIR . "design/header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
     <link rel="stylesheet" type="text/css"
           href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
@@ -81,12 +81,12 @@ if(isset($_POST['id'])){
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
 <body class="page-md page-header-fixed page-quick-sidebar-over-content">
-<?php include VIEW_DIR . "headMenu.php"; ?>
+<?php include VIEW_DIR . "design/headMenu.php"; ?>
 <div class="clearfix">
 </div>
 <!-- BEGIN CONTAINER -->
 <div class="page-container">
-    <?php include VIEW_DIR . "sideBar.php"; ?>
+    <?php include VIEW_DIR . "design/sideBar.php"; ?>
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
         <div class="page-content">
@@ -160,7 +160,7 @@ if(isset($_POST['id'])){
                         </a>
                     </div>
                     <div class="actions">
-                        <a href="<?php printf("%s","/usr/docente/corso/".$identificativoCorso."/sessione"."/"."creamodificasessione"."/"."0") ?>" class="btn btn-default btn-sm">
+                        <a href="<?php printf("%s","/usr/docente/corso/".$identificativoCorso."/sessione"."/"."0"."/"."creamodificasessione") ?>" class="btn btn-default btn-sm">
                             <i class="fa fa-plus"></i> Crea Sessione </a>
                     </div>
                 </div>
@@ -202,12 +202,15 @@ if(isset($_POST['id'])){
                             else {
 
                                 foreach ($array as $c) {
-                                    $vaiAModifica="/usr/docente/corso/".$identificativoCorso."/sessione"."/"."creamodificasessione"."/".$c->getId();
-                                    $vaiAVisu="/usr/docente/corso/".$identificativoCorso."/sessione"."/"."visualizzasessione"."/".$c->getId();
+                                    $vaiAModifica="/usr/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."creamodificasessione";
+                                    $vaiAVisu="/usr/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."visualizzasessione";
+                                    $vaiASesInCorso="/usr/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."sessioneincorso";
 
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
-
-                                    printf("<td class=\"sorting_1\"><a href=\"%s\">%s</a></td>", $vaiAVisu,  "Sessione ".$c->getId());
+                                    if($c->getStato()!="In Esecuzione")
+                                        printf("<td class=\"sorting_1\"><a href=\"%s\">%s</a></td>", $vaiAVisu,  "Sessione ".$c->getId());
+                                    else
+                                        printf("<td class=\"sorting_1\"><a href=\"%s\">%s</a></td>", $vaiASesInCorso,  "Sessione ".$c->getId());
                                     printf("<td><b>Inizio:</b>%s<b>  Fine:</b>%s</td>", $c->getDataInizio(),$c->getDataFine());
                                     printf("<td>%s</td>", $c->getTipologia());
                                     printf("<td>%s</td>", $c->getStato());
@@ -309,7 +312,7 @@ if(isset($_POST['id'])){
                                         printf("<td>%s %%</td>",$c->getPercentualeScelto());
                                         printf("<td>%s %%</td>",$c->getPercentualeSuccesso());
                                         printf("<td><a href=\"test/crea\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></i></a>");
-                                        printf("<a href=\"javascript:;\" class=\"btn btn-sm red-intense\"><i class=\"fa fa-trash-o\"></i></i></a></td>");
+                                        printf("<a href=\"javascript:;\" onclick=\"javascript: elimina(this.id);\" class=\"btn btn-sm red-intense\"><i class=\"fa fa-trash-o\"></i></i></a></td>");
                                         printf("</tr>");
                                         }
                                         }
@@ -399,10 +402,10 @@ if(isset($_POST['id'])){
 <!-- END CONTENT -->
 </div>
 <!-- END CONTAINER -->
-<?php include VIEW_DIR . "footer.php"; ?>
+<?php include VIEW_DIR . "design/footer.php"; ?>
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
-<?php include VIEW_DIR . "js.php"; ?>
+<?php include VIEW_DIR . "design/js.php"; ?>
 
 <!--Script specifici per la pagina -->
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
@@ -432,6 +435,21 @@ if(isset($_POST['id'])){
         TableManaged2.init("tabella_argomenti","tabella_argomenti_wrapper");
         //TableManaged.init(3);
     });
+</script>
+<script>
+        var elimina = function(id){
+	if (window.XMLHttpRequest) {
+	  var xhr = new XMLHttpRequest();  
+	  xhr.onreadystatechange =gestoreRichiesta;   
+	  xhr.open("GET", "/deleteTest?id="+id, true);  
+	  xhr.send(""); 
+	} 
+	function gestoreRichiesta() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                alert(xhr.responseText);
+            }
+	}
+}
 </script>
 <!-- END JAVASCRIPTS -->
 </body>

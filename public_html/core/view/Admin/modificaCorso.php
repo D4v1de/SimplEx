@@ -23,15 +23,13 @@ if (!is_numeric($url)) {
 
 try {
     $corso = $controller->readCorso($url);
-}
-catch (ApplicationException $ex) {
-    echo "<h1>INSERIRE ID CORSO NEL PATH</h1>".$ex;
+} catch (ApplicationException $ex) {
+    echo "<h1>INSERIRE ID CORSO NEL PATH</h1>" . $ex;
 }
 try {
     $docenteassociato = $controllerUtenti->getDocenteAssociato($corso->getId());
-}
-catch (ApplicationException $ex) {
-    echo "<h1>GETDOCENTIASSOCIATI FALLITO!</h1>".$ex;
+} catch (ApplicationException $ex) {
+    echo "<h1>GETDOCENTIASSOCIATI FALLITO!</h1>" . $ex;
 }
 
 $nome = $corso->getNome();
@@ -46,24 +44,12 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     $matricolanew = $_POST['matricola'];
     $cdlmatricolanew = $_POST['cdlmatricola'];
 
-
-    if (empty($nomenew) && empty($matricolanew) && empty($cdlmatricolanew)) {
-        echo "<script type='text/javascript'>alert('devi riempire tutti i campi!');</script>";
-    } else if (empty($nomenew)) {
-        echo "<script type='text/javascript'>alert('devi inserire il nome!');</script>";
-    } else if (empty($matricolanew)) {
-        echo "<script type='text/javascript'>alert('devi inserire la matricola!');</script>";
-    } else if (empty($cdlmatricolanew)) {
-        echo "<script type='text/javascript'>alert('devi inserire la matricola del CdL!');</script>";
-    } else {
-
-        try {
-            $new = new Corso($matricolanew, $nomenew, $tipologianew, $cdlmatricolanew);
-            $controller->modificaCorso($corso->getId(), $new);
-            header('location: ../view');
-        } catch (ApplicationException $ex) {
-            echo "<h1>MODIFICACORSO FALLITO!</h1>".$ex;
-        }
+    try {
+        $new = new Corso($matricolanew, $nomenew, $tipologianew, $cdlmatricolanew);
+        $controller->modificaCorso($corso->getId(), $new);
+        header('location: ../view');
+    } catch (ApplicationException $ex) {
+        echo "<h1>MODIFICACORSO FALLITO!</h1>" . $ex;
     }
 }
 
@@ -80,17 +66,17 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 <head>
     <meta charset="utf-8"/>
     <title>Modifica Corso</title>
-    <?php include VIEW_DIR . "header.php"; ?>
+    <?php include VIEW_DIR . "design/header.php"; ?>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
 <body class="page-md page-header-fixed page-quick-sidebar-over-content">
-<?php include VIEW_DIR . "headMenu.php"; ?>
+<?php include VIEW_DIR . "design/headMenu.php"; ?>
 <div class="clearfix">
 </div>
 <!-- BEGIN CONTAINER -->
 <div class="page-container">
-    <?php include VIEW_DIR . "sideBar.php"; ?>
+    <?php include VIEW_DIR . "design/sideBar.php"; ?>
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
         <div class="page-content">
@@ -151,7 +137,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
             <div class="row">
                 <div class="col-md-12">
 
-                    <form method="post" action="">
+                    <form id="form_sample_1" method="post" action="">
 
                         <!-- BEGIN EXAMPLE TABLE PORTLET-->
                         <div class="portlet box blue-madison">
@@ -166,24 +152,35 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                             </div>
                             <div class="portlet-body">
 
-                                <div class="form-group form-md-line-input">
-                                    <div class="col-md-10">
-                                        <select class="form-control" id="tipologiaCorso" name="tipologia">
-                                            <option value="Semestrale" <?php if ($tipologia == 'Semestrale') {
-                                                echo "selected";
-                                            } ?>>Semestrale
-                                            </option>
-                                            <option value="Annuale" <?php if ($tipologia == 'Annuale') {
-                                                echo "selected";
-                                            } ?>>Annuale
-                                            </option>
-                                        </select>
+                                <div class="portlet-body form">
 
-                                        <div class="form-control-focus">
+                                    <div class="alert alert-danger display-hide">
+                                        <button class="close" data-close="alert"></button>
+                                        Ci sono alcuni errori nei dati. Per favore riprova l'inserimento.
+                                    </div>
+                                    <div class="alert alert-success display-hide">
+                                        <button class="close" data-close="alert"></button>
+                                        La tua form &egrave; stata validata!
+                                    </div>
+
+                                    <div class="form-group form-md-line-input">
+                                        <div class="col-md-10">
+                                            <select class="form-control" id="tipologiaCorso" name="tipologia">
+                                                <option value="Semestrale" <?php if ($tipologia == 'Semestrale') {
+                                                    echo "selected";
+                                                } ?>>Semestrale
+                                                </option>
+                                                <option value="Annuale" <?php if ($tipologia == 'Annuale') {
+                                                    echo "selected";
+                                                } ?>>Annuale
+                                                </option>
+                                            </select>
+
+                                            <div class="form-control-focus">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="portlet-body form">
+
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
                                             <input type="text" class="form-control" name="nome" id="nomeCorso"
@@ -243,10 +240,10 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     <!-- END CONTENT -->
 </div>
 <!-- END CONTAINER -->
-<?php include VIEW_DIR . "footer.php"; ?>
+<?php include VIEW_DIR . "design/footer.php"; ?>
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
-<?php include VIEW_DIR . "js.php"; ?>
+<?php include VIEW_DIR . "design/js.php"; ?>
 
 <!--Script specifici per la pagina -->
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
@@ -264,6 +261,9 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN aggiunta da me -->
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
+<script src="/assets/admin/pages/scripts/form-validation.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
 <!-- END aggiunta da me -->
 <script>
     jQuery(document).ready(function () {
@@ -272,6 +272,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
         TableManaged.init();
+        FormValidation.init();
     });
 </script>
 <!-- END JAVASCRIPTS -->

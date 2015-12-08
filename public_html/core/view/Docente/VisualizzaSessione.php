@@ -11,7 +11,7 @@ include_once CONTROL_DIR . "SessioneController.php";
 include_once CONTROL_DIR . "CdlController.php";
 $controllerSessione = new SessioneController();
 $controlleCdl = new CdlController();
-$idSessione = $_URL[6];
+$idSessione = $_URL[5];
 $identificativoCorso = $_URL[3];
 $sessione = null;
 $valu = null;
@@ -41,10 +41,10 @@ else $eser = "Checked";
 if(isset($_POST['avvia'])){
     $idSesToGo=$_POST['avvia'];
     $dataNow=date('Y/m/d/ h:i:s ', time());
-    $newSessione = new Sessione($dataNow, dataTo, 18, "In Esecuzione", $tipoSessione, $identificativoCorso);
+    $newSessione = new Sessione($dataNow, $dataTo, 18, "In Esecuzione", $tipoSessione, $identificativoCorso);
     $controllerSessione->updateSessione($idSessione,$newSessione);
-    $vaiASessioneInCorso= "Location: /sessioneincorso";
-    header($vaiASessioneInCorso);
+    $vaiASesInCorso= "Location: "."/usr/docente/corso/".$identificativoCorso."/sessione"."/".$idSesToGo."/"."sessioneincorso";
+    header($vaiASesInCorso);
 }
 
 
@@ -80,17 +80,17 @@ if(isset($_POST['rimuovi'])){
           href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
 
-    <?php include VIEW_DIR . "header.php"; ?>
+    <?php include VIEW_DIR . "design/header.php"; ?>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
 <body class="page-md page-header-fixed page-quick-sidebar-over-content">
-<?php include VIEW_DIR . "headMenu.php"; ?>
+<?php include VIEW_DIR . "design/headMenu.php"; ?>
 <div class="clearfix">
 </div>
 <!-- BEGIN CONTAINER -->
 <div class="page-container">
-    <?php include VIEW_DIR . "sideBar.php"; ?>
+    <?php include VIEW_DIR . "design/sideBar.php"; ?>
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
         <div class="page-content">
@@ -450,8 +450,8 @@ if(isset($_POST['rimuovi'])){
                             <div class="col-md-9">
                                 <?php
                                 printf("<button name=\"avvia\" value=\"%s\" class=\"btn sm green-jungle\"><span class=\"md-click-circle md-click-animate\" style=\"height: 94px; width: 94px; top: -23px; left: 2px;\"></span><i class=\"fa fa-play-circle-o\"></i>Avvia ora</button>",$idSessione);
-                                $vaiAModifica="/usr/docente/corso/".$identificativoCorso."/sessione"."/"."creamodificasessione"."/".$idSessione;
-                                $vaiAVisu="/usr/docente/corso/".$identificativoCorso."/sessione"."/"."visualizzasessione"."/".$idSessione;
+                                $vaiAModifica="/usr/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."creamodificasessione";
+                                $vaiAVisu="/usr/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."visualizzasessione";
 
                                 printf(" <a href=\"%s\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i>ModificaSessione</a>", $vaiAModifica);
                                 printf("<button type='submit' name='rimuovi' value='%d' class='btn btn-sm red-intense'><i class=\"fa fa-trash-o\"></i>Elimina Sessione</button>",$idSessione);
@@ -467,10 +467,10 @@ if(isset($_POST['rimuovi'])){
         <!-- END CONTENT -->
     </div>
     <!-- END CONTAINER -->
-    <?php include VIEW_DIR . "footer.php"; ?>
+    <?php include VIEW_DIR . "design/footer.php"; ?>
     <!-- END FOOTER -->
     <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
-    <?php include VIEW_DIR . "js.php"; ?>
+    <?php include VIEW_DIR . "design/js.php"; ?>
 
     <!--Script specifici per la pagina -->
     <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
