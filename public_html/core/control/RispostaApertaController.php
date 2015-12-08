@@ -27,5 +27,11 @@ class RispostaApertaController extends Controller
      public function readRispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId){
          return $this->rispApertaModel->readRispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId);
      }
+     
+     public function getAperteByElaborato($elaborato){
+         return $this->rispApertaModel->getAperteByElaborato($elaborato);
+     }
 
+     
+     
 }
