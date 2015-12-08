@@ -23,7 +23,7 @@ $error = null;
 <head>
     <meta charset="utf-8"/>
     <title>Simplex | Login</title>
-    <?php include VIEW_DIR . "header.php"; ?>
+    <?php include VIEW_DIR . "design/header.php"; ?>
 
     <!-- BEGIN PAGE LEVEL STYLES -->
     <link href="/assets/global/plugins/select2/select2.css" rel="stylesheet" type="text/css"/>
@@ -247,7 +247,7 @@ $error = null;
 </div>
 <!-- END COPYRIGHT -->
 
-<?php include VIEW_DIR . "js.php"; ?>
+<?php include VIEW_DIR . "design/js.php"; ?>
 <!-- END PAGE LEVEL SCRIPTS -->
 
 <!-- BEGIN PAGE LEVEL PLUGINS -->
