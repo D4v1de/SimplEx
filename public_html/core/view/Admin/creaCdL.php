@@ -16,28 +16,17 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     $tipologia = $_POST['tipologia'];
     $matricola = $_POST['matricola'];
 
-    if(empty($nome) && empty($matricola)) {
-        echo "<script type='text/javascript'>alert('devi riempire tutti i campi!');</script>";
-    }
-    else if (empty($nome)) {
-        echo "<script type='text/javascript'>alert('devi inserire il nome!');</script>";
-    }
-    else if (empty($matricola)) {
-        echo "<script type='text/javascript'>alert('devi inserire la matricola!');</script>";
-    }
-    else {
-        try {
-            $cdl = new CdL($matricola, $nome, $tipologia);
-            $controller->creaCdl($cdl);
 
-            header('location: view');
-        }
-        catch (ApplicationException $ex) {
-            echo "<h1>CREACDL FALLITO!</h1>".$ex;
-        }
-    }
+    try {
+        $cdl = new CdL($matricola, $nome, $tipologia);
+        $controller->creaCdl($cdl);
 
+        header('location: view');
+    } catch (ApplicationException $ex) {
+        echo "<h1>CREACDL FALLITO!</h1>" . $ex;
+    }
 }
+
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -53,7 +42,8 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     <title>Crea CdL</title>
     <?php include VIEW_DIR . "header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
-    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css"
+          href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -97,7 +87,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                 <div class="col-md-12">
                     <!-- BEGIN EXAMPLE TABLE PORTLET-->
 
-                    <form method="post" action="">
+                    <form id="form_sample_1" method="post" action="">
 
                         <div class="portlet box blue-madison">
                             <div class="portlet-title">
@@ -110,8 +100,17 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                 </div>
                             </div>
                             <div class="portlet-body">
-
                                 <div class="portlet-body form">
+
+                                    <div class="alert alert-danger display-hide">
+                                        <button class="close" data-close="alert"></button>
+                                        Ci sono alcuni errori nei dati. Per favore riprova l'inserimento.
+                                    </div>
+                                    <div class="alert alert-success display-hide">
+                                        <button class="close" data-close="alert"></button>
+                                        La tua form &egrave; stata validata!
+                                    </div>
+
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
                                             <select class="form-control" id="tipologiaCdl" name="tipologia">
@@ -126,7 +125,8 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
                                             <input type="text" class="form-control" name="nome" id="nomeCdl"
-                                                   placeholder="Inserisci nome" value="<?php if(isset($nome)) echo $nome; ?>" required>
+                                                   placeholder="Inserisci nome"
+                                                   value="<?php if (isset($nome)) echo $nome; ?>" required>
 
                                             <div class="form-control-focus">
                                             </div>
@@ -135,22 +135,21 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
                                             <input type="number" class="form-control" name="matricola" id="matricolaCdl"
-                                                   placeholder="Inserisci matricola" value="<?php if(isset($matricola)) echo $matricola; ?>" required>
+                                                   placeholder="Inserisci matricola"
+                                                   value="<?php if (isset($matricola)) echo $matricola; ?>" required>
 
                                             <div class="form-control-focus">
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
-
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-actions">
                                     <div class="col-md-3">
-                                        <button type="submit" class="btn green-jungle">Conferma</button>
+                                        <input type="submit" value="Conferma" class="btn green-jungle"/>
                                     </div>
                                     <div class="col-md-3">
                                         <input type="reset" value="Annulla" class="btn red-intense"/>
@@ -181,7 +180,8 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 <!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
 <script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<script type="text/javascript"
+        src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <!-- END PAGE LEVEL PLUGINS aggiunta da me-->
 
 <script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>
@@ -190,6 +190,9 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN aggiunta da me -->
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
+<script src="/assets/admin/pages/scripts/form-validation.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
 <!-- END aggiunta da me -->
 <script>
     jQuery(document).ready(function () {
@@ -198,6 +201,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
         TableManaged.init("tabella_3", "tabella_3_wrapper");
+        FormValidation.init();
     });
 </script>
 <!-- END JAVASCRIPTS -->

@@ -15,14 +15,14 @@ $cdl = null;
 $url = null;
 
 $url = $_URL[3];
-if(!is_numeric($url)) {
+if (!is_numeric($url)) {
     echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
 }
 
 try {
     $cdl = $controller->readCdl($url);
 } catch (ApplicationException $ex) {
-    echo "<h1>INSERIRE ID CDL NEL PATH!</h1>".$ex;
+    echo "<h1>INSERIRE ID CDL NEL PATH!</h1>" . $ex;
 }
 
 $nome = $cdl->getNome();
@@ -35,22 +35,14 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     $tipologianew = $_POST['tipologia'];
     $matricolanew = $_POST['matricola'];
 
-    if (empty($nomenew) && empty($matricolanew)) {
-        echo "<script type='text/javascript'>alert('devi riempire tutti i campi!');</script>";
-    } else if (empty($nomenew)) {
-        echo "<script type='text/javascript'>alert('devi inserire il nome!');</script>";
-    } else if (empty($matricolanew)) {
-        echo "<script type='text/javascript'>alert('devi inserire la matricola!');</script>";
-    } else {
-
-        try {
-            $new = new CdL($matricolanew, $nomenew, $tipologianew);
-            $controller->modificaCdl($cdl->getMatricola(), $new);
-            header('location: ../view');
-        } catch (ApplicationException $ex) {
-            echo "<h1>MODIFICACDL FALLITO!</h1>".$ex;
-        }
+    try {
+        $new = new CdL($matricolanew, $nomenew, $tipologianew);
+        $controller->modificaCdl($cdl->getMatricola(), $new);
+        header('location: ../view');
+    } catch (ApplicationException $ex) {
+        echo "<h1>MODIFICACDL FALLITO!</h1>" . $ex;
     }
+
 }
 ?>
 <!DOCTYPE html>
@@ -107,7 +99,8 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 
             <div class="row">
                 <div class="col-md-12">
-                    <form method="post" action="">
+
+                    <form id="form_sample_1" method="post" action="">
 
                         <!-- BEGIN EXAMPLE TABLE PORTLET-->
                         <div class="portlet box blue-madison">
@@ -122,24 +115,35 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                             </div>
                             <div class="portlet-body">
 
-                                <div class="form-group form-md-line-input">
-                                    <div class="col-md-10">
-                                        <select class="form-control" id="tipologiaCdl" name="tipologia">
-                                            <option value="Triennale" <?php if ($tipologia == 'Triennale') {
-                                                echo "selected";
-                                            } ?>>Triennale
-                                            </option>
-                                            <option value="Magistrale" <?php if ($tipologia == 'Magistrale') {
-                                                echo "selected";
-                                            } ?>>Magistrale
-                                            </option>
-                                        </select>
+                                <div class="portlet-body form">
 
-                                        <div class="form-control-focus">
+                                    <div class="alert alert-danger display-hide">
+                                        <button class="close" data-close="alert"></button>
+                                        Ci sono alcuni errori nei dati. Per favore riprova l'inserimento.
+                                    </div>
+                                    <div class="alert alert-success display-hide">
+                                        <button class="close" data-close="alert"></button>
+                                        La tua form &egrave; stata validata!
+                                    </div>
+
+                                    <div class="form-group form-md-line-input">
+                                        <div class="col-md-10">
+                                            <select class="form-control" id="tipologiaCdl" name="tipologia">
+                                                <option value="Triennale" <?php if ($tipologia == 'Triennale') {
+                                                    echo "selected";
+                                                } ?>>Triennale
+                                                </option>
+                                                <option value="Magistrale" <?php if ($tipologia == 'Magistrale') {
+                                                    echo "selected";
+                                                } ?>>Magistrale
+                                                </option>
+                                            </select>
+
+                                            <div class="form-control-focus">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="portlet-body form">
+
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
                                             <input type="text" class="form-control" name="nome" id="nomeCdl"
@@ -207,6 +211,9 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN aggiunta da me -->
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
+<script src="/assets/admin/pages/scripts/form-validation.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
 <!-- END aggiunta da me -->
 <script>
     jQuery(document).ready(function () {
@@ -215,6 +222,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
         TableManaged.init();
+        FormValidation.init();
     });
 </script>
 <!-- END JAVASCRIPTS -->

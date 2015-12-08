@@ -25,6 +25,10 @@ var FormValidation = function () {
                         minlength: 2,
                         required: true
                     },
+                    nome: {
+                        minlength: 2,
+                        required: true
+                    },
                     email: {
                         required: true,
                         email: true
@@ -36,6 +40,16 @@ var FormValidation = function () {
                     number: {
                         required: true,
                         number: true
+                    },
+                    matricola: {
+                        required: true,
+                        number: true,
+                        minlength: 6,
+                    },
+                    cdlmatricola: {
+                        required: true,
+                        number: true,
+                        minlength: 6,
                     },
                     digits: {
                         required: true,
@@ -49,6 +63,9 @@ var FormValidation = function () {
                         minlength: 5,
                     },
                     select: {
+                        required: true
+                    },
+                    tipologia: {
                         required: true
                     },
                     select_multi: {
@@ -82,6 +99,7 @@ var FormValidation = function () {
                 submitHandler: function (form) {
                     success1.show();
                     error1.hide();
+                    form.submit();
                 }
             });
 

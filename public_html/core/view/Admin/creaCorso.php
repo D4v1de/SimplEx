@@ -17,25 +17,13 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     $matricola = $_POST['matricola'];
     $cdlMatricola = $_POST['cdlmatricola'];
 
-    if (empty($nome) && empty($matricola) && empty($cdlMatricola)) {
-        echo "<script type='text/javascript'>alert('devi riempire tutti i campi!');</script>";
-    } else if (empty($nome)) {
-        echo "<script type='text/javascript'>alert('devi inserire il nome!');</script>";
-    } else if (empty($matricola)) {
-        echo "<script type='text/javascript'>alert('devi inserire la matricola!');</script>";
-    } else if (empty($cdlMatricola)) {
-        echo "<script type='text/javascript'>alert('devi inserire la matricola del CdL!');</script>";
-    } else {
+    try {
+        $corso = new Corso($matricola, $nome, $tipologia, $cdlMatricola);
+        $controller->creaCorso($corso);
 
-        try {
-            $corso = new Corso($matricola, $nome, $tipologia, $cdlMatricola);
-            $controller->creaCorso($corso);
-
-            header('location: view');
-        }
-        catch (ApplicationException $ex) {
-            echo "<h1>CREACORSO FALLITO!</h1>.$ex";
-        }
+        header('location: view');
+    } catch (ApplicationException $ex) {
+        echo "<h1>CREACORSO FALLITO!</h1>.$ex";
     }
 }
 ?>
@@ -95,7 +83,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                 <div class="col-md-12">
                     <!-- BEGIN EXAMPLE TABLE PORTLET-->
 
-                    <form method="post" action="">
+                    <form id="form_sample_1" method="post" action="">
 
                         <div class="portlet box blue-madison">
                             <div class="portlet-title">
@@ -108,8 +96,17 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                 </div>
                             </div>
                             <div class="portlet-body">
-
                                 <div class="portlet-body form">
+
+                                    <div class="alert alert-danger display-hide">
+                                        <button class="close" data-close="alert"></button>
+                                        Ci sono alcuni errori nei dati. Per favore riprova l'inserimento.
+                                    </div>
+                                    <div class="alert alert-success display-hide">
+                                        <button class="close" data-close="alert"></button>
+                                        La tua form &egrave; stata validata!
+                                    </div>
+
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
                                             <select class="form-control" id="tipologiaCorso" name="tipologia">
@@ -124,7 +121,8 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
                                             <input type="text" class="form-control" id="nomeCorso" name="nome"
-                                                   placeholder="Inserisci nome" value="<?php if(isset($nome)) echo $nome; ?>" required>
+                                                   placeholder="Inserisci nome"
+                                                   value="<?php if (isset($nome)) echo $nome; ?>">
 
                                             <div class="form-control-focus">
                                             </div>
@@ -132,8 +130,10 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                     </div>
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
-                                            <input type="number" class="form-control" id="matricolaCorso" name="matricola"
-                                                   placeholder="Inserisci matricola" value="<?php if(isset($matricola)) echo $matricola; ?>" required>
+                                            <input type="number" class="form-control" id="matricolaCorso"
+                                                   name="matricola"
+                                                   placeholder="Inserisci matricola"
+                                                   value="<?php if (isset($matricola)) echo $matricola; ?>">
 
                                             <div class="form-control-focus">
                                             </div>
@@ -143,22 +143,21 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                         <div class="col-md-10">
                                             <input type="number" class="form-control" id="cdlmatricolaCorso"
                                                    name="cdlmatricola"
-                                                   placeholder="Inserisci cdlmatricola" value="<?php if(isset($cdlMatricola)) echo $cdlMatricola; ?>" required>
+                                                   placeholder="Inserisci cdlmatricola"
+                                                   value="<?php if (isset($cdlMatricola)) echo $cdlMatricola; ?>">
 
                                             <div class="form-control-focus">
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
-
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-actions">
                                     <div class="col-md-3">
-                                        <button type="submit" class="btn green-jungle">Conferma</button>
+                                        <input type="submit" value="Conferma" class="btn green-jungle"/>
                                     </div>
                                     <div class="col-md-3">
                                         <input type="reset" value="Annulla" class="btn red-intense"/>
@@ -199,6 +198,9 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN aggiunta da me -->
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
+<script src="/assets/admin/pages/scripts/form-validation.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
 <!-- END aggiunta da me -->
 
 <script>
@@ -208,6 +210,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
         TableManaged.init();
+        FormValidation.init();
     });
 </script>
 <!-- END JAVASCRIPTS -->
