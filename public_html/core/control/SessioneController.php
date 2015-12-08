@@ -117,4 +117,8 @@ class SessioneController extends Controller {   //UTLIZZARE ALTRO CONTROLLER..NO
         $this->accountModel->abilitaStudenteSessione($idSessione, $studenteMatricola);
     }
 
+    public function deleteAllTestFromSes($idSes) {
+        $this->sessioneModel->deleteAllTestFromSessione($idSes);
+    }
+
 }

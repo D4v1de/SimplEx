@@ -161,7 +161,7 @@ class SessioneModel extends Model {
      * @param int $id L'id della sessione
      * @throws ApplicationException
      */
-    public function DeleteAllTestFromSessione($id) {
+    public function deleteAllTestFromSessione($id) {
         $query = sprintf(self::$DELETE_ALL_TEST_FROM_SESSIONE, $id);
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows == -1) {

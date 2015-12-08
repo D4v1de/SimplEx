@@ -16,6 +16,7 @@ $corso = $controlleCdl->readCorso($idCorso);
 $nomecorso= $corso->getNome();
 //$sessioneByUrl = null;
 $idSessione=0;
+$someStudentsChange=null;
 $dataToSettato=null;
 $sogliAmm=null;
 $stato=null;
@@ -71,7 +72,6 @@ if($_URL[5]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
                          echo $s." ".$idNuovaSessione;
                          $controller->abilitaStudenteASessione($idNuovaSessione,$s);
                       }
-
             }
             //creo l'associazione tests-sessione
             $cbTest = Array();
@@ -98,7 +98,7 @@ if($_URL[5]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
 }
 
 if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
-    if($dataFromSettato=isset($_POST['dataFrom']) && $radio1Settato=isset($_POST['radio1']) && $dataToSettato=isset($_POST['dataTo']) && $someTestsAorD=isset($_POST['tests']) ) {
+    if($dataFromSettato=isset($_POST['dataFrom']) && $radio1Settato=isset($_POST['radio1']) && $dataToSettato=isset($_POST['dataTo']) && $someTestsAorD=isset($_POST['tests']) && $someStudentsChange=isset($_POST['students']) ) {
 
         if($dataFromSettato)
             $newOrOldDataFrom = $_POST['dataFrom'];
@@ -116,16 +116,29 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
         if($someTestsAorD) {
             $cbTest = Array();
             $cbTest = $_POST['tests'];
-            //foreach($cbTest as $t) {
-                //if(non c'è già quest'associazione..ma questo si fa dissociando tutti e poi riassocandio!!!!) {
-                  //  $controller->associaTestASessione($idSessione, $t);
-              //  }
-            //}
+            $controller->deleteAllTestFromSessione($idSessione);
+            foreach($cbTest as $t) {
+                  $controller->associaTestASessione($idSessione, $t);
+            }
         }
 
-        //$tornaACasa= "Location: "."/usr/docente/corso/"."$idCorso";
-        //header($tornaACasa);
+        if($someStudentsChange){
+            $cbStudents= Array();
+            $cbStudents = $_POST['students'];
+            //$controller->deleteAllTestFromSessione($idSessione); ...devo dissociarli tutti prima..e poi riassocio
+            //creo l'abilitazione students-sessione
+            foreach($cbStudents as $s) {
+                $controller->abilitaStudenteASessione($idNuovaSessione,$s);
+            }
+        }
+
+        $tornaACasa= "Location: "."/usr/docente/corso/"."$idCorso";
+        header($tornaACasa);
     }
+    else {
+        //è stato tolto qualcosa di essenziale per una sessione..e non va bene! ERRORE
+    }
+
 }
 
 
