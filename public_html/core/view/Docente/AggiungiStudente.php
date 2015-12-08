@@ -9,8 +9,16 @@
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "UtenteController.php";
-$controller = new CdlController();
+include_once CONTROL_DIR . "SessioneController.php";
+
+$controllerCdl = new CdlController();
 $controllerUtenti = new UtenteController();
+$sesController = new SessioneController();
+
+$idSessione=$_URL[5];
+$idCorso = $_URL[3];
+$corso = $controllerCdl->readCorso($idCorso);
+$nomecorso= $corso->getNome();
 
 $docenteassociato = Array();
 $checkbox = Array();
@@ -25,7 +33,7 @@ if(!is_numeric($url)) {
 }
 
 try {
-    $corso = $controller->readCorso($url);
+    $corso = $controllerCdl->readCorso($url);
 }
 catch (ApplicationException $ex) {
     echo "<h1>INSERIRE ID CORSO NEL PATH!</h1>".$ex;
@@ -50,7 +58,7 @@ if (isset($_POST['checkbox'])) {
     foreach ($docenteassociato as $da) {
         if (!in_array($da->getMatricola(), $checkbox)) {
             try {
-                $controller->eliminaInsegnamento($corso->getId(), $da->getMatricola());
+                $controllerCdl->eliminaInsegnamento($corso->getId(), $da->getMatricola());
             } catch (ApplicationException $ex) {
                 echo "<h1>ELIMINAINSEGNAMENTO FALLITO!</h1>".$ex;
             }
@@ -60,7 +68,7 @@ if (isset($_POST['checkbox'])) {
         $docente = $controllerUtenti->getUtenteByMatricola($c);
         if (!in_array($docente, $docenteassociato)) {
             try {
-                $controller->creaInsegnamento($corso->getId(), $c);
+                $controllerCdl->creaInsegnamento($corso->getId(), $c);
             } catch (ApplicationException $ex) {
                 echo "<h1>CREAZIONEINSEGNAMENTO FALLITO!</h1>".$ex;
             }
@@ -73,7 +81,7 @@ if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
 
     foreach ($docenteassociato as $da) {
         try {
-            $controller->eliminaInsegnamento($corso->getId(), $da->getMatricola());
+            $controllerCdl->eliminaInsegnamento($corso->getId(), $da->getMatricola());
         } catch (ApplicationException $ex) {
             echo "<h1>ELIMINAINSEGNAMENTI FALLITO!</h1>".$ex;
         }
@@ -120,16 +128,29 @@ if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="../../../gestionale/admin/index.html">Home</a>
+                        <a href="index.html">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../view">GestioneCorsi</a>
+                        <a href="<?php echo "/usr/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $controllerCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../gestione/<?php echo $corso->getId(); ?>"><?php echo $corso->getNome(); ?></a>
+                        <?php
+                        $vaiANomeCorso="/usr/docente/corso/".$idCorso;
+                        printf("<a href=\"%s\">%s</a><i class=\"fa fa-angle-right\"></i>", $vaiANomeCorso ,$nomecorso);
+                        ?>
+                    </li>
+                    <li>
+                        <?php
+                            $sex = "Sessione ".$idSessione;
+                            $vaiASex= "/usr/docente/corso/".$idCorso."/"."sessione"."/".$idSessione."/"."sessioneincorso";
+                            printf("<a href=\"%s\">%s</a>", $vaiASex, $sex);
+                        ?>
                         <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        Aggiungi Studenti
                     </li>
                 </ul>
             </div>
@@ -176,7 +197,7 @@ if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-university"></i>Scegli un Docente
+                            <i class="fa fa-university"></i>Scegli uno Studente
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="collapse" data-original-title="" title="">
@@ -184,7 +205,7 @@ if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
                         </div>
                         <div class="actions">
                             <button type="submit" class="btn btn-default btn-sm">
-                                <i class="fa fa-plus"></i> Associa
+                                <i class="fa fa-plus"></i> Abilita
                             </button>
                             <input type="hidden" id="elimina" name="elimina" value="elimina">
                         </div>

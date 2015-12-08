@@ -16,6 +16,10 @@ $corso = $controlleCdl->readCorso($idCorso);
 $nomecorso= $corso->getNome();
 //$sessioneByUrl = null;
 $idSessione=0;
+$dataToSettato=null;
+$sogliAmm=null;
+$stato=null;
+$someTestsAorD=null;
 $perModificaDataFrom =  null;
 $perModificaDataTo = null;
 $valu = null;
@@ -45,7 +49,7 @@ else {  //CASO IN CUI SI VUOLE CREARE LA SESSIONE
 }
 
 if($_URL[5]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tutti i campi
-    if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo'])) { // && isset($_POST['students'])
+    if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo']) && isset($_POST['tests'])) { // && isset($_POST['students'])
         $newdataFrom = $_POST['dataFrom'];
         $newdataTo = $_POST['dataTo'];
         $newtipoSessione = $_POST['radio1'];
@@ -54,8 +58,7 @@ if($_URL[5]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
         $stato='Non Eseguita';                     //dove lo prendo?
 
         //if (isset($_POST['tests'])  && isset($_POST['students'])) {
-        //    $cbTest = Array();
-        //    $cbTest = $_POST['tests'];
+
 
         //creo la sessione
         $sessione = new Sessione($newdataFrom, $newdataTo, $sogliAmm, $stato, $newtipoSessione, $idCorso);
@@ -69,21 +72,23 @@ if($_URL[5]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
                 //creo l'abilitazione students-sessione
                 foreach($cbStudents as $s) {
                          echo $s." ".$idNuovaSessione;
-                          $controller->abilitaStudenteASessione($idNuovaSessione,$s);
+                         // $controller->abilitaStudenteASessione($idNuovaSessione,$s);
                       }
 
             }
             //creo l'associazione tests-sessione
-        //  if($cbTest!=null) {
-        //      print_r($cbTest);
-        //  }
-        //  else
-        //      echo "cbtests vuoto";
+            $cbTest = Array();
+            $cbTest = $_POST['tests'];
+            if($cbTest!=null) {
+                 print_r($cbTest);
+            }
+            else
+             echo "cbtests vuoto";
 
-        //  foreach($cbTest as $t) {
-        //      echo $t." ".$idNuovaSessione;
-        //      $controller->associaTestASessione($idNuovaSessione,$t);
-        //  }
+            foreach($cbTest as $t) {
+                 echo $t." ".$idNuovaSessione;
+                 $controller->associaTestASessione($idNuovaSessione,$t);
+             }
 
             //torna a pagina corso del docente
             $tornaACasa= "Location: "."/usr/docente/corso/"."$idCorso";
@@ -95,8 +100,8 @@ if($_URL[5]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
     }
 }
 
-if($_URL[5]!=0) {  //CASO DI MODIFICA..DEVE ESSERE SETTATO !ALMENO! UNO.
-    if($dataFromSettato=isset($_POST['dataFrom']) || $radio1Settato=isset($_POST['radio1']) || $dataToSettato=isset($_POST['dataTo']) || $someTestsAorD=isset($_POST['tests']) ) {
+if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
+    if($dataFromSettato=isset($_POST['dataFrom']) && $radio1Settato=isset($_POST['radio1']) && $dataToSettato=isset($_POST['dataTo']) && $someTestsAorD=isset($_POST['tests']) ) {
 
         if($dataFromSettato)
             $newOrOldDataFrom = $_POST['dataFrom'];
@@ -110,12 +115,19 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..DEVE ESSERE SETTATO !ALMENO! UNO.
         $sessioneAggiornata = new Sessione($newOrOldDataFrom,$newOrOldDataTo,$sogliAmm,$stato,$tipoSessione,$idCorso);
         $controller->updateSessione($_URL[5],$sessioneAggiornata);
 
-        if($someTestsAorD) {
 
+        if($someTestsAorD) {
+            $cbTest = Array();
+            $cbTest = $_POST['tests'];
+            //foreach($cbTest as $t) {
+                //if(non c'è già quest'associazione..ma questo si fa dissociando tutti e poi riassocandio!!!!) {
+                  //  $controller->associaTestASessione($idSessione, $t);
+              //  }
+            //}
         }
 
-        $tornaACasa= "Location: "."/usr/docente/corso/"."$idCorso";
-        header($tornaACasa);
+        //$tornaACasa= "Location: "."/usr/docente/corso/"."$idCorso";
+        //header($tornaACasa);
     }
 }
 
@@ -447,14 +459,21 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..DEVE ESSERE SETTATO !ALMENO! UNO.
 
                             <?php
                             $array = Array();
+                            $toCheckS="";
                             $array = $controller->getAllStudentiByCorso($idCorso);
+                            $studentsOfSessione= $controller->getAllStudentiBySessione($idSessione);
                             if ($array == null) {
                                 echo "l'array è null";
                             }
                             else {
                                 foreach ($array as $c) {
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    printf("<td><input name=\"students[]\" type=\"checkbox\" class=\"checkboxes\" value='%s'></td>", $c->getMatricola());
+                                    foreach($studentsOfSessione as $t){
+                                        if($c->getMatricola()==$t->getMatricola())
+                                            $toCheckS="Checked";
+                                    }
+                                    printf("<td><input name=\"students[]\" type=\"checkbox\" %s class=\"checkboxes\" value='%s'></td>",$toCheckS, $c->getMatricola());
+                                    $toCheckS="";
                                     printf("<td class=\"sorting_1\">%s</td>", $c->getNome());
                                     printf("<td>%s</td>", $c->getCognome());
                                     printf("<td>%s</td>", $c->getMatricola());

@@ -18,7 +18,7 @@ $corso = $controlleCdl->readCorso($identificativoCorso);
 $nomecorso= $corso->getNome();
 
     try {
-        $sessioneByUrl = $controller->readSessione($_URL[5]);
+        $sessioneByUrl = $controller->readSessione($idSessione);
         $dataFrom = $sessioneByUrl->getDataInizio();
         $dataTo = $sessioneByUrl->getDataFine();
         $tipoSessione = $sessioneByUrl->getTipologia();
@@ -30,17 +30,22 @@ $nomecorso= $corso->getNome();
 
 if(isset( $_POST['termina'])) {
     $dataNow=date('Y/m/d/ h:i:s ', time());
+    //$dataTo=$dataNow;
     $newSessione = new Sessione($dataFrom, $dataNow, 18, "In Esecuzione", $tipoSessione, $identificativoCorso);
     $controller->updateSessione($idSessione,$newSessione);
     //una volta termina la sessione dove vado? Rivedo gli esiti?
-    header("Refresh:0");
 }
 
-if(isset( $_POST['dataTo'])) {
-    $dataFineNow=$_POST['dataTo'];
+if(isset( $_POST['datato'])) {
+    $dataFineNow=$_POST['datato'];
     $newSessione = new Sessione($dataFrom, $dataFineNow, 18, "In Esecuzione", $tipoSessione, $identificativoCorso);
     $controller->updateSessione($idSessione,$newSessione);
     header("Refresh:0");
+}
+
+if(isset( $_POST['addStu'])) {
+    $vaiAddStu= "Location: "."/usr/docente/corso/".$identificativoCorso."/sessione"."/".$idSesToGo."/"."sessioneincorso/aggiungistudente";
+    header($vaiAddStu);
 }
 
 ?>
@@ -192,6 +197,7 @@ if(isset( $_POST['dataTo'])) {
 
 
             <!-- TABELLA 2 -->
+            <form method="post" action="">
 
             <div class="row">
                 <div class="col-md-12">
@@ -209,9 +215,9 @@ if(isset( $_POST['dataTo'])) {
                               <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
                         <div class="row">
                                 <div class="col-md-12">
-                                        <a href="javascript:;" class="btn btn-sm green-jungle">
-                                            Aggiungi Studente <i class="fa fa-plus"></i>
-                                        </a>
+                                    <button type="submit"  name="addStu" href="javascript:;" class="btn sm green-jungle"><i class="fa fa-plus"></i><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                        Aggiungi Studente
+                                    </button>
                                 </div>
                         </div>
                                 <div class="table-scrollable">
@@ -355,7 +361,7 @@ if(isset( $_POST['dataTo'])) {
                 </div>
             </div>
 
-            <form method="post" action="">
+
 
             <div class="row">
 
@@ -365,7 +371,7 @@ if(isset( $_POST['dataTo'])) {
                         </div>
                         <div class="col-md-3">
                             <div class="input-group date form_datetime">
-                                <input name="dataTo" type="text" value='<?php printf("%s", $dataTo) ?>' readonly size="16" class="form-control"/>
+                                <input name="datato" type="text" value='<?php printf("%s", $dataTo) ?>' readonly size="16" class="form-control"/>
                                         <span class="input-group-btn">
                                             <button class="btn default date-set" type="button"><i
                                                     class="fa fa-calendar"></i></button>
@@ -378,7 +384,7 @@ if(isset( $_POST['dataTo'])) {
                                 <i class="fa fa-edit"></i></button>
                     </div>
                         <div class="col-md-5"></div>
-                        <button type="submit"  name="termina" href="javascript:;" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                        <button type="submit"  name="termina" value="nada" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                             TERMINA ORA
                         </button>
 
