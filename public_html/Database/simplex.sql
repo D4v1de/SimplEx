@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Creato il: Dic 07, 2015 alle 14:29
+-- Creato il: Dic 08, 2015 alle 09:17
 -- Versione del server: 5.5.41-0ubuntu0.12.04.1
 -- Versione PHP: 5.3.10-1ubuntu3.15
 
@@ -228,7 +228,7 @@ CREATE TABLE IF NOT EXISTS `risposta_multipla` (
   `elaborato_studente_matricola` varchar(10) CHARACTER SET latin1 NOT NULL,
   `domanda_multipla_id` int(8) NOT NULL,
   `punteggio` float DEFAULT NULL,
-  `alternativa_id` int(8) DEFAULT NULL
+  `alternativa_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -242,8 +242,10 @@ CREATE TABLE IF NOT EXISTS `sessione` (
   `data_inizio` datetime NOT NULL,
   `data_fine` datetime NOT NULL,
   `soglia_ammissione` float NOT NULL,
-  `stato` enum('Eseguita','Non eseguita') CHARACTER SET latin1 NOT NULL,
+  `stato` enum('Eseguita','In esecuzione','Non eseguita') CHARACTER SET latin1 NOT NULL,
   `tipologia` enum('Esercitativa','Valutativa','','') NOT NULL,
+  `mostra_esiti` enum('Si','No') NOT NULL DEFAULT 'No',
+  `mostra_risposte_corrette` enum('Si','No') NOT NULL DEFAULT 'No',
   `corso_id` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -415,7 +417,6 @@ ALTER TABLE `risposta_aperta`
 --
 ALTER TABLE `risposta_multipla`
   ADD PRIMARY KEY (`domanda_multipla_id`,`elaborato_sessione_id`,`elaborato_studente_matricola`) USING BTREE,
-  ADD KEY `alternativa_id` (`alternativa_id`),
   ADD KEY `elaborato_sessione_id` (`elaborato_sessione_id`),
   ADD KEY `elaborato_studente_matricola` (`elaborato_studente_matricola`),
   ADD KEY `domanda_multipla_id` (`domanda_multipla_id`);
@@ -596,7 +597,6 @@ ALTER TABLE `risposta_aperta`
 ALTER TABLE `risposta_multipla`
   ADD CONSTRAINT `risposta_multipla_ibfk_1` FOREIGN KEY (`elaborato_sessione_id`) REFERENCES `elaborato` (`sessione_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `risposta_multipla_ibfk_2` FOREIGN KEY (`elaborato_studente_matricola`) REFERENCES `elaborato` (`studente_matricola`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `risposta_multipla_ibfk_3` FOREIGN KEY (`alternativa_id`) REFERENCES `alternativa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `risposta_multipla_ibfk_4` FOREIGN KEY (`domanda_multipla_id`) REFERENCES `domanda_multipla` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
