@@ -49,16 +49,13 @@ else {  //CASO IN CUI SI VUOLE CREARE LA SESSIONE
 }
 
 if($_URL[5]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tutti i campi
-    if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo']) && isset($_POST['tests'])) { // && isset($_POST['students'])
+    if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo']) && isset($_POST['tests']) && isset($_POST['students']) ) {
         $newdataFrom = $_POST['dataFrom'];
         $newdataTo = $_POST['dataTo'];
         $newtipoSessione = $_POST['radio1'];
 
-        $sogliAmm= 18;                             //dove la prendo?
-        $stato='Non Eseguita';                     //dove lo prendo?
-
-        //if (isset($_POST['tests'])  && isset($_POST['students'])) {
-
+        $sogliAmm= 18;
+        $stato='Non Eseguita';
 
         //creo la sessione
         $sessione = new Sessione($newdataFrom, $newdataTo, $sogliAmm, $stato, $newtipoSessione, $idCorso);
@@ -72,7 +69,7 @@ if($_URL[5]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
                 //creo l'abilitazione students-sessione
                 foreach($cbStudents as $s) {
                          echo $s." ".$idNuovaSessione;
-                         // $controller->abilitaStudenteASessione($idNuovaSessione,$s);
+                         $controller->abilitaStudenteASessione($idNuovaSessione,$s);
                       }
 
             }
