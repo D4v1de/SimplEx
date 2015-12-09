@@ -25,7 +25,7 @@ $perModificaDataFrom =  null;
 $perModificaDataTo = null;
 $valu = null;
 $eser = null;
-$mostraE=null;
+$showE=null;
 $showRC=null;
 
 if($_URL[5]!=0) {  //CASO IN CUI SI VOGLIA MODIFICARE LA SESSIONE
@@ -40,9 +40,11 @@ if($_URL[5]!=0) {  //CASO IN CUI SI VOGLIA MODIFICARE LA SESSIONE
         if ($tipoSessione == "Valutativa")
             $valu = "Checked";
         else $eser = "Checked";
-        if ($sessioneByUrl->mostraEsiti(0) == "Si")
-            $mostraE = "Checked";
-        if($sessioneByUrl->mostraRispCorrette(0) == "Si")
+
+        if ($controller->readMostraEsitoSessione($idSessione) == "Si") {
+            $showE = "Checked";
+        }
+        if($controller->readMostraRisposteCorretteSessione($idSessione) == "Si")
              $showRC= "Checked";
 
     } catch (ApplicationException $ex) {
@@ -71,11 +73,12 @@ if($_URL[5]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
         if(isset($_POST['cbShowEsiti'])){
             $controller->abilitaMostraEsito($idNuovaSessione);
         }
-        if(isset($_POST['cbRispCorr'])){
+
+        if(isset($_POST['cbShowRispCorr'])){
             $controller->abilitaMostraRisposteCorrette($idNuovaSessione);
         }
 
-            $cbStudents = $_POST['students'];
+        $cbStudents = $_POST['students'];
             if($cbStudents==null){
                 echo "<h1>CBSTUDENTS VUOTO!</h1>";
             }
@@ -123,12 +126,14 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
         $controller->disabilitaMostraEsito($idSessione);
         $controller->disabilitaMostraRisposteCorrette($idSessione);
 
-        if(isset($_POST['cbShowEsiti'])){
+        if(isset($_POST['cbShowEsiti'])) {
             $controller->abilitaMostraEsito($idSessione);
         }
-        if(isset($_POST['cbRispCorr'])){
+
+        if(isset($_POST['cbShowRispCorr'])){
             $controller->abilitaMostraRisposteCorrette($idSessione);
         }
+        $controller->disabilitaMostraRisposteCorrette($idSessione);
         $controller->updateSessione($_URL[5],$sessioneAggiornata);
 
 
@@ -294,7 +299,7 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
                             <label>Seleziona preferenze</label>
                             <div class="md-checkbox-list">
                                 <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox1" <?php printf("%s",$mostraE) ?>name="cbShowEsiti" class="md-check">
+                                    <input type="checkbox" id="checkbox1" <?php printf("%s",$showE) ?>name="cbShowEsiti" class="md-check">
                                     <label for="checkbox1">
                                     <span></span>
                                     <span class="check"></span>

@@ -193,6 +193,14 @@ if(isset($_POST['idtest'])){
                                         " style="width: 73px;">
                                     Stato
                                 </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                                 Points
+                                        " style="width: 73px;">
+                                    Mostra Esiti
+                                </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                                 Points
+                                        " style="width: 73px;">
+                                    Mostra Risposte Corrette
+                                </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                                  Status
                                         " style="width: 20%;">
                                     Azioni
@@ -220,6 +228,8 @@ if(isset($_POST['idtest'])){
                                     printf("<td><b>Inizio:</b>%s<b>  Fine:</b>%s</td>", $c->getDataInizio(),$c->getDataFine());
                                     printf("<td>%s</td>", $c->getTipologia());
                                     printf("<td>%s</td>", $c->getStato());
+                                    printf("<td>%s</td>", $controllerSessione->readMostraEsitoSessione($c->getId()));
+                                    printf("<td>%s</td>", $controllerSessione->readMostraRisposteCorretteSessione($c->getId()));
                                     printf("<td class=\"center\"><a href=\"visualizzaesitisessione\" class=\"btn btn-sm default\">Esiti</a>
                                            <a href=\"%s\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></a>
                                                                  <button type='submit' name='IdSes' value='%d' class='btn btn-sm red-intense'><i class=\"fa fa-trash-o\"></i></button>

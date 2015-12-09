@@ -34,7 +34,9 @@ if(isset( $_POST['datato']) && isset( $_POST['termina'] )) {
     $dataTo=$dataNow;
     $newSessione = new Sessione($dataFrom, $dataNow, 18, "Eseguita", $tipoSessione, $identificativoCorso);
     $controller->updateSessione($idSessione,$newSessione);
-    //una volta termina la sessione dove vado? Rivedo gli esiti?
+    $vaiVisuEsiti= "Location: "."/usr/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."esiti";
+    header($vaiVisuEsiti);
+
 }
 else if(isset( $_POST['datato'])) {
     $dataFineNow=$_POST['datato'];

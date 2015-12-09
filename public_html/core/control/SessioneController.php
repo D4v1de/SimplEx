@@ -136,4 +136,12 @@ class SessioneController extends Controller {   //UTLIZZARE ALTRO CONTROLLER..NO
     public function abilitaMostraEsito($id) {
         $this->sessioneModel->abilitaMostraEsito($id);
     }
+
+    public function readMostraRisposteCorretteSessione($id) {
+        return $this->sessioneModel->readMostraRisposteCorretteSessione($id);
+    }
+
+    public function readMostraEsitoSessione($id) {
+       return  $this->sessioneModel->readMostraEsitoSessione($id);
+    }
 }
