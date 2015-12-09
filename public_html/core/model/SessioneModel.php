@@ -82,7 +82,7 @@ class SessioneModel extends Model {
         $query = sprintf(self::$READ_SESSIONE, $id);
         $res = Model::getDB()->query($query);
         if ($obj = $res->fetch_assoc()) {
-            $sessione = new Sessione($obj['data_inizio'], $obj['data_fine'],  $obj['soglia_ammissione'], $obj['stato'], $obj['tipologia'], $obj['corso_id']);
+            $sessione = new Sessione($obj['data_inizio'], $obj['data_fine'],  $obj['soglia_ammissione'], $obj['stato'], $obj['tipologia'],$obj['corso_id']);
             $sessione->setId($obj['id']);
             return $sessione;
         }
