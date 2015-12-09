@@ -13,8 +13,7 @@ class Sessione {
     private $stato;
     private $tipologia;
     private $corsoId;
-    private $mostraEsiti="Si";
-    private $mostraRispCorr="Si";
+    
     /**
      * Costruttore di Sessione
      * @param string $dataInizio La data di inizio della sessione
@@ -137,25 +136,4 @@ class Sessione {
     public function setCorsoId($corsoId) {
         $this->corsoId = $corsoId;
     }
-
-    /**
-     * @param $siOno Sarà Si o No
-     * @return string Ritorna il valore attuale, solo se il valore passato è 0
-     */
-    public function mostraEsiti($siOno) {
-       $this->mostraEsiti=$siOno;
-        if($siOno==0)
-            return $this->mostraEsiti;
-    }
-
-    /**
-     * @param $siOno Sarà Si o No
-     * @return string Ritorna il valore attuale, solo se il valore passato è 0
-     */
-    public function mostraRispCorrette($siOno) {
-        $this->mostraRispCorr=$siOno;
-        if($siOno==0)
-            return $this->mostraEsiti;
-    }
-
- }
+}
