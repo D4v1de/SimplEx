@@ -5,8 +5,8 @@
  * Date: 18/11/15
  * Time: 10:33
  */
-include_once CONTROL_DIR . "AuthController.php";
-$controller = new AuthController();
+include_once CONTROL_DIR . "UtenteController.php";
+$controller = new UtenteController();
 /** @var Exception $error */
 $error = null;
 ?>
