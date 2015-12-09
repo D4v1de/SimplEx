@@ -64,7 +64,7 @@ $controllerAlternativa = new AlternativaController();
             
             <?php
                             $Multiple = Array();
-                            $Multiple = $controllerDomanda->getMultTest($_URL[5]);
+                            $Multiple = $controllerDomanda->getAllDomandeMultipleByTest($_URL[5]);
                             foreach($Multiple as $a) {
                                 printf("<div class=\"portlet box blue-madison\"><div class=\"portlet-title\"><div class=\"caption\"><i class=\"fa fa-question-circle\"></i>%s</div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div>", $a->getTesto());
                                 $Alternative = Array();
@@ -76,9 +76,10 @@ $controllerAlternativa = new AlternativaController();
                                 printf("</div></div>");
                             }
                             $Aperte = Array();
-                            $Aperte = $controllerDomanda->getAperteTest($_URL[5]);
+                            $Aperte = $controllerDomanda->getAllDomandeAperteByTest($_URL[5]);
                             foreach($Aperte as $x){
-                             printf("<div class=\"portlet box blue-madison\"><div class=\"portlet-title\"><div class=\"caption\"><i class=\"fa fa-question-circle\"></i>%s</div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div></div>", $x->getTesto());   
+                             printf("<div class=\"portlet box blue-madison\"><div class=\"portlet-title\"><div class=\"caption\"><i class=\"fa fa-question-circle\"></i>%s (aperta)</div></div></div>", $x->getTesto());   
+                             
                             }
 
                             ?>
@@ -87,8 +88,8 @@ $controllerAlternativa = new AlternativaController();
                             <div class="row">
                                 <div class="col-md-9">
                                     
-                                    <a href="../" class="btn sm red-intense">
-                                        Annulla
+                                    <a href="../../" class="btn sm red-intense">
+                                        Indietro
                                     </a>
                                 </div>
                             </div>
