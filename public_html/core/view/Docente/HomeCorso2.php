@@ -193,6 +193,14 @@ if(isset($_POST['idtest'])){
                                         " style="width: 73px;">
                                     Stato
                                 </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                                 Points
+                                        " style="width: 73px;">
+                                    Mostra Esiti
+                                </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                                 Points
+                                        " style="width: 73px;">
+                                    Mostra Risposte Corrette
+                                </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                                  Status
                                         " style="width: 20%;">
                                     Azioni
@@ -213,13 +221,15 @@ if(isset($_POST['idtest'])){
                                     $vaiASesInCorso="/usr/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."sessioneincorso";
 
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    if($c->getStato()!="In Esecuzione")
+                                    if($c->getStato()!="In esecuzione")
                                         printf("<td class=\"sorting_1\"><a href=\"%s\">%s</a></td>", $vaiAVisu,  "Sessione ".$c->getId());
                                     else
                                         printf("<td class=\"sorting_1\"><a href=\"%s\">%s</a></td>", $vaiASesInCorso,  "Sessione ".$c->getId());
                                     printf("<td><b>Inizio:</b>%s<b>  Fine:</b>%s</td>", $c->getDataInizio(),$c->getDataFine());
                                     printf("<td>%s</td>", $c->getTipologia());
                                     printf("<td>%s</td>", $c->getStato());
+                                    printf("<td>%s</td>", $controllerSessione->readMostraEsitoSessione($c->getId()));
+                                    printf("<td>%s</td>", $controllerSessione->readMostraRisposteCorretteSessione($c->getId()));
                                     printf("<td class=\"center\"><a href=\"visualizzaesitisessione\" class=\"btn btn-sm default\">Esiti</a>
                                            <a href=\"%s\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></a>
                                                                  <button type='submit' name='IdSes' value='%d' class='btn btn-sm red-intense'><i class=\"fa fa-trash-o\"></i></button>

@@ -136,4 +136,4 @@ class Sessione {
     public function setCorsoId($corsoId) {
         $this->corsoId = $corsoId;
     }
- }
+}

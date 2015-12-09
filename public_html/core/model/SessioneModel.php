@@ -20,8 +20,8 @@ class SessioneModel extends Model {
     private static $ASSOCIA_TEST_SESSIONE = "INSERT INTO `sessione_test` (sessione_id, test_id) VALUES ('%d','%d')";
     private static $DISSOCIA_TEST_SESSIONE = "DELETE FROM `sessione_test` where sessione_id = '%d' AND test_id = '%d'";
     private static $DELETE_ALL_TEST_FROM_SESSIONE = "DELETE FROM `sessione_test` where sessione_id = '%d'";
-    private static $ABILITA_MOSTRA_ESITO = "UPDATE `sessione` SET mostra_esito = 'Si' WHERE id = '%d'";
-    private static $DISABILITA_MOSTRA_ESITO = "UPDATE `sessione` SET mostra_esito = 'No' WHERE id = '%d'";
+    private static $ABILITA_MOSTRA_ESITO = "UPDATE `sessione` SET mostra_esiti = 'Si' WHERE id = '%d'";
+    private static $DISABILITA_MOSTRA_ESITO = "UPDATE `sessione` SET mostra_esiti = 'No' WHERE id = '%d'";
     private static $ABILITA_MOSTRA_RISPOSTE_CORRETTE = "UPDATE `sessione` SET mostra_risposte_corrette = 'Si' WHERE id = '%d'";
     private static $DISABILITA_MOSTRA_RISPOSTE_CORRETTE = "UPDATE `sessione` SET mostra_risposte_corrette = 'No' WHERE id = '%d'";
 
@@ -82,7 +82,7 @@ class SessioneModel extends Model {
         $query = sprintf(self::$READ_SESSIONE, $id);
         $res = Model::getDB()->query($query);
         if ($obj = $res->fetch_assoc()) {
-            $sessione = new Sessione($obj['data_inizio'], $obj['data_fine'],  $obj['soglia_ammissione'], $obj['stato'], $obj['tipologia'], $obj['corso_id']);
+            $sessione = new Sessione($obj['data_inizio'], $obj['data_fine'],  $obj['soglia_ammissione'], $obj['stato'], $obj['tipologia'],$obj['corso_id']);
             $sessione->setId($obj['id']);
             return $sessione;
         }
@@ -216,6 +216,23 @@ class SessioneModel extends Model {
     }
 
     /**
+     * Cerca una sessione nel database e restituisce l'opzione mostra esito
+     * @param int $id L'id della sessione da cercare
+     * @throws ApplicationException
+     * @return string
+     */
+    public function readMostraEsitoSessione($id) {
+        $query = sprintf(self::$READ_SESSIONE, $id);
+        $res = Model::getDB()->query($query);
+        if ($obj = $res->fetch_assoc()) {
+            return $obj['mostra_esiti'];
+        }
+        else{
+            throw new ApplicationException(Error::$SESSIONE_NON_TROVATA);
+        }
+    }
+
+    /**
      * Abilita la mostra delle risposte corrette per una sessione nel database
      * @param int $id L'id della sessione da modificare
      * @throws ApplicationException
@@ -238,6 +255,23 @@ class SessioneModel extends Model {
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
+        }
+    }
+
+    /**
+     * Cerca una sessione nel database e restituisce l'opzione mostra risposte corrette
+     * @param int $id L'id della sessione da cercare
+     * @throws ApplicationException
+     * @return string
+     */
+    public function readMostraRisposteCorretteSessione($id) {
+        $query = sprintf(self::$READ_SESSIONE, $id);
+        $res = Model::getDB()->query($query);
+        if ($obj = $res->fetch_assoc()) {
+            return $obj['mostra_risposte_corrette'];
+        }
+        else{
+            throw new ApplicationException(Error::$SESSIONE_NON_TROVATA);
         }
     }
 }

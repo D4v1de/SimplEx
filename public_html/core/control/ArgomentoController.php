@@ -84,9 +84,9 @@ class ArgomentoController extends Controller {
      * @throws ApplicationException
      */
 
-    public function modificaArgomento($id, $corsoId, $updatedArgomento){
+    public function modificaArgomento($id, $updatedArgomento){
         $argomentoModel = new ArgomentoModel();
-        return $argomentoModel->updateArgomento($id, $corsoId, $updatedArgomento);
+        return $argomentoModel->updateArgomento($id, $updatedArgomento);
     }
 
     public function rimuoviArgomento($id, $corsoId){

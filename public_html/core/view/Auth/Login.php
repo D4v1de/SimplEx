@@ -6,8 +6,8 @@
  * Time: 20:42
  */
 
-include_once CONTROL_DIR . "AuthController.php";
-$controller = new AuthController();
+include_once CONTROL_DIR . "UtenteController.php";
+$controller = new UtenteController();
 try {
     Logger::info("Richiesta login [" . $_POST['email'] . " " . $_POST['password'] . " " . @$_POST['remember'] . "]");
     $user = $controller->login($_POST['email'], $_POST['password'], (@$_POST['remember'] == "1" ? true : false));
