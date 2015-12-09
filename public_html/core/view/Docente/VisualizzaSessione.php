@@ -16,6 +16,8 @@ $identificativoCorso = $_URL[3];
 $sessione = null;
 $valu = null;
 $eser = null;
+$showE="";
+$showRC="";
 
 if (!is_numeric($idSessione)) {
     echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
@@ -33,6 +35,12 @@ $nomecorso= $corso->getNome();
 $dataFrom = $sessione->getDataInizio();
 $dataTo = $sessione->getDataFine();
 $tipoSessione = $sessione->getTipologia();
+if ($controllerSessione->readMostraEsitoSessione($sessione->getId()) == "Si") {
+    $showE = "Checked";
+}
+if($controllerSessione->readMostraRisposteCorretteSessione($sessione->getId()) == "Si")
+    $showRC= "Checked";
+
 if ($tipoSessione == "Valutativa")
     $valu = "Checked";
 else $eser = "Checked";
@@ -182,7 +190,7 @@ if(isset($_POST['rimuovi'])){
                             <label>Seleziona preferenze</label>
                             <div class="md-checkbox-list">
                                 <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox1" class="md-check" disabled="true" >
+                                    <input type="checkbox" id="checkbox1" <?php printf("%s",$showE) ?> class="md-check" disabled="true" >
                                     <label for="checkbox1">
                                     <span></span>
                                     <span class="check"></span>
@@ -190,7 +198,7 @@ if(isset($_POST['rimuovi'])){
                                     Mostra esiti </label>
                                 </div>
                                 <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox2" class="md-check" disabled="true">
+                                    <input type="checkbox" id="checkbox2" <?php printf("%s",$showRC) ?> class="md-check" disabled="true">
                                     <label for="checkbox2">
                                     <span></span>
                                     <span class="check"></span>

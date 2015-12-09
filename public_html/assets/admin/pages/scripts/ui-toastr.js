@@ -110,6 +110,57 @@ var UIToastr = function () {
                 toastr.clear();
             });
 
+            $('.inserisciArgomento').click(function () {
+                toastr.success('Argomento inserito con successo!','Inserimento')
+            });
+
+            $('.eliminaArgomento').click(function () {
+                toastr.error('Argomento eliminato con successo!','Eliminazione')
+            });
+
+            $('.modificaArgomento').click(function () {
+                toastr.success('Argomento modificato con successo!','Modifica')
+            });
+
+            $('.inserisciDomanda').click(function () {
+                toastr.error('Domanda inserita con successo!','Inserimento')
+            });
+
+            $('.eliminaDomanda').click(function () {
+                toastr.error('Domanda eliminata con successo!','Eliminazione')
+            });
+
+            $('.modificaDomanda').click(function () {
+                toastr.success('Domanda modificata con successo!','Modifica')
+            });
+
+            $('.eliminaRisposta').click(function () {
+                toastr.error('Risposta eliminata con successo!','Eliminazione')
+            });
+
+            $('.inserisciCorso').click(function () {
+                toastr.success('Corso inserito con successo!','Inserimento')
+            });
+
+            $('.eliminaCorso').click(function () {
+                toastr.error('Corso eliminato con successo!','Eliminazione')
+            });
+
+            $('.modificaCorso').click(function () {
+                toastr.success('Corso modificato con successo!','Modifica')
+            });
+
+            $('.inserisciCdl').click(function () {
+                toastr.success('CdL inserito con successo!','Inserimento')
+            });
+
+            $('.eliminaCdl').click(function () {
+                toastr.error('CdL eliminato con successo!','Eliminazione')
+            });
+
+            $('.modificaCdl').click(function () {
+                toastr.success('Cdl modificato con successo!','Modifica')
+            });
         }
 
     };

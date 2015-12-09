@@ -18,16 +18,13 @@ try{
     echo "ERRORE IN READ CORSO" . $exception;
 }
 
-if(isset($_POST['nomeargomento'])){
-    $nome = $_POST['nomeargomento'];
+if(isset($_POST['nome'])){
+    $nome = $_POST['nome'];
 
-    if(empty($nome)){
-        echo "<script type='text/javascript'>alert('Inserisci il titolo!');</script>";
-    }else {
         $argomento = new Argomento($corsoid, $nome);
         $controller->creaArgomento($argomento);
         header('location:../../' . $corsoid);
-    }
+
 }
 
 ?>
@@ -83,7 +80,7 @@ if(isset($_POST['nomeargomento'])){
                     </div>
                     <!-- END PAGE HEADER-->
                     <!-- BEGIN PAGE CONTENT-->
-                    <div class="portlet box grey-cascade">
+                    <div class="portlet box blue-madison">
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="fa fa-globe"></i>Inserisci Argomento
@@ -101,14 +98,13 @@ if(isset($_POST['nomeargomento'])){
                         </div>
                         <div class="portlet-body form">
                             <!-- BEGIN FORM-->
-                            <form action="" method="POST" class="form-horizontal form-bordered">
+                            <form id="form_sample_1" action="" method="POST" class="form-horizontal form-bordered">
                                 <div class="form-body">
                                     <div class="form-group form-md-line-input has-success" style="height: 90px">
                                         <label class="control-label col-md-3">Inserisci Titolo</label>
                                         <div class="col-md-6">
-                                            <input type="text" placeholder="" class="form-control" name="nomeargomento">
-                                            <span class="help-block">
-                                                Inserisci il titolo del nuovo argomento </span>
+                                            <input type="text" placeholder="" class="form-control" name="nome">
+                                            <span class="help-block"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -147,12 +143,17 @@ if(isset($_POST['nomeargomento'])){
         <!--Script specifici per la pagina -->
         <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
         <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+        <script src="/assets/admin/pages/scripts/form-validation.js"></script>
+        <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
+
         <script>
             jQuery(document).ready(function () {
                 Metronic.init(); // init metronic core components
                 Layout.init(); // init current layout
                 //QuickSidebar.init(); // init quick sidebar
                 //Demo.init(); // init demo features
+                FormValidation.init();
             });
         </script>
         <!-- END JAVASCRIPTS -->

@@ -12,13 +12,44 @@ $controller = new Esempio();
 include_once CONTROL_DIR . "ArgomentoController.php";
 include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "DomandaController.php";
+include_once CONTROL_DIR . "TestController.php";
 
-$controller = new ArgomentoController();
+$controllerArgomento = new ArgomentoController();
 $controllerCorso = new CdlController();
 $controllerDomande  = new DomandaController();
+$controllerTest = new TestController();
+
+$identificativoCorso = $_URL[3];
+
+if((isset($_POST['aperte']) or ($_POST['multiple'])) && isset($_POST['man']) && isset($_POST['descrizione']) && isset($_POST['punteggio'])){
+    $domAperte=$_POST['aperte'];
+    $domMultiple=$_POST['multiple'];
+    $descrizione=$_POST['descrizione'];
+    $punteggio=$_POST['punteggio'];
+    $cont1=0;
+    $cont2=0;
+    if($domAperte==null){          
+            }
+    else{
+        foreach($domAperte as $s) {
+                $cont1=$cont1+1;
+              }
+    if($domMultiple==null){          
+            }
+    else{
+        foreach($domMultiple as $s) {
+                $cont2=$cont2+1;
+              }
+    }
+    }
+    $test = new Test($descrizione,$punteggio,$cont2,$cont1,0,0,$identificativoCorso);
+        $idNuovoTest=$controllerTest->creaTest($test);
+    $home= "Location: "."/usr/docente/corso/"."$$identificativoCorso";
+    header($home);
+}
 
 $corso = $controllerCorso->readCorso($_URL[3]); //QUI DEVE ANDARCI L'ID DEL CORSO DOVE CI TROVIAMO
-$num = $controller->getNumArgomenti(); //STUB
+$num = $controllerArgomento->getNumArgomenti(); //STUB
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -83,7 +114,7 @@ $num = $controller->getNumArgomenti(); //STUB
 
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <form>
+            <form action="" method="post">
                 <div class="form-body">
                     <div class="portlet box blue-madison">
                         <div class="portlet-title">
@@ -98,7 +129,14 @@ $num = $controller->getNumArgomenti(); //STUB
                         <div class="portlet-body">
                             <h4> Descrizione</h4>
                                 <div class="col-md-12">
-                                    <textarea class="form-control" rows="4" placeholder="Inserisci descrizione" style="resize:none"></textarea>
+                                    <textarea class="form-control" name="descrizione" id="descrizione" rows="4" placeholder="Inserisci descrizione" style="resize:none"></textarea>
+                                </div>
+                                <div class="row">
+                                   <div class="col-md-4">
+                                    <h4>Punteggio massimo Test:</h4>
+                                    <input type="text" id="punteggio" name="punteggio" class="form-control">
+                                    <span class="help-block">Inserire numero</span>
+                                   </div>           
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4">
@@ -147,141 +185,102 @@ $num = $controller->getNumArgomenti(); //STUB
                                 </div>
                         </div>
                     </div>
+                    
+                    
                     <div class="row" id="domande">
-                <div class="col-md-6 scroll">
-
-                    <?php
-                    $argomenti = array();
-                    $argomenti = $controller->getArgomenti($corso->getId());
-                    $domandeMultiple = array();
-                    $nargomento = 1;
-                    $ndomanda = 1;
-
-                    if($argomenti == null){echo "NON CI SONO ARGOMENTI";}
-                    else {
-
-                        printf("<div class=\"portlet\">");
-                        printf("<div class=\"portlet-title \">");
-                        printf("<div class=\"caption\">");
-                        printf("<div> DOMANDE MULTIPLE</div>");
-                        printf("</div>");
-                        printf("</div>");
-                        printf("</div>");
-
-
-
-                        foreach ($argomenti as $a) {
-                            $domandeMultiple = $controller->getAllDomandaMultipla($a->getId(), $a->getCorsoId());
-                            printf("<div class=\"portlet box blue-madison\">");
-                            printf("<div class=\"portlet-title\">");
-                            printf("<div class=\"caption\">");
-                            printf("<i class=\"fa fa-comments\"></i>%s", $a->getNome());
-                            printf("</div>");
-                            printf("<div class=\"tools\">");
-                            printf("<a href=\"javascript:;\" class=\"expand\" data-original-title=\"\" title=\"\"></a>");
-                            printf("</div>");
-                            printf("</div>");
-                            printf("<div class=\"portlet-body collapse\">");
-                            printf("<div class=\"dd\" id=\"nestable_list_%s\">", $nargomento);
-                            printf("<ol class=\"dd-list\" id=\"lista\">");
-                            foreach ($domandeMultiple as $domanda) {
-                                printf("<li class=\"dd-item\" data-id=\"%s\" id=\"%s\">", $domanda->getId(),$domanda->getId()); //cambiare id
-                                printf("<div class=\"dd-handle\">%s</div>", $domanda->getTesto()); //CAMBIARE NELLA DOMANDA
-                                printf("</li>");
-                                $ndomanda++;
-                            }
-                            printf("</ol>");
-                            printf("</div>");
-                            printf("</div>");
-                            printf("</div>");
-                            $nargomento++;
-
-                        }
-
-                        printf("<div class=\"portlet\">");
-                        printf("<div class=\"portlet-title \">");
-                        printf("<div class=\"caption\">");
-                        printf("<div> DOMANDE APERTE</div>");
-                        printf("</div>");
-                        printf("</div>");
-                        printf("</div>");
-
-                        foreach ($argomenti as $b) {
-                            $domandeAperte = $controllerDomande->getAllAperte($b->getId(), $b->getCorsoId());
-                            printf("<div class=\"portlet box blue-madison\">");
-                            printf("<div class=\"portlet-title\">");
-                            printf("<div class=\"caption\">");
-                            printf("<i class=\"fa fa-comments\"></i>%s", $b->getNome());
-                            printf("</div>");
-                            printf("<div class=\"tools\">");
-                            printf("<a href=\"javascript:;\" class=\"expand\" data-original-title=\"\" title=\"\"></a>");
-                            printf("</div>");
-                            printf("</div>");
-                            printf("<div class=\"portlet-body collapse\">");
-                            printf("<div class=\"dd\" id=\"nestable_list_%s\">", $nargomento);
-                            printf("<ol class=\"dd-list\" id=\"lista\">");
-                            foreach ($domandeAperte as $domanda) {
-                                printf("<li class=\"dd-item\" data-id=\"%s\" id=\"%s\">",  $domanda->getId(),$domanda->getId()); //cambiare id
-                                printf("<div class=\"dd-handle\">%s</div>", $domanda->getTesto()); //CAMBIARE NELLA DOMANDA
-                                printf("</li>");
-                                $ndomanda++;
-                            }
-                            printf("</ol>");
-                            printf("</div>");
-                            printf("</div>");
-                            printf("</div>");
-                            $nargomento++;
-
-                        }
-
-                    }
-                    ?>
-
-
-
-
-
-
-
-
-
-
-                </div> <!--chiudi col-md-6-->
-
-                <div class="col-md-6">
-                    <div class="portlet box blue-madison" id="tabellatest">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                <i class="fa fa-pencil"></i>Test
-                            </div>
-                            <div class="tools">
-                                <a href="javascript:;" class="collapse" data-original-title="" title="">
-                                </a>
-
-                            </div>
-                        </div>
-                        <div class="portlet-body ">
-                            <div class="dd" id="nestable_list_0">
-                                <div class="dd-empty" id="lista">
-                                    <div>
-                                        <h3>Trascina le domande qui...</h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    
+                    <div class="portlet box blue-madison">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-file-text-o"></i>Domande
                     </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse" data-original-title="" title="">
+                        </a>
+                    </div>
+                    
                 </div>
+                <div class="portlet-body">
+                    <div id="tabella_domande_wrapper" class="dataTables_wrapper no-footer">
+                        <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                               id="tabella_domande" role="grid" aria-describedby="tabella_domande_info">
+                            <thead>
+                            <tr role="row">
+                                <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                                        " style="width: 24px;">
+                                <input type="checkbox" class="group-checkable" data-set="#tabella_studenti .checkboxes">
+                                </th>
+                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                         Points
+                                " style="width: 100px;">
+                                    ID
+                                </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                         Status
+                                " style="width: 200px;">
+                                    Argomento
+                                </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                         Points
+                                " style="width: 900px;">
+                                    Testo
+                                </th>
+                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                         Status
+                                " style="width: 200px;">
+                                    Tipologia
+                                </th>
+                                
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!-- qui va il riempimento automatico -->    
+                            <?php
+                            $Argomenti = Array();
+                            $Multiple = Array();
+                            $Aperte = Array();
+                            $Argomenti = $controllerArgomento->getArgomenti($identificativoCorso);
+                            foreach($Argomenti as $a){
+                                $Multiple = $controllerDomande->getAllMultiple($a->getId());
+                                $Aperte = $controllerDomande->getAllAperte($a->getId());
+                                foreach($Multiple as $m){
+                                    printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                    printf("<td><input type=\"checkbox\" id=\"%s\" name=\"multiple[]\" class=\"checkboxes\"></td>", $m->getId(), $m->getId());
+                                    printf("<td>%s</td>",$m->getId());
+                                    printf("<td>%s</td>",$a->getNome());
+                                    printf("<td>%s</td>",$m->getTesto());
+                                    printf("<td>Multipla</td>");
+                                    printf("</tr>");
+                                }
+                                foreach($Aperte as $x){
+                                    printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                    printf("<td><input type=\"checkbox\" id=\"%s\" name=\"aperte[]\" class=\"checkboxes\"></td>", $x->getId(), $x->getId());
+                                    printf("<td>%s</td>",$x->getId());
+                                    printf("<td>%s</td>",$a->getNome());
+                                    printf("<td>%s</td>",$x->getTesto());
+                                    printf("<td>Aperta</td>");
+                                    printf("</tr>");
+                                }
+                                
+                            }
+                            ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    </div>
+                    
+                    </div>
+                    </div>
+                
 
-            </div>
-                    <div id="fabio"></div>
+                    </div>
                 <div class="form-actions">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-9">
-                                    <a onclick="javascript: Creazione();" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
-                                        Conferma
-                                    </a>
+                                    <button type="submit" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                    Conferma
+                                    </button>
                                     <a href="../" class="btn sm red-intense">
                                         Annulla
                                     </a>
@@ -329,6 +328,7 @@ $num = $controller->getNumArgomenti(); //STUB
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
         TableManaged.init("tabella_argomenti2","tabella_argomenti2_wrapper");
+        TableManaged.init("tabella_domande","tabella_domande_wrapper");
         UINestable.init(<?php echo $num; ?>);
         //TableManaged.init(3);
     });

@@ -34,7 +34,9 @@ if(isset( $_POST['datato']) && isset( $_POST['termina'] )) {
     $dataTo=$dataNow;
     $newSessione = new Sessione($dataFrom, $dataNow, 18, "Eseguita", $tipoSessione, $identificativoCorso);
     $controller->updateSessione($idSessione,$newSessione);
-    //una volta termina la sessione dove vado? Rivedo gli esiti?
+    $vaiVisuEsiti= "Location: "."/usr/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."esiti";
+    header($vaiVisuEsiti);
+
 }
 else if(isset( $_POST['datato'])) {
     $dataFineNow=$_POST['datato'];
@@ -62,6 +64,9 @@ if(isset( $_POST['addStu'])) {
     <meta charset="utf-8"/>
     <title>Metronic | Page Layouts - Blank Page</title>
     <?php include VIEW_DIR . "design/header.php"; ?>
+    <link rel="stylesheet" type="text/css"
+          href="/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css">
+
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
