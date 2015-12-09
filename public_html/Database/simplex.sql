@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Creato il: Dic 08, 2015 alle 09:17
+-- Creato il: Dic 09, 2015 alle 22:28
 -- Versione del server: 5.5.41-0ubuntu0.12.04.1
 -- Versione PHP: 5.3.10-1ubuntu3.15
 
@@ -118,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `corso` (
   `id` int(8) NOT NULL,
   `matricola` varchar(10) CHARACTER SET latin1 NOT NULL,
   `nome` varchar(40) CHARACTER SET latin1 NOT NULL,
-  `tipologia` enum('Semestrale','Annuale','','') CHARACTER SET latin1 NOT NULL,
+  `tipologia` enum('Semestrale','Annuale') CHARACTER SET latin1 NOT NULL,
   `cdl_matricola` varchar(10) CHARACTER SET latin1 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -165,7 +165,8 @@ CREATE TABLE IF NOT EXISTS `elaborato` (
   `sessione_id` int(10) NOT NULL,
   `esito_parziale` float DEFAULT NULL,
   `esito_finale` float DEFAULT NULL,
-  `test_id` int(8) NOT NULL
+  `test_id` int(8) NOT NULL,
+  `stato` enum('Non corretto','Corretto') NOT NULL DEFAULT 'Non corretto'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -243,7 +244,7 @@ CREATE TABLE IF NOT EXISTS `sessione` (
   `data_fine` datetime NOT NULL,
   `soglia_ammissione` float NOT NULL,
   `stato` enum('Eseguita','In esecuzione','Non eseguita') CHARACTER SET latin1 NOT NULL,
-  `tipologia` enum('Esercitativa','Valutativa','','') NOT NULL,
+  `tipologia` enum('Esercitativa','Valutativa') NOT NULL,
   `mostra_esiti` enum('Si','No') NOT NULL DEFAULT 'No',
   `mostra_risposte_corrette` enum('Si','No') NOT NULL DEFAULT 'No',
   `corso_id` int(8) NOT NULL
@@ -508,8 +509,8 @@ ALTER TABLE `test`
 -- Limiti per la tabella `abilitazione`
 --
 ALTER TABLE `abilitazione`
-  ADD CONSTRAINT `abilitazione_ibfk_1` FOREIGN KEY (`studente_matricola`) REFERENCES `utente` (`matricola`),
-  ADD CONSTRAINT `abilitazione_ibfk_2` FOREIGN KEY (`sessione_id`) REFERENCES `sessione` (`id`);
+  ADD CONSTRAINT `abilitazione_ibfk_2` FOREIGN KEY (`sessione_id`) REFERENCES `sessione` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `abilitazione_ibfk_1` FOREIGN KEY (`studente_matricola`) REFERENCES `utente` (`matricola`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limiti per la tabella `alternativa`

@@ -11,6 +11,7 @@ class Elaborato {
     private $esitoParziale;
     private $esitoFinale;
     private $testId;
+    private $stato;
 
     /**
      * Costruttore di Elaborato.
@@ -19,13 +20,15 @@ class Elaborato {
      * @param float $esitoParziale L'esito parziale dell'elaborato
      * @param float $esitoFinale L'esito finale dell'elaborato
      * @param int $testId L'id del test a cui si riferisce
+     * @param string $stato Lo stato dell'elaborato
      */
-    public function __construct($studenteMatricola, $sessioneId, $esitoParziale, $esitoFinale, $testId) {
+    public function __construct($studenteMatricola, $sessioneId, $esitoParziale, $esitoFinale, $testId, $stato) {
         $this->studenteMatricola = $studenteMatricola;
         $this->sessioneId = $sessioneId;
         $this->esitoParziale = $esitoParziale;
         $this->esitoFinale = $esitoFinale;
         $this->testId = $testId;
+        $this->stato = $stato;
     }
     
     /**
@@ -64,6 +67,13 @@ class Elaborato {
     }
 
     /**
+     * @return string Lo stato dell'elaborato
+     */
+    public function getStato(){
+        return $this->stato;
+    }
+
+    /**
      * Setta la matricola dello studente a cui appartiene
      * @param string $studenteMatricola La matricola dello studente a cui appartiene
      */
@@ -94,12 +104,20 @@ class Elaborato {
     public function setEsitoFinale($esitoFinale) {
         $this->esitoFinale = $esitoFinale;
     }
-    
+
     /**
      * Setta l'id del test a cui si riferisce
      * @param int $testId L'id del test a cui si riferisce
      */
     public function setTestId($testId) {
         $this->testId = $testId;
+    }
+
+    /**
+     * Setta lo stato dell'elaborato
+     * @param $stato Lo stato dell'elaborato
+     */
+    public function setStato($stato){
+        $this->stato = $stato;
     }
 }

@@ -58,7 +58,7 @@ else {  //CASO IN CUI SI VUOLE CREARE LA SESSIONE
 }
 
 if($_URL[5]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tutti i campi
-    if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo']) && isset($_POST['tests']) && isset($_POST['students']) ) {
+    if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo']) && isset($_POST['tests']) ) {
         $newdataFrom = $_POST['dataFrom'];
         $newdataTo = $_POST['dataTo'];
         $newtipoSessione = $_POST['radio1'];
@@ -78,17 +78,18 @@ if($_URL[5]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
             $controller->abilitaMostraRisposteCorrette($idNuovaSessione);
         }
 
-        $cbStudents = $_POST['students'];
-            if($cbStudents==null){
+        if( isset($_POST['students'])) {
+            $cbStudents = $_POST['students'];
+            if ($cbStudents == null) {
                 echo "<h1>CBSTUDENTS VUOTO!</h1>";
-            }
-            else{
+            } else {
                 //creo l'abilitazione students-sessione
-                foreach($cbStudents as $s) {
-                         echo $s." ".$idNuovaSessione;
-                         $controller->abilitaStudenteASessione($idNuovaSessione,$s);
-                      }
+                foreach ($cbStudents as $s) {
+                    echo $s . " " . $idNuovaSessione;
+                    $controller->abilitaStudenteASessione($idNuovaSessione, $s);
+                }
             }
+        }
             //creo l'associazione tests-sessione
             $cbTest = Array();
             $cbTest = $_POST['tests'];
@@ -240,22 +241,22 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <form action="" method="post">
+            <form action="" method="post" id="form_sample_1">
             <div class="row">
                 <div class="col-md-12">
 
                     <div class="col-md-6">
                         <div class="col-md-6">
+
                             <label class="control-label">Avvio:</label>
 
                             <div class="input-group date form_datetime">
+
                                 <input name="dataFrom" type="text" value='<?php printf("%s", $perModificaDataFrom ); ?>' size="16" readonly="" class="form-control"/>
                                         <span class="input-group-btn">
-                                            <button class="btn default date-set" type="button"><i
-                                                    class="fa fa-calendar"></i></button>
+                                            <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
                                         </span>
                             </div>
-                            <span class="help-block"><br></span>
 
                         </div>
                         <div class="col-md-6">
@@ -269,7 +270,6 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
                                         </span>
                             </div>
                         </div>
-
                     </div>
                     <div class="col-md-3">
                         <div class="form-group form-md-radios">
@@ -567,7 +567,9 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
 
     <script type="text/javascript"
             src="/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-
+    <script src="/assets/admin/pages/scripts/form-validation.js"></script>
+    <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
     <script>
         jQuery(document).ready(function () {
             Metronic.init(); // init metronic core components
@@ -576,7 +578,7 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
             //Demo.init(); // init demo features
             TableManaged.init('tabella_test','tabella_test_wrapper');
             TableManaged.init('tabella_studenti','tabella_studenti_wrapper');
-
+            FormValidation.init();
         });
     </script>
 

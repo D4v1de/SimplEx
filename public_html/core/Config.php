@@ -22,5 +22,11 @@ class Config {
      */
     public static $MIN_PASSWORD_LEN = 6;    //minima lunghezza della password
     public static $TIPI_UTENTE = array('Studente', 'Docente', 'Admin');
+    public static $TIPI_CONTATTO = array('Telefono', 'E-mail', 'Cellulare', 'Fax');
+    public static $TIPI_CDL = array('Triennale', 'Magistrale', 'Ciclo Unico');
+    public static $TIPI_CORSO = array('Semestrale', 'Annuale');
+    public static $TIPI_SESSIONE = array('Valutativa', 'Esercitativa');
+    public static $STATI_SESSIONE = array('Eseguita', 'In esecuzione', 'Non eseguita');
+    public static $STATI_ELABORATO = array('Corretto', 'Non corretto');
     public static $LOG_LEVEL = 0; //0 Debug, 1 Info, 2 Warning, 3 Error
 }

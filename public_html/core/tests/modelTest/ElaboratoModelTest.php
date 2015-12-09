@@ -20,7 +20,7 @@ class ElaboratoModelTest extends PHPUnit_Framework_TestCase
 
         $model->deleteElaborato(self::STUDENTE_MATRICOLA,self::SESSIONE_ID);
 
-        $model->createElaborato(new Elaborato(self::STUDENTE_MATRICOLA,self::SESSIONE_ID,self::ESITO_PARZIALE, self::ESITO_FINALE,self::TEST_ID));
+        $model->createElaborato(new Elaborato(self::STUDENTE_MATRICOLA,self::SESSIONE_ID,self::ESITO_PARZIALE, self::ESITO_FINALE,self::TEST_ID, null));
 
         $elaborato = $model->readElaborato(self::STUDENTE_MATRICOLA,self::SESSIONE_ID);
 
