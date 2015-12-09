@@ -18,7 +18,13 @@ class SessioneModel extends Model {
     private static $GET_ALL_SESSIONI_STUDENTE = "SELECT s.* FROM `abilitazione` as a, `sessione` as s WHERE a.studente_matricola = '%s' AND a.sessione_id = s.id"; 
     private static $GET_ALL_SESSIONI_CORSO = "SELECT * FROM `sessione` WHERE corso_id = '%d'";
     private static $ASSOCIA_TEST_SESSIONE = "INSERT INTO `sessione_test` (sessione_id, test_id) VALUES ('%d','%d')";
+    private static $DISSOCIA_TEST_SESSIONE = "DELETE FROM `sessione_test` where sessione_id = '%d' AND test_id = '%d'";
     private static $DELETE_ALL_TEST_FROM_SESSIONE = "DELETE FROM `sessione_test` where sessione_id = '%d'";
+    private static $ABILITA_MOSTRA_ESITO = "UPDATE `sessione` SET mostra_esito = 'Si' WHERE id = '%d'";
+    private static $DISABILITA_MOSTRA_ESITO = "UPDATE `sessione` SET mostra_esito = 'No' WHERE id = '%d'";
+    private static $ABILITA_MOSTRA_RISPOSTE_CORRETTE = "UPDATE `sessione` SET mostra_risposte_corrette = 'Si' WHERE id = '%d'";
+    private static $DISABILITA_MOSTRA_RISPOSTE_CORRETTE = "UPDATE `sessione` SET mostra_risposte_corrette = 'No' WHERE id = '%d'";
+
     /**
      * Inserisce una nuova sessione nel database
      * @param Sessione $sessione La sessione da inserire nel database
@@ -155,17 +161,83 @@ class SessioneModel extends Model {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
         }
     }
+
+    /**
+     * Rimuove un test da una sessione del database
+     * @param int $idSessione L'id della sessione
+     * @param int $idTest L'id del test
+     * @throws ApplicationException
+     */
+    public function dissociaTestSessione($idSessione, $idTest) {
+        $query = sprintf(self::$DISSOCIA_TEST_SESSIONE, $idSessione, $idTest);
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows == -1) {
+            throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
+        }
+    }
     
     /**
      * Rimuove tutti i test da una sessione del database
      * @param int $id L'id della sessione
      * @throws ApplicationException
      */
-    public function DeleteAllTestFromSessione($id) {
+    public function deleteAllTestFromSessione($id) {
         $query = sprintf(self::$DELETE_ALL_TEST_FROM_SESSIONE, $id);
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
+        }
+    }
+
+    /**
+     * Abilita la mostra degli esiti per una sessione nel database
+     * @param int $id L'id della sessione da modificare
+     * @throws ApplicationException
+     */
+    public function abilitaMostraEsito($id) {
+        $query = sprintf(self::$ABILITA_MOSTRA_ESITO, $id);
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows == -1) {
+            throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
+        }
+    }
+
+    /**
+     * Disabilita la mostra degli esiti per una sessione nel database
+     * @param int $id L'id della sessione da modificare
+     * @throws ApplicationException
+     */
+    public function disabilitaMostraEsito($id) {
+        $query = sprintf(self::$DISABILITA_MOSTRA_ESITO, $id);
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows == -1) {
+            throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
+        }
+    }
+
+    /**
+     * Abilita la mostra delle risposte corrette per una sessione nel database
+     * @param int $id L'id della sessione da modificare
+     * @throws ApplicationException
+     */
+    public function abilitaMostraRisposteCorrette($id) {
+        $query = sprintf(self::$ABILITA_MOSTRA_RISPOSTE_CORRETTE, $id);
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows == -1) {
+            throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
+        }
+    }
+
+    /**
+     * Disabilita la mostra delle risposte corrette per una sessione nel database
+     * @param int $id L'id della sessione da modificare
+     * @throws ApplicationException
+     */
+    public function disabilitaMostraRisposteCorrette($id) {
+        $query = sprintf(self::$DISABILITA_MOSTRA_RISPOSTE_CORRETTE, $id);
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows == -1) {
+            throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
         }
     }
 }
