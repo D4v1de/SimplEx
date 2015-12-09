@@ -248,7 +248,40 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
         });
         //fine aperte
         //multiple
-        
+        $("input.md-check").click(function() {
+            var multId = $(this).attr('name');
+            var res = multId.split('-');
+            var rId = res[1];
+            var altId = $(this).attr('id');
+            res = altId.split('-');
+            var aId = res[1];
+            if ($("#"+$(this).attr('id')).is(":not(:checked)")){
+                aId = null;
+                $("#"+$(this).attr('id')).prop( "checked", false);
+            }
+            else{
+                $(".md-check[name="+$(this).attr('name')+"]").prop( "checked", false);
+                $("#"+$(this).attr('id')).prop( "checked", true);
+            }
+            $.post("/updateMultipla?mat="+mat+"&sessId="+sId+"&domId="+rId+"&altId="+aId);
+        });
+        var updateMultipla = function(multId,altId){
+            var res = multId.split('-');
+            var rId = res[1];
+            res = altId.split('-');
+            var aId = res[1];
+            if (window.XMLHttpRequest) {
+                var xhr = new XMLHttpRequest();
+                //metodo tradizionale di registrazione eventi   
+                xhr.onreadystatechange =gestoreRichiesta;   
+                xhr.open("GET", "/updateMultipla?mat="+mat+"&sessId="+sId+"&domId="+rId+"&altId="+aId, true);   
+                xhr.send(""); 
+            } 
+            function gestoreRichiesta() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                }
+            }
+        }
         //fine multiple
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
@@ -314,23 +347,7 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
 </script>
 <!-- risposte -->
 <script>
-    var updateMultipla = function(multId,altId){
-            var res = multId.split('-');
-            var rId = res[1];
-            res = altId.split('-');
-            var aId = res[1];
-            if (window.XMLHttpRequest) {
-                var xhr = new XMLHttpRequest();
-                //metodo tradizionale di registrazione eventi   
-                xhr.onreadystatechange =gestoreRichiesta;   
-                xhr.open("GET", "/updateMultipla?mat="+mat+"&sessId="+sId+"&domId="+rId+"&altId="+aId, true);   
-                xhr.send(""); 
-            } 
-            function gestoreRichiesta() {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                }
-            }
-        }
+    
 </script>
 <!-- consegna e abbandono -->
 <script>
