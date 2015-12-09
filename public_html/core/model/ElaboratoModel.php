@@ -11,9 +11,9 @@ include_once BEAN_DIR . "Elaborato.php";
 
 class ElaboratoModel extends Model {
     
-    public static $CREATE_ELABORATO = "INSERT INTO `elaborato` (studente_matricola, sessione_id, esito_parziale, esito_finale, test_id) VALUES ('%s','%d','%f','%f','%d')";
+    public static $CREATE_ELABORATO = "INSERT INTO `elaborato` (studente_matricola, sessione_id, esito_parziale, esito_finale, test_id, stato) VALUES ('%s','%d','%f','%f','%d', '%s')";
     public static $READ_ELABORATO = "SELECT * FROM `elaborato` WHERE studente_matricola = '%s' AND sessione_id = '%d'";
-    public static $UPDATE_ELABORATO ="UPDATE `elaborato` SET test_id = '%d', esito_parziale = '%f', esito_finale = '%f' WHERE studente_matricola = '%s' AND sessione_id = '%d'";
+    public static $UPDATE_ELABORATO ="UPDATE `elaborato` SET test_id = '%d', esito_parziale = '%f', esito_finale = '%f', stato = '%s' WHERE studente_matricola = '%s' AND sessione_id = '%d'";
     public static $DELETE_ELABORATO ="DELETE FROM `elaborato` WHERE studente_matricola = '%s' AND sessione_id = '%d'";
     public static $GET_ALL_ELABORATO = "SELECT * FROM `elaborato`";
     public static $GET_ELABORATI_STUDENTE = "SELECT * FROM `elaborato` WHERE `studente_matricola` = '%s'";
@@ -23,7 +23,7 @@ class ElaboratoModel extends Model {
      * @param Elaborato $elaborato Il nuovo elaborato da inserire nel database
      */
     public function createElaborato($elaborato) {
-        $query = sprintf(self::$CREATE_ELABORATO,$elaborato->getStudenteMatricola(),$elaborato->getSessioneId(), $elaborato->getEsitoParziale(), $elaborato->getEsitoFinale(), $elaborato->getTestId());
+        $query = sprintf(self::$CREATE_ELABORATO,$elaborato->getStudenteMatricola(),$elaborato->getSessioneId(), $elaborato->getEsitoParziale(), $elaborato->getEsitoFinale(), $elaborato->getTestId(), $elaborato->getStato());
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
@@ -40,7 +40,7 @@ class ElaboratoModel extends Model {
         $query = sprintf(self::$READ_ELABORATO,$studenteMatricola,$sessioneId);
         $res = Model::getDB()->query($query);
         if ($obj = $res->fetch_assoc()) {
-            $elaborato = new Elaborato($obj['studente_matricola'], $obj['sessione_id'], $obj['esito_parziale'], $obj['esito_finale'], $obj['test_id']);
+            $elaborato = new Elaborato($obj['studente_matricola'], $obj['sessione_id'], $obj['esito_parziale'], $obj['esito_finale'], $obj['test_id'], $obj['stato']);
             return $elaborato;
         }
         else{
@@ -55,7 +55,7 @@ class ElaboratoModel extends Model {
      * @param Elaborato $updatedElaborato L'elaborato modificato da aggiornare nel database
      */
     public function updateElaborato($studenteMatricola,$sessioneId,$updatedElaborato) {
-        $query = sprintf(self::$UPDATE_ELABORATO, $updatedElaborato->getTestId(), $updatedElaborato->getEsitoParziale(), $updatedElaborato->getEsitoFinale() ,$studenteMatricola,$sessioneId);
+        $query = sprintf(self::$UPDATE_ELABORATO, $updatedElaborato->getTestId(), $updatedElaborato->getEsitoParziale(), $updatedElaborato->getEsitoFinale(), $updatedElaborato->getStato(), $studenteMatricola, $sessioneId);
         Model::getDB()->query($query);
         if(Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
@@ -84,7 +84,7 @@ class ElaboratoModel extends Model {
         $elaborati = array();
         if($res) {
             while($obj = $res->fetch_assoc()) {
-                $elaborati[] = new Elaborato($obj['studente_matricola'], $obj['sessione_id'], $obj['esito_parziale'], $obj['esito_finale'], $obj['test_id']);
+                $elaborati[] = new Elaborato($obj['studente_matricola'], $obj['sessione_id'], $obj['esito_parziale'], $obj['esito_finale'], $obj['test_id'], $obj['stato']);
             } 
         }
         return $elaborati;
@@ -101,7 +101,7 @@ class ElaboratoModel extends Model {
         $elaborati = array();
         if($res){
             while($obj=$res->fetch_assoc()) {
-                $elaborati[] = new Elaborato($obj['studente_matricola'], $obj['sessione_id'], $obj['esito_parziale'], $obj['esito_finale'], $obj['test_id']);
+                $elaborati[] = new Elaborato($obj['studente_matricola'], $obj['sessione_id'], $obj['esito_parziale'], $obj['esito_finale'], $obj['test_id'], $obj['stato']);
             }   
         }
         return $elaborati;
