@@ -22,7 +22,7 @@ class Config {
      */
     public static $MIN_PASSWORD_LEN = 6;    //minima lunghezza della password
     public static $TIPI_UTENTE = array('Studente', 'Docente', 'Admin');
-    public static $TIPI_CONTATTO = array('Telefono', 'E-Mail', 'Cellulare', 'Fax');
+    public static $TIPI_CONTATTO = array('Telefono', 'E-mail', 'Cellulare', 'Fax');
     public static $TIPI_CDL = array('Triennale', 'Magistrale', 'Ciclo Unico');
     public static $TIPI_CORSO = array('Semestrale', 'Annuale');
     public static $TIPI_SESSIONE = array('Valutativa', 'Esercitativa');

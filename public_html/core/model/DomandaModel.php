@@ -326,7 +326,7 @@ class DomandaModel extends Model {
      * @throws ApplicationException
      */
     public function associaDomandaMultiplaTest($idDomanda, $idTest, $punteggioCorrettaAlternativo, $punteggioErrataAlternativo){
-        $query = sprintf(self::$ASSOCIA_DOMANDA_MULTIPLA_TEST, $idDomanda, $idTest, $punteggioCorrettaAlternativo, $punteggioErrataAlternativo
+        $query = sprintf(self::$ASSOCIA_DOMANDA_MULTIPLA_TEST, $idDomanda, $idTest, $punteggioCorrettaAlternativo, $punteggioErrataAlternativo);
         if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
         }
