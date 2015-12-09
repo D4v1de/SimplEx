@@ -31,15 +31,11 @@ try{
 }
 
 
-if(isset($_POST['nomeargomento'])){
-    $nome = $_POST['nomeargomento'];
-    if(empty($nome)){
-        echo "<script type='text/javascript'>alert('Inserisci il titolo!');</script>";
-    }else {
+if(isset($_POST['nome'])){
+    $nome = $_POST['nome'];
         $argomento->setNome($nome);
         $controller->modificaArgomento($argomento->getId(), $argomento);
         header('location:../../../../corso/' . $corso->getId());
-    }
 }
 ?>
 <!DOCTYPE html>
@@ -112,14 +108,13 @@ if(isset($_POST['nomeargomento'])){
                         </div>
                         <div class="portlet-body form">
                             <!-- BEGIN FORM-->
-                            <form action="" method="POST" class="form-horizontal form-bordered">
+                            <form id="form_sample_1" action="" method="POST" class="form-horizontal form-bordered">
                                 <div class="form-body">
                                     <div class="form-group form-md-line-input has-success" style="height: 100px">
                                         <label class="control-label col-md-3">Inserisci Titolo</label>
                                         <div class="col-md-6">
-                                            <input type="text" name="nomeargomento" value="<?php echo $argomento->getNome(); ?>" class="form-control">
-                                            <span class="help-block">
-                                                Inserisci il titolo del nuovo argomento </span>
+                                            <input type="text" name="nome" value="<?php echo $argomento->getNome(); ?>" class="form-control">
+                                            <span class="help-block"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -163,12 +158,17 @@ if(isset($_POST['nomeargomento'])){
         <!--Script specifici per la pagina -->
         <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
         <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+        <script src="/assets/admin/pages/scripts/form-validation.js"></script>
+        <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
+
         <script>
             jQuery(document).ready(function () {
                 Metronic.init(); // init metronic core components
                 Layout.init(); // init current layout
                 //QuickSidebar.init(); // init quick sidebar
                 //Demo.init(); // init demo features
+                FormValidation.init();
             });
         </script>
         <!-- END JAVASCRIPTS -->
