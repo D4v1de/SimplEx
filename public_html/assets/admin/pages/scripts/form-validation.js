@@ -48,16 +48,16 @@ var FormValidation = function () {
                         minlenght: 6
                     },
                     radio1: {
-                        required: true,
+                        required: true
                     },
                     radio2: {
-                        required: true,
+                        required: true
                     },
                     tests: {
-                        required: true,
+                        required: true
                     },
                     students: {
-                        required: true,
+                        required: true
                     },
                     testoDomanda: {
                         required:true,
@@ -66,9 +66,6 @@ var FormValidation = function () {
                     testoRisposta: {
                         required:true,
                         minlength: 2
-                    },
-                    dataTo: {
-                        required:true
                     },
                     url: {
                         required: true,
@@ -81,12 +78,12 @@ var FormValidation = function () {
                     matricola: {
                         required: true,
                         number: true,
-                        minlength: 6,
+                        minlength: 6
                     },
                     cdlmatricola: {
                         required: true,
                         number: true,
-                        minlength: 6,
+                        minlength: 6
                     },
                     digits: {
                         required: true,
@@ -97,12 +94,15 @@ var FormValidation = function () {
                         creditcard: true
                     },
                     occupation: {
-                        minlength: 5,
+                        minlength: 5
                     },
                     select: {
                         required: true
                     },
                     tipologia: {
+                        required: true
+                    },
+                    tipologia2: {
                         required: true
                     },
                     radio: {
