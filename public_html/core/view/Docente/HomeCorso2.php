@@ -48,7 +48,7 @@ if(isset($_POST['IdSes'])){
         header("Refresh:0");
     }
     catch(ApplicationException $ex) {
-        echo "CAZZO PERCHè NON FUNZIONI?".$ex;
+        echo "ERRORE". $ex;
     }
 }
 
@@ -56,8 +56,12 @@ if(isset($_POST['id'])){
     $id = $_POST['id'];
     $idcorso = $corso->getId();
     $controllerArgomento->rimuoviArgomento($id, $idcorso);
+    //echo "<div id='notificaEliminazione'></div>";
     header("Refresh:0");
 }
+
+
+
 
 if(isset($_POST['idtest'])){
     $id = $_POST['idtest'];
@@ -81,8 +85,8 @@ if(isset($_POST['idtest'])){
     <title><?php echo $corso->getNome(); ?></title>
     <?php include VIEW_DIR . "design/header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
-    <link rel="stylesheet" type="text/css"
-          href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -392,7 +396,7 @@ if(isset($_POST['idtest'])){
                                 printf("<a href=\"%d/argomento/modifica/%d\" class=\"btn btn-sm blue-madison\">", $a->getCorsoId(),$a->getId());
                                 printf("<i class=\"fa fa-edit\"></i>");
                                 printf("</a>");
-                                printf("<button name='id' type='submit' value='%d' class='btn btn-sm red-intense'><i class=\"fa fa-trash-o\"></i></button>", $a->getId());
+                                printf("<button class=\"btn btn-sm red-intense\" onclick='impostaNotifica()' type=\"submit\" name=\"id\" value=\"%d\" data-popout=\"true\" data-toggle=\"confirmation\" data-singleton=\"true\"><i class=\"fa fa-trash-o\"></i></button>",$a->getId());
                                 printf("</td>");
                                 printf("</tr>");
                             }
@@ -445,6 +449,12 @@ if(isset($_POST['idtest'])){
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN aggiunta da me -->
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
+<script src="/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
+<script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
+
+<script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
+<script src="/assets/admin/pages/scripts/ui-toastr.js"></script>
+
 <!-- END aggiunta da me -->
 <script>
     jQuery(document).ready(function () {
@@ -455,9 +465,34 @@ if(isset($_POST['idtest'])){
         TableManaged2.init("tabella_sessioni","tabella_sessioni_wrapper");
         TableManaged2.init("tabella_test","tabella_test_wrapper");
         TableManaged2.init("tabella_argomenti","tabella_argomenti_wrapper");
-        //TableManaged.init(3);
+        UIConfirmations.init();
+        UIToastr.init();
+
+        //GESTIONE VISUALIZZAZIONE NOTIFICA
+        if(sessionStorage.getItem('notifica')=='si'){
+            toastr.success('Eliminazione avvenuta con successo!', 'Eliminazione');
+            if(sessionStorage.getItem('rimuovi')=='ok'){
+                sessionStorage.removeItem('notifica');
+                sessionStorage.removeItem('rimuovi');
+            }else{
+                sessionStorage.setItem('rimuovi', 'ok');
+            }
+        }
+
+      //  if(document.getElementById('notificaEliminazione')){
+      //      toastr.success('Eliminazione in corso!', 'Attendere...');
+      //  }else{}
     });
 </script>
+
+<script>
+    function impostaNotifica(){
+        sessionStorage.setItem('notifica', 'si');
+    }
+</script>
+
+
+
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->
