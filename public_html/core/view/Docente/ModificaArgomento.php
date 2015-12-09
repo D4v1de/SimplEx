@@ -90,7 +90,7 @@ if(isset($_POST['nome'])){
                     </div>
                     <!-- END PAGE HEADER-->
                     <!-- BEGIN PAGE CONTENT-->
-                    <div class="portlet box grey-cascade">
+                    <div class="portlet box blue-madison">
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="fa fa-globe"></i>Modifica Argomento
