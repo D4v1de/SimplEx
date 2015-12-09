@@ -73,20 +73,14 @@ if (!defined("TESTING")) {
             switch (isset($_URL[1]) ? $_URL[1] : '') {
                 case 'utenti':
                     switch (isset($_URL[2]) ? $_URL[2] : '') {
+                        case 'crea':
+                            include_once VIEW_DIR . "Admin/creaUtente.php";
+                            break;
                         case 'view':
                             include_once VIEW_DIR . "Admin/VisualizzaUtente.php";
                             break;
                         case '':
                             include_once VIEW_DIR . "Admin/GestioneUtente.php";
-                            break;
-                        case 'groups':
-                            include_once VIEW_DIR . "Admin/ajaxGroups.php";
-                            break;
-                        case 'cdls':
-                            include_once VIEW_DIR . "Admin/ajaxCdls.php";
-                            break;
-                        case 'edit':
-                            include_once VIEW_DIR . "Admin/ajaxModifica.php";
                             break;
                         default:
                             include_once VIEW_DIR . "Admin/Home.php";
@@ -197,7 +191,8 @@ if (!defined("TESTING")) {
                                                 case 'aggiungistudente':
                                                     include_once VIEW_DIR . "Docente/AggiungiStudente.php";
                                                     break;
-                                                default: include_once VIEW_DIR . "Docente/SessioneInCorso.php";
+                                                default:
+                                                    include_once VIEW_DIR . "Docente/SessioneInCorso.php";
                                             }
                                             break;
                                         default:
@@ -267,8 +262,8 @@ if (!defined("TESTING")) {
         case 'selezionestudenti':
             include_once VIEW_DIR . "Docente/SelezioneStudenti.php";
             break;
-        
-        
+
+
         case 'gestoreCountdown':
             include_once VIEW_DIR . "Studente/gestoreCountdown.php";
             break;
@@ -287,8 +282,8 @@ if (!defined("TESTING")) {
         case 'creaElaborato':
             include_once VIEW_DIR . "Studente/creaElaborato.php";
             break;
-        
-        
+
+
         case 'homecorsostudente':
             include_once VIEW_DIR . "Studente/HomeCorso.php";
             break;

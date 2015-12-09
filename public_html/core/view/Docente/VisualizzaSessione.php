@@ -362,79 +362,22 @@ if(isset($_POST['rimuovi'])){
                             </thead>
                             <tbody>
 
-                            <tr class="gradeX odd" role="row">
-                                <td class="sorting_1">
-                                    Mario
-                                </td>
-                                <td>
-                                    Rossi
-                                </td>
-                                <td>0512100001</td>
-                            </tr><tr class="gradeX even" role="row">
-                                <td class="sorting_1">
-                                    Giacomo
-                                </td>
-                                <td>
-                                    Bonaventura
-                                </td>
-                                <td>0512100002</td>
-                            </tr><tr class="gradeX odd" role="row">
-                                <td class="sorting_1">
-                                    Diego Armando
-                                </td>
-                                <td>
-                                    Maradona
-                                </td>
-                                <td>0512100003</td>
-                            </tr><tr class="gradeX even" role="row">
-                                <td class="sorting_1">
-                                    Francesco
-                                </td>
-                                <td>
-                                    Totti
-                                </td>
-                                <td>0512100004</td>
-                            </tr>
-
-                            <tr class="gradeX odd" role="row">
-                                <td class="sorting_1">
-                                    Gianluca
-                                </td>
-                                <td>
-                                    Di Marzio
-                                </td>
-                                <td>0512100005</td>
-                            </tr>
-
-                            <tr class="gradeX odd" role="row">
-                                <td class="sorting_1">
-                                    Riccardo
-                                </td>
-                                <td>
-                                    Montolivo
-                                </td>
-                                <td>0512100006</td>
-                            </tr>
-
-                            <tr class="gradeX odd" role="row">
-                                <td class="sorting_1">
-                                    Inacio
-                                </td>
-                                <td>
-                                    Pia
-                                </td>
-                                <td>0512100007</td>
-                            </tr>
-
-                            <tr class="gradeX odd" role="row">
-                                <td class="sorting_1">
-                                    Raffaele
-                                </td>
-                                <td>
-                                    Auriemma
-                                </td>
-                                <td>0512100008</td>
-                            </tr>
+                            <?php
+                            $studentsOfSessione = Array();
+                            $studentsOfSessione= $controllerSessione->getAllStudentiBySessione($idSessione);
+                            if ($studentsOfSessione == null) {
+                                echo "l'array è null";
+                            }
+                            else {
+                                foreach ($studentsOfSessione as $c) {
+                                    printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                    printf("<td class=\"sorting_1\">%s</td>", $c->getNome());
+                                    printf("<td>%s</td>", $c->getCognome());
+                                    printf("<td>%s</td>", $c->getMatricola());
+                                    printf("</tr>");
+                                }
+                            }
+                            ?>
                             </tbody>
                         </table>
                     </div>

@@ -28,15 +28,17 @@ $nomecorso= $corso->getNome();
         echo "<h4>" . $ex . "</h4>";
     }
 
-if(isset( $_POST['termina'])) {
-    $dataNow=date('Y/m/d/ h:i:s ', time());
-    //$dataTo=$dataNow;
-    $newSessione = new Sessione($dataFrom, $dataNow, 18, "In Esecuzione", $tipoSessione, $identificativoCorso);
-    $controller->updateSessione($idSessione,$newSessione);
-    //una volta termina la sessione dove vado? Rivedo gli esiti?
-}
 
-if(isset( $_POST['datato'])) {
+if(isset( $_POST['datato']) && isset( $_POST['termina'] )) {
+    $dataNow=date('Y/m/d/ h:i:s ', time());
+    $dataTo=$dataNow;
+    $newSessione = new Sessione($dataFrom, $dataNow, 18, "Eseguita", $tipoSessione, $identificativoCorso);
+    $controller->updateSessione($idSessione,$newSessione);
+    $vaiVisuEsiti= "Location: "."/usr/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."esiti";
+    header($vaiVisuEsiti);
+
+}
+else if(isset( $_POST['datato'])) {
     $dataFineNow=$_POST['datato'];
     $newSessione = new Sessione($dataFrom, $dataFineNow, 18, "In Esecuzione", $tipoSessione, $identificativoCorso);
     $controller->updateSessione($idSessione,$newSessione);
@@ -44,7 +46,7 @@ if(isset( $_POST['datato'])) {
 }
 
 if(isset( $_POST['addStu'])) {
-    $vaiAddStu= "Location: "."/usr/docente/corso/".$identificativoCorso."/sessione"."/".$idSesToGo."/"."sessioneincorso/aggiungistudente";
+    $vaiAddStu= "Location: "."/usr/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."sessioneincorso/aggiungistudente";
     header($vaiAddStu);
 }
 
@@ -62,6 +64,9 @@ if(isset( $_POST['addStu'])) {
     <meta charset="utf-8"/>
     <title>Metronic | Page Layouts - Blank Page</title>
     <?php include VIEW_DIR . "design/header.php"; ?>
+    <link rel="stylesheet" type="text/css"
+          href="/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css">
+
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -247,108 +252,23 @@ if(isset( $_POST['addStu'])) {
                                         
                                         </thead>
                                         <tbody>
-                                        <tr class="gradeX odd" role="row">
-                                            <td>
-                                                Fabiano
-                                            </td>
-                                            <td class="sorting_1">
-                                                Pecorelli
-                                            </td>
-                                            <td>
-                                                0512100001
-                                            </td>
-                                            <td>
-                                                <a href="javascript:;" class="btn btn-sm red-intense">
-                                                    Annulla Esame
-                                                </a>
-                                            </td>
-                                        </tr>
-
-
-                                        <tr class="gradeX even" role="row">
-                                            <td>
-                                                Elvira
-                                            </td>
-                                            <td class="sorting_1">
-                                                Zanin
-                                            </td>
-                                            <td>
-                                                0512100002
-                                            </td>
-                                            <td>                                               
-                                                <a href="javascript:;" class="btn btn-sm red-intense">
-                                                    Annulla Esame
-                                                </a>
-                                            </td>                                            
-                                        </tr>
-
-                                        <tr class="gradeX even" role="row">
-                                             <td>
-                                                Fabio
-                                            </td>
-                                            <td class="sorting_1">
-                                                Esposito
-                                            </td>
-                                            <td>
-                                                0512100003
-                                            </td>
-                                            <td>
-                                                <a href="javascript:;" class="btn btn-sm red-intense">
-                                                    Annulla Esame
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        
-                                        <tr class="gradeX even" role="row">
-                                             <td>
-                                                Pasquale
-                                            </td>
-                                            <td class="sorting_1">
-                                                Martiniello
-                                            </td>
-                                            <td>
-                                                0512100004
-                                            </td>
-                                            <td>
-                                                <a href="javascript:;" class="btn btn-sm red-intense">
-                                                    Annulla Esame
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        
-                                        <tr class="gradeX even" role="row">
-                                             <td>
-                                                Christian
-                                            </td>
-                                            <td class="sorting_1">
-                                                De Blasio
-                                            </td>
-                                            <td>
-                                                0512100005
-                                            </td>
-                                            <td>
-                                                <a href="javascript:;" class="btn btn-sm red-intense">
-                                                    Annulla Esame
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        
-                                        <tr class="gradeX even" role="row">
-                                             <td>
-                                                Carlo
-                                            </td>
-                                            <td class="sorting_1">
-                                                Di Domenico
-                                            </td>
-                                            <td>
-                                                0512100006
-                                            </td>
-                                            <td>
-                                                <a href="javascript:;" class="btn btn-sm red-intense">
-                                                    Annulla Esame
-                                                </a>
-                                            </td>
-                                        </tr>
+                                        <?php
+                                        $studentsOfSessione = Array();
+                                        $studentsOfSessione= $controller->getAllStudentiBySessione($idSessione);
+                                        if ($studentsOfSessione == null) {
+                                            echo "l'array è null";
+                                        }
+                                        else {
+                                            foreach ($studentsOfSessione as $c) {
+                                                printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                                printf("<td class=\"sorting_1\">%s</td>", $c->getNome());
+                                                printf("<td>%s</td>", $c->getCognome());
+                                                printf("<td>%s</td>", $c->getMatricola());
+                                                printf("<td><a href=\"javascript:;\" class=\"btn btn-sm red-intense\">Annulla Esame</a></td>");
+                                                printf("</tr>");
+                                            }
+                                        }
+                                        ?>
                                         </tbody>
                                     </table>
                                 </div>
