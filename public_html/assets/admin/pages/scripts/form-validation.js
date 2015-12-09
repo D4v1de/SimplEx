@@ -25,6 +25,12 @@ var FormValidation = function () {
                         minlength: 2,
                         required: true
                     },
+                    dataTo: {
+                        required: true
+                    },
+                    dataFrom: {
+                        required: true
+                    },
                     nome: {
                         minlength: 2,
                         required: true
