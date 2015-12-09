@@ -35,9 +35,9 @@ try {
     echo "<h1>READCDL FALLITO!</h1>".$ex;
 }
 try {
-    $sessioni = $sessioneController->getAllSessioni();
+    $sessioni = $sessioneController->getAllSessioniByStudente($matricolaStudente);
 } catch (ApplicationException $ex) {
-    echo "<h1>GETALLSESSIONI FALLITO!</h1>".$ex;
+    echo "<h1>GETALLSESSIONIBYSTUDENTE FALLITO!</h1>".$ex;
 }
 try {
     $docenteassociato = $utenteController->getDocenteAssociato($corso->getId());
@@ -188,7 +188,7 @@ try {
                                         $esito = null;
                                     }
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    printf("<td class=\"sorting_1\"><a href=\"#\">Sessione %s</a></td>", $s->getId());
+                                    printf("<td class=\"sorting_1\">Sessione %d</td>", $s->getId());
                                     printf("<td class=\"sorting_1\">%s</td>", $s->getDataInizio());
                                     if (!strcmp($s->getTipologia(), "Esercitativa"))
                                         printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $s->getTipologia());
@@ -199,7 +199,7 @@ try {
                                         printf("<td><a href=\"./%d/test/esegui/%d\" onclick=\"javascript: creaElaborato(%d)\" class=\"btn btn-sm default blue-madison\"><i class=\"fa fa-pencil\"></i> Partecipa</a></td>", $url,$s->getId(),$s->getId());
                                     else
                                        // printf("<td class=\"sorting_1\"><a class=\"btn btn-sm default blue-madison\" disabled=\"\"><i class=\"fa fa-pencil\"></i> Partecipa</a>", $s->getId());
-                                        printf("<td><a href=\"javascript:;\" class=\"btn btn-sm default\"><i class=\"fa fa-file-text-o\"></i>Visualizza</a></td>");
+                                        printf("<td><a href=\"./%s/test/%d\" class=\"btn btn-sm default\"><i class=\"fa fa-file-text-o\"></i>Visualizza</a></td>",$url,$s->getId());
                                     printf("</tr>");
                                 }
                                 ?>
