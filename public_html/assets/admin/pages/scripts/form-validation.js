@@ -25,6 +25,12 @@ var FormValidation = function () {
                         minlength: 2,
                         required: true
                     },
+                    dataTo: {
+                        required: true
+                    },
+                    dataFrom: {
+                        required: true
+                    },
                     nome: {
                         minlength: 2,
                         required: true
@@ -32,6 +38,37 @@ var FormValidation = function () {
                     email: {
                         required: true,
                         email: true
+                    },
+                    cognome: {
+                        required: true,
+                        minlenght: 2
+                    },
+                    pass: {
+                        required: true,
+                        minlenght: 6
+                    },
+                    radio1: {
+                        required: true,
+                    },
+                    radio2: {
+                        required: true,
+                    },
+                    tests: {
+                        required: true,
+                    },
+                    students: {
+                        required: true,
+                    },
+                    testoDomanda: {
+                        required:true,
+                        minlength: 2
+                    },
+                    testoRisposta: {
+                        required:true,
+                        minlength: 2
+                    },
+                    dataTo: {
+                        required:true
                     },
                     url: {
                         required: true,
@@ -66,6 +103,9 @@ var FormValidation = function () {
                         required: true
                     },
                     tipologia: {
+                        required: true
+                    },
+                    radio: {
                         required: true
                     },
                     select_multi: {

@@ -26,7 +26,13 @@ class DomandaModel extends Model {
     private static $READ_DOMANDA_MULTIPLA = "SELECT * FROM `domanda_multipla` WHERE id = '%d'";
     private static $GET_ALL_DOMANDA_MULTIPLA = "SELECT * FROM `domanda_multipla` WHERE stato = 'In uso' ORDER BY testo";
     private static $GET_ALL_DOMANDA_MULTIPLA_BY_ARGOMENTO = "SELECT * FROM `domanda_multipla` WHERE argomento_id = '%d' AND stato = 'In uso' ORDER BY testo";
-    private static $GET_ALL_DOMANDE_MULTIPLE_TEST = "SELECT d.* FROM `domanda_multipla` as d,`compone_multipla` as c WHERE c.test_id = '%s' AND c.domanda_multipla_id = d.id ORDER BY d.testo";
+    private static $GET_ALL_DOMANDE_MULTIPLE_TEST = "SELECT d.* FROM `domanda_multipla` as d,`compone_multipla` as c WHERE c.test_id = '%s' AND c.domanda_multipla_id = d.id ORDER BY d./* testo";
+    private static $ASSOCIA_DOMANDA_APERTA_TEST = "INSERT INTO `compone_aperta` (domanda_aperta_id, test_id, punteggio_max_alternativo) VALUES ('%d','%d', '%f')";
+    private static $MODIFICA_DOMANDA_APERTA_TEST = "UPDATE `compone_aperta` SET punteggio_max_alternativo = '%f' WHERE domanda_aperta_id = '%d' AND test_id= '%d'";
+    private static $DISSOCIA_DOMANDA_APERTA_TEST = "DELETE FROM `compone_aperta` WHERE domanda_aperta_id = '%d' AND test_id= '%d'";
+    private static $ASSOCIA_DOMANDA_MULTIPLA_TEST = "INSERT INTO `compone_multipla` (domanda_multipla_id, test_id, punteggio_corretta_alternativo, punteggio_errata_alternativo) VALUES ('%d','%d', '%f', '%f')";
+    private static $MODIFICA_DOMANDA_MULTIPLA_TEST = "UPDATE `compone_multipla` SET punteggio_corretta_alternativo = '%f', punteggio_errata_alternativo = '%f' WHERE domanda_multipla_id = '%d' AND test_id= '%d'";
+    private static $DISSOCIA_DOMANDA_MULTIPLA_TEST = "DELETE FROM `compone_multipla` WHERE domanda_multipla_id = '%d' AND test_id= '%d'";
 
     /**
      * Inserisce una nuova DomandaAperta nel database
@@ -265,5 +271,94 @@ class DomandaModel extends Model {
             }  
         }
         return $domandeMultiple;
+    }
+
+    /**
+     * Associa ad un test una domanda aperta
+     * @param int $idDomanda L'id della domanda aperta da associare
+     * @param int $idTest L'id del test a cui associare la domanda
+     * @param float $punteggioMaxAlternativo Il punteggio alternativo massimo della domanda per il test
+     * @throws ApplicationException
+     */
+    public function associaDomandaApertaTest($idDomanda, $idTest, $punteggioMaxAlternativo){
+        $query = sprintf(self::$ASSOCIA_DOMANDA_APERTA_TEST, $idDomanda, $idTest, $punteggioMaxAlternativo);
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows == -1) {
+            throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
+        }
+    }
+
+    /**
+     * Modifica il punteggio alternativo max della domanda per il test
+     * @param int $idDomanda L'id della domanda aperta
+     * @param int $idTest L'id del test a cui associare la domanda
+     * @param float $punteggioMaxAlternativo Il punteggio alternativo massimo della domanda per il test
+     * @throws ApplicationException
+     */
+    public function modificaDomandaApertaTest($idDomanda, $idTest, $punteggioMaxAlternativo) {
+        $query = sprintf(self::$MODIFICA_DOMANDA_APERTA_TEST, $punteggioMaxAlternativo, $idDomanda, $idTest);
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows == -1) {
+            throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
+        }
+    }
+
+    /**
+     * Dissocia una domanda aperta da un test
+     * @param int $idDomanda L'id della domanda aperta
+     * @param int $idTest L'id del test a cui dissociare la domanda
+     * @throws ApplicationException
+     */
+    public function dissociaDomandaApertaTest($idDomanda, $idTest) {
+        $query = sprintf(self::$DISSOCIA_DOMANDA_APERTA_TEST, $$idDomanda, $idTest);
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows == -1) {
+            throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
+        }
+    }
+
+    /**
+     * Associa ad un test una domanda multipla
+     * @param int $idDomanda L'id della domanda multipla da associare
+     * @param int $idTest L'id del test a cui associare la domanda
+     * @param float $punteggioCorrettaAlternativo Il punteggio alternativo in caso di risposta corretta della domanda per il test
+     * @param float $punteggioErrataAlternativo Il punteggio alternativo in caso di risposta errata della domanda per il test
+     * @throws ApplicationException
+     */
+    public function associaDomandaMultiplaTest($idDomanda, $idTest, $punteggioCorrettaAlternativo, $punteggioErrataAlternativo){
+        $query = sprintf(self::$ASSOCIA_DOMANDA_MULTIPLA_TEST, $idDomanda, $idTest, $punteggioCorrettaAlternativo, $punteggioErrataAlternativo);
+        if (Model::getDB()->affected_rows == -1) {
+            throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
+        }
+    }
+
+    /**
+     * Modifica il punteggio alternativo per risposta errata o corretta della domanda per il test
+     * @param int $idDomanda L'id della domanda aperta
+     * @param int $idTest L'id del test a cui associare la domanda
+     * @param float $punteggioCorrettaAlternativo Il punteggio alternativo in caso di risposta corretta della domanda per il test
+     * @param float $punteggioErrataAlternativo Il punteggio alternativo in caso di risposta errata della domanda per il test
+     * @throws ApplicationException
+     */
+    public function modificaDomandaMultiplaTest($idDomanda, $idTest, $punteggioCorrettaAlternativo, $punteggioErrataAlternativo) {
+        $query = sprintf(self::$MODIFICA_DOMANDA_MULTIPLA_TEST, $punteggioCorrettaAlternativo, $punteggioErrataAlternativo, $idDomanda, $idTest);
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows == -1) {
+            throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
+        }
+    }
+
+    /**
+     * Dissocia una domanda multipla da un test
+     * @param int $idDomanda L'id della domanda multipla
+     * @param int $idTest L'id del test a cui dissociare la domanda
+     * @throws ApplicationException
+     */
+    public function dissociaDomandaMultiplaTest($idDomanda, $idTest) {
+        $query = sprintf(self::$DISSOCIA_DOMANDA_MULTIPLA_TEST, $$idDomanda, $idTest);
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows == -1) {
+            throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
+        }
     }
 }
