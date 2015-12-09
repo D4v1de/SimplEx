@@ -82,7 +82,7 @@ class SessioneModel extends Model {
         $query = sprintf(self::$READ_SESSIONE, $id);
         $res = Model::getDB()->query($query);
         if ($obj = $res->fetch_assoc()) {
-            $sessione = new Sessione($obj['data_inizio'], $obj['data_fine'],  $obj['soglia_ammissione'], $obj['stato'], $obj['tipologia'], $obj['corso_id']);
+            $sessione = new Sessione($obj['data_inizio'], $obj['data_fine'],  $obj['soglia_ammissione'], $obj['stato'], $obj['tipologia'],$obj['corso_id']);
             $sessione->setId($obj['id']);
             return $sessione;
         }
@@ -216,6 +216,23 @@ class SessioneModel extends Model {
     }
 
     /**
+     * Cerca una sessione nel database e restituisce l'opzione mostra esito
+     * @param int $id L'id della sessione da cercare
+     * @throws ApplicationException
+     * @return string
+     */
+    public function readMostraEsitoSessione($id) {
+        $query = sprintf(self::$READ_SESSIONE, $id);
+        $res = Model::getDB()->query($query);
+        if ($obj = $res->fetch_assoc()) {
+            return $obj['mostra_esito'];
+        }
+        else{
+            throw new ApplicationException(Error::$SESSIONE_NON_TROVATA);
+        }
+    }
+
+    /**
      * Abilita la mostra delle risposte corrette per una sessione nel database
      * @param int $id L'id della sessione da modificare
      * @throws ApplicationException
@@ -238,6 +255,23 @@ class SessioneModel extends Model {
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
+        }
+    }
+
+    /**
+     * Cerca una sessione nel database e restituisce l'opzione mostra risposte corrette
+     * @param int $id L'id della sessione da cercare
+     * @throws ApplicationException
+     * @return string
+     */
+    public function readMostraRisposteCorretteSessione($id) {
+        $query = sprintf(self::$READ_SESSIONE, $id);
+        $res = Model::getDB()->query($query);
+        if ($obj = $res->fetch_assoc()) {
+            return $obj['mostra_risposte_corrette'];
+        }
+        else{
+            throw new ApplicationException(Error::$SESSIONE_NON_TROVATA);
         }
     }
 }

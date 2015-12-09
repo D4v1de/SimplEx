@@ -1,14 +1,16 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: sergio
- * Date: 18/11/15
- * Time: 09:58
+ * Created by NetBeans.
+ * User: fabio
+ * Date: 6/12/15
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "Esempio.php";
-$controller = new Esempio();
+include_once CONTROL_DIR . "DomandaController.php";
+$controllerDomanda = new DomandaController();
+
+include_once CONTROL_DIR . "AlternativaController.php";
+$controllerAlternativa = new AlternativaController();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -59,6 +61,39 @@ $controller = new Esempio();
 
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
+            
+            <?php
+                            $Multiple = Array();
+                            $Multiple = $controllerDomanda->getMultTest($_URL[5]);
+                            foreach($Multiple as $a) {
+                                printf("<div class=\"portlet box blue-madison\"><div class=\"portlet-title\"><div class=\"caption\"><i class=\"fa fa-question-circle\"></i>%s</div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div>", $a->getTesto());
+                                $Alternative = Array();
+                                $Alternative = $controllerAlternativa->getAllAlternativaByDomanda($a->getId());
+                                printf("<div class=\"portlet-body\">");
+                                foreach($Alternative as $b){
+                                 printf("<p>%s</p>", $b->getTesto());  
+                                }
+                                printf("</div></div>");
+                            }
+                            $Aperte = Array();
+                            $Aperte = $controllerDomanda->getAperteTest($_URL[5]);
+                            foreach($Aperte as $x){
+                             printf("<div class=\"portlet box blue-madison\"><div class=\"portlet-title\"><div class=\"caption\"><i class=\"fa fa-question-circle\"></i>%s</div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div></div>", $x->getTesto());   
+                            }
+
+                            ?>
+            
+
+                            <div class="row">
+                                <div class="col-md-9">
+                                    
+                                    <a href="../" class="btn sm red-intense">
+                                        Annulla
+                                    </a>
+                                </div>
+                            </div>
+            
+            <!--
             <div class="portlet box blue-madison">
                 <div class="portlet-title">
                     <div class="caption">
@@ -124,6 +159,7 @@ $controller = new Esempio();
                     <p>Risposta 4</p>
                 </div>
             </div>
+            -->
             <!-- END PAGE CONTENT-->
         </div>
     </div>

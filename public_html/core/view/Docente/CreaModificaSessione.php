@@ -16,6 +16,7 @@ $corso = $controlleCdl->readCorso($idCorso);
 $nomecorso= $corso->getNome();
 //$sessioneByUrl = null;
 $idSessione=0;
+$someStudentsChange=null;
 $dataToSettato=null;
 $sogliAmm=null;
 $stato=null;
@@ -24,6 +25,8 @@ $perModificaDataFrom =  null;
 $perModificaDataTo = null;
 $valu = null;
 $eser = null;
+$mostraE=null;
+$showRC=null;
 
 if($_URL[5]!=0) {  //CASO IN CUI SI VOGLIA MODIFICARE LA SESSIONE
     try {
@@ -37,6 +40,10 @@ if($_URL[5]!=0) {  //CASO IN CUI SI VOGLIA MODIFICARE LA SESSIONE
         if ($tipoSessione == "Valutativa")
             $valu = "Checked";
         else $eser = "Checked";
+        if ($sessioneByUrl->mostraEsiti(0) == "Si")
+            $mostraE = "Checked";
+        if($sessioneByUrl->mostraRispCorrette(0) == "Si")
+             $showRC= "Checked";
 
     } catch (ApplicationException $ex) {
         echo "<h1>errore! ApplicationException->errore manca id sessione nel path!</h1>";
@@ -49,20 +56,24 @@ else {  //CASO IN CUI SI VUOLE CREARE LA SESSIONE
 }
 
 if($_URL[5]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tutti i campi
-    if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo']) && isset($_POST['tests'])) { // && isset($_POST['students'])
+    if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo']) && isset($_POST['tests']) && isset($_POST['students']) ) {
         $newdataFrom = $_POST['dataFrom'];
         $newdataTo = $_POST['dataTo'];
         $newtipoSessione = $_POST['radio1'];
 
-        $sogliAmm= 18;                             //dove la prendo?
-        $stato='Non Eseguita';                     //dove lo prendo?
-
-        //if (isset($_POST['tests'])  && isset($_POST['students'])) {
-
+        $sogliAmm= 18;
+        $stato='Non Eseguita';
 
         //creo la sessione
         $sessione = new Sessione($newdataFrom, $newdataTo, $sogliAmm, $stato, $newtipoSessione, $idCorso);
         $idNuovaSessione=$controller->creaSessione($sessione);
+
+        if(isset($_POST['cbShowEsiti'])){
+            $controller->abilitaMostraEsito($idNuovaSessione);
+        }
+        if(isset($_POST['cbRispCorr'])){
+            $controller->abilitaMostraRisposteCorrette($idNuovaSessione);
+        }
 
             $cbStudents = $_POST['students'];
             if($cbStudents==null){
@@ -72,9 +83,8 @@ if($_URL[5]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
                 //creo l'abilitazione students-sessione
                 foreach($cbStudents as $s) {
                          echo $s." ".$idNuovaSessione;
-                         // $controller->abilitaStudenteASessione($idNuovaSessione,$s);
+                         $controller->abilitaStudenteASessione($idNuovaSessione,$s);
                       }
-
             }
             //creo l'associazione tests-sessione
             $cbTest = Array();
@@ -90,18 +100,15 @@ if($_URL[5]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
                  $controller->associaTestASessione($idNuovaSessione,$t);
              }
 
+
             //torna a pagina corso del docente
             $tornaACasa= "Location: "."/usr/docente/corso/"."$idCorso";
             header($tornaACasa);
-
-      //  }
-      //  else
-        //    echo "non entro nell if dei set delle cb";
     }
 }
 
 if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
-    if($dataFromSettato=isset($_POST['dataFrom']) && $radio1Settato=isset($_POST['radio1']) && $dataToSettato=isset($_POST['dataTo']) && $someTestsAorD=isset($_POST['tests']) ) {
+    if($dataFromSettato=isset($_POST['dataFrom']) && $radio1Settato=isset($_POST['radio1']) && $dataToSettato=isset($_POST['dataTo']) && $someTestsAorD=isset($_POST['tests']) && $someStudentsChange=isset($_POST['students']) ) {
 
         if($dataFromSettato)
             $newOrOldDataFrom = $_POST['dataFrom'];
@@ -113,22 +120,49 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
             $newOrOldDataTo = $_POST['dataTo'];
 
         $sessioneAggiornata = new Sessione($newOrOldDataFrom,$newOrOldDataTo,$sogliAmm,$stato,$tipoSessione,$idCorso);
+        $controller->disabilitaMostraEsito($idSessione);
+        $controller->disabilitaMostraRisposteCorrette($idSessione);
+
+        if(isset($_POST['cbShowEsiti'])){
+            $controller->abilitaMostraEsito($idSessione);
+        }
+        if(isset($_POST['cbRispCorr'])){
+            $controller->abilitaMostraRisposteCorrette($idSessione);
+        }
         $controller->updateSessione($_URL[5],$sessioneAggiornata);
 
 
         if($someTestsAorD) {
             $cbTest = Array();
             $cbTest = $_POST['tests'];
-            //foreach($cbTest as $t) {
-                //if(non c'è già quest'associazione..ma questo si fa dissociando tutti e poi riassocandio!!!!) {
-                  //  $controller->associaTestASessione($idSessione, $t);
-              //  }
-            //}
+            $controller->deleteAllTestFromSessione($idSessione);
+            foreach($cbTest as $t) {
+                  $controller->associaTestASessione($idSessione, $t);
+            }
         }
 
-        //$tornaACasa= "Location: "."/usr/docente/corso/"."$idCorso";
-        //header($tornaACasa);
+        if($someStudentsChange){
+            $cbStudents= Array();
+            $cbStudents = $_POST['students'];
+            //disabilito tutti gli studenti
+            $allStuAbi = $controller->getAllStudentiBySessione($idSessione);
+            foreach($allStuAbi as $s) {
+                $controller->disabilitaStudenteDaSessione($idSessione, $s->getMatricola());
+            }
+            //creo l'abilitazione students-sessione
+            foreach($cbStudents as $s) {
+                $controller->abilitaStudenteASessione($idSessione,$s);
+            }
+        }
+
+
+        $tornaACasa= "Location: "."/usr/docente/corso/"."$idCorso";
+        header($tornaACasa);
     }
+    else {
+        //è stato tolto qualcosa di essenziale per una sessione..e non va bene! ERRORE
+    }
+
 }
 
 
@@ -260,7 +294,7 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
                             <label>Seleziona preferenze</label>
                             <div class="md-checkbox-list">
                                 <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox1" name="cbShowEsiti" class="md-check">
+                                    <input type="checkbox" id="checkbox1" <?php printf("%s",$mostraE) ?>name="cbShowEsiti" class="md-check">
                                     <label for="checkbox1">
                                     <span></span>
                                     <span class="check"></span>
@@ -268,7 +302,7 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
                                     Mostra esiti </label>
                                 </div>
                                 <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox2" name="cbRispCorr" class="md-check">
+                                    <input type="checkbox" id="checkbox2" <?php printf("%s",$showRC) ?> name="cbShowRispCorr" class="md-check">
                                     <label for="checkbox2">
                                     <span></span>
                                     <span class="check"></span>
