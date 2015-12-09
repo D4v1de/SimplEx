@@ -55,7 +55,7 @@ class ElaboratoModel extends Model {
      * @param Elaborato $updatedElaborato L'elaborato modificato da aggiornare nel database
      */
     public function updateElaborato($studenteMatricola,$sessioneId,$updatedElaborato) {
-        $query = sprintf(self::$UPDATE_ELABORATO,$updatedElaborato->getStudenteMatricola(),$updatedElaborato->getSessioneId(), $updatedElaborato->getEsitoParziale(), $updatedElaborato->getEsitoFinale(), $updatedElaborato->getTestId(),$studenteMatricola,$sessioneId);
+        $query = sprintf(self::$UPDATE_ELABORATO, $updatedElaborato->getTestId(), $updatedElaborato->getEsitoParziale(), $updatedElaborato->getEsitoFinale() ,$studenteMatricola,$sessioneId);
         Model::getDB()->query($query);
         if(Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
