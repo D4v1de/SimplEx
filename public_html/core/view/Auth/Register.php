@@ -6,8 +6,8 @@
  * Time: 20:42
  */
 
-include_once CONTROL_DIR . "AuthController.php";
-$ctr = new AuthController();
+include_once CONTROL_DIR . "UtenteController.php";
+$ctr = new UtenteController();
 try {
     $ut = $ctr->register($_POST['matricola'], $_POST['email'], $_POST['password'],
         "Studente", $_POST['name'], $_POST['surname'], $_POST['cdl_matricola']);

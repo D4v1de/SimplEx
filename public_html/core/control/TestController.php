@@ -18,6 +18,10 @@ class TestController extends Controller {
         $this->testModel = new TestModel();
     }
     
+    public function creaTest($test) {        
+        return $this->testModel->createTest($test);
+    }  
+    
     //Restituisce tutti i test
     public function getAllTest() {
         return $this->testModel->getAllTest();
