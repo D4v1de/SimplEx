@@ -125,13 +125,13 @@ class DomandaController extends Controller
     }
 
     //restituisce le domande multiple di uno specifico test
-    public function getMultTest($id) {
+    public function getAllDomandeMultipleByTest($id) {
         $domandaModel = new DomandaModel();
         return $domandaModel->getAllDomandeMultipleByTest($id);
     }
 
     //restituisce le domande aperte di uno specifico test
-    public function getAperteTest($id) {
+    public function getAllDomandeAperteByTest($id) {
         $domandaModel = new DomandaModel();
         return $domandaModel->getAllDomandeAperteByTest($id);
     }

@@ -12,8 +12,10 @@ include_once BEAN_DIR . "RispostaAperta.php";
         
     $elaboratoSessioneId = $_REQUEST["sessId"];
     $elaboratoStudenteMatricola = $_REQUEST["mat"];
-    $updatedRisposta = $raCon->readRispostaApertareadRispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId);
+    $domandaApertaId = $_REQUEST["domId"];
+    $updatedRisposta = $raCon->readRispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId);
     $testo = $_REQUEST["testo"];
+    $updatedRisposta->setTesto($testo);
     
     $raCon->updateRispostaAperta($updatedRisposta, $elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId);
     

@@ -12,9 +12,11 @@ include_once CONTROL_DIR . "SessioneController.php";
 include_once CONTROL_DIR . "DomandaController.php";
 include_once CONTROL_DIR . "RispostaApertaController.php";
 include_once CONTROL_DIR . "RispostaMultiplaController.php";
+include_once CONTROL_DIR . "AlternativaController.php";
 $domandaController = new DomandaController();
 $testController = new ControllerTest();
 $sessioneController = new SessioneController();
+$alternativaController = new AlternativaController();
 $corsoId = $_URL[3];
 $sessId = $_URL[6];
 $sessione = $sessioneController->readSessione($sessId);
@@ -24,8 +26,8 @@ $nome = $studente->getNome();
 $cognome = $studente->getCognome();
 
 $testId = 1;
-$multiple = $domandaController->getMultTest($testId);
-$aperte = $domandaController->getAperteTest($testId);
+$multiple = $domandaController->getAllDomandeMultipleByTest($testId);
+$aperte = $domandaController->getAllDomandeAperteByTest($testId);
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -135,16 +137,21 @@ $aperte = $domandaController->getAperteTest($testId);
                                     $j = 1;
                                     $testo = $m->getTesto();
                                     $multId = $m->getId();
-                                   // creaRispostaMultipla($sessId, $matricola, $multId, null, null);
+                                    try{
+                                        creaRispostaMultipla($sessId, $matricola, $multId, null, null);
+                                    }
+                                    catch (ApplicationException $ex){
+                                        echo '<h3>Impossibile creare risposta</h3>';
+                                    }
                                     echo "<h3>".$testo."</h3>";
                                     echo '<div class="form-group form-md-radios">';
                                     echo '<div class="md-radio-list">';
-                                    $alternative = $testController->getRispMult($m->getId(),$m->getArgomentoId(),$m->getArgomentoCorsoId());
+                                    $alternative = $alternativaController->getAllAlternativaByDomanda($multId);
                                     foreach ($alternative as $r){
                                         $altId = $r->getId();
                                         echo    '<div class="md-radio">
-                                                    <input type="radio" id="'.$altId.'" name="'.$multId.'" onclick="javascript: AddMultipla(this.id,this.name);" class="md-radiobtn">
-                                                    <label for="'.$altId.'">
+                                                    <input type="radio" id="alt-'.$altId.'" name="mul-'.$multId.'" onclick="javascript: updateMultipla(this.name,this.id);" class="md-radiobtn">
+                                                    <label for="alt-'.$altId.'">
                                                     <span class="inc"></span>
                                                     <span class="check"></span>
                                                     <span class="box"></span>
@@ -160,10 +167,15 @@ $aperte = $domandaController->getAperteTest($testId);
                                 foreach ($aperte as $a) {
                                     $testo = $a->getTesto();
                                     $apId = $a->getId();
-                                   // creaRispostaAperta($sessId, $matricola, $apId, null, null);
+                                    try{
+                                        creaRispostaAperta($sessId, $matricola, $apId, null, null);
+                                    }
+                                    catch (ApplicationException $ex){
+                                        echo '<h3>Impossibile creare risposta</h3>';
+                                    }
                                     echo '<h3>'.$testo.'</h3>';
                                     echo    '<div class="form-group">
-                                                <textarea class="form-control" onfocus="javascript: ApertaOnFocus(this.id);" id="'.$apId.'" rows="3" placeholder="Inserisci risposta" style="resize:none"></textarea>
+                                                <textarea class="form-control" onfocus="javascript: ApertaOnFocus(this.id);" onblur="javascript: ApertaOnBlur(this.id);" id="ap-'.$apId.'" rows="3" placeholder="Inserisci risposta" style="resize:none"></textarea>
                                             </div>';
                                     $i++;
                                 }
@@ -176,10 +188,10 @@ $aperte = $domandaController->getAperteTest($testId);
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-9">
-                                    <a href="javascript:;" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                    <a href="javascript:;" onclick="javascript: Consegna()" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                                         Consegna
                                     </a>
-                                    <a href="javascript:;" class="btn sm red-intense">
+                                    <a onclick="javascript: Abbandona()" class="btn sm red-intense">
                                         Abbandona
                                     </a>
                                 </div>
@@ -213,86 +225,6 @@ $aperte = $domandaController->getAperteTest($testId);
         //Demo.init(); // init demo features
     });
 </script>
-<!-- inizializza risposta multipla 
-<script>
-    var CreateMultipla = function(dom){
-        var mat = "<?= $matricola; ?>";
-        var sId = <?= $sessId ?>;
-	if (window.XMLHttpRequest) {
-	  var xhr = new XMLHttpRequest();
-	  //metodo tradizionale di registrazione eventi   
-	  xhr.onreadystatechange =gestoreRichiesta;   
-	  xhr.open("GET", "/inizializzaMultipla?mat="+mat+"&sessId="+sId+"&domId="+dom, true);   
-	  //xhr.open("GET", "/usr/studente/corso/18", true);   
-	  xhr.send(""); 
-	} 
-	function gestoreRichiesta() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                alert(xhr.responseText);
-            }
-	}
-    }
-</script>
-<!-- inizializza risposta aperta 
-<script>
-    var CreateAperta = function(dom){
-        var mat = "<?= $matricola; ?>";
-        var sId = <?= $sessId ?>;
-	if (window.XMLHttpRequest) {
-	  var xhr = new XMLHttpRequest();
-	  //metodo tradizionale di registrazione eventi   
-	  xhr.onreadystatechange =gestoreRichiesta;   
-	  xhr.open("GET", "/inizializzaAperta?mat="+mat+"&sessId="+sId+"&domId="+dom, true);   
-	  //xhr.open("GET", "/usr/studente/corso/18", true);   
-	  xhr.send(""); 
-	} 
-	function gestoreRichiesta() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                alert(xhr.responseText);
-            }
-	}
-    }
-</script>
-<!-- risposta aperta -->
-<script>
-    /*var ApertaOnFocus = function(domId){
-        var mat = "<?= $matricola; ?>";
-        var sId = <?= $sessId ?>;
-        var cId = <?= $corsoId ?>;
-        if (window.XMLHttpRequest) {
-	  var xhr = new XMLHttpRequest();
-	  //metodo tradizionale di registrazione eventi   
-	  xhr.onreadystatechange =gestoreRichiesta;   
-	  xhr.open("GET", "/inizializzaAperta?mat="+mat+"&sessId="+sId+"&domId="+domId+"&corsoId="+cId, true);   
-	  //xhr.open("GET", "/usr/studente/corso/18", true);   
-	  xhr.send(""); 
-	} 
-	function gestoreRichiesta() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                //alert(xhr.responseText);
-                setInterval(UpdateAperta(domId),10000);
-            }
-        }
-    }*/
-    var UpdateAperta = function(domId){
-        var mat = "<?= $matricola; ?>";
-        var sId = <?= $sessId ?>;
-        var testo = document.getElementById(domId).value;
-	if (window.XMLHttpRequest) {
-	  var xhr = new XMLHttpRequest();
-	  //metodo tradizionale di registrazione eventi   
-	  xhr.onreadystatechange =gestoreRichiesta;   
-	  xhr.open("GET", "/updateAperta?mat="+mat+"&sessId="+sId+"&testo="+testo, true);   
-	  //xhr.open("GET", "/usr/studente/corso/18", true);   
-	  xhr.send(""); 
-	} 
-	function gestoreRichiesta() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                alert(xhr.responseText);
-            }
-	}
-}
-</script>
 <!-- countdown -->
 <script>
     var target_date;
@@ -305,7 +237,6 @@ $aperte = $domandaController->getAperteTest($testId);
               //metodo tradizionale di registrazione eventi   
               xhr.onreadystatechange =gestoreRichiesta;   
               xhr.open("GET", "/gestoreCountdown?sessId="+sId, true);   
-              //xhr.open("GET", "/usr/studente/corso/18", true);   
               xhr.send(""); 
             }
         function gestoreRichiesta() {
@@ -318,6 +249,7 @@ $aperte = $domandaController->getAperteTest($testId);
     }
     var StartCounter = function(){
         getDates();
+        //setTimeout(showTime,1000);
         // set the date we're counting down to
         // variables for time units
         var days, hours, minutes, seconds;
@@ -364,6 +296,93 @@ $aperte = $domandaController->getAperteTest($testId);
         }
         current_date = current_date + 1000;
     }
+</script>
+<!-- risposte -->
+<script>
+    var mat = "<?= $matricola; ?>";
+    var sId = <?= $sessId ?>;
+    var intId2 = null;
+    var ApertaOnFocus = function(apId){
+        //var testo = document.getElementById(apId).value;
+        //var countdown = document.getElementById('countdown');
+        //countdown.innerHTML = testo;
+        intId2 = setInterval(function(){updateAperta(apId);},3000);
+    }
+    var updateAperta = function(apId){
+            var testo = document.getElementById(apId).value;
+            var res = apId.split('-');
+            var id = res[1];
+            if (window.XMLHttpRequest) {
+                var xhr = new XMLHttpRequest();
+                //metodo tradizionale di registrazione eventi   
+                xhr.onreadystatechange =gestoreRichiesta;   
+                xhr.open("GET", "/updateAperta?mat="+mat+"&sessId="+sId+"&domId="+id+"&testo="+testo, true);   
+                xhr.send(""); 
+            } 
+            function gestoreRichiesta() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                }
+            }
+        }
+    var ApertaOnBlur = function(apId){
+        updateAperta(apId);
+        clearInterval(intId2);
+    }
+    var updateMultipla = function(multId,altId){
+            var res = multId.split('-');
+            var rId = res[1];
+            res = altId.split('-');
+            var aId = res[1];
+            if (window.XMLHttpRequest) {
+                var xhr = new XMLHttpRequest();
+                //metodo tradizionale di registrazione eventi   
+                xhr.onreadystatechange =gestoreRichiesta;   
+                xhr.open("GET", "/updateMultipla?mat="+mat+"&sessId="+sId+"&domId="+rId+"&altId="+aId, true);   
+                xhr.send(""); 
+            } 
+            function gestoreRichiesta() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                }
+            }
+        }
+</script>
+<!-- consegna e abbandono-->
+<script>
+    var mat = "<?= $matricola; ?>";
+    var sId = <?= $sessId ?>;
+    var intId2 = null;
+    var Consegna = function(){
+         var r = confirm("Sei sicuro di voler consegnare? Non potrai tornare indietro.");
+            if (r == true){
+                if (window.XMLHttpRequest) {
+                    var xhr = new XMLHttpRequest();
+                    //metodo tradizionale di registrazione eventi   
+                    xhr.onreadystatechange =gestoreRichiesta;   
+                    xhr.open("GET", "/consegna?mat="+mat+"&sessId="+sId, true);   
+                    xhr.send(""); 
+                } 
+                function gestoreRichiesta() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                    }
+                }
+            }
+        }
+    var Abbandona = function(){
+        var r = confirm("Sei sicuro di volerti ritirare dalla sessione in corso? Ti verrà assegnato esito nullo.");
+            if (r == true){
+                if (window.XMLHttpRequest) {
+                    var xhr = new XMLHttpRequest();
+                    //metodo tradizionale di registrazione eventi   
+                    xhr.onreadystatechange =gestoreRichiesta;   
+                    xhr.open("GET", "/abbandona?mat="+mat+"&sessId="+sId, true);   
+                    xhr.send(""); 
+                } 
+                function gestoreRichiesta() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                    }
+                }
+            }
+        }
 </script>
 <!-- END JAVASCRIPTS -->
 </body>

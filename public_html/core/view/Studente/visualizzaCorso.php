@@ -255,7 +255,6 @@ try {
 	  //metodo tradizionale di registrazione eventi   
 	  xhr.onreadystatechange =gestoreRichiesta;   
 	  xhr.open("GET", "/creaElaborato?mat="+mat+"&sessId="+sId, true);   
-	  //xhr.open("GET", "/usr/studente/corso/18", true);   
 	  xhr.send(""); 
 	} 
 	function gestoreRichiesta() {

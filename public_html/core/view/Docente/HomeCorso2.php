@@ -59,6 +59,12 @@ if(isset($_POST['id'])){
     header("Refresh:0");
 }
 
+if(isset($_POST['idtest'])){
+    $id = $_POST['idtest'];
+    $controllerTest->deleteTest($id);
+    header("Refresh:0");
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -229,7 +235,8 @@ if(isset($_POST['id'])){
             </div>
             </form>
 
-
+            
+            <form action="" method="post">
             <div class="portlet box blue-madison">
                 <div class="portlet-title">
                     <div class="caption">
@@ -312,7 +319,8 @@ if(isset($_POST['id'])){
                                         printf("<td>%s %%</td>",$c->getPercentualeScelto());
                                         printf("<td>%s %%</td>",$c->getPercentualeSuccesso());
                                         printf("<td><a href=\"test/crea\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></i></a>");
-                                        printf("<a href=\"javascript:;\" onclick=\"javascript: elimina(this.id);\" class=\"btn btn-sm red-intense\"><i class=\"fa fa-trash-o\"></i></i></a></td>");
+                                        printf("<button name='idtest' type='submit' value='%d' class='btn btn-sm red-intense'><i class=\"fa fa-trash-o\"></i></button>", $c->getId());
+                                        printf("</td>");
                                         printf("</tr>");
                                         }
                                         }
@@ -320,8 +328,12 @@ if(isset($_POST['id'])){
                             </tbody>
                         </table>
                     </div>
+                    
                 </div>
+                    
             </div>
+                </form>
+            
 
 
         <form action="" method="post">
@@ -383,7 +395,7 @@ if(isset($_POST['id'])){
                         </table>
                     </div>
                 </div>
-            </div>
+                </div>
             </form>
 
 
@@ -435,21 +447,6 @@ if(isset($_POST['id'])){
         TableManaged2.init("tabella_argomenti","tabella_argomenti_wrapper");
         //TableManaged.init(3);
     });
-</script>
-<script>
-        var elimina = function(id){
-	if (window.XMLHttpRequest) {
-	  var xhr = new XMLHttpRequest();  
-	  xhr.onreadystatechange =gestoreRichiesta;   
-	  xhr.open("GET", "/deleteTest?id="+id, true);  
-	  xhr.send(""); 
-	} 
-	function gestoreRichiesta() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                alert(xhr.responseText);
-            }
-	}
-}
 </script>
 <!-- END JAVASCRIPTS -->
 </body>
