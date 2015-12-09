@@ -144,13 +144,13 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
                                         echo '<h3>Impossibile creare risposta</h3>';
                                     }
                                     echo "<h3>".$testo."</h3>";
-                                    echo '<div class="form-group form-md-radios">';
-                                    echo '<div class="md-radio-list">';
+                                    echo '<div class="form-group form-md-checkboxes">';
+                                    echo '<div class="md-checkbox-list">';
                                     $alternative = $alternativaController->getAllAlternativaByDomanda($multId);
                                     foreach ($alternative as $r){
                                         $altId = $r->getId();
-                                        echo    '<div class="md-radio">
-                                                    <input type="radio" id="alt-'.$altId.'" name="mul-'.$multId.'" onclick="javascript: updateMultipla(this.name,this.id);" class="md-radiobtn">
+                                        echo    '<div class="md-checkbox">
+                                                    <input type="checkbox" id="alt-'.$altId.'" name="mul-'.$multId.'" onclick="javascript: updateMultipla(this.name,this.id);" class="md-check">
                                                     <label for="alt-'.$altId.'">
                                                     <span class="inc"></span>
                                                     <span class="check"></span>
@@ -175,7 +175,7 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
                                     }
                                     echo '<h3>'.$testo.'</h3>';
                                     echo    '<div class="form-group">
-                                                <textarea class="form-control" onfocus="javascript: ApertaOnFocus(this.id);" onblur="javascript: ApertaOnBlur(this.id);" id="ap-'.$apId.'" rows="3" placeholder="Inserisci risposta" style="resize:none"></textarea>
+                                                <textarea class="form-control" id="ap-'.$apId.'" rows="3" placeholder="Inserisci risposta" style="resize:none"></textarea>
                                             </div>';
                                     $i++;
                                 }
@@ -216,119 +216,56 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
 <!--<script src="/assets/global/scripts/mycountdown.js" type="text/javascript"></script>-->
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <script>
+    var sId = <?= $sessId ?>;
+    var mat = "<?= $matricola; ?>";
+    var intId = null;
+    var intId2 = null;
+    var intId3 = null;
+    
     jQuery(document).ready(function () {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
-        StartCounter();
-        setInterval(StartCounter,10000);
-        //QuickSidebar.init(); // init quick sidebar
-        //Demo.init(); // init demo features
-    });
-</script>
-<!-- countdown -->
-<script>
-    var target_date;
-    var current_date;
-    var intId = null;
-    var getDates = function(){
-        var sId = <?= $sessId ?>;
-        if (window.XMLHttpRequest) {
-              var xhr = new XMLHttpRequest();
-              //metodo tradizionale di registrazione eventi   
-              xhr.onreadystatechange =gestoreRichiesta;   
-              xhr.open("GET", "/gestoreCountdown?sessId="+sId, true);   
-              xhr.send(""); 
-            }
-        function gestoreRichiesta() {
-            var date= xhr.responseText.split("|");
-            var end = date[0];
-            var start = date[1];
-            target_date = new Date(end).getTime();
-            current_date = new Date(start).getTime();
-        }
-    }
-    var StartCounter = function(){
-        getDates();
-        //setTimeout(showTime,1000);
-        // set the date we're counting down to
-        // variables for time units
-        var days, hours, minutes, seconds;
-
-        // get tag element
-        var countdown = document.getElementById('countdown');
-        // update the tag with id "countdown" every 1 second
-        
-        
-        
-       // showTime();
-        clearInterval(intId);
-        intId = setInterval(showTime, 1000);
-    }
-    var showTime = function () {
-        // find the amount of "seconds" between now and target
-        var seconds_left = (target_date - current_date) / 1000;
-        var remaining_time = seconds_left;
-        // do some time calculations
-        days = parseInt(seconds_left / 86400);
-        seconds_left = seconds_left % 86400;
-
-        hours = parseInt(seconds_left / 3600);
-        seconds_left = seconds_left % 3600;
-
-        // green #ccff66 #00cc33
-        // red #cc3300
-        minutes = parseInt(seconds_left / 60);
-        seconds = parseInt(seconds_left % 60);
-
-        // format countdown string + set tag value
-        if (remaining_time > 0)
-            if (remaining_time >= 600)
-                countdown.innerHTML = '<span  style="color: #cf6"><span class="days">' + days +  ' <b>Giorni</b></span> <span class="hours">' + hours + ' <b>Ore</b></span> <span class="minutes">'
-        + minutes + ' <b>Minuti</b></span> <span class="seconds">' + seconds + ' <b>Secondi</b></span></span>';
-               // countdown.innerHTML = '<span class="time" style="color: #cf6"> '+ hours + ':' + minutes +':' + seconds + ' </span>';  
-            else
-                countdown.innerHTML = '<span  style="color: #c30"><span class="days">' + days +  ' <b>Giorni</b></span> <span class="hours">' + hours + ' <b>Ore</b></span> <span class="minutes">'
-        + minutes + ' <b>Minuti</b></span> <span class="seconds">' + seconds + ' <b>Secondi</b></span></span>';
-               // countdown.innerHTML = '<span class="time" style="color: #c30"> '+ hours + ':' + minutes +':' + seconds + ' </span>'; 
-        else{ 
-            countdown.innerHTML = '<span class="time" style="color: #c30"> Tempo Scaduto </span>';
-            
-        }
-        current_date = current_date + 1000;
-    }
-</script>
-<!-- risposte -->
-<script>
-    var mat = "<?= $matricola; ?>";
-    var sId = <?= $sessId ?>;
-    var intId2 = null;
-    var ApertaOnFocus = function(apId){
-        //var testo = document.getElementById(apId).value;
-        //var countdown = document.getElementById('countdown');
-        //countdown.innerHTML = testo;
-        intId2 = setInterval(function(){updateAperta(apId);},3000);
-    }
-    var updateAperta = function(apId){
-            var testo = document.getElementById(apId).value;
+        //countdown
+        $.get("/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});
+        intId2 = setInterval(function(){$.post("/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});},30000);
+        //fine countdown
+        //aperte
+        $("textarea").focus(function() {
+            var apId = $(this).attr('id');
+            intId3 = setInterval(function(){
+            var testo = document.getElementById($(this).attr('id')).value;
             var res = apId.split('-');
             var id = res[1];
-            if (window.XMLHttpRequest) {
-                var xhr = new XMLHttpRequest();
-                //metodo tradizionale di registrazione eventi   
-                xhr.onreadystatechange =gestoreRichiesta;   
-                xhr.open("GET", "/updateAperta?mat="+mat+"&sessId="+sId+"&domId="+id+"&testo="+testo, true);   
-                xhr.send(""); 
-            } 
-            function gestoreRichiesta() {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                }
+            $.post("/updateAperta?mat="+mat+"&sessId="+sId+"&domId="+id+"&testo="+testo);},10000);
+            });
+        $("textarea").blur(function() {
+            var apId = $(this).attr('id');
+            var testo = document.getElementById($(this).attr('id')).value;
+            var res = apId.split('-');
+            var id = res[1];
+            $.post("/updateAperta?mat="+mat+"&sessId="+sId+"&domId="+id+"&testo="+testo);
+            clearInterval(intId3);
+        });
+        //fine aperte
+        //multiple
+        $("input.md-check").click(function() {
+            var multId = $(this).attr('name');
+            var res = multId.split('-');
+            var rId = res[1];
+            var altId = $(this).attr('id');
+            res = altId.split('-');
+            var aId = res[1];
+            if ($("#"+$(this).attr('id')).is(":not(:checked)")){
+                aId = null;
+                $("#"+$(this).attr('id')).prop( "checked", false);
             }
-        }
-    var ApertaOnBlur = function(apId){
-        updateAperta(apId);
-        clearInterval(intId2);
-    }
-    var updateMultipla = function(multId,altId){
+            else{
+                $(".md-check[name="+$(this).attr('name')+"]").prop( "checked", false);
+                $("#"+$(this).attr('id')).prop( "checked", true);
+            }
+            $.post("/updateMultipla?mat="+mat+"&sessId="+sId+"&domId="+rId+"&altId="+aId);
+        });
+        var updateMultipla = function(multId,altId){
             var res = multId.split('-');
             var rId = res[1];
             res = altId.split('-');
@@ -345,42 +282,87 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
                 }
             }
         }
+        //fine multiple
+        //QuickSidebar.init(); // init quick sidebar
+        //Demo.init(); // init demo features
+    });
 </script>
-<!-- consegna e abbandono-->
+<!-- countdown -->
 <script>
-    var mat = "<?= $matricola; ?>";
-    var sId = <?= $sessId ?>;
-    var intId2 = null;
-    var Consegna = function(){
-         var r = confirm("Sei sicuro di voler consegnare? Non potrai tornare indietro.");
-            if (r == true){
-                if (window.XMLHttpRequest) {
-                    var xhr = new XMLHttpRequest();
-                    //metodo tradizionale di registrazione eventi   
-                    xhr.onreadystatechange =gestoreRichiesta;   
-                    xhr.open("GET", "/consegna?mat="+mat+"&sessId="+sId, true);   
-                    xhr.send(""); 
-                } 
-                function gestoreRichiesta() {
-                    if (xhr.readyState == 4 && xhr.status == 200) {
-                    }
+   var StartCounter = function(string){
+        var date= string.split("|");
+        var end = date[0];
+        var start = date[1];
+        var target_date = new Date(end).getTime();
+        var current_date = new Date(start).getTime();
+        showTime(current_date,target_date);
+        clearInterval(intId);
+        intId = setInterval(function(){
+            current_date = current_date + 1000;
+            showTime(current_date,target_date);}, 1000);
+    }
+    
+    var showTime = function (current_date,target_date) {
+        var countdown = document.getElementById("countdown");
+        var seconds_left = (target_date - current_date) / 1000;
+        var remaining_time = seconds_left;
+        var days = parseInt(seconds_left / 86400);
+        seconds_left = seconds_left % 86400;
+
+        var hours = parseInt(seconds_left / 3600);
+        seconds_left = seconds_left % 3600;
+        var minutes = parseInt(seconds_left / 60);
+        var seconds = parseInt(seconds_left % 60);
+        
+        if (remaining_time > 0)
+            if (remaining_time >= 600)
+                countdown.innerHTML = '<span  style="color: #cf6"><span class="days">' + days +  ' <b>Giorni</b></span> <span class="hours">' + hours + ' <b>Ore</b></span> <span class="minutes">'
+        + minutes + ' <b>Minuti</b></span> <span class="seconds">' + seconds + ' <b>Secondi</b></span></span>';
+               // countdown.innerHTML = '<span class="time" style="color: #cf6"> '+ hours + ':' + minutes +':' + seconds + ' </span>';  
+            else
+                countdown.innerHTML = '<span  style="color: #c30"><span class="days">' + days +  ' <b>Giorni</b></span> <span class="hours">' + hours + ' <b>Ore</b></span> <span class="minutes">'
+        + minutes + ' <b>Minuti</b></span> <span class="seconds">' + seconds + ' <b>Secondi</b></span></span>';
+               // countdown.innerHTML = '<span class="time" style="color: #c30"> '+ hours + ':' + minutes +':' + seconds + ' </span>'; 
+        else{ 
+            $.get("/gestoreCountdown?sessId="+sId,function(data){
+                var date= data.split("|");
+                var end = date[0];
+                var start = date[1];
+                if (new Date(start).getTime() > new Date(end).getTime()){
+                    countdown.innerHTML = '<span class="time" style="color: #c30"> Tempo Scaduto </span>';
+                    confirm("Tempo scaduto. Vuoi consegnare?");
+                    clearInterval(intId2);
                 }
+                else{
+                    var target_date = new Date(end).getTime();
+                    var current_date = new Date(start).getTime();
+                    showTime(current_date,target_date);
+                    clearInterval(intId2);
+                    intId2 = setInterval(function(){$.get("/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});},30000);
+                }
+                
+            });
+        }
+    }
+</script>
+<!-- risposte -->
+<script>
+    
+</script>
+<!-- consegna e abbandono -->
+<script>
+    var Consegna = function(){
+            var r = confirm("Sei sicuro di voler consegnare? Non potrai tornare indietro.");
+            if (r == true){
+                $.post("/consegna?mat="+mat+"&sessId="+sId);
             }
         }
-    var Abbandona = function(){
-        var r = confirm("Sei sicuro di volerti ritirare dalla sessione in corso? Ti verrà assegnato esito nullo.");
+        
+        
+        var Abbandona = function(){
+            var r = confirm("Sei sicuro di volerti ritirare dalla sessione in corso? Ti verrà assegnato esito nullo.");
             if (r == true){
-                if (window.XMLHttpRequest) {
-                    var xhr = new XMLHttpRequest();
-                    //metodo tradizionale di registrazione eventi   
-                    xhr.onreadystatechange =gestoreRichiesta;   
-                    xhr.open("GET", "/abbandona?mat="+mat+"&sessId="+sId, true);   
-                    xhr.send(""); 
-                } 
-                function gestoreRichiesta() {
-                    if (xhr.readyState == 4 && xhr.status == 200) {
-                    }
-                }
+                $.post("/abbandona?mat="+mat+"&sessId="+sId);
             }
         }
 </script>

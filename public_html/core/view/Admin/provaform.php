@@ -39,6 +39,7 @@ $controller = new Esempio();
     <meta charset="utf-8"/>
     <title>Prova Form</title>
     <?php include VIEW_DIR . "design/header.php"; ?>
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -143,11 +144,17 @@ $controller = new Esempio();
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-actions">
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <input type="submit" value="Conferma" class="btn green-jungle"/>
                                     </div>
-                                    <div class="col-md-4">
-                                        <input type="reset" value="Annulla" class="btn red-intense"/>
+                                    <div class="col-md-3">
+                                        <button type="button" class="btn green" data-toggle="confirmation" data-singleton="true" data-popout="true" title="sei sicuro?">PopUp</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" class="btn red eliminaArgomento"><span class="md-click-circle md-click-animate"></span>Toast</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" class="btn btn-primary inserisciArgomento" data-toggle="confirmation" data-singleton="true" data-popout="true" title="carlo è gay?">PopUp+Toast</button>
                                     </div>
                                 </div>
                             </div>
@@ -189,6 +196,12 @@ $controller = new Esempio();
 <script src="/assets/admin/pages/scripts/form-validation.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
+
+<script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
+<script src="/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
+
+<script src="/assets/admin/pages/scripts/ui-toastr.js"></script>
+<script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
 <script>
     jQuery(document).ready(function () {
         Metronic.init(); // init metronic core components
@@ -197,6 +210,8 @@ $controller = new Esempio();
         //Demo.init(); // init demo features
         TableManaged.init();
         FormValidation.init();
+        UIConfirmations.init();
+        UIToastr.init();
     });
 </script>
 <!-- END JAVASCRIPTS -->
