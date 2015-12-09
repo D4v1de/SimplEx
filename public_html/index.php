@@ -267,8 +267,6 @@ if (!defined("TESTING")) {
         case 'selezionestudenti':
             include_once VIEW_DIR . "Docente/SelezioneStudenti.php";
             break;
-        
-        
         case 'gestoreCountdown':
             include_once VIEW_DIR . "Studente/gestoreCountdown.php";
             break;
@@ -287,8 +285,6 @@ if (!defined("TESTING")) {
         case 'creaElaborato':
             include_once VIEW_DIR . "Studente/creaElaborato.php";
             break;
-        
-        
         case 'homecorsostudente':
             include_once VIEW_DIR . "Studente/HomeCorso.php";
             break;

@@ -33,6 +33,14 @@ var FormValidation = function () {
                         required: true,
                         email: true
                     },
+                    testoDomanda: {
+                        required:true,
+                        minlength: 2
+                    },
+                    testoRisposta: {
+                        required:true,
+                        minlength: 2
+                    },
                     url: {
                         required: true,
                         url: true
@@ -66,6 +74,9 @@ var FormValidation = function () {
                         required: true
                     },
                     tipologia: {
+                        required: true
+                    },
+                    radio: {
                         required: true
                     },
                     select_multi: {
