@@ -26,7 +26,7 @@ class DomandaModel extends Model {
     private static $READ_DOMANDA_MULTIPLA = "SELECT * FROM `domanda_multipla` WHERE id = '%d'";
     private static $GET_ALL_DOMANDA_MULTIPLA = "SELECT * FROM `domanda_multipla` WHERE stato = 'In uso' ORDER BY testo";
     private static $GET_ALL_DOMANDA_MULTIPLA_BY_ARGOMENTO = "SELECT * FROM `domanda_multipla` WHERE argomento_id = '%d' AND stato = 'In uso' ORDER BY testo";
-    private static $GET_ALL_DOMANDE_MULTIPLE_TEST = "SELECT d.* FROM `domanda_multipla` as d,`compone_multipla` as c WHERE c.test_id = '%s' AND c.domanda_multipla_id = d.id ORDER BY d.testo";
+    private static $GET_ALL_DOMANDE_MULTIPLE_TEST = "SELECT d.* FROM `domanda_multipla` as d,`compone_multipla` as c WHERE c.test_id = '%s' AND c.domanda_multipla_id = d.id ORDER BY d./* testo";
 
     /**
      * Inserisce una nuova DomandaAperta nel database
