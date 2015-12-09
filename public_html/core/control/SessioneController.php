@@ -53,9 +53,9 @@ class SessioneController extends Controller {   //UTLIZZARE ALTRO CONTROLLER..NO
      * Crea una nuova sessione
      * @param type $sessione ovvero Una Sessione
      */
-    public function creaSessione($sessione) {          //verrà chiamato premuto il salva button..sessione è un bean..con diverse variabili..
-        return $this->sessioneModel->createSessione($sessione);     //che verranno aggiunte nella view... stile :  $cdl = new CdL($matricola, $nome, $tipologia);
-    }                                                       //e poi passate a questo control! ..toglierò questi commenti, promesso XD
+    public function creaSessione($sessione) {
+        return $this->sessioneModel->createSessione($sessione);
+    }
 
     /**
      *
@@ -117,8 +117,23 @@ class SessioneController extends Controller {   //UTLIZZARE ALTRO CONTROLLER..NO
         $this->accountModel->abilitaStudenteSessione($idSessione, $studenteMatricola);
     }
 
-    public function deleteAllTestFromSes($idSes) {
-        $this->sessioneModel->deleteAllTestFromSessione($idSes);
+    public function disabilitaStudenteDaSessione($idSessione, $studenteMatricola) {
+        $this->accountModel->disabilitaStudenteSessione($idSessione, $studenteMatricola);
     }
 
+    public function disabilitaMostraRisposteCorrette($id) {
+        $this->sessioneModel->disabilitaMostraRisposteCorrette($id);
+    }
+
+    public function abilitaMostraRisposteCorrette($id) {
+        $this->sessioneModel->abilitaMostraRisposteCorrette($id);
+    }
+
+    public function disabilitaMostraEsito($id) {
+        $this->sessioneModel->disabilitaMostraEsito($id);
+    }
+
+    public function abilitaMostraEsito($id) {
+        $this->sessioneModel->abilitaMostraEsito($id);
+    }
 }

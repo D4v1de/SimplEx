@@ -44,7 +44,7 @@ else if(isset( $_POST['datato'])) {
 }
 
 if(isset( $_POST['addStu'])) {
-    $vaiAddStu= "Location: "."/usr/docente/corso/".$identificativoCorso."/sessione"."/".$idSesToGo."/"."sessioneincorso/aggiungistudente";
+    $vaiAddStu= "Location: "."/usr/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."sessioneincorso/aggiungistudente";
     header($vaiAddStu);
 }
 

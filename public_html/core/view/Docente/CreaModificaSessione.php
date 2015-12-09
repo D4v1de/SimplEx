@@ -25,6 +25,8 @@ $perModificaDataFrom =  null;
 $perModificaDataTo = null;
 $valu = null;
 $eser = null;
+$mostraE=null;
+$showRC=null;
 
 if($_URL[5]!=0) {  //CASO IN CUI SI VOGLIA MODIFICARE LA SESSIONE
     try {
@@ -38,6 +40,10 @@ if($_URL[5]!=0) {  //CASO IN CUI SI VOGLIA MODIFICARE LA SESSIONE
         if ($tipoSessione == "Valutativa")
             $valu = "Checked";
         else $eser = "Checked";
+        if ($sessioneByUrl->mostraEsiti(0) == "Si")
+            $mostraE = "Checked";
+        if($sessioneByUrl->mostraRispCorrette(0) == "Si")
+             $showRC= "Checked";
 
     } catch (ApplicationException $ex) {
         echo "<h1>errore! ApplicationException->errore manca id sessione nel path!</h1>";
@@ -61,6 +67,13 @@ if($_URL[5]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
         //creo la sessione
         $sessione = new Sessione($newdataFrom, $newdataTo, $sogliAmm, $stato, $newtipoSessione, $idCorso);
         $idNuovaSessione=$controller->creaSessione($sessione);
+
+        if(isset($_POST['cbShowEsiti'])){
+            $controller->abilitaMostraEsito($idNuovaSessione);
+        }
+        if(isset($_POST['cbRispCorr'])){
+            $controller->abilitaMostraRisposteCorrette($idNuovaSessione);
+        }
 
             $cbStudents = $_POST['students'];
             if($cbStudents==null){
@@ -87,13 +100,10 @@ if($_URL[5]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
                  $controller->associaTestASessione($idNuovaSessione,$t);
              }
 
+
             //torna a pagina corso del docente
             $tornaACasa= "Location: "."/usr/docente/corso/"."$idCorso";
             header($tornaACasa);
-
-      //  }
-      //  else
-        //    echo "non entro nell if dei set delle cb";
     }
 }
 
@@ -110,6 +120,15 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
             $newOrOldDataTo = $_POST['dataTo'];
 
         $sessioneAggiornata = new Sessione($newOrOldDataFrom,$newOrOldDataTo,$sogliAmm,$stato,$tipoSessione,$idCorso);
+        $controller->disabilitaMostraEsito($idSessione);
+        $controller->disabilitaMostraRisposteCorrette($idSessione);
+
+        if(isset($_POST['cbShowEsiti'])){
+            $controller->abilitaMostraEsito($idSessione);
+        }
+        if(isset($_POST['cbRispCorr'])){
+            $controller->abilitaMostraRisposteCorrette($idSessione);
+        }
         $controller->updateSessione($_URL[5],$sessioneAggiornata);
 
 
@@ -125,12 +144,17 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
         if($someStudentsChange){
             $cbStudents= Array();
             $cbStudents = $_POST['students'];
-            //$controller->deleteAllTestFromSessione($idSessione); ...devo dissociarli tutti prima..e poi riassocio
+            //disabilito tutti gli studenti
+            $allStuAbi = $controller->getAllStudentiBySessione($idSessione);
+            foreach($allStuAbi as $s) {
+                $controller->disabilitaStudenteDaSessione($idSessione, $s->getMatricola());
+            }
             //creo l'abilitazione students-sessione
             foreach($cbStudents as $s) {
-                $controller->abilitaStudenteASessione($idNuovaSessione,$s);
+                $controller->abilitaStudenteASessione($idSessione,$s);
             }
         }
+
 
         $tornaACasa= "Location: "."/usr/docente/corso/"."$idCorso";
         header($tornaACasa);
@@ -270,7 +294,7 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
                             <label>Seleziona preferenze</label>
                             <div class="md-checkbox-list">
                                 <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox1" name="cbShowEsiti" class="md-check">
+                                    <input type="checkbox" id="checkbox1" <?php printf("%s",$mostraE) ?>name="cbShowEsiti" class="md-check">
                                     <label for="checkbox1">
                                     <span></span>
                                     <span class="check"></span>
@@ -278,7 +302,7 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
                                     Mostra esiti </label>
                                 </div>
                                 <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox2" name="cbRispCorr" class="md-check">
+                                    <input type="checkbox" id="checkbox2" <?php printf("%s",$showRC) ?> name="cbShowRispCorr" class="md-check">
                                     <label for="checkbox2">
                                     <span></span>
                                     <span class="check"></span>
