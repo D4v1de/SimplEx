@@ -25,8 +25,8 @@ $perModificaDataFrom =  null;
 $perModificaDataTo = null;
 $valu = null;
 $eser = null;
-$showE=null;
-$showRC=null;
+$showE="";
+$showRC="";
 
 if($_URL[5]!=0) {  //CASO IN CUI SI VOGLIA MODIFICARE LA SESSIONE
     try {
@@ -299,7 +299,7 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
                             <label>Seleziona preferenze</label>
                             <div class="md-checkbox-list">
                                 <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox1" <?php printf("%s",$showE) ?>name="cbShowEsiti" class="md-check">
+                                    <input type="checkbox" id="checkbox1" <?php printf("%s",$showE) ?>  name="cbShowEsiti" class="md-check">
                                     <label for="checkbox1">
                                     <span></span>
                                     <span class="check"></span>

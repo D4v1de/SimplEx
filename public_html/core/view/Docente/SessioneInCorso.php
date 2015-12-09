@@ -64,6 +64,9 @@ if(isset( $_POST['addStu'])) {
     <meta charset="utf-8"/>
     <title>Metronic | Page Layouts - Blank Page</title>
     <?php include VIEW_DIR . "design/header.php"; ?>
+    <link rel="stylesheet" type="text/css"
+          href="/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css">
+
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->

@@ -221,7 +221,7 @@ if(isset($_POST['idtest'])){
                                     $vaiASesInCorso="/usr/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."sessioneincorso";
 
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    if($c->getStato()!="In Esecuzione")
+                                    if($c->getStato()!="In esecuzione")
                                         printf("<td class=\"sorting_1\"><a href=\"%s\">%s</a></td>", $vaiAVisu,  "Sessione ".$c->getId());
                                     else
                                         printf("<td class=\"sorting_1\"><a href=\"%s\">%s</a></td>", $vaiASesInCorso,  "Sessione ".$c->getId());
