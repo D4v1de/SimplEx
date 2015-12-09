@@ -20,8 +20,8 @@ class SessioneModel extends Model {
     private static $ASSOCIA_TEST_SESSIONE = "INSERT INTO `sessione_test` (sessione_id, test_id) VALUES ('%d','%d')";
     private static $DISSOCIA_TEST_SESSIONE = "DELETE FROM `sessione_test` where sessione_id = '%d' AND test_id = '%d'";
     private static $DELETE_ALL_TEST_FROM_SESSIONE = "DELETE FROM `sessione_test` where sessione_id = '%d'";
-    private static $ABILITA_MOSTRA_ESITO = "UPDATE `sessione` SET mostra_esito = 'Si' WHERE id = '%d'";
-    private static $DISABILITA_MOSTRA_ESITO = "UPDATE `sessione` SET mostra_esito = 'No' WHERE id = '%d'";
+    private static $ABILITA_MOSTRA_ESITO = "UPDATE `sessione` SET mostra_esiti = 'Si' WHERE id = '%d'";
+    private static $DISABILITA_MOSTRA_ESITO = "UPDATE `sessione` SET mostra_esiti = 'No' WHERE id = '%d'";
     private static $ABILITA_MOSTRA_RISPOSTE_CORRETTE = "UPDATE `sessione` SET mostra_risposte_corrette = 'Si' WHERE id = '%d'";
     private static $DISABILITA_MOSTRA_RISPOSTE_CORRETTE = "UPDATE `sessione` SET mostra_risposte_corrette = 'No' WHERE id = '%d'";
 
@@ -225,7 +225,7 @@ class SessioneModel extends Model {
         $query = sprintf(self::$READ_SESSIONE, $id);
         $res = Model::getDB()->query($query);
         if ($obj = $res->fetch_assoc()) {
-            return $obj['mostra_esito'];
+            return $obj['mostra_esiti'];
         }
         else{
             throw new ApplicationException(Error::$SESSIONE_NON_TROVATA);
