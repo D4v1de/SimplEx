@@ -9,8 +9,10 @@
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "SessioneController.php";
 include_once CONTROL_DIR . "CdlController.php";
+include_once CONTROL_DIR . "ElaboratoController.php";
 $controller = new SessioneController();
 $controlleCdl = new CdlController();
+$controllerEla= new ElaboratoController();
 
 $idSessione=$_URL[5];
 $identificativoCorso = $_URL[3];
@@ -48,6 +50,13 @@ else if(isset( $_POST['datato'])) {
 if(isset( $_POST['addStu'])) {
     $vaiAddStu= "Location: "."/usr/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."sessioneincorso/aggiungistudente";
     header($vaiAddStu);
+}
+
+if(isset( $_POST['annullaEsame'])) {
+    $matricola=$_POST['annullaEsame'];
+    $elaborato=$controllerEla->readElaborato($matricola,$idSessione);
+    $nuovoElaborato= new Elaborato($elaborato->getSessioneId(),$elaborato->getEsitoParziale(),$elaborato->getEsitoFinale(),$elaborato->getTestId());
+    //$controllerEla->updateElaborato()
 }
 
 ?>
@@ -264,7 +273,7 @@ if(isset( $_POST['addStu'])) {
                                                 printf("<td class=\"sorting_1\">%s</td>", $c->getNome());
                                                 printf("<td>%s</td>", $c->getCognome());
                                                 printf("<td>%s</td>", $c->getMatricola());
-                                                printf("<td><a href=\"javascript:;\" class=\"btn btn-sm red-intense\">Annulla Esame</a></td>");
+                                                printf("<td><button type='submit' name='annullaEsame' value=''%s' href=\"javascript:;\" class=\"btn btn-sm red-intense\">Annulla Esame</button></td>", $c->getMatricola());
                                                 printf("</tr>");
                                             }
                                         }
