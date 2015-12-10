@@ -13,7 +13,9 @@ include_once CONTROL_DIR . "DomandaController.php";
 include_once CONTROL_DIR . "RispostaApertaController.php";
 include_once CONTROL_DIR . "RispostaMultiplaController.php";
 include_once CONTROL_DIR . "AlternativaController.php";
+include_once CONTROL_DIR . "ElaboratoController.php";
 $domandaController = new DomandaController();
+$elaboratoController = new ElaboratoController();
 $testController = new ControllerTest();
 $sessioneController = new SessioneController();
 $alternativaController = new AlternativaController();
@@ -21,11 +23,12 @@ $corsoId = $_URL[3];
 $sessId = $_URL[6];
 $sessione = $sessioneController->readSessione($sessId);
 $matricola = "0512102390";
+$elaborato = $elaboratoController->readElaborato($matricola,$sessId);
 $studente = $testController->getUtentebyMatricola($matricola);
 $nome = $studente->getNome();
 $cognome = $studente->getCognome();
 
-$testId = 1;
+$testId = $elaborato->getTestId();
 $multiple = $domandaController->getAllDomandeMultipleByTest($testId);
 $aperte = $domandaController->getAllDomandeAperteByTest($testId);
 ?>
@@ -64,11 +67,11 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
                     <ul class="page-breadcrumb">
                         <li>
                             <i class="fa fa-home"></i>
-                            <a href="index.html">Home</a>
+                            <a href="../../../../../../index.html">Home</a>
                             <i class="fa fa-angle-right"></i>
                         </li>
                         <li>
-                            <a href="#">Nome Corso</a>
+                            <a href="../..">Nome Corso</a>
                             <i class="fa fa-angle-right"></i>
                         </li>
                         <li>
@@ -202,10 +205,10 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-9">
-                                    <a href="javascript:;" onclick="javascript: Consegna()" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                    <a href="../.." onclick="javascript: Consegna()" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                                         Consegna
                                     </a>
-                                    <a onclick="javascript: Abbandona()" class="btn sm red-intense">
+                                    <a href="../.." onclick="javascript: Abbandona()" class="btn sm red-intense">
                                         Abbandona
                                     </a>
                                 </div>
@@ -235,7 +238,7 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
     var intId = null;
     var intId2 = null;
     var intId3 = null;
-    
+    var intId4 = null;
     jQuery(document).ready(function () {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
@@ -243,6 +246,9 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
         $.get("/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});
         intId2 = setInterval(function(){$.post("/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});},30000);
         //fine countdown
+        //controller abilitazione
+        intId4 = setInterval(function(){$.get("/controllerAbilitazione?mat="+mat+"&sessId="+sId,function(data){valutaAbilitazione(data);});},10000);
+        //fine controller
         //aperte
         $("textarea").focus(function() {
             var apId = $(this).attr('id');
@@ -351,14 +357,16 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
 </script>
 <!-- consegna e abbandono -->
 <script>    
-    var SetAlternativa = function(){
-        
+    var valutaAbilitazione = function(string){
+        if (string == "Corretto"){
+            alert("Il docente ha annullato il test");
+            location.href = "../..";
+        }
     }
-    
     var Consegna = function(){
             var r = confirm("Sei sicuro di voler consegnare? Non potrai tornare indietro.");
             if (r == true){
-                $.post("/consegna?mat="+mat+"&sessId="+sId);
+                $.post("/consegna?mat="+mat+"&sessId="+sId,function(data){alert("Consegna effettuata"+data);});
             }
         }
         

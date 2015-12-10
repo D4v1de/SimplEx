@@ -279,6 +279,12 @@ if (!defined("TESTING")) {
         case 'consegna':
             include_once VIEW_DIR . "Studente/consegna.php";
             break;
+        case 'controllerAbilitazione':
+            include_once VIEW_DIR . "Studente/controllerAbilitazione.php";
+            break;
+        case 'gestoreMultipla':
+            include_once VIEW_DIR . "Studente/gestoreMultipla.php";
+            break;
         case 'creaElaborato':
             include_once VIEW_DIR . "Studente/creaElaborato.php";
             break;

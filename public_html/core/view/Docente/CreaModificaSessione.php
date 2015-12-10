@@ -12,8 +12,14 @@ $controller = new SessioneController();
 include_once CONTROL_DIR . "CdlController.php";
 $controlleCdl = new CdlController();
 $idCorso = $_URL[3];
-$corso = $controlleCdl->readCorso($idCorso);
-$nomecorso= $corso->getNome();
+try {
+    $corso = $controlleCdl->readCorso($idCorso);
+    $nomecorso= $corso->getNome();
+}
+catch (ApplicationException $ex) {
+    echo "<h1>ERRORE NELLA LETTURA DEL CORSO!</h1>" . $ex;
+}
+
 //$sessioneByUrl = null;
 $idSessione=0;
 $someStudentsChange=null;
@@ -31,21 +37,31 @@ $showRC="";
 if($_URL[5]!=0) {  //CASO IN CUI SI VOGLIA MODIFICARE LA SESSIONE
     try {
         $idSessione=$_URL[5];
-        $sessioneByUrl = $controller->readSessione($_URL[5]);
-        $dataFrom = $sessioneByUrl->getDataInizio();
-        $dataTo = $sessioneByUrl->getDataFine();
-        $tipoSessione = $sessioneByUrl->getTipologia();
+        try {
+            $sessioneByUrl = $controller->readSessione($_URL[5]);
+            $dataFrom = $sessioneByUrl->getDataInizio();
+            $dataTo = $sessioneByUrl->getDataFine();
+            $tipoSessione = $sessioneByUrl->getTipologia();
+        }
+        catch (ApplicationException $ex) {
+            echo "<h1>ERRORE NELLA LETTURA DELLA SESSIONE!</h1>" . $ex;
+        }
         $perModificaDataFrom = $dataFrom;
         $perModificaDataTo = $dataTo;
         if ($tipoSessione == "Valutativa")
             $valu = "Checked";
         else $eser = "Checked";
 
-        if ($controller->readMostraEsitoSessione($idSessione) == "Si") {
-            $showE = "Checked";
+        try {
+            if ($controller->readMostraEsitoSessione($idSessione) == "Si") {
+                $showE = "Checked";
+            }
+            if ($controller->readMostraRisposteCorretteSessione($idSessione) == "Si")
+                $showRC = "Checked";
         }
-        if($controller->readMostraRisposteCorretteSessione($idSessione) == "Si")
-             $showRC= "Checked";
+        catch (ApplicationException $ex) {
+            echo "<h1>ERRORE NELLA LETTURA DEI \"MOSTRA\"!</h1>" . $ex;
+        }
 
     } catch (ApplicationException $ex) {
         echo "<h1>errore! ApplicationException->errore manca id sessione nel path!</h1>";
@@ -58,7 +74,7 @@ else {  //CASO IN CUI SI VUOLE CREARE LA SESSIONE
 }
 
 if($_URL[5]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tutti i campi
-    if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo']) && isset($_POST['tests']) ) {
+    if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo']) ) {
         $newdataFrom = $_POST['dataFrom'];
         $newdataTo = $_POST['dataTo'];
         $newtipoSessione = $_POST['radio1'];
@@ -68,42 +84,45 @@ if($_URL[5]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
 
         //creo la sessione
         $sessione = new Sessione($newdataFrom, $newdataTo, $sogliAmm, $stato, $newtipoSessione, $idCorso);
-        $idNuovaSessione=$controller->creaSessione($sessione);
+        try {
+            $idNuovaSessione = $controller->creaSessione($sessione);
 
-        if(isset($_POST['cbShowEsiti'])){
-            $controller->abilitaMostraEsito($idNuovaSessione);
-        }
+            if (isset($_POST['cbShowEsiti'])) {
+                $controller->abilitaMostraEsito($idNuovaSessione);
+            }
 
-        if(isset($_POST['cbShowRispCorr'])){
-            $controller->abilitaMostraRisposteCorrette($idNuovaSessione);
-        }
+            if (isset($_POST['cbShowRispCorr'])) {
+                $controller->abilitaMostraRisposteCorrette($idNuovaSessione);
+            }
 
-        if( isset($_POST['students'])) {
-            $cbStudents = $_POST['students'];
-            if ($cbStudents == null) {
-                echo "<h1>CBSTUDENTS VUOTO!</h1>";
-            } else {
-                //creo l'abilitazione students-sessione
-                foreach ($cbStudents as $s) {
-                    echo $s . " " . $idNuovaSessione;
-                    $controller->abilitaStudenteASessione($idNuovaSessione, $s);
+            if (isset($_POST['students'])) {
+                $cbStudents = $_POST['students'];
+                if ($cbStudents == null) {
+                    echo "<h1>CBSTUDENTS VUOTO!</h1>";
+                } else {
+                    //creo l'abilitazione students-sessione
+                    foreach ($cbStudents as $s) {
+                        $controller->abilitaStudenteASessione($idNuovaSessione, $s);
+                    }
+                }
+            }
+
+            if (isset($_POST['tests'])) {
+                //creo l'associazione tests-sessione
+                $cbTest = Array();
+                $cbTest = $_POST['tests'];
+                if ($cbTest != null) {
+                    print_r($cbTest);
+                }
+
+                foreach ($cbTest as $t) {
+                  $controller->associaTestASessione($idNuovaSessione, $t);
                 }
             }
         }
-            //creo l'associazione tests-sessione
-            $cbTest = Array();
-            $cbTest = $_POST['tests'];
-            if($cbTest!=null) {
-                 print_r($cbTest);
-            }
-            else
-             echo "cbtests vuoto";
-
-            foreach($cbTest as $t) {
-                 echo $t." ".$idNuovaSessione;
-                 $controller->associaTestASessione($idNuovaSessione,$t);
-             }
-
+        catch (ApplicationException $ex) {
+            echo "<h1>ERRORE NELLE OPERAZIONI DELLA SESSIONE (fase creazione)!</h1>" . $ex;
+        }
 
             //torna a pagina corso del docente
             $tornaACasa= "Location: "."/usr/docente/corso/"."$idCorso";
@@ -123,42 +142,47 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
         else
             $newOrOldDataTo = $_POST['dataTo'];
 
-        $sessioneAggiornata = new Sessione($newOrOldDataFrom,$newOrOldDataTo,$sogliAmm,$stato,$tipoSessione,$idCorso);
-        $controller->disabilitaMostraEsito($idSessione);
-        $controller->disabilitaMostraRisposteCorrette($idSessione);
+        try {
+            $sessioneAggiornata = new Sessione($newOrOldDataFrom, $newOrOldDataTo, $sogliAmm, $stato, $tipoSessione, $idCorso);
+            $controller->disabilitaMostraEsito($idSessione);
+            $controller->disabilitaMostraRisposteCorrette($idSessione);
 
-        if(isset($_POST['cbShowEsiti'])) {
-            $controller->abilitaMostraEsito($idSessione);
-        }
+            if (isset($_POST['cbShowEsiti'])) {
+                $controller->abilitaMostraEsito($idSessione);
+            }
 
-        if(isset($_POST['cbShowRispCorr'])){
-            $controller->abilitaMostraRisposteCorrette($idSessione);
-        }
-        $controller->disabilitaMostraRisposteCorrette($idSessione);
-        $controller->updateSessione($_URL[5],$sessioneAggiornata);
+            if (isset($_POST['cbShowRispCorr'])) {
+                $controller->abilitaMostraRisposteCorrette($idSessione);
+            }
+            $controller->disabilitaMostraRisposteCorrette($idSessione);
+            $controller->updateSessione($_URL[5], $sessioneAggiornata);
 
 
-        if($someTestsAorD) {
-            $cbTest = Array();
-            $cbTest = $_POST['tests'];
-            $controller->deleteAllTestFromSessione($idSessione);
-            foreach($cbTest as $t) {
-                  $controller->associaTestASessione($idSessione, $t);
+            if ($someTestsAorD) {
+                $cbTest = Array();
+                $cbTest = $_POST['tests'];
+                $controller->deleteAllTestFromSessione($idSessione);
+                foreach ($cbTest as $t) {
+                    $controller->associaTestASessione($idSessione, $t);
+                }
+            }
+
+            if ($someStudentsChange) {
+                $cbStudents = Array();
+                $cbStudents = $_POST['students'];
+                //disabilito tutti gli studenti
+                $allStuAbi = $controller->getAllStudentiBySessione($idSessione);
+                foreach ($allStuAbi as $s) {
+                    $controller->disabilitaStudenteDaSessione($idSessione, $s->getMatricola());
+                }
+                //creo l'abilitazione students-sessione
+                foreach ($cbStudents as $s) {
+                    $controller->abilitaStudenteASessione($idSessione, $s);
+                }
             }
         }
-
-        if($someStudentsChange){
-            $cbStudents= Array();
-            $cbStudents = $_POST['students'];
-            //disabilito tutti gli studenti
-            $allStuAbi = $controller->getAllStudentiBySessione($idSessione);
-            foreach($allStuAbi as $s) {
-                $controller->disabilitaStudenteDaSessione($idSessione, $s->getMatricola());
-            }
-            //creo l'abilitazione students-sessione
-            foreach($cbStudents as $s) {
-                $controller->abilitaStudenteASessione($idSessione,$s);
-            }
+        catch (ApplicationException $ex) {
+            echo "<h1>ERRORE NELLE OPERAZIONI DELLA SESSIONE (fase modifica)!</h1>" . $ex;
         }
 
 
@@ -182,7 +206,7 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
 <html lang="en">
 <!--<![endif]-->
 <!-- BEGIN HEAD -->
-<head>
+<head id="saliQui">
     <meta charset="utf-8"/>
     <title>Metronic | Page Layouts - Blank Page</title>
     <link rel="stylesheet" type="text/css"
@@ -190,6 +214,7 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
     <link rel="stylesheet" type="text/css"
           href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
 
     <?php include VIEW_DIR . "design/header.php"; ?>
 </head>
@@ -200,7 +225,7 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
 <div class="clearfix">
 </div>
 <!-- BEGIN CONTAINER -->
-<div class="page-container">
+<div class="page-container" >
     <?php include VIEW_DIR . "design/sideBar.php"; ?>
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
@@ -239,9 +264,19 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
                     </li>
                 </ul>
             </div>
+
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
             <form action="" method="post" id="form_sample_1">
+
+                <div class="alert alert-danger display-hide">
+                    <button class="close" data-close="alert"></button>
+                    Ci sono alcuni dati mancanti. Per favore riprova l'inserimento.
+                </div>
+                <div class="alert alert-success display-hide">
+                    <button class="close" data-close="alert"></button>
+                    La sessione &egrave; stata salvata correttamente!
+                </div>
             <div class="row">
                 <div class="col-md-12">
 
@@ -276,7 +311,7 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
                             <label>Seleziona tipologia</label>
                             <div class="md-radio-list">
                                 <div class="md-radio">
-                                    <?php printf("<input type=\"radio\" value=\"Valutativa\" id=\"radio1\" %s name=\"radio1\" class=\"md-radiobtn\">", $valu);?>
+                                    <?php printf("<input type=\"radio\" value=\"Valutativa\" checked id=\"radio1\" %s name=\"radio1\" class=\"md-radiobtn\">", $valu);?>
                                     <label for="radio1">
                                     <span></span>
                                     <span class="check"></span>
@@ -403,10 +438,14 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
                             <?php
                             $toCheck=null;
                             $array = Array();
-                            $array = $controller->getAllTestByCorso($idCorso);
-                            $testsOfSessione= $controller->getAllTestBySessione($_URL[5]);
+                            try {
+                                $array = $controller->getAllTestByCorso($idCorso);
+                                $testsOfSessione = $controller->getAllTestBySessione($_URL[5]);
+                            }
+                            catch (ApplicationException $ex) {
+                                echo "<h1>ERRORE NELLA LETTURA DEI TESTS!</h1>" . $ex;
+                            }
                             if ($array == null) {
-                                echo "l'array è null"." ".$idCorso;
                             }
                             else {
                                 foreach ($array as $c) {
@@ -434,6 +473,11 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
                 </div>
             </div>
 
+
+                <div class="alert alert-success display-hide">
+                    <button class="close" data-close="alert"></button>
+                    La sessione &egrave; stata salvata correttamente!
+                </div>
 
             <div class="portlet box blue-madison">
                 <div class="portlet-title">
@@ -499,10 +543,14 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
                             <?php
                             $array = Array();
                             $toCheckS="";
-                            $array = $controller->getAllStudentiByCorso($idCorso);
-                            $studentsOfSessione= $controller->getAllStudentiBySessione($idSessione);
+                            try {
+                                $array = $controller->getAllStudentiByCorso($idCorso);
+                                $studentsOfSessione = $controller->getAllStudentiBySessione($idSessione);
+                            }
+                            catch (ApplicationException $ex) {
+                                echo "<h1>ERRORE NELLA LETTURA DEGLI STUDENTI!</h1>" . $ex;
+                            }
                             if ($array == null) {
-                                echo "l'array è null";
                             }
                             else {
                                 foreach ($array as $c) {
@@ -526,18 +574,20 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
                 </div>
             </div>
 
-
-
+                <div class="alert alert-success display-hide">
+                    <button class="close" data-close="alert"></button>
+                    La sessione &egrave; stata salvata correttamente!
+                </div>
 
             <div class="form-actions">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-9">
-                                <button type="submit"  href="javascript:;" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                <button type="submit"  href='#saliQui;' class="btn sm green-jungle "><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                                     Salva
                                 </button>
-                                <a href="javascript:;" class="btn sm red-intense">
+                                <a href="../../" class="btn sm red-intense">
                                     Annulla
                                 </a>
                             </div>
@@ -570,6 +620,8 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
     <script src="/assets/admin/pages/scripts/form-validation.js"></script>
     <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
     <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
+    <script src="/assets/admin/pages/scripts/ui-toastr.js"></script>
+    <script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
     <script>
         jQuery(document).ready(function () {
             Metronic.init(); // init metronic core components
@@ -578,6 +630,7 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
             //Demo.init(); // init demo features
             TableManaged.init('tabella_test','tabella_test_wrapper');
             TableManaged.init('tabella_studenti','tabella_studenti_wrapper');
+            UIToastr.init();
             FormValidation.init();
         });
     </script>

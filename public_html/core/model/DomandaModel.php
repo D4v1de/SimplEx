@@ -34,8 +34,8 @@ class DomandaModel extends Model {
     private static $ASSOCIA_DOMANDA_MULTIPLA_TEST = "INSERT INTO `compone_multipla` (domanda_multipla_id, test_id, punteggio_corretta_alternativo, punteggio_errata_alternativo) VALUES ('%d','%d', '%f', '%f')";
     private static $MODIFICA_DOMANDA_MULTIPLA_TEST = "UPDATE `compone_multipla` SET punteggio_corretta_alternativo = '%f', punteggio_errata_alternativo = '%f' WHERE domanda_multipla_id = '%d' AND test_id= '%d'";
     private static $DISSOCIA_DOMANDA_MULTIPLA_TEST = "DELETE FROM `compone_multipla` WHERE domanda_multipla_id = '%d' AND test_id= '%d'";
-    private static $READ_PUNTEGGIO_CORRETTA_ALTERNATIVO_DOMANDA_MULTIPLA_TEST = "SELECT punteggio_corretta_aternativo FROM `compone_multipla` WHERE domanda_multipla_id = '%d' AND test_id= '%d'";
-    private static $READ_PUNTEGGIO_ERRATA_ALTERNATIVO_DOMANDA_MULTIPLA_TEST = "SELECT punteggio_errata_aternativo FROM `compone_multipla` WHERE domanda_multipla_id = '%d' AND test_id= '%d'";
+    private static $READ_PUNTEGGIO_CORRETTA_ALTERNATIVO_DOMANDA_MULTIPLA_TEST = "SELECT punteggio_corretta_alternativo FROM `compone_multipla` WHERE domanda_multipla_id = '%d' AND test_id= '%d'";
+    private static $READ_PUNTEGGIO_ERRATA_ALTERNATIVO_DOMANDA_MULTIPLA_TEST = "SELECT punteggio_errata_alternativo FROM `compone_multipla` WHERE domanda_multipla_id = '%d' AND test_id= '%d'";
 
     /**
      * Inserisce una nuova DomandaAperta nel database
@@ -317,8 +317,7 @@ class DomandaModel extends Model {
         $query = sprintf(self::$READ_PUNTEGGIO_MAX_ALTERNATIVO_DOMANDA_TEST, $idDomandaAperta, $idTest);
         $res = Model::getDB()->query($query);
         if ($obj = $res->fetch_assoc()) {
-            $punteggio = ($obj['punteggio_max_alternativo']);
-            return $punteggio;
+            return $obj['punteggio_max_alternativo'];
         } else {
             throw new ApplicationException(Error::$DOMANDA_APERTA_NON_TROVATA);
         }
@@ -381,8 +380,7 @@ class DomandaModel extends Model {
         $query = sprintf(self::$READ_PUNTEGGIO_CORRETTA_ALTERNATIVO_DOMANDA_MULTIPLA_TEST, $idDomandaMultipla, $idTest);
         $res = Model::getDB()->query($query);
         if ($obj = $res->fetch_assoc()) {
-            $punteggio = ($obj['punteggio_corretta_alternativo']);
-            return $punteggio;
+            return $obj['punteggio_corretta_alternativo'];
         } else {
             throw new ApplicationException(Error::$DOMANDA_MULTIPLA_NON_TROVATA);
         }
@@ -399,8 +397,7 @@ class DomandaModel extends Model {
         $query = sprintf(self::$READ_PUNTEGGIO_ERRATA_ALTERNATIVO_DOMANDA_MULTIPLA_TEST, $idDomandaMultipla, $idTest);
         $res = Model::getDB()->query($query);
         if ($obj = $res->fetch_assoc()) {
-            $punteggio = ($obj['punteggio_errata_alternativo']);
-            return $punteggio;
+            return $obj['punteggio_errata_alternativo'];
         } else {
             throw new ApplicationException(Error::$DOMANDA_MULTIPLA_NON_TROVATA);
         }
