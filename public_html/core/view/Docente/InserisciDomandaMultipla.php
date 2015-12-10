@@ -286,7 +286,12 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($
         num--;
     }
 
+</script>
 
+<script>
+    function notificaInserimento(){
+        sessionStorage.setItem('notificaInsMultipla','si');
+    }
 </script>
 <!-- END JAVASCRIPTS -->
 </body>
