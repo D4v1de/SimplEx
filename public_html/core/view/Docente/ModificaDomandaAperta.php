@@ -17,27 +17,40 @@ $argomentoController = new ArgomentoController();
 $idCorso = $_URL[3];
 $idArgomento = $_URL[7];
 $idDomanda = $_URL[8];
-$corso = $cdlController->readCorso($idCorso);
-$argomento = $argomentoController->readArgomento($idArgomento,$idCorso); //Da modificare la chiamata
-$domandaOld = $domandaController->getDomandaAperta($idDomanda);
+$corso = null;
+$argomento = null;
+$domandaOld = null;
 
-if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
+try {
+    $corso = $cdlController->readCorso($idCorso);
+} catch (ApplicationException $exception) {
+    echo "ERRORE IN READ CORSO" . $exception;
+}
 
-    $testo = $_POST['testo'];
-    $punteggio = $_POST['punteggio'];
+try {
+    $argomento = $argomentoController->readArgomento($idArgomento, $idCorso);
+} catch (ApplicationException $exception) {
+    echo "ERRORE IN READ ARGOMENTO" . $exception;
+}
+try {
+    $domandaOld = $domandaController->getDomandaAperta($idDomanda);
+} catch (ApplicationException $exception) {
+    echo "ERRORE IN GET DOMANDA APERTA" . $exception;
+}
 
-    if (empty($testo) && empty($punteggio)) {
-        echo "<script type='text/javascript'>alert('Devi riempire tutti i campi!');</script>";
-    } else if (empty($testo)) {
-        echo "<script type='text/javascript'>alert('Devi inserire il testo!');</script>";
-    } else if (empty($punteggio)) {
-        echo "<script type='text/javascript'>alert('Devi inserire il punteggio!');</script>";
-    } else {
-        $updatedDomanda = new DomandaAperta($idArgomento, $testo, $punteggio, 0);
-        $domandaController->modificaDomandaAperta($idDomanda,$updatedDomanda);
+if (isset($_POST['testoDomanda']) && isset($_POST['number'])) {
 
-        header('location: ../../'.$idArgomento);
+    $testo = $_POST['testoDomanda'];
+    $punteggio = $_POST['number'];
+
+    $updatedDomanda = new DomandaAperta($idArgomento, $testo, $punteggio, 0);
+    try {
+        $domandaController->modificaDomandaAperta($idDomanda, $updatedDomanda);
+    } catch (ApplicationException $exception) {
+        echo "ERRORE IN MODIFICA DOMANDA APERTA" . $exception;
     }
+
+    header('location: ../../' . $idArgomento);
 }
 ?>
 <!DOCTYPE html>
@@ -53,6 +66,7 @@ if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
     <meta charset="utf-8"/>
     <title>Modifica Domanda Aperta</title>
     <?php include VIEW_DIR . "design/header.php"; ?>
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -81,12 +95,17 @@ if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"../../../../../%d\">%s</a>",$corso->getId(),$corso->getNome());
+                    printf("<a href=\"../../../../../../cdl/%s\">%s</a>", $corso->getCdlMatricola(), $cdlController->readCdl($corso->getCdlMatricola())->getNome());
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"../../%d\">%s</a>",$idArgomento, $argomento->getNome());
+                    printf("<a href=\"../../../../../%d\">%s</a>", $corso->getId(), $corso->getNome());
+                    printf("<i class=\"fa fa-angle-right\"></i>");
+                    printf("</li>");
+                    printf("<li>");
+                    printf("<i></i>");
+                    printf("<a href=\"../../%d\">%s</a>", $idArgomento, $argomento->getNome());
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
@@ -98,15 +117,11 @@ if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <form method="post" action="" class="form-horizontal form-bordered">
+            <form id="form_sample_1" method="post" action="" class="form-horizontal form-bordered">
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="fa fa-edit"></i>Modifica Domanda Aperta
-                        </div>
-                        <div class="tools">
-                            <a href="javascript:;" class="collapse" data-original-title="" title="">
-                            </a>
                         </div>
                     </div>
                     <div class="portlet-body form">
@@ -117,9 +132,9 @@ if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
 
                                 <div class="col-md-6">
                                     <?php
-                                    printf("<input type=\"text\" id=\"testoDomanda\" name=\"testo\" value=\"%s\" class=\"form-control\">",$domandaOld->getTesto());
+                                    printf("<input type=\"text\" id=\"testoDomanda\" name=\"testoDomanda\" value=\"%s\" class=\"form-control\">", $domandaOld->getTesto());
                                     printf("<span class=\"help-block\">");
-                                    printf("Inserisci il testo della domanda </span>");
+                                    printf("</span>");
                                     ?>
                                 </div>
                             </div>
@@ -128,9 +143,9 @@ if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
 
                                 <div class="col-md-4">
                                     <?php
-                                    printf("<input type=\"number\" id=\"punteggioDomanda\" name=\"punteggio\" value=\"%d\" class=\"form-control\">",$domandaOld->getPunteggioMax());
+                                    printf("<input type=\"number\" id=\"number\" name=\"number\" value=\"%d\" class=\"form-control\">", $domandaOld->getPunteggioMax());
                                     printf("<span class=\"help-block\">");
-                                    printf("Inserisci il punteggio della domanda </span>");
+                                    printf(" </span>");
                                     ?>
                                 </div>
                             </div>
@@ -144,9 +159,9 @@ if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
                                 <div class="col-md-9">
                                     <button type="submit" class="btn sm green-jungle">Conferma</button>
                                     <?php
-                                    printf("<a href=\"../../%d\" class=\"btn sm red-intense\">",$idArgomento);
+                                    printf("<a href=\"../../%d\" class=\"btn sm red-intense\">", $idArgomento);
                                     ?>
-                                        Annulla
+                                    Annulla
                                     </a>
                                 </div>
                             </div>
@@ -156,24 +171,49 @@ if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
             </form>
             <!-- END CONTENT -->
         </div>
-        <!-- END CONTAINER -->
-        <?php include VIEW_DIR . "design/footer.php"; ?>
-        <!-- END FOOTER -->
-        <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
-        <?php include VIEW_DIR . "design/js.php"; ?>
+    </div>
+</div>
+<!-- END CONTAINER -->
+<?php include VIEW_DIR . "design/footer.php"; ?>
+<!-- END FOOTER -->
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<?php include VIEW_DIR . "design/js.php"; ?>
 
-        <!--Script specifici per la pagina -->
-        <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
-        <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
-        <script>
-            jQuery(document).ready(function () {
-                Metronic.init(); // init metronic core components
-                Layout.init(); // init current layout
-                //QuickSidebar.init(); // init quick sidebar
-                //Demo.init(); // init demo features
-            });
-        </script>
-        <!-- END JAVASCRIPTS -->
+<!--Script specifici per la pagina -->
+<script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+<script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
+<script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript"
+        src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<!-- END PAGE LEVEL PLUGINS aggiunta da me-->
+<!-- BEGIN aggiunta da me -->
+<script src="/assets/admin/pages/scripts/table-managed.js"></script>
+<script src="/assets/admin/pages/scripts/form-validation.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
+
+<script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
+<script src="/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
+
+<script src="/assets/admin/pages/scripts/ui-toastr.js"></script>
+<script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
+<script>
+    jQuery(document).ready(function () {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        //QuickSidebar.init(); // init quick sidebar
+        //Demo.init(); // init demo features
+        TableManaged.init();
+        FormValidation.init();
+        UIConfirmations.init();
+        UIToastr.init();
+    });
+</script>
+
+
+<!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->
 </html>
