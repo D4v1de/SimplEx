@@ -48,8 +48,8 @@ if (isset($_POST['checkbox'])) {
     <title>Gestione CdL</title>
     <?php include VIEW_DIR . "design/header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
-    <link rel="stylesheet" type="text/css"
-          href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -84,7 +84,7 @@ if (isset($_POST['checkbox'])) {
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
 
-            <form method="post" action="">
+            <form method="post" action="" onsubmit="impostaNotifica()">
 
                 <div class="portlet box blue-madison">
 
@@ -101,14 +101,13 @@ if (isset($_POST['checkbox'])) {
                                 <i class="fa fa-plus"></i> Crea CdL </a>
                         </div>
                         <div class="actions">
-                            <button type="submit" class="btn btn-default btn-sm">
+                            <button type="submit" class="btn btn-default btn-sm" data-toggle="confirmation" data-singleton="true" data-popout="true" title="sei sicuro?">
                                 <i class="fa fa-minus"></i> Elimina Cdl
                             </button>
                         </div>
                     </div>
                     <div class="portlet-body">
                         <div id="tabella_5_wrapper" class="dataTables_wrapper no-footer">
-                            <div class="table-scrollable">
                                 <table class="table table-striped table-bordered table-hover dataTable no-footer"
                                        id="tabella_5" role="grid" aria-describedby="tabella_5_info">
                                     <thead>
@@ -148,7 +147,6 @@ if (isset($_POST['checkbox'])) {
                                     ?>
                                     </tbody>
                                 </table>
-                            </div>
 
                         </div>
                     </div>
@@ -184,6 +182,10 @@ if (isset($_POST['checkbox'])) {
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN aggiunta da me -->
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
+<script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
+<script src="/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
+<script src="/assets/admin/pages/scripts/ui-toastr.js"></script>
+<script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
 <!-- END aggiunta da me -->
 <script>
     jQuery(document).ready(function () {
@@ -192,7 +194,28 @@ if (isset($_POST['checkbox'])) {
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
         TableManaged.init("tabella_5", "tabella_5_wrapper");
+        UIConfirmations.init();
+
+        if(sessionStorage.getItem('notifica') == 'si') {
+            toastr.success('Nuovo CdL creato con successo!','Creazione');
+            sessionStorage.removeItem('notifica');
+        }
+
+        if (sessionStorage.getItem('elimina') == 'si') {
+            toastr.success('Corso eliminato con successo!', 'Eliminazione');
+            sessionStorage.removeItem('elimina');
+        }
+
+        if (sessionStorage.getItem('modifica') == 'si') {
+            toastr.success('Corso modificato con successo!', 'Modifica');
+            sessionStorage.removeItem('modifica');
+        }
     });
+</script>
+<script>
+    function impostaNotifica() {
+        sessionStorage.setItem('elimina','si');
+    }
 </script>
 <!-- END JAVASCRIPTS -->
 </body>

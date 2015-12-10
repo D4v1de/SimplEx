@@ -12,6 +12,7 @@ $controller = new CdlController();
 
 $cdls = Array();
 $flag = 1;
+$flag2 = 1;
 
 try {
     $cdls = $controller->getCdl();
@@ -27,12 +28,16 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 
     foreach($cdls as $c) {
         if($c->getMatricola() == $matricola) {
-            echo "errore stampare notifica oppure validation error div alert danger";
             $flag = 0;
         }
     }
+    foreach($cdls as $c) {
+        if($c->getNome() == $nome) {
+            $flag2 = 0;
+        }
+    }
 
-    if($flag) {
+    if($flag && $flag2) {
         try {
             $cdl = new CdL($matricola, $nome, $tipologia);
             $controller->creaCdl($cdl);
@@ -60,8 +65,8 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     <title>Crea CdL</title>
     <?php include VIEW_DIR . "design/header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
-    <link rel="stylesheet" type="text/css"
-          href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -120,6 +125,23 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                             <div class="portlet-body">
                                 <div class="portlet-body form">
 
+                                    <?php
+                                        if(!$flag) {
+                                            echo "<div class=\"alert alert-danger\">
+                                        <button class=\"close\" data-close=\"alert\"></button>
+                                        La matricola del corso di laurea è già presente nel DataBase.
+                                        </div>";
+                                        }
+                                    ?>
+                                    <?php
+                                    if(!$flag2) {
+                                        echo "<div class=\"alert alert-danger\">
+                                        <button class=\"close\" data-close=\"alert\"></button>
+                                        Il nome del corso di laurea è già presente nel DataBase.
+                                        </div>";
+                                    }
+                                    ?>
+
                                     <div class="alert alert-danger display-hide">
                                         <button class="close" data-close="alert"></button>
                                         Ci sono alcuni errori nei dati. Per favore riprova l'inserimento.
@@ -176,7 +198,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                             <div class="col-md-12">
                                 <div class="form-actions">
                                     <div class="col-md-3">
-                                        <input type="submit" value="Conferma" class="btn green-jungle"/>
+                                        <button type="submit" id="elimatricola" onclick="impostaNotifica()" value="Conferma" class="btn green-jungle">Conferma</button>
                                     </div>
                                     <div class="col-md-3">
                                         <input type="reset" value="Annulla" class="btn red-intense"/>
@@ -207,8 +229,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 <!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
 <script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript"
-        src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <!-- END PAGE LEVEL PLUGINS aggiunta da me-->
 
 <script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>
@@ -220,6 +241,8 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 <script src="/assets/admin/pages/scripts/form-validation.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
+<script src="/assets/admin/pages/scripts/ui-toastr.js"></script>
+<script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
 <!-- END aggiunta da me -->
 <script>
     jQuery(document).ready(function () {
@@ -229,8 +252,16 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
         //Demo.init(); // init demo features
         TableManaged.init("tabella_3", "tabella_3_wrapper");
         FormValidation.init();
+        UIConfirmations.init();
+        UIToastr.init();
     });
 </script>
+<script>
+    function impostaNotifica() {
+        sessionStorage.setItem('notifica','si');
+    }
+</script>
+
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

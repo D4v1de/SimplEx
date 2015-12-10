@@ -13,6 +13,7 @@ $controller = new CdlController();
 $new = null;
 $cdl = null;
 $url = null;
+$flag = 1;
 
 $url = $_URL[3];
 if (!is_numeric($url)) {
@@ -35,15 +36,15 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     $tipologianew = $_POST['tipologia'];
     $matricolanew = $_POST['matricola'];
 
-    try {
-        $new = new CdL($matricolanew, $nomenew, $tipologianew);
-        $controller->modificaCdl($cdl->getMatricola(), $new);
-        header('location: ../view');
-    } catch (ApplicationException $ex) {
-        echo "<h1>MODIFICACDL FALLITO!</h1>" . $ex;
-    }
-
+        try {
+            $new = new CdL($matricolanew, $nomenew, $tipologianew);
+            $controller->modificaCdl($cdl->getMatricola(), $new);
+            header('location: ../view');
+        } catch (ApplicationException $ex) {
+            echo "<h1>MODIFICACDL FALLITO!</h1>" . $ex;
+        }
 }
+
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -159,7 +160,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
                                             <input type="text" class="form-control" name="matricola" id="matricolaCdl"
-                                                   value="<?php echo $matricola; ?>">
+                                                   value="<?php echo $matricola; ?>" readonly>
 
                                             <div class="form-control-focus">
                                             </div>
@@ -173,7 +174,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                             <div class="col-md-12">
                                 <div class="form-actions">
                                     <div class="col-md-3">
-                                        <button type="submit" class="btn green-jungle">Conferma</button>
+                                        <button type="submit" onclick="impostaNotifica()" class="btn green-jungle">Conferma</button>
                                     </div>
                                     <div class="col-md-3">
                                         <input type="reset" value="Annulla" class="btn red-intense"/>
@@ -204,8 +205,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 <!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
 <script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript"
-        src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <!-- END PAGE LEVEL PLUGINS aggiunta da me-->
 
 <script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>
@@ -227,6 +227,11 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
         TableManaged.init();
         FormValidation.init();
     });
+</script>
+<script>
+    function impostaNotifica() {
+        sessionStorage.setItem('modifica','si');
+    }
 </script>
 <!-- END JAVASCRIPTS -->
 </body>
