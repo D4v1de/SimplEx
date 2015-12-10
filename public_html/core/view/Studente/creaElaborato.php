@@ -13,5 +13,5 @@ $sessioneId = $_REQUEST["sessId"];
 
 $elaboratoController = new ElaboratoController();
 
-$elaborato = new Elaborato($matricolaStudente, $sessioneId, null, null, 1); //STUB
+$elaborato = new Elaborato($matricolaStudente, $sessioneId, null, null, 1, "Non corretto"); //STUB
 $elaboratoController->createElaborato($elaborato);

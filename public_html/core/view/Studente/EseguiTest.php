@@ -122,6 +122,7 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
                                 </div>
                             </div>
                             <?php
+                            $selectedAlt = null;
                             function creaRispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId, $testo, $punteggio){
                                 $raCon = new RispostaApertaController();
                                 $risp = new RispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId, $testo, $punteggio);
@@ -132,6 +133,16 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
                                 $risp = new RispostaMultipla($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId, $punteggio, $alternativaId);
                                 $rmCon->createRispostaMultipla($risp);
                             }
+                            function setRispostaMultiplaAlternativa($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId){
+                                $rmCon = new RispostaMultiplaController();
+                                $risp = $rmCon->readRispostaMultipla($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId);
+                                return $risp->getAlternativaId();
+                            }
+                            function setRispostaApertaValue($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId){
+                                $raCon = new RispostaApertaController();
+                                $risp = $raCon->readRispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId);
+                                return $risp->getTesto();
+                            }
                                 $i = 1;
                                 foreach ($multiple as $m) {
                                     $j = 1;
@@ -141,7 +152,7 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
                                         creaRispostaMultipla($sessId, $matricola, $multId, null, null);
                                     }
                                     catch (ApplicationException $ex){
-                                        echo '<h3>Impossibile creare risposta</h3>';
+                                        $selectedAlt = setRispostaMultiplaAlternativa($sessId, $matricola, $multId);
                                     }
                                     echo "<h3>".$testo."</h3>";
                                     echo '<div class="form-group form-md-checkboxes">';
@@ -150,7 +161,9 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
                                     foreach ($alternative as $r){
                                         $altId = $r->getId();
                                         echo    '<div class="md-checkbox">
-                                                    <input type="checkbox" id="alt-'.$altId.'" name="mul-'.$multId.'" onclick="javascript: updateMultipla(this.name,this.id);" class="md-check">
+                                                    <input type="checkbox" id="alt-'.$altId.'" name="mul-'.$multId.'" ';
+                                        if ($selectedAlt == $altId) echo 'checked';
+                                        echo        ' onclick="javascript: updateMultipla(this.name,this.id);" class="md-check">
                                                     <label for="alt-'.$altId.'">
                                                     <span class="inc"></span>
                                                     <span class="check"></span>
@@ -167,15 +180,16 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
                                 foreach ($aperte as $a) {
                                     $testo = $a->getTesto();
                                     $apId = $a->getId();
+                                    $txt = null;
                                     try{
                                         creaRispostaAperta($sessId, $matricola, $apId, null, null);
                                     }
                                     catch (ApplicationException $ex){
-                                        echo '<h3>Impossibile creare risposta</h3>';
+                                        $txt = setRispostaApertaValue($sessId, $matricola, $apId);
                                     }
                                     echo '<h3>'.$testo.'</h3>';
                                     echo    '<div class="form-group">
-                                                <textarea class="form-control" id="ap-'.$apId.'" rows="3" placeholder="Inserisci risposta" style="resize:none"></textarea>
+                                                <textarea class="form-control" id="ap-'.$apId.'" rows="3" placeholder="Inserisci risposta" style="resize:none">'.$txt.'</textarea>
                                             </div>';
                                     $i++;
                                 }
@@ -245,7 +259,10 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
             var id = res[1];
             $.post("/updateAperta?mat="+mat+"&sessId="+sId+"&domId="+id+"&testo="+testo);
             clearInterval(intId3);
-        });
+        });/*
+        $("textarea").each(function(){
+            $.get("/getApertaValue?mat="+mat+"&sessId="+sId+"&domId="+id+"&testo="+testo);
+        });*/
         //fine aperte
         //multiple
         $("input.md-check").click(function() {
@@ -265,23 +282,6 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
             }
             $.post("/updateMultipla?mat="+mat+"&sessId="+sId+"&domId="+rId+"&altId="+aId);
         });
-        var updateMultipla = function(multId,altId){
-            var res = multId.split('-');
-            var rId = res[1];
-            res = altId.split('-');
-            var aId = res[1];
-            if (window.XMLHttpRequest) {
-                var xhr = new XMLHttpRequest();
-                //metodo tradizionale di registrazione eventi   
-                xhr.onreadystatechange =gestoreRichiesta;   
-                xhr.open("GET", "/updateMultipla?mat="+mat+"&sessId="+sId+"&domId="+rId+"&altId="+aId, true);   
-                xhr.send(""); 
-            } 
-            function gestoreRichiesta() {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                }
-            }
-        }
         //fine multiple
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
@@ -350,7 +350,11 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
     
 </script>
 <!-- consegna e abbandono -->
-<script>
+<script>    
+    var SetAlternativa = function(){
+        
+    }
+    
     var Consegna = function(){
             var r = confirm("Sei sicuro di voler consegnare? Non potrai tornare indietro.");
             if (r == true){
