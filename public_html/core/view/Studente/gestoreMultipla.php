@@ -21,9 +21,8 @@ include_once BEAN_DIR . "RispostaMultipla.php";
     //$response = "Sessione:".$elaboratoSessioneId."Matricola:".$elaboratoStudenteMatricola."Domanda:".$alternativaDomandaMultiplaId."Risposta:".$alternativaId."Corso:".$alternativaDomandaMultiplaArgomentoCorsoId;
     $response = $punteggio;
     echo $response;
-    /*
     function calcolaPunteggio($id, $domandaMultiplaId, $domandaMultiplaArgomentoId, $domandaMultiplaArgomentoCorsoId){
         $altCon = new AlternativaController();
         $alt = $altCon->readAlternativa($id, $domandaMultiplaId, $domandaMultiplaArgomentoId, $domandaMultiplaArgomentoCorsoId);
         return $corr = $alt->getCorretta();
-    }*/
+    }
