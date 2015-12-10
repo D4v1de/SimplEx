@@ -82,15 +82,15 @@ try {
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="../../../gestionale/admin/index.html">Home</a>
+                        <a href="../../../../index.html">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../">CdL</a>
+                        <a href="../..">CdL</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../cdl/<?php echo $cdl->getMatricola(); ?>"><?php echo $cdl->getNome(); ?></a>
+                        <a href="../../cdl/<?php echo $cdl->getMatricola(); ?>"><?php echo $cdl->getNome(); ?></a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
@@ -183,7 +183,7 @@ try {
                                         $elaborato = $elaboratoController->readElaborato($matricolaStudente,$s->getId());
                                         $parz = $elaborato->getEsitoParziale();
                                         $fin = $elaborato->getEsitoFinale();
-                                        $esito = ($fin == null)? $parz:$fin;                                        
+                                        $esito = strcmp($elaborato->getStato(),"Corretto")? $parz:$fin;                                        
                                     } catch (ApplicationException $ex) {
                                         $esito = null;
                                     }

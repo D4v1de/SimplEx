@@ -24,17 +24,25 @@ include_once BEAN_DIR . "Elaborato.php";
     $punteggio = 0;
     foreach ($rispMul as $rm) {
         $dom = $domCon->getDomandaMultipla($rm->getDomandaMultiplaId());
+        
+       // $puntCorrAlt = $domCon->readPunteggioCorrettaAlternativo($rm->getDomandaMultiplaId(), $elaborato->getTestId());
+       // $puntErrAlt = $domCon->readPunteggioErrataAlternativo($rm->getDomandaMultiplaId(), $elaborato->getTestId());
+        //$puntCor = ($puntCorrAlt != null)? $puntCorrAlt:$dom->getPunteggioCorretta();
+        //$puntErr = ($puntErrAlt != null)? $puntErrAlt:$dom->getPunteggioErrata();
         $puntCor = $dom->getPunteggioCorretta();
         $puntErr = $dom->getPunteggioErrata();
         $altCor = $altCon->getAlternativaCorrettaByDomanda($rm->getDomandaMultiplaId());
         if ($rm->getAlternativaId() != 0)
-            if ($altCor->getId() == $rm->getAlternativaId())
+            if ($altCor->getId() == $rm->getAlternativaId()){
                 $punteggio = $punteggio + $puntCor;
-            else 
+                $rm->setPunteggio($puntCor);
+            }
+            else{
                 $punteggio = $punteggio + $puntErr;
+                $rm->setPunteggio($puntErr);
+            }
+            $rmCon->updateRispostaMultipla($rm, $sessioneId, $studenteMatricola, $rm->getDomandaMultiplaId());
     }
     $elaborato->setEsitoParziale($punteggio);
-    
     $elCon->updateElaborato($studenteMatricola,$sessioneId,$elaborato);
-    
     

@@ -50,4 +50,9 @@ class AlternativaController extends Controller
         $alternativaModel = new AlternativaModel();
         return $alternativaModel->readAlternativa($idAlternativa);
     }
+    
+    public function getAlternativaCorrettaByDomanda($domandaMultiplaId){
+        $alternativaModel = new AlternativaModel();
+        return $alternativaModel->getAlternativaCorrettaByDomanda($domandaMultiplaId);
+    }    
 }
