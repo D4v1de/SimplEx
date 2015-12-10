@@ -65,9 +65,9 @@ class ArgomentoController extends Controller {
         return $accountModel->getAllDocentiByCorso($corsoID);
     }
 
-    public function readArgomento($id,$corso_id){
+    public function readArgomento($id){
         $argomentoModel = new ArgomentoModel();
-        return $argomentoModel->readArgomento($id,$corso_id); //ci andranno id_argomento e id_corso
+        return $argomentoModel->readArgomento($id); //ci andranno id_argomento e id_corso
     }
 
     public function creaArgomento($argomento){
