@@ -135,4 +135,14 @@ class DomandaController extends Controller
         $domandaModel = new DomandaModel();
         return $domandaModel->getAllDomandeAperteByTest($id);
     }
+    
+    public function associaAperTest($idDomanda, $idTest, $punteggioMaxAlternativo){
+        $domandaModel = new DomandaModel();
+        return $domandaModel->associaDomandaApertaTest($idDomanda, $idTest, $punteggioMaxAlternativo);
+    }
+    
+    public function associaMultTest($idDomanda, $idTest, $punteggioCorrettaAlternativo, $punteggioErrataAlternativo){
+        $domandaModel = new DomandaModel();
+        return $domandaModel->associaDomandaMultiplaTest($idDomanda, $idTest, $punteggioCorrettaAlternativo, $punteggioErrataAlternativo);
+    }
 }
