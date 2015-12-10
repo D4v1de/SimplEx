@@ -13,20 +13,54 @@ $cdlController = new CdlController();
 $domandaController = new DomandaController();
 $argomentoController = new ArgomentoController();
 $alternativaController = new AlternativaController();
-
+$corso = null;
+$argomento = null;
 $idCorso = $_URL[3];
 $idArgomento = $_URL[6];
-$corso = $cdlController->readCorso($idCorso);
-$argomento = $argomentoController->readArgomento($idArgomento, $idCorso); //Chiedere se deve essere aggiustata sta cosa
 
+try{
+    $corso = $cdlController->readCorso($idCorso);
+}catch(ApplicationException $exception){
+    echo "ERRORE IN READ CORSO" . $exception;
+}
+
+try{
+    $argomento = $argomentoController->readArgomento($idArgomento, $idCorso);
+}catch(ApplicationException $exception){
+    echo "ERRORE IN READ ARGOMENTO" . $exception;
+}
 
 if (isset($_POST['domandaaperta'])){
-    $domandaController->rimuoviDomandaAperta($_POST['domandaaperta']);
-    header('Refresh:0');
+    try {
+        $domandaController->rimuoviDomandaAperta($_POST['domandaaperta']);
+        echo "<script>
+    function impostaNotifica(){
+        sessionStorage.setItem('notifica', 'si');
+    }
+    </script>";
+        echo '<script type="text/javascript">'
+        , 'impostaNotifica();'
+        , '</script>';
+        header('Refresh:0');
+    } catch(ApplicationException $exception){
+        echo "ERRORE ELIMINAZIONEDOMANDAAPERTA" . $exception;
+    }
 }
 if (isset($_POST['domandamultipla'])){
-    $domandaController->rimuoviDomandaMultipla($_POST['domandamultipla']);
-    header('Refresh:0');
+    try {
+        $domandaController->rimuoviDomandaMultipla($_POST['domandamultipla']);
+        echo "<script>
+    function impostaNotifica(){
+        sessionStorage.setItem('notifica', 'si');
+    }
+    </script>";
+        echo '<script type="text/javascript">'
+        , 'impostaNotifica();'
+        , '</script>';
+        header('Refresh:0');
+    } catch(ApplicationException $exception){
+        echo "ERRORE ELIMINAZIONEDOMANDAMULTIPLA" . $exception;
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -44,6 +78,7 @@ if (isset($_POST['domandamultipla'])){
     printf("<title>%s</title>", $argomento->getNome());
     ?>
     <?php include VIEW_DIR . "design/header.php"; ?>
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -68,6 +103,11 @@ if (isset($_POST['domandamultipla'])){
                     printf("<li>");
                     printf("<i class=\"fa fa-home\"></i>");
                     printf("<a href=\"../../../../\">Home</a>");
+                    printf("<i class=\"fa fa-angle-right\"></i>");
+                    printf("</li>");
+                    printf("<li>");
+                    printf("<i></i>");
+                    printf("<a href=\"../../../../cdl/%s\">%s</a>", $corso->getCdlMatricola(), $cdlController->readCdl($corso->getCdlMatricola())->getNome());
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
@@ -116,7 +156,7 @@ if (isset($_POST['domandamultipla'])){
                         printf("</div>");
                         printf("<form method=\"post\" action=\"\" class=\"actions\">");
                         printf("<a href=\"modificaaperta/%d/%d\" class=\"btn green-jungle\"><i class=\"fa fa-edit\"></i> Modifica </a>", $idArgomento, $d->getId());
-                        printf("<button class=\"btn sm red-intense\" type=\"submit\" name=\"domandaaperta\" value=\"%d\"><i class=\"fa fa-remove\"></i> Rimuovi </button>", $d->getId());
+                        printf("<button class=\"btn sm red-intense\" data-toggle=\"confirmation\" data-singleton=\"true\" data-popout=\"true\" title=\"Sei sicuro?\" type=\"submit\" name=\"domandaaperta\" value=\"%d\"><i class=\"fa fa-remove\"></i> Rimuovi </button>", $d->getId());
                         printf("</form>");
                         printf("</div>");
                         printf("</div>");
@@ -160,7 +200,7 @@ if (isset($_POST['domandamultipla'])){
                         printf("</div>");
                         printf("<form method=\"post\" action=\"\" class=\"actions\">");
                         printf("<a href=\"modificamultipla/%d/%d\" class=\"btn green-jungle\"><i class=\"fa fa-edit\"></i> Modifica </a>",$idArgomento, $d->getId());
-                        printf("<button class=\"btn sm red-intense\" type=\"submit\" name=\"domandamultipla\" value=\"%d\"><i class=\"fa fa-remove\"></i> Rimuovi </button>", $d->getId());                        printf("</div>");
+                        printf("<button class=\"btn sm red-intense\" data-toggle=\"confirmation\" data-singleton=\"true\" data-popout=\"true\" title=\"Sei sicuro?\" type=\"submit\" name=\"domandamultipla\" value=\"%d\"><i class=\"fa fa-remove\"></i> Rimuovi </button>", $d->getId());                        printf("</div>");
                         printf("</form>");
                         printf("<div class=\"portlet-body\">");
                         printf("<div id=\"tabella_domanda1_wrapper\" class=\"dataTables_wrapper no-footer\">");
@@ -212,16 +252,46 @@ if (isset($_POST['domandamultipla'])){
 <!-- END PAGE LEVEL PLUGINS aggiunta da me-->
 <!-- BEGIN aggiunta da me -->
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
-<!-- END aggiunta da me -->
+<script src="/assets/admin/pages/scripts/form-validation.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
+
+<script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
+<script src="/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
+
+<script src="/assets/admin/pages/scripts/ui-toastr.js"></script>
+<script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
 <script>
     jQuery(document).ready(function () {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
-        TableManaged2.init("tabella_domanda1", "tabella_domanda1_wrapper");
+        TableManaged.init();
+        FormValidation.init();
+        UIConfirmations.init();
+        UIToastr.init();
+
+        //NOTIFICA INSERISCI APERTA
+        if(sessionStorage.getItem('notificaInsAperta')=='si'){
+            toastr.success('Domanda Aperta inserita con successo!', 'Inserimento');
+            sessionStorage.removeItem('notificaInsAperta');
+        }
+
+
+        //NOTIFICA ELIMINAZIONE
+        if(sessionStorage.getItem('notifica')=='si'){
+            toastr.success('Eliminazione avvenuta con successo!', 'Eliminazione');
+            if(sessionStorage.getItem('rimuovi')=='ok'){
+                sessionStorage.removeItem('notifica');
+                sessionStorage.removeItem('rimuovi');
+            }else{
+                sessionStorage.setItem('rimuovi', 'ok');
+            }
+        }
     });
 </script>
+
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->
