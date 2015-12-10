@@ -41,6 +41,7 @@ if(isset($_POST['nome'])){
         <meta charset="utf-8"/>
         <title>Metronic | Page Layouts - Blank Page</title>
         <?php include VIEW_DIR . "design/header.php"; ?>
+        <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
     </head>
     <!-- END HEAD -->
     <!-- BEGIN BODY -->
@@ -113,7 +114,7 @@ if(isset($_POST['nome'])){
                                         <div class="col-md-12">
                                             <div class="row">
                                                 <div class="col-md-9">
-                                                    <input type="submit" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                                    <input type="submit" onclick='impostaNotifica()' class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                                                     </input>
                                                     <a href="../../<?php echo $corsoid ?>" class="btn sm red-intense">
                                                         Annulla
@@ -147,6 +148,12 @@ if(isset($_POST['nome'])){
         <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
         <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
 
+        <script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
+
+        <script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
+        <script src="/assets/admin/pages/scripts/ui-toastr.js"></script>
+
+
         <script>
             jQuery(document).ready(function () {
                 Metronic.init(); // init metronic core components
@@ -154,7 +161,16 @@ if(isset($_POST['nome'])){
                 //QuickSidebar.init(); // init quick sidebar
                 //Demo.init(); // init demo features
                 FormValidation.init();
+                UIConfirmations.init();
+                UIToastr.init();
+
             });
+        </script>
+
+        <script>
+            function impostaNotifica(){
+                sessionStorage.setItem('notInsArgomento', 'si');
+            }
         </script>
         <!-- END JAVASCRIPTS -->
     </body>

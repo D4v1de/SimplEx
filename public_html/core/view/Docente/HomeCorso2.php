@@ -56,7 +56,14 @@ if(isset($_POST['id'])){
     $id = $_POST['id'];
     $idcorso = $corso->getId();
     $controllerArgomento->rimuoviArgomento($id, $idcorso);
-    //echo "<div id='notificaEliminazione'></div>";
+    echo "<script>
+    function impostaNotifica(){
+        sessionStorage.setItem('notifica', 'si');
+    }
+    </script>";
+    echo '<script type="text/javascript">'
+    , 'impostaNotifica();'
+    , '</script>';
     header("Refresh:0");
 }
 
@@ -66,7 +73,8 @@ if(isset($_POST['id'])){
 if(isset($_POST['idtest'])){
     $id = $_POST['idtest'];
     $controllerTest->deleteTest($id);
-    header("Refresh:0");
+    $tornaACasa= "Location: "."/usr/docente/corso/"."$identificativoCorso"."/";
+    header($tornaACasa);
 }
 
 
@@ -396,7 +404,7 @@ if(isset($_POST['idtest'])){
                                 printf("<a href=\"%d/argomento/modifica/%d\" class=\"btn btn-sm blue-madison\">", $a->getCorsoId(),$a->getId());
                                 printf("<i class=\"fa fa-edit\"></i>");
                                 printf("</a>");
-                                printf("<button class=\"btn btn-sm red-intense\" onclick='impostaNotifica()' type=\"submit\" name=\"id\" value=\"%d\" data-popout=\"true\" data-toggle=\"confirmation\" data-singleton=\"true\"><i class=\"fa fa-trash-o\"></i></button>",$a->getId());
+                                printf("<button class=\"btn btn-sm red-intense\" type=\"submit\" name=\"id\" title='Sei sicuro?' value=\"%d\" data-popout=\"true\" data-toggle=\"confirmation\" data-singleton=\"true\"><i class=\"fa fa-trash-o\"></i></button>",$a->getId());
                                 printf("</td>");
                                 printf("</tr>");
                             }
@@ -468,7 +476,20 @@ if(isset($_POST['idtest'])){
         UIConfirmations.init();
         UIToastr.init();
 
-        //GESTIONE VISUALIZZAZIONE NOTIFICA
+
+        //GESTIONE VISUALIZZAZIONE NOTIFICHE
+
+        if(sessionStorage.getItem('notInsArgomento')=='si'){
+            toastr.success('Argomento inserito con successo!', 'Inserimento');
+            sessionStorage.removeItem('notInsArgomento');
+        }
+
+        if(sessionStorage.getItem('notModArgomento')=='si'){
+            toastr.success('Argomento modificato con successo!', 'Modifica');
+            sessionStorage.removeItem('notModArgomento');
+        }
+
+
         if(sessionStorage.getItem('notifica')=='si'){
             toastr.success('Eliminazione avvenuta con successo!', 'Eliminazione');
             if(sessionStorage.getItem('rimuovi')=='ok'){
@@ -479,17 +500,10 @@ if(isset($_POST['idtest'])){
             }
         }
 
-      //  if(document.getElementById('notificaEliminazione')){
-      //      toastr.success('Eliminazione in corso!', 'Attendere...');
-      //  }else{}
     });
 </script>
 
-<script>
-    function impostaNotifica(){
-        sessionStorage.setItem('notifica', 'si');
-    }
-</script>
+
 
 
 
