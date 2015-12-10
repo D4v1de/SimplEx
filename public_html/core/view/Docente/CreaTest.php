@@ -22,10 +22,10 @@ $controllerTest = new TestController();
 $identificativoCorso = $_URL[3];
 
 function parseInt($Str) {
-    return (int)$Str;
-}
+    return (int)$Str;   
+} 
 
-if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['punteggioAperta']) && isset($_POST['punteggioMultiplaCorr']) && isset($_POST['punteggioMultiplaErr']) && isset($_POST['descrizione']) && isset($_POST['man'])){
+if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['punteggioAperta']) && isset($_POST['punteggioMultiplaCorr']) && isset($_POST['punteggioMultiplaErr']) && isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipologia']=='man')){
     //qui va la parte manuale 
     $domAperte=Array();
     $domAperte=$_POST['aperte'];
@@ -65,10 +65,12 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['puntegg
               }      
          $tornaACasa= "Location: "."/usr/docente/corso/"."$identificativoCorso"."/";
          header($tornaACasa);
-}
-    if(isset($_POST['rand']) && isset($_POST['numAperte']) && isset($_POST['punteggioAperta']) && isset($_POST['punteggioMultiplaCorr']) && isset($_POST['punteggioMultiplaErr']) && isset($_POST['numMultiple'])){
+ 
+         
+        }
+        
+    if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && isset($_POST['numAperte']) && isset($_POST['numMultiple']) && isset($_POST['punteggioAperta']) && isset($_POST['punteggioMultiplaCorr']) && isset($_POST['punteggioMultiplaErr'])){
     //qui va la parte random
-    echo "SDTFYGGJGJGJGGGJGGG";
     $nApe=parseInt($_POST['numAperte']);
     $nMul=parseInt($_POST['numMultiple']);
     $Argomenti= Array();
@@ -87,13 +89,13 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['puntegg
         $Multiple=$Multiple+($controllerDomande->getAllMultiple($a));
     }
     while($nApe>0){
-        $x=rand(0,(count($Aperte)));
+        $x=rand(0,(count($Aperte)-1));
         $controllerDomande->associaAperTest($Aperte[$x], $idNuovoTest, $puntApe);
         unset($Aperte[$x]);
         $nApe=$nApe-1;
     }
     while($nMul>0){
-        $x=rand(0,(count($Multiple)));
+        $x=rand(0,(count($Multiple)-1));
         $controllerDomande->associaMultTest($Multiple[$x], $idNuovoTest, $puntApe);
         unset($Multiple[$x]);
         $nMul=$nMul-1;
@@ -103,8 +105,8 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['puntegg
     
 }
 
-$corso = $controllerCorso->readCorso($_URL[3]); //QUI DEVE ANDARCI L'ID DEL CORSO DOVE CI TROVIAMO
-$num = $controllerArgomento->getNumArgomenti(); //STUB
+$corso = $controllerCorso->readCorso($_URL[3]); 
+$num = $controllerArgomento->getNumArgomenti(); 
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -228,7 +230,7 @@ $num = $controllerArgomento->getNumArgomenti(); //STUB
                                             <div class="col-md-10">
                                                     <div class="md-radio-inline">
                                                             <div class="md-radio">
-                                                                    <input type="radio" id="man" checked="" onclick="javascript: SetContent();" name="tipologia" class="md-radiobtn">
+                                                                    <input type="radio" id="man" value="man" checked="" onclick="javascript: SetContent();" name="tipologia" class="md-radiobtn">
                                                                     <label for="man">
                                                                     <span></span>
                                                                     <span class="check"></span>
@@ -236,7 +238,7 @@ $num = $controllerArgomento->getNumArgomenti(); //STUB
                                                                     Manuale </label>
                                                             </div>
                                                             <div class="md-radio">
-                                                                    <input type="radio" id="rand" onclick="javascript: SetContent();" name="tipologia" class="md-radiobtn">
+                                                                    <input type="radio" id="rand" value="rand" onclick="javascript: SetContent();" name="tipologia" class="md-radiobtn">
                                                                     <label for="rand">
                                                                     <span></span>
                                                                     <span class="check"></span>
@@ -250,7 +252,7 @@ $num = $controllerArgomento->getNumArgomenti(); //STUB
                                         <div class="col-md-6">
                                             <div class="form-group form-md-line-input has-success">
                                                 <div class="input-icon">
-                                                    <input type="text" id="numAperte" name="tipologia" class="form-control">
+                                                    <input type="text" id="numAperte" name="numAperte" class="form-control">
                                                         <label for="form_control_1">Numero domande a risposta aperta:</label>
                                                             <span class="help-block">Inserire numero</span>
                                                 </div>
@@ -259,7 +261,7 @@ $num = $controllerArgomento->getNumArgomenti(); //STUB
                                         <div class="col-md-6">
                                             <div class="form-group form-md-line-input has-success">
                                                 <div class="input-icon">
-                                                    <input type="text" id="numMultiple" name="tipologia" class="form-control">
+                                                    <input type="text" id="numMultiple" name="numMultiple" class="form-control">
                                                         <label for="form_control_1">Numero domande a risposta multipla:</label>
                                                             <span class="help-block">Inserire numero</span>
                                                 </div>
