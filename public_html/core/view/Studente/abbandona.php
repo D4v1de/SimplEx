@@ -19,6 +19,8 @@ include_once BEAN_DIR . "Elaborato.php";
     
     $updatedElaborato->setEsitoFinale(0);
     
+    $updatedElaborato->setStato("Corretto");
+    
     $response = $updatedElaborato->getEsitoParziale()." - ".$updatedElaborato->getEsitoFinale();
     
     $elCon->updateElaborato($studenteMatricola,$sessioneId,$updatedElaborato);

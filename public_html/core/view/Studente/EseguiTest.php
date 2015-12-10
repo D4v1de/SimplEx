@@ -13,7 +13,9 @@ include_once CONTROL_DIR . "DomandaController.php";
 include_once CONTROL_DIR . "RispostaApertaController.php";
 include_once CONTROL_DIR . "RispostaMultiplaController.php";
 include_once CONTROL_DIR . "AlternativaController.php";
+include_once CONTROL_DIR . "ElaboratoController.php";
 $domandaController = new DomandaController();
+$elaboratoController = new ElaboratoController();
 $testController = new ControllerTest();
 $sessioneController = new SessioneController();
 $alternativaController = new AlternativaController();
@@ -21,11 +23,12 @@ $corsoId = $_URL[3];
 $sessId = $_URL[6];
 $sessione = $sessioneController->readSessione($sessId);
 $matricola = "0512102390";
+$elaborato = $elaboratoController->readElaborato($matricola,$sessId);
 $studente = $testController->getUtentebyMatricola($matricola);
 $nome = $studente->getNome();
 $cognome = $studente->getCognome();
 
-$testId = 1;
+$testId = $elaborato->getTestId();
 $multiple = $domandaController->getAllDomandeMultipleByTest($testId);
 $aperte = $domandaController->getAllDomandeAperteByTest($testId);
 ?>
@@ -64,11 +67,11 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
                     <ul class="page-breadcrumb">
                         <li>
                             <i class="fa fa-home"></i>
-                            <a href="index.html">Home</a>
+                            <a href="../../../../../../index.html">Home</a>
                             <i class="fa fa-angle-right"></i>
                         </li>
                         <li>
-                            <a href="#">Nome Corso</a>
+                            <a href="../..">Nome Corso</a>
                             <i class="fa fa-angle-right"></i>
                         </li>
                         <li>
@@ -122,6 +125,7 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
                                 </div>
                             </div>
                             <?php
+                            $selectedAlt = null;
                             function creaRispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId, $testo, $punteggio){
                                 $raCon = new RispostaApertaController();
                                 $risp = new RispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId, $testo, $punteggio);
@@ -132,6 +136,16 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
                                 $risp = new RispostaMultipla($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId, $punteggio, $alternativaId);
                                 $rmCon->createRispostaMultipla($risp);
                             }
+                            function setRispostaMultiplaAlternativa($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId){
+                                $rmCon = new RispostaMultiplaController();
+                                $risp = $rmCon->readRispostaMultipla($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId);
+                                return $risp->getAlternativaId();
+                            }
+                            function setRispostaApertaValue($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId){
+                                $raCon = new RispostaApertaController();
+                                $risp = $raCon->readRispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId);
+                                return $risp->getTesto();
+                            }
                                 $i = 1;
                                 foreach ($multiple as $m) {
                                     $j = 1;
@@ -141,7 +155,7 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
                                         creaRispostaMultipla($sessId, $matricola, $multId, null, null);
                                     }
                                     catch (ApplicationException $ex){
-                                        echo '<h3>Impossibile creare risposta</h3>';
+                                        $selectedAlt = setRispostaMultiplaAlternativa($sessId, $matricola, $multId);
                                     }
                                     echo "<h3>".$testo."</h3>";
                                     echo '<div class="form-group form-md-checkboxes">';
@@ -150,7 +164,9 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
                                     foreach ($alternative as $r){
                                         $altId = $r->getId();
                                         echo    '<div class="md-checkbox">
-                                                    <input type="checkbox" id="alt-'.$altId.'" name="mul-'.$multId.'" onclick="javascript: updateMultipla(this.name,this.id);" class="md-check">
+                                                    <input type="checkbox" id="alt-'.$altId.'" name="mul-'.$multId.'" ';
+                                        if ($selectedAlt == $altId) echo 'checked';
+                                        echo        ' onclick="javascript: updateMultipla(this.name,this.id);" class="md-check">
                                                     <label for="alt-'.$altId.'">
                                                     <span class="inc"></span>
                                                     <span class="check"></span>
@@ -167,15 +183,16 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
                                 foreach ($aperte as $a) {
                                     $testo = $a->getTesto();
                                     $apId = $a->getId();
+                                    $txt = null;
                                     try{
                                         creaRispostaAperta($sessId, $matricola, $apId, null, null);
                                     }
                                     catch (ApplicationException $ex){
-                                        echo '<h3>Impossibile creare risposta</h3>';
+                                        $txt = setRispostaApertaValue($sessId, $matricola, $apId);
                                     }
                                     echo '<h3>'.$testo.'</h3>';
                                     echo    '<div class="form-group">
-                                                <textarea class="form-control" id="ap-'.$apId.'" rows="3" placeholder="Inserisci risposta" style="resize:none"></textarea>
+                                                <textarea class="form-control" id="ap-'.$apId.'" rows="3" placeholder="Inserisci risposta" style="resize:none">'.$txt.'</textarea>
                                             </div>';
                                     $i++;
                                 }
@@ -188,10 +205,10 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-9">
-                                    <a href="javascript:;" onclick="javascript: Consegna()" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                    <a href="../.." onclick="javascript: Consegna()" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                                         Consegna
                                     </a>
-                                    <a onclick="javascript: Abbandona()" class="btn sm red-intense">
+                                    <a href="../.." onclick="javascript: Abbandona()" class="btn sm red-intense">
                                         Abbandona
                                     </a>
                                 </div>
@@ -221,7 +238,7 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
     var intId = null;
     var intId2 = null;
     var intId3 = null;
-    
+    var intId4 = null;
     jQuery(document).ready(function () {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
@@ -229,6 +246,9 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
         $.get("/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});
         intId2 = setInterval(function(){$.post("/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});},30000);
         //fine countdown
+        //controller abilitazione
+        intId4 = setInterval(function(){$.get("/controllerAbilitazione?mat="+mat+"&sessId="+sId,function(data){valutaAbilitazione(data);});},10000);
+        //fine controller
         //aperte
         $("textarea").focus(function() {
             var apId = $(this).attr('id');
@@ -245,7 +265,10 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
             var id = res[1];
             $.post("/updateAperta?mat="+mat+"&sessId="+sId+"&domId="+id+"&testo="+testo);
             clearInterval(intId3);
-        });
+        });/*
+        $("textarea").each(function(){
+            $.get("/getApertaValue?mat="+mat+"&sessId="+sId+"&domId="+id+"&testo="+testo);
+        });*/
         //fine aperte
         //multiple
         $("input.md-check").click(function() {
@@ -265,23 +288,6 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
             }
             $.post("/updateMultipla?mat="+mat+"&sessId="+sId+"&domId="+rId+"&altId="+aId);
         });
-        var updateMultipla = function(multId,altId){
-            var res = multId.split('-');
-            var rId = res[1];
-            res = altId.split('-');
-            var aId = res[1];
-            if (window.XMLHttpRequest) {
-                var xhr = new XMLHttpRequest();
-                //metodo tradizionale di registrazione eventi   
-                xhr.onreadystatechange =gestoreRichiesta;   
-                xhr.open("GET", "/updateMultipla?mat="+mat+"&sessId="+sId+"&domId="+rId+"&altId="+aId, true);   
-                xhr.send(""); 
-            } 
-            function gestoreRichiesta() {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                }
-            }
-        }
         //fine multiple
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
@@ -350,11 +356,17 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
     
 </script>
 <!-- consegna e abbandono -->
-<script>
+<script>    
+    var valutaAbilitazione = function(string){
+        if (string == "Corretto"){
+            alert("Il docente ha annullato il test");
+            location.href = "../..";
+        }
+    }
     var Consegna = function(){
             var r = confirm("Sei sicuro di voler consegnare? Non potrai tornare indietro.");
             if (r == true){
-                $.post("/consegna?mat="+mat+"&sessId="+sId);
+                $.post("/consegna?mat="+mat+"&sessId="+sId,function(data){alert("Consegna effettuata"+data);});
             }
         }
         
