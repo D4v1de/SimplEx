@@ -263,20 +263,20 @@ if(isset( $_POST['annullaEsame'])) {
                                         </thead>
                                         <tbody>
                                         <?php
-                                        $studentsOfSessione = Array();
+                                        $esaminandiSessione = Array();
                                         $toDisable="";
-                                        $studentsOfSessione= $controller->getAllStudentiBySessione($idSessione);
-                                        if ($studentsOfSessione == null) {
+                                        $esaminandiSessione= $controller->getEsaminandiSessione($idSessione);
+                                        if ($esaminandiSessione == null) {
                                             echo "l'array è null";
                                         }
                                         else {
-                                            foreach ($studentsOfSessione as $c) {
+                                            foreach ($esaminandiSessione as $c) {
                                                 $ela=$controllerEla->readElaborato($c->getMatricola(),$idSessione);
                                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
                                                 printf("<td class=\"sorting_1\">%s</td>", $c->getNome());
                                                 printf("<td>%s</td>", $c->getCognome());
                                                 printf("<td>%s</td>", $c->getMatricola());
-                                                if($ela!=null && $ela->getStato()=="Corretto" && $ela->getEsitoParziale()==0 && $ela->getEsitoFinale()==0) {
+                                                if($ela->getStato()=="Corretto" && $ela->getEsitoParziale()==0 && $ela->getEsitoFinale()==0) {
                                                     $toDisable="Disabled";
                                                 }
                                                 printf("<td><button type='submit' %s name='annullaEsame' value='%s' href=\"javascript:;\" class=\"btn btn-sm red-intense\">Annulla Esame</button></td>", $toDisable, $c->getMatricola());
