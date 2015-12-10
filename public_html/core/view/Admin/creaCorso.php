@@ -10,12 +10,21 @@
 include_once CONTROL_DIR . "CdlController.php";
 $controller = new CdlController();
 
-if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricola']) && isset($_POST['cdlmatricola'])) {
+$corso = null;
+$cdls = Array();
+
+try {
+    $cdls = $controller->getCdl();
+} catch (ApplicationException $ex) {
+    echo "<h1>GETCDL FALLITO!</h1>" . $ex;
+}
+
+if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricola']) && isset($_POST['tipologia2'])) {
 
     $nome = $_POST['nome'];
     $tipologia = $_POST['tipologia'];
     $matricola = $_POST['matricola'];
-    $cdlMatricola = $_POST['cdlmatricola'];
+    $cdlMatricola = $_POST['tipologia2'];
 
     try {
         $corso = new Corso($matricola, $nome, $tipologia, $cdlMatricola);
@@ -110,8 +119,17 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
                                             <select class="form-control" id="tipologiaCorso" name="tipologia">
-                                                <option value="Semestrale">Semestrale</option>
-                                                <option value="Annuale">Annuale</option>
+                                                <option value="">Seleziona</option>
+                                                <?php
+                                                foreach(Config::$TIPI_CORSO as $t) {
+                                                    if($tipologia == $t) {
+                                                        printf("<option value=\"%s\" selected>%s</option>",$t,$t);
+                                                    }
+                                                    else {
+                                                        printf("<option value=\"%s\">%s</option>",$t,$t);
+                                                    }
+                                                }
+                                                ?>
                                             </select>
 
                                             <div class="form-control-focus">
@@ -141,15 +159,25 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                     </div>
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
-                                            <input type="number" class="form-control" id="cdlmatricolaCorso"
-                                                   name="cdlmatricola"
-                                                   placeholder="Inserisci cdlmatricola"
-                                                   value="<?php if (isset($cdlMatricola)) echo $cdlMatricola; ?>">
+                                            <select class="form-control" id="tipologiaCorso" name="tipologia2">
+                                                <option value="">Seleziona</option>
+                                                <?php
+                                                foreach($cdls as $c) {
+                                                    if($cdlmatricola == $c->getMatricola()) {
+                                                        printf("<option value=\"%s\" selected>%s - %s</option>",$c->getMatricola(),$c->getMatricola(),$c->getNome());
+                                                    }
+                                                    else {
+                                                        printf("<option value=\"%s\">%s - %s</option>",$c->getMatricola(),$c->getMatricola(),$c->getNome());
+                                                    }
+                                                }
+                                                ?>
+                                            </select>
 
                                             <div class="form-control-focus">
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
