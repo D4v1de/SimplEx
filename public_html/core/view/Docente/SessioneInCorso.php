@@ -55,8 +55,9 @@ if(isset( $_POST['addStu'])) {
 if(isset( $_POST['annullaEsame'])) {
     $matricola=$_POST['annullaEsame'];
     $elaborato=$controllerEla->readElaborato($matricola,$idSessione);
-    $nuovoElaborato= new Elaborato($elaborato->getSessioneId(),$elaborato->getEsitoParziale(),$elaborato->getEsitoFinale(),$elaborato->getTestId());
-    //$controllerEla->updateElaborato()
+    $nuovoElaborato= new Elaborato($matricola,$elaborato->getSessioneId(),"0","0",$elaborato->getTestId(), "Corretto");
+    $controllerEla->updateElaborato($matricola,$idSessione,$nuovoElaborato);
+    header("Refresh:0");
 }
 
 ?>
@@ -263,17 +264,22 @@ if(isset( $_POST['annullaEsame'])) {
                                         <tbody>
                                         <?php
                                         $studentsOfSessione = Array();
+                                        $toDisable="";
                                         $studentsOfSessione= $controller->getAllStudentiBySessione($idSessione);
                                         if ($studentsOfSessione == null) {
                                             echo "l'array è null";
                                         }
                                         else {
                                             foreach ($studentsOfSessione as $c) {
+                                                $ela=$controllerEla->readElaborato($c->getMatricola(),$idSessione);
                                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
                                                 printf("<td class=\"sorting_1\">%s</td>", $c->getNome());
                                                 printf("<td>%s</td>", $c->getCognome());
                                                 printf("<td>%s</td>", $c->getMatricola());
-                                                printf("<td><button type='submit' name='annullaEsame' value=''%s' href=\"javascript:;\" class=\"btn btn-sm red-intense\">Annulla Esame</button></td>", $c->getMatricola());
+                                                if($ela!=null && $ela->getStato()=="Corretto" && $ela->getEsitoParziale()==0 && $ela->getEsitoFinale()==0) {
+                                                    $toDisable="Disabled";
+                                                }
+                                                printf("<td><button type='submit' %s name='annullaEsame' value='%s' href=\"javascript:;\" class=\"btn btn-sm red-intense\">Annulla Esame</button></td>", $toDisable, $c->getMatricola());
                                                 printf("</tr>");
                                             }
                                         }
