@@ -75,6 +75,14 @@ var FormValidation = function () {
                         required: true,
                         number: true
                     },
+                    punteggioEsatta: {
+                        required: true,
+                        number: true
+                    },
+                    punteggioErrata: {
+                        required: true,
+                        number: true
+                    },
                     matricola: {
                         required: true,
                         number: true,

@@ -25,7 +25,7 @@ try{
 }
 
 try{
-    $argomento = $controller->readArgomento($_URL[6]); //qui dentro andrà $_URL[..]; IDCORSO
+    $argomento = $controller->readArgomento($_URL[6]);
 }catch(ApplicationException $exception){
     echo "ERRORE IN READ ARGOMENTO" . $exception;
 }
@@ -123,7 +123,7 @@ if(isset($_POST['nome'])){
                                         <div class="col-md-12">
                                             <div class="row">
                                                 <div class="col-md-9">
-                                                    <input type="submit" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                                    <input type="submit" onclick='impostaNotifica()' class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                                                     </input>
                                                     <a href="../../../<?php echo $corso->getId(); ?>" class="btn sm red-intense">
                                                         Annulla
@@ -169,7 +169,15 @@ if(isset($_POST['nome'])){
                 //QuickSidebar.init(); // init quick sidebar
                 //Demo.init(); // init demo features
                 FormValidation.init();
+                UIConfirmations.init();
+                UIToastr.init();
             });
+        </script>
+
+        <script>
+            function impostaNotifica(){
+                sessionStorage.setItem('notModArgomento', 'si');
+            }
         </script>
         <!-- END JAVASCRIPTS -->
     </body>
