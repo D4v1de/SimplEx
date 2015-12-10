@@ -10,21 +10,39 @@
 include_once CONTROL_DIR . "CdlController.php";
 $controller = new CdlController();
 
+$cdls = Array();
+$flag = 1;
+
+try {
+    $cdls = $controller->getCdl();
+} catch (ApplicationException $ex) {
+    echo "<h1>GETCDL FALLITO!</h1>" . $ex;
+}
+
 if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricola'])) {
 
     $nome = $_POST['nome'];
     $tipologia = $_POST['tipologia'];
     $matricola = $_POST['matricola'];
 
-
-    try {
-        $cdl = new CdL($matricola, $nome, $tipologia);
-        $controller->creaCdl($cdl);
-
-        header('location: view');
-    } catch (ApplicationException $ex) {
-        echo "<h1>CREACDL FALLITO!</h1>" . $ex;
+    foreach($cdls as $c) {
+        if($c->getMatricola() == $matricola) {
+            echo "errore stampare notifica oppure validation error div alert danger";
+            $flag = 0;
+        }
     }
+
+    if($flag) {
+        try {
+            $cdl = new CdL($matricola, $nome, $tipologia);
+            $controller->creaCdl($cdl);
+
+            header('location: view');
+        } catch (ApplicationException $ex) {
+            echo "<h1>CREACDL FALLITO!</h1>" . $ex;
+        }
+    }
+
 }
 
 ?>
@@ -114,8 +132,17 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
                                             <select class="form-control" id="tipologiaCdl" name="tipologia">
-                                                <option value="Triennale">Triennale</option>
-                                                <option value="Magistrale">Magistrale</option>
+                                                <option value="">Seleziona</option>
+                                                <?php
+                                                    foreach(Config::$TIPI_CDL as $t) {
+                                                        if($tipologia == $t) {
+                                                            printf("<option value=\"%s\" selected>%s</option>",$t,$t);
+                                                        }
+                                                        else {
+                                                            printf("<option value=\"%s\">%s</option>",$t,$t);
+                                                        }
+                                                    }
+                                                ?>
                                             </select>
 
                                             <div class="form-control-focus">

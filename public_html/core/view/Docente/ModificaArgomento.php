@@ -25,7 +25,7 @@ try{
 }
 
 try{
-    $argomento = $controller->readArgomento($_URL[6],$corso->getId()); //qui dentro andrà $_URL[..]; IDCORSO
+    $argomento = $controller->readArgomento($_URL[6]); //qui dentro andrà $_URL[..]; IDCORSO
 }catch(ApplicationException $exception){
     echo "ERRORE IN READ ARGOMENTO" . $exception;
 }

@@ -129,14 +129,17 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
                                             <select class="form-control" id="tipologiaCdl" name="tipologia">
-                                                <option value="Triennale" <?php if ($tipologia == 'Triennale') {
-                                                    echo "selected";
-                                                } ?>>Triennale
-                                                </option>
-                                                <option value="Magistrale" <?php if ($tipologia == 'Magistrale') {
-                                                    echo "selected";
-                                                } ?>>Magistrale
-                                                </option>
+                                                <option value="">Seleziona</option>
+                                                <?php
+                                                foreach(Config::$TIPI_CDL as $t) {
+                                                    if($tipologia == $t) {
+                                                        printf("<option value=\"%s\" selected>%s</option>",$t,$t);
+                                                    }
+                                                    else {
+                                                        printf("<option value=\"%s\">%s</option>",$t,$t);
+                                                    }
+                                                }
+                                                ?>
                                             </select>
 
                                             <div class="form-control-focus">

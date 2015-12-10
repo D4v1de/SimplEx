@@ -21,8 +21,10 @@ $controllerTest = new TestController();
 
 $identificativoCorso = $_URL[3];
 
-if((isset($_POST['aperte']) or ($_POST['multiple'])) && isset($_POST['man']) && isset($_POST['descrizione']) && isset($_POST['punteggio'])){
+if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descrizione']) && isset($_POST['punteggio']) && isset($_POST['man'])){
+    $domAperte=Array();
     $domAperte=$_POST['aperte'];
+    $domMultiple=Array();
     $domMultiple=$_POST['multiple'];
     $descrizione=$_POST['descrizione'];
     $punteggio=$_POST['punteggio'];
@@ -34,6 +36,7 @@ if((isset($_POST['aperte']) or ($_POST['multiple'])) && isset($_POST['man']) && 
         foreach($domAperte as $s) {
                 $cont1=$cont1+1;
               }
+    }
     if($domMultiple==null){          
             }
     else{
@@ -41,11 +44,17 @@ if((isset($_POST['aperte']) or ($_POST['multiple'])) && isset($_POST['man']) && 
                 $cont2=$cont2+1;
               }
     }
-    }
+    
     $test = new Test($descrizione,$punteggio,$cont2,$cont1,0,0,$identificativoCorso);
         $idNuovoTest=$controllerTest->creaTest($test);
-    $home= "Location: "."/usr/docente/corso/"."$$identificativoCorso";
-    header($home);
+        foreach($domAperte as $s) {
+               $controllerDomande->associaAperTest($s, $idNuovoTest, 5);
+              }
+        foreach($domMultiple as $s) {
+               $controllerDomande->associaMultTest($s, $idNuovoTest, 3, -1);
+              }      
+        $tornaACasa= "Location: "."/usr/docente/corso/"."$identificativoCorso";
+            header($tornaACasa);
 }
 
 $corso = $controllerCorso->readCorso($_URL[3]); //QUI DEVE ANDARCI L'ID DEL CORSO DOVE CI TROVIAMO
@@ -212,15 +221,15 @@ $num = $controllerArgomento->getNumArgomenti(); //STUB
                                 </th>
                                 <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Points
-                                " style="width: 100px;">
+                                " style="width: 50px;">
                                     ID
                                 </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Status
-                                " style="width: 200px;">
+                                " style="width: 150px;">
                                     Argomento
                                 </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Points
-                                " style="width: 900px;">
+                                " style="width: 800px;">
                                     Testo
                                 </th>
                                 <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
@@ -243,7 +252,7 @@ $num = $controllerArgomento->getNumArgomenti(); //STUB
                                 $Aperte = $controllerDomande->getAllAperte($a->getId());
                                 foreach($Multiple as $m){
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    printf("<td><input type=\"checkbox\" id=\"%s\" name=\"multiple[]\" class=\"checkboxes\"></td>", $m->getId(), $m->getId());
+                                    printf("<td><input type=\"checkbox\" value=\"%d\" name=\"multiple[]\" class=\"checkboxes\"></td>", $m->getId(), $m->getId());
                                     printf("<td>%s</td>",$m->getId());
                                     printf("<td>%s</td>",$a->getNome());
                                     printf("<td>%s</td>",$m->getTesto());
@@ -252,7 +261,7 @@ $num = $controllerArgomento->getNumArgomenti(); //STUB
                                 }
                                 foreach($Aperte as $x){
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    printf("<td><input type=\"checkbox\" id=\"%s\" name=\"aperte[]\" class=\"checkboxes\"></td>", $x->getId(), $x->getId());
+                                    printf("<td><input type=\"checkbox\" value=\"%d\" name=\"aperte[]\" class=\"checkboxes\"></td>", $x->getId(), $x->getId());
                                     printf("<td>%s</td>",$x->getId());
                                     printf("<td>%s</td>",$a->getNome());
                                     printf("<td>%s</td>",$x->getTesto());

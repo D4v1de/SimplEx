@@ -14,6 +14,7 @@ $controllerUtenti = new UtenteController();
 
 $docenteassociato = Array();
 $corso = null;
+$cdls = null;
 $url = null;
 
 $url = $_URL[3];
@@ -31,18 +32,23 @@ try {
 } catch (ApplicationException $ex) {
     echo "<h1>GETDOCENTIASSOCIATI FALLITO!</h1>" . $ex;
 }
+try {
+    $cdls = $controller->getCdl();
+} catch (ApplicationException $ex) {
+    echo "<h1>GETCDL FALLITO!</h1>" . $ex;
+}
 
 $nome = $corso->getNome();
 $tipologia = $corso->getTipologia();
 $matricola = $corso->getMatricola();
 $cdlmatricola = $corso->getCdlMatricola();
 
-if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricola']) && isset($_POST['cdlmatricola'])) {
+if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricola']) && isset($_POST['tipologia2'])) {
 
     $nomenew = $_POST['nome'];
     $tipologianew = $_POST['tipologia'];
     $matricolanew = $_POST['matricola'];
-    $cdlmatricolanew = $_POST['cdlmatricola'];
+    $cdlmatricolanew = $_POST['tipologia2'];
 
     try {
         $new = new Corso($matricolanew, $nomenew, $tipologianew, $cdlmatricolanew);
@@ -166,14 +172,17 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
                                             <select class="form-control" id="tipologiaCorso" name="tipologia">
-                                                <option value="Semestrale" <?php if ($tipologia == 'Semestrale') {
-                                                    echo "selected";
-                                                } ?>>Semestrale
-                                                </option>
-                                                <option value="Annuale" <?php if ($tipologia == 'Annuale') {
-                                                    echo "selected";
-                                                } ?>>Annuale
-                                                </option>
+                                                <option value="">Seleziona</option>
+                                                <?php
+                                                foreach(Config::$TIPI_CORSO as $t) {
+                                                    if($tipologia == $t) {
+                                                        printf("<option value=\"%s\" selected>%s</option>",$t,$t);
+                                                    }
+                                                    else {
+                                                        printf("<option value=\"%s\">%s</option>",$t,$t);
+                                                    }
+                                                }
+                                                ?>
                                             </select>
 
                                             <div class="form-control-focus">
@@ -201,13 +210,25 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                     </div>
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" name="cdlmatricola"
-                                                   id="matricolacdlCorso" value="<?php echo $cdlmatricola; ?>">
+                                            <select class="form-control" id="tipologiaCorso" name="tipologia2">
+                                                <option value="">Seleziona</option>
+                                                <?php
+                                                foreach($cdls as $c) {
+                                                    if($cdlmatricola == $c->getMatricola()) {
+                                                        printf("<option value=\"%s\" selected>%s - %s</option>",$c->getMatricola(),$c->getMatricola(),$c->getNome());
+                                                    }
+                                                    else {
+                                                        printf("<option value=\"%s\">%s - %s</option>",$c->getMatricola(),$c->getMatricola(),$c->getNome());
+                                                    }
+                                                }
+                                                ?>
+                                            </select>
 
                                             <div class="form-control-focus">
                                             </div>
                                         </div>
                                     </div>
+
 
                                 </div>
                             </div>
