@@ -13,7 +13,9 @@ include_once CONTROL_DIR . "DomandaController.php";
 include_once CONTROL_DIR . "RispostaApertaController.php";
 include_once CONTROL_DIR . "RispostaMultiplaController.php";
 include_once CONTROL_DIR . "AlternativaController.php";
+include_once CONTROL_DIR . "ElaboratoController.php";
 $domandaController = new DomandaController();
+$elaboratoController = new ElaboratoController();
 $testController = new ControllerTest();
 $sessioneController = new SessioneController();
 $alternativaController = new AlternativaController();
@@ -21,11 +23,12 @@ $corsoId = $_URL[3];
 $sessId = $_URL[6];
 $sessione = $sessioneController->readSessione($sessId);
 $matricola = "0512102390";
+$elaborato = $elaboratoController->readElaborato($matricola,$sessId);
 $studente = $testController->getUtentebyMatricola($matricola);
 $nome = $studente->getNome();
 $cognome = $studente->getCognome();
 
-$testId = 1;
+$testId = $elaborato->getTestId();
 $multiple = $domandaController->getAllDomandeMultipleByTest($testId);
 $aperte = $domandaController->getAllDomandeAperteByTest($testId);
 ?>

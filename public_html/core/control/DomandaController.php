@@ -156,6 +156,11 @@ class DomandaController extends Controller
         return $domandaModel->readPunteggioErrataAlternativo($idDomandaMultipla, $idTest);
     }
     
+    public function readPunteggioMaxAlternativo($idDomandaAperta, $idTest){
+        $domandaModel = new DomandaModel();
+        return $domandaModel->readPunteggioMaxAlternativo($idDomandaAperta, $idTest);
+    } 
+    
     
     
 }

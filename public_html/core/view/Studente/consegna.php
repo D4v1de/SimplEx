@@ -25,12 +25,12 @@ include_once BEAN_DIR . "Elaborato.php";
     foreach ($rispMul as $rm) {
         $dom = $domCon->getDomandaMultipla($rm->getDomandaMultiplaId());
         
-       // $puntCorrAlt = $domCon->readPunteggioCorrettaAlternativo($rm->getDomandaMultiplaId(), $elaborato->getTestId());
-       // $puntErrAlt = $domCon->readPunteggioErrataAlternativo($rm->getDomandaMultiplaId(), $elaborato->getTestId());
-        //$puntCor = ($puntCorrAlt != null)? $puntCorrAlt:$dom->getPunteggioCorretta();
-        //$puntErr = ($puntErrAlt != null)? $puntErrAlt:$dom->getPunteggioErrata();
-        $puntCor = $dom->getPunteggioCorretta();
-        $puntErr = $dom->getPunteggioErrata();
+        $puntCorrAlt = $domCon->readPunteggioCorrettaAlternativo($rm->getDomandaMultiplaId(), $elaborato->getTestId());
+        $puntErrAlt = $domCon->readPunteggioErrataAlternativo($rm->getDomandaMultiplaId(), $elaborato->getTestId());
+        $puntCor = ($puntCorrAlt != null)? $puntCorrAlt:$dom->getPunteggioCorretta();
+        $puntErr = ($puntErrAlt != null)? $puntErrAlt:$dom->getPunteggioErrata();
+       // $puntCor = $dom->getPunteggioCorretta();
+       // $puntErr = $dom->getPunteggioErrata();
         $altCor = $altCon->getAlternativaCorrettaByDomanda($rm->getDomandaMultiplaId());
         if ($rm->getAlternativaId() != 0)
             if ($altCor->getId() == $rm->getAlternativaId()){

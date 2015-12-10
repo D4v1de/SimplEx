@@ -199,7 +199,7 @@ try {
                                         printf("<td><a href=\"./%d/test/esegui/%d\" onclick=\"javascript: creaElaborato(%d)\" class=\"btn btn-sm default blue-madison\"><i class=\"fa fa-pencil\"></i> Partecipa</a></td>", $url,$s->getId(),$s->getId());
                                     else
                                        // printf("<td class=\"sorting_1\"><a class=\"btn btn-sm default blue-madison\" disabled=\"\"><i class=\"fa fa-pencil\"></i> Partecipa</a>", $s->getId());
-                                        printf("<td><a href=\"./test/%d\" class=\"btn btn-sm default\"><i class=\"fa fa-file-text-o\"></i>Visualizza</a></td>",$s->getId());
+                                        printf("<td><a href=\"./%d/test/%d\" class=\"btn btn-sm default\"><i class=\"fa fa-file-text-o\"></i>Visualizza</a></td>",$url,$s->getId());
                                     printf("</tr>");
                                 }
                                 ?>

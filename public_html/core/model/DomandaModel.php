@@ -380,7 +380,7 @@ class DomandaModel extends Model {
         $query = sprintf(self::$READ_PUNTEGGIO_CORRETTA_ALTERNATIVO_DOMANDA_MULTIPLA_TEST, $idDomandaMultipla, $idTest);
         $res = Model::getDB()->query($query);
         if ($obj = $res->fetch_assoc()) {
-            return $obj['punteggio_max_alternativo'];
+            return $obj['punteggio_corretta_alternativo'];
         } else {
             throw new ApplicationException(Error::$DOMANDA_MULTIPLA_NON_TROVATA);
         }
