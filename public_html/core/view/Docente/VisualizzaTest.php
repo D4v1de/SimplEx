@@ -69,7 +69,6 @@ $test=$_URL[5];
                             $Multiple = Array();
                             $Multiple = $controllerDomanda->getAllDomandeMultipleByTest($test);
                             foreach($Multiple as $x) {
-                                printf("entrato");
                                 printf("<div class=\"portlet box blue-madison\"><div class=\"portlet-title\"><div class=\"caption\"><i class=\"fa fa-question-circle\"></i>%s</div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div>", $x->getTesto());
                                 $Alternative = Array();
                                 $Alternative = $controllerAlternativa->getAllAlternativaByDomanda($x->getId());
