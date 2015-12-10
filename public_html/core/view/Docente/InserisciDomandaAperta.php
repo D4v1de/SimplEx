@@ -12,25 +12,41 @@ include_once CONTROL_DIR . "CdlController.php";
 $cdlController = new CdlController();
 $domandaController = new DomandaController();
 $argomentoController = new ArgomentoController();
-
+$corso = null;
+$argomento = null;
 $idCorso = $_URL[3];
 $idArgomento = $_URL[7];
 
-if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
-    $testo = $_POST['testo'];
-    $punteggio = $_POST['punteggio'];
+try {
+    $corso = $cdlController->readCorso($idCorso);
+} catch (ApplicationException $exception) {
+    echo "ERRORE IN READ CORSO" . $exception;
+}
 
-    if (empty($testo) && empty($punteggio)) {
-        echo "<script type='text/javascript'>alert('Devi riempire tutti i campi!');</script>";
-    } else if (empty($testo)) {
-        echo "<script type='text/javascript'>alert('Devi inserire il testo!');</script>";
-    } else if (empty($punteggio)) {
-        echo "<script type='text/javascript'>alert('Devi inserire il punteggio!');</script>";
-    } else {
-        $domanda = new DomandaAperta($idArgomento, $testo, $punteggio, 0);
+try {
+    $argomento = $argomentoController->readArgomento($idArgomento, $idCorso);
+} catch (ApplicationException $exception) {
+    echo "ERRORE IN READ ARGOMENTO" . $exception;
+}
+
+if (isset($_POST['testoDomanda']) && isset($_POST['number'])) {
+    $testo = $_POST['testoDomanda'];
+    $punteggio = $_POST['number'];
+
+    $domanda = new DomandaAperta($idArgomento, $testo, $punteggio, 0);
+    try {
         $domandaController->creaDomandaAperta($domanda);
-
-        header('location: ../'.$idArgomento);
+        echo "<script>
+    function impostaNotifica(){
+        sessionStorage.setItem('notificaInsAperta', 'si');
+    }
+    </script>";
+        echo '<script type="text/javascript">'
+        , 'impostaNotifica();'
+        , '</script>';
+        header('location: ../' . $idArgomento);
+    } catch (ApplicationException $exception) {
+        echo "ERRORE IN CREA DOMANDA APERTA" . $exception;
     }
 }
 
@@ -48,6 +64,7 @@ if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
     <meta charset="utf-8"/>
     <title>Inserisci Domanda Aperta</title>
     <?php include VIEW_DIR . "design/header.php"; ?>
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -69,9 +86,6 @@ if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
             <div class="page-bar">
                 <ul class="page-breadcrumb">
                     <?php
-                    $corso = $cdlController->readCorso($idCorso);
-                    $argomento = $argomentoController->readArgomento($idArgomento,$idCorso);
-
                     printf("<li>");
                     printf("<i class=\"fa fa-home\"></i>");
                     printf("<a href=\"../../../../../\">Home</a>");
@@ -79,12 +93,17 @@ if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"../../../../%d\">%s</a>",$corso->getId(), $corso->getNome());
+                    printf("<a href=\"../../../../../cdl/%s\">%s</a>", $corso->getCdlMatricola(), $cdlController->readCdl($corso->getCdlMatricola())->getNome());
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"../%d\">%s</a>",$idArgomento, $argomento->getNome());
+                    printf("<a href=\"../../../../%d\">%s</a>", $corso->getId(), $corso->getNome());
+                    printf("<i class=\"fa fa-angle-right\"></i>");
+                    printf("</li>");
+                    printf("<li>");
+                    printf("<i></i>");
+                    printf("<a href=\"../%d\">%s</a>", $idArgomento, $argomento->getNome());
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
@@ -97,15 +116,11 @@ if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
             <!-- BEGIN FORM-->
-            <form method="post" action="" class="form-horizontal form-bordered">
+            <form id="form_sample_1" method="post" action="" class="form-horizontal form-bordered">
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="fa fa-edit"></i>Inserisci Domanda Aperta
-                        </div>
-                        <div class="tools">
-                            <a href="javascript:;" class="collapse" data-original-title="" title="">
-                            </a>
                         </div>
                     </div>
                     <div class="portlet-body form">
@@ -114,20 +129,20 @@ if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
                                 <label class="control-label col-md-3">Inserisci Testo Domanda</label>
 
                                 <div class="col-md-6">
-                                    <input type="text" name="testo" id="testoDomanda" placeholder=""
+                                    <input type="text" name="testoDomanda" id="testoDomanda" placeholder=""
                                            class="form-control">
                                             <span class="help-block">
-                                                Inserisci il testo della domanda </span>
+                                                </span>
                                 </div>
                             </div>
                             <div class="form-group form-md-line-input has-success" style="height: 90px">
                                 <label class="control-label col-md-3">Inserisci Punteggio</label>
 
                                 <div class="col-md-4">
-                                    <input type="number" id="punteggioDomanda" name="punteggio" placeholder=""
+                                    <input type="number" id="punteggioDomanda" name="number" placeholder=""
                                            class="form-control">
                                             <span class="help-block">
-                                                Inserisci il punteggio massimo per la domanda </span>
+                                                 </span>
                                 </div>
                             </div>
                         </div>
@@ -140,9 +155,9 @@ if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
 
                             </a>
                             <?php
-                            printf("<a href=\"../%d\" class=\"btn sm red-intense\">",$idArgomento);
+                            printf("<a href=\"../%d\" class=\"btn sm red-intense\">", $idArgomento);
                             ?>
-                                Annulla
+                            Annulla
                             </a>
                         </div>
                     </div>
@@ -163,14 +178,36 @@ if (isset($_POST['testo']) && isset($_POST['punteggio'])) {
 <!--Script specifici per la pagina -->
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
+<script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript"
+        src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<!-- END PAGE LEVEL PLUGINS aggiunta da me-->
+<!-- BEGIN aggiunta da me -->
+<script src="/assets/admin/pages/scripts/table-managed.js"></script>
+<script src="/assets/admin/pages/scripts/form-validation.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
+
+<script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
+<script src="/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
+
+<script src="/assets/admin/pages/scripts/ui-toastr.js"></script>
+<script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
 <script>
     jQuery(document).ready(function () {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
+        TableManaged.init();
+        FormValidation.init();
+        UIConfirmations.init();
+        UIToastr.init();
     });
 </script>
+
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

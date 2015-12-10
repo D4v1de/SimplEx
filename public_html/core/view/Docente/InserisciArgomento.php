@@ -41,6 +41,7 @@ if(isset($_POST['nome'])){
         <meta charset="utf-8"/>
         <title>Metronic | Page Layouts - Blank Page</title>
         <?php include VIEW_DIR . "design/header.php"; ?>
+        <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
     </head>
     <!-- END HEAD -->
     <!-- BEGIN BODY -->
@@ -98,7 +99,7 @@ if(isset($_POST['nome'])){
                         </div>
                         <div class="portlet-body form">
                             <!-- BEGIN FORM-->
-                            <form id="form_sample_1" action="" method="POST" class="form-horizontal form-bordered">
+                            <form id="form_sample_1" action="" onsubmit="impostaNotifica()" method="POST" class="form-horizontal form-bordered">
                                 <div class="form-body">
                                     <div class="form-group form-md-line-input has-success" style="height: 90px">
                                         <label class="control-label col-md-3">Inserisci Titolo</label>
@@ -147,6 +148,12 @@ if(isset($_POST['nome'])){
         <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
         <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
 
+        <script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
+
+        <script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
+        <script src="/assets/admin/pages/scripts/ui-toastr.js"></script>
+
+
         <script>
             jQuery(document).ready(function () {
                 Metronic.init(); // init metronic core components
@@ -154,7 +161,16 @@ if(isset($_POST['nome'])){
                 //QuickSidebar.init(); // init quick sidebar
                 //Demo.init(); // init demo features
                 FormValidation.init();
+                UIConfirmations.init();
+                UIToastr.init();
+
             });
+        </script>
+
+        <script>
+            function impostaNotifica(){
+                sessionStorage.setItem('notInsArgomento', 'si');
+            }
         </script>
         <!-- END JAVASCRIPTS -->
     </body>

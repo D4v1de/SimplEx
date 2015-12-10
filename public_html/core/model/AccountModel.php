@@ -28,6 +28,8 @@ class AccountModel extends Model {
     private static $INSERT_INSEGNAMENTO = "INSERT INTO `insegna` (docente_matricola, corso_id) VALUES ('%s','%d')";
     private static $INSERT_ABILITAZIONE = "INSERT INTO `abilitazione` (sessione_id, studente_matricola) VALUES ('%d', '%s')";
     private static $DELETE_ABILITAZIONE = "DELETE FROM `abilitazione` WHERE sessione_id = '%d' AND studente_matricola = '%s'";
+    private static $GET_ALL_ESAMINANDI_SESSIONE = "SELECT * FROM utente WHERE tipologia = 'Studente' AND matricola IN (SELECT studente_matricola FROM elaborato WHERE sessione_id = '%d')";
+
     /**
      * Restituisce utente dato email e password
      * @param $email La mail dell'utente
@@ -331,5 +333,25 @@ class AccountModel extends Model {
         if (Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
         }
+    }
+
+    /**
+     * Restituisce gli studenti che stanno sostenendo una sessione d'esame
+     * @param $sessione_id L'id della sessione per la quale si vogliono conoscere gli esaminandi
+     * @return Utente[] Gli esaminandi della sessione
+     * @throws ApplicationException
+     */
+
+    public function getEsaminandiSessione($sessione_id) {
+        $query = sprintf(self::$GET_ALL_ESAMINANDI_SESSIONE, $sessione_id);
+        $res = Model::getDB()->query($query);
+        $studenti = array();
+        if ($res) {
+            while ($obj = $res->fetch_assoc()) {
+                $studentiSessione = new Utente($obj['matricola'], $obj['username'], $obj['password'], $obj['tipologia'], $obj['nome'], $obj['cognome'], $obj['cdl_matricola']);
+                $studenti[] = $studentiSessione;
+            }
+        }
+        return $studenti;
     }
 }

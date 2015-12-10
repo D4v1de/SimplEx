@@ -9,8 +9,10 @@
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "SessioneController.php";
 include_once CONTROL_DIR . "CdlController.php";
+include_once CONTROL_DIR . "ElaboratoController.php";
 $controller = new SessioneController();
 $controlleCdl = new CdlController();
+$controllerEla= new ElaboratoController();
 
 $idSessione=$_URL[5];
 $identificativoCorso = $_URL[3];
@@ -48,6 +50,14 @@ else if(isset( $_POST['datato'])) {
 if(isset( $_POST['addStu'])) {
     $vaiAddStu= "Location: "."/usr/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."sessioneincorso/aggiungistudente";
     header($vaiAddStu);
+}
+
+if(isset( $_POST['annullaEsame'])) {
+    $matricola=$_POST['annullaEsame'];
+    $elaborato=$controllerEla->readElaborato($matricola,$idSessione);
+    $nuovoElaborato= new Elaborato($matricola,$elaborato->getSessioneId(),"0","0",$elaborato->getTestId(), "Corretto");
+    $controllerEla->updateElaborato($matricola,$idSessione,$nuovoElaborato);
+    header("Refresh:0");
 }
 
 ?>
@@ -253,18 +263,23 @@ if(isset( $_POST['addStu'])) {
                                         </thead>
                                         <tbody>
                                         <?php
-                                        $studentsOfSessione = Array();
-                                        $studentsOfSessione= $controller->getAllStudentiBySessione($idSessione);
-                                        if ($studentsOfSessione == null) {
+                                        $esaminandiSessione = Array();
+                                        $toDisable="";
+                                        $esaminandiSessione= $controller->getEsaminandiSessione($idSessione);
+                                        if ($esaminandiSessione == null) {
                                             echo "l'array è null";
                                         }
                                         else {
-                                            foreach ($studentsOfSessione as $c) {
+                                            foreach ($esaminandiSessione as $c) {
+                                                $ela=$controllerEla->readElaborato($c->getMatricola(),$idSessione);
                                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
                                                 printf("<td class=\"sorting_1\">%s</td>", $c->getNome());
                                                 printf("<td>%s</td>", $c->getCognome());
                                                 printf("<td>%s</td>", $c->getMatricola());
-                                                printf("<td><a href=\"javascript:;\" class=\"btn btn-sm red-intense\">Annulla Esame</a></td>");
+                                                if($ela->getStato()=="Corretto" && $ela->getEsitoParziale()==0 && $ela->getEsitoFinale()==0) {
+                                                    $toDisable="Disabled";
+                                                }
+                                                printf("<td><button type='submit' %s name='annullaEsame' value='%s' href=\"javascript:;\" class=\"btn btn-sm red-intense\">Annulla Esame</button></td>", $toDisable, $c->getMatricola());
                                                 printf("</tr>");
                                             }
                                         }

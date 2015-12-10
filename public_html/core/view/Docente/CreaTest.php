@@ -21,11 +21,21 @@ $controllerTest = new TestController();
 
 $identificativoCorso = $_URL[3];
 
-if((isset($_POST['aperte']) or ($_POST['multiple'])) && isset($_POST['man']) && isset($_POST['descrizione']) && isset($_POST['punteggio'])){
+function parseInt($Str) {
+    return (int)$Str;   
+} 
+
+if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['punteggioAperta']) && isset($_POST['punteggioMultiplaCorr']) && isset($_POST['punteggioMultiplaErr']) && isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipologia']=='man')){
+    //qui va la parte manuale 
+    $domAperte=Array();
     $domAperte=$_POST['aperte'];
+    $domMultiple=Array();
     $domMultiple=$_POST['multiple'];
     $descrizione=$_POST['descrizione'];
-    $punteggio=$_POST['punteggio'];
+    $puntApe=parseInt($_POST['punteggioAperta']);
+    $puntMultCor=parseInt($_POST['punteggioMultiplaCorr']);
+    $puntMultErr=parseInt($_POST['punteggioMultiplaErr']);
+    $punteggio=0;
     $cont1=0;
     $cont2=0;
     if($domAperte==null){          
@@ -34,6 +44,7 @@ if((isset($_POST['aperte']) or ($_POST['multiple'])) && isset($_POST['man']) && 
         foreach($domAperte as $s) {
                 $cont1=$cont1+1;
               }
+    }
     if($domMultiple==null){          
             }
     else{
@@ -41,15 +52,61 @@ if((isset($_POST['aperte']) or ($_POST['multiple'])) && isset($_POST['man']) && 
                 $cont2=$cont2+1;
               }
     }
-    }
+    $punteggio=($puntApe*$cont1);
+    $punteggio=$punteggio+($puntMultCor*$cont2);
+    
     $test = new Test($descrizione,$punteggio,$cont2,$cont1,0,0,$identificativoCorso);
         $idNuovoTest=$controllerTest->creaTest($test);
-    $home= "Location: "."/usr/docente/corso/"."$$identificativoCorso";
-    header($home);
+        foreach($domAperte as $s) {
+               $controllerDomande->associaAperTest($s, $idNuovoTest, $puntApe);
+              }
+        foreach($domMultiple as $x) {
+               $controllerDomande->associaMultTest($x, $idNuovoTest, $puntMultCor, $puntMultErr);
+              }      
+         $tornaACasa= "Location: "."/usr/docente/corso/"."$identificativoCorso"."/";
+         header($tornaACasa);
+ 
+         
+        }
+        
+    if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && isset($_POST['numAperte']) && isset($_POST['numMultiple']) && isset($_POST['punteggioAperta']) && isset($_POST['punteggioMultiplaCorr']) && isset($_POST['punteggioMultiplaErr'])){
+    //qui va la parte random
+    $nApe=parseInt($_POST['numAperte']);
+    $nMul=parseInt($_POST['numMultiple']);
+    $Argomenti= Array();
+    $Argomenti=$controllerArgomento->getArgomenti($identificativoCorso);
+    $puntApe=parseInt($_POST['punteggioAperta']);
+    $puntMultCor=parseInt($_POST['punteggioMultiplaCorr']);
+    $puntMultErr=parseInt($_POST['punteggioMultiplaErr']);
+    $punteggio=($puntApe*$nApe);
+    $punteggio=$punteggio+($puntMultCor*$nMul);
+    $test = new Test("TestRandom",$punteggio,$nMul,$nApe,0,0,$identificativoCorso);
+    $idNuovoTest=$controllerTest->creaTest($test);
+    $Aperte = Array();
+    $Multiple = Array();
+    foreach($Argomenti as $a){
+        $Aperte=$Aperte+($controllerDomande->getAllAperte($a));
+        $Multiple=$Multiple+($controllerDomande->getAllMultiple($a));
+    }
+    while($nApe>0){
+        $x=rand(0,(count($Aperte)-1));
+        $controllerDomande->associaAperTest($Aperte[$x], $idNuovoTest, $puntApe);
+        unset($Aperte[$x]);
+        $nApe=$nApe-1;
+    }
+    while($nMul>0){
+        $x=rand(0,(count($Multiple)-1));
+        $controllerDomande->associaMultTest($Multiple[$x], $idNuovoTest, $puntApe);
+        unset($Multiple[$x]);
+        $nMul=$nMul-1;
+    }
+    $tornaACasa= "Location: "."/usr/docente/corso/"."$identificativoCorso"."/";
+         header($tornaACasa);
+    
 }
 
-$corso = $controllerCorso->readCorso($_URL[3]); //QUI DEVE ANDARCI L'ID DEL CORSO DOVE CI TROVIAMO
-$num = $controllerArgomento->getNumArgomenti(); //STUB
+$corso = $controllerCorso->readCorso($_URL[3]); 
+$num = $controllerArgomento->getNumArgomenti(); 
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -131,20 +188,49 @@ $num = $controllerArgomento->getNumArgomenti(); //STUB
                                 <div class="col-md-12">
                                     <textarea class="form-control" name="descrizione" id="descrizione" rows="4" placeholder="Inserisci descrizione" style="resize:none"></textarea>
                                 </div>
+                            <br>
                                 <div class="row">
                                    <div class="col-md-4">
-                                    <h4>Punteggio massimo Test:</h4>
-                                    <input type="text" id="punteggio" name="punteggio" class="form-control">
-                                    <span class="help-block">Inserire numero</span>
+                                    <div class="form-group form-md-line-input has-success">
+                                                <div class="input-icon">
+                                                    <input type="text" id="punteggioAperta" name="punteggioAperta" class="form-control">
+                                                        <label for="form_control_1">Punteggio domanda aperta:</label>
+                                                            <span class="help-block">Inserire numero</span>
+                                                </div>
+                                            </div>
+                                   </div>           
+                                
+          
+                                   <div class="col-md-4">
+                                    <div class="form-group form-md-line-input has-success">
+                                                <div class="input-icon">
+                                                    <input type="text" id="punteggioMultiplaCorr" name="punteggioMultiplaCorr" class="form-control">
+                                                        <label for="form_control_1">Punteggio domanda Multipla corretta:</label>
+                                                            <span class="help-block">Inserire numero</span>
+                                                </div>
+                                            </div>
+                                   </div>           
+                                
+                            
+                                   <div class="col-md-4">
+                                    <div class="form-group form-md-line-input has-success">
+                                                <div class="input-icon">
+                                                    <input type="text" id="punteggioMultiplaErr" name="punteggioMultiplaErr" class="form-control">
+                                                        <label for="form_control_1">Punteggio domanda Multipla errata:</label>
+                                                            <span class="help-block">Inserire numero</span>
+                                                </div>
+                                            </div>
                                    </div>           
                                 </div>
+                            <br>
+                            <br>
                                 <div class="row">
                                     <div class="col-md-4">
                                         <h4> Tipologia selezione domande</h4>
                                             <div class="col-md-10">
                                                     <div class="md-radio-inline">
                                                             <div class="md-radio">
-                                                                    <input type="radio" id="man" checked="" onclick="javascript: SetContent();" name="tipologia" class="md-radiobtn">
+                                                                    <input type="radio" id="man" value="man" checked="" onclick="javascript: SetContent();" name="tipologia" class="md-radiobtn">
                                                                     <label for="man">
                                                                     <span></span>
                                                                     <span class="check"></span>
@@ -152,7 +238,7 @@ $num = $controllerArgomento->getNumArgomenti(); //STUB
                                                                     Manuale </label>
                                                             </div>
                                                             <div class="md-radio">
-                                                                    <input type="radio" id="rand" onclick="javascript: SetContent();" name="tipologia" class="md-radiobtn">
+                                                                    <input type="radio" id="rand" value="rand" onclick="javascript: SetContent();" name="tipologia" class="md-radiobtn">
                                                                     <label for="rand">
                                                                     <span></span>
                                                                     <span class="check"></span>
@@ -166,7 +252,7 @@ $num = $controllerArgomento->getNumArgomenti(); //STUB
                                         <div class="col-md-6">
                                             <div class="form-group form-md-line-input has-success">
                                                 <div class="input-icon">
-                                                    <input type="text" id="numAperte" class="form-control">
+                                                    <input type="text" id="numAperte" name="numAperte" class="form-control">
                                                         <label for="form_control_1">Numero domande a risposta aperta:</label>
                                                             <span class="help-block">Inserire numero</span>
                                                 </div>
@@ -175,7 +261,7 @@ $num = $controllerArgomento->getNumArgomenti(); //STUB
                                         <div class="col-md-6">
                                             <div class="form-group form-md-line-input has-success">
                                                 <div class="input-icon">
-                                                    <input type="text" id="numMultiple" class="form-control">
+                                                    <input type="text" id="numMultiple" name="numMultiple" class="form-control">
                                                         <label for="form_control_1">Numero domande a risposta multipla:</label>
                                                             <span class="help-block">Inserire numero</span>
                                                 </div>
@@ -208,19 +294,18 @@ $num = $controllerArgomento->getNumArgomenti(); //STUB
                             <tr role="row">
                                 <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="
                                                         " style="width: 24px;">
-                                <input type="checkbox" class="group-checkable" data-set="#tabella_studenti .checkboxes">
                                 </th>
                                 <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Points
-                                " style="width: 100px;">
+                                " style="width: 50px;">
                                     ID
                                 </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Status
-                                " style="width: 200px;">
+                                " style="width: 150px;">
                                     Argomento
                                 </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Points
-                                " style="width: 900px;">
+                                " style="width: 800px;">
                                     Testo
                                 </th>
                                 <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
@@ -241,21 +326,21 @@ $num = $controllerArgomento->getNumArgomenti(); //STUB
                             foreach($Argomenti as $a){
                                 $Multiple = $controllerDomande->getAllMultiple($a->getId());
                                 $Aperte = $controllerDomande->getAllAperte($a->getId());
-                                foreach($Multiple as $m){
+                                foreach($Multiple as $s){
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    printf("<td><input type=\"checkbox\" id=\"%s\" name=\"multiple[]\" class=\"checkboxes\"></td>", $m->getId(), $m->getId());
-                                    printf("<td>%s</td>",$m->getId());
+                                    printf("<td><input type=\"checkbox\" value=\"%d\" name=\"multiple[]\" class=\"checkboxes\"></td>", $s->getId(),$s->getId());
+                                    printf("<td>%s</td>",$s->getId());
                                     printf("<td>%s</td>",$a->getNome());
-                                    printf("<td>%s</td>",$m->getTesto());
+                                    printf("<td>%s</td>",$s->getTesto());
                                     printf("<td>Multipla</td>");
                                     printf("</tr>");
                                 }
-                                foreach($Aperte as $x){
+                                foreach($Aperte as $s){
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    printf("<td><input type=\"checkbox\" id=\"%s\" name=\"aperte[]\" class=\"checkboxes\"></td>", $x->getId(), $x->getId());
-                                    printf("<td>%s</td>",$x->getId());
+                                    printf("<td><input type=\"checkbox\" value=\"%d\" name=\"aperte[]\" class=\"checkboxes\"></td>", $s->getId(), $s->getId());
+                                    printf("<td>%s</td>",$s->getId());
                                     printf("<td>%s</td>",$a->getNome());
-                                    printf("<td>%s</td>",$x->getTesto());
+                                    printf("<td>%s</td>",$s->getTesto());
                                     printf("<td>Aperta</td>");
                                     printf("</tr>");
                                 }

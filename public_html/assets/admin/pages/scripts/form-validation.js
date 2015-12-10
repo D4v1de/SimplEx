@@ -53,12 +53,6 @@ var FormValidation = function () {
                     radio2: {
                         required: true
                     },
-                    tests: {
-                        required: true
-                    },
-                    students: {
-                        required: true
-                    },
                     testoDomanda: {
                         required:true,
                         minlength: 2
@@ -76,6 +70,14 @@ var FormValidation = function () {
                         url: true
                     },
                     number: {
+                        required: true,
+                        number: true
+                    },
+                    punteggioEsatta: {
+                        required: true,
+                        number: true
+                    },
+                    punteggioErrata: {
                         required: true,
                         number: true
                     },
