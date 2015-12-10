@@ -66,7 +66,8 @@ if(isset($_POST['id'])){
 if(isset($_POST['idtest'])){
     $id = $_POST['idtest'];
     $controllerTest->deleteTest($id);
-    header("Refresh:0");
+    $tornaACasa= "Location: "."/usr/docente/corso/"."$identificativoCorso"."/";
+    header($tornaACasa);
 }
 
 

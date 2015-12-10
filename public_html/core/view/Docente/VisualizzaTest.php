@@ -11,6 +11,9 @@ $controllerDomanda = new DomandaController();
 
 include_once CONTROL_DIR . "AlternativaController.php";
 $controllerAlternativa = new AlternativaController();
+
+$test=$_URL[5];
+
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -64,11 +67,12 @@ $controllerAlternativa = new AlternativaController();
             
             <?php
                             $Multiple = Array();
-                            $Multiple = $controllerDomanda->getAllDomandeMultipleByTest($_URL[5]);
-                            foreach($Multiple as $a) {
-                                printf("<div class=\"portlet box blue-madison\"><div class=\"portlet-title\"><div class=\"caption\"><i class=\"fa fa-question-circle\"></i>%s</div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div>", $a->getTesto());
+                            $Multiple = $controllerDomanda->getAllDomandeMultipleByTest($test);
+                            foreach($Multiple as $x) {
+                                printf("entrato");
+                                printf("<div class=\"portlet box blue-madison\"><div class=\"portlet-title\"><div class=\"caption\"><i class=\"fa fa-question-circle\"></i>%s</div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div>", $x->getTesto());
                                 $Alternative = Array();
-                                $Alternative = $controllerAlternativa->getAllAlternativaByDomanda($a->getId());
+                                $Alternative = $controllerAlternativa->getAllAlternativaByDomanda($x->getId());
                                 printf("<div class=\"portlet-body\">");
                                 foreach($Alternative as $b){
                                  printf("<p>%s</p>", $b->getTesto());  
@@ -76,10 +80,13 @@ $controllerAlternativa = new AlternativaController();
                                 printf("</div></div>");
                             }
                             $Aperte = Array();
-                            $Aperte = $controllerDomanda->getAllDomandeAperteByTest($_URL[5]);
+                            $Aperte = $controllerDomanda->getAllDomandeAperteByTest($test);
                             foreach($Aperte as $x){
                              printf("<div class=\"portlet box blue-madison\"><div class=\"portlet-title\"><div class=\"caption\"><i class=\"fa fa-question-circle\"></i>%s (aperta)</div></div></div>", $x->getTesto());   
                              
+                            }
+                            if(($Multiple==null) && ($Aperte==null)){
+                                printf("<h2> Il test selezionato non ha alcuna domanda associata </h2><br><br>"); 
                             }
 
                             ?>
