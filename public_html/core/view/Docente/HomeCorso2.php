@@ -63,8 +63,8 @@ if(isset($_POST['id'])){
     </script>";
     echo '<script type="text/javascript">'
     , 'impostaNotifica();'
-    , '</script>';
-    header("Refresh:0");
+    , '</script>'
+    ;    header("Refresh:0");
 }
 
 
@@ -499,7 +499,6 @@ if(isset($_POST['idtest'])){
                 sessionStorage.setItem('rimuovi', 'ok');
             }
         }
-
     });
 </script>
 
