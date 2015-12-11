@@ -114,7 +114,7 @@ class UtenteController extends Controller {
         if (!preg_match(Patterns::$NAME_GENERIC, $cognome)) {
             throw new IllegalArgumentException("Cognome assente oppure errato");
         }
-        if (!preg_match(Patterns::$MATRICOLA, $cdl)) {
+        if (!preg_match(Patterns::$MATRICOLA, $cdl) && $tipologia == "Studente") {
             throw new IllegalArgumentException("Cdl sbagliato o assente");
         }
         $accModel = new AccountModel();
@@ -259,5 +259,43 @@ class UtenteController extends Controller {
             throw new ApplicationException(Error::$MATRICOLA_INESISTENTE);
         }
         $accountModel->deleteUtente($matricola);
+    }
+
+    public function modificaUtenteByType($matricola, $nome, $cognome, $cdlMatricola, $email, $pass, $tipo) {
+        if (!is_numeric($matricola)) {
+            throw new ApplicationException(Error::$MATRICOLA_INESISTENTE);
+        }
+        $aModel = new AccountModel();
+        $utente = $aModel->getUtenteByMatricola($matricola);
+
+        //!!! CRAZY CODE START
+        if (preg_match(Patterns::$EMAIL, $email)) {
+            $utente->setUsername($email);
+        } else {
+            throw new ApplicationException(Error::$EMAIL_NON_VALIDA);
+        }
+
+        if (preg_match(Patterns::$NAME_GENERIC, $nome)) {
+            $utente->setNome($nome);
+        } else {
+            throw new ApplicationException(Error::$NOME_NON_VALIDO);
+        }
+        if (preg_match(Patterns::$NAME_GENERIC, $cognome)) {
+            $utente->setCognome($cognome);
+        } else {
+            throw new ApplicationException(Error::$CONGNOME_NON_VALIDO);
+        }
+        if (!is_numeric($cdlMatricola) && $tipo == "Studente") {
+            throw new ApplicationException(Error::$CDL_NON_TROVATO);
+        }
+        if (isset($pass) && strlen($pass) > 0 && strlen($pass) < Config::$MIN_PASSWORD_LEN) {
+            throw new ApplicationException(Error::$PASS_CORTA);
+        }
+        if (strlen($pass) > Config::$MIN_PASSWORD_LEN) {
+            $ident = AccountModel::createIdentity($email, $pass);
+            $utente->setPassword($ident);
+        }
+
+        $aModel->updateUtente($matricola, $utente);
     }
 }

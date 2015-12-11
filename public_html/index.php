@@ -81,6 +81,9 @@ if (!defined("TESTING")) {
                         case 'view':
                             include_once VIEW_DIR . "Admin/VisualizzaUtente.php";
                             break;
+                        case 'modifica':
+                            include_once VIEW_DIR . "Admin/modificaUtente.php";
+                            break;
                         case '':
                             include_once VIEW_DIR . "Admin/GestioneUtente.php";
                             break;

@@ -76,7 +76,7 @@ class AccountModel extends Model {
      * @return string identity identità per salvare le pass ed effettuare le ricerche nel db in modo sicuro
      */
 
-    private static function createIdentity($email, $pass) {
+    public static function createIdentity($email, $pass) {
         return md5(md5(strtolower($email) . $pass . self::$SALT) . self::$SALT);
     }
 

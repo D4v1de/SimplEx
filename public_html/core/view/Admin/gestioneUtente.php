@@ -42,7 +42,7 @@ if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>GESTIONE UTENTE</title>
+    <title>Gestione utenti</title>
     <?php include VIEW_DIR . "design/header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
     <link rel="stylesheet" type="text/css"
