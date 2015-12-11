@@ -17,10 +17,10 @@ $sessioneController = new SessioneController();
 $alternativaController = new AlternativaController();
 
 $corsoId = $_URL[3];
-$sessId = $_URL[6];
+$sessId = $_URL[5];
+$matricola = $_URL[7];
 
 $sessione = $sessioneController->readSessione($sessId);
-$matricola = "0512102390";
 $elaborato = $elaboratoController->readElaborato($matricola,$sessId);
 $studente = $testController->getUtentebyMatricola($matricola);
 $nome = $studente->getNome();
@@ -58,7 +58,7 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                Correzione Test
+                <?php echo 'Correzione Elaborato di '.$cognome." ".$nome ?>
             </h3>
             <div class="page-bar">
                     <ul class="page-breadcrumb">

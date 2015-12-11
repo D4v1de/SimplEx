@@ -180,9 +180,6 @@ if (!defined("TESTING")) {
                                         case 'crea':
                                             include_once VIEW_DIR . "Docente/CreaTest.php";
                                             break;
-                                        case 'correggi':
-                                            include_once VIEW_DIR . "Docente/CorreggiTest.php";
-                                            break;
                                         default:
                                             include_once VIEW_DIR . "Docente/VisualizzaTest.php";
                                     }
@@ -197,6 +194,9 @@ if (!defined("TESTING")) {
                                             break;
                                         case 'creamodificasessione':
                                             include_once VIEW_DIR . "Docente/CreaModificaSessione.php";
+                                            break;
+                                        case 'correggi':
+                                            include_once VIEW_DIR . "Docente/CorreggiTest.php";
                                             break;
                                         case 'sessioneincorso':
                                             switch (isset($_URL[7]) ? $_URL[7] : '') {
