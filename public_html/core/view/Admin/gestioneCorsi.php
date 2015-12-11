@@ -199,6 +199,7 @@ if (isset($_POST['checkbox'])) {
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
         TableManaged.init("tabella_8", "tabella_8_wrapper");
+        UIToastr.init();
         UIConfirmations.init();
 
         if(sessionStorage.getItem('notifica') == 'si') {
