@@ -13,9 +13,12 @@ $victim = null;
 try {
     $victim = $ctr->getUtenteByMatricola($_SESSION['user']->getMatricola());
     $_SESSION['user'] = $victim; // refresh
+    $cdlCtr = new CdlController();
+    if (is_numeric($victim->getCdlMatricola())) {
+        $cdl = $cdlCtr->readCdl($victim->getCdlMatricola());
+    }
 } catch (ApplicationException $ex) {
-    echo "err";
-    //header('Location: /adm/utenti');
+    header('Location: /');
 }
 ?>
 <!DOCTYPE html>

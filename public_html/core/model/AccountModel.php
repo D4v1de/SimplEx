@@ -12,11 +12,11 @@ class AccountModel extends Model {
     private static $SALT = "r#*1542&ztnsa7uABN83gtkw7lcSjy";
     private static $SELECT_UTENTE = "SELECT * FROM `utente` WHERE `password`='%s' LIMIT 1";
     private static $SELECT_UTENTE_MATRICOLA = "SELECT * FROM `utente` WHERE `matricola`='%s' LIMIT 1 ";
-    private static $INSERT_UTENTE = "INSERT INTO `utente` (`matricola`, `username`, `password`, `tipologia`, `nome`, `cognome`, `cdl_matricola`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s');";
+    private static $INSERT_UTENTE = "INSERT INTO `utente` (`matricola`, `username`, `password`, `tipologia`, `nome`, `cognome`, `cdl_matricola`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', %s);";
     private static $DELETE_UTENTE = "DELETE FROM `utente` WHERE `matricola` = '%s' LIMIT 1";
     private static $SELECT_ALL_UTENTI = "SELECT * FROM `utente` ORDER BY cognome";
     private static $SELECT_ALL_STUDENTI = "SELECT * FROM `utente` WHERE tipologia = 'Studente' ORDER BY cognome, nome, matricola";
-    private static $UPDATE_UTENTE = "UPDATE `utente` SET `username` = '%s', `password` = '%s', `tipologia` = '%s', `nome` = '%s', `cognome` = '%s', `matricola` = '%s', `cdl_matricola`='%s'  WHERE `matricola` = '%s' LIMIT 1";
+    private static $UPDATE_UTENTE = "UPDATE `utente` SET `username` = '%s', `password` = '%s', `tipologia` = '%s', `nome` = '%s', `cognome` = '%s', `matricola` = '%s', `cdl_matricola`=%s  WHERE `matricola` = '%s' LIMIT 1";
     private static $GET_ALL_DOCENTI_CORSO = "SELECT u.* FROM `insegnamento` AS i, `utente` AS u WHERE i.docente_matricola = u.matricola AND i.corso_id = '%d' ORDER BY cognome, nome, matricola";
     private static $GET_ALL_STUDENTI_CDL = "SELECT u.* FROM `utente` AS u WHERE u.cdl_matricola = '%s' ORDER BY cognome, nome, matricola";
     private static $GET_ALL_STUDENTI_CORSO = "SELECT u.* FROM `utente` AS u, `frequenta` AS f WHERE f.studente_matricola = u.matricola AND f.corso_id = '%d' ORDER BY cognome, nome, matricola";
@@ -93,7 +93,7 @@ class AccountModel extends Model {
         $utente->setCognome(mysqli_real_escape_string(Model::getDB(), $utente->getCognome()));
 
         $query = sprintf(self::$INSERT_UTENTE, $utente->getMatricola(), $utente->getUsername(),
-            $ident, $utente->getTipologia(), $utente->getNome(), $utente->getCognome(), $utente->getCdlMatricola());
+            $ident, $utente->getTipologia(), $utente->getNome(), $utente->getCognome(), ($utente->getCdlMatricola() == null) ? "NULL" : "'" . $utente->getCdlMatricola() . "'");
         if (!Model::getDB()->query($query)) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO, Model::getDB()->error, Model::getDB()->errno);
         }
@@ -182,7 +182,7 @@ class AccountModel extends Model {
      */
 
     public function updateUtente($matricola, $utente) {
-        $qr = sprintf(self::$UPDATE_UTENTE, $utente->getUsername(), $utente->getPassword(), $utente->getTipologia(), $utente->getNome(), $utente->getCognome(), $utente->getMatricola(), $utente->getCdlMatricola(), $matricola);
+        $qr = sprintf(self::$UPDATE_UTENTE, $utente->getUsername(), $utente->getPassword(), $utente->getTipologia(), $utente->getNome(), $utente->getCognome(), $utente->getMatricola(), ($utente->getCdlMatricola() == null ? "NULL" : "'" . $utente->getCdlMatricola() . "'"), $matricola);
         Model::getDB()->query($qr);
         if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);

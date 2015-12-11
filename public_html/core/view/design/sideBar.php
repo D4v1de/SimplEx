@@ -26,7 +26,7 @@ $user = $_SESSION['user'];
             <?php if ($user->getTipologia() == "Admin") { ?>
                 <!-- ADMIN -->
 
-                <li class="<?php if($_URL[1]=="utenti") echo "active open"?>">
+                <li class="<?php if ($_URL[1] == "utenti") echo "active open" ?>">
                     <a href="javascript:;">
                         <i class="icon-users"></i>
                         <span class="title">Gestione utenti</span>
@@ -51,7 +51,7 @@ $user = $_SESSION['user'];
                     </ul>
                 </li>
 
-                <li class="<?php if($_URL[1]=="cdl") echo "active open"?>">
+                <li class="<?php if ($_URL[1] == "cdl") echo "active open" ?>">
                     <a href="javascript:;">
                         <i class="icon-notebook"></i>
                         <span class="title">Gestione CdL</span>
@@ -71,7 +71,7 @@ $user = $_SESSION['user'];
                     </ul>
                 </li>
 
-                <li class="<?php if($_URL[1]=="corsi") echo "active open"?>">
+                <li class="<?php if ($_URL[1] == "corsi") echo "active open" ?>">
                     <a href="javascript:;">
                         <i class="icon-note"></i>
                         <span class="title">Gestione Corsi</span>
@@ -92,9 +92,41 @@ $user = $_SESSION['user'];
                 </li>
                 <!-- FINE ADMIN -->
             <?php } elseif ($user->getTipologia() == "Docente") { ?>
-
+                <li class="<?php if ($_URL[1] == "") echo "active open" ?>">
+                    <a href="javascript:;">
+                        <i class="icon-home"></i>
+                        <span class="title">Home</span>
+                    </a>
+                </li>
+                <li class="<?php if ($_URL[1] == "utenti") echo "active open" ?>">
+                    <a href="javascript:;">
+                        <i class="icon-users"></i>
+                        <span class="title">Da COMPLETARE</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu" style="display: none;">
+                        <li>
+                            <a href="/adm/utenti">
+                                <i class="icon-book-open"></i>
+                                IDEM</a>
+                        </li>
+                    </ul>
+                </li>
             <?php } elseif ($user->getTipologia() == "Studente") { ?>
-
+                <li class="<?php if ($_URL[1] == "utenti") echo "active open" ?>">
+                    <a href="javascript:;">
+                        <i class="icon-users"></i>
+                        <span class="title">Da COMPLETARE</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu" style="display: none;">
+                        <li>
+                            <a href="/adm/utenti">
+                                <i class="icon-book-open"></i>
+                                IDEM</a>
+                        </li>
+                    </ul>
+                </li>
             <?php } else {
                 die("Situazione impossibile ... esco");
             }

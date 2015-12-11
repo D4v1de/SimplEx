@@ -168,23 +168,6 @@ if (isset($_POST['nome'])) {
                                             </div>
                                         </div>
                                     </div>
-                                    <?php if ($victim->getTipologia() == "Studente") { ?>
-                                        <div class="form-group form-md-line-input">
-                                            <div class="col-md-10">
-                                                <select class="form-control" id="cdlAppartenenza" name="cdl">
-                                                    <?php
-                                                    /** @var Cdl $cdl */
-                                                    foreach ($cdls as $cdl) {
-                                                        echo printf('<option %s value="%s">%s</option>', ($victim->getCdlMatricola() == $cdl->getMatricola()) ? "selected" : "", $cdl->getMatricola(), $cdl->getNome());
-                                                    }
-                                                    ?>
-                                                </select>
-
-                                                <div class="form-control-focus">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
