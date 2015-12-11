@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Created by PhpStorm.
  * User: sergio
@@ -45,8 +44,10 @@ session_start(); //facciamo partire la sessione
 
 include_once UTILS_DIR . "Patterns.php";
 include_once UTILS_DIR . "Error.php";
+include_once UTILS_DIR . "StringUtils.php";
 include_once EXCEPTION_DIR . "ApplicationException.php";
 include_once MODEL_DIR . "Logger.php";
+
 if (!defined("TESTING")) {
     switch (isset($_URL[0]) ? $_URL[0] : '') {
         case '':
@@ -70,6 +71,7 @@ if (!defined("TESTING")) {
         }
             break;
         case 'adm': {
+            StringUtils::checkPermission("Admin");
             switch (isset($_URL[1]) ? $_URL[1] : '') {
                 case 'utenti':
                     switch (isset($_URL[2]) ? $_URL[2] : '') {
@@ -127,6 +129,7 @@ if (!defined("TESTING")) {
         case 'usr': {
             switch (isset($_URL[1]) ? $_URL[1] : '') {
                 case 'docente':
+                    StringUtils::checkPermission("Docente");
                     switch (isset($_URL[2]) ? $_URL[2] : '') {
                         case 'cdl':
                             include_once VIEW_DIR . "Docente/visualizzaCorsi.php";
@@ -208,6 +211,7 @@ if (!defined("TESTING")) {
                     }
                     break;
                 case 'studente':
+                    StringUtils::checkPermission("Studente");
                     switch (isset($_URL[2]) ? $_URL[2] : '') {
                         case 'cdl':
                             include_once VIEW_DIR . "Studente/visualizzaCorsi.php";
@@ -231,7 +235,6 @@ if (!defined("TESTING")) {
                             include_once VIEW_DIR . "Studente/visualizzaCdL.php";
                     }
                     break;
-
             }
         }
             break;

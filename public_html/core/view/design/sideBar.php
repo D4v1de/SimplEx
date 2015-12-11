@@ -5,7 +5,8 @@
  * Date: 18/11/15
  * Time: 10:07
  */
-
+/** @var Utente $user */
+$user = $_SESSION['user'];
 ?>
 
 <!-- BEGIN SIDEBAR -->
@@ -22,7 +23,67 @@
         <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
         <ul class="page-sidebar-menu page-sidebar-menu-light " data-keep-expanded="false" data-auto-scroll="true"
             data-slide-speed="200">
+            <?php if ($user->getTipologia() == "Admin") { ?>
+                <!-- ADMIN -->
 
+                <li class="start">
+                    <a href="javascript:;">
+                        <i class="icon-users"></i>
+                        <span class="title">Gestione utenti</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu" style="display: none;">
+                        <li>
+                            <a href="/adm/utenti">
+                                <i class="icon-book-open"></i>
+                                Visualizza lista</a>
+                        </li>
+                        <li>
+                            <a href="/adm/utenti/crea/studente">
+                                <i class="icon-user-follow"></i>
+                                Crea studente</a>
+                        </li>
+                        <li>
+                            <a href="/adm/utenti/crea/docente">
+                                <i class="icon-user-follow"></i>
+                                Crea docente</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="start">
+                    <a href="javascript:;">
+                        <i class="icon-users"></i>
+                        <span class="title">Gestione CdL</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu" style="display: none;">
+                        <li>
+                            <a href="/adm/cdl">
+                                <i class="icon-book-open"></i>
+                                Visualizza tutti CdL</a>
+                        </li>
+                        <li>
+                            <a href="/adm/cdl/crea">
+                                <i class="icon-user-follow"></i>
+                                Crea CdL</a>
+                        </li>
+                        <li>
+                            <a href="/adm/utenti/crea/docente">
+                                <i class="icon-user-follow"></i>
+                                Crea docente</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- FINE ADMIN -->
+            <?php } elseif ($user->getTipologia() == "Docente") { ?>
+
+            <?php } elseif ($user->getTipologia() == "Studente") { ?>
+
+            <?php } else {
+                die("Situazione impossibile ... esco");
+            }
+            ?>
         </ul>
         <!-- END SIDEBAR MENU -->
     </div>
