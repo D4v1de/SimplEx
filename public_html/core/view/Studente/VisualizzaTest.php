@@ -7,8 +7,76 @@
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "Esempio.php";
-$controller = new Esempio();
+include_once CONTROL_DIR . "CdlController.php";
+include_once CONTROL_DIR . "UtenteController.php";
+include_once CONTROL_DIR . "TestController.php";
+include_once CONTROL_DIR . "DomandaController.php";
+include_once CONTROL_DIR . "AlternativaController.php";
+include_once CONTROL_DIR . "RispostaApertaController.php";
+include_once CONTROL_DIR . "RispostaMultiplaController.php";
+$controller = new CdlController();
+$controllerUtente = new UtenteController();
+$controllerTest = new TestController();
+$controllerDomanda = new DomandaController();
+$controllerAlternativa = new AlternativaController();
+$controllerRispostaAperta = new RispostaApertaController();
+$controllerRispostaMultipla = new RispostaMultiplaController();
+
+
+$cdl = null;
+$corso = null;
+$docenteassociato = Array();
+$test = null;
+$multiple = Array();
+$aperte = Array();
+$alternative = Array();
+$rispostaaperta = null;
+$rispostamultipla = null;
+$url = null;
+$url2 = null;
+
+
+$url = $_URL[3];
+if (!is_numeric($url)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
+$url2 = $_URL[5];
+if (!is_numeric($url)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
+
+try {
+    $corso = $controller->readCorso($url);
+} catch (ApplicationException $ex) {
+    echo "<h1>INSERIRE ID CORSO NEL PATH!</h1>" . $ex;
+}
+try {
+    $cdl = $controller->readCdl($corso->getCdlMatricola());
+} catch (ApplicationException $ex) {
+    echo "<h1>READCDL FALLITO!</h1>" . $ex;
+}
+try {
+    $docenteassociato = $controllerUtente->getDocenteAssociato($corso->getId());
+} catch (ApplicationException $ex) {
+    echo "<h1>GETDOCENTIASSOCIATI FALLITO</h1>".$ex;
+}
+try {
+    $test = $controllerTest->readTest($url2);
+} catch (ApplicationException $ex) {
+    echo "<h1>INSERIRE ID TEST NEL PATH!</h1>" . $ex;
+}
+try {
+    $multiple = $controllerDomanda->getAllDomandeMultipleByTest($test->getId());
+} catch (ApplicationException $ex) {
+    echo "<h1>GETALLDOMANDEMULTIPLEBYTEST FALLITO!</h1>" . $ex;
+}
+try {
+    $aperte = $controllerDomanda->getAllDomandeAperteByTest($test->getId());
+} catch (ApplicationException $ex) {
+    echo "<h1>GETALLDOMANDEAPERTEBYTEST FALLITO!</h1>" . $ex;
+}
+
+
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -21,7 +89,7 @@ $controller = new Esempio();
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>Metronic | Page Layouts - Blank Page</title>
+    <title>Visualizza Test</title>
     <?php include VIEW_DIR . "design/header.php"; ?>
 </head>
 <!-- END HEAD -->
@@ -38,54 +106,103 @@ $controller = new Esempio();
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                Visualizza Test
+                Visualizza <?php echo 'Test ' . $test->getId(); ?>
             </h3>
+
             <div class="page-bar">
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="index.html">Home</a>
+                        <a href="../../../../index.html">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="#">Visualizza Test</a>
+                        <a href="../../../">CdL</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="../../../cdl/<?php echo $cdl->getMatricola(); ?>"><?php echo $cdl->getNome(); ?></a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="../../<?php echo $corso->getId(); ?>"><?php echo $corso->getNome(); ?></a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="../test/<?php echo $test->getId(); ?>"><?php echo 'Test ' . $test->getId(); ?></a>
+                        <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-                <div class="portlet box grey-cascade">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                    <i class="fa fa-globe"></i>Test
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form">
+                        <form action="#" class="form-horizontal form-bordered form-row-stripped">
+                            <div class="form-actions">
+                                <div class="col-md col-md-8">
+                                    <h3><?php echo $corso->getNome(); ?></h3>
+                                    <h5>Matricola: <?php echo $corso->getMatricola(); ?></h5>
+                                    <h5>Tipologia: <?php echo $corso->getTipologia(); ?></h5>
+                                    <?php
+                                    if (count($docenteassociato) >= 1) {
+                                        foreach ($docenteassociato as $d) {
+                                            printf('<h5>Docente: %s %s</h5>', $d->getNome(), $d->getCognome());
+                                        }
+                                    } else if (count($docenteassociato) < 1) {
+                                        printf('<h5>Questo corso non ha docenti Associati!</h5>');
+                                    }
+                                    ?>
+                                </div>
+                                <div class="col-md col-md-4">
+                                    <h3>Esito: 90/100</h3>
+                                </div>
                             </div>
-                            <div class="tools">
-                                   <div class="caption">
-                                    <font size="3">Esito: 93/100</font>
-                                   </div>
-                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <h3></h3>
+            </div>
+
+            <?php
+                foreach ($multiple as $m) {
+                    printf("<div class=\"portlet box blue-madison\"><div class=\"portlet-title\"><div class=\"caption\"><i class=\"fa fa-question-circle\"></i>%s</div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div>", $m->getTesto());
+                    printf("<div class=\"portlet-body\">");
+                    try {
+                        $alternative = $controllerAlternativa->getAllAlternativaByDomanda($m->getId());
+                    } catch (ApplicationException $ex) {
+                        echo "<h1>GETALLALTERNATIVABYDOMANDA FALLITO!</h1>" . $ex;
+                    }
+                    foreach ($alternative as $a) {
+                        printf("<p>%s</p>", $a->getTesto());
+                    }
+                    printf("</div></div>");
+                }
+                foreach ($aperte as $a) {
+                    printf("<div class=\"portlet box blue-madison\"><div class=\"portlet-title\"><div class=\"caption\"><i class=\"fa fa-question-circle\"></i>%s (aperta)</div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div>", $a->getTesto());
+                    printf("<div class=\"portlet-body\">");
+                    printf("</div></div>");
+                }
+                if (($multiple == null) && ($aperte == null)) {
+                    printf("<h2> Il test selezionato non ha alcuna domanda associata </h2>");
+                }
+            ?>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-actions">
+                        <div class="col-md-offset-1 col-md-4">
+                            <a href=""><button type="button" class="btn green-jungle">Indietro</button></a>
                         </div>
-                     
-                      <div class="portlet-body">
-                    
-                    <h3>Domanda 1 (multipla) </h3>
-                    <p><input type = "checkbox" disabled="true"/>Risposta 1</p>
-                    <p><input type = "checkbox" disabled="true"/><font color="#78a300">Risposta 2</font></p>
-                    <p><input type = "checkbox" disabled="true" checked="true"/><font color="#d54e21">Risposta 3</font></p>
-                    <p><input type = "checkbox" disabled="true"/>Risposta 4</p>
-                    
-                    <h3> Domanda 2 (aperta)</h3>
-                    <div class="form-group">
-                        <textarea disabled="true" class="form-control" rows="3" style="resize:none">Risposta data dallo studente</textarea>
                     </div>
-                    <h3> Domanda 3 (multipla)</h3>
-                    <p><input type = "checkbox" disabled="true"/>Risposta 1</p>
-                    <p><input type = "checkbox" disabled="true"/>Risposta 2</p>
-                    <p><input type = "checkbox" disabled="true"/>Risposta 3</p>
-                    <p><input type = "checkbox" disabled="true" checked="true"/><font color="#78a300">Risposta 4</font></p>
-                    </div>
-            
-                    </div>
+                </div>
+            </div>
+
             <!-- END PAGE CONTENT-->
         </div>
     </div>
