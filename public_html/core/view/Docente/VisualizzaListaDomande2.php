@@ -279,6 +279,12 @@ if (isset($_POST['domandamultipla'])){
         }
 
 
+        //NOTIFICA INSERISCI MULTIPLA
+        if(sessionStorage.getItem('notificaInsMultipla')=='si'){
+            toastr.success('Domanda Multipla inserita con successo!', 'Inserimento');
+            sessionStorage.removeItem('notificaInsMultipla');
+        }
+
         //NOTIFICA ELIMINAZIONE
         if(sessionStorage.getItem('notifica')=='si'){
             toastr.success('Eliminazione avvenuta con successo!', 'Eliminazione');

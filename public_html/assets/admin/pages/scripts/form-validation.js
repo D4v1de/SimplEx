@@ -61,6 +61,10 @@ var FormValidation = function () {
                         required:true,
                         minlength: 2
                     },
+                    risposteNuove: {
+                        required:true,
+                        minlength: 2
+                    },
                     url: {
                         required: true,
                         url: true

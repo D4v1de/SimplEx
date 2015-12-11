@@ -99,7 +99,7 @@ if(isset($_POST['nome'])){
                         </div>
                         <div class="portlet-body form">
                             <!-- BEGIN FORM-->
-                            <form id="form_sample_1" action="" method="POST" class="form-horizontal form-bordered">
+                            <form id="form_sample_1" action="" onsubmit="impostaNotifica()" method="POST" class="form-horizontal form-bordered">
                                 <div class="form-body">
                                     <div class="form-group form-md-line-input has-success" style="height: 90px">
                                         <label class="control-label col-md-3">Inserisci Titolo</label>
@@ -114,7 +114,7 @@ if(isset($_POST['nome'])){
                                         <div class="col-md-12">
                                             <div class="row">
                                                 <div class="col-md-9">
-                                                    <input type="submit" onclick='impostaNotifica()' class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                                    <input type="submit" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                                                     </input>
                                                     <a href="../../<?php echo $corsoid ?>" class="btn sm red-intense">
                                                         Annulla

@@ -15,9 +15,8 @@ $checkbox = Array();
 
 try {
     $corsi = $controller->getCorsi();
-}
-catch (ApplicationException $ex) {
-    echo "<h1>GETCORSI FALLITO!</h1>".$ex;
+} catch (ApplicationException $ex) {
+    echo "<h1>GETCORSI FALLITO!</h1>" . $ex;
 }
 
 if (isset($_POST['checkbox'])) {
@@ -27,7 +26,7 @@ if (isset($_POST['checkbox'])) {
             try {
                 $controller->eliminaCorso($c);
             } catch (ApplicationException $ex) {
-                echo "<h1>ELIMINACORSO FALLITO!</h1>".$ex;
+                echo "<h1>ELIMINACORSO FALLITO!</h1>" . $ex;
             }
         }
         header('Location: view');
@@ -50,6 +49,7 @@ if (isset($_POST['checkbox'])) {
     <?php include VIEW_DIR . "design/header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -84,7 +84,7 @@ if (isset($_POST['checkbox'])) {
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
 
-            <form method="post" action="">
+            <form method="post" action="" onsubmit="impostaNotifica()">
 
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
@@ -100,61 +100,60 @@ if (isset($_POST['checkbox'])) {
                                 <i class="fa fa-plus"></i> Crea Corso </a>
                         </div>
                         <div class="actions">
-                            <button type="submit" class="btn btn-default btn-sm">
+                            <button type="submit" class="btn btn-default btn-sm" data-toggle="confirmation"
+                                    data-singleton="true" data-popout="true" title="sei sicuro?">
                                 <i class="fa fa-minus"></i> Elimina Corso
                             </button>
                         </div>
                     </div>
                     <div class="portlet-body">
                         <div id="tabella_8_wrapper" class="dataTables_wrapper no-footer">
-                            <div class="table-scrollable">
-                                <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                       id="tabella_8" role="grid" aria-describedby="tabella_8_info">
-                                    <thead>
-                                    <tr role="row">
-                                        <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1"
-                                            aria-label=""
-                                            style="width: 24px;">
-                                            <input type="checkbox" class="group-checkable"
-                                                   data-set="#tabella_8 .checkboxes">
-                                        </th>
-                                        <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                            colspan="1" aria-label="Username: activate to sort column ascending"
-                                            aria-sort="ascending">
-                                            Matricola
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                            colspan="1"
-                                            aria-label="Email: activate to sort column ascending">
-                                            Nome
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                            colspan="1"
-                                            aria-label="Status: activate to sort column ascending">
-                                            Tipologia
-                                        </th>
-                                        <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                            colspan="1"
-                                            aria-label="Status: activate to sort column ascending">
-                                            Matricola CdL
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php
-                                    foreach ($corsi as $c) {
-                                        printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                        printf("<td class=\"sorting_1\"><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $c->getId());
-                                        printf("<td class=\"sorting_1\"><span class=\"badge badge-success\">%s</span></td>", $c->getMatricola());
-                                        printf("<td class=\"sorting_1\"><a href=\"modifica/%s\">%s</a></td>", $c->getId(), $c->getNome());
-                                        printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
-                                        printf("<td class=\"sorting_1\">%s</td>", $c->getCdlMatricola());
-                                        printf("</tr>");
-                                    }
-                                    ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                            <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                                   id="tabella_8" role="grid" aria-describedby="tabella_8_info">
+                                <thead>
+                                <tr role="row">
+                                    <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1"
+                                        aria-label=""
+                                        style="width: 24px;">
+                                        <input type="checkbox" class="group-checkable"
+                                               data-set="#tabella_8 .checkboxes">
+                                    </th>
+                                    <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                        colspan="1" aria-label="Username: activate to sort column ascending"
+                                        aria-sort="ascending">
+                                        Matricola
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Email: activate to sort column ascending">
+                                        Nome
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Status: activate to sort column ascending">
+                                        Tipologia
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Status: activate to sort column ascending">
+                                        Matricola CdL
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                foreach ($corsi as $c) {
+                                    printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                    printf("<td class=\"sorting_1\"><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $c->getId());
+                                    printf("<td class=\"sorting_1\"><span class=\"badge badge-success\">%s</span></td>", $c->getMatricola());
+                                    printf("<td class=\"sorting_1\"><a href=\"modifica/%s\">%s</a></td>", $c->getId(), $c->getNome());
+                                    printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
+                                    printf("<td class=\"sorting_1\">%s</td>", $c->getCdlMatricola());
+                                    printf("</tr>");
+                                }
+                                ?>
+                                </tbody>
+                            </table>
 
                         </div>
                     </div>
@@ -179,8 +178,7 @@ if (isset($_POST['checkbox'])) {
 <!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
 <script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript"
-        src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <!-- END PAGE LEVEL PLUGINS aggiunta da me-->
 
 <script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>
@@ -189,6 +187,10 @@ if (isset($_POST['checkbox'])) {
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN aggiunta da me -->
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
+<script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
+<script src="/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
+<script src="/assets/admin/pages/scripts/ui-toastr.js"></script>
+<script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
 <!-- END aggiunta da me -->
 <script>
     jQuery(document).ready(function () {
@@ -197,7 +199,27 @@ if (isset($_POST['checkbox'])) {
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
         TableManaged.init("tabella_8", "tabella_8_wrapper");
+        UIConfirmations.init();
+
+        if(sessionStorage.getItem('notifica') == 'si') {
+            toastr.success('Nuovo CdL creato con successo.','Creazione');
+            sessionStorage.removeItem('notifica');
+        }
+        if (sessionStorage.getItem('elimina') == 'si') {
+            toastr.success('Corso eliminato con successo.', 'Eliminazione');
+            sessionStorage.removeItem('elimina');
+        }
+        if (sessionStorage.getItem('modifica') == 'si') {
+            toastr.success('Corso modificato con successo!', 'Modifica');
+            sessionStorage.removeItem('modifica');
+        }
+
     });
+</script>
+<script>
+    function impostaNotifica() {
+        sessionStorage.setItem('elimina','si');
+    }
 </script>
 <!-- END JAVASCRIPTS -->
 </body>

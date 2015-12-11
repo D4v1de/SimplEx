@@ -12,11 +12,17 @@ $controller = new CdlController();
 
 $corso = null;
 $cdls = Array();
+$flag = 1;
 
 try {
     $cdls = $controller->getCdl();
 } catch (ApplicationException $ex) {
     echo "<h1>GETCDL FALLITO!</h1>" . $ex;
+}
+try {
+    $corsi = $controller->getCorsi();
+} catch (ApplicationException $ex) {
+    echo "<h1>GETCORSI FALLITO!</h1>" . $ex;
 }
 
 if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricola']) && isset($_POST['tipologia2'])) {
@@ -26,13 +32,21 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     $matricola = $_POST['matricola'];
     $cdlMatricola = $_POST['tipologia2'];
 
-    try {
-        $corso = new Corso($matricola, $nome, $tipologia, $cdlMatricola);
-        $controller->creaCorso($corso);
+    foreach($corsi as $c) {
+        if($c->getMatricola() == $matricola) {
+            $flag = 0;
+        }
+    }
 
-        header('location: view');
-    } catch (ApplicationException $ex) {
-        echo "<h1>CREACORSO FALLITO!</h1>.$ex";
+    if($flag) {
+        try {
+            $corso = new Corso($matricola, $nome, $tipologia, $cdlMatricola);
+            $controller->creaCorso($corso);
+
+            header('location: view');
+        } catch (ApplicationException $ex) {
+            echo "<h1>CREACORSO FALLITO!</h1>.$ex";
+        }
     }
 }
 ?>
@@ -49,6 +63,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     <meta charset="utf-8"/>
     <title>Crea Corso</title>
     <?php include VIEW_DIR . "design/header.php"; ?>
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -106,6 +121,15 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                             </div>
                             <div class="portlet-body">
                                 <div class="portlet-body form">
+
+                                    <?php
+                                    if(!$flag) {
+                                        echo "<div class=\"alert alert-danger\">
+                                        <button class=\"close\" data-close=\"alert\"></button>
+                                        La matricola del corso è già presente nel DataBase.
+                                        </div>";
+                                    }
+                                    ?>
 
                                     <div class="alert alert-danger display-hide">
                                         <button class="close" data-close="alert"></button>
@@ -185,7 +209,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                             <div class="col-md-12">
                                 <div class="form-actions">
                                     <div class="col-md-3">
-                                        <input type="submit" value="Conferma" class="btn green-jungle"/>
+                                        <input type="submit" value="Conferma" onclick="impostaNotifica()" class="btn green-jungle"/>
                                     </div>
                                     <div class="col-md-3">
                                         <input type="reset" value="Annulla" class="btn red-intense"/>
@@ -229,6 +253,8 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 <script src="/assets/admin/pages/scripts/form-validation.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
+<script src="/assets/admin/pages/scripts/ui-toastr.js"></script>
+<script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
 <!-- END aggiunta da me -->
 
 <script>
@@ -239,7 +265,13 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
         //Demo.init(); // init demo features
         TableManaged.init();
         FormValidation.init();
+        UIToastr.init();
     });
+</script>
+<script>
+    function impostaNotifica() {
+        sessionStorage.setItem('notifica','si');
+    }
 </script>
 <!-- END JAVASCRIPTS -->
 </body>

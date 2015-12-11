@@ -225,7 +225,7 @@ if (isset($_POST['eliminatore'])) {
                                 printf("<a href=\"javascript:insRisposte();\" class=\"btn sm green-jungle\">");
                                 printf("<i class=\"fa fa-plus\"></i> Aggiungi");
                                 printf("</a>");
-                                printf("<button name=\"eliminatore\" value=\"%s\" class=\"btn sm red-intense\">", $r->getId());
+                                printf("<button name=\"eliminatore\" value=\"%s\" class=\"btn sm red-intense\" data-toggle=\"confirmation\" data-singleton=\"true\" data-popout=\"true\" title=\"sei sicuro?\">", $r->getId());
                                 printf("<i class=\"fa fa-minus\"></i> Rimuovi");
                                 printf("</button>");
                                 printf("</div>");
@@ -339,7 +339,7 @@ if (isset($_POST['eliminatore'])) {
         var div = document.getElementById('rispostenuove');
         var newNum = num;
         div.appendChild(newDiv);
-        newDiv.innerHTML = "<div class=\"form-group form-md-line-input has-success ratio\" style=\"height: 90px\"><div class=\"control-label col-md-1\"><input type=\"radio\" id=\"radio\" name=\"radio\" value=" + num + " ></div><label class=\"control-label col-md-2\">Inserisci Testo Risposta</label><div class=\"col-md-6\"><input type=\"text\" id=\"risposte\" name=\"risposteNuove[]\" placeholder=\"\" class=\"form-control\"> <span class=\"help-block\"></span> </div> <div class=\"col-md-3\" id=\"padre"+num+"\"><a onclick=\"javascript:elimina(this)\" id=\"el"+num+"\" class=\"btn sm red-intense\"> <i class=\"fa fa-minus\"></i> Rimuovi </a> </div> </div>";
+        newDiv.innerHTML = "<div class=\"form-group form-md-line-input has-success ratio\" style=\"height: 90px\"><div class=\"control-label col-md-1\"><input type=\"radio\" id=\"radio\" name=\"radio\" value=" + num + " ></div><label class=\"control-label col-md-2\">Inserisci Testo Risposta</label><div class=\"col-md-6\"><input type=\"text\" id=\"risposte\" name=\"risposteNuove[]\" placeholder=\"\" class=\"form-control\"> <span class=\"help-block\"></span> </div> <div class=\"col-md-3\" id=\"padre"+num+"\"><a onclick=\"javascript:elimina(this)\" id=\"el"+num+"\" class=\"btn sm red-intense\" data-toggle="confirmation" data-singleton="true" data-popout="true" title="sei sicuro?" > <i class=\"fa fa-minus\"></i> Rimuovi </a> </div> </div>";
         if(num >(numRispOld)) {
             var daEl = document.getElementById('el' + (newNum - 1));
             daEl.parentNode.removeChild(daEl);

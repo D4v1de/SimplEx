@@ -13,9 +13,11 @@ $controller = new CdlController();
 $controllerUtenti = new UtenteController();
 
 $docenteassociato = Array();
+$corsi = Array();
 $corso = null;
 $cdls = null;
 $url = null;
+$flag = 1;
 
 $url = $_URL[3];
 if (!is_numeric($url)) {
@@ -37,6 +39,11 @@ try {
 } catch (ApplicationException $ex) {
     echo "<h1>GETCDL FALLITO!</h1>" . $ex;
 }
+try {
+    $corsi = $controller->getCorsi();
+} catch (ApplicationException $ex) {
+    echo "<h1>GETCORSI FALLITO!</h1>" . $ex;
+}
 
 $nome = $corso->getNome();
 $tipologia = $corso->getTipologia();
@@ -50,12 +57,24 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     $matricolanew = $_POST['matricola'];
     $cdlmatricolanew = $_POST['tipologia2'];
 
-    try {
-        $new = new Corso($matricolanew, $nomenew, $tipologianew, $cdlmatricolanew);
-        $controller->modificaCorso($corso->getId(), $new);
-        header('location: ../view');
-    } catch (ApplicationException $ex) {
-        echo "<h1>MODIFICACORSO FALLITO!</h1>" . $ex;
+    $x = array_search($corso ,$corsi);
+    unset($corsi[$x]);
+
+    foreach($corsi as $c) {
+        if($c->getMatricola() == $matricolanew) {
+            $flag = 0;
+        }
+    }
+
+    if($flag) {
+        try {
+            $new = new Corso($matricolanew, $nomenew, $tipologianew, $cdlmatricolanew);
+            $controller->modificaCorso($corso->getId(), $new);
+
+            header('location: ../view');
+        } catch (ApplicationException $ex) {
+            echo "<h1>MODIFICACORSO FALLITO!</h1>" . $ex;
+        }
     }
 }
 
@@ -160,6 +179,15 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 
                                 <div class="portlet-body form">
 
+                                    <?php
+                                    if(!$flag) {
+                                        echo "<div class=\"alert alert-danger\">
+                                        <button class=\"close\" data-close=\"alert\"></button>
+                                        La matricola del corso è già presente nel DataBase.
+                                        </div>";
+                                    }
+                                    ?>
+
                                     <div class="alert alert-danger display-hide">
                                         <button class="close" data-close="alert"></button>
                                         Ci sono alcuni errori nei dati. Per favore riprova l'inserimento.
@@ -237,7 +265,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                             <div class="col-md-12">
                                 <div class="form-actions">
                                     <div class="col-md-3">
-                                        <button type="submit" class="btn green-jungle">Conferma</button>
+                                        <button type="submit" onclick="impostaNotifica()" class="btn green-jungle">Conferma</button>
                                     </div>
                                     <div class="col-md-3">
                                         <input type="reset" value="Annulla" class="btn red-intense"/>
@@ -295,6 +323,11 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
         TableManaged.init();
         FormValidation.init();
     });
+</script>
+<script>
+    function impostaNotifica() {
+        sessionStorage.setItem('modifica','si');
+    }
 </script>
 <!-- END JAVASCRIPTS -->
 </body>
