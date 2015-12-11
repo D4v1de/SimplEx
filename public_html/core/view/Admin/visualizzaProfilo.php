@@ -10,15 +10,12 @@ include_once CONTROL_DIR . "UtenteController.php";
 include_once CONTROL_DIR . "CdlController.php";
 $ctr = new UtenteController();
 $victim = null;
-$cdl = null;
 try {
-    $victim = $ctr->getUtenteByMatricola($_URL[3]);
-    $cdlCtr = new CdlController();
-    if (is_numeric($victim->getCdlMatricola())) {
-        $cdl = $cdlCtr->readCdl($victim->getCdlMatricola());
-    }
+    $victim = $ctr->getUtenteByMatricola($_SESSION['user']->getMatricola());
+    $_SESSION['user'] = $victim; // refresh
 } catch (ApplicationException $ex) {
-    header('Location: /adm/utenti');
+    echo "err";
+    //header('Location: /adm/utenti');
 }
 ?>
 <!DOCTYPE html>
@@ -71,20 +68,13 @@ try {
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="index">Home</a>
+                        <a href="/">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="index">Utenti</a>
-                        <i class="fa fa-angle-right"></i>
+                        <a href="/me">Mio profilo</a>
                     </li>
-                    <li>
-                        <a href="index">Visualizza</a>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
-                    <li>
-                        <?php echo $victim->getNome() . " " . $victim->getCognome() ?>
-                    </li>
+
                 </ul>
             </div>
 
@@ -162,12 +152,7 @@ try {
 
                             <div class="col-md-3">
                                 <a class="btn green-jungle"
-                                   href="/adm/utenti/modifica/<?= $victim->getMatricola() ?>"><i class="fa fa-edit"></i>
-                                    Modifica</a>
-                                <button type="submit" value="Elimina" data-toggle="confirmation" data-singleton="true"
-                                        data-popout="true" title="" data-original-title="sei sicuro?"
-                                        class="btn red-intense"><i class="fa fa-minus"></i>Elimina
-                                </button>
+                                   href="/modifica/"><i class="fa fa-edit"></i> Modifica</a>
                             </div>
                         </form>
                     </div>
