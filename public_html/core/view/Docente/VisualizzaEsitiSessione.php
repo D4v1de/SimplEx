@@ -7,8 +7,43 @@
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "Esempio.php";
-$controller = new Esempio();
+include_once CONTROL_DIR . "SessioneController.php";
+include_once CONTROL_DIR . "CdlController.php";
+include_once CONTROL_DIR . "ControllerTest.php";
+include_once CONTROL_DIR . "DomandaController.php";
+include_once CONTROL_DIR . "RispostaApertaController.php";
+include_once CONTROL_DIR . "RispostaMultiplaController.php";
+include_once CONTROL_DIR . "AlternativaController.php";
+include_once CONTROL_DIR . "ElaboratoController.php";
+
+$controllerSessione = new SessioneController();
+$controlleCdl = new CdlController();
+$idSessione = $_URL[5];
+$identificativoCorso = $_URL[3];
+$domandaController = new DomandaController();
+$elaboratoController = new ElaboratoController();
+$testController = new ControllerTest();
+$alternativaController = new AlternativaController();
+$soglia=null;
+$sessioneByUrl = $controllerSessione->readSessione($_URL[5]);
+$dataFrom = $sessioneByUrl->getDataInizio();
+$dataTo = $sessioneByUrl->getDataFine();
+$tipoSessione = $sessioneByUrl->getTipologia();
+$soglia=$sessioneByUrl->getSogliaAmmissione();
+
+try {
+    $corso = $controlleCdl->readCorso($identificativoCorso);
+    $nomecorso= $corso->getNome();
+}
+catch (ApplicationException $ex) {
+    echo "<h1>ERRORE NELLA LETTURA DEL CORSO!</h1>" . $ex;
+}
+
+if(isset($_POST['soglia'])){
+    $soglia=$_POST['soglia'];
+    $sessioneAggiornata = new Sessione($dataFrom, $dataTo, $soglia , $sessioneByUrl->getStato(), $sessioneByUrl->getTipologia(), $identificativoCorso);
+    $controllerSessione->updateSessione($_URL[5], $sessioneAggiornata);
+}
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -51,31 +86,39 @@ $controller = new Esempio();
                             <i class="fa fa-angle-right"></i>
                         </li>
                         <li>
-                            <a href="#">Nome Corso</a>
+                            <a href="<?php echo "/usr/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $controlleCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
                             <i class="fa fa-angle-right"></i>
                         </li>
                         <li>
-                            <a href="#">Nome Sessione</a>
-                            <i class="fa fa-angle-right"></i>                            
+                            <?php
+                            $vaiANomeCorso="/usr/docente/corso/".$identificativoCorso;
+                            printf("<a href=\"%s\">%s</a><i class=\"fa fa-angle-right\"></i>", $vaiANomeCorso ,$nomecorso);
+                            ?>
                         </li>
                         <li>
-                            Esiti Sessione
+                            <?php
+                            $vaiAVisu="/usr/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."visualizzasessione";
+                            printf("<a href=\"%s\">%s</a><i class=\"fa fa-angle-right\"></i>", $vaiAVisu ,"Sessione ".$idSessione);
+                            ?>
+                            </li>
+                        <li>
+                            Esiti
                         </li>
                     </ul>
                 </div>
 
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-
+        <form method="post" action="">
             <div class="row">
             <div class="col-md-12">
                 <div class="col-md-8"></div>
                 <label>Soglia esiti:
-                    <input type="search" class="form-control input-small input-inline" placeholder="" aria-controls="sample_1"/>
+                    <?php printf("<input type='search' name='soglia' class='form-control input-small input-inline' placeholder='%s' aria-controls='sample_1'/>", $soglia);?>
                 </label>
-                <a href="javascript:;" class="btn sm green-jungle">
+                <button  href="javascript:;" class="btn sm green-jungle">
                     Conferma
-                </a>
+                </button>
             </div>
         </div>
             <!-- TABELLA 1 -->
@@ -133,78 +176,26 @@ $controller = new Esempio();
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr class="gradeX odd" role="row">
-                                            <td>
-                                                Test 1
-                                            </td>
-                                            <td class="sorting_1">
-                                                10/11/2015
-                                            </td>
-                                            <td>
-                                                10
-                                            </td>
-                                            <td>
-                                                2
-                                            </td>
-                                            <td>
-                                                30
-                                            </td>
-                                            <td>
-                                                0%
-                                            </td>
-                                            <td>
-                                                0%
-                                            </td>
-                                        </tr>
-
-
-                                        <tr class="gradeX even" role="row">
-                                            <td>
-                                                Test 2
-                                            </td>
-                                            <td class="sorting_1">
-                                                23/03/2016
-                                            </td>
-                                            <td>
-                                                30
-                                            </td>
-                                            <td>
-                                                0
-                                            </td>
-                                            <td>
-                                                60
-                                            </td>
-                                            <td>
-                                                10%
-                                            </td>
-                                            <td>
-                                                70%
-                                            </td>
-                                        </tr>
-
-                                        <tr class="gradeX even" role="row">
-                                            <td>
-                                                Test 3
-                                            </td>
-                                            <td class="sorting_1">
-                                                15/11/2015
-                                            </td>
-                                            <td>
-                                                0
-                                            </td>
-                                            <td>
-                                                10
-                                            </td>
-                                            <td>
-                                                100
-                                            </td>
-                                            <td>
-                                                5%
-                                            </td>
-                                            <td>
-                                                15%
-                                            </td>
-                                        </tr>
+                                        <?php
+                                        $array = Array();
+                                        $array = $controllerSessione->getAllTestBySessione($idSessione);
+                                        if ($array == null) {
+                                            echo "l'array è null"." ".$idSessione;
+                                        }
+                                        else {
+                                            foreach ($array as $c) {
+                                                printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                                printf("<td class=\"sorting_1\">Test %s</td>", $c->getId());
+                                                printf("<td>%s</td>", $c->getDescrizione());
+                                                printf("<td>%d</td>", $c->getNumeroMultiple());
+                                                printf("<td>%d</td>", $c->getNumeroAperte());
+                                                printf("<td>%d</td>", $c->getPunteggioMax());
+                                                printf("<td>%d</td>", $c->getPercentualeScelto());
+                                                printf("<td>%d</td>", $c->getPercentualeSuccesso());
+                                                printf("</tr>");
+                                            }
+                                        }
+                                        ?>
                                 </tbody>
                             </table>
                     </div>
@@ -269,179 +260,35 @@ $controller = new Esempio();
                                         
                                         </thead>
                                         <tbody>
-                                        <tr class="gradeX odd" role="row">
-                                            <td>
-                                                Fabiano
-                                            </td>
-                                            <td class="sorting_1">
-                                                Pecorelli
-                                            </td>
-                                            <td>
-                                                0512100001
-                                            </td>
-                                            <td>
-                                                0/60
-                                            </td>
-                                            <td>
-                                                Ritirato
-                                            </td>
-                                            <td>
-                                                <font color="green"> Corretto </font>
-                                            </td>
-                                            <td>
-                                                <a href="correggitest" class="btn btn-sm blue-madison">
-                                                    <i class="fa fa-pencil"></i> Correggi
-                                                </a>
-                                                <a href="visualizzatestdocente" class="btn btn-sm default" disabled="true">
+                                        <?php
+                                        $esaminandiSessione = Array();
+                                        $toDisable="";
+                                        $esaminandiSessione= $controllerSessione->getEsaminandiSessione($idSessione);
+                                        if ($esaminandiSessione == null) {
+                                            echo "l'array è null";
+                                        }
+                                        else {
+                                            foreach ($esaminandiSessione as $c) {
+                                                $ela=$elaboratoController->readElaborato($c->getMatricola(),$idSessione);
+                                                printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                                printf("<td class=\"sorting_1\">%s</td>", $c->getNome());
+                                                printf("<td>%s</td>", $c->getCognome());
+                                                printf("<td>%s</td>", $c->getMatricola());
+                                                if($ela->getStato()=="Corretto")
+                                                    printf("<td>%s</td>", $ela->getEsitoFinale());
+                                                else
+                                                    printf("<td>%s</td>", $ela->getEsitoParziale());
+                                                printf("<td>%s</td>","CHE CA..CI VA SE NON E' CORRETTO?");
+                                                printf("<td>%s</td>", $ela->getStato());
+                                                printf("<td><a href=\"correggitest\" class=\"btn btn-sm blue-madison\">
+                                                    <i class=\"fa fa-pencil\"></i> Correggi
+                                                </a>  <a href=\"visualizzatestdocente\" class=\"btn btn-sm default\">
                                                     Visualizza
-                                                </a>
-                                            </td>
-                                        </tr>
-
-
-                                        <tr class="gradeX even" role="row">
-                                            <td>
-                                                Elvira
-                                            </td>
-                                            <td class="sorting_1">
-                                                Zanin
-                                            </td>
-                                            <td>
-                                                0512100002
-                                            </td>
-                                            <td>
-                                                59/60
-                                            </td>
-                                            <td>
-                                                Promosso
-                                            </td>
-                                            <td>
-                                                <font color="green"> Corretto </font>
-                                            </td>
-                                            <td>
-                                                <a href="correggitest" class="btn btn-sm blue-madison">
-                                                    <i class="fa fa-pencil"></i> Correggi
-                                                </a>
-                                                <a href="visualizzatestdocente" class="btn btn-sm default">
-                                                    Visualizza
-                                                </a>
-                                            </td>                                            
-                                        </tr>
-
-                                        <tr class="gradeX even" role="row">
-                                             <td>
-                                                Fabio
-                                            </td>
-                                            <td class="sorting_1">
-                                                Esposito
-                                            </td>
-                                            <td>
-                                                0512100003
-                                            </td>
-                                            <td>
-                                                54/60
-                                            </td>
-                                            <td>
-                                                Promosso
-                                            </td>
-                                            <td>
-                                                <font color="green"> Corretto </font>
-                                            </td>
-                                            <td>
-                                                <a href="correggitest" class="btn btn-sm blue-madison">
-                                                    <i class="fa fa-pencil"></i> Correggi
-                                                </a>
-                                                <a href="visualizzatestdocente" class="btn btn-sm default">
-                                                    Visualizza
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        
-                                        <tr class="gradeX even" role="row">
-                                             <td>
-                                                Pasquale
-                                            </td>
-                                            <td class="sorting_1">
-                                                Martiniello
-                                            </td>
-                                            <td>
-                                                0512100004
-                                            </td>
-                                            <td>
-                                                50/60
-                                            </td>
-                                            <td>
-                                                Promosso
-                                            </td>
-                                            <td>
-                                                <font color="green"> Corretto </font>
-                                            </td>
-                                            <td>
-                                                <a href="correggitest" class="btn btn-sm blue-madison">
-                                                    <i class="fa fa-pencil"></i> Correggi
-                                                </a>
-                                                <a href="visualizzatestdocente" class="btn btn-sm default">
-                                                    Visualizza
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        
-                                        <tr class="gradeX even" role="row">
-                                             <td>
-                                                Christian
-                                            </td>
-                                            <td class="sorting_1">
-                                                De Blasio
-                                            </td>
-                                            <td>
-                                                0512100005
-                                            </td>
-                                            <td>
-                                                35/60*
-                                            </td>
-                                            <td>
-                                                
-                                            </td>
-                                            <td>
-                                                <font color="red"> Non Corretto </font>
-                                            </td>
-                                            <td>
-                                                <a href="correggitest" class="btn btn-sm blue-madison">
-                                                    <i class="fa fa-pencil"></i> Correggi
-                                                </a>
-                                                <a href="visualizzatestdocente" class="btn btn-sm default">
-                                                    Visualizza
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        
-                                        <tr class="gradeX even" role="row">
-                                             <td>
-                                                Carlo
-                                            </td>
-                                            <td class="sorting_1">
-                                                Di Domenico
-                                            </td>
-                                            <td>
-                                                0512100006
-                                            </td>
-                                            <td>
-                                                60L/60
-                                            </td>
-                                            <td>
-                                                Promosso
-                                            </td>
-                                            <td>
-                                                <font color="green"> Corretto </font>
-                                            </td>
-                                            <td>
-                                                <a href="correggitest" class="btn btn-sm blue-madison">
-                                                    <i class="fa fa-pencil"></i> Correggi
-                                                </a>
-                                                <a href="visualizzatestdocente" class="btn btn-sm default">
-                                                    Visualizza
-                                                </a>
-                                            </td>
+                                                </a></td>");
+                                                printf("</tr>");
+                                            }
+                                        }
+                                        ?>
                                         </tr>
                                         
                                         
@@ -451,7 +298,7 @@ $controller = new Esempio();
                             </div>
                         </div>
 
-
+        </form>
                     </div>
 
                 </div>
