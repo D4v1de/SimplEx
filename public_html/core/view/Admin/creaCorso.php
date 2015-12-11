@@ -63,7 +63,6 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     <meta charset="utf-8"/>
     <title>Crea Corso</title>
     <?php include VIEW_DIR . "design/header.php"; ?>
-    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -253,8 +252,6 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 <script src="/assets/admin/pages/scripts/form-validation.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
-<script src="/assets/admin/pages/scripts/ui-toastr.js"></script>
-<script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
 <!-- END aggiunta da me -->
 
 <script>
@@ -265,7 +262,6 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
         //Demo.init(); // init demo features
         TableManaged.init();
         FormValidation.init();
-        UIToastr.init();
     });
 </script>
 <script>

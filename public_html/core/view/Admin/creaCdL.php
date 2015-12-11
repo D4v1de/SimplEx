@@ -66,7 +66,6 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     <?php include VIEW_DIR . "design/header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -241,8 +240,6 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 <script src="/assets/admin/pages/scripts/form-validation.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
-<script src="/assets/admin/pages/scripts/ui-toastr.js"></script>
-<script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
 <!-- END aggiunta da me -->
 <script>
     jQuery(document).ready(function () {
@@ -253,7 +250,6 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
         TableManaged.init("tabella_3", "tabella_3_wrapper");
         FormValidation.init();
         UIConfirmations.init();
-        UIToastr.init();
     });
 </script>
 <script>
