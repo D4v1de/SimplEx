@@ -114,7 +114,7 @@ class UtenteController extends Controller {
         if (!preg_match(Patterns::$NAME_GENERIC, $cognome)) {
             throw new IllegalArgumentException("Cognome assente oppure errato");
         }
-        if (!preg_match(Patterns::$MATRICOLA, $cdl)) {
+        if (!preg_match(Patterns::$MATRICOLA, $cdl) && $tipologia == "Studente") {
             throw new IllegalArgumentException("Cdl sbagliato o assente");
         }
         $accModel = new AccountModel();
@@ -183,7 +183,7 @@ class UtenteController extends Controller {
     public function modificaUtente($matricola, $fieldName, $value) {
         //TODO verifiche in più
         if (!is_numeric($matricola)) {
-            throw new ApplicationException(Error::$MATRICOLA_INESISTENTE . "sss");
+            throw new ApplicationException(Error::$MATRICOLA_INESISTENTE);
         }
         $aModel = new AccountModel();
         $utente = $aModel->getUtenteByMatricola($matricola);
@@ -243,5 +243,61 @@ class UtenteController extends Controller {
     public function disiscrizioneStudente($matricola_studente, $id_corso) {
         $accountModel = new AccountModel();
         $accountModel->disiscriviStudenteCorso($matricola_studente, $id_corso);
+    }
+
+    /**
+     * Rimuove l'utenza dato la matricola
+     * @param $matricola
+     * @throws ApplicationException
+     */
+    public function eliminaUtenteByMatricola($matricola) {
+        $accountModel = new AccountModel();
+        if (!is_numeric($matricola)) {
+            throw new ApplicationException(Error::$MATRICOLA_INESISTENTE);
+        }
+        if (!preg_match(Patterns::$MATRICOLA, $matricola)) {
+            throw new ApplicationException(Error::$MATRICOLA_INESISTENTE);
+        }
+        $accountModel->deleteUtente($matricola);
+    }
+
+    public function modificaUtenteByType($matricola, $nome, $cognome, $cdlMatricola, $email, $pass, $tipo) {
+        if (!is_numeric($matricola)) {
+            throw new ApplicationException(Error::$MATRICOLA_INESISTENTE);
+        }
+        $aModel = new AccountModel();
+        $utente = $aModel->getUtenteByMatricola($matricola);
+
+        //!!! CRAZY CODE START
+        if (preg_match(Patterns::$EMAIL, $email)) {
+            $utente->setUsername($email);
+        } else {
+            throw new ApplicationException(Error::$EMAIL_NON_VALIDA);
+        }
+
+        if (preg_match(Patterns::$NAME_GENERIC, $nome)) {
+            $utente->setNome($nome);
+        } else {
+            throw new ApplicationException(Error::$NOME_NON_VALIDO);
+        }
+        if (preg_match(Patterns::$NAME_GENERIC, $cognome)) {
+            $utente->setCognome($cognome);
+        } else {
+            throw new ApplicationException(Error::$CONGNOME_NON_VALIDO);
+        }
+        if (($tipo == "Studente" && $cdlMatricola == null)) {
+            throw new ApplicationException(Error::$CDL_NON_TROVATO);
+        } else {
+            $utente->setCldMatricola(null);
+        }
+        if (isset($pass) && strlen($pass) > 0 && strlen($pass) < Config::$MIN_PASSWORD_LEN) {
+            throw new ApplicationException(Error::$PASS_CORTA);
+        }
+        if (strlen($pass) > Config::$MIN_PASSWORD_LEN) {
+            $ident = AccountModel::createIdentity($email, $pass);
+            $utente->setPassword($ident);
+        }
+
+        $aModel->updateUtente($matricola, $utente);
     }
 }

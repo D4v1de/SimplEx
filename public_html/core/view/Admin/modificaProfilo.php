@@ -1,53 +1,42 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: fede_dr
- * Date: 23/11/15
- * Time: 21:46
+ * User: sergio
+ * Date: 11/12/15
+ * Time: 20:33
  */
 
-//TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "CdlController.php";
-$controller = new CdlController();
-
-$cdls = Array();
-$flag = 1;
-$flag2 = 1;
-
-try {
-    $cdls = $controller->getCdl();
-} catch (ApplicationException $ex) {
-    echo "<h1>GETCDL FALLITO!</h1>" . $ex;
-}
-
-if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricola'])) {
-
+include_once CONTROL_DIR . "UtenteController.php";
+$cdlCtrl = new CdlController();
+$uCtrl = new UtenteController();
+/** @var Utente $utente */
+$victim = $_SESSION['user'];
+$matricola = $victim->getMatricola();
+$error = "";
+if (isset($_POST['nome'])) {
+    $tipologia = $victim->getTipologia();
     $nome = $_POST['nome'];
-    $tipologia = $_POST['tipologia'];
-    $matricola = $_POST['matricola'];
+    $cognome = $_POST['cognome'];
+    $email = $_POST['email'];
+    $cdlMatricola = $victim->getCdlMatricola();
+//    if ($tipologia != "Studente") {
+//        $cdlMatricola = null;
+//    } else {
+//        $cdlMatricola = $_POST['cdl'];
+//    }
 
-    foreach($cdls as $c) {
-        if($c->getMatricola() == $matricola) {
-            $flag = 0;
-        }
+    $pass = $_POST['pass'];
+
+    try {
+        $uCtrl->modificaUtenteByType($matricola, $nome, $cognome, $cdlMatricola, $email, $pass, $tipologia);
+        header('location: /me?success=Utente modificato');
+        exit;
+    } catch (ApplicationException $ex) {
+        $error = "<h5>Modifica profilo FALLITO: " . $ex->getMessage() . "</h5>";
+    } catch (IllegalArgumentException $ex) {
+        $error = "<h5>Modifica profilo FALLITO: " . $ex->getMessage() . "</h5>";
     }
-    foreach($cdls as $c) {
-        if($c->getNome() == $nome) {
-            $flag2 = 0;
-        }
-    }
-
-    if($flag && $flag2) {
-        try {
-            $cdl = new CdL($matricola, $nome, $tipologia);
-            $controller->creaCdl($cdl);
-
-            header('location: view');
-        } catch (ApplicationException $ex) {
-            echo "<h1>CREACDL FALLITO!</h1>" . $ex;
-        }
-    }
-
 }
 
 ?>
@@ -62,10 +51,8 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>Crea CdL</title>
+    <title>Modifica <?= $victim->getNome() ?> <?= $victim->getCognome() ?></title>
     <?php include VIEW_DIR . "design/header.php"; ?>
-    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
-    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -81,23 +68,22 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                Crea CdL
+                Modifica <?= $victim->getTipologia() ?>
             </h3>
 
             <div class="page-bar">
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="../../../gestionale/admin/index.html">Home</a>
+                        <a href="/">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="view">GestioneCdL</a>
+                        <a href="/me">Mio profilo</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="crea">CreaCdL</a>
-                        <i class="fa fa-angle-right"></i>
+                        Modifica
                     </li>
                 </ul>
             </div>
@@ -108,38 +94,27 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
             <div class="row">
                 <div class="col-md-12">
                     <!-- BEGIN EXAMPLE TABLE PORTLET-->
-
+                    <?php if (!empty($error)) { ?>
+                        <div class="alert alert-danger display-hide" style="display: block;">
+                            <button class="close" data-close="alert"></button>
+                            <span id="alert_message">
+                            <?= $error; ?> </span>
+                        </div>
+                    <?php } ?>
                     <form id="form_sample_1" method="post" action="">
+                        <input type="hidden" name="tipologia" value="<?= $victim->getTipologia() ?>">
 
                         <div class="portlet box blue-madison">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    <i class="fa fa-globe"></i>Crea nuovo Corso di Laurea
+                                    <i class="fa fa-globe"></i>Modifica <?= $victim->getNome() ?> <?= $victim->getCognome() ?>
                                 </div>
                                 <div class="tools">
-                                    <a href="javascript:;" class="collapse" data-original-title="" title="">
-                                    </a>
+                                    <a href="javascript:;" class="collapse" data-original-title="" title=""></a>
                                 </div>
                             </div>
                             <div class="portlet-body">
                                 <div class="portlet-body form">
-
-                                    <?php
-                                        if(!$flag) {
-                                            echo "<div class=\"alert alert-danger\">
-                                        <button class=\"close\" data-close=\"alert\"></button>
-                                        La matricola del corso di laurea è già presente nel DataBase.
-                                        </div>";
-                                        }
-                                    ?>
-                                    <?php
-                                    if(!$flag2) {
-                                        echo "<div class=\"alert alert-danger\">
-                                        <button class=\"close\" data-close=\"alert\"></button>
-                                        Il nome del corso di laurea è già presente nel DataBase.
-                                        </div>";
-                                    }
-                                    ?>
 
                                     <div class="alert alert-danger display-hide">
                                         <button class="close" data-close="alert"></button>
@@ -152,29 +127,9 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
-                                            <select class="form-control" id="tipologiaCdl" name="tipologia">
-                                                <option value="">Seleziona</option>
-                                                <?php
-                                                    foreach(Config::$TIPI_CDL as $t) {
-                                                        if($tipologia == $t) {
-                                                            printf("<option value=\"%s\" selected>%s</option>",$t,$t);
-                                                        }
-                                                        else {
-                                                            printf("<option value=\"%s\">%s</option>",$t,$t);
-                                                        }
-                                                    }
-                                                ?>
-                                            </select>
-
-                                            <div class="form-control-focus">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group form-md-line-input">
-                                        <div class="col-md-10">
-                                            <input type="text" class="form-control" name="nome" id="nomeCdl"
+                                            <input type="text" class="form-control" id="nomeUtente" name="nome"
                                                    placeholder="Inserisci nome"
-                                                   value="<?php if (isset($nome)) echo $nome; ?>" required>
+                                                   value="<?= $victim->getNome() ?>">
 
                                             <div class="form-control-focus">
                                             </div>
@@ -182,9 +137,32 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                     </div>
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
-                                            <input type="number" class="form-control" name="matricola" id="matricolaCdl"
-                                                   placeholder="Inserisci matricola"
-                                                   value="<?php if (isset($matricola)) echo $matricola; ?>" required>
+                                            <input type="text" class="form-control" id="cognomeUtente"
+                                                   name="cognome"
+                                                   placeholder="Inserisci cognome"
+                                                   value="<?= $victim->getCognome() ?>">
+
+                                            <div class="form-control-focus">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-md-line-input">
+                                        <div class="col-md-10">
+                                            <input type="email" class="form-control" id="email"
+                                                   name="email"
+                                                   placeholder="Inserisci email"
+                                                   value="<?= $victim->getUsername() ?>">
+
+                                            <div class="form-control-focus">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-md-line-input">
+                                        <div class="col-md-10">
+                                            <input type="password" class="form-control" id="pass"
+                                                   name="pass"
+                                                   placeholder="Inserisci se necessario nuova password"
+                                                   value="">
 
                                             <div class="form-control-focus">
                                             </div>
@@ -197,10 +175,10 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                             <div class="col-md-12">
                                 <div class="form-actions">
                                     <div class="col-md-3">
-                                        <button type="submit" id="elimatricola" onclick="impostaNotifica()" value="Conferma" class="btn green-jungle">Conferma</button>
+                                        <input type="submit" value="Conferma" class="btn green-jungle"/>
                                     </div>
                                     <div class="col-md-3">
-                                        <input type="reset" value="Annulla" class="btn red-intense"/>
+                                        <a href="/me" value="Annulla" class="btn red-intense">Anulla</a>
                                     </div>
                                 </div>
                             </div>
@@ -228,7 +206,8 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 <!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
 <script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<script type="text/javascript"
+        src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <!-- END PAGE LEVEL PLUGINS aggiunta da me-->
 
 <script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>
@@ -241,23 +220,17 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
 <!-- END aggiunta da me -->
+
 <script>
     jQuery(document).ready(function () {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
-        TableManaged.init("tabella_3", "tabella_3_wrapper");
+        TableManaged.init();
         FormValidation.init();
-        UIConfirmations.init();
     });
 </script>
-<script>
-    function impostaNotifica() {
-        sessionStorage.setItem('notifica','si');
-    }
-</script>
-
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

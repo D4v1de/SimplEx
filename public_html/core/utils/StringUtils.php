@@ -18,4 +18,20 @@ class StringUtils {
     public static function decrypt($string) {
         return openssl_decrypt($string, "aes128", self::$ENC_PASS, false, self::$IV);
     }
+
+    /**
+     * @param $level string Livello di accesso, ad esempio Docente
+     * @param string $redirect nel caso il livello è più basso, verrà reindirizzato su questo URL
+     */
+    public static function checkPermission($level, $redirect = "/auth") {
+        if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+            /** @var Utente $user */
+            $user = $_SESSION['user'];
+            if (strtolower($user->getTipologia()) == strtolower($level)) {
+                return;
+            }
+        }
+        header('Location: ' . $redirect);
+        exit;
+    }
 }

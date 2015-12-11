@@ -98,6 +98,7 @@ if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
     <?php include VIEW_DIR . "design/header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -171,7 +172,7 @@ if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
                 <h3></h3>
             </div>
 
-            <form method="post" action="../gestione/<?php echo $corso->getId(); ?>">
+            <form method="post" action="../gestione/<?php echo $corso->getId(); ?>" onsubmit="impostaNotifica()">
 
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
@@ -183,8 +184,8 @@ if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
                             </a>
                         </div>
                         <div class="actions">
-                            <button type="submit" class="btn btn-default btn-sm">
-                                <i class="fa fa-plus"></i> Associa
+                            <button type="submit" data-toggle="confirmation" data-singleton="true" data-popout="true" title="sei sicuro?" class="btn btn-default btn-sm">
+                                <i class="fa fa-plus"></i> Salva
                             </button>
                             <input type="hidden" id="elimina" name="elimina" value="elimina">
                         </div>
@@ -216,11 +217,6 @@ if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
                                         aria-label="Status: activate to sort column ascending" style="width: 36px;">
                                         Cognome
                                     </th>
-                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                        colspan="1"
-                                        aria-label="Status: activate to sort column ascending" style="width: 36px;">
-                                        Matricola CdL
-                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -235,7 +231,6 @@ if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
                                     printf("<td>%s</td>", $d->getMatricola());
                                     printf("<td><a href=\"../../utenti/view/%s\">%s</a></td>", $d->getMatricola(), $d->getNome());
                                     printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $d->getCognome());
-                                    printf("<td>%s</td>", $d->getCdlMatricola());
                                     printf("</tr>");
                                 }
                                 ?>
@@ -274,6 +269,10 @@ if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN aggiunta da me -->
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
+<script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
+<script src="/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
+<script src="/assets/admin/pages/scripts/ui-toastr.js"></script>
+<script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
 <!-- END aggiunta da me -->
 <script>
     jQuery(document).ready(function () {
@@ -282,7 +281,19 @@ if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
         TableManaged.init("tabella_4", "tabella_4_wrapper");
+        UIToastr.init();
+        UIConfirmations.init();
+
+        if (sessionStorage.getItem('associa') == 'si') {
+            toastr.success('Corso associato con successo!', 'Associa');
+            sessionStorage.removeItem('associa');
+        }
     });
+</script>
+<script>
+    function impostaNotifica() {
+        sessionStorage.setItem('associa','si');
+    }
 </script>
 <!-- END JAVASCRIPTS -->
 </body>

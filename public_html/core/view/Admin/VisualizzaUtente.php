@@ -8,12 +8,19 @@
 include_once CONTROL_DIR . "UtenteController.php";
 include_once CONTROL_DIR . "CdlController.php";
 $ctr = new UtenteController();
-$user = null;
+$victim = null;
 $cdl = null;
+if ($_POST['action'] == "elimina" && isset($_POST['matricola']) && $_POST['matricola'] == $_URL[3]) {
+    $ctr->eliminaUtenteByMatricola($_POST['matricola']);
+    header('Location: /adm/utenti?success=Eliminato con successo');
+    exit;
+}
 try {
-    $user = $ctr->getUtenteByMatricola($_URL[3]);
+    $victim = $ctr->getUtenteByMatricola($_URL[3]);
     $cdlCtr = new CdlController();
-    $cdl = $cdlCtr->readCdl($user->getCdlMatricola());
+    if (is_numeric($victim->getCdlMatricola())) {
+        $cdl = $cdlCtr->readCdl($victim->getCdlMatricola());
+    }
 } catch (ApplicationException $ex) {
     header('Location: /adm/utenti');
 }
@@ -29,7 +36,7 @@ try {
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>Visualizza Utente</title>
+    <title><?php echo $victim->getNome() . " " . $victim->getCognome() ?> - Visualizza Utente</title>
     <?php include VIEW_DIR . "design/header.php"; ?>
     <!-- BEGIN PLUGINS USED BY X-EDITABLE -->
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css"/>
@@ -61,7 +68,7 @@ try {
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                <?php echo $user->getNome() . " " . $user->getCognome() ?>
+                <?php echo $victim->getNome() . " " . $victim->getCognome() ?>
             </h3>
 
             <div class="page-bar">
@@ -80,7 +87,7 @@ try {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <?php echo $user->getNome() . " " . $user->getCognome() ?>
+                        <?php echo $victim->getNome() . " " . $victim->getCognome() ?>
                     </li>
                 </ul>
             </div>
@@ -104,11 +111,7 @@ try {
                                         Nome
                                     </td>
                                     <td style="width:50%">
-                                        <a href="javascript:;" id="nome" data-type="text"
-                                           data-pk="<?= $user->getMatricola() ?>"
-                                           data-original-title="Nome utente" class="editable editable-click">
-                                            <?= $user->getNome() ?>
-                                        </a>
+                                        <?= $victim->getNome() ?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -116,11 +119,7 @@ try {
                                         Cognome
                                     </td>
                                     <td style="width:50%">
-                                        <a href="javascript:;" id="cognome" data-type="text"
-                                           data-pk="<?= $user->getMatricola() ?>"
-                                           data-original-title="Cognome utente" class="editable editable-click">
-                                            <?= $user->getCognome() ?>
-                                        </a>
+                                        <?= $victim->getCognome() ?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -128,11 +127,7 @@ try {
                                         Matricola
                                     </td>
                                     <td style="width:50%">
-                                        <a href="javascript:;" id="matricola" data-type="text"
-                                           data-pk="<?= $user->getMatricola() ?>"
-                                           data-original-title="Matricola" class="editable editable-click">
-                                            <?= $user->getMatricola() ?>
-                                        </a>
+                                        <?= $victim->getMatricola() ?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -140,11 +135,7 @@ try {
                                         E-mail
                                     </td>
                                     <td style="width:50%">
-                                        <a href="javascript:;" id="username" data-type="text"
-                                           data-pk="<?= $user->getMatricola() ?>"
-                                           data-original-title="Email" class="editable editable-click">
-                                            <?= $user->getUsername() ?>
-                                        </a>
+                                        <?= $victim->getUsername() ?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -152,34 +143,40 @@ try {
                                         Tipo utente
                                     </td>
                                     <td style="width:50%">
-                                        <a href="javascript:;" id="tipologia" data-type="select" data-value="0"
-                                           data-source="/adm/utenti/groups" data-original-title="Selezione tipo utente"
-                                           data-pk="<?= $user->getMatricola() ?>"
-                                           class="editable editable-click">
-                                            <?= $user->getTipologia() ?> </a>
+                                        <?= $victim->getTipologia() ?>
                                     </td>
                                 </tr>
-                                <?php if ($user->getTipologia()=="Studente") {?>                                 
-                                <tr>
-                                    <td style="width:15%">
-                                        Cdl Appartenente
-                                    </td>
-                                    <td style="width:50%">
-                                        <a href="javascript:;" id="cdl_matricola" data-type="select"
-                                           data-value="<?= $cdl->getMatricola() ?>"
-                                           data-pk="<?= $user->getMatricola() ?>"
-                                           data-source="/adm/utenti/cdls" data-original-title="Seleziona CdL"
-                                           class="editable editable-click">
-                                            <?= $cdl->getNome() ?> </a>
-                                    </td>
-                                </tr> <?php } ?> 
+                                <?php if ($victim->getTipologia() == "Studente") { ?>
+                                    <tr>
+                                        <td style="width:15%">
+                                            Cdl Appartenente
+                                        </td>
+                                        <td style="width:50%">
+                                            <?= $cdl->getNome() ?>
+                                        </td>
+                                    </tr> <?php } ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
+                    <div class="row">
+                        <form method="post">
+                            <input type="hidden" name="action" value="elimina"/>
+                            <input type="hidden" name="matricola" value="<?= $victim->getMatricola() ?>"/>
+
+                            <div class="col-md-3">
+                                <a class="btn green-jungle"
+                                   href="/adm/utenti/modifica/<?= $victim->getMatricola() ?>"><i class="fa fa-edit"></i>
+                                    Modifica</a>
+                                <button type="submit" value="Elimina" data-toggle="confirmation" data-singleton="true"
+                                        data-popout="true" title="" data-original-title="sei sicuro?"
+                                        class="btn red-intense"><i class="fa fa-minus"></i>Elimina
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
     <!-- END EXAMPLE TABLE PORTLET-->
@@ -208,31 +205,18 @@ try {
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 
-<!-- XEDITABLE -->
-<script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
-<script type="text/javascript" src="/assets/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
-<script type="text/javascript" src="/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
-<script type="text/javascript"
-        src="/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-<script type="text/javascript"
-        src="/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-<script type="text/javascript" src="/assets/global/plugins/moment.min.js"></script>
-<script type="text/javascript" src="/assets/global/plugins/jquery.mockjax.js"></script>
-<script type="text/javascript"
-        src="/assets/global/plugins/bootstrap-editable/bootstrap-editable/js/bootstrap-editable.js"></script>
-<script type="text/javascript" src="/assets/global/plugins/bootstrap-editable/inputs-ext/address/address.js"></script>
-<script type="text/javascript"
-        src="/assets/global/plugins/bootstrap-editable/inputs-ext/wysihtml5/wysihtml5.js"></script>
-<!-- END XEDITABLE -->
-
-<script src="/assets/admin/pages/scripts/form-editable-utente.js"></script>
-
+<script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
+<script src="/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js"
+        type="text/javascript"></script>
+<script src="/assets/admin/pages/scripts/ui-toastr.js"></script>
+<script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
 
 <script>
     jQuery(document).ready(function () {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
-        FormEditable.init();
+        QuickSidebar.init(); // init quick sidebar
+        UIConfirmations.init();
     });
 </script>
 <!-- END JAVASCRIPTS -->

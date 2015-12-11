@@ -19,6 +19,7 @@ $elaboratoController = new ElaboratoController();
 $testController = new ControllerTest();
 $sessioneController = new SessioneController();
 $alternativaController = new AlternativaController();
+$rmCon = new RispostaMultiplaController();
 $corsoId = $_URL[3];
 $sessId = $_URL[6];
 $sessione = $sessioneController->readSessione($sessId);
@@ -31,6 +32,41 @@ $cognome = $studente->getCognome();
 $testId = $elaborato->getTestId();
 $multiple = $domandaController->getAllDomandeMultipleByTest($testId);
 $aperte = $domandaController->getAllDomandeAperteByTest($testId);
+
+if (isset($_GET['abbandona'])){
+    $elaborato->setEsitoParziale(0);
+    $elaborato->setEsitoFinale(0);
+    $elaborato->setStato("Corretto");
+    $elaboratoController->updateElaborato($matricola,$sessId,$elaborato);   
+    header("Location: "."/usr/studente/corso/"."$corsoId"."/");
+}
+
+if (isset($_GET['consegna'])){
+    $rispMul = $rmCon->getMultipleByElaborato($elaborato);
+    $punteggio = 0;
+    foreach ($rispMul as $rm) {
+        $dom = $domandaController->getDomandaMultipla($rm->getDomandaMultiplaId());
+        $multId = $rm->getDomandaMultiplaId();
+        $puntCorrAlt = $domandaController->readPunteggioCorrettaAlternativo($multId, $testId);
+        $puntErrAlt = $domandaController->readPunteggioErrataAlternativo($multId, $testId);
+        $puntCor = ($puntCorrAlt != null)? $puntCorrAlt:$dom->getPunteggioCorretta();
+        $puntErr = ($puntErrAlt != null)? $puntErrAlt:$dom->getPunteggioErrata();
+        $altCor = $alternativaController->getAlternativaCorrettaByDomanda($multId);
+        if ($rm->getAlternativaId() != 0)
+            if ($altCor->getId() == $rm->getAlternativaId()){
+                $punteggio = $punteggio + $puntCor;
+                $rm->setPunteggio($puntCor);
+            }
+            else{
+                $punteggio = $punteggio + $puntErr;
+                $rm->setPunteggio($puntErr);
+            }
+            $rmCon->updateRispostaMultipla($rm, $sessId, $matricola, $multId);
+    }
+    $elaborato->setEsitoParziale($punteggio);
+    $elaboratoController->updateElaborato($matricola,$sessId,$elaborato);   
+    header("Location: "."/usr/studente/corso/"."$corsoId"."/");
+}
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -81,6 +117,8 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
                 </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
+            
+        <form action="" method="GET">
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">
@@ -94,7 +132,6 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
                             <div id="countdown"></div>
                         </div>
                     </div>
-
                     <div class="portlet-body">
                         <div class="form-body">
                             <div class="row">
@@ -200,23 +237,31 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
                         </div>
                     </div>
                 </div>
-                <div class="form-actions">
-                    <div class="row">
-                        <div class="col-md-12">
+                        <div class="form-actions">
                             <div class="row">
-                                <div class="col-md-9">
-                                    <a href="../.." onclick="javascript: Consegna()" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
-                                        Consegna
-                                    </a>
-                                    <a href="../.." onclick="javascript: Abbandona()" class="btn sm red-intense">
-                                        Abbandona
-                                    </a>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <button type="submit" name="consegna" class="btn green" data-toggle="confirmation" data-singleton="true" data-popout="true" title="Sei sicuro di voler consegnare?">Consegna</button>
+                                            <a class="btn default" id="demo_1">
+									View Demo </a>
+                                            <a class="btn default" id="demo_2">
+									View Demo </a>
+                                            <a class="btn default" id="demo_3">
+									View Demo </a>
+                                            <a class="btn default" id="demo_4">
+									View Demo </a>
+                                            <a class="btn default" id="demo_5">
+									View Demo </a>
+                                            <button type="submit" name="abbandona" class="btn red-intense" data-toggle="confirmation" data-singleton="true" data-popout="true" title="Vuoi davvero ritirarti? Ti verrà assegnato esito nullo.">Abbandona</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                </form>
             </div>
+
 <!-- END PAGE CONTENT-->
         </div>
     </div>
@@ -232,6 +277,15 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <!--<script src="/assets/global/scripts/mycountdown.js" type="text/javascript"></script>-->
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+
+<script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
+<script src="/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
+
+
+
+
+<script src="/assets/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
+<script src="/assets/admin/pages/scripts/ui-alert-dialog-api.js"></script>
 <script>
     var sId = <?= $sessId ?>;
     var mat = "<?= $matricola; ?>";
@@ -242,6 +296,8 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
     jQuery(document).ready(function () {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
+        UIConfirmations.init();
+        UIAlertDialogApi.init();
         //countdown
         $.get("/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});
         intId2 = setInterval(function(){$.post("/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});},30000);
@@ -336,8 +392,11 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
                 var start = date[1];
                 if (new Date(start).getTime() > new Date(end).getTime()){
                     countdown.innerHTML = '<span class="time" style="color: #c30"> Tempo Scaduto </span>';
-                    confirm("Tempo scaduto. Vuoi consegnare?");
+                    clearInterval(intId);
                     clearInterval(intId2);
+                    clearInterval(intId3);
+                    clearInterval(intId4);
+                    timeout_scaduto();
                 }
                 else{
                     var target_date = new Date(end).getTime();
@@ -359,24 +418,47 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
 <script>    
     var valutaAbilitazione = function(string){
         if (string == "Corretto"){
-            alert("Il docente ha annullato il test");
+            bootbox.alert("Il docente ha annullato il test", function() {
             location.href = "../..";
+        });  
         }
     }
+    function timeout_scaduto(){
+        bootbox.dialog({
+                    message: "Vuoi consegnare o ritirarti?",
+                    title: "Tempo scaduto!",
+                    closeButton: false,
+                    buttons: {
+                      consegna: {
+                        label: "Consegna",
+                        className: "green",
+                        callback: function() {
+                          $.post("/consegna?mat="+mat+"&sessId="+sId);
+                          location.href = "../..";
+                        }
+                      },
+                      abbandona: {
+                        label: "Abbandona",
+                        className: "red",
+                        callback: function() {
+                          $.post("/abbandona?mat="+mat+"&sessId="+sId);
+                          location.href = "../..";
+                        }
+                      }
+                    }
+                });
+            }/*
     var Consegna = function(){
-            var r = confirm("Sei sicuro di voler consegnare? Non potrai tornare indietro.");
-            if (r == true){
-                $.post("/consegna?mat="+mat+"&sessId="+sId,function(data){alert("Consegna effettuata"+data);});
-            }
+               
         }
         
         
         var Abbandona = function(){
-            var r = confirm("Sei sicuro di volerti ritirare dalla sessione in corso? Ti verrà assegnato esito nullo.");
             if (r == true){
+                confirm("lallalla");
                 $.post("/abbandona?mat="+mat+"&sessId="+sId);
             }
-        }
+        }*/
 </script>
 <!-- END JAVASCRIPTS -->
 </body>
