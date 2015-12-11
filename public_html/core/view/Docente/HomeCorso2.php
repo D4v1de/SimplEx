@@ -341,7 +341,7 @@ if(isset($_POST['idtest'])){
                                         printf("<td>%s %%</td>",$c->getPercentualeScelto());
                                         printf("<td>%s %%</td>",$c->getPercentualeSuccesso());
                                         printf("<td><a href=\"test/crea\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></i></a>");
-                                        printf("<button name='idtest' type='submit' value='%d' class='btn btn-sm red-intense'><i class=\"fa fa-trash-o\"></i></button>", $c->getId());
+                                        printf("<button class=\"btn btn-sm red-intense\" type=\"submit\" name=\"idtest\" title=\"\" id=\"%d\" value=\"%d\" data-popout=\"true\" data-toggle=\"confirmation\" data-singleton=\"true\" data-original-title=\"Sei sicuro?\"><i class=\"fa fa-trash-o\"></i></button>", $c->getId(), $c->getId());
                                         printf("</td>");
                                         printf("</tr>");
                                         }

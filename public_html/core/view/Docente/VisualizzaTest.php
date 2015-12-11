@@ -9,10 +9,25 @@
 include_once CONTROL_DIR . "DomandaController.php";
 $controllerDomanda = new DomandaController();
 
+include_once CONTROL_DIR . "TestController.php";
+$controllerTest = new TestController();
+
 include_once CONTROL_DIR . "AlternativaController.php";
 $controllerAlternativa = new AlternativaController();
 
 $test=$_URL[5];
+$identificativoCorso=$_URL[3];
+
+function parseInt($Str) {
+    return (int)$Str;   
+} 
+
+if(isset($_POST['idtest'])){
+    $id = $_POST['idtest'];
+    $controllerTest->deleteTest($id);
+    $tornaACasa= "Location: "."/usr/docente/corso/"."$identificativoCorso"."/";
+    header($tornaACasa);
+}
 
 ?>
 <!DOCTYPE html>
@@ -90,15 +105,21 @@ $test=$_URL[5];
 
                             ?>
             
-
+                            <form action="" method="POST">
                             <div class="row">
-                                <div class="col-md-9">
-                                    
-                                    <a href="../../" class="btn sm red-intense">
+                                <div class="col-md-4">
+                                    <?php
+                                     printf("<button class=\"btn btn-sm red-intense\" type=\"submit\" name=\"idtest\" title=\"\" id=\"%d\" value=\"%d\" data-popout=\"true\" data-toggle=\"confirmation\" data-singleton=\"true\" data-original-title=\"Sei sicuro?\">Elimina Test</button>", parseInt($test), parseInt($test));
+
+                                    ?>
+                                    </div>
+                                <div class="col-md-4">
+                                    <button href="../../" class="btn btn sm red-intense">
                                         Indietro
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
+                            </form>
             
             <!--
             <div class="portlet box blue-madison">
@@ -181,6 +202,12 @@ $test=$_URL[5];
 <!--Script specifici per la pagina -->
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="/assets/admin/pages/scripts/table-managed.js"></script>
+<script src="/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
+<script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
+
+<script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
+<script src="/assets/admin/pages/scripts/ui-toastr.js"></script>
 <script>
     jQuery(document).ready(function () {
         Metronic.init(); // init metronic core components
