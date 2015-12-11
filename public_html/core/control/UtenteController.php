@@ -183,7 +183,7 @@ class UtenteController extends Controller {
     public function modificaUtente($matricola, $fieldName, $value) {
         //TODO verifiche in più
         if (!is_numeric($matricola)) {
-            throw new ApplicationException(Error::$MATRICOLA_INESISTENTE . "sss");
+            throw new ApplicationException(Error::$MATRICOLA_INESISTENTE);
         }
         $aModel = new AccountModel();
         $utente = $aModel->getUtenteByMatricola($matricola);
@@ -243,5 +243,21 @@ class UtenteController extends Controller {
     public function disiscrizioneStudente($matricola_studente, $id_corso) {
         $accountModel = new AccountModel();
         $accountModel->disiscriviStudenteCorso($matricola_studente, $id_corso);
+    }
+
+    /**
+     * Rimuove l'utenza dato la matricola
+     * @param $matricola
+     * @throws ApplicationException
+     */
+    public function eliminaUtenteByMatricola($matricola) {
+        $accountModel = new AccountModel();
+        if (!is_numeric($matricola)) {
+            throw new ApplicationException(Error::$MATRICOLA_INESISTENTE);
+        }
+        if (!preg_match(Patterns::$MATRICOLA, $matricola)) {
+            throw new ApplicationException(Error::$MATRICOLA_INESISTENTE);
+        }
+        $accountModel->deleteUtente($matricola);
     }
 }

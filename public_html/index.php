@@ -239,10 +239,10 @@ if (!defined("TESTING")) {
         }
             break;
         case 'esempio':
-            include_once VIEW_DIR . "VisualizzaEsempio.php";
+            include_once VIEW_DIR . "design/VisualizzaEsempio.php";
             break;
         case 'graficacomune':
-            include_once VIEW_DIR . "GraficaComune.php";
+            include_once VIEW_DIR . "design/GraficaComune.php";
             break;
         case 'provatable':
             include_once VIEW_DIR . "Admin/provatable.php";

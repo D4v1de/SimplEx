@@ -87,15 +87,7 @@ if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
                         <div class="caption">
                             <i class="fa fa-university"></i>Scegli un Utente
                         </div>
-                        <div class="tools">
-                            <a href="javascript:;" class="collapse" data-original-title="" title="">
-                            </a>
-                        </div>
-                        <div class="actions">
-                            <button type="submit" class="btn btn-default btn-sm">
-                                <i class="fa fa-minus"></i> Elimina Utente
-                            </button>
-                        </div>
+
                         <div class="actions">
                             <a href="/adm/utenti/crea/docente"
                                class="btn btn-default btn-sm">
@@ -115,12 +107,7 @@ if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
                                    id="tabella_5" role="grid" aria-describedby="tabella_5_info">
                                 <thead>
                                 <tr role="row">
-                                    <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1"
-                                        aria-label=""
-                                        style="width: 24px;">
-                                        <input type="checkbox" class="group-checkable"
-                                               data-set="#tabella_5 .checkboxes">
-                                    </th>
+
                                     <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
                                         colspan="1" aria-label="Username: activate to sort column ascending"
                                         aria-sort="ascending" style="width: 78px;">
@@ -147,7 +134,6 @@ if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
                                 <?php
                                 foreach ($utente as $d) {
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    printf("<td><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $d->getMatricola());
                                     printf("<td><a href='/adm/utenti/view/%s'>%s</a></td>", $d->getMatricola(), $d->getMatricola());
                                     printf("<td>%s</td>", $d->getNome());
                                     printf("<td><span>%s</span></td>", $d->getCognome());

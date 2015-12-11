@@ -26,7 +26,7 @@ $user = $_SESSION['user'];
             <?php if ($user->getTipologia() == "Admin") { ?>
                 <!-- ADMIN -->
 
-                <li class="start">
+                <li class="<?php if($_URL[1]=="utenti") echo "active open"?>">
                     <a href="javascript:;">
                         <i class="icon-users"></i>
                         <span class="title">Gestione utenti</span>
@@ -51,9 +51,9 @@ $user = $_SESSION['user'];
                     </ul>
                 </li>
 
-                <li class="start">
+                <li class="<?php if($_URL[1]=="cdl") echo "active open"?>">
                     <a href="javascript:;">
-                        <i class="icon-users"></i>
+                        <i class="icon-notebook"></i>
                         <span class="title">Gestione CdL</span>
                         <span class="arrow"></span>
                     </a>
@@ -65,13 +65,28 @@ $user = $_SESSION['user'];
                         </li>
                         <li>
                             <a href="/adm/cdl/crea">
-                                <i class="icon-user-follow"></i>
+                                <i class="icon-plus"></i>
                                 Crea CdL</a>
                         </li>
+                    </ul>
+                </li>
+
+                <li class="<?php if($_URL[1]=="corsi") echo "active open"?>">
+                    <a href="javascript:;">
+                        <i class="icon-note"></i>
+                        <span class="title">Gestione Corsi</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu" style="display: none;">
                         <li>
-                            <a href="/adm/utenti/crea/docente">
-                                <i class="icon-user-follow"></i>
-                                Crea docente</a>
+                            <a href="/adm/corsi">
+                                <i class="icon-book-open"></i>
+                                Visualizza tutti corsi</a>
+                        </li>
+                        <li>
+                            <a href="/adm/corsi/crea">
+                                <i class="icon-plus"></i>
+                                Crea Corso</a>
                         </li>
                     </ul>
                 </li>
@@ -89,3 +104,4 @@ $user = $_SESSION['user'];
     </div>
 </div>
 <!-- END SIDEBAR -->
+
