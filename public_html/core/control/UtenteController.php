@@ -285,8 +285,10 @@ class UtenteController extends Controller {
         } else {
             throw new ApplicationException(Error::$CONGNOME_NON_VALIDO);
         }
-        if (!is_numeric($cdlMatricola) && $tipo == "Studente") {
+        if (!is_numeric($cdlMatricola) && $tipo != "Studente") {
             throw new ApplicationException(Error::$CDL_NON_TROVATO);
+        } else {
+            $utente->setCldMatricola($cdlMatricola);
         }
         if (isset($pass) && strlen($pass) > 0 && strlen($pass) < Config::$MIN_PASSWORD_LEN) {
             throw new ApplicationException(Error::$PASS_CORTA);

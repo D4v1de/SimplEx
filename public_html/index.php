@@ -53,6 +53,9 @@ if (!defined("TESTING")) {
         case '':
             include_once VIEW_DIR . "design/VisualizzaHome.php";
             break;
+        case 'me':
+            include_once VIEW_DIR . "Admin/visualizzaProfilo.php";
+            break;
         case 'auth': {
             switch (@$_URL[1]) {
                 case '':

@@ -26,7 +26,7 @@ if (isset($_POST['nome'])) {
     $pass = $_POST['pass'];
 
     try {
-        $uCtrl->modificaUtenteByType($matricola, $nome, $cognome, $cdlMatricola, $email, $pass);
+        $uCtrl->modificaUtenteByType($matricola, $nome, $cognome, $cdlMatricola, $email, $pass, $tipologia);
         header('location: /adm/utenti?success=Utente modificato');
         exit;
     } catch (ApplicationException $ex) {
@@ -116,8 +116,7 @@ try {
                                     <i class="fa fa-globe"></i>Modifica <?= $victim->getNome() ?> <?= $victim->getCognome() ?>
                                 </div>
                                 <div class="tools">
-                                    <a href="javascript:;" class="collapse" data-original-title="" title="">
-                                    </a>
+                                    <a href="javascript:;" class="collapse" data-original-title="" title=""></a>
                                 </div>
                             </div>
                             <div class="portlet-body">

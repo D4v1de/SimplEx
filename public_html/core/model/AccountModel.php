@@ -8,7 +8,6 @@ include_once BEAN_DIR . "Utente.php";
  * Date: 18/11/15
  * Time: 09:34
  */
-
 class AccountModel extends Model {
     private static $SALT = "r#*1542&ztnsa7uABN83gtkw7lcSjy";
     private static $SELECT_UTENTE = "SELECT * FROM `utente` WHERE `password`='%s' LIMIT 1";
@@ -17,11 +16,11 @@ class AccountModel extends Model {
     private static $DELETE_UTENTE = "DELETE FROM `utente` WHERE `matricola` = '%s' LIMIT 1";
     private static $SELECT_ALL_UTENTI = "SELECT * FROM `utente` ORDER BY cognome";
     private static $SELECT_ALL_STUDENTI = "SELECT * FROM `utente` WHERE tipologia = 'Studente' ORDER BY cognome, nome, matricola";
-    private static $UPDATE_UTENTE = "UPDATE `utente` SET `username` = '%s', `password` = '%s', `tipologia` = '%s', `nome` = '%s', `cognome` = '%s', `matricola` = '%s' WHERE `matricola` = '%s' LIMIT 1";
-    private static $GET_ALL_DOCENTI_CORSO = "SELECT u.* FROM `insegnamento` as i, `utente` as u WHERE i.docente_matricola = u.matricola AND i.corso_id = '%d' ORDER BY cognome, nome, matricola";
-    private static $GET_ALL_STUDENTI_CDL = "SELECT u.* FROM `utente` as u WHERE u.cdl_matricola = '%s' ORDER BY cognome, nome, matricola";
-    private static $GET_ALL_STUDENTI_CORSO = "SELECT u.* FROM `utente` as u, `frequenta` as f WHERE f.studente_matricola = u.matricola AND f.corso_id = '%d' ORDER BY cognome, nome, matricola";
-    private static $GET_ALL_STUDENTI_SESSIONE = "SELECT u.* FROM `abilitazione` as a, `utente` as u WHERE a.sessione_id = '%s' AND a.studente_matricola = u.matricola ORDER BY cognome, nome, matricola";
+    private static $UPDATE_UTENTE = "UPDATE `utente` SET `username` = '%s', `password` = '%s', `tipologia` = '%s', `nome` = '%s', `cognome` = '%s', `matricola` = '%s', `cdl_matricola`='%s'  WHERE `matricola` = '%s' LIMIT 1";
+    private static $GET_ALL_DOCENTI_CORSO = "SELECT u.* FROM `insegnamento` AS i, `utente` AS u WHERE i.docente_matricola = u.matricola AND i.corso_id = '%d' ORDER BY cognome, nome, matricola";
+    private static $GET_ALL_STUDENTI_CDL = "SELECT u.* FROM `utente` AS u WHERE u.cdl_matricola = '%s' ORDER BY cognome, nome, matricola";
+    private static $GET_ALL_STUDENTI_CORSO = "SELECT u.* FROM `utente` AS u, `frequenta` AS f WHERE f.studente_matricola = u.matricola AND f.corso_id = '%d' ORDER BY cognome, nome, matricola";
+    private static $GET_ALL_STUDENTI_SESSIONE = "SELECT u.* FROM `abilitazione` AS a, `utente` AS u WHERE a.sessione_id = '%s' AND a.studente_matricola = u.matricola ORDER BY cognome, nome, matricola";
     private static $SELECT_ALL_DOCENTI = "SELECT * FROM `utente` WHERE tipologia = 'Docente' ORDER BY cognome, nome, matricola";
     private static $INSERT_FREQUENTA = "INSERT INTO `frequenta` (studente_matricola, corso_id) VALUES ('%s','%d')";
     private static $DELETE_FREQUENTA = "DELETE FROM `frequenta` WHERE studente_matricola = '%s' AND corso_id = '%d'";
@@ -118,7 +117,7 @@ class AccountModel extends Model {
     /**
      * Serializza tupla dal db in un oggetto Utente
      * @param mysqli_result $res
-     * @return Utente 
+     * @return Utente
      * @throws ApplicationException [$UTENTE_NON_TROVATO]
      */
 
@@ -183,7 +182,7 @@ class AccountModel extends Model {
      */
 
     public function updateUtente($matricola, $utente) {
-        $qr = sprintf(self::$UPDATE_UTENTE, $utente->getUsername(), $utente->getPassword(), $utente->getTipologia(), $utente->getNome(), $utente->getCognome(), $utente->getMatricola(), $matricola);
+        $qr = sprintf(self::$UPDATE_UTENTE, $utente->getUsername(), $utente->getPassword(), $utente->getTipologia(), $utente->getNome(), $utente->getCognome(), $utente->getMatricola(), $utente->getCdlMatricola(), $matricola);
         Model::getDB()->query($qr);
         if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
@@ -201,7 +200,7 @@ class AccountModel extends Model {
         $query = sprintf(self::$GET_ALL_DOCENTI_CORSO, $idCorso);
         $res = Model::getDB()->query($query);
         $docenti = array();
-        if($res){
+        if ($res) {
             while ($obj = $res->fetch_assoc()) {
                 $docenti[] = new Utente($obj['matricola'], $obj['username'], $obj['password'], $obj['tipologia'], $obj['nome'], $obj['cognome'], $obj['cdl_matricola']);
             }
@@ -219,10 +218,10 @@ class AccountModel extends Model {
         $query = sprintf(self::$GET_ALL_STUDENTI_CDL, $matricolaCdl);
         $res = Model::getDB()->query($query);
         $studenti = array();
-        if($res) {
+        if ($res) {
             while ($obj = $res->fetch_assoc()) {
                 $studente = new Utente($obj['matricola'], $obj['username'], $obj['password'], $obj['tipologia'], $obj['nome'], $obj['cognome'], $obj['cdl_matricola']);
-                $studenti[]=$studente;
+                $studenti[] = $studente;
             }
         }
         return $studenti;
@@ -264,45 +263,45 @@ class AccountModel extends Model {
         }
         return $studenti;
     }
-    
+
     /**
      * Iscrive uno studente ad un corso nel database
      * @param string $studenteMatricola la matricola dello studente da iscrivere
      * @param Corso idCorso L'id del corso a cui iscrivere lo studente
      * @throws ApplicationException
      */
-    public function iscriviStudenteCorso($studenteMatricola, $idCorso){
+    public function iscriviStudenteCorso($studenteMatricola, $idCorso) {
         $query = sprintf(self::$INSERT_FREQUENTA, $studenteMatricola, $idCorso);
         Model::getDB()->query($query);
-        if (Model::getDB()->affected_rows==-1) {
+        if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
         }
     }
-    
+
     /**
      * Disiscrive uno studente ad un corso nel database
      * @param string $studenteMatricola la matricola dello studente da disiscrivere
      * @param Corso idCorso L'id del corso a cui disiscrivere lo studente
      * @throws ApplicationException
      */
-    public function disiscriviStudenteCorso($studenteMatricola, $idCorso){
+    public function disiscriviStudenteCorso($studenteMatricola, $idCorso) {
         $query = sprintf(self::$DELETE_FREQUENTA, $studenteMatricola, $idCorso);
         Model::getDB()->query($query);
-        if (Model::getDB()->affected_rows==-1) {
+        if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
         }
     }
-    
+
     /**
      * Inserisce un insegnamento nel database
      * @param string $docenteMatricola La matricola del docente che insegna il corso
      * @param Corso idCorso Il corso insegnato dal docente
      * @throws ApplicationException
      */
-    public function inserisciInsegnamento($docenteMatricola, $idCorso){
+    public function inserisciInsegnamento($docenteMatricola, $idCorso) {
         $query = sprintf(self::$INSERT_INSEGNAMENTO, $docenteMatricola, $idCorso);
         Model::getDB()->query($query);
-        if (Model::getDB()->affected_rows==-1) {
+        if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
         }
     }
@@ -313,10 +312,10 @@ class AccountModel extends Model {
      * @param string $studenteMatricola la matricola dello studente da abilitare
      * @throws ApplicationException
      */
-    public function abilitaStudenteSessione($idSessione, $studenteMatricola){
+    public function abilitaStudenteSessione($idSessione, $studenteMatricola) {
         $query = sprintf(self::$INSERT_ABILITAZIONE, $idSessione, $studenteMatricola);
         Model::getDB()->query($query);
-        if (Model::getDB()->affected_rows==-1) {
+        if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
         }
     }
@@ -327,10 +326,10 @@ class AccountModel extends Model {
      * @param string $studenteMatricola la matricola dello studente da abilitare
      * @throws ApplicationException
      */
-    public function disabilitaStudenteSessione($idSessione, $studenteMatricola){
+    public function disabilitaStudenteSessione($idSessione, $studenteMatricola) {
         $query = sprintf(self::$DELETE_ABILITAZIONE, $idSessione, $studenteMatricola);
         Model::getDB()->query($query);
-        if (Model::getDB()->affected_rows==-1) {
+        if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
         }
     }
