@@ -95,7 +95,10 @@ class AccountModel extends Model {
         $query = sprintf(self::$INSERT_UTENTE, $utente->getMatricola(), $utente->getUsername(),
             $ident, $utente->getTipologia(), $utente->getNome(), $utente->getCognome(), ($utente->getCdlMatricola() == null) ? "NULL" : "'" . $utente->getCdlMatricola() . "'");
         if (!Model::getDB()->query($query)) {
-            throw new ApplicationException(Error::$INSERIMENTO_FALLITO, Model::getDB()->error, Model::getDB()->errno);
+            if (Model::getDB()->errno == 1062) {
+                throw new ApplicationException(Error::$MATRICOLA_ESISTE, Model::getDB()->error, Model::getDB()->errno);
+            } else
+                throw new ApplicationException(Error::$INSERIMENTO_FALLITO, Model::getDB()->error, Model::getDB()->errno);
         }
         return $utente;
     }
@@ -177,10 +180,9 @@ class AccountModel extends Model {
      * @param string $matricola
      * @param Utente $utente
      * @return bool aggiornato?
+     * @throws ApplicationException
      * @throws ConnectionException
-     *
      */
-
     public function updateUtente($matricola, $utente) {
         $qr = sprintf(self::$UPDATE_UTENTE, $utente->getUsername(), $utente->getPassword(), $utente->getTipologia(), $utente->getNome(), $utente->getCognome(), $utente->getMatricola(), ($utente->getCdlMatricola() == null ? "NULL" : "'" . $utente->getCdlMatricola() . "'"), $matricola);
         Model::getDB()->query($qr);
