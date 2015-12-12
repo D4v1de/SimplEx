@@ -54,9 +54,11 @@ if (!defined("TESTING")) {
             include_once VIEW_DIR . "design/VisualizzaHome.php";
             break;
         case 'me':
+            StringUtils::checkPermission("all");
             include_once VIEW_DIR . "Admin/visualizzaProfilo.php";
             break;
         case 'modifica':
+            StringUtils::checkPermission("all");
             include_once VIEW_DIR . "Admin/modificaProfilo.php";
             break;
         case 'auth': {
@@ -197,6 +199,9 @@ if (!defined("TESTING")) {
                                             break;
                                         case 'correggi':
                                             include_once VIEW_DIR . "Docente/CorreggiTest.php";
+                                            break;
+                                        case 'visualizza':
+                                            include_once VIEW_DIR . "Docente/VisualizzaElaborato.php";
                                             break;
                                         case 'sessioneincorso':
                                             switch (isset($_URL[7]) ? $_URL[7] : '') {

@@ -244,11 +244,6 @@ if(isset($_POST['soglia'])){
                                             <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Email
                                 " style="width: 100px;">
-                                                Stato
-                                            </th>
-                                            <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                         Email
-                                " style="width: 100px;">
                                                 Stato Correzione
                                             </th>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
@@ -278,13 +273,12 @@ if(isset($_POST['soglia'])){
                                                     printf("<td>%s</td>", $ela->getEsitoFinale());
                                                 else
                                                     printf("<td>%s</td>", $ela->getEsitoParziale());
-                                                printf("<td>%s</td>","CHE CA..CI VA SE NON E' CORRETTO?");
                                                 printf("<td>%s</td>", $ela->getStato());
                                                 printf("<td><a href='/usr/docente/corso/%s/sessione/%s/correggi/%s' class=\"btn btn-sm blue-madison\">
                                                     <i class=\"fa fa-pencil\"></i> Correggi
-                                                </a>  <a href=\"visualizzatestdocente\" class=\"btn btn-sm default\">
+                                                </a>  <a href='/usr/docente/corso/%s/sessione/%s/visualizza/%s' class=\"btn btn-sm default\">
                                                     Visualizza
-                                                </a></td>",$identificativoCorso,$idSessione, $c->getMatricola());
+                                                </a></td>",$identificativoCorso,$idSessione, $c->getMatricola(),$identificativoCorso,$idSessione, $c->getMatricola());
                                                 printf("</tr>");
                                             }
                                         }

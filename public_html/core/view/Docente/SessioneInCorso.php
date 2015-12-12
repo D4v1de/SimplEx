@@ -60,6 +60,9 @@ if(isset( $_POST['annullaEsame'])) {
     header("Refresh:0");
 }
 
+if(isset( $_POST['aggiorna'])) {
+    header("Refresh:0");
+}
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -125,7 +128,7 @@ if(isset( $_POST['annullaEsame'])) {
 
             <div class="row">
                 <div class="col-md-12">
-                    <div class="portlet box grey-cascade">
+                    <div class="portlet box blue-madison">
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="fa fa-globe"></i>Test
@@ -216,7 +219,7 @@ if(isset( $_POST['annullaEsame'])) {
 
             <div class="row">
                 <div class="col-md-12">
-                    <div class="portlet box grey-cascade">
+                    <div class="portlet box blue-madison">
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="fa fa-globe"></i>Studenti
@@ -226,13 +229,19 @@ if(isset( $_POST['annullaEsame'])) {
                                 </a>
                             </div>
                         </div>
-                            <div class="portlet-body">
+                            <div class="portlet-body " >
                               <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
                         <div class="row">
                                 <div class="col-md-12">
                                     <button type="submit"  name="addStu" href="javascript:;" class="btn sm green-jungle"><i class="fa fa-plus"></i><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
-                                        Aggiungi Studente
-                                    </button>
+                                        Aggiungi Studente</button>
+
+                                        <a title="Aggiungi alla lista seguente gli Studenti che hanno appena cominciato il test!" name="aggiorna" href="<?php
+                                        $vaiASesInCorso="/usr/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."sessioneincorso";
+                                        printf("%s",$vaiASesInCorso);  ?>"
+                                           class="btn sm green-jungle"><i class="fa fa-refresh" ></i><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                            Aggiorna
+                                        </a>
                                 </div>
                         </div>
                                 <div class="table-scrollable">

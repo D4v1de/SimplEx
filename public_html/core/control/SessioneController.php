@@ -137,14 +137,28 @@ class SessioneController extends Controller {   //UTLIZZARE ALTRO CONTROLLER..NO
         $this->sessioneModel->abilitaMostraEsito($id);
     }
 
+     /**Ritorna Si o No in caso si decida se Mostrare o meno le Rsisposte Corrette
+     * @param $id
+     * @return string La relativa Sessione
+     * @throws ApplicationException
+     */
     public function readMostraRisposteCorretteSessione($id) {
         return $this->sessioneModel->readMostraRisposteCorretteSessione($id);
     }
 
+    /**Ritorna Si o No in caso si decida se Mostrare o meno gli Esiti
+     * @param $id La relativa Sessione
+     * @return string
+     * @throws ApplicationException
+     */
     public function readMostraEsitoSessione($id) {
        return  $this->sessioneModel->readMostraEsitoSessione($id);
     }
 
+    /**Ritorna tutti gli studenti che stanno svolgendo una sessione d'esame
+     * @param $idSes La relativa Sessione
+     * @return Utente[]
+     */
     public function getEsaminandiSessione($idSes) {
         return $this->accountModel->getEsaminandiSessione($idSes);
     }
