@@ -35,8 +35,8 @@ $error = null;
 <body class="page-md login">
 <!-- BEGIN LOGO -->
 <div class="logo">
-    <a href="index.html">
-        <img src="/assets/admin/layout/img/logo-big.png" alt=""/>
+    <a href="/">
+        <img src="/assets/admin/layout/img/logoMedio.png" alt=""/>
     </a>
 </div>
 <!-- END LOGO -->
@@ -263,10 +263,8 @@ $error = null;
         Login.init();
         // init background slide images
         $.backstretch([
-                "/assets/admin/pages/media/bg/1.jpg",
-                "/assets/admin/pages/media/bg/2.jpg",
-                "/assets/admin/pages/media/bg/3.jpg",
-                "/assets/admin/pages/media/bg/4.jpg"
+                "/assets/admin/pages/media/bg/bg1.jpg",
+                "/assets/admin/pages/media/bg/bg2.jpg"
             ], {
                 fade: 1000,
                 duration: 8000

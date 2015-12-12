@@ -2,8 +2,33 @@
 
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "Esempio.php";
-$controller = new Esempio();
+include_once CONTROL_DIR . "ControllerTest.php";
+include_once CONTROL_DIR . "SessioneController.php";
+include_once CONTROL_DIR . "DomandaController.php";
+include_once CONTROL_DIR . "RispostaApertaController.php";
+include_once CONTROL_DIR . "RispostaMultiplaController.php";
+include_once CONTROL_DIR . "AlternativaController.php";
+include_once CONTROL_DIR . "ElaboratoController.php";
+
+$domandaController = new DomandaController();
+$elaboratoController = new ElaboratoController();
+$testController = new ControllerTest();
+$sessioneController = new SessioneController();
+$alternativaController = new AlternativaController();
+
+$corsoId = $_URL[3];
+$sessId = $_URL[5];
+$matricola = $_URL[7];
+
+$sessione = $sessioneController->readSessione($sessId);
+$elaborato = $elaboratoController->readElaborato($matricola,$sessId);
+$studente = $testController->getUtentebyMatricola($matricola);
+$nome = $studente->getNome();
+$cognome = $studente->getCognome();
+
+$testId = $elaborato->getTestId();
+$multiple = $domandaController->getAllDomandeMultipleByTest($testId);
+$aperte = $domandaController->getAllDomandeAperteByTest($testId);
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -33,7 +58,7 @@ $controller = new Esempio();
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                Correzione Test
+                <?php echo 'Correzione Elaborato di '.$cognome." ".$nome ?>
             </h3>
             <div class="page-bar">
                     <ul class="page-breadcrumb">
@@ -62,32 +87,76 @@ $controller = new Esempio();
 
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-           <div class="portlet box blue-madison">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                    <i class="fa fa-file-text-o"></i>Test
-                            </div>
-                            <div class="tools">
-                                   <a href="javascript:;" class="collapse" data-original-title="" title="">
-                                   </a>
-                            </div>
-                        </div>
-                     
-                      <div class="portlet-body">
-                    
-                    <h3>Domanda 1 (multipla) </h3>
-                    <p><div class="checker disabled"><span><input type="checkbox" disabled="true"></span></div>Risposta 1</p>
-                    <p><div class="checker disabled"><span><input type="checkbox" disabled="true"></span></div><font color="#78a300">Risposta 2</font></p>
-                    <p><div class="checker disabled"><span class="checked"><input type="checkbox" disabled="true" checked="true"></span></div><font color="#d54e21">Risposta 3</font></p>
-                    <p><div class="checker disabled"><span><input type="checkbox" disabled="true"></span></div>Risposta 4</p>
-                    
-                    <h3> Domanda 2 (aperta)</h3>
-                    <div class="row">
-                    
-                        <div class="col-md-6">
-                        <textarea disabled="true" class="form-control" rows="3" style="resize:none">Risposta data dallo studente</textarea>
-                        </div>
-                        <div class="col-md-1">
+            <?php
+            $selectedAlt = null;
+            function creaRispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId, $testo, $punteggio){
+                $raCon = new RispostaApertaController();
+                $risp = new RispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId, $testo, $punteggio);
+                $raCon->createRispostaAperta($risp);
+            }
+            function creaRispostaMultipla($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId, $punteggio, $alternativaId){
+                $rmCon = new RispostaMultiplaController();
+                $risp = new RispostaMultipla($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId, $punteggio, $alternativaId);
+                $rmCon->createRispostaMultipla($risp);
+            }
+            function setRispostaMultiplaAlternativa($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId){
+                $rmCon = new RispostaMultiplaController();
+                $risp = $rmCon->readRispostaMultipla($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId);
+                return $risp->getAlternativaId();
+            }
+            function setRispostaApertaValue($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId){
+                $raCon = new RispostaApertaController();
+                $risp = $raCon->readRispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId);
+                return $risp->getTesto();
+            }
+            $i = 1;
+            foreach ($multiple as $m) {
+                $j = 1;
+                $testo = $m->getTesto();
+                $multId = $m->getId();
+                try{
+                    creaRispostaMultipla($sessId, $matricola, $multId, null, null);
+                }
+                catch (ApplicationException $ex){
+                    $selectedAlt = setRispostaMultiplaAlternativa($sessId, $matricola, $multId);
+                }
+                echo "<h3>".$testo."</h3>";
+                echo '<div class="form-group form-md-checkboxes">';
+                echo '<div class="md-checkbox-list">';
+                $alternative = $alternativaController->getAllAlternativaByDomanda($multId);
+                foreach ($alternative as $r){
+                    $altId = $r->getId();
+                    echo    '<div class="md-checkbox">
+                                                    <input type="checkbox" id="alt-'.$altId.'" name="mul-'.$multId.'" ';
+                    if ($selectedAlt == $altId) echo 'checked';
+                    echo        ' onclick="javascript: updateMultipla(this.name,this.id);" class="md-check">
+                                                    <label for="alt-'.$altId.'">
+                                                    <span class="inc"></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span>
+                                                    '.$r->getTesto().'</label>
+                                                </div>';
+                    $j++;
+                }
+                $i++;
+                echo '</div>';
+                echo '</div>';
+            }
+
+            foreach ($aperte as $a) {
+                $testo = $a->getTesto();
+                $apId = $a->getId();
+                $txt = null;
+                try{
+                    creaRispostaAperta($sessId, $matricola, $apId, null, null);
+                }
+                catch (ApplicationException $ex){
+                    $txt = setRispostaApertaValue($sessId, $matricola, $apId);
+                }
+                echo '<h3>'.$testo.'</h3>';
+                echo    '  <div class="row">  <div class="col-md-9">
+                                                <textarea class="form-control" id="ap-'.$apId.'" rows="3" style="resize:none">'.$txt.'</textarea>
+                                            </div>  <div class="col-md-1">
                             <select class="form-control">
                                 <option>0</option>
                                 <option>1</option>
@@ -97,19 +166,15 @@ $controller = new Esempio();
                                 <option>5</option>
                             </select>
                         </div>
-                    </div>
-                    <h3> Domanda 3 (multipla)</h3>
-                    <p><div class="checker disabled"><span><input type="checkbox" disabled="true"></span></div>Risposta 1</p>
-                    <p><div class="checker disabled"><span><input type="checkbox" disabled="true"></span></div>Risposta 2</p>
-                    <p><div class="checker disabled"><span><input type="checkbox" disabled="true"></span></div>Risposta 3</p>
-                    <p><div class="checker disabled"><span class="checked"><input type="checkbox" disabled="true" checked="true"></span></div><font color="#78a300">Risposta 4</font></p>
-                    </div>
-                    </div>
-                    <div class="form-actions">
+                    </div>';
+                $i++;
+            }
+            ?>
+            <div class="form-actions">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="row">
-                                    <div class="col-md-9">
+                                    <div class="col-md-offset-10">
                                         <a href="javascript:;" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                                             Salva
                                         </a>

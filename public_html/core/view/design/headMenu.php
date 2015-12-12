@@ -6,8 +6,8 @@
  * Time: 10:03
  */
 
-//qualche logica se necessario
-
+/** @var Utente $user */
+$user = $_SESSION['user'];
 ?>
 
 <!-- BEGIN HEADER -->
@@ -33,19 +33,30 @@
         <!-- BEGIN TOP NAVIGATION MENU -->
         <div class="top-menu">
             <ul class="nav navbar-nav pull-right">
-                <!-- END USER LOGIN DROPDOWN -->
-                <!-- BEGIN QUICK SIDEBAR TOGGLER -->
-                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                <li class="dropdown dropdown-quick-sidebar-toggler">
-                    <a href="javascript:;" class="dropdown-toggle">
-                        <i class="icon-logout"></i>
+                <li class="dropdown dropdown-user">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                       data-close-others="true">
+                            <span
+                                class="username username-hide-on-mobile">    <?php echo $user->getNome() . " " . $user->getCognome(); ?> </span>
+                        <i class="fa fa-angle-down"></i>
                     </a>
+                    <ul class="dropdown-menu dropdown-menu-default">
+                        <li>
+                            <a href="/me">
+                                <i class="icon-user"></i> Il mio profilo </a>
+                        </li>
+
+                        <li>
+                            <a href="/auth/logout">
+                                <i class="icon-key"></i> Log Out </a>
+                        </li>
+                    </ul>
                 </li>
-                <!-- END QUICK SIDEBAR TOGGLER -->
+                <!--END QUICK SIDEBAR TOGGLER-->
             </ul>
         </div>
-        <!-- END TOP NAVIGATION MENU -->
+        <!--END TOP NAVIGATION MENU-->
     </div>
-    <!-- END HEADER INNER -->
+    <!--END HEADER INNER-->
 </div>
-<!-- END HEADER -->
+<!--END HEADER-->

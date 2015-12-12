@@ -195,6 +195,7 @@ if (isset($_POST['checkbox'])) {
         //Demo.init(); // init demo features
         TableManaged.init("tabella_5", "tabella_5_wrapper");
         UIConfirmations.init();
+        UIToastr.init();
 
         if(sessionStorage.getItem('notifica') == 'si') {
             toastr.success('Nuovo CdL creato con successo!','Creazione');
