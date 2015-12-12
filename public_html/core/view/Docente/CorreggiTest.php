@@ -17,6 +17,7 @@ $elaboratoController = new ElaboratoController();
 $testController = new ControllerTest();
 $sessioneController = new SessioneController();
 $alternativaController = new AlternativaController();
+$raController = new RispostaApertaController();
 
 $corsoId = $_URL[3];
 $sessId = $_URL[5];
@@ -38,6 +39,22 @@ try {
 }
 catch (ApplicationException $ex) {
     echo "<h1>ERRORE NELLA LETTURA DEL CORSO!</h1>" . $ex;
+}
+
+if (isset($_GET['salva'])){
+    $fin = $elaborato->getEsitoParziale();
+    foreach ($aperte as $ap){
+        $apId = $ap->getId();
+        $punt = $_GET['sel-'.$apId.''];
+        $fin = $fin + $punt;
+        $rispAp = $raController->readRispostaAperta($sessId, $matricola, $apId);
+        $rispAp->setPunteggio($punt);
+        $raController->updateRispostaAperta($rispAp, $sessId, $matricola, $apId);
+    }
+    $elaborato->setEsitoFinale($fin);
+    $elaborato->setStato("Corretto");
+    $elaboratoController->updateElaborato($matricola,$sessId,$elaborato);   
+    header("Location: "."/usr/docente/corso/"."$corsoId"."/sessione/"."$sessId"."/esiti/");
 }
 
 ?>
@@ -108,6 +125,7 @@ catch (ApplicationException $ex) {
 
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
+            <form action="" method="GET">
             <?php
             $selectedAlt = null;
             function creaRispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId, $testo, $punteggio){
@@ -143,18 +161,20 @@ catch (ApplicationException $ex) {
                     </div>
                 </div>
                  <div class=\"portlet-body\">");
+            
+                            function getRispostaMultiplaAlternativa($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId){
+                                $rmCon = new RispostaMultiplaController();
+                                $risp = $rmCon->readRispostaMultipla($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId);
+                                return $risp->getAlternativaId();
+                            }
 
             $i = 1;
             foreach ($multiple as $m) {
                 $j = 1;
                 $testo = $m->getTesto();
                 $multId = $m->getId();
-                try{
-                    creaRispostaMultipla($sessId, $matricola, $multId, null, null);
-                }
-                catch (ApplicationException $ex){
-                    $selectedAlt = setRispostaMultiplaAlternativa($sessId, $matricola, $multId);
-                }
+                $selectedAlt = getRispostaMultiplaAlternativa($sessId, $matricola, $multId);
+                
                 echo "<h3>".$testo."</h3>";
                 echo '<div class="form-group form-md-checkboxes">';
                 echo '<div class="md-checkbox-list">';
@@ -164,7 +184,7 @@ catch (ApplicationException $ex) {
                     echo    '<div class="md-checkbox">
                                                     <input type="checkbox" id="alt-'.$altId.'" name="mul-'.$multId.'" ';
                     if ($selectedAlt == $altId) echo 'checked';
-                    echo        ' onclick="javascript: updateMultipla(this.name,this.id);" class="md-check">
+                    echo        ' onclick="javascript: updateMultipla(this.name,this.id);" class="md-check" disabled>
                                                     <label for="alt-'.$altId.'">
                                                     <span class="inc"></span>
                                                     <span class="check"></span>
@@ -178,7 +198,6 @@ catch (ApplicationException $ex) {
                 echo '</div>';
             }
             echo ' </div></div>';
-
             printf("<div class=\"portlet box blue-madison\">
                 <div class=\"portlet-title\">
                     <div class=\"caption\">
@@ -190,28 +209,30 @@ catch (ApplicationException $ex) {
                     </div>
                 </div>
                  <div class=\"portlet-body\">");
+            
+            function getRispostaApertaValue($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId){
+                $raCon = new RispostaApertaController();
+                $risp = $raCon->readRispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId);
+                return $risp->getTesto();
+            }
             foreach ($aperte as $a) {
                 $testo = $a->getTesto();
                 $apId = $a->getId();
                 $txt = null;
-                try{
-                    creaRispostaAperta($sessId, $matricola, $apId, null, null);
-                }
-                catch (ApplicationException $ex){
-                    $txt = setRispostaApertaValue($sessId, $matricola, $apId);
-                }
+                $txt = getRispostaApertaValue($sessId, $matricola, $apId);
                 echo '<h3>'.$testo.'</h3>';
+                $max = $domandaController->readPunteggioMaxAlternativo($apId, $testId);
+                if ($max == null){
+                    $dom = $domandaController->getDomandaAperta($apId);
+                    $max = $dom->getPunteggioMax();                            
+                }
                 echo    '  <div class="row">  <div class="col-md-9">
-                                                <textarea class="form-control" id="ap-'.$apId.'" rows="3" style="resize:none">'.$txt.'</textarea>
+                                                <textarea class="form-control" disabled id="ap-'.$apId.'" rows="3" style="resize:none">'.$txt.'</textarea>
                                             </div>  <div class="col-md-1">
-                            <select class="form-control">
-                                <option>0</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
+                            <select class="form-control" name="sel-'.$apId.'">';
+                            for($x = 0; $x <= $max; $x++)
+                                echo '<option>'.$x.'</option>';
+                            echo '</select>
                         </div>
                     </div>';
                 $i++;
@@ -219,21 +240,17 @@ catch (ApplicationException $ex) {
             echo ' </div></div>';
             ?>
             <div class="form-actions">
+                <div class="row">
+                    <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-offset-10">
-                                        <a href="javascript:;" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
-                                            Salva
-                                        </a>
-                                        <a href="javascript:;" class="btn sm red-intense">
-                                            Annulla
-                                        </a>
-                                    </div>
-                                </div>
+                            <div class="col-md-9">
+                                <button type="submit" name="salva" class="btn green" data-toggle="confirmation" data-singleton="true" data-popout="true" title="Sei sicuro di voler salvare?">Salva</button>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            </form>
             <!-- END PAGE CONTENT-->
         </div>
     </div>
@@ -248,10 +265,15 @@ catch (ApplicationException $ex) {
 <!--Script specifici per la pagina -->
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+
+<script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
+<script src="/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
+
 <script>
     jQuery(document).ready(function () {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
+        UIConfirmations.init();
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
     });

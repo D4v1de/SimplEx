@@ -271,9 +271,6 @@ if (isset($_GET['consegna'])){
 <script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
 <script src="/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
 
-
-
-
 <script src="/assets/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
 <script src="/assets/admin/pages/scripts/ui-alert-dialog-api.js"></script>
 <script>
