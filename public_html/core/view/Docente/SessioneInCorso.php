@@ -234,11 +234,14 @@ if(isset( $_POST['aggiorna'])) {
                         <div class="row">
                                 <div class="col-md-12">
                                     <button type="submit"  name="addStu" href="javascript:;" class="btn sm green-jungle"><i class="fa fa-plus"></i><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
-                                        Aggiungi Studente
+                                        Aggiungi Studente</button>
 
-                                        <button type="submit"  title="Aggiungi alla lista seguente gli Studenti che hanno appena cominciato il test!" name="aggiorna" href="javascript:;" class="btn sm green-jungle"><i class="fa fa-refresh" ></i><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                        <a title="Aggiungi alla lista seguente gli Studenti che hanno appena cominciato il test!" name="aggiorna" href="<?php
+                                        $vaiASesInCorso="/usr/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."sessioneincorso";
+                                        printf("%s",$vaiASesInCorso);  ?>"
+                                           class="btn sm green-jungle"><i class="fa fa-refresh" ></i><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                                             Aggiorna
-                                        </button>
+                                        </a>
                                 </div>
                         </div>
                                 <div class="table-scrollable">
