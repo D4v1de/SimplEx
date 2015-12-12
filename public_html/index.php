@@ -198,6 +198,9 @@ if (!defined("TESTING")) {
                                         case 'correggi':
                                             include_once VIEW_DIR . "Docente/CorreggiTest.php";
                                             break;
+                                        case 'visualizza':
+                                            include_once VIEW_DIR . "Docente/VisualizzaElaborato.php";
+                                            break;
                                         case 'sessioneincorso':
                                             switch (isset($_URL[7]) ? $_URL[7] : '') {
                                                 case 'aggiungistudente':
