@@ -9,7 +9,9 @@ include_once CONTROL_DIR . "RispostaApertaController.php";
 include_once CONTROL_DIR . "RispostaMultiplaController.php";
 include_once CONTROL_DIR . "AlternativaController.php";
 include_once CONTROL_DIR . "ElaboratoController.php";
+include_once CONTROL_DIR . "CdlController.php";
 
+$controlleCdl = new CdlController();
 $domandaController = new DomandaController();
 $elaboratoController = new ElaboratoController();
 $testController = new ControllerTest();
@@ -29,6 +31,15 @@ $cognome = $studente->getCognome();
 $testId = $elaborato->getTestId();
 $multiple = $domandaController->getAllDomandeMultipleByTest($testId);
 $aperte = $domandaController->getAllDomandeAperteByTest($testId);
+
+try {
+    $corso = $controlleCdl->readCorso($corsoId);
+    $nomecorso= $corso->getNome();
+}
+catch (ApplicationException $ex) {
+    echo "<h1>ERRORE NELLA LETTURA DEL CORSO!</h1>" . $ex;
+}
+
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -68,19 +79,29 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
                             <i class="fa fa-angle-right"></i>
                         </li>
                         <li>
-                            <a href="#">Nome Corso</a>
+                            <a href="<?php echo "/usr/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $controlleCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
                             <i class="fa fa-angle-right"></i>
                         </li>
                         <li>
-                            <a href="#">Nome Sessione</a>
-                            <i class="fa fa-angle-right"></i>                            
+                            <?php
+                            $vaiANomeCorso="/usr/docente/corso/".$corsoId;
+                            printf("<a href=\"%s\">%s</a><i class=\"fa fa-angle-right\"></i>", $vaiANomeCorso ,$nomecorso);
+                            ?>
                         </li>
                         <li>
-                            <a href="#">Esiti Sessione</a>
-                            <i class="fa fa-angle-right"></i>                            
+                            <?php
+                            $vaiAVisu="/usr/docente/corso/".$corsoId."/sessione"."/".$sessId."/"."visualizzasessione";
+                            printf("<a href=\"%s\">%s</a><i class=\"fa fa-angle-right\"></i>", $vaiAVisu ,"Sessione ".$sessId);
+                            ?>
                         </li>
                         <li>
-                            Correggi Test
+                            <?php
+                            $vaiAEsiti="/usr/docente/corso/".$corsoId."/sessione"."/".$sessId."/"."esiti";
+                            printf("<a href=\"%s\">%s</a><i class=\"fa fa-angle-right\"></i>", $vaiAEsiti ,"Esiti");
+                            ?>
+                        </li>
+                        <li>
+                            Correggi Elaborato
                         </li>
                     </ul>
                 </div>
@@ -104,11 +125,25 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
                 $risp = $rmCon->readRispostaMultipla($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId);
                 return $risp->getAlternativaId();
             }
-            function setRispostaApertaValue($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId){
+            function setRispostaApertaValue($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId)
+            {
                 $raCon = new RispostaApertaController();
                 $risp = $raCon->readRispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId);
                 return $risp->getTesto();
             }
+
+            printf("<div class=\"portlet box blue-madison\">
+                <div class=\"portlet-title\">
+                    <div class=\"caption\">
+                        <i class=\"fa fa-file-text-o\"></i>Domande a Risposta Multipla
+                    </div>
+                    <div class=\"tools\">
+                        <a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\">
+                        </a>
+                    </div>
+                </div>
+                 <div class=\"portlet-body\">");
+
             $i = 1;
             foreach ($multiple as $m) {
                 $j = 1;
@@ -142,7 +177,19 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
                 echo '</div>';
                 echo '</div>';
             }
+            echo ' </div></div>';
 
+            printf("<div class=\"portlet box blue-madison\">
+                <div class=\"portlet-title\">
+                    <div class=\"caption\">
+                        <i class=\"fa fa-file-text-o\"></i>Domande a Risposta Aperta
+                    </div>
+                    <div class=\"tools\">
+                        <a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\">
+                        </a>
+                    </div>
+                </div>
+                 <div class=\"portlet-body\">");
             foreach ($aperte as $a) {
                 $testo = $a->getTesto();
                 $apId = $a->getId();
@@ -169,6 +216,7 @@ $aperte = $domandaController->getAllDomandeAperteByTest($testId);
                     </div>';
                 $i++;
             }
+            echo ' </div></div>';
             ?>
             <div class="form-actions">
                         <div class="row">
