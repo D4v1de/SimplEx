@@ -54,9 +54,11 @@ if (!defined("TESTING")) {
             include_once VIEW_DIR . "design/VisualizzaHome.php";
             break;
         case 'me':
+            StringUtils::checkPermission("all");
             include_once VIEW_DIR . "Admin/visualizzaProfilo.php";
             break;
         case 'modifica':
+            StringUtils::checkPermission("all");
             include_once VIEW_DIR . "Admin/modificaProfilo.php";
             break;
         case 'auth': {
