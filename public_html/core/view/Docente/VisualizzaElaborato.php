@@ -41,22 +41,6 @@ catch (ApplicationException $ex) {
     echo "<h1>ERRORE NELLA LETTURA DEL CORSO!</h1>" . $ex;
 }
 
-if (isset($_GET['salva'])){
-    $fin = $elaborato->getEsitoParziale();
-    foreach ($aperte as $ap){
-        $apId = $ap->getId();
-        $punt = $_GET['sel-'.$apId.''];
-        $fin = $fin + $punt;
-        $rispAp = $raController->readRispostaAperta($sessId, $matricola, $apId);
-        $rispAp->setPunteggio($punt);
-        $raController->updateRispostaAperta($rispAp, $sessId, $matricola, $apId);
-    }
-    $elaborato->setEsitoFinale($fin);
-    $elaborato->setStato("Corretto");
-    $elaboratoController->updateElaborato($matricola,$sessId,$elaborato);   
-    header("Location: "."/usr/docente/corso/"."$corsoId"."/sessione/"."$sessId"."/esiti/");
-}
-
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -86,7 +70,7 @@ if (isset($_GET['salva'])){
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                <?php echo 'Correzione Elaborato di '.$cognome." ".$nome ?>
+                <?php echo 'Elaborato di '.$cognome." ".$nome ?>
             </h3>
             <div class="page-bar">
                     <ul class="page-breadcrumb">
@@ -118,14 +102,13 @@ if (isset($_GET['salva'])){
                             ?>
                         </li>
                         <li>
-                            Correggi Elaborato
+                            Visualizza Elaborato
                         </li>
                     </ul>
                 </div>
 
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <form action="" method="GET">
             <?php
             $selectedAlt = null;
             function creaRispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId, $testo, $punteggio){
@@ -229,28 +212,12 @@ if (isset($_GET['salva'])){
                 echo    '  <div class="row">  <div class="col-md-9">
                                                 <textarea class="form-control" disabled id="ap-'.$apId.'" rows="3" style="resize:none">'.$txt.'</textarea>
                                             </div>  <div class="col-md-1">
-                            <select class="form-control" name="sel-'.$apId.'">';
-                            for($x = 0; $x <= $max; $x++)
-                                echo '<option>'.$x.'</option>';
-                            echo '</select>
                         </div>
                     </div>';
                 $i++;
             }
             echo ' </div></div>';
             ?>
-            <div class="form-actions">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-9">
-                                <button type="submit" name="salva" class="btn green" data-toggle="confirmation" data-singleton="true" data-popout="true" title="Sei sicuro di voler salvare?">Salva</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </form>
             <!-- END PAGE CONTENT-->
         </div>
     </div>

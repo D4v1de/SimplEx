@@ -243,16 +243,6 @@ if (isset($_GET['consegna'])){
                                     <div class="row">
                                         <div class="col-md-9">
                                             <button type="submit" name="consegna" class="btn green" data-toggle="confirmation" data-singleton="true" data-popout="true" title="Sei sicuro di voler consegnare?">Consegna</button>
-                                            <a class="btn default" id="demo_1">
-									View Demo </a>
-                                            <a class="btn default" id="demo_2">
-									View Demo </a>
-                                            <a class="btn default" id="demo_3">
-									View Demo </a>
-                                            <a class="btn default" id="demo_4">
-									View Demo </a>
-                                            <a class="btn default" id="demo_5">
-									View Demo </a>
                                             <button type="submit" name="abbandona" class="btn red-intense" data-toggle="confirmation" data-singleton="true" data-popout="true" title="Vuoi davvero ritirarti? Ti verrà assegnato esito nullo.">Abbandona</button>
                                         </div>
                                     </div>
@@ -280,9 +270,6 @@ if (isset($_GET['consegna'])){
 
 <script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
 <script src="/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
-
-
-
 
 <script src="/assets/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
 <script src="/assets/admin/pages/scripts/ui-alert-dialog-api.js"></script>
@@ -418,9 +405,20 @@ if (isset($_GET['consegna'])){
 <script>    
     var valutaAbilitazione = function(string){
         if (string == "Corretto"){
-            bootbox.alert("Il docente ha annullato il test", function() {
-            location.href = "../..";
-        });  
+            bootbox.dialog({
+                message: "Il docente ha annullato il tuo test. Ti verrà assegnato esito nullo",
+                title: "Test annullato!",
+                closeButton: false,
+                buttons: {
+                  conferma: {
+                    label: "Ok",
+                    className: "red",
+                    callback: function() {
+                      location.href = "../..";
+                    }
+                  }
+                }
+            });
         }
     }
     function timeout_scaduto(){

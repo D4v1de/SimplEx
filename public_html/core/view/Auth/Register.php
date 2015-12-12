@@ -17,5 +17,8 @@ try {
     echo json_encode(array("status" => false, "error" => $ex->getMessage()));
 } catch (ApplicationException $ex) {
     Logger::error("Registrazione fallita ex=" . $ex);
-    echo json_encode(array("status" => false, "error" => "Errore interno del sistema, riprova più tardi"));
+    if ($ex->getMessage() == Error::$MATRICOLA_ESISTE) {
+        echo json_encode(array("status" => false, "error" => Error::$MATRICOLA_ESISTE));
+    } else
+        echo json_encode(array("status" => false, "error" => "Errore interno del sistema, riprova più tardi"));
 }

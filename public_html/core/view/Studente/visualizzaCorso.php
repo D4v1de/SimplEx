@@ -10,10 +10,12 @@ include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "UtenteController.php";
 include_once CONTROL_DIR . "SessioneController.php";
 include_once CONTROL_DIR . "ElaboratoController.php";
+include_once CONTROL_DIR . "TestController.php";
 $controller = new CdlController();
 $utenteController = new UtenteController();
 $sessioneController = new SessioneController();
 $elaboratoController = new ElaboratoController();
+$testController = new TestController();
 $docenteassociato = Array();
 $corso = null;
 $cdl = null;
@@ -183,9 +185,12 @@ try {
                                         $elaborato = $elaboratoController->readElaborato($matricolaStudente,$s->getId());
                                         $parz = $elaborato->getEsitoParziale();
                                         $fin = $elaborato->getEsitoFinale();
-                                        $esito = strcmp($elaborato->getStato(),"Corretto")? $parz:$fin;                                        
+                                        $esito = strcmp($elaborato->getStato(),"Corretto")? $parz:$fin;     
+                                        $test = $testController->readTest($elaborato->getTestId());
+                                        $sogliaMax = $test->getPunteggioMax();      
+                                        $punt = sprintf("%s / %s", $esito,$sogliaMax);
                                     } catch (ApplicationException $ex) {
-                                        $esito = null;
+                                        $punt = null;
                                     }
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
                                     printf("<td class=\"sorting_1\">Sessione %d</td>", $s->getId());
@@ -194,12 +199,14 @@ try {
                                         printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $s->getTipologia());
                                     else
                                         printf("<td class=\"sorting_1\"><span class=\"label label-sm label-danger\">%s</span></td>", $s->getTipologia());
-                                    printf("<td class=\"sorting_1\"><a href=\"\">%s</a></td>", $esito);
+                                    printf("<td class=\"sorting_1\"><a href=\"\">%s</a></td>", $punt);
                                     if (($elaborato == null) && (strtotime(date("Y-m-d H:i:s")) < strtotime($s->getDataFine())))
                                         printf("<td><a href=\"./%d/test/esegui/%d\" onclick=\"javascript: creaElaborato(%d)\" class=\"btn btn-sm default blue-madison\"><i class=\"fa fa-pencil\"></i> Partecipa</a></td>", $url,$s->getId(),$s->getId());
                                     else
-                                       // printf("<td class=\"sorting_1\"><a class=\"btn btn-sm default blue-madison\" disabled=\"\"><i class=\"fa fa-pencil\"></i> Partecipa</a>", $s->getId());
-                                        printf("<td><a href=\"./%d/test/%d\" class=\"btn btn-sm default\"><i class=\"fa fa-file-text-o\"></i>Visualizza</a></td>",$url,$s->getId());
+                                        if ($elaborato != null)
+                                            printf("<td><a href=\"./%d/test/%d\" class=\"btn btn-sm default\"><i class=\"fa fa-file-text-o\"></i> Visualizza</a></td>",$url,$s->getId());
+                                        else
+                                            printf("<td><a href=\"./%d/test/%d\" disabled class=\"btn btn-sm default\"><i class=\"fa fa-file-text-o\"></i> Visualizza</a></td>",$url,$s->getId());
                                     printf("</tr>");
                                 }
                                 ?>

@@ -54,9 +54,11 @@ if (!defined("TESTING")) {
             include_once VIEW_DIR . "design/VisualizzaHome.php";
             break;
         case 'me':
+            StringUtils::checkPermission("all");
             include_once VIEW_DIR . "Admin/visualizzaProfilo.php";
             break;
         case 'modifica':
+            StringUtils::checkPermission("all");
             include_once VIEW_DIR . "Admin/modificaProfilo.php";
             break;
         case 'auth': {
@@ -180,9 +182,6 @@ if (!defined("TESTING")) {
                                         case 'crea':
                                             include_once VIEW_DIR . "Docente/CreaTest.php";
                                             break;
-                                        case 'correggi':
-                                            include_once VIEW_DIR . "Docente/CorreggiTest.php";
-                                            break;
                                         default:
                                             include_once VIEW_DIR . "Docente/VisualizzaTest.php";
                                     }
@@ -197,6 +196,12 @@ if (!defined("TESTING")) {
                                             break;
                                         case 'creamodificasessione':
                                             include_once VIEW_DIR . "Docente/CreaModificaSessione.php";
+                                            break;
+                                        case 'correggi':
+                                            include_once VIEW_DIR . "Docente/CorreggiTest.php";
+                                            break;
+                                        case 'visualizza':
+                                            include_once VIEW_DIR . "Docente/VisualizzaElaborato.php";
                                             break;
                                         case 'sessioneincorso':
                                             switch (isset($_URL[7]) ? $_URL[7] : '') {
