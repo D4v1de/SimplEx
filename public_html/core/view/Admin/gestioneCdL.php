@@ -89,7 +89,7 @@ if (isset($_POST['checkbox'])) {
 
                 <div class="alert alert-danger display-hide">
                     <button class="close" data-close="alert"></button>
-                    Ci sono alcuni errori nei dati. Devi selezionare un Corso.
+                    Ci sono alcuni errori nei dati. Devi selezionare almeno un CdL.
                 </div>
 
                 <div class="portlet box blue-madison">

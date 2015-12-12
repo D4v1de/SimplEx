@@ -88,7 +88,7 @@ if (isset($_POST['checkbox'])) {
 
                 <div class="alert alert-danger display-hide">
                     <button class="close" data-close="alert"></button>
-                    Ci sono alcuni errori nei dati. Devi selezionare un Corso.
+                    Ci sono alcuni errori nei dati. Devi selezionare almeno un Corso.
                 </div>
 
                 <div class="portlet box blue-madison">
@@ -125,22 +125,22 @@ if (isset($_POST['checkbox'])) {
                                     <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
                                         colspan="1" aria-label="Username: activate to sort column ascending"
                                         aria-sort="ascending">
-                                        Matricola
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                        colspan="1"
-                                        aria-label="Email: activate to sort column ascending">
                                         Nome
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
                                         colspan="1"
-                                        aria-label="Status: activate to sort column ascending">
-                                        Tipologia
+                                        aria-label="Email: activate to sort column ascending">
+                                        Matricola
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
                                         colspan="1"
                                         aria-label="Status: activate to sort column ascending">
                                         Matricola CdL
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Status: activate to sort column ascending">
+                                        Tipologia
                                     </th>
                                 </tr>
                                 </thead>
@@ -149,10 +149,10 @@ if (isset($_POST['checkbox'])) {
                                 foreach ($corsi as $c) {
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
                                     printf("<td class=\"sorting_1\"><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $c->getId());
-                                    printf("<td class=\"sorting_1\"><span class=\"badge badge-success\">%s</span></td>", $c->getMatricola());
                                     printf("<td class=\"sorting_1\"><a href=\"modifica/%s\">%s</a></td>", $c->getId(), $c->getNome());
-                                    printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
+                                    printf("<td class=\"sorting_1\"><span class=\"badge badge-success\">%s</span></td>", $c->getMatricola());
                                     printf("<td class=\"sorting_1\">%s</td>", $c->getCdlMatricola());
+                                    printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
                                     printf("</tr>");
                                 }
                                 ?>
