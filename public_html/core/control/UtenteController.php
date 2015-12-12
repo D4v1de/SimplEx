@@ -104,7 +104,6 @@ class UtenteController extends Controller {
         if (strlen($password) < Config::$MIN_PASSWORD_LEN) {
             throw new IllegalArgumentException("Password è troppo corta");
         }
-        //todo bloccare tipologie diversi da studente
         if (!in_array($tipologia, Config::$TIPI_UTENTE) || $tipologia == "admin") {
             throw new IllegalArgumentException("Tipo utente errato");
         }
