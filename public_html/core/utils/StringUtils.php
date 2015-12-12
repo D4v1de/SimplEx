@@ -27,7 +27,7 @@ class StringUtils {
         if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             /** @var Utente $user */
             $user = $_SESSION['user'];
-            if (strtolower($user->getTipologia()) == strtolower($level)) {
+            if (strtolower($user->getTipologia()) == strtolower($level) || strtolower($level) == "all") {
                 return;
             }
         }
