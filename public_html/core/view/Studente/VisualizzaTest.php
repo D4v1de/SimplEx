@@ -172,7 +172,7 @@ try {
                                     ?>
                                 </div>
                                 <div class="col-md col-md-4">
-                                    <h3>Esito: <?php if($elaborato->getEsitoFinale() != null){echo $elaborato->getEsitoFinale();}else{$elaborato->getEsitoParziale();} ?></h3>
+                                    <h3>Esito: <?php if($elaborato->getEsitoFinale() != null){echo $elaborato->getEsitoFinale();}else{$elaborato->getEsitoParziale();} ?>/<?php echo $test->getPunteggioMax(); ?></h3>
                                 </div>
                             </div>
                         </form>
@@ -249,7 +249,7 @@ try {
                         echo "<h1>READRISPOSTAAPERTA FALLITO!</h1>" . $ex;
                     }
                     if ($rispostaaperta->getDomandaApertaId() == $a->getId()) {
-                        printf("<textarea class=\"form-control\" id=\"ap-12\" rows=\"3\" placeholder=\"\" style=\"resize:none\">%s</textarea>", $rispostaaperta->getTesto());
+                        printf("<textarea class=\"form-control\" id=\"ap-12\" rows=\"3\" placeholder=\"\" style=\"resize:none\" disabled>%s</textarea>", $rispostaaperta->getTesto());
                     }
                     printf("</div></div>");
                 }
@@ -261,8 +261,8 @@ try {
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-actions">
-                        <div class="col-md-offset-1 col-md-4">
-                            <a href=""><button type="button" class="btn green-jungle">Indietro</button></a>
+                        <div class="col-md-4">
+                            <a href="../../<?php echo $corso->getId(); ?>"><button type="button" class="btn green-jungle">Indietro</button></a>
                         </div>
                     </div>
                 </div>

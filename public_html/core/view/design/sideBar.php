@@ -59,7 +59,7 @@ $user = $_SESSION['user'];
                     </a>
                     <ul class="sub-menu" style="display: none;">
                         <li>
-                            <a href="/adm/cdl">
+                            <a href="/adm/cdl/view">
                                 <i class="icon-book-open"></i>
                                 Visualizza tutti CdL</a>
                         </li>
@@ -79,7 +79,7 @@ $user = $_SESSION['user'];
                     </a>
                     <ul class="sub-menu" style="display: none;">
                         <li>
-                            <a href="/adm/corsi">
+                            <a href="/adm/corsi/view">
                                 <i class="icon-book-open"></i>
                                 Visualizza tutti corsi</a>
                         </li>
