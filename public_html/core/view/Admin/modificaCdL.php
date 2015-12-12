@@ -103,6 +103,15 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 
                     <form id="form_sample_1" method="post" action="">
 
+                        <div class="alert alert-danger display-hide">
+                            <button class="close" data-close="alert"></button>
+                            Ci sono alcuni errori nei dati. Per favore riprova l'inserimento.
+                        </div>
+                        <div class="alert alert-success display-hide">
+                            <button class="close" data-close="alert"></button>
+                            La tua form &egrave; stata validata!
+                        </div>
+
                         <!-- BEGIN EXAMPLE TABLE PORTLET-->
                         <div class="portlet box blue-madison">
                             <div class="portlet-title">
@@ -117,16 +126,6 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                             <div class="portlet-body">
 
                                 <div class="portlet-body form">
-
-                                    <div class="alert alert-danger display-hide">
-                                        <button class="close" data-close="alert"></button>
-                                        Ci sono alcuni errori nei dati. Per favore riprova l'inserimento.
-                                    </div>
-                                    <div class="alert alert-success display-hide">
-                                        <button class="close" data-close="alert"></button>
-                                        La tua form &egrave; stata validata!
-                                    </div>
-
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
                                             <select class="form-control" id="tipologiaCdl" name="tipologia">

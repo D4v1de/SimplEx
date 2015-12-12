@@ -18,6 +18,9 @@ var FormValidation = function () {
                     select_multi: {
                         maxlength: jQuery.validator.format("Max {0} items allowed for selection"),
                         minlength: jQuery.validator.format("At least {0} items must be selected")
+                    },
+                    'checkbox[]': {
+                        required: ""
                     }
                 },
                 rules: {
@@ -114,6 +117,9 @@ var FormValidation = function () {
                     radio: {
                         required: true
                     },
+                    'checkbox[]': {
+                        required: true
+                    },
                     select_multi: {
                         required: true,
                         minlength: 1,
@@ -162,8 +168,8 @@ var FormValidation = function () {
             var success2 = $('.alert-success', form2);
 
             form2.validate({
-                errorElement: 'span', //default input error message container
-                errorClass: 'help-block help-block-error', // default input error message class
+                //errorElement: 'span', //default input error message container
+                //errorClass: 'help-block help-block-error', // default input error message class
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
@@ -171,9 +177,9 @@ var FormValidation = function () {
                         minlength: 2,
                         required: true
                     },
-                    email: {
+                    'checkbox[]': {
                         required: true,
-                        email: true
+                        minlength: 1
                     },
                     email: {
                         required: true,
@@ -194,10 +200,10 @@ var FormValidation = function () {
                     creditcard: {
                         required: true,
                         creditcard: true
-                    },
+                    }
                 },
 
-                invalidHandler: function (event, validator) { //display error alert on form submit              
+                invalidHandler: function (event, validator) { //display error alert on form submit
                     success2.hide();
                     error2.show();
                     Metronic.scrollTo(error2, -200);
@@ -205,7 +211,7 @@ var FormValidation = function () {
 
                 errorPlacement: function (error, element) { // render error placement for each input type
                     var icon = $(element).parent('.input-icon').children('i');
-                    icon.removeClass('fa-check').addClass("fa-warning");  
+                    icon.removeClass('fa-check').addClass("fa-warning");
                     icon.attr("data-original-title", error.text()).tooltip({'container': 'body'});
                 },
 
@@ -215,7 +221,7 @@ var FormValidation = function () {
                 },
 
                 unhighlight: function (element) { // revert the change done by hightlight
-                    
+
                 },
 
                 success: function (label, element) {

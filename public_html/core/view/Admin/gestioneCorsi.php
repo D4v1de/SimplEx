@@ -84,7 +84,12 @@ if (isset($_POST['checkbox'])) {
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
 
-            <form method="post" action="" onsubmit="impostaNotifica()">
+            <form id="form_sample_2" method="post" action="" onsubmit="impostaNotifica()">
+
+                <div class="alert alert-danger display-hide">
+                    <button class="close" data-close="alert"></button>
+                    Ci sono alcuni errori nei dati. Devi selezionare un Corso.
+                </div>
 
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
@@ -113,8 +118,7 @@ if (isset($_POST['checkbox'])) {
                                 <thead>
                                 <tr role="row">
                                     <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1"
-                                        aria-label=""
-                                        style="width: 24px;">
+                                        aria-label="">
                                         <input type="checkbox" class="group-checkable"
                                                data-set="#tabella_8 .checkboxes">
                                     </th>
@@ -187,6 +191,11 @@ if (isset($_POST['checkbox'])) {
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN aggiunta da me -->
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
+
+<script src="/assets/admin/pages/scripts/form-validation.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
+
 <script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
 <script src="/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
 <script src="/assets/admin/pages/scripts/ui-toastr.js"></script>
@@ -199,6 +208,7 @@ if (isset($_POST['checkbox'])) {
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
         TableManaged.init("tabella_8", "tabella_8_wrapper");
+        FormValidation.init();
         UIToastr.init();
         UIConfirmations.init();
 

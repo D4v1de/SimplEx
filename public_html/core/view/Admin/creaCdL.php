@@ -111,6 +111,23 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 
                     <form id="form_sample_1" method="post" action="">
 
+                        <?php
+                        if(!$flag) {
+                            echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>La matricola del corso di laurea è già presente nel DataBase.</div>";
+                        }
+                        if(!$flag2) {
+                            echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>Il nome del corso di laurea è già presente nel DataBase.</div>";
+                        }
+                        ?>
+                        <div class="alert alert-danger display-hide">
+                            <button class="close" data-close="alert"></button>
+                            Ci sono alcuni errori nei dati. Per favore riprova l'inserimento.
+                        </div>
+                        <div class="alert alert-success display-hide">
+                            <button class="close" data-close="alert"></button>
+                            La tua form &egrave; stata validata!
+                        </div>
+
                         <div class="portlet box blue-madison">
                             <div class="portlet-title">
                                 <div class="caption">
@@ -123,33 +140,6 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                             </div>
                             <div class="portlet-body">
                                 <div class="portlet-body form">
-
-                                    <?php
-                                        if(!$flag) {
-                                            echo "<div class=\"alert alert-danger\">
-                                        <button class=\"close\" data-close=\"alert\"></button>
-                                        La matricola del corso di laurea è già presente nel DataBase.
-                                        </div>";
-                                        }
-                                    ?>
-                                    <?php
-                                    if(!$flag2) {
-                                        echo "<div class=\"alert alert-danger\">
-                                        <button class=\"close\" data-close=\"alert\"></button>
-                                        Il nome del corso di laurea è già presente nel DataBase.
-                                        </div>";
-                                    }
-                                    ?>
-
-                                    <div class="alert alert-danger display-hide">
-                                        <button class="close" data-close="alert"></button>
-                                        Ci sono alcuni errori nei dati. Per favore riprova l'inserimento.
-                                    </div>
-                                    <div class="alert alert-success display-hide">
-                                        <button class="close" data-close="alert"></button>
-                                        La tua form &egrave; stata validata!
-                                    </div>
-
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
                                             <select class="form-control" id="tipologiaCdl" name="tipologia">

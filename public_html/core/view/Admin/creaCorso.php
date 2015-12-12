@@ -30,7 +30,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     $nome = $_POST['nome'];
     $tipologia = $_POST['tipologia'];
     $matricola = $_POST['matricola'];
-    $cdlMatricola = $_POST['tipologia2'];
+    $cdlmatricola = $_POST['tipologia2'];
 
     foreach($corsi as $c) {
         if($c->getMatricola() == $matricola) {
@@ -40,7 +40,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 
     if($flag) {
         try {
-            $corso = new Corso($matricola, $nome, $tipologia, $cdlMatricola);
+            $corso = new Corso($matricola, $nome, $tipologia, $cdlmatricola);
             $controller->creaCorso($corso);
 
             header('location: view');
@@ -108,6 +108,20 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 
                     <form id="form_sample_1" method="post" action="">
 
+                        <?php
+                        if(!$flag) {
+                            echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>La matricola del corso è già presente nel DataBase.</div>";
+                        }
+                        ?>
+                        <div class="alert alert-danger display-hide">
+                            <button class="close" data-close="alert"></button>
+                            Ci sono alcuni errori nei dati. Per favore riprova l'inserimento.
+                        </div>
+                        <div class="alert alert-success display-hide">
+                            <button class="close" data-close="alert"></button>
+                            La tua form &egrave; stata validata!
+                        </div>
+
                         <div class="portlet box blue-madison">
                             <div class="portlet-title">
                                 <div class="caption">
@@ -120,25 +134,6 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                             </div>
                             <div class="portlet-body">
                                 <div class="portlet-body form">
-
-                                    <?php
-                                    if(!$flag) {
-                                        echo "<div class=\"alert alert-danger\">
-                                        <button class=\"close\" data-close=\"alert\"></button>
-                                        La matricola del corso è già presente nel DataBase.
-                                        </div>";
-                                    }
-                                    ?>
-
-                                    <div class="alert alert-danger display-hide">
-                                        <button class="close" data-close="alert"></button>
-                                        Ci sono alcuni errori nei dati. Per favore riprova l'inserimento.
-                                    </div>
-                                    <div class="alert alert-success display-hide">
-                                        <button class="close" data-close="alert"></button>
-                                        La tua form &egrave; stata validata!
-                                    </div>
-
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
                                             <select class="form-control" id="tipologiaCorso" name="tipologia">
