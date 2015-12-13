@@ -363,7 +363,7 @@ if(isset($_POST['idtest'])){
                         </a>
                     </div>
                     <div class="actions">
-                        <a href="<?php echo $corso->getId(); ?>/argomento/inserisci" class="btn btn-default btn-sm">
+                        <a href="/usr/docente/corso/<?php echo $corso->getId(); ?>/argomento/inserisci" class="btn btn-default btn-sm">
                             <i class="fa fa-plus"></i> Aggiungi Argomento </a>
                     </div>
                 </div>
@@ -393,9 +393,9 @@ if(isset($_POST['idtest'])){
 
                             foreach($argomenti as $a) {
                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                printf("<td><a href=\"%d/argomento/domande/%d \">%s</a></td>", $a->getCorsoId() , $a->getId() , $a->getNome());
+                                printf("<td><a href=\"/usr/docente/corso/%d/argomento/domande/%d \">%s</a></td>", $a->getCorsoId() , $a->getId() , $a->getNome());
                                 printf("<td>");
-                                printf("<a href=\"%d/argomento/modifica/%d\" class=\"btn btn-sm blue-madison\">", $a->getCorsoId(),$a->getId());
+                                printf("<a href=\"/usr/docente/corso/%d/argomento/modifica/%d\" class=\"btn btn-sm blue-madison\">", $a->getCorsoId(),$a->getId());
                                 printf("<i class=\"fa fa-edit\"></i>");
                                 printf("</a>");
                                 printf("<button class=\"btn btn-sm red-intense\" type=\"submit\" name=\"id\" title='Sei sicuro?' value=\"%d\" data-popout=\"true\" data-toggle=\"confirmation\" data-singleton=\"true\"><i class=\"fa fa-trash-o\"></i></button>",$a->getId());
