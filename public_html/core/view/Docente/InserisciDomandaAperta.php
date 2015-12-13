@@ -44,7 +44,7 @@ if (isset($_POST['testoDomanda']) && isset($_POST['number'])) {
         echo '<script type="text/javascript">'
         , 'impostaNotifica();'
         , '</script>';
-        header('location: ../' . $idArgomento);
+        header('Location: /usr/docente/corso/'. $corso->getId() .'/argomento/domande/'. $argomento->getId() .'/successinserimento');
     } catch (ApplicationException $exception) {
         echo "ERRORE IN CREA DOMANDA APERTA" . $exception;
     }

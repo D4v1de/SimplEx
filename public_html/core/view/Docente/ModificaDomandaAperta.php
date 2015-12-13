@@ -50,7 +50,7 @@ if (isset($_POST['testoDomanda']) && isset($_POST['number'])) {
         echo "ERRORE IN MODIFICA DOMANDA APERTA" . $exception;
     }
 
-    header('location: ../../' . $idArgomento);
+    header('Location: /usr/docente/corso/\'. $corso->getId() .\'/argomento/domande/\'. $argomento->getId() .\'/successmodifica');
 }
 ?>
 <!DOCTYPE html>

@@ -52,19 +52,13 @@ if(isset($_POST['IdSes'])){
     }
 }
 
+
+
 if(isset($_POST['id'])){
     $id = $_POST['id'];
     $idcorso = $corso->getId();
     $controllerArgomento->rimuoviArgomento($id, $idcorso);
-    echo "<script>
-    function impostaNotifica(){
-        sessionStorage.setItem('notifica', 'si');
-    }
-    </script>";
-    echo '<script type="text/javascript">'
-    , 'impostaNotifica();'
-    , '</script>'
-    ;    header("Refresh:0");
+    header("location: "."/usr/docente/corso/".$identificativoCorso."/successelimina");
 }
 
 
@@ -475,31 +469,23 @@ if(isset($_POST['idtest'])){
         TableManaged2.init("tabella_argomenti","tabella_argomenti_wrapper");
         UIConfirmations.init();
         UIToastr.init();
+        checkNotifiche();
 
-
-        //GESTIONE VISUALIZZAZIONE NOTIFICHE
-
-        if(sessionStorage.getItem('notInsArgomento')=='si'){
-            toastr.success('Argomento inserito con successo!', 'Inserimento');
-            sessionStorage.removeItem('notInsArgomento');
-        }
-
-        if(sessionStorage.getItem('notModArgomento')=='si'){
-            toastr.success('Argomento modificato con successo!', 'Modifica');
-            sessionStorage.removeItem('notModArgomento');
-        }
-
-
-        if(sessionStorage.getItem('notifica')=='si'){
-            toastr.success('Eliminazione avvenuta con successo!', 'Eliminazione');
-            if(sessionStorage.getItem('rimuovi')=='ok'){
-                sessionStorage.removeItem('notifica');
-                sessionStorage.removeItem('rimuovi');
-            }else{
-                sessionStorage.setItem('rimuovi', 'ok');
-            }
-        }
     });
+</script>
+
+<script>
+    function checkNotifiche(){
+        var href = window.location.href;
+        var last = href.substr(href.lastIndexOf('/') + 1);
+        if(last == 'successinserimento'){
+            toastr.success('Inserimento avvenuto correttamente!', 'Inserimento');
+        }else if(last == 'successmodifica'){
+            toastr.success('Modifica avvenuta correttamente!', 'Modifica');
+        }else if(last == 'successelimina'){
+            toastr.success('Eliminazione avvenuta correttamente!', 'Eliminazione');
+        }
+    }
 </script>
 
 

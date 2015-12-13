@@ -33,15 +33,7 @@ try{
 if (isset($_POST['domandaaperta'])){
     try {
         $domandaController->rimuoviDomandaAperta($_POST['domandaaperta']);
-        echo "<script>
-    function impostaNotifica(){
-        sessionStorage.setItem('notifica', 'si');
-    }
-    </script>";
-        echo '<script type="text/javascript">'
-        , 'impostaNotifica();'
-        , '</script>';
-        header('Refresh:0');
+        header('Location: /usr/docente/corso/'. $corso->getId() .'/argomento/domande/'. $argomento->getId() .'/successelimina');
     } catch(ApplicationException $exception){
         echo "ERRORE ELIMINAZIONEDOMANDAAPERTA" . $exception;
     }
@@ -49,15 +41,7 @@ if (isset($_POST['domandaaperta'])){
 if (isset($_POST['domandamultipla'])){
     try {
         $domandaController->rimuoviDomandaMultipla($_POST['domandamultipla']);
-        echo "<script>
-    function impostaNotifica(){
-        sessionStorage.setItem('notifica', 'si');
-    }
-    </script>";
-        echo '<script type="text/javascript">'
-        , 'impostaNotifica();'
-        , '</script>';
-        header('Refresh:0');
+        header('Location: /usr/docente/corso/'. $corso->getId() .'/argomento/domande/'. $argomento->getId() .'/successelimina');
     } catch(ApplicationException $exception){
         echo "ERRORE ELIMINAZIONEDOMANDAMULTIPLA" . $exception;
     }
@@ -271,32 +255,25 @@ if (isset($_POST['domandamultipla'])){
         FormValidation.init();
         UIConfirmations.init();
         UIToastr.init();
+        checkNotifiche();
 
-        //NOTIFICA INSERISCI APERTA
-        if(sessionStorage.getItem('notificaInsAperta')=='si'){
-            toastr.success('Domanda Aperta inserita con successo!', 'Inserimento');
-            sessionStorage.removeItem('notificaInsAperta');
-        }
-
-
-        //NOTIFICA INSERISCI MULTIPLA
-        if(sessionStorage.getItem('notificaInsMultipla')=='si'){
-            toastr.success('Domanda Multipla inserita con successo!', 'Inserimento');
-            sessionStorage.removeItem('notificaInsMultipla');
-        }
-
-        //NOTIFICA ELIMINAZIONE
-        if(sessionStorage.getItem('notifica')=='si'){
-            toastr.success('Eliminazione avvenuta con successo!', 'Eliminazione');
-            if(sessionStorage.getItem('rimuovi')=='ok'){
-                sessionStorage.removeItem('notifica');
-                sessionStorage.removeItem('rimuovi');
-            }else{
-                sessionStorage.setItem('rimuovi', 'ok');
-            }
-        }
     });
 </script>
+
+<script>
+    function checkNotifiche(){
+        var href = window.location.href;
+        var last = href.substr(href.lastIndexOf('/') + 1);
+        if(last == 'successinserimento'){
+            toastr.success('Inserimento avvenuto correttamente!', 'Inserimento');
+        }else if(last == 'successmodifica'){
+            toastr.success('Modifica avvenuta correttamente!', 'Modifica');
+        }else if(last == 'successelimina'){
+            toastr.success('Eliminazione avvenuta correttamente!', 'Eliminazione');
+        }
+    }
+</script>
+
 
 <!-- END JAVASCRIPTS -->
 </body>

@@ -54,7 +54,7 @@ if (isset($_POST['eliminatore'])) {
     } catch (ApplicationException $exception) {
         echo "ERRORE IN RIMUOVI ALTERNATIVA" . $exception;
     }
-    header("Refresh:0");
+    header("Location: /usr/docente/corso/" . $idCorso . "/argomento/domande/modificamultipla/" . $idArgomento . "/" . $idDomanda ."/successelimina");
 
 } else {
 
@@ -108,7 +108,7 @@ if (isset($_POST['eliminatore'])) {
             }
         }
 
-        header('location: ../../' . $idArgomento);
+        header('Location: /usr/docente/corso/'. $corso->getId() .'/argomento/domande/'. $argomento->getId() .'/successmodifica');
     }
 
 }
@@ -332,8 +332,20 @@ if (isset($_POST['eliminatore'])) {
         FormValidation.init();
         UIConfirmations.init();
         UIToastr.init();
+        checkNotifiche();
     });
 </script>
+
+<script>
+    function checkNotifiche(){
+        var href = window.location.href;
+        var last = href.substr(href.lastIndexOf('/') + 1);
+        if(last == 'successelimina'){
+            toastr.success('Risposta eliminata correttamente!', 'Eliminazione');
+        }
+    }
+</script>
+
 
 <script>
 

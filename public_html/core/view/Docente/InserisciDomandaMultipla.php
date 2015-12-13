@@ -61,7 +61,7 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($
             echo "ERRORE IN CREA ALTERNATIVA" . $exception;
         }
     }
-    header('location: ../' . $idArgomento);
+    header('Location: /usr/docente/corso/'. $corso->getId() .'/argomento/domande/'. $argomento->getId() .'/successinserimento');
 }
 ?>
 
