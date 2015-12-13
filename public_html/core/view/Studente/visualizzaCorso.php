@@ -19,7 +19,8 @@ $testController = new TestController();
 $docenteassociato = Array();
 $corso = null;
 $cdl = null;
-$matricolaStudente = "0512102390";
+$studente = $_SESSION['user'];
+$matricolaStudente = $studente->getMatricola();
 $url = null;
 
 $url = $_URL[3];
