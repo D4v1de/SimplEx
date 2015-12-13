@@ -183,7 +183,7 @@ if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
         Layout.init(); // init current layout
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
-        TableManaged.init("tabella_5", "tabella_5_wrapper");
+        TableManaged2.init("tabella_5", "tabella_5_wrapper");
     });
 </script>
 <!-- END JAVASCRIPTS -->

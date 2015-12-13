@@ -29,7 +29,7 @@ if (isset($_POST['checkbox'])) {
                 echo "<h1>ELIMINACORSO FALLITO!</h1>" . $ex;
             }
         }
-        header('Location: view');
+        header('Location: /adm/corsi/view/successelimina');
     }
 }
 
@@ -76,7 +76,7 @@ if (isset($_POST['checkbox'])) {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="view">GestioneCorsi</a>
+                        <a href="/adm/corsi/view">GestioneCorsi</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
@@ -84,7 +84,12 @@ if (isset($_POST['checkbox'])) {
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
 
-            <form method="post" action="" onsubmit="impostaNotifica()">
+            <form id="form_sample_2" method="post" action="">
+
+                <div class="alert alert-danger display-hide">
+                    <button class="close" data-close="alert"></button>
+                    Ci sono alcuni errori nei dati. Devi selezionare almeno un Corso.
+                </div>
 
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
@@ -96,7 +101,7 @@ if (isset($_POST['checkbox'])) {
                             </a>
                         </div>
                         <div class="actions">
-                            <a href="crea" class="btn btn-default btn-sm">
+                            <a href="/adm/corsi/crea" class="btn btn-default btn-sm">
                                 <i class="fa fa-plus"></i> Crea Corso </a>
                         </div>
                         <div class="actions">
@@ -113,30 +118,29 @@ if (isset($_POST['checkbox'])) {
                                 <thead>
                                 <tr role="row">
                                     <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1"
-                                        aria-label=""
-                                        style="width: 24px;">
+                                        aria-label="">
                                         <input type="checkbox" class="group-checkable"
                                                data-set="#tabella_8 .checkboxes">
                                     </th>
                                     <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
                                         colspan="1" aria-label="Username: activate to sort column ascending"
                                         aria-sort="ascending">
-                                        Matricola
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                        colspan="1"
-                                        aria-label="Email: activate to sort column ascending">
                                         Nome
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
                                         colspan="1"
-                                        aria-label="Status: activate to sort column ascending">
-                                        Tipologia
+                                        aria-label="Email: activate to sort column ascending">
+                                        Matricola
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
                                         colspan="1"
                                         aria-label="Status: activate to sort column ascending">
                                         Matricola CdL
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Status: activate to sort column ascending">
+                                        Tipologia
                                     </th>
                                 </tr>
                                 </thead>
@@ -145,10 +149,10 @@ if (isset($_POST['checkbox'])) {
                                 foreach ($corsi as $c) {
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
                                     printf("<td class=\"sorting_1\"><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $c->getId());
+                                    printf("<td class=\"sorting_1\"><a href=\"/adm/corsi/modifica/%s\">%s</a></td>", $c->getId(), $c->getNome());
                                     printf("<td class=\"sorting_1\"><span class=\"badge badge-success\">%s</span></td>", $c->getMatricola());
-                                    printf("<td class=\"sorting_1\"><a href=\"modifica/%s\">%s</a></td>", $c->getId(), $c->getNome());
-                                    printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
                                     printf("<td class=\"sorting_1\">%s</td>", $c->getCdlMatricola());
+                                    printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
                                     printf("</tr>");
                                 }
                                 ?>
@@ -187,6 +191,11 @@ if (isset($_POST['checkbox'])) {
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN aggiunta da me -->
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
+
+<script src="/assets/admin/pages/scripts/form-validation.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
+
 <script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
 <script src="/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
 <script src="/assets/admin/pages/scripts/ui-toastr.js"></script>
@@ -199,27 +208,23 @@ if (isset($_POST['checkbox'])) {
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
         TableManaged.init("tabella_8", "tabella_8_wrapper");
+        FormValidation.init();
         UIToastr.init();
         UIConfirmations.init();
-
-        if(sessionStorage.getItem('notifica') == 'si') {
-            toastr.success('Nuovo CdL creato con successo.','Creazione');
-            sessionStorage.removeItem('notifica');
-        }
-        if (sessionStorage.getItem('elimina') == 'si') {
-            toastr.success('Corso eliminato con successo.', 'Eliminazione');
-            sessionStorage.removeItem('elimina');
-        }
-        if (sessionStorage.getItem('modifica') == 'si') {
-            toastr.success('Corso modificato con successo!', 'Modifica');
-            sessionStorage.removeItem('modifica');
-        }
-
+        checkNotifiche();
     });
 </script>
 <script>
-    function impostaNotifica() {
-        sessionStorage.setItem('elimina','si');
+    function checkNotifiche(){
+        var href = window.location.href;
+        var last = href.substr(href.lastIndexOf('/') + 1);
+        if(last == 'successcrea'){
+            toastr.success('Creazione Corso avvenuta con successo!', 'Creazione');
+        }else if(last == 'successmodifica'){
+            toastr.success('Modifica Corso avvenuta con successo!', 'Modifica');
+        }else if(last == 'successelimina'){
+            toastr.success('Eliminazione Corso avvenuta con successo!', 'Elimina');
+        }
     }
 </script>
 <!-- END JAVASCRIPTS -->

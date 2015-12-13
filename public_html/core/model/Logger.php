@@ -47,37 +47,36 @@ final class Logger extends Model {
     // ... ecc
 
     public static function debug($value) {
-        if (Config::$LOG_LEVEL >= 0)
+        if (Config::$LOG_LEVEL == 0)
             self::write(self::$DEBUG, $value); //cosi sià più corretto
     }
 
 
     public static function info($value) {
-        if (Config::$LOG_LEVEL >= 1)
+        if (Config::$LOG_LEVEL <= 1)
             self::write(self::$INFO, $value);
     }
 
     public static function warning($value) {
-        if (Config::$LOG_LEVEL >= 2)
+        if (Config::$LOG_LEVEL <= 2)
             self::write(self::$WARN, $value);
     }
 
     public static function error($value) {
-        if (Config::$LOG_LEVEL >= 3)
+        if (Config::$LOG_LEVEL <= 3)
             self::write(self::$ERROR, $value);
 
     }
 
     private static function write($errorlevel, $value) {
         $debugBacktrace = debug_backtrace();
-        $line = $debugBacktrace[1]['line']; //sicuro 1?
+        $line = $debugBacktrace[1]['line'];
         $file = $debugBacktrace[1]['file'];
 
-        $value = preg_replace('/\s+/', ' ', trim($value)); //mm interessante
+        $value = preg_replace('/\s+/', ' ', trim($value));
         $value = $file . " " . $line . " - " . $value;
 
         $query = sprintf(self::$INSERT_QUERY, $errorlevel, $value);
         Model::getDB()->query($query);
-
     }
 }

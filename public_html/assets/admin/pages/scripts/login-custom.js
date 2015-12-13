@@ -69,7 +69,7 @@ var Login = function () {
                     data: request,
                     success: function (r) {
                         if (r.status) {
-                            window.location.replace("/");
+                            window.location.replace(r.redirect);
                         } else {
                             $('.alert-danger', $('.login-form')).show();
                             $('#alert_message').text(r.error);
@@ -262,7 +262,7 @@ var Login = function () {
                 data: request,
                 success: function (r) {
                     if (r.status) {
-                        window.location.replace("/");
+                        window.location.replace(r.redirect);
                     } else {
                         $('.alert-danger', $('.register-form')).show();
                         $('#alert_message', $('.register-form')).text(r.error);

@@ -42,13 +42,13 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
             $cdl = new CdL($matricola, $nome, $tipologia);
             $controller->creaCdl($cdl);
 
-            header('location: view');
+            header('location: /adm/cdl/view/successcrea');
         } catch (ApplicationException $ex) {
             echo "<h1>CREACDL FALLITO!</h1>" . $ex;
         }
     }
-
 }
+
 
 ?>
 <!DOCTYPE html>
@@ -92,11 +92,11 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="view">GestioneCdL</a>
+                        <a href="/adm/cdl/view">GestioneCdL</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="crea">CreaCdL</a>
+                        <a href="/adm/cdl/crea">CreaCdL</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
@@ -108,8 +108,24 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
             <div class="row">
                 <div class="col-md-12">
                     <!-- BEGIN EXAMPLE TABLE PORTLET-->
-
                     <form id="form_sample_1" method="post" action="">
+
+                        <?php
+                        if(!$flag) {
+                            echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>La matricola del corso di laurea è già presente nel DataBase.</div>";
+                        }
+                        if(!$flag2) {
+                            echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>Il nome del corso di laurea è già presente nel DataBase.</div>";
+                        }
+                        ?>
+                        <div class="alert alert-danger display-hide">
+                            <button class="close" data-close="alert"></button>
+                            Ci sono alcuni errori nei dati. Per favore riprova l'inserimento.
+                        </div>
+                        <div class="alert alert-success display-hide">
+                            <button class="close" data-close="alert"></button>
+                            La tua form &egrave; stata validata!
+                        </div>
 
                         <div class="portlet box blue-madison">
                             <div class="portlet-title">
@@ -123,33 +139,6 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                             </div>
                             <div class="portlet-body">
                                 <div class="portlet-body form">
-
-                                    <?php
-                                        if(!$flag) {
-                                            echo "<div class=\"alert alert-danger\">
-                                        <button class=\"close\" data-close=\"alert\"></button>
-                                        La matricola del corso di laurea è già presente nel DataBase.
-                                        </div>";
-                                        }
-                                    ?>
-                                    <?php
-                                    if(!$flag2) {
-                                        echo "<div class=\"alert alert-danger\">
-                                        <button class=\"close\" data-close=\"alert\"></button>
-                                        Il nome del corso di laurea è già presente nel DataBase.
-                                        </div>";
-                                    }
-                                    ?>
-
-                                    <div class="alert alert-danger display-hide">
-                                        <button class="close" data-close="alert"></button>
-                                        Ci sono alcuni errori nei dati. Per favore riprova l'inserimento.
-                                    </div>
-                                    <div class="alert alert-success display-hide">
-                                        <button class="close" data-close="alert"></button>
-                                        La tua form &egrave; stata validata!
-                                    </div>
-
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
                                             <select class="form-control" id="tipologiaCdl" name="tipologia">
@@ -197,7 +186,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                             <div class="col-md-12">
                                 <div class="form-actions">
                                     <div class="col-md-3">
-                                        <button type="submit" id="elimatricola" onclick="impostaNotifica()" value="Conferma" class="btn green-jungle">Conferma</button>
+                                        <input type="submit" id="elimatricola" value="Conferma" class="btn green-jungle"/>
                                     </div>
                                     <div class="col-md-3">
                                         <input type="reset" value="Annulla" class="btn red-intense"/>
@@ -251,11 +240,6 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
         FormValidation.init();
         UIConfirmations.init();
     });
-</script>
-<script>
-    function impostaNotifica() {
-        sessionStorage.setItem('notifica','si');
-    }
 </script>
 
 <!-- END JAVASCRIPTS -->

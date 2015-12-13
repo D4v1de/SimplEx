@@ -33,15 +33,7 @@ try{
 if (isset($_POST['domandaaperta'])){
     try {
         $domandaController->rimuoviDomandaAperta($_POST['domandaaperta']);
-        echo "<script>
-    function impostaNotifica(){
-        sessionStorage.setItem('notifica', 'si');
-    }
-    </script>";
-        echo '<script type="text/javascript">'
-        , 'impostaNotifica();'
-        , '</script>';
-        header('Refresh:0');
+        header('Location: /usr/docente/corso/'. $corso->getId() .'/argomento/domande/'. $argomento->getId() .'/successelimina');
     } catch(ApplicationException $exception){
         echo "ERRORE ELIMINAZIONEDOMANDAAPERTA" . $exception;
     }
@@ -49,15 +41,7 @@ if (isset($_POST['domandaaperta'])){
 if (isset($_POST['domandamultipla'])){
     try {
         $domandaController->rimuoviDomandaMultipla($_POST['domandamultipla']);
-        echo "<script>
-    function impostaNotifica(){
-        sessionStorage.setItem('notifica', 'si');
-    }
-    </script>";
-        echo '<script type="text/javascript">'
-        , 'impostaNotifica();'
-        , '</script>';
-        header('Refresh:0');
+        header('Location: /usr/docente/corso/'. $corso->getId() .'/argomento/domande/'. $argomento->getId() .'/successelimina');
     } catch(ApplicationException $exception){
         echo "ERRORE ELIMINAZIONEDOMANDAMULTIPLA" . $exception;
     }
@@ -102,17 +86,17 @@ if (isset($_POST['domandamultipla'])){
                     <?php
                     printf("<li>");
                     printf("<i class=\"fa fa-home\"></i>");
-                    printf("<a href=\"../../../../\">Home</a>");
+                    printf("<a href=\"/usr/docente\">Home</a>");
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"../../../../cdl/%s\">%s</a>", $corso->getCdlMatricola(), $cdlController->readCdl($corso->getCdlMatricola())->getNome());
+                    printf("<a href=\"/usr/docente/cdl/%s\">%s</a>", $corso->getCdlMatricola(), $cdlController->readCdl($corso->getCdlMatricola())->getNome());
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"../../../%d\">%s</a>", $corso->getId(), $corso->getNome());
+                    printf("<a href=\"/usr/docente/corso/%d\">%s</a>", $corso->getId(), $corso->getNome());
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
@@ -139,7 +123,7 @@ if (isset($_POST['domandamultipla'])){
                     </div>
                     <div class="actions">
                         <?php
-                        printf("<a href=\"inserisciaperta/%d\" class=\"btn btn-default btn-sm\">", $idArgomento);
+                        printf("<a href=\"/usr/docente/corso/%d/argomento/domande/inserisciaperta/%d\" class=\"btn btn-default btn-sm\">",$idCorso ,$idArgomento);
                         ?>
                         <i class="fa fa-plus"></i> Nuova Domanda Aperta
                         </a>
@@ -155,7 +139,7 @@ if (isset($_POST['domandamultipla'])){
                         printf("<i class=\"fa fa-file-o\"></i>%s", $d->getTesto());
                         printf("</div>");
                         printf("<form method=\"post\" action=\"\" class=\"actions\">");
-                        printf("<a href=\"modificaaperta/%d/%d\" class=\"btn green-jungle\"><i class=\"fa fa-edit\"></i> Modifica </a>", $idArgomento, $d->getId());
+                        printf("<a href=\"/usr/docente/corso/%d/argomento/domande/modificaaperta/%d/%d\" class=\"btn green-jungle\"><i class=\"fa fa-edit\"></i> Modifica </a>",$idCorso, $idArgomento, $d->getId());
                         printf("<button class=\"btn sm red-intense\" data-toggle=\"confirmation\" data-singleton=\"true\" data-popout=\"true\" title=\"Sei sicuro?\" type=\"submit\" name=\"domandaaperta\" value=\"%d\"><i class=\"fa fa-remove\"></i> Rimuovi </button>", $d->getId());
                         printf("</form>");
                         printf("</div>");
@@ -178,7 +162,7 @@ if (isset($_POST['domandamultipla'])){
                     </div>
                     <div class="actions">
                         <?php
-                        printf("<a href=\"inseriscimultipla/%d\" class=\"btn btn-default btn-sm\">", $idArgomento);
+                        printf("<a href=\"/usr/docente/corso/%d/argomento/domande/inseriscimultipla/%d\" class=\"btn btn-default btn-sm\">", $idCorso, $idArgomento);
                         ?>
                         <i class="fa fa-plus"></i> Nuova Domanda Multipla
                         </a>
@@ -199,7 +183,7 @@ if (isset($_POST['domandamultipla'])){
                         printf("<a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a>");
                         printf("</div>");
                         printf("<form method=\"post\" action=\"\" class=\"actions\">");
-                        printf("<a href=\"modificamultipla/%d/%d\" class=\"btn green-jungle\"><i class=\"fa fa-edit\"></i> Modifica </a>",$idArgomento, $d->getId());
+                        printf("<a href=\"/usr/docente/corso/%d/argomento/domande/modificamultipla/%d/%d\" class=\"btn green-jungle\"><i class=\"fa fa-edit\"></i> Modifica </a>",$idCorso, $idArgomento, $d->getId());
                         printf("<button class=\"btn sm red-intense\" data-toggle=\"confirmation\" data-singleton=\"true\" data-popout=\"true\" title=\"Sei sicuro?\" type=\"submit\" name=\"domandamultipla\" value=\"%d\"><i class=\"fa fa-remove\"></i> Rimuovi </button>", $d->getId());                        printf("</div>");
                         printf("</form>");
                         printf("<div class=\"portlet-body\">");
@@ -271,32 +255,25 @@ if (isset($_POST['domandamultipla'])){
         FormValidation.init();
         UIConfirmations.init();
         UIToastr.init();
+        checkNotifiche();
 
-        //NOTIFICA INSERISCI APERTA
-        if(sessionStorage.getItem('notificaInsAperta')=='si'){
-            toastr.success('Domanda Aperta inserita con successo!', 'Inserimento');
-            sessionStorage.removeItem('notificaInsAperta');
-        }
-
-
-        //NOTIFICA INSERISCI MULTIPLA
-        if(sessionStorage.getItem('notificaInsMultipla')=='si'){
-            toastr.success('Domanda Multipla inserita con successo!', 'Inserimento');
-            sessionStorage.removeItem('notificaInsMultipla');
-        }
-
-        //NOTIFICA ELIMINAZIONE
-        if(sessionStorage.getItem('notifica')=='si'){
-            toastr.success('Eliminazione avvenuta con successo!', 'Eliminazione');
-            if(sessionStorage.getItem('rimuovi')=='ok'){
-                sessionStorage.removeItem('notifica');
-                sessionStorage.removeItem('rimuovi');
-            }else{
-                sessionStorage.setItem('rimuovi', 'ok');
-            }
-        }
     });
 </script>
+
+<script>
+    function checkNotifiche(){
+        var href = window.location.href;
+        var last = href.substr(href.lastIndexOf('/') + 1);
+        if(last == 'successinserimento'){
+            toastr.success('Inserimento avvenuto correttamente!', 'Inserimento');
+        }else if(last == 'successmodifica'){
+            toastr.success('Modifica avvenuta correttamente!', 'Modifica');
+        }else if(last == 'successelimina'){
+            toastr.success('Eliminazione avvenuta correttamente!', 'Eliminazione');
+        }
+    }
+</script>
+
 
 <!-- END JAVASCRIPTS -->
 </body>

@@ -138,11 +138,26 @@ class DomandaController extends Controller
     
     public function associaAperTest($idDomanda, $idTest, $punteggioMaxAlternativo){
         $domandaModel = new DomandaModel();
+        if($punteggioMaxAlternativo == NULL){
+        $domanda = new domandaAperta();    
+        $domanda=getDomandaAperta($idDomanda);
+        $punteggioMaxAlternativo=$domanda->getPunteggioMax();
+        }
         return $domandaModel->associaDomandaApertaTest($idDomanda, $idTest, $punteggioMaxAlternativo);
     }
     
     public function associaMultTest($idDomanda, $idTest, $punteggioCorrettaAlternativo, $punteggioErrataAlternativo){
         $domandaModel = new DomandaModel();
+        if($punteggioCorrettaAlternativo == NULL){
+        $domanda = new domandaMultipla();    
+        $domanda=getDomandaMultipa($idDomanda);
+        $punteggioCorrettaAlternativo=$domanda->getPunteggioCorretta();
+        }
+        if($punteggioErrataAlternativo == NULL){
+        $domanda = new domandaMultipla();    
+        $domanda=getDomandaMultipa($idDomanda);
+        $punteggioErrataAlternativo=$domanda->getPunteggioErrata();
+        }
         return $domandaModel->associaDomandaMultiplaTest($idDomanda, $idTest, $punteggioCorrettaAlternativo, $punteggioErrataAlternativo);
     }
     

@@ -11,8 +11,21 @@ $ctr = new UtenteController();
 try {
     $ut = $ctr->register($_POST['matricola'], $_POST['email'], $_POST['password'],
         "Studente", $_POST['name'], $_POST['surname'], $_POST['cdl_matricola']);
-    $ctr->login($ut->getUsername(), $_POST['password'], false);
-    echo json_encode(array("status" => true));
+    $user = $ctr->login($ut->getUsername(), $_POST['password'], false);
+    switch (@$user->getTipologia()) {
+        case 'Docente':
+            $redirect = "/usr/docente";
+            break;
+        case 'Studente':
+            $redirect = "/usr/studente";
+            break;
+        case 'Admin':
+            $redirect = "/adm";
+            break;
+        default:
+            $redirect = "/";
+    }
+    echo json_encode(array("status" => true, 'redirect' => $redirect));
 } catch (IllegalArgumentException $ex) {
     echo json_encode(array("status" => false, "error" => $ex->getMessage()));
 } catch (ApplicationException $ex) {
