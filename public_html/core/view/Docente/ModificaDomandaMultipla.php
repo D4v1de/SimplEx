@@ -49,7 +49,7 @@ $numRisposte = count($alternative);
 
 if (isset($_POST['eliminatore'])) {
     $idArgomentoDaEliminare = $_POST['eliminatore'];
-    try{
+    try {
         $alternativaController->rimuoviAlternativa($idArgomentoDaEliminare);
     } catch (ApplicationException $exception) {
         echo "ERRORE IN RIMUOVI ALTERNATIVA" . $exception;
@@ -59,7 +59,6 @@ if (isset($_POST['eliminatore'])) {
 } else {
 
     if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($_POST['punteggioEsatta']) && isset($_POST['testoRisposta']) && isset($_POST['radio'])) {
-
         $testoDomanda = $_POST['testoDomanda'];
         $punteggioErrata = $_POST['punteggioErrata'];
         $punteggioEsatta = $_POST['punteggioEsatta'];
@@ -68,7 +67,7 @@ if (isset($_POST['eliminatore'])) {
 
         $updatedDomanda = new DomandaMultipla($idArgomento, $testoDomanda, $punteggioEsatta, $punteggioErrata, 0, 0);
 
-        try{
+        try {
             $domandaController->modificaDomandaMultipla($idDomanda, $updatedDomanda);
         } catch (ApplicationException $exception) {
             echo "ERRORE IN MODIFICA DOMANDA MULTIPLA" . $exception;
@@ -83,7 +82,7 @@ if (isset($_POST['eliminatore'])) {
             }
 
             $updatedAlternativa = new Alternativa($idDomanda, $testoRisposte[$i], 0, $corretta);
-            try{
+            try {
                 $alternativaController->modificaAlternativa($idAlternativa, $updatedAlternativa);
             } catch (ApplicationException $exception) {
                 echo "ERRORE MODIFICA ALTERNATIVA" . $exception;
@@ -92,14 +91,14 @@ if (isset($_POST['eliminatore'])) {
 
         if (isset($_POST['risposteNuove'])) {
             $rispostenuove = $_POST['risposteNuove'];
-
-            for ($i = 0; $i < count($rispostenuove); $i++) {
-                if (($i + 1) == $radio) {
+            $prevCount = count($testoRisposte);
+            foreach ($rispostenuove as $item) {
+                if (++$prevCount == $radio) {
                     $corretta2 = "Si";
                 } else {
                     $corretta2 = "No";
                 }
-                $nuovaAlternativa = new Alternativa($idDomanda, $rispostenuove[$i], 0, $corretta2);
+                $nuovaAlternativa = new Alternativa($idDomanda, $item, 0, $corretta2);
                 try {
                     $alternativaController->creaAlternativa($nuovaAlternativa);
                 } catch (ApplicationException $exception) {
@@ -127,7 +126,7 @@ if (isset($_POST['eliminatore'])) {
     <title>Modifica Domanda Multipla</title>
     <?php include VIEW_DIR . "design/header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
-    <link href="/assets/global/plugins/icheck/skins/all.css" rel="stylesheet" type="text/css"/>
+    <!--    <link href="/assets/global/plugins/icheck/skins/all.css" rel="stylesheet" type="text/css"/>-->
 
 </head>
 <!-- END HEAD -->
@@ -205,7 +204,7 @@ if (isset($_POST['eliminatore'])) {
                                 </div>
                             </div>
                             <?php
-                            $numRadio=1;
+                            $numRadio = 1;
                             foreach ($alternative as $r) {
                                 printf("<div class=\"form-group form-md-line-input has-success ratio\" style=\"height: 100px\">");
                                 printf("<div class=\"control-label col-md-1\">");
@@ -317,8 +316,9 @@ if (isset($_POST['eliminatore'])) {
 <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
 
 <script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
-<script src="/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
-<script src="/assets/global/plugins/icheck/icheck.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js"
+        type="text/javascript"></script>
+<!--<script src="/assets/global/plugins/icheck/icheck.js" type="text/javascript"></script>-->
 
 <script src="/assets/admin/pages/scripts/ui-toastr.js"></script>
 <script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
@@ -343,25 +343,31 @@ if (isset($_POST['eliminatore'])) {
 
     function insRisposte() {
         var newDiv = document.createElement("DIV");
-        newDiv.setAttribute("id", "form"+num);
+        newDiv.setAttribute("id", "form" + num);
         var div = document.getElementById('rispostenuove');
         var newNum = num;
         div.appendChild(newDiv);
-        newDiv.innerHTML = "<div class=\"form-group form-md-line-input has-success ratio\" style=\"height: 90px\"><div class=\"control-label col-md-1\"><div class=\"icheck-list\"><label class=\"\"><div class=\"iradio_square-blue\" style=\"position: relative;\"><input type=\"radio\" name=\"radio\" class=\"icheck\" value=\""+num+"\" data-radio=\"iradio_square-blue\"></div></label></div></div><label class=\"control-label col-md-2\">Inserisci Testo Risposta</label><div class=\"col-md-6\"><input type=\"text\" id=\"risposte\" name=\"risposteNuove[]\" placeholder=\"\" class=\"form-control\"> <span class=\"help-block\"></span> </div> <div class=\"col-md-3\" id=\"padre"+num+"\"><a onclick=\"javascript:elimina(this)\" id=\"el"+num+"\" class=\"btn sm red-intense\" data-toggle=\"confirmation\" data-singleton=\"true\" data-popout=\"true\" title=\"sei sicuro?\" > <i class=\"fa fa-minus\"></i> Rimuovi </a> </div> </div>";
-        if(num >(numRispOld)) {
+        newDiv.innerHTML = "<div class=\"form-group form-md-line-input has-success ratio\" style=\"height: 90px\">" +
+            "<div class=\"control-label col-md-1\">" +
+            "<div class=\"ichecklist\"><label class=\"\">" +
+            "<div class=\"iradio_square-blue\" style=\"position: relative;\">" +
+            "<input id=\"ich\" type=\"radio\" name=\"radio\" class=\"icheck\" value=\"" + num + "\" data-radio=\"iradio_square-blue\">" +
+            "</div></label></div></div><label class=\"control-label col-md-2\">Inserisci Testo Risposta</label><div class=\"col-md-6\"><input type=\"text\" id=\"risposte\" name=\"risposteNuove[]\" placeholder=\"\" class=\"form-control\"> <span class=\"help-block\"></span> </div> <div class=\"col-md-3\" id=\"padre" + num + "\"><a onclick=\"javascript:elimina(this)\" id=\"el" + num + "\" class=\"btn sm red-intense\" data-toggle=\"confirmation\" data-singleton=\"true\" data-popout=\"true\" title=\"sei sicuro?\" > <i class=\"fa fa-minus\"></i> Rimuovi </a> </div> </div>";
+        if (num > (numRispOld)) {
             var daEl = document.getElementById('el' + (newNum - 1));
             daEl.parentNode.removeChild(daEl);
         }
+        //$("#ich").iCheck();
         num++;
     }
 
     function elimina(btn) {
         var newNum = num;
-        if(num > numRispOld+1) {
+        if (num > numRispOld + 1) {
             var daAg = document.getElementById('padre' + (newNum - 2));
             daAg.innerHTML = "<a onclick=\"javascript:elimina(this)\" id=\"el" + (newNum - 2) + "\" class=\"btn sm red-intense\"> <i class=\"fa fa-minus\"></i> Rimuovi </a> ";
         }
-        var daEl = document.getElementById("form"+(num-1));
+        var daEl = document.getElementById("form" + (num - 1));
 
         daEl.parentNode.removeChild(daEl);
         num--;
