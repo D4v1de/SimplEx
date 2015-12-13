@@ -13,6 +13,7 @@ include_once MODEL_DIR . "CdLModel.php";
 include_once MODEL_DIR . "CorsoModel.php";
 include_once MODEL_DIR . "AccountModel.php";
 include_once MODEL_DIR . "SessioneModel.php";
+include_once BEAN_DIR . "Utente.php";
 
 class CdlController extends Controller {
 
@@ -157,5 +158,31 @@ class CdlController extends Controller {
     public function getCorsiStudente($studente_matricola) {
         $corsoModel = new CorsoModel();
         return $corsoModel->getAllCorsiByStudente($studente_matricola);
+    }
+
+
+    //di sergio
+    public function getMyCourses() {
+        /** @var Utente $utente */
+        $utente = $_SESSION['user'];
+        $model = new CorsoModel();
+        return ($utente->getTipologia() == "Studente" ? $model->getAllCorsiByStudente($utente->getMatricola()) : $model->getAllCorsiByDocente($utente->getMatricola()));
+    }
+
+    /**
+     * @param $matricola
+     * @return array|Corso[]
+     */
+    public function getCoursesByMatricola($matricola) {
+        $aModel = new AccountModel();
+        $utente = $aModel->getUtenteByMatricola($matricola);
+        $model = new CorsoModel();
+        if ($utente->getTipologia() == "Studente") {
+            return $model->getAllCorsiByStudente($utente->getMatricola());
+        } elseif ($utente->getTipologia() == "Docente") {
+            return $model->getAllCorsiByDocente($utente->getMatricola());
+        } else {
+            return Array();
+        }
     }
 }

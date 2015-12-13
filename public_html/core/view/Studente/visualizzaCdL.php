@@ -56,12 +56,11 @@ try {
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="../../../gestionale/admin/index.html">Home</a>
+                        <a href="/usr/studente">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="">CdL</a>
-                        <i class="fa fa-angle-right"></i>
+                        <a href="/usr/studente/cdls">CdL</a>
                     </li>
                 </ul>
             </div>
@@ -108,8 +107,8 @@ try {
                                 <?php
                                 foreach ($cdls as $c) {
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    printf("<td class=\"sorting_1\"><a href=\"cdl/%s\">%s</a></td>", $c->getMatricola(), $c->getNome());
-                                    printf("<td class=\"sorting_1\">%s</td>", $c->getMatricola());
+                                    printf("<td class=\"sorting_1\"><a href=\"/usr/studente/cdl/%s\">%s</a></td>", $c->getMatricola(), $c->getNome());
+                                    printf("<td class=\"sorting_1\"><span class=\"badge badge-success\">%s</span></td>", $c->getMatricola());
                                     printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
                                     printf("</tr>");
                                 }
