@@ -23,7 +23,7 @@ if(isset($_POST['nome'])){
 
         $argomento = new Argomento($corsoid, $nome);
         $controller->creaArgomento($argomento);
-        header('location:../../' . $corsoid);
+        header('location:../../' . $corsoid . '/successinserimento');
 
 }
 
@@ -99,7 +99,7 @@ if(isset($_POST['nome'])){
                         </div>
                         <div class="portlet-body form">
                             <!-- BEGIN FORM-->
-                            <form id="form_sample_1" action="" onsubmit="impostaNotifica()" method="POST" class="form-horizontal form-bordered">
+                            <form id="form_sample_1" action="" method="POST" class="form-horizontal form-bordered">
                                 <div class="form-body">
                                     <div class="form-group form-md-line-input has-success" style="height: 90px">
                                         <label class="control-label col-md-3">Inserisci Titolo</label>
@@ -163,14 +163,7 @@ if(isset($_POST['nome'])){
                 FormValidation.init();
                 UIConfirmations.init();
                 UIToastr.init();
-
             });
-        </script>
-
-        <script>
-            function impostaNotifica(){
-                sessionStorage.setItem('notInsArgomento', 'si');
-            }
         </script>
         <!-- END JAVASCRIPTS -->
     </body>
