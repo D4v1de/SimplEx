@@ -243,7 +243,7 @@ $error = null;
 <!-- END LOGIN -->
 <!-- BEGIN COPYRIGHT -->
 <div class="copyright">
-    2014 &copy; Metronic - Admin Dashboard Template.
+    2015 &copy; SimplEx
 </div>
 <!-- END COPYRIGHT -->
 

@@ -12,7 +12,20 @@ try {
     Logger::info("Richiesta login [" . $_POST['email'] . " " . $_POST['password'] . " " . @$_POST['remember'] . "]");
     $user = $controller->login($_POST['email'], $_POST['password'], (@$_POST['remember'] == "1" ? true : false));
     Logger::info("Login effettuato " . $user->getUsername());
-    echo json_encode(array('status' => true));
+    switch (@$user->getTipologia()) {
+        case 'Docente':
+            $redirect = "/usr/docente";
+            break;
+        case 'Studente':
+            $redirect = "/usr/studente";
+            break;
+        case 'Admin':
+            $redirect = "/adm";
+            break;
+        default:
+            $redirect = "/";
+    }
+    echo json_encode(array('status' => true, 'redirect' => $redirect));
 } catch (ApplicationException $ex) {
     Logger::warning("Errore nel login " . $ex);
     echo json_encode(array('status' => false, 'error' => $ex->getMessage()));

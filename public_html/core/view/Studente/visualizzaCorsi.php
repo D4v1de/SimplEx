@@ -37,7 +37,7 @@ try {
     echo "GETCORSICDL FALLITO!</h1>".$ex;
 }
 try {
-    $studente = $controllerUtente->getUtenteByMatricola('0512102396');
+    $studente = $_SESSION['user'];
 
 } catch (ApplicationException $ex) {
     echo "<h1>GETUTENTEBYMATRICOLA FALLITO!</h1>".$ex;
