@@ -7,10 +7,11 @@
  */
 include_once CONTROL_DIR . "UtenteController.php";
 include_once CONTROL_DIR . "CdlController.php";
+include_once CONTROL_DIR . "CorsoController.php";
 $ctr = new UtenteController();
 $victim = null;
 $cdl = null;
-if ($_POST['action'] == "elimina" && isset($_POST['matricola']) && $_POST['matricola'] == $_URL[3]) {
+if (@$_POST['action'] == "elimina" && isset($_POST['matricola']) && $_POST['matricola'] == $_URL[3]) {
     $ctr->eliminaUtenteByMatricola($_POST['matricola']);
     header('Location: /adm/utenti?success=Eliminato con successo');
     exit;
@@ -18,9 +19,11 @@ if ($_POST['action'] == "elimina" && isset($_POST['matricola']) && $_POST['matri
 try {
     $victim = $ctr->getUtenteByMatricola($_URL[3]);
     $cdlCtr = new CdlController();
+    $corsoCtr = new CorsoController();
     if (is_numeric($victim->getCdlMatricola())) {
         $cdl = $cdlCtr->readCdl($victim->getCdlMatricola());
     }
+    $cdls = $corsoCtr->getCoursesByMatricola($_URL[3]);
 } catch (ApplicationException $ex) {
     header('Location: /adm/utenti');
 }
@@ -41,17 +44,6 @@ try {
     <!-- BEGIN PLUGINS USED BY X-EDITABLE -->
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css"/>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css"/>
-    <link rel="stylesheet" type="text/css"
-          href="/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css"/>
-    <link rel="stylesheet" type="text/css"
-          href="/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css"/>
-    <link rel="stylesheet" type="text/css"
-          href="/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>
-    <link rel="stylesheet" type="text/css"
-          href="/assets/global/plugins/bootstrap-editable/bootstrap-editable/css/bootstrap-editable.css"/>
-    <link rel="stylesheet" type="text/css"
-          href="/assets/global/plugins/bootstrap-editable/inputs-ext/address/address.css"/>
-    <!-- END PLUGINS USED BY X-EDITABLE -->
 
 </head>
 <!-- END HEAD -->
@@ -177,14 +169,65 @@ try {
                     </div>
                 </div>
             </div>
+
+            <div class="portlet box blue-madison">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-graduation-cap"></i><?php if ($victim->getTipologia() == "Docente") {
+                            echo "Corsi tenuti";
+                        } else {
+                            echo "Corsi seguiti";
+                        }
+                        ?>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div id="tabella_2_wrapper" class="dataTables_wrapper no-footer">
+                        <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                               id="tabella_2" role="grid" aria-describedby="tabella_2_info">
+                            <thead>
+                            <tr role="row">
+                                <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                    colspan="1"
+                                    aria-label="Status: activate to sort column ascending">
+                                    Nome
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                    colspan="1"
+                                    aria-label="Status: activate to sort column ascending">
+                                    Matricola
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                    colspan="1"
+                                    aria-label="Status: activate to sort column ascending">
+                                    Tipologia
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            foreach ($cdls as $c) {
+                                printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                printf("<td class=\"sorting_1\"><a href=\"/adm/corsi/modifica/%s\">%s</a></td>", $c->getId(), $c->getNome());
+                                printf("<td class=\"sorting_1\">%s</td>", $c->getMatricola());
+                                printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
+                                printf("</tr>");
+                            }
+                            ?>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <!-- END EXAMPLE TABLE PORTLET-->
+    <!--END EXAMPLE TABLE PORTLET-->
 </div>
 
 
-<!-- END PAGE CONTENT-->
-<!-- END CONTAINER -->
+<!--END PAGE CONTENT-->
+<!--END CONTAINER-->
 <?php include VIEW_DIR . "design/footer.php"; ?>
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
@@ -195,7 +238,8 @@ try {
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
 <script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
-<script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript"
+        src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript"
         src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <!-- END PAGE LEVEL PLUGINS aggiunta da me-->
@@ -210,13 +254,14 @@ try {
         type="text/javascript"></script>
 <script src="/assets/admin/pages/scripts/ui-toastr.js"></script>
 <script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
-
+<script src="/assets/admin/pages/scripts/table-managed.js"></script>
 <script>
     jQuery(document).ready(function () {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
         QuickSidebar.init(); // init quick sidebar
         UIConfirmations.init();
+        TableManaged2.init("tabella_2", "tabella_2_wrapper");
     });
 </script>
 <!-- END JAVASCRIPTS -->

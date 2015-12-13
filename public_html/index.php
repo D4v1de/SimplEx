@@ -221,7 +221,7 @@ if (!defined("TESTING")) {
                             }
                             break;
                         default:
-                            include_once VIEW_DIR . "Docente/visualizzaCdL.php";
+                            include_once VIEW_DIR . "Docente/Home.php";
                     }
                     break;
                 case 'studente':
@@ -246,7 +246,7 @@ if (!defined("TESTING")) {
                             }
                             break;
                         default:
-                            include_once VIEW_DIR . "Studente/visualizzaCdL.php";
+                            include_once VIEW_DIR . "Studente/Home.php";
                     }
                     break;
             }
