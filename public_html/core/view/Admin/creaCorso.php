@@ -37,18 +37,18 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
             $flag = 0;
         }
     }
-
     if($flag) {
         try {
             $corso = new Corso($matricola, $nome, $tipologia, $cdlmatricola);
             $controller->creaCorso($corso);
 
-            header('location: view');
+            header('location: /adm/corsi/view/successcrea');
         } catch (ApplicationException $ex) {
             echo "<h1>CREACORSO FALLITO!</h1>.$ex";
         }
     }
 }
+
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -89,11 +89,11 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="view">GestioneCorsi</a>
+                        <a href="/adm/corsi/view">GestioneCorsi</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="crea">CreaCorso</a>
+                        <a href="/adm/corsi/crea">CreaCorso</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
@@ -105,7 +105,6 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
             <div class="row">
                 <div class="col-md-12">
                     <!-- BEGIN EXAMPLE TABLE PORTLET-->
-
                     <form id="form_sample_1" method="post" action="">
 
                         <?php
@@ -203,7 +202,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                             <div class="col-md-12">
                                 <div class="form-actions">
                                     <div class="col-md-3">
-                                        <input type="submit" value="Conferma" onclick="impostaNotifica()" class="btn green-jungle"/>
+                                        <input type="submit" value="Conferma" class="btn green-jungle"/>
                                     </div>
                                     <div class="col-md-3">
                                         <input type="reset" value="Annulla" class="btn red-intense"/>
@@ -258,11 +257,6 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
         TableManaged.init();
         FormValidation.init();
     });
-</script>
-<script>
-    function impostaNotifica() {
-        sessionStorage.setItem('notifica','si');
-    }
 </script>
 <!-- END JAVASCRIPTS -->
 </body>

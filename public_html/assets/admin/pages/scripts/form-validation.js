@@ -181,6 +181,14 @@ var FormValidation = function () {
                         required: true,
                         minlength: 1
                     },
+                    'testoRisposta[]': {
+                        required: true,
+                        minlength: 1
+                    },
+                    'risposteNuove[]': {
+                        required: true,
+                        minlength: 1
+                    },
                     email: {
                         required: true,
                         email: true
