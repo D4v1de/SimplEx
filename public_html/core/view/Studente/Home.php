@@ -6,9 +6,9 @@
  * Time: 17:30
  */
 
-include_once CONTROL_DIR . "CorsoController.php";
+include_once CONTROL_DIR . "CdlController.php";
 include_once BEAN_DIR . "Corso.php";
-$ctrl = new CorsoController();
+$ctrl = new CdlController();
 /** @var Utente $utente */
 $utente = $_SESSION['user'];
 $cdls = Array();

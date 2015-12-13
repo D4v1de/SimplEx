@@ -121,7 +121,7 @@ if (isset($_POST['elimina'])) {
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="../../../gestionale/admin/index.html">Home</a>
+                        <a href="/adm">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
@@ -130,7 +130,6 @@ if (isset($_POST['elimina'])) {
                     </li>
                     <li>
                         <a href="/adm/corsi/gestione/<?php echo $corso->getId(); ?>"><?php echo $corso->getNome(); ?></a>
-                        <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
             </div>

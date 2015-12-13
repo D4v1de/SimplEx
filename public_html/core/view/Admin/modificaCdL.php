@@ -81,7 +81,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="../../../gestionale/admin/index.html">Home</a>
+                        <a href="/adm">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
@@ -90,7 +90,6 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                     </li>
                     <li>
                         <a href="/adm/cdl/modifica/<?php echo $matricola; ?>">CdL<?php echo $nome; ?></a>
-                        <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
             </div>

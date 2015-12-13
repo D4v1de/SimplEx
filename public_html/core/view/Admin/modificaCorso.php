@@ -114,7 +114,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="../../../gestionale/admin/index.html">Home</a>
+                        <a href="/adm">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
@@ -123,7 +123,6 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                     </li>
                     <li>
                         <a href="/adm/corsi/modifica/<?php echo $corso->getId(); ?>"><?php echo $nome; ?></a>
-                        <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
             </div>
@@ -294,8 +293,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
 <!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
 <script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript"
-        src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <!-- END PAGE LEVEL PLUGINS aggiunta da me-->
 
 <script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>
