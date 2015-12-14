@@ -222,6 +222,9 @@ try {
                                         include_once VIEW_DIR . "Docente/VisualizzaSessione.php";
                                 }
                                 break;
+                            case 'griglia':
+                                include_once VIEW_DIR . "Docente/GrigliaEsiti.php";
+                                break;
                             default:
                                 include_once VIEW_DIR . "Docente/HomeCorso2.php";
                         }
@@ -307,6 +310,7 @@ try {
             case 'selezionestudenti':
                 include_once VIEW_DIR . "Docente/SelezioneStudenti.php";
                 break;
+            
 
 
 
