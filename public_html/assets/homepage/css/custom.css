@@ -1020,7 +1020,7 @@ padding: 8px 15px;
 }
 
 .main-tab-list li.active .f-icon i{
-    color: #E93B25!important;
+    color: #658dc9!important;
     -webkit-transition: all .3s linear 0s;
     -o-transition: all .3s linear 0s;
     transition: all .3s linear 0s;
@@ -1030,7 +1030,7 @@ padding: 8px 15px;
     font-size: 14px;
 }
 .main-tab-list > li.active {
-    background: #EE3B24!important;
+    background: #658dc9!important;
     position: relative;
 }
 .main-tab-list > li.active:after{
@@ -1353,7 +1353,7 @@ padding: 8px 15px;
 
 #counter_area{
     color: #FFF;
-     background: url('../images/bg/5.jpg') no-repeat fixed 50% 0px / cover transparent;
+     background: url('../images/bg/img9.jpg') no-repeat fixed 50% 0px / cover transparent;
     position: relative; 
     margin: 0 auto;
     width: 100%;
