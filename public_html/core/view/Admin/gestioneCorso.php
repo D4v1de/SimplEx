@@ -210,12 +210,12 @@ if (isset($_POST['elimina'])) {
                                     <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
                                         colspan="1" aria-label="Username: activate to sort column ascending"
                                         aria-sort="ascending">
-                                        Nome
+                                        Cognome
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
                                         colspan="1"
                                         aria-label="Email: activate to sort column ascending">
-                                        Cognome
+                                        Nome
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
                                         colspan="1"
@@ -233,9 +233,9 @@ if (isset($_POST['elimina'])) {
                                     } else {
                                         printf("<td><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $d->getMatricola());
                                     }
+                                    printf("<td>%s</td>", $d->getCognome());
                                     printf("<td><a href=\"/admin/utenti/view/%s\">%s</a></td>", $d->getMatricola(), $d->getNome());
-                                    printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $d->getCognome());
-                                    printf("<td>%s</td>", $d->getMatricola());
+                                    printf("<td><span class=\"badge badge-success\">%s</span></td>", $d->getMatricola());
                                     printf("</tr>");
                                 }
                                 ?>

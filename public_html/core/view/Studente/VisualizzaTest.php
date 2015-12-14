@@ -10,6 +10,7 @@
 include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "UtenteController.php";
 include_once CONTROL_DIR . "ElaboratoController.php";
+include_once CONTROL_DIR . "SessioneController.php";
 include_once CONTROL_DIR . "TestController.php";
 include_once CONTROL_DIR . "DomandaController.php";
 include_once CONTROL_DIR . "AlternativaController.php";
@@ -18,6 +19,7 @@ include_once CONTROL_DIR . "RispostaMultiplaController.php";
 $controller = new CdlController();
 $controllerUtente = new UtenteController();
 $controllerElaborato = new ElaboratoController();
+$controllerSessione = new SessioneController();
 $controllerTest = new TestController();
 $controllerDomanda = new DomandaController();
 $controllerAlternativa = new AlternativaController();
@@ -28,6 +30,7 @@ $controllerRispostaMultipla = new RispostaMultiplaController();
 $cdl = null;
 $corso = null;
 $docenteassociato = Array();
+$sessione = null;
 $test = null;
 $elaborato = null;
 $studente = null;
@@ -77,9 +80,14 @@ try {
     echo "<h1>GETDOCENTIASSOCIATI FALLITO</h1>" . $ex;
 }
 try {
-    $test = $controllerTest->readTest($url2);
+    $sessione = $controllerSessione->readSessione($url2);
 } catch (ApplicationException $ex) {
-    echo "<h1>INSERIRE ID TEST NEL PATH!</h1>" . $ex;
+    echo "<h1>INSERIRE ID SESSIONE NEL PATH!</h1>" . $ex;
+}
+try {
+    $test = $controllerTest->readTest($elaborato->getTestId());
+} catch (ApplicationException $ex) {
+    echo "<h1>READTEST FALLITO!</h1>" . $ex;
 }
 try {
     $multiple = $controllerDomanda->getAllDomandeMultipleByTest($test->getId());
@@ -132,23 +140,23 @@ try {
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="/usr/studente">Home</a>
+                        <a href="/studente">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/usr/studente/cdls">CdL</a>
+                        <a href="/studente/cdls">CdL</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/usr/studente/cdl/<?php echo $cdl->getMatricola(); ?>"><?php echo $cdl->getNome(); ?></a>
+                        <a href="/studente/cdl/<?php echo $cdl->getMatricola(); ?>"><?php echo $cdl->getNome(); ?></a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/usr/studente/corso/<?php echo $corso->getId(); ?>"><?php echo $corso->getNome(); ?></a>
+                        <a href="/studente/corso/<?php echo $corso->getId(); ?>"><?php echo $corso->getNome(); ?></a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/usr/studente/corso/<?php echo $corso->getId(); ?>/test/<?php echo $test->getId(); ?>">Test <?php echo $test->getId(); ?></a>
+                        <a href="/studente/corso/<?php echo $corso->getId(); ?>/test/<?php echo $sessione->getId(); ?>">Test <?php echo $test->getId(); ?></a>
                     </li>
                 </ul>
             </div>
@@ -176,10 +184,11 @@ try {
                                 </div>
                                 <div class="col-md col-md-4">
                                     <h3>Esito <?php if ($elaborato->getEsitoFinale() != null) {
-                                            echo 'Finale: ' . $elaborato->getEsitoFinale();
-                                        } else {
-                                            echo 'Parziale: ' . $elaborato->getEsitoParziale();
-                                        } ?>/<?php echo $test->getPunteggioMax(); ?></h3>
+                                                    echo 'Finale: ' . $elaborato->getEsitoFinale();
+                                                    } else {
+                                                    echo 'Parziale: ' . $elaborato->getEsitoParziale();
+                                                    } ?>/<?php if($elaborato->getStato() != 'Non Corretto') {echo $test->getPunteggioMax();} ?>
+                                    </h3>
                                 </div>
                             </div>
                         </form>
@@ -270,7 +279,7 @@ try {
 
                             <?php
                             foreach ($multiple as $m) {
-                                printf("<div class=\"portlet light bordered\"><div class=\"portlet-title\"><div id=\"%s\" class=\"caption\"><i class=\"fa fa-question-circle\"></i><span class=\"caption-subject bold uppercase\">%s</span></div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div>",$i++ , $m->getTesto());
+                                printf("<div class=\"portlet light bordered\"><div class=\"portlet-title\"><div id=\"div%s\" class=\"caption questions\"><i class=\"fa fa-question-circle\"></i><span class=\"caption-subject bold uppercase\">%s</span></div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div>",$i++ , $m->getTesto());
                                 printf("<div class=\"portlet-body\">");
                                 try {
                                     $alternative = $controllerAlternativa->getAllAlternativaByDomanda($m->getId());
@@ -282,11 +291,14 @@ try {
                                 } catch (ApplicationException $ex) {
                                     echo "<h1>READRISPOSTAMULTIPLA FALLITO!</h1>" . $ex;
                                 }
+
+                                //correzione domanda non risposta
+                                if($rispostamultipla->getAlternativaId() == 0) {
+                                    printf("<script> ris.push('Carlo'); </script>");
+                                }
                                 foreach ($alternative as $a) {
                                     printf("<div class=\"form-group form-md-checkboxes\"><div class=\"md-checkbox-list\"><div class=\"md-checkbox\">");
-
                                     if ($rispostamultipla->getAlternativaId() == $a->getId()) {
-
                                         //correzione domande multiple
                                         //<script>var ris = []; ris.push({'%s': '%s'}); </script>
                                         /*try {
@@ -298,16 +310,10 @@ try {
                                             printf("<script> ris.push('%s'); </script>", $a->getCorretta());
                                         }*/
                                         printf("<script> ris.push('%s'); </script>", $a->getCorretta());
-
-
-
                                         printf("<input type=\"checkbox\" id=\"alt-12\" name=\"mul-12\" class=\"md-check\" disabled checked>");
                                     } else {
                                         printf("<input type=\"checkbox\" id=\"alt-12\" name=\"mul-12\" class=\"md-check\" disabled>");
                                     }
-
-
-
                                     printf("<label for=\"alt-12\"><span class=\"inc\"></span><span class=\"check\"></span><span class=\"box\"></span>%s</label></div>", $a->getTesto());
                                     printf("</div></div>");
                                 }
@@ -326,22 +332,18 @@ try {
                                 }
                                 printf("</div></div>");
                             }
-                            if (($multiple == null) && ($aperte == null)) {
+                            /*if (($multiple == null) && ($aperte == null)) {
                                 printf("<h2> Il test selezionato non ha alcuna domanda associata </h2>");
-                            }
+                            }*/
                             ?>
 
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="col-md-4">
-                                        <a href="">
-                                            <button type="button" onclick="correggi()" class="btn green-jungle">
-                                                Correggi
-                                            </button>
-                                        </a>
+                                        <?php if($elaborato->getStato() != 'Non Corretto') {printf("<a type=\"button\" onclick=\"correggi()\" class=\"btn green-jungle\">Correggi</a>");} ?>
                                     </div>
                                     <div class="col-md-4">
-                                        <a href="/usr/studente/corso/<?php echo $corso->getId(); ?>">
+                                        <a href="/studente/corso/<?php echo $corso->getId(); ?>">
                                             <button type="button" class="btn red-intense">Esci</button>
                                         </a>
                                     </div>
@@ -379,9 +381,27 @@ try {
 </script>
 <script type="text/javascript">
     function correggi() {
-        for(var q in ris) {
-            alert(ris[q]);
+        /*for(var r in ris) {
+            alert(ris[r]);
+        }*/
+        /*var questions = document.getElementsByClassName('caption questions');
+        for(var q in questions) {
+            if(q == 'Si') {
+                q.setAttribute('class','caption questions font-green-haze');
+            }
+            else if(q == 'No') {
+                q.setAttribute('class','caption questions font-red-sunglo');
+            }
+        }*/
+        for(var r in ris) {
+            if(ris[r] == 'Si') {
+                document.getElementById("div"+r).setAttribute('class','caption questions font-green-haze');
+            }
+            else if(ris[r] == 'No') {
+                document.getElementById("div"+r).setAttribute('class','caption questions font-red-sunglo');
+            }
         }
+
     }
 </script>
 <!-- END JAVASCRIPTS -->
