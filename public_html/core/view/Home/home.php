@@ -57,18 +57,18 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#">
+                        <a class="navbar-brand" href="/">
                             <img src="/assets/homepage/images/logo2.png" alt="">
                         </a>
                  </div><!--Navbar header End-->
                  	<nav class="collapse navbar-collapse navigation" id="bs-example-navbar-collapse-1" role="navigation">
                         <ul class="nav navbar-nav navbar-right ">
-                           	<li class="active"> <a href="#slider_part" class="page-scroll">Home </a></li>
-                            <li><a href="#service"  class="page-scroll">Services</a> </li>
-                            <li><a href="#portfolio" class="page-scroll" >Portfolio</a> </li>
-                            <li><a href="#about" class="page-scroll">About Us </a> </li>
-                            <li><a href="#team" class="page-scroll">Our Team </a> </li>
-                            <li><a href="#blog" class="page-scroll">Blog</a> </li>
+
+                            <li><a href="#service"  class="page-scroll">Lavoro svolto</a> </li>
+                            <li><a href="#portfolio" class="page-scroll" >Chi siamo</a> </li>
+                            <li><a href="#about" class="page-scroll">Preview </a> </li>
+                            <li><a href="#team" class="page-scroll">Il nostro Team </a> </li>
+                            <li><a href="#contact" class="page-scroll">Contattaci</a> </li>
                             <li><a href="/auth" class="page-scroll">Login</a> </li>
                         </ul>
                      </nav>
@@ -147,7 +147,7 @@
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="feature_header text-center">
-                            <h3 class="feature_title">Cosa abbiamo <b>realizzato</b></h3>
+                            <h3 class="feature_title">Il lavoro <b>svolto</b></h3>
                             <h4 class="feature_sub">L’obiettivo del progetto è stato quello di apportare al Dipartimento d’Informatica <br>un beneficio dal punto di vista dei costi e dell'efficienza.</h4>
                             <div class="divider"></div>
                         </div>
@@ -194,7 +194,95 @@
     </section>
 <!-- Service Area End -->
 
+        <!-- Counter Strat -->
 
+        <section id="counter_area">
+            <div class="facts">
+                <div class="container">
+                    <div class="col-md-3 col-xs-12 col-sm-6 columns">
+                        <div class="facts-wrap">
+                            <div class="graph">
+                                <div class="graph-left-side">
+                                    <div class="graph-left-container">
+                                        <div class="graph-left-half"> </div>
+                                    </div>
+                                </div>
+                                <div class="graph-right-side">
+                                    <div class="graph-right-container">
+                                        <div class="graph-right-half"></div>
+                                    </div>
+                                </div>
+                                <i class="fa fa-thumbs-o-up fa-3x fw"></i>
+                                <div class="facts-wrap-num">
+                                    <span class="counter">87</span>
+                                </div>
+                            </div>
+                            <h6>Clients</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-12 col-sm-6 columns">
+                        <div class="facts-wrap">
+                            <div class="graph">
+                                <div class="graph-left-side">
+                                    <div class="graph-left-container">
+                                        <div class="graph-left-half"> </div>
+                                    </div>
+                                </div>
+                                <div class="graph-right-side">
+                                    <div class="graph-right-container">
+                                        <div class="graph-right-half"></div>
+                                    </div>
+                                </div>
+                                <i class="fa fa-gift fa-3x fw"></i>
+                                <div class="facts-wrap-num"><span class="counter">25</span></div>
+                            </div>
+                            <h6>Awards</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-12 col-sm-6 columns">
+                        <div class="facts-wrap">
+                            <div class="graph">
+                                <div class="graph-left-side">
+                                    <div class="graph-left-container">
+                                        <div class="graph-left-half"> </div>
+                                    </div>
+                                </div>
+                                <div class="graph-right-side">
+                                    <div class="graph-right-container">
+                                        <div class="graph-right-half"></div>
+                                    </div>
+                                </div>
+                                <i class="fa fa-check-square-o fa-3x fw"></i>
+                                <div class="facts-wrap-num"><span class="counter">68</span></div>
+                            </div>
+                            <h6>Projects</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-12 col-sm-6 columns">
+                        <div class="facts-wrap">
+                            <div class="graph">
+                                <div class="graph-left-side">
+                                    <div class="graph-left-container">
+                                        <div class="graph-left-half"> </div>
+                                    </div>
+                                </div>
+                                <div class="graph-right-side">
+                                    <div class="graph-right-container">
+                                        <div class="graph-right-half"></div>
+                                    </div>
+                                </div>
+                                <i class="fa fa-envelope-o fa-3x fw"></i>
+                                <div class="facts-wrap-num"><span class="counter">46</span></div>
+                            </div>
+                            <h6>Mails</h6>
+                        </div>
+                    </div>
+                </div> <!-- Conatainer End -->
+            </div>	<!-- Fact div ENd -->
+        </section>
+        <!-- Counter End -->
+
+        <!-- Counter End -->
 <!-- Portfolio works Start -->
 
     <section id="portfolio">
@@ -220,7 +308,7 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="feature_header text-center">
-                    <h3 class="feature_title">Cosa abbiamo <b>fatto</b></h3>
+                    <h3 class="feature_title">Preview di <b>SimplEx</b></h3>
                     <h4 class="feature_sub">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </h4>
                     <div class="divider"></div>
                 </div>
@@ -382,98 +470,6 @@
 <!-- About us End -->
 
 
-<!-- Counter Strat -->
-
-<section id="counter_area">
-        <div class="facts">
-            <div class="container">
-                <div class="col-md-3 col-xs-12 col-sm-6 columns">
-                    <div class="facts-wrap">
-                     <div class="graph">
-                        <div class="graph-left-side">
-                        	<div class="graph-left-container">
-                        		<div class="graph-left-half"> </div>
-                        	</div>
-                        </div>
-                        <div class="graph-right-side">
-                        	<div class="graph-right-container">
-                        		<div class="graph-right-half"></div>
-                        	</div>
-                        </div>
-                        <i class="fa fa-thumbs-o-up fa-3x fw"></i>
-                        <div class="facts-wrap-num">
-                            <span class="counter">87</span>
-                        </div>
-                    </div>
-                        <h6>Clients</h6>
-                    </div>
-                </div>
-                <div class="col-md-3 col-xs-12 col-sm-6 columns">
-                    <div class="facts-wrap">
-                     <div class="graph">
-                        <div class="graph-left-side">
-                        	<div class="graph-left-container">
-                        		<div class="graph-left-half"> </div>
-                        	</div>
-                        </div>
-                        <div class="graph-right-side">
-                        	<div class="graph-right-container">
-                        		<div class="graph-right-half"></div>
-                        	</div>
-                        </div>
-                        <i class="fa fa-gift fa-3x fw"></i>
-                        <div class="facts-wrap-num"><span class="counter">25</span></div>
-                     </div>
-                        <h6>Awards</h6>
-                    </div>
-                </div>
-                <div class="col-md-3 col-xs-12 col-sm-6 columns">
-                    <div class="facts-wrap">
-                     <div class="graph">
-                        <div class="graph-left-side">
-                        	<div class="graph-left-container">
-                        		<div class="graph-left-half"> </div>
-                        	</div>
-                        </div>
-                        <div class="graph-right-side">
-                        	<div class="graph-right-container">
-                        		<div class="graph-right-half"></div>
-                        	</div>
-                        </div>
-                        <i class="fa fa-check-square-o fa-3x fw"></i>
-                        <div class="facts-wrap-num"><span class="counter">68</span></div>
-                        </div>
-                        <h6>Projects</h6>
-                    </div>
-                </div>
-                <div class="col-md-3 col-xs-12 col-sm-6 columns">
-                    <div class="facts-wrap">
-                     <div class="graph">
-                        <div class="graph-left-side">
-                        	<div class="graph-left-container">
-                        		<div class="graph-left-half"> </div>
-                        	</div>
-                        </div>
-                        <div class="graph-right-side">
-                        	<div class="graph-right-container">
-                        		<div class="graph-right-half"></div>
-                        	</div>
-                        </div>
-                        <i class="fa fa-envelope-o fa-3x fw"></i>
-                        <div class="facts-wrap-num"><span class="counter">46</span></div>
-                        </div>
-                        <h6>Mails</h6>
-                    </div>
-                </div>
-            </div> <!-- Conatainer End -->
-        </div>	<!-- Fact div ENd -->
-</section>
-<!-- Counter End -->
-
-<!-- Counter End -->
-
-    </div>
-</section>
 
 <!-- Testimonial Start -->
 
