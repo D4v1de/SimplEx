@@ -131,7 +131,7 @@ if($_URL[5]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
 }
 
 if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
-    if($dataFromSettato=isset($_POST['dataFrom']) && $radio1Settato=isset($_POST['radio1']) && $dataToSettato=isset($_POST['dataTo']) && $someTestsAorD=isset($_POST['tests']) && $someStudentsChange=isset($_POST['students']) ) {
+    if($dataFromSettato=isset($_POST['dataFrom']) && $radio1Settato=isset($_POST['radio1']) && $dataToSettato=isset($_POST['dataTo']) ) {
 
         if($dataFromSettato)
             $newOrOldDataFrom = $_POST['dataFrom'];
@@ -157,16 +157,18 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
             $controller->disabilitaMostraRisposteCorrette($idSessione);
             $controller->updateSessione($_URL[5], $sessioneAggiornata);
 
-
-            if ($someTestsAorD) {
-                $cbTest = Array();
-                $cbTest = $_POST['tests'];
-                $controller->deleteAllTestFromSessione($idSessione);
-                foreach ($cbTest as $t) {
-                    $controller->associaTestASessione($idSessione, $t);
+            if ($someTestsAorD = isset($_POST['tests'])) {
+                if ($someTestsAorD) {
+                    $cbTest = Array();
+                    $cbTest = $_POST['tests'];
+                    $controller->deleteAllTestFromSessione($idSessione);
+                    foreach ($cbTest as $t) {
+                        $controller->associaTestASessione($idSessione, $t);
+                    }
                 }
             }
 
+            if($someStudentsChange=isset($_POST['students'])){
             if ($someStudentsChange) {
                 $cbStudents = Array();
                 $cbStudents = $_POST['students'];
@@ -180,6 +182,7 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
                     $controller->abilitaStudenteASessione($idSessione, $s);
                 }
             }
+        }
         }
         catch (ApplicationException $ex) {
             echo "<h1>ERRORE NELLE OPERAZIONI DELLA SESSIONE (fase modifica)!</h1>" . $ex;
