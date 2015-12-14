@@ -10,6 +10,9 @@ include_once CONTROL_DIR . "ArgomentoController.php";
 include_once CONTROL_DIR . "DomandaController.php";
 include_once CONTROL_DIR . "AlternativaController.php";
 include_once CONTROL_DIR . "CdlController.php";
+include_once CONTROL_DIR . "UtenteController.php";
+
+$utenteLoggato = $_SESSION['user'];
 
 $controller = new ArgomentoController();
 $controllerDomande = new DomandaController();
@@ -17,17 +20,41 @@ $controllerRisposte = new AlternativaController();
 $controllerCdl = new CdlController();
 $corso = null;
 $argomento = null;
+$correttezzaLogin = false;
 
 try{
-    $corso = $controllerCdl->readCorso($_URL[3]); //qui dentro andrà $_URL[..]; IDCORSO
+    $corso = $controllerCdl->readCorso($_URL[2]); //qui dentro andrà $_URL[..]; IDCORSO
 }catch(ApplicationException $exception){
     echo "ERRORE IN READ CORSO" . $exception;
 }
 
 try{
-    $argomento = $controller->readArgomento($_URL[6]);
+    $argomento = $controller->readArgomento($_URL[5]);
 }catch(ApplicationException $exception){
     echo "ERRORE IN READ ARGOMENTO" . $exception;
+}
+
+//CONTROLLO LOGIN CORRETTO
+try{
+    $matricolaLoggato = $utenteLoggato->getMatricola();
+}catch(ApplicationException $exception){
+    echo "ERRORE IN GET MATRICOLA" . $exception;
+}
+
+try{
+    $docentiAssociati = $controllerUtente->getDocenteAssociato($corsoid);
+}catch(ApplicationException $exception){
+    echo "ERRORE IN GET DOCENTE ASSOCIATI" . $exception;
+}
+
+foreach($docentiAssociati as $docente){
+    if($docente->getMatricola() == $matricolaLoggato){
+        $correttezzaLogin = true;
+    }
+}
+
+if($correttezzaLogin == false){
+    header('Location: /docente/corso/'.$corsoid);
 }
 
 

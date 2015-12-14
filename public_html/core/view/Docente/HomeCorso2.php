@@ -12,19 +12,22 @@ include_once CONTROL_DIR . "TestController.php";
 include_once CONTROL_DIR . "ArgomentoController.php";
 include_once CONTROL_DIR . "CdlController.php";
 
+$utenteLoggato = $_SESSION['user'];
+
 $controllerSessione = new SessioneController();
 $controllerTest = new TestController();
 $controllerArgomento = new ArgomentoController();
 $controllerCorso = new CdlController();
 
 $corso = null;
-$identificativoCorso = $_URL[3];
+$identificativoCorso = $_URL[2];
 $id = null;
 $idcorso = null;
 $argomenti = Array();
+$correttezzaLogin = false;
 
 try {
-    $corso = $controllerCorso->readCorso($_URL[3]);
+    $corso = $controllerCorso->readCorso($_URL[2]);
 }catch(ApplicationException $exception){
     echo "ERRORE IN READ CORSO " . $exception;
 }
@@ -34,6 +37,22 @@ try {
 }catch(ApplicationException $exception){
     echo "ERRORE IN GETDOCENTEASSOCIATO" . $exception;
 }
+
+
+//CONTROLLO LOGIN CORRETTO
+
+try{
+    $matricolaLoggato = $utenteLoggato->getMatricola();
+}catch(ApplicationException $exception){
+    echo "ERRORE IN GET MATRICOLA" . $exception;
+}
+
+foreach($docenteassociato as $docente){
+    if($docente->getMatricola() == $matricolaLoggato){
+        $correttezzaLogin = true;
+    }
+}
+
 try{
     $argomenti = $controllerArgomento->getArgomenti($corso->getId());
 }catch(ApplicationException $exception){
@@ -362,10 +381,14 @@ if(isset($_POST['idtest'])){
                         <a href="javascript:;" class="collapse" data-original-title="" title="">
                         </a>
                     </div>
-                    <div class="actions">
-                        <a href="/docente/corso/<?php echo $corso->getId(); ?>/argomento/inserisci" class="btn btn-default btn-sm">
-                            <i class="fa fa-plus"></i> Aggiungi Argomento </a>
-                    </div>
+                    <?php
+                        if($correttezzaLogin==true){
+                            printf("<div class=\"actions\">");
+                            printf("<a href=\"/docente/corso/%s/argomento/inserisci\" class=\"btn btn-default btn-sm\">",$corso->getId());
+                            printf("<i class=\"fa fa-plus\"></i> Aggiungi Argomento </a>");
+                            printf("</div>");
+                        }
+                    ?>
                 </div>
                 <div class="portlet-body">
                     <div id="tabella_argomenti_wrapper" class="dataTables_wrapper no-footer">
@@ -378,11 +401,11 @@ if(isset($_POST['idtest'])){
                                 : activate to sort column ascending" style="width: 119px;">
                                     Nome
                                 </th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                         Email
-                                " style="width: 14%;">
-                                    Azioni
-                                </th>
+                                <?php
+                                    if($correttezzaLogin==true){
+                                        printf("<th class=\"sorting_disabled\" rowspan=\"1\" colspan=\"1\" aria-label=\"Email\" style=\"width: 14%%;\">Azioni</th>");
+                                    }
+                                ?>
                             </tr>
 
                             </thead>
@@ -394,12 +417,14 @@ if(isset($_POST['idtest'])){
                             foreach($argomenti as $a) {
                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
                                 printf("<td><a href=\"/docente/corso/%d/argomento/domande/%d \">%s</a></td>", $a->getCorsoId() , $a->getId() , $a->getNome());
-                                printf("<td>");
-                                printf("<a href=\"/docente/corso/%d/argomento/modifica/%d\" class=\"btn btn-sm blue-madison\">", $a->getCorsoId(),$a->getId());
-                                printf("<i class=\"fa fa-edit\"></i>");
-                                printf("</a>");
-                                printf("<button class=\"btn btn-sm red-intense\" type=\"submit\" name=\"id\" title='Sei sicuro?' value=\"%d\" data-popout=\"true\" data-toggle=\"confirmation\" data-singleton=\"true\"><i class=\"fa fa-trash-o\"></i></button>",$a->getId());
-                                printf("</td>");
+                                if($correttezzaLogin==true){
+                                    printf("<td>");
+                                    printf("<a href=\"/docente/corso/%d/argomento/modifica/%d\" class=\"btn btn-sm blue-madison\">", $a->getCorsoId(),$a->getId());
+                                    printf("<i class=\"fa fa-edit\"></i>");
+                                    printf("</a>");
+                                    printf("<button class=\"btn btn-sm red-intense\" type=\"submit\" name=\"id\" title='Sei sicuro?' value=\"%d\" data-popout=\"true\" data-toggle=\"confirmation\" data-singleton=\"true\"><i class=\"fa fa-trash-o\"></i></button>",$a->getId());
+                                    printf("</td>");
+                                }
                                 printf("</tr>");
                             }
 

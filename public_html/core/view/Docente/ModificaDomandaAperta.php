@@ -14,9 +14,9 @@ $cdlController = new CdlController();
 $domandaController = new DomandaController();
 $argomentoController = new ArgomentoController();
 
-$idCorso = $_URL[3];
-$idArgomento = $_URL[7];
-$idDomanda = $_URL[8];
+$idCorso = $_URL[2];
+$idArgomento = $_URL[6];
+$idDomanda = $_URL[7];
 $corso = null;
 $argomento = null;
 $domandaOld = null;
