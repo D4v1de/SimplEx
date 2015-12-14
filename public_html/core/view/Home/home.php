@@ -340,7 +340,7 @@
                             <a href="#profile" role="tab" data-toggle="tab">
                                 <div class="single-tab">
                                     <div class="f-icon">
-                                        <i class="fa fa-send"></i>
+                                        <i class="fa fa-picture-o"></i>
                                     </div>
                                 </div>
                                 <h4>Home docente</h4>
@@ -350,7 +350,7 @@
                             <a href="#profile" role="tab" data-toggle="tab">
                                 <div class="single-tab">
                                     <div class="f-icon">
-                                        <i class="fa fa-send"></i>
+                                        <i class="fa fa-picture-o"></i>
                                     </div>
                                 </div>
                                <h4>Home studente</h4>
@@ -360,7 +360,7 @@
                             <a href="#profile" role="tab" data-toggle="tab">
                                 <div class="single-tab">
                                     <div class="f-icon">
-                                        <i class="fa fa-send"></i>
+                                        <i class="fa fa-picture-o"></i>
                                     </div>
                                 </div>
                                 <h4>Creazione test</h4>
@@ -370,7 +370,7 @@
                             <a href="#profile" role="tab" data-toggle="tab">
                                 <div class="single-tab">
                                     <div class="f-icon">
-                                        <i class="fa fa-send"></i>
+                                        <i class="fa fa-picture-o"></i>
                                     </div>
                                 </div>
                                 <h4>Esecuzione test</h4>
@@ -777,7 +777,7 @@
 				<div class="item text-center">
                     <div class="single-member">
                         <div class="overlay-hover">
-                            <img src="/assets/homepage/images/team/pic5.jpg" alt="" class="img-responsive">
+                            <img src="/assets/homepage/images/team/Sergio.jpg" alt="" class="img-responsive">
                             <div class="overlay-effect">
                                 <ul class="social list-inline">
                                     <li><a href=""><i class="fa fa-facebook"></i></a></li>
@@ -976,19 +976,19 @@
      var map;
         map = new GMaps({
           div: '#map',
-          lat: 40.7687158,
-          lng: 14.7898292,
+          lat: 40.7748473,
+          lng: 14.7882346,
           scrollwheel: false,
           panControl: false,
           zoomControl: false,
         });
 
         map.addMarker({
-          lat: 40.7687158,
-          lng: 14.7898292,
-          title: 'Smilebuddy',
+            lat: 40.7748473,
+            lng: 14.7882346,
+          title: 'Dipartimento di Informatica',
           infoWindow: { 
-            content: '<p> Smilebuddy, Dhanmondhi 27</p>'
+            content: '<p>Via Ponte don Melillo, 132,84084 Fisciano SA</p>'
           },
           icon: "/assets/homepage/images/map1.png"
         });
