@@ -19,7 +19,7 @@ $controllerCorso = new CdlController();
 $controllerDomande  = new DomandaController();
 $controllerTest = new TestController();
 
-$identificativoCorso = $_URL[3];
+$identificativoCorso = $_URL[2];
 
 function parseInt($Str) {
     return (int)$Str;   
@@ -86,10 +86,11 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
          
         }
         
-    if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && !(empty($_POST['numAperte'])) && !(empty($_POST['numMultiple']))){
+    if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && !(empty($_POST['descrizione'])) && !(empty($_POST['numAperte'])) && !(empty($_POST['numMultiple']))){
     //qui va la parte random
     $nApe=parseInt($_POST['numAperte']);
     $nMul=parseInt($_POST['numMultiple']);
+    $descr=$_POST['descrizione'];
     $punteggio=0;
     $Argomenti = Array();
     $Multiple = Array();
@@ -105,17 +106,22 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
         $nuoveMultiple = $controllerDomande->getAllMultiple($a);
         $Multiple = array_merge($Multiple,$nuoveMultiple);
     }
+    
     while($nApe>0){ //seleziono casualmente le N aperte desiderate 
         $x=rand(0,((count($Aperte))-1));
+        if(($Aperte[$x]!=NULL) && isset($Aperte[$x])){
         array_push($leAperte, $Aperte[$x]);
         unset($Aperte[$x]);
         $nApe=$nApe-1;
+        }
     }
     while($nMul>0){ //seleziono casualmente le N multiple desiderate
         $x=rand(0,((count($Multiple))-1));
+        if(($Aperte[$x]!=NULL) && isset($Aperte[$x])){
         array_push($leMultiple, $Multiple[$x]);
         unset($Multiple[$x]);
         $nMul=$nMul-1;
+        }
     }
     foreach($leAperte as $s){ //leAperte selezionate vengono controllate per aggiorare il punteggio totale
         $w=$controllerDomande->getDomandaAperta($s);
@@ -125,23 +131,23 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
         $w=$controllerDomande->getDomandaMultipla($s);
         $punteggio=$punteggio+($w->getPunteggioCorretta());
     }
-    $nApe=parseInt($_POST['numAperte']);
-    $nMul=parseInt($_POST['numMultiple']);
-    $test = new Test("TestRandom nuovo",$punteggio,$nMul,$nApe,0,0,$identificativoCorso);//creo il test e lo metto nel db
+    $nApe=parseInt($_POST['numAperte']);//mi riprendo il numero delle aperte
+    $nMul=parseInt($_POST['numMultiple']);//mi riprendo il numero di multiple
+    $test = new Test($descr,$punteggio,$nMul,$nApe,0,0,$identificativoCorso);//creo il test e lo metto nel db
     $idNuovoTest=$controllerTest->creaTest($test);
     foreach($leAperte as $s){ //scansiono di nuovo le aperte per associarle al test
-        $controllerDomande->associaAperTest($s->getId(), $idNuovoTest, NULL);
+        $controllerDomande->associaAperTest(parseInt($s->getId()), $idNuovoTest, NULL);
     }
     foreach($leMultiple as $x) { //scansiono di nuovo le multiple per associarle al test
         $controllerDomande->associaMultTest($x->getId(), $idNuovoTest, NULL, NULL);
     }
     
-    $tornaACasa= "Location: "."/usr/docente/corso/"."$identificativoCorso"."/";
+    $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/";
          header($tornaACasa); //torno alla home
     
 }
 
-$corso = $controllerCorso->readCorso($_URL[3]); 
+$corso = $controllerCorso->readCorso($_URL[2]); 
 $num = $controllerArgomento->getNumArgomenti(); 
 ?>
 <!DOCTYPE html>
