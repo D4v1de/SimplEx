@@ -66,7 +66,7 @@ if (isset($_POST['checkbox']) && !isset($_POST['elimina'])) {
             }
         }
     }
-    header('location: /adm/corsi/gestione/' . $corso->getId() . '/successassocia');
+    header('location: /admin/corsi/gestione/' . $corso->getId() . '/successassocia');
 }
 
 if (isset($_POST['elimina'])) {
@@ -78,7 +78,7 @@ if (isset($_POST['elimina'])) {
             echo "<h1>ELIMINAINSEGNAMENTI FALLITO!</h1>".$ex;
         }
     }
-    header('location: /adm/corsi/gestione/' . $corso->getId() . '/successassocia');
+    header('location: /admin/corsi/gestione/' . $corso->getId() . '/successassocia');
 }
 
 
@@ -125,11 +125,11 @@ if (isset($_POST['elimina'])) {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/adm/corsi/view">GestioneCorsi</a>
+                        <a href="/admin/corsi/view">GestioneCorsi</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/adm/corsi/gestione/<?php echo $corso->getId(); ?>"><?php echo $corso->getNome(); ?></a>
+                        <a href="/admin/corsi/gestione/<?php echo $corso->getId(); ?>"><?php echo $corso->getNome(); ?></a>
                     </li>
                 </ul>
             </div>
@@ -157,7 +157,7 @@ if (isset($_POST['elimina'])) {
                                 </div>
                                 <div class="col-md-offset-3 col-md-2">
                                     <h3></h3>
-                                    <a href="<?php printf('/adm/corsi/modifica/%s', $corso->getId()); ?>">
+                                    <a href="<?php printf('/admin/corsi/modifica/%s', $corso->getId()); ?>">
                                         <button type="button" class="btn green-jungle">Modifica</button>
                                     </a>
                                 </div>
@@ -233,7 +233,7 @@ if (isset($_POST['elimina'])) {
                                     } else {
                                         printf("<td><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $d->getMatricola());
                                     }
-                                    printf("<td><a href=\"/adm/utenti/view/%s\">%s</a></td>", $d->getMatricola(), $d->getNome());
+                                    printf("<td><a href=\"/admin/utenti/view/%s\">%s</a></td>", $d->getMatricola(), $d->getNome());
                                     printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $d->getCognome());
                                     printf("<td>%s</td>", $d->getMatricola());
                                     printf("</tr>");

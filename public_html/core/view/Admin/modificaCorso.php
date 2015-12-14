@@ -71,7 +71,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
             $new = new Corso($matricolanew, $nomenew, $tipologianew, $cdlmatricolanew);
             $controller->modificaCorso($corso->getId(), $new);
 
-            header('location: /adm/corsi/view/successmodifica');
+            header('location: /admin/corsi/view/successmodifica');
         } catch (ApplicationException $ex) {
             echo "<h1>MODIFICACORSO FALLITO!</h1>" . $ex;
         }
@@ -118,11 +118,11 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/adm/corsi/view">GestioneCorsi</a>
+                        <a href="/admin/corsi/view">GestioneCorsi</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/adm/corsi/modifica/<?php echo $corso->getId(); ?>"><?php echo $nome; ?></a>
+                        <a href="/admin/corsi/modifica/<?php echo $corso->getId(); ?>"><?php echo $nome; ?></a>
                     </li>
                 </ul>
             </div>
@@ -264,7 +264,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                         <input type="reset" value="Annulla" class="btn red-intense"/>
                                     </div>
                                     <div class="col-md-offset-1 col-md-5">
-                                        <a href="<?php printf('/adm/corsi/gestione/%s', $corso->getId()); ?>"
+                                        <a href="<?php printf('/admin/corsi/gestione/%s', $corso->getId()); ?>"
                                            class="btn blue-madison">Associa Docente</a>
                                     </div>
                                 </div>

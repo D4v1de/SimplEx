@@ -14,13 +14,13 @@ try {
     $user = $ctr->login($ut->getUsername(), $_POST['password'], false);
     switch (@$user->getTipologia()) {
         case 'Docente':
-            $redirect = "/usr/docente";
+            $redirect = "/docente";
             break;
         case 'Studente':
-            $redirect = "/usr/studente";
+            $redirect = "/studente";
             break;
         case 'Admin':
-            $redirect = "/adm";
+            $redirect = "/admin";
             break;
         default:
             $redirect = "/";

@@ -15,8 +15,8 @@ $controllerCdl = new CdlController();
 $controllerUtenti = new UtenteController();
 $sesController = new SessioneController();
 
-$idSessione=$_URL[5];
-$idCorso = $_URL[3];
+$idSessione=$_URL[4];
+$idCorso = $_URL[2];
 $corso = $controllerCdl->readCorso($idCorso);
 $nomecorso= $corso->getNome();
 
@@ -27,7 +27,7 @@ $docenti = null;
 $docente = null;
 $url = null;
 
-$url = $_URL[3];
+$url = $_URL[2];
 if(!is_numeric($url)) {
     echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
 }
@@ -98,19 +98,19 @@ if($someStudentsChange=isset($_POST['abilita'])) {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="<?php echo "/usr/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $controllerCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
+                        <a href="<?php echo "/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $controllerCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
                         <?php
-                        $vaiANomeCorso="/usr/docente/corso/".$idCorso;
+                        $vaiANomeCorso="/docente/corso/".$idCorso;
                         printf("<a href=\"%s\">%s</a><i class=\"fa fa-angle-right\"></i>", $vaiANomeCorso ,$nomecorso);
                         ?>
                     </li>
                     <li>
                         <?php
                             $sex = "Sessione ".$idSessione;
-                            $vaiASex= "/usr/docente/corso/".$idCorso."/"."sessione"."/".$idSessione."/"."sessioneincorso";
+                            $vaiASex= "/docente/corso/".$idCorso."/"."sessione"."/".$idSessione."/"."sessioneincorso";
                             printf("<a href=\"%s\">%s</a>", $vaiASex, $sex);
                         ?>
                         <i class="fa fa-angle-right"></i>

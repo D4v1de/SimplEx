@@ -19,93 +19,86 @@ $controllerCorso = new CdlController();
 $controllerDomande  = new DomandaController();
 $controllerTest = new TestController();
 
-$identificativoCorso = $_URL[3];
+$identificativoCorso = $_URL[2];
 
 function parseInt($Str) {
     return (int)$Str;   
 } 
 
-if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['punteggioAperta']) && isset($_POST['punteggioMultiplaCorr']) && isset($_POST['punteggioMultiplaErr']) && isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipologia']=='man')){
-    //qui va la parte manuale 
-    $domAperte=Array();
-    $domAperte=$_POST['aperte'];
-    $domMultiple=Array();
-    $domMultiple=$_POST['multiple'];
-    $descrizione=$_POST['descrizione'];
-    $puntApe=parseInt($_POST['punteggioAperta']);
-    $puntMultCor=parseInt($_POST['punteggioMultiplaCorr']);
-    $puntMultErr=parseInt($_POST['punteggioMultiplaErr']);
-    $punteggio=0;
+if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipologia']=='man')){
+    // qui va la parte manuale 
+    // LA STO RIFACENDO C***O
+    $domAperte=Array(); //domande aperte selezionate
+    $domAperte=$_POST['aperte']; //domande aperte selezionate
+    $domMultiple=Array(); //domande multiple selezionate
+    $domMultiple=$_POST['multiple']; //domande multiple selezionate
+    $descrizione=$_POST['descrizione']; //descrizione testo
+    $punteggio=0; 
     $cont1=0;
     $cont2=0;
-    if($domAperte==null){          
-            }
-    else{
-        foreach($domAperte as $s) {
-                $cont1=$cont1+1;
-              }
-    }
-    if($domMultiple==null){          
-            }
-    else{
-        foreach($domMultiple as $s) {
-                $cont2=$cont2+1;
-              }
-    }
-    $punteggio=($puntApe*$cont1);
-    $punteggio=$punteggio+($puntMultCor*$cont2);
-    
-    $test = new Test($descrizione,$punteggio,$cont2,$cont1,0,0,$identificativoCorso);
-        $idNuovoTest=$controllerTest->creaTest($test);
-        foreach($domAperte as $s) {
-               $controllerDomande->associaAperTest($s, $idNuovoTest, $puntApe);
-              }
-        foreach($domMultiple as $x) {
-               $controllerDomande->associaMultTest($x, $idNuovoTest, $puntMultCor, $puntMultErr);
-              }      
-         $tornaACasa= "Location: "."/usr/docente/corso/"."$identificativoCorso"."/";
+      
+         $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/";
          header($tornaACasa);
  
          
         }
         
-    if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && isset($_POST['numAperte']) && isset($_POST['numMultiple']) && isset($_POST['punteggioAperta']) && isset($_POST['punteggioMultiplaCorr']) && isset($_POST['punteggioMultiplaErr'])){
+    if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && !(empty($_POST['numAperte'])) && !(empty($_POST['numMultiple']))){
     //qui va la parte random
     $nApe=parseInt($_POST['numAperte']);
     $nMul=parseInt($_POST['numMultiple']);
-    $Argomenti= Array();
-    $Argomenti=$controllerArgomento->getArgomenti($identificativoCorso);
-    $puntApe=parseInt($_POST['punteggioAperta']);
-    $puntMultCor=parseInt($_POST['punteggioMultiplaCorr']);
-    $puntMultErr=parseInt($_POST['punteggioMultiplaErr']);
-    $punteggio=($puntApe*$nApe);
-    $punteggio=$punteggio+($puntMultCor*$nMul);
-    $test = new Test("TestRandom",$punteggio,$nMul,$nApe,0,0,$identificativoCorso);
-    $idNuovoTest=$controllerTest->creaTest($test);
-    $Aperte = Array();
+    $punteggio=0;
+    $Argomenti = Array();
     $Multiple = Array();
-    foreach($Argomenti as $a){
-        $Aperte=$Aperte+($controllerDomande->getAllAperte($a));
-        $Multiple=$Multiple+($controllerDomande->getAllMultiple($a));
+    $Aperte = Array();
+    $Argomenti=$controllerArgomento->getArgomenti($identificativoCorso);
+        $leAperte = Array();
+        $leMultiple = Array();
+        foreach($Argomenti as $a){
+        $nuoveAperte = Array();
+        $nuoveAperte = $controllerDomande->getAllAperte($a);
+        $Aperte = array_merge($Aperte,$nuoveAperte);
+        $nuoveMultiple = Array();
+        $nuoveMultiple = $controllerDomande->getAllMultiple($a);
+        $Multiple = array_merge($Multiple,$nuoveMultiple);
     }
     while($nApe>0){
         $x=rand(0,(count($Aperte)-1));
-        $controllerDomande->associaAperTest($Aperte[$x], $idNuovoTest, $puntApe);
+        array_push($leAperte, $Aperte[$x]);
         unset($Aperte[$x]);
         $nApe=$nApe-1;
     }
     while($nMul>0){
         $x=rand(0,(count($Multiple)-1));
-        $controllerDomande->associaMultTest($Multiple[$x], $idNuovoTest, $puntApe);
+        array_push($leMultiple, $Multiple[$x]);
         unset($Multiple[$x]);
         $nMul=$nMul-1;
     }
-    $tornaACasa= "Location: "."/usr/docente/corso/"."$identificativoCorso"."/";
+    foreach($leAperte as $s){
+        $w=$controllerDomande->getDomandaAperta($s->getId());
+        $punteggio=$punteggio+($w->getPunteggioMax());
+    }
+    foreach($leMultiple as $s) {
+        $w=$controllerDomande->getDomandaMultipla($s->getId());
+        $punteggio=$punteggio+($w->getPunteggioCorretta());
+    }
+    $nApe=parseInt($_POST['numAperte']);
+    $nMul=parseInt($_POST['numMultiple']);
+    $test = new Test("TestRandom nuovo",$punteggio,$nMul,$nApe,0,0,$identificativoCorso);
+    $idNuovoTest=$controllerTest->creaTest($test);
+    foreach($leAperte as $s){
+        $controllerDomande->associaAperTest($s->getId(), $idNuovoTest, NULL);
+    }
+    foreach($leMultiple as $x) {
+        $controllerDomande->associaMultTest($x->getId(), $idNuovoTest, NULL, NULL);
+    }
+    
+    $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/";
          header($tornaACasa);
     
 }
 
-$corso = $controllerCorso->readCorso($_URL[3]); 
+$corso = $controllerCorso->readCorso($_URL[2]);
 $num = $controllerArgomento->getNumArgomenti(); 
 ?>
 <!DOCTYPE html>
@@ -189,39 +182,6 @@ $num = $controllerArgomento->getNumArgomenti();
                                     <textarea class="form-control" name="descrizione" id="descrizione" rows="4" placeholder="Inserisci descrizione" style="resize:none"></textarea>
                                 </div>
                             <br>
-                                <div class="row">
-                                   <div class="col-md-4">
-                                    <div class="form-group form-md-line-input has-success">
-                                                <div class="input-icon">
-                                                    <input type="text" id="punteggioAperta" name="punteggioAperta" class="form-control">
-                                                        <label for="form_control_1">Punteggio domanda aperta:</label>
-                                                            <span class="help-block">Inserire numero</span>
-                                                </div>
-                                            </div>
-                                   </div>           
-                                
-          
-                                   <div class="col-md-4">
-                                    <div class="form-group form-md-line-input has-success">
-                                                <div class="input-icon">
-                                                    <input type="text" id="punteggioMultiplaCorr" name="punteggioMultiplaCorr" class="form-control">
-                                                        <label for="form_control_1">Punteggio domanda Multipla corretta:</label>
-                                                            <span class="help-block">Inserire numero</span>
-                                                </div>
-                                            </div>
-                                   </div>           
-                                
-                            
-                                   <div class="col-md-4">
-                                    <div class="form-group form-md-line-input has-success">
-                                                <div class="input-icon">
-                                                    <input type="text" id="punteggioMultiplaErr" name="punteggioMultiplaErr" class="form-control">
-                                                        <label for="form_control_1">Punteggio domanda Multipla errata:</label>
-                                                            <span class="help-block">Inserire numero</span>
-                                                </div>
-                                            </div>
-                                   </div>           
-                                </div>
                             <br>
                             <br>
                                 <div class="row">
@@ -253,7 +213,7 @@ $num = $controllerArgomento->getNumArgomenti();
                                             <div class="form-group form-md-line-input has-success">
                                                 <div class="input-icon">
                                                     <input type="text" id="numAperte" name="numAperte" class="form-control">
-                                                        <label for="form_control_1">Numero domande a risposta aperta:</label>
+                                                        <label for="numAperte">Numero domande a risposta aperta:</label>
                                                             <span class="help-block">Inserire numero</span>
                                                 </div>
                                             </div>
@@ -262,7 +222,7 @@ $num = $controllerArgomento->getNumArgomenti();
                                             <div class="form-group form-md-line-input has-success">
                                                 <div class="input-icon">
                                                     <input type="text" id="numMultiple" name="numMultiple" class="form-control">
-                                                        <label for="form_control_1">Numero domande a risposta multipla:</label>
+                                                        <label for="numMultiple">Numero domande a risposta multipla:</label>
                                                             <span class="help-block">Inserire numero</span>
                                                 </div>
                                             </div>
@@ -292,9 +252,11 @@ $num = $controllerArgomento->getNumArgomenti();
                                id="tabella_domande" role="grid" aria-describedby="tabella_domande_info">
                             <thead>
                             <tr role="row">
-                                <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                                        " style="width: 24px;">
-                                </th>
+                                <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1"
+                                        aria-label="">
+                                        <input type="checkbox" class="group-checkable"
+                                               data-set="#tabella_domande .checkboxes">
+                                    </th>
                                 <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Points
                                 " style="width: 50px;">
@@ -312,6 +274,11 @@ $num = $controllerArgomento->getNumArgomenti();
                                          Status
                                 " style="width: 200px;">
                                     Tipologia
+                                </th>
+                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                         Status
+                                " style="width: 200px;">
+                                    Punteggio Alternativo
                                 </th>
                                 
                             </tr>
@@ -333,6 +300,12 @@ $num = $controllerArgomento->getNumArgomenti();
                                     printf("<td>%s</td>",$a->getNome());
                                     printf("<td>%s</td>",$s->getTesto());
                                     printf("<td>Multipla</td>");
+                                    printf("<td><div class=\"form-group form-md-line-input has-success\"><div class=\"input-icon\"><input type=\"text\" id=\"%d\" name=\"alternCorr\" class=\"form-control\">
+                                            <label for=\"alternCorr\">Corretta:</label>
+                                            ", $s->getId());
+                                    printf("</div><div class=\"form-group form-md-line-input has-success\"><div class=\"input-icon\"><input type=\"text\" id=\"%d\" name=\"alternErr\" class=\"form-control\">
+                                            <label for=\"alternErr\">Errata:</label>
+                                            </div></div></td>", $s->getId());
                                     printf("</tr>");
                                 }
                                 foreach($Aperte as $s){
@@ -342,6 +315,10 @@ $num = $controllerArgomento->getNumArgomenti();
                                     printf("<td>%s</td>",$a->getNome());
                                     printf("<td>%s</td>",$s->getTesto());
                                     printf("<td>Aperta</td>");
+                                    printf("<td><div class=\"form-group form-md-line-input has-success\"><div class=\"input-icon\"><input type=\"text\" id=\"%d\" name=\"ApertaCorr\" class=\"form-control\">
+                                            <label for=name=\"ApertaCorr\">Punteggio max:</label>
+                           
+                                            </div></div></td>", $s->getId());
                                     printf("</tr>");
                                 }
                                 

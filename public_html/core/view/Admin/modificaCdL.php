@@ -39,7 +39,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
         try {
             $new = new CdL($matricolanew, $nomenew, $tipologianew);
             $controller->modificaCdl($cdl->getMatricola(), $new);
-            header('location: /adm/cdl/view/successmodifica');
+            header('location: /admin/cdl/view/successmodifica');
         } catch (ApplicationException $ex) {
             echo "<h1>MODIFICACDL FALLITO!</h1>" . $ex;
         }
@@ -85,11 +85,11 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/adm/cdl/view">GestioneCdL</a>
+                        <a href="/admin/cdl/view">GestioneCdL</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/adm/cdl/modifica/<?php echo $matricola; ?>">CdL<?php echo $nome; ?></a>
+                        <a href="/admin/cdl/modifica/<?php echo $matricola; ?>">CdL<?php echo $nome; ?></a>
                     </li>
                 </ul>
             </div>

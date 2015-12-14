@@ -20,8 +20,8 @@ $testController = new ControllerTest();
 $sessioneController = new SessioneController();
 $alternativaController = new AlternativaController();
 $rmCon = new RispostaMultiplaController();
-$corsoId = $_URL[3];
-$sessId = $_URL[6];
+$corsoId = $_URL[2];
+$sessId = $_URL[5];
 $sessione = $sessioneController->readSessione($sessId);
 $studente = $_SESSION['user'];
 $matricola = $studente->getMatricola();
@@ -39,7 +39,7 @@ if (isset($_GET['abbandona'])){
     $elaborato->setEsitoFinale(0);
     $elaborato->setStato("Corretto");
     $elaboratoController->updateElaborato($matricola,$sessId,$elaborato);   
-    header("Location: "."/usr/studente/corso/"."$corsoId"."/");
+    header("Location: "."/studente/corso/"."$corsoId"."/");
 }
 
 if (isset($_GET['consegna'])){
@@ -66,7 +66,7 @@ if (isset($_GET['consegna'])){
     }
     $elaborato->setEsitoParziale($punteggio);
     $elaboratoController->updateElaborato($matricola,$sessId,$elaborato);   
-    header("Location: "."/usr/studente/corso/"."$corsoId"."/");
+    header("Location: "."/studente/corso/"."$corsoId"."/");
 }
 ?>
 <!DOCTYPE html>
