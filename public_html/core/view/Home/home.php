@@ -7,7 +7,7 @@
     <!-- Basic Page Needs
     ================================================== -->
         <meta charset="utf-8">
-        <title>Cypras-One page html5 template</title>
+        <title>SimplEx</title>
         <meta name="description" content="">
         <!-- Mobile Specific Metas
     ================================================== -->
@@ -87,7 +87,7 @@
            	<div class="carousel-inner">
            	 	<div class="item active">
            	 		<div class="overlay-slide">
-           	 			<img src="/assets/homepage/images/banner/p5.jpg" alt="" class="img-responsive">
+           	 			<img src="/assets/homepage/images/banner/img4.jpg" alt="" class="img-responsive">
            	 		</div>
            	 		<div class="carousel-caption">
                	 		<div class="col-md-12 col-xs-12 text-center">
@@ -100,7 +100,7 @@
            	 	</div>
                 <div class="item">
                     <div class="overlay-slide">
-                        <img src="/assets/homepage/images/banner/p3.jpg" alt="" class="img-responsive">
+                        <img src="/assets/homepage/images/banner/img7.jpg" alt="" class="img-responsive">
            	 		</div>
            	 		<div class="carousel-caption">
                	 		<div class="col-md-12 col-xs-12 text-center">
@@ -113,7 +113,7 @@
            	 	</div>
            	 	<div class="item">
                     <div class="overlay-slide">
-                        <img src="/assets/homepage/images/banner/p10.jpg" alt="" class="img-responsive">
+                        <img src="/assets/homepage/images/banner/img6.jpg" alt="" class="img-responsive">
            	 		</div>
            	 		<div class="carousel-caption">
                	 		<div class="col-md-12 col-xs-12 text-center">
@@ -488,7 +488,7 @@
                     <div id="testimonial-carousel" class="owl-carousel owl-theme text-center testimonial-slide">
                         <div class="item">
                           <div class="testimonial-thumb">
-                            <img class="img-circle" src="/assets/homepage/images/team/pic1.jpg" alt="testimonial" >
+                            <img class="img-circle" src="/assets/homepage/images/team/DeLucia.jpg" alt="testimonial" >
                           </div>
                           <div class="testimonial-content">
                             <h3 class="name">Professore Andrea De Lucia <span><b>Top Manager</b></span></h3>
@@ -499,7 +499,7 @@
                         </div>
                         <div class="item">
                           <div class="testimonial-thumb">
-                            <img class="img-circle" src="/assets/homepage/images/testimonial2.png" alt="testimonial" > 
+                            <img class="img-circle" src="/assets/homepage/images/team/Alex.png" alt="testimonial" >
                           </div>
                           <div class="testimonial-content">
                           	<h3 class="name">Alessandro Longo <span><b>Project Manager</b></span></h3>
@@ -510,7 +510,7 @@
                         </div>
                         <div class="item">
                           <div class="testimonial-thumb">
-                            <img class="img-circle" src="/assets/homepage/images/team/pic6.jpg" alt="testimonial" >
+                            <img class="img-circle" src="/assets/homepage/images/team/Davide.png" alt="testimonial" >
                           </div>
                           <div class="testimonial-content">
                           	<h3 class="name wow bounceInLeft">Davide De Chiara<span><b>Project Manager</b></span></h3>
@@ -553,7 +553,7 @@
 				<div class="item text-center">
                     <div class="single-member">
                         <div class="overlay-hover">
-                            <img src="/assets/homepage/images/team/pic2.jpg" alt="" class="img-responsive">
+                            <img src="/assets/homepage/images/team/DeLucia.jpg" alt="" class="img-responsive">
                             <div class="overlay-effect">
                                 <ul class="social list-inline">
                                     <li><a href=""><i class="fa fa-facebook"></i></a></li>
@@ -572,7 +572,7 @@
 				<div class="item text-center">
                     <div class="single-member">
                         <div class="overlay-hover">
-                            <img src="/assets/homepage/images/team/pic2.jpg" alt="" class="img-responsive">
+                            <img src="/assets/homepage/images/team/Alex.png" alt="" class="img-responsive">
                             <div class="overlay-effect">
                                 <ul class="social list-inline">
                                     <li><a href=""><i class="fa fa-facebook"></i></a></li>
@@ -591,7 +591,7 @@
 				<div class="item text-center">
                     <div class="single-member">
                         <div class="overlay-hover">
-                            <img src="/assets/homepage/images/team/pic2.jpg" alt="" class="img-responsive">
+                            <img src="/assets/homepage/images/team/Davide.png" alt="" class="img-responsive">
                             <div class="overlay-effect">
                                 <ul class="social list-inline">
                                     <li><a href=""><i class="fa fa-facebook"></i></a></li>
