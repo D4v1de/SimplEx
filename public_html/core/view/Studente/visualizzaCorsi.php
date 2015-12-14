@@ -24,6 +24,12 @@ if(!is_numeric($url)) {
     echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
 }
 
+
+
+$studente = $_SESSION['user'];
+
+
+
 try {
     $cdl = $controller->readCdl($url);
 
@@ -35,12 +41,6 @@ try {
 
 } catch (ApplicationException $ex) {
     echo "GETCORSICDL FALLITO!</h1>".$ex;
-}
-try {
-    $studente = $_SESSION['user'];
-
-} catch (ApplicationException $ex) {
-    echo "<h1>GETUTENTEBYMATRICOLA FALLITO!</h1>".$ex;
 }
 try {
     $corsistudente = $controller->getCorsiStudente($studente->getMatricola());
