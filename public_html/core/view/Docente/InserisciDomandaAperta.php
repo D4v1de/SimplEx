@@ -14,8 +14,8 @@ $domandaController = new DomandaController();
 $argomentoController = new ArgomentoController();
 $corso = null;
 $argomento = null;
-$idCorso = $_URL[3];
-$idArgomento = $_URL[7];
+$idCorso = $_URL[2];
+$idArgomento = $_URL[6];
 
 try {
     $corso = $cdlController->readCorso($idCorso);
@@ -36,7 +36,7 @@ if (isset($_POST['testoDomanda']) && isset($_POST['number'])) {
     $domanda = new DomandaAperta($idArgomento, $testo, $punteggio, 0);
     try {
         $domandaController->creaDomandaAperta($domanda);
-        header('Location: /usr/docente/corso/'. $corso->getId() .'/argomento/domande/'. $argomento->getId() .'/successinserimento');
+        header('Location: /docente/corso/'. $corso->getId() .'/argomento/domande/'. $argomento->getId() .'/successinserimento');
     } catch (ApplicationException $exception) {
         echo "ERRORE IN CREA DOMANDA APERTA" . $exception;
     }
@@ -85,17 +85,17 @@ if (isset($_POST['testoDomanda']) && isset($_POST['number'])) {
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"/usr/docente/cdl/%s\">%s</a>", $corso->getCdlMatricola(), $cdlController->readCdl($corso->getCdlMatricola())->getNome());
+                    printf("<a href=\"/docente/cdl/%s\">%s</a>", $corso->getCdlMatricola(), $cdlController->readCdl($corso->getCdlMatricola())->getNome());
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"/usr/docente/corso/%d\">%s</a>", $idCorso, $corso->getNome());
+                    printf("<a href=\"/docente/corso/%d\">%s</a>", $idCorso, $corso->getNome());
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"/usr/docente/corso/%d/argomento/domande/%d\">%s</a>",$idCorso, $idArgomento, $argomento->getNome());
+                    printf("<a href=\"/docente/corso/%d/argomento/domande/%d\">%s</a>",$idCorso, $idArgomento, $argomento->getNome());
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
@@ -147,7 +147,7 @@ if (isset($_POST['testoDomanda']) && isset($_POST['number'])) {
 
                             </a>
                             <?php
-                            printf("<a href=\"/usr/docente/corso/%d/argomento/domande/%d\" class=\"btn sm red-intense\">", $idCorso, $idArgomento);
+                            printf("<a href=\"/docente/corso/%d/argomento/domande/%d\" class=\"btn sm red-intense\">", $idCorso, $idArgomento);
                             ?>
                             Annulla
                             </a>

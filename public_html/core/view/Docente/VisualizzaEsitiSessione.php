@@ -18,14 +18,14 @@ include_once CONTROL_DIR . "ElaboratoController.php";
 
 $controllerSessione = new SessioneController();
 $controlleCdl = new CdlController();
-$idSessione = $_URL[5];
-$identificativoCorso = $_URL[3];
+$idSessione = $_URL[4];
+$identificativoCorso = $_URL[2];
 $domandaController = new DomandaController();
 $elaboratoController = new ElaboratoController();
 $testController = new ControllerTest();
 $alternativaController = new AlternativaController();
 $soglia=null;
-$sessioneByUrl = $controllerSessione->readSessione($_URL[5]);
+$sessioneByUrl = $controllerSessione->readSessione($_URL[4]);
 $dataFrom = $sessioneByUrl->getDataInizio();
 $dataTo = $sessioneByUrl->getDataFine();
 $tipoSessione = $sessioneByUrl->getTipologia();
@@ -42,7 +42,7 @@ catch (ApplicationException $ex) {
 if(isset($_POST['soglia'])){
     $soglia=$_POST['soglia'];
     $sessioneAggiornata = new Sessione($dataFrom, $dataTo, $soglia , $sessioneByUrl->getStato(), $sessioneByUrl->getTipologia(), $identificativoCorso);
-    $controllerSessione->updateSessione($_URL[5], $sessioneAggiornata);
+    $controllerSessione->updateSessione($_URL[4], $sessioneAggiornata);
 }
 ?>
 <!DOCTYPE html>
@@ -86,18 +86,18 @@ if(isset($_POST['soglia'])){
                             <i class="fa fa-angle-right"></i>
                         </li>
                         <li>
-                            <a href="<?php echo "/usr/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $controlleCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
+                            <a href="<?php echo "/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $controlleCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
                             <i class="fa fa-angle-right"></i>
                         </li>
                         <li>
                             <?php
-                            $vaiANomeCorso="/usr/docente/corso/".$identificativoCorso;
+                            $vaiANomeCorso="/docente/corso/".$identificativoCorso;
                             printf("<a href=\"%s\">%s</a><i class=\"fa fa-angle-right\"></i>", $vaiANomeCorso ,$nomecorso);
                             ?>
                         </li>
                         <li>
                             <?php
-                            $vaiAVisu="/usr/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."visualizzasessione";
+                            $vaiAVisu="/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."visualizzasessione";
                             printf("<a href=\"%s\">%s</a><i class=\"fa fa-angle-right\"></i>", $vaiAVisu ,"Sessione ".$idSessione);
                             ?>
                             </li>
@@ -274,9 +274,9 @@ if(isset($_POST['soglia'])){
                                                 else
                                                     printf("<td>%s</td>", $ela->getEsitoParziale());
                                                 printf("<td>%s</td>", $ela->getStato());
-                                                printf("<td><a href='/usr/docente/corso/%s/sessione/%s/correggi/%s' class=\"btn btn-sm blue-madison\">
+                                                printf("<td><a href='/docente/corso/%s/sessione/%s/correggi/%s' class=\"btn btn-sm blue-madison\">
                                                     <i class=\"fa fa-pencil\"></i> Correggi
-                                                </a>  <a href='/usr/docente/corso/%s/sessione/%s/visualizza/%s' class=\"btn btn-sm default\">
+                                                </a>  <a href='/docente/corso/%s/sessione/%s/visualizza/%s' class=\"btn btn-sm default\">
                                                     Visualizza
                                                 </a></td>",$identificativoCorso,$idSessione, $c->getMatricola(),$identificativoCorso,$idSessione, $c->getMatricola());
                                                 printf("</tr>");

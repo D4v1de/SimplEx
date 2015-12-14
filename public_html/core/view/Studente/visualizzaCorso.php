@@ -19,10 +19,11 @@ $testController = new TestController();
 $docenteassociato = Array();
 $corso = null;
 $cdl = null;
-$matricolaStudente = "0512102390";
+$studente = $_SESSION['user'];
+$matricolaStudente = $studente->getMatricola();
 $url = null;
 
-$url = $_URL[3];
+$url = $_URL[2];
 if (!is_numeric($url)) {
     echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
 }
@@ -88,15 +89,15 @@ try {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/usr/studente/cdls">CdL</a>
+                        <a href="/studente/cdls">CdL</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/usr/studente/cdl/<?php echo $cdl->getMatricola(); ?>"><?php echo $cdl->getNome(); ?></a>
+                        <a href="/studente/cdl/<?php echo $cdl->getMatricola(); ?>"><?php echo $cdl->getNome(); ?></a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/usr/studente/corso/<?php echo $corso->getId(); ?>"><?php echo $corso->getNome(); ?></a>
+                        <a href="/studente/corso/<?php echo $corso->getId(); ?>"><?php echo $corso->getNome(); ?></a>
                     </li>
                 </ul>
             </div>
@@ -201,12 +202,12 @@ try {
                                         printf("<td class=\"sorting_1\"><span class=\"label label-sm label-danger\">%s</span></td>", $s->getTipologia());
                                     printf("<td class=\"sorting_1\"><a href=\"\">%s</a></td>", $punt);
                                     if (($elaborato == null) && (strtotime(date("Y-m-d H:i:s")) < strtotime($s->getDataFine())))
-                                        printf("<td><a href=\"/usr/studente/corso/%d/test/esegui/%d\" onclick=\"javascript: creaElaborato(%d)\" class=\"btn btn-sm default blue-madison\"><i class=\"fa fa-pencil\"></i> Partecipa</a></td>", $url,$s->getId(),$s->getId());
+                                        printf("<td><a href=\"/studente/corso/%d/test/esegui/%d\" onclick=\"javascript: creaElaborato(%d)\" class=\"btn btn-sm default blue-madison\"><i class=\"fa fa-pencil\"></i> Partecipa</a></td>", $url,$s->getId(),$s->getId());
                                     else
                                         if ($elaborato != null)
-                                            printf("<td><a href=\"/usr/studente/corso/%d/test/%d\" class=\"btn btn-sm default\"><i class=\"fa fa-file-text-o\"></i> Visualizza</a></td>",$url,$s->getId());
+                                            printf("<td><a href=\"/studente/corso/%d/test/%d\" class=\"btn btn-sm default\"><i class=\"fa fa-file-text-o\"></i> Visualizza</a></td>",$url,$s->getId());
                                         else
-                                            printf("<td><a href=\"/usr/studente/corso/%d/test/%d\" disabled class=\"btn btn-sm default\"><i class=\"fa fa-file-text-o\"></i> Visualizza</a></td>",$url,$s->getId());
+                                            printf("<td><a href=\"/studente/corso/%d/test/%d\" disabled class=\"btn btn-sm default\"><i class=\"fa fa-file-text-o\"></i> Visualizza</a></td>",$url,$s->getId());
                                     printf("</tr>");
                                 }
                                 ?>

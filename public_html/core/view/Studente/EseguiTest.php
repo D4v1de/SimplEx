@@ -20,10 +20,11 @@ $testController = new ControllerTest();
 $sessioneController = new SessioneController();
 $alternativaController = new AlternativaController();
 $rmCon = new RispostaMultiplaController();
-$corsoId = $_URL[3];
-$sessId = $_URL[6];
+$corsoId = $_URL[2];
+$sessId = $_URL[5];
 $sessione = $sessioneController->readSessione($sessId);
-$matricola = "0512102390";
+$studente = $_SESSION['user'];
+$matricola = $studente->getMatricola();
 $elaborato = $elaboratoController->readElaborato($matricola,$sessId);
 $studente = $testController->getUtentebyMatricola($matricola);
 $nome = $studente->getNome();
@@ -38,7 +39,7 @@ if (isset($_GET['abbandona'])){
     $elaborato->setEsitoFinale(0);
     $elaborato->setStato("Corretto");
     $elaboratoController->updateElaborato($matricola,$sessId,$elaborato);   
-    header("Location: "."/usr/studente/corso/"."$corsoId"."/");
+    header("Location: "."/studente/corso/"."$corsoId"."/");
 }
 
 if (isset($_GET['consegna'])){
@@ -65,7 +66,7 @@ if (isset($_GET['consegna'])){
     }
     $elaborato->setEsitoParziale($punteggio);
     $elaboratoController->updateElaborato($matricola,$sessId,$elaborato);   
-    header("Location: "."/usr/studente/corso/"."$corsoId"."/");
+    header("Location: "."/studente/corso/"."$corsoId"."/");
 }
 ?>
 <!DOCTYPE html>
@@ -273,6 +274,7 @@ if (isset($_GET['consegna'])){
 
 <script src="/assets/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
 <script src="/assets/admin/pages/scripts/ui-alert-dialog-api.js"></script>
+<script src="/assets/admin/pages/scripts/ui-blockui.js"></script>
 <script>
     var sId = <?= $sessId ?>;
     var mat = "<?= $matricola; ?>";
@@ -280,11 +282,19 @@ if (isset($_GET['consegna'])){
     var intId2 = null;
     var intId3 = null;
     var intId4 = null;
+    var intCheck = null;
+    var intWait = null;
     jQuery(document).ready(function () {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
         UIConfirmations.init();
         UIAlertDialogApi.init();
+        checkConnection();
+        intCheck = setInterval(checkConnection,1000);
+        //Metronic.startPageLoading({animate: true});
+        //window.setTimeout(function() {
+        //    Metronic.stopPageLoading();
+        //}, 2000);
         //countdown
         $.get("/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});
         intId2 = setInterval(function(){$.post("/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});},30000);
@@ -295,19 +305,34 @@ if (isset($_GET['consegna'])){
         //aperte
         $("textarea").focus(function() {
             var apId = $(this).attr('id');
-            intId3 = setInterval(function(){
-            var testo = document.getElementById($(this).attr('id')).value;
-            var res = apId.split('-');
-            var id = res[1];
-            $.post("/updateAperta?mat="+mat+"&sessId="+sId+"&domId="+id+"&testo="+testo);},10000);
+            $.get("/controllerAbilitazione?mat="+mat+"&sessId="+sId,function(data){
+                check = valutaAbilitazione(data);
+                $.get("/gestoreCountdown?sessId="+sId,function(data){
+                var date= data.split("|");
+                var end = date[0];
+                var start = date[1];
+                check = check & (new Date(start).getTime() < new Date(end).getTime());
+                StartCounter(data);
+                    if (check){
+                        intId3 = setInterval(function(){
+                            var testo = document.getElementById($(this).attr('id')).value;
+                            var res = apId.split('-');
+                            var id = res[1];
+                            $.post("/updateAperta?mat="+mat+"&sessId="+sId+"&domId="+id+"&testo="+testo);
+                        },1000);
+                    }
+                });
             });
+        });
         $("textarea").blur(function() {
-            var apId = $(this).attr('id');
-            var testo = document.getElementById($(this).attr('id')).value;
-            var res = apId.split('-');
-            var id = res[1];
-            $.post("/updateAperta?mat="+mat+"&sessId="+sId+"&domId="+id+"&testo="+testo);
-            clearInterval(intId3);
+            if (check){
+                var apId = $(this).attr('id');
+                var testo = document.getElementById($(this).attr('id')).value;
+                var res = apId.split('-');
+                var id = res[1];
+                $.post("/updateAperta?mat="+mat+"&sessId="+sId+"&domId="+id+"&testo="+testo);
+                clearInterval(intId3);
+            }
         });/*
         $("textarea").each(function(){
             $.get("/getApertaValue?mat="+mat+"&sessId="+sId+"&domId="+id+"&testo="+testo);
@@ -329,7 +354,19 @@ if (isset($_GET['consegna'])){
                 $(".md-check[name="+$(this).attr('name')+"]").prop( "checked", false);
                 $("#"+$(this).attr('id')).prop( "checked", true);
             }
-            $.post("/updateMultipla?mat="+mat+"&sessId="+sId+"&domId="+rId+"&altId="+aId);
+            $.get("/controllerAbilitazione?mat="+mat+"&sessId="+sId,function(data){
+                check = valutaAbilitazione(data);
+                $.get("/gestoreCountdown?sessId="+sId,function(data){
+                var date= data.split("|");
+                var end = date[0];
+                var start = date[1];
+                check = check & (new Date(start).getTime() < new Date(end).getTime());
+                StartCounter(data);
+                    if (check){
+                        $.post("/updateMultipla?mat="+mat+"&sessId="+sId+"&domId="+rId+"&altId="+aId);
+                    }
+                });
+            });
         });
         //fine multiple
         //QuickSidebar.init(); // init quick sidebar
@@ -338,6 +375,34 @@ if (isset($_GET['consegna'])){
 </script>
 <!-- countdown -->
 <script>
+    
+   function checkConnection() {
+        if (navigator.onLine) {
+        } else {
+            Metronic.blockUI({
+                esegui: true
+            });
+            Metronic.startPageLoading({animate: true});
+            clearInterval(intCheck);
+            intWait = setInterval(waitConnection,1000);
+        }
+    }
+    
+    function waitConnection() {
+        if (navigator.onLine) {
+            Metronic.unblockUI();
+            Metronic.stopPageLoading();
+            clearInterval(intWait);
+            intCheck = setInterval(checkConnection,1000);
+        } else {
+        }
+    }
+
+//Metronic.startPageLoading({animate: true});
+        //window.setTimeout(function() {
+        //    Metronic.stopPageLoading();
+        //}, 2000);
+        
    var StartCounter = function(string){
         var date= string.split("|");
         var end = date[0];
@@ -377,12 +442,8 @@ if (isset($_GET['consegna'])){
                 var date= data.split("|");
                 var end = date[0];
                 var start = date[1];
-                if (new Date(start).getTime() > new Date(end).getTime()){
+                if (new Date(start).getTime() >= new Date(end).getTime()){
                     countdown.innerHTML = '<span class="time" style="color: #c30"> Tempo Scaduto </span>';
-                    clearInterval(intId);
-                    clearInterval(intId2);
-                    clearInterval(intId3);
-                    clearInterval(intId4);
                     timeout_scaduto();
                 }
                 else{
@@ -419,7 +480,13 @@ if (isset($_GET['consegna'])){
                   }
                 }
             });
+            clearInterval(intId);
+            clearInterval(intId2);
+            clearInterval(intId3);
+            clearInterval(intId4);
+            return false;
         }
+        else return true;
     }
     function timeout_scaduto(){
         bootbox.dialog({
@@ -445,6 +512,10 @@ if (isset($_GET['consegna'])){
                       }
                     }
                 });
+                clearInterval(intId);
+                clearInterval(intId2);
+                clearInterval(intId3);
+                clearInterval(intId4);
             }/*
     var Consegna = function(){
                

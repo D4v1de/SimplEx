@@ -34,17 +34,17 @@ $user = $_SESSION['user'];
                     </a>
                     <ul class="sub-menu" style="display: none;">
                         <li>
-                            <a href="/adm/utenti">
+                            <a href="/admin/utenti">
                                 <i class="icon-book-open"></i>
                                 Visualizza lista</a>
                         </li>
                         <li>
-                            <a href="/adm/utenti/crea/studente">
+                            <a href="/admin/utenti/crea/studente">
                                 <i class="icon-user-follow"></i>
                                 Crea studente</a>
                         </li>
                         <li>
-                            <a href="/adm/utenti/crea/docente">
+                            <a href="/admin/utenti/crea/docente">
                                 <i class="icon-user-follow"></i>
                                 Crea docente</a>
                         </li>
@@ -59,12 +59,12 @@ $user = $_SESSION['user'];
                     </a>
                     <ul class="sub-menu" style="display: none;">
                         <li>
-                            <a href="/adm/cdl/view">
+                            <a href="/admin/cdl/view">
                                 <i class="icon-book-open"></i>
                                 Visualizza tutti CdL</a>
                         </li>
                         <li>
-                            <a href="/adm/cdl/crea">
+                            <a href="/admin/cdl/crea">
                                 <i class="icon-plus"></i>
                                 Crea CdL</a>
                         </li>
@@ -79,12 +79,12 @@ $user = $_SESSION['user'];
                     </a>
                     <ul class="sub-menu" style="display: none;">
                         <li>
-                            <a href="/adm/corsi/view">
+                            <a href="/admin/corsi/view">
                                 <i class="icon-book-open"></i>
                                 Visualizza tutti corsi</a>
                         </li>
                         <li>
-                            <a href="/adm/corsi/crea">
+                            <a href="/admin/corsi/crea">
                                 <i class="icon-plus"></i>
                                 Crea Corso</a>
                         </li>
@@ -100,7 +100,7 @@ $user = $_SESSION['user'];
                 </li>
 
                 <li class="<?php if (@$_URL[2] == "cdls") echo "active open" ?>">
-                    <a href="/usr/docente/cdls">
+                    <a href="/docente/cdls">
                         <i class="icon-notebook"></i>
                         <span class="title">Tutti i Cdl</span>
                     </a>
@@ -113,7 +113,7 @@ $user = $_SESSION['user'];
                     </a>
                     <ul class="sub-menu" style="display: none;">
                         <li>
-                            <a href="/adm/utenti">
+                            <a href="/admin/utenti">
                                 <i class="icon-book-open"></i>
                                 IDEM</a>
                         </li>
@@ -128,7 +128,7 @@ $user = $_SESSION['user'];
                 </li>
 
                 <li class="<?php if (@$_URL[2] == "cdls") echo "active open" ?>">
-                    <a href="/usr/studente/cdls">
+                    <a href="/studente/cdls">
                         <i class="icon-notebook"></i>
                         <span class="title">Tutti i Cdl</span>
                     </a>
@@ -142,7 +142,7 @@ $user = $_SESSION['user'];
                     </a>
                     <ul class="sub-menu" style="display: none;">
                         <li>
-                            <a href="/adm/utenti">
+                            <a href="/admin/utenti">
                                 <i class="icon-book-open"></i>
                                 IDEM</a>
                         </li>

@@ -15,9 +15,9 @@ $domandaController = new DomandaController();
 $argomentoController = new ArgomentoController();
 $alternativaController = new AlternativaController();
 
-$idCorso = $_URL[3];
-$idArgomento = $_URL[7];
-$idDomanda = $_URL[8];
+$idCorso = $_URL[2];
+$idArgomento = $_URL[6];
+$idDomanda = $_URL[7];
 
 $corso = null;
 $argomento = null;
@@ -54,7 +54,7 @@ if (isset($_POST['eliminatore'])) {
     } catch (ApplicationException $exception) {
         echo "ERRORE IN RIMUOVI ALTERNATIVA" . $exception;
     }
-    header("Location: /usr/docente/corso/" . $idCorso . "/argomento/domande/modificamultipla/" . $idArgomento . "/" . $idDomanda ."/successelimina");
+    header("Location: /docente/corso/" . $idCorso . "/argomento/domande/modificamultipla/" . $idArgomento . "/" . $idDomanda ."/successelimina");
 
 } else {
 
@@ -93,21 +93,25 @@ if (isset($_POST['eliminatore'])) {
             $rispostenuove = $_POST['risposteNuove'];
             $prevCount = count($testoRisposte);
             foreach ($rispostenuove as $item) {
-                if (++$prevCount == $radio) {
-                    $corretta2 = "Si";
-                } else {
-                    $corretta2 = "No";
-                }
+                if ($item == null || $item == '') {
+                    continue;
+                } else{
+                    if (++$prevCount == $radio) {
+                        $corretta2 = "Si";
+                    } else {
+                        $corretta2 = "No";
+                    }
                 $nuovaAlternativa = new Alternativa($idDomanda, $item, 0, $corretta2);
                 try {
                     $alternativaController->creaAlternativa($nuovaAlternativa);
                 } catch (ApplicationException $exception) {
                     echo "ERRORE IN CREA ALTERNATIVA" . $exception;
                 }
+              }
             }
         }
 
-        header('Location: /usr/docente/corso/'. $corso->getId() .'/argomento/domande/'. $argomento->getId() .'/successmodifica');
+        header('Location: /docente/corso/'. $corso->getId() .'/argomento/domande/'. $argomento->getId() .'/successmodifica');
     }
 
 }
@@ -156,17 +160,17 @@ if (isset($_POST['eliminatore'])) {
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"/usr/docente/cdl/%s\">%s</a>", $corso->getCdlMatricola(), $cdlController->readCdl($corso->getCdlMatricola())->getNome());
+                    printf("<a href=\"/docente/cdl/%s\">%s</a>", $corso->getCdlMatricola(), $cdlController->readCdl($corso->getCdlMatricola())->getNome());
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"/usr/docente/corso/%d\">%s</a>", $corso->getId(), $corso->getNome());
+                    printf("<a href=\"/docente/corso/%d\">%s</a>", $corso->getId(), $corso->getNome());
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"/usr/docente/corso/%d/argomento/domande/%d\">%s</a>",$idCorso, $idArgomento, $argomento->getNome());
+                    printf("<a href=\"/docente/corso/%d/argomento/domande/%d\">%s</a>",$idCorso, $idArgomento, $argomento->getNome());
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
@@ -207,16 +211,15 @@ if (isset($_POST['eliminatore'])) {
                             $numRadio = 1;
                             foreach ($alternative as $r) {
                                 printf("<div class=\"form-group form-md-line-input has-success ratio\" style=\"height: 100px\">");
-                                printf("<div class=\"control-label col-md-1\">");
-                                printf("<div class=\"icheck-list\">");
-                                printf("<label class=\"\">");
+                                printf("<div class=\"col-md-1\"><div class=\"col-md-offset-6 col-md-6\">");
+                                printf("<div class=\"form-md-radios\"><div class=\"md-radio-list\"><div class=\"md-radio\">");
                                 if (!strcmp($r->getCorretta(), "Si")) {
-                                    printf("<div class=\"iradio_square-blue\" style=\"position: relative;\"><input type=\"radio\" name=\"radio\" class=\"icheck\" checked=\"\" value=\"%d\" data-radio=\"iradio_square-blue\"></div></label>", $numRadio);
+                                    printf("<input type=\"radio\" checked=\"\" id=\"radio%d\" value = \"%d\" name = \"radio\" class=\"md-radiobtn\" >",$numRadio, $numRadio);
                                 } else {
-                                    printf("<div class=\"iradio_square-blue\" style=\"position: relative;\"><input type=\"radio\" name=\"radio\" class=\"icheck\" value=\"%d\" data-radio=\"iradio_square-blue\"></div></label>", $numRadio);
+                                    printf("<input type=\"radio\" id=\"radio%d\" value = \"%d\" name = \"radio\" class=\"md-radiobtn\" >",$numRadio, $numRadio);
                                 }
-                                printf("</div>");
-                                printf("</div>");
+                                printf("<label for=\"radio%d\"><span ></span ><span class=\"check\" ></span ><span class=\"box\" ></span >",$numRadio);
+                                printf("</label></div></div></div></div></div>");
                                 printf("<label class=\"control-label col-md-2\">");
                                 printf("Inserisci Testo Risposta</label>");
                                 printf("<div class=\"col-md-6\">");
@@ -273,7 +276,7 @@ if (isset($_POST['eliminatore'])) {
                                 <div class="col-md-9">
                                     <button type="submit" class="btn sm green-jungle">Conferma</button>
                                     <?php
-                                    printf("<a href=\"/usr/docente/corso/%d/argomento/domande/%d\" class=\"btn sm red-intense\">", $idCorso, $idArgomento);
+                                    printf("<a href=\"/docente/corso/%d/argomento/domande/%d\" class=\"btn sm red-intense\">", $idCorso, $idArgomento);
                                     ?>
                                     Annulla
                                     </a>
@@ -356,12 +359,12 @@ if (isset($_POST['eliminatore'])) {
         var div = document.getElementById('rispostenuove');
         var newNum = num;
         div.appendChild(newDiv);
-        newDiv.innerHTML = "<div class=\"form-group form-md-line-input has-success ratio\" style=\"height: 90px\">" +
-            "<div class=\"control-label col-md-1\">" +
-            "<div class=\"ichecklist\"><label class=\"\">" +
-            "<div class=\"iradio_square-blue\" style=\"position: relative;\">" +
-            "<input id=\"ich\" type=\"radio\" name=\"radio\" class=\"icheck\" value=\"" + num + "\" data-radio=\"iradio_square-blue\">" +
-            "</div></label></div></div><label class=\"control-label col-md-2\">Inserisci Testo Risposta</label><div class=\"col-md-6\"><input type=\"text\" id=\"risposte\" name=\"risposteNuove[]\" placeholder=\"\" class=\"form-control\"> <span class=\"help-block\"></span> </div> <div class=\"col-md-3\" id=\"padre" + num + "\"><a onclick=\"javascript:elimina(this)\" id=\"el" + num + "\" class=\"btn sm red-intense\" data-toggle=\"confirmation\" data-singleton=\"true\" data-popout=\"true\" title=\"sei sicuro?\" > <i class=\"fa fa-minus\"></i> Rimuovi </a> </div> </div>";
+        newDiv.innerHTML = "<div class=\"form-group form-md-line-input has-success ratio\" style=\"height: 90px\">"+
+            "<div class=\"col-md-1\"><div class=\"col-md-offset-6 col-md-6\"><div class=\"form-md-radios\"><div class=\"md-radio-list\"><div class=\"md-radio\">"+
+            "<input type=\"radio\" id=\"radio"+num+"\" value=\""+num+"\" name=\"radio\" class=\"md-radiobtn\">"+
+            "<label for=\"radio"+num+"\"><span></span><span class=\"check\"></span><span class=\"box\"></span>"+
+            "</label></div></div></div></div></div>" +
+            "<label class=\"control-label col-md-2\">Inserisci Testo Risposta</label><div class=\"col-md-6\"><input type=\"text\" name=\"risposteNuove[]\" placeholder=\"\" class=\"form-control\"> <span class=\"help-block\"></span> </div> <div class=\"col-md-3\" id=\"padre"+num+"\"><a onclick=\"javascript:elimina(this)\" id=\"el"+num+"\" class=\"btn sm red-intense\"> <i class=\"fa fa-minus\"></i> Rimuovi </a> </div> </div>";
         if (num > (numRispOld)) {
             var daEl = document.getElementById('el' + (newNum - 1));
             daEl.parentNode.removeChild(daEl);

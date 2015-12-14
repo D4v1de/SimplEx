@@ -42,7 +42,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
             $corso = new Corso($matricola, $nome, $tipologia, $cdlmatricola);
             $controller->creaCorso($corso);
 
-            header('location: /adm/corsi/view/successcrea');
+            header('location: /admin/corsi/view/successcrea');
         } catch (ApplicationException $ex) {
             echo "<h1>CREACORSO FALLITO!</h1>.$ex";
         }
@@ -89,11 +89,11 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/adm/corsi/view">GestioneCorsi</a>
+                        <a href="/admin/corsi/view">GestioneCorsi</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/adm/corsi/crea">CreaCorso</a>
+                        <a href="/admin/corsi/crea">CreaCorso</a>
                     </li>
                 </ul>
             </div>

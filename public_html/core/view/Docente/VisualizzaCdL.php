@@ -60,7 +60,7 @@ try {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/usr/docente/cdls">CdL</a>
+                        <a href="/docente/cdls">CdL</a>
                     </li>
                 </ul>
             </div>
@@ -107,7 +107,7 @@ try {
                                 <?php
                                 foreach ($cdls as $c) {
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    printf("<td class=\"sorting_1\"><a href=\"/usr/docente/cdl/%s\">%s</a></td>", $c->getMatricola(), $c->getNome());
+                                    printf("<td class=\"sorting_1\"><a href=\"/docente/cdl/%s\">%s</a></td>", $c->getMatricola(), $c->getNome());
                                     printf("<td class=\"sorting_1\"><span class=\"badge badge-success\">%s</span></td>", $c->getMatricola());
                                     printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
                                     printf("</tr>");

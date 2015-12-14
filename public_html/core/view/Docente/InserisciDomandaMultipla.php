@@ -15,8 +15,8 @@ $domandaController = new DomandaController();
 $argomentoController = new ArgomentoController();
 $alternativaController = new AlternativaController();
 
-$idCorso = $_URL[3];
-$idArgomento = $_URL[7];
+$idCorso = $_URL[2];
+$idArgomento = $_URL[5];
 $corso = null;
 $argomento = null;
 
@@ -53,15 +53,18 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($
             $corretta = "Si";
         } else {
             $corretta = "No";
+        }if($testoRisposte[$i]=='' || $testoRisposte[$i]==null){
+            continue;
+        }else {
+            $alternativa = new Alternativa($idNuovaDomanda, $testoRisposte[$i], 0, $corretta);
         }
-        $alternativa = new Alternativa($idNuovaDomanda, $testoRisposte[$i], 0, $corretta);
         try {
             $alternativaController->creaAlternativa($alternativa);
         } catch (ApplicationException $exception) {
             echo "ERRORE IN CREA ALTERNATIVA" . $exception;
         }
     }
-    header('Location: /usr/docente/corso/'. $corso->getId() .'/argomento/domande/'. $argomento->getId() .'/successinserimento');
+    header('Location: /docente/corso/'. $corso->getId() .'/argomento/domande/'. $argomento->getId() .'/successinserimento');
 }
 ?>
 
@@ -107,17 +110,17 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"/usr/docente/cdl/%s\">%s</a>", $corso->getCdlMatricola(), $cdlController->readCdl($corso->getCdlMatricola())->getNome());
+                    printf("<a href=\"/docente/cdl/%s\">%s</a>", $corso->getCdlMatricola(), $cdlController->readCdl($corso->getCdlMatricola())->getNome());
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"/usr/docente/corso/%d\">%s</a>", $idCorso, $corso->getNome());
+                    printf("<a href=\"/docente/corso/%d\">%s</a>", $idCorso, $corso->getNome());
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"/usr/docente/corso/%d/argomento/domande/%d\">%s</a>",$idCorso, $idArgomento, $argomento->getNome());
+                    printf("<a href=\"/docente/corso/%d/argomento/domande/%d\">%s</a>",$idCorso, $idArgomento, $argomento->getNome());
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
@@ -193,7 +196,7 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($
                                 <div class="col-md-9">
                                     <button type="submit" class="btn sm green-jungle">Conferma</button>
                                     <?php
-                                    printf("<a href=\"/usr/docente/corso/%d/argomento/domande/%d\" class=\"btn sm red-intense\">", $idCorso, $idArgomento);
+                                    printf("<a href=\"/docente/corso/%d/argomento/domande/%d\" class=\"btn sm red-intense\">", $idCorso, $idArgomento);
                                     ?>
                                     Annulla
                                     </a>
@@ -256,7 +259,12 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($
         var newDiv = document.createElement("DIV");
         var div = document.getElementById('rispostenuove');
         div.appendChild(newDiv);
-        newDiv.innerHTML = "<div class=\"form-group form-md-line-input has-success ratio\" style=\"height: 90px\"><div class=\"control-label col-md-1\"><input type=\"radio\" name=\"radio\" value=\"1\" ></div><label class=\"control-label col-md-2\">Inserisci Testo Risposta</label><div class=\"col-md-6\"><input type=\"text\" id=\"risposte\" name=\"testoRisposta[]\" placeholder=\"\" class=\"form-control\"> <span class=\"help-block\"> </span> </div> <div class=\"col-md-3\"><a onclick=\"javascript:insRisposte()\" class=\"btn sm green-jungle\"><i class=\"fa fa-plus\"></i> Aggiungi </a> </div></div>";
+        newDiv.innerHTML = "<div class=\"form-group form-md-line-input has-success ratio\" style=\"height: 90px\">"+
+            "<div class=\"col-md-1\"><div class=\"col-md-offset-6 col-md-6\"><div class=\"form-md-radios\"><div class=\"md-radio-list\"><div class=\"md-radio\">"+
+            "<input type=\"radio\" id=\"radio1\" value=\"1\" name=\"radio\" class=\"md-radiobtn\">"+
+            "<label for=\"radio1\"><span></span><span class=\"check\"></span><span class=\"box\"></span>"+
+            "</label></div></div></div></div></div>" +
+            "<label class=\"control-label col-md-2\">Inserisci Testo Risposta</label><div class=\"col-md-6\"><input type=\"text\" name=\"testoRisposta[]\" placeholder=\"\" class=\"form-control\"> <span class=\"help-block\"> </span> </div> <div class=\"col-md-3\"><a onclick=\"javascript:insRisposte()\" class=\"btn sm green-jungle\"><i class=\"fa fa-plus\"></i> Aggiungi </a> </div></div>";
     }
 
 
@@ -266,7 +274,12 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($
         var div = document.getElementById('rispostenuove');
         var newNum = num;
         div.appendChild(newDiv);
-        newDiv.innerHTML = "<div class=\"form-group form-md-line-input has-success ratio\" style=\"height: 90px\"><div class=\"control-label col-md-1\"><input type=\"radio\" name=\"radio\" value=" + num + " ></div><label class=\"control-label col-md-2\">Inserisci Testo Risposta</label><div class=\"col-md-6\"><input type=\"text\" id=\"risposte\" name=\"testoRisposta[]\" placeholder=\"\" class=\"form-control\"> <span class=\"help-block\"></span> </div> <div class=\"col-md-3\" id=\"padre"+num+"\"><a onclick=\"javascript:elimina(this)\" id=\"el"+num+"\" class=\"btn sm red-intense\"> <i class=\"fa fa-minus\"></i> Rimuovi </a> </div> </div>";
+        newDiv.innerHTML = "<div class=\"form-group form-md-line-input has-success ratio\" style=\"height: 90px\">"+
+            "<div class=\"col-md-1\"><div class=\"col-md-offset-6 col-md-6\"><div class=\"form-md-radios\"><div class=\"md-radio-list\"><div class=\"md-radio\">"+
+            "<input type=\"radio\" id=\"radio"+num+"\" value=\""+num+"\" name=\"radio\" class=\"md-radiobtn\">"+
+            "<label for=\"radio"+num+"\"><span></span><span class=\"check\"></span><span class=\"box\"></span>"+
+            "</label></div></div></div></div></div>" +
+            "<label class=\"control-label col-md-2\">Inserisci Testo Risposta</label><div class=\"col-md-6\"><input type=\"text\" name=\"testoRisposta[]\" placeholder=\"\" class=\"form-control\"> <span class=\"help-block\"></span> </div> <div class=\"col-md-3\" id=\"padre"+num+"\"><a onclick=\"javascript:elimina(this)\" id=\"el"+num+"\" class=\"btn sm red-intense\"> <i class=\"fa fa-minus\"></i> Rimuovi </a> </div> </div>";
         if(num != 2) {
             var daEl = document.getElementById('el' + (newNum - 1));
             daEl.parentNode.removeChild(daEl);

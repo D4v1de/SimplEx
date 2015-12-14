@@ -19,7 +19,7 @@ $studente = null;
 $corsistudente = Array();
 $url = null;
 
-$url = $_URL[3];
+$url = $_URL[2];
 if(!is_numeric($url)) {
     echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
 }
@@ -102,11 +102,11 @@ if(isset($_POST['disiscrivi'])) {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/usr/studente/cdls">CdL</a>
+                        <a href="/studente/cdls">CdL</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/usr/studente/cdl/<?php echo $cdl->getMatricola(); ?>"><?php echo $cdl->getNome(); ?></a>
+                        <a href="/studente/cdl/<?php echo $cdl->getMatricola(); ?>"><?php echo $cdl->getNome(); ?></a>
                     </li>
                 </ul>
             </div>
@@ -157,7 +157,7 @@ if(isset($_POST['disiscrivi'])) {
                                 <?php
                                 foreach ($corsi as $c) {
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    printf("<td class=\"sorting_1\"><a href=\"/usr/studente/corso/%s\">%s</a></td>", $c->getId(), $c->getNome());
+                                    printf("<td class=\"sorting_1\"><a href=\"/studente/corso/%s\">%s</a></td>", $c->getId(), $c->getNome());
                                     printf("<td class=\"sorting_1\"><span class=\"badge badge-success\">%s</span></td>", $c->getMatricola());
                                     printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
                                     if(in_array($c, $corsistudente)) {

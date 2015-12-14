@@ -55,7 +55,7 @@ try {
     if (!defined("TESTING")) {
         switch (isset($_URL[0]) ? $_URL[0] : '') {
             case '':
-                include_once VIEW_DIR . "design/VisualizzaHome.php";
+                include_once VIEW_DIR . "Home/home.php";
                 break;
             case 'me':
                 StringUtils::checkPermission("all");
@@ -82,7 +82,7 @@ try {
                 }
             }
                 break;
-            case 'adm': {
+            case 'admin': {
                 StringUtils::checkPermission("Admin");
                 switch (isset($_URL[1]) ? $_URL[1] : '') {
                     case 'utenti':
@@ -141,126 +141,123 @@ try {
                 }
             }
                 break;
-            case 'usr': {
+
+            case 'docente':
+                StringUtils::checkPermission("Docente");
                 switch (isset($_URL[1]) ? $_URL[1] : '') {
-                    case 'docente':
-                        StringUtils::checkPermission("Docente");
-                        switch (isset($_URL[2]) ? $_URL[2] : '') {
-                            case 'cdls':
-                                include_once VIEW_DIR . "Docente/visualizzaCdl.php";
-                                break;
-                            case 'cdl':
-                                include_once VIEW_DIR . "Docente/visualizzaCorsi.php";
-                                break;
-                            case 'corso':
+                    case 'cdls':
+                        include_once VIEW_DIR . "Docente/visualizzaCdl.php";
+                        break;
+                    case 'cdl':
+                        include_once VIEW_DIR . "Docente/visualizzaCorsi.php";
+                        break;
+                    case 'corso':
+                        switch (isset($_URL[3]) ? $_URL[3] : '') {
+                            case 'argomento':
                                 switch (isset($_URL[4]) ? $_URL[4] : '') {
-                                    case 'argomento':
-                                        switch (isset($_URL[5]) ? $_URL[5] : '') {
-                                            case 'inserisci':
-                                                include_once VIEW_DIR . "Docente/InserisciArgomento.php";
-                                                break;
-                                            case 'modifica':
-                                                include_once VIEW_DIR . "Docente/ModificaArgomento.php";
-                                                break;
-                                            case 'domande':
-                                                switch (isset($_URL[6]) ? $_URL[6] : '') {
-                                                    case 'inserisciaperta':
-                                                        include_once VIEW_DIR . "Docente/InserisciDomandaAperta.php";
-                                                        break;
-                                                    case 'modificaaperta':
-                                                        include_once VIEW_DIR . "Docente/ModificaDomandaAperta.php";
-                                                        break;
-                                                    case 'inseriscimultipla':
-                                                        include_once VIEW_DIR . "Docente/InserisciDomandaMultipla.php";
-                                                        break;
-                                                    case 'modificamultipla':
-                                                        include_once VIEW_DIR . "Docente/ModificaDomandaMultipla.php";
-                                                        break;
-                                                    default:
-                                                        include_once VIEW_DIR . "Docente/VisualizzaListaDomande2.php";
-                                                }
-                                                break;
-                                            default:
-                                                include_once VIEW_DIR . "Docente/HomeCorso2.php";
-                                        }
+                                    case 'inserisci':
+                                        include_once VIEW_DIR . "Docente/InserisciArgomento.php";
                                         break;
-                                    case 'test':
-                                        switch (isset($_URL[5]) ? $_URL[5] : '') {
-                                            case 'crea':
-                                                include_once VIEW_DIR . "Docente/CreaTest.php";
-                                                break;
-                                            default:
-                                                include_once VIEW_DIR . "Docente/VisualizzaTest.php";
-                                        }
+                                    case 'modifica':
+                                        include_once VIEW_DIR . "Docente/ModificaArgomento.php";
                                         break;
-                                    case 'sessione':
-                                        switch (isset($_URL[6]) ? $_URL[6] : '') {
-                                            case 'aggiungistudenti':
-                                                include_once VIEW_DIR . "Docente/AggiungiStudenteTest2.php";
+                                    case 'domande':
+                                        switch (isset($_URL[5]) ? $_URL[5] : '') {
+                                            case 'inserisciaperta':
+                                                include_once VIEW_DIR . "Docente/InserisciDomandaAperta.php";
                                                 break;
-                                            case 'esiti':
-                                                include_once VIEW_DIR . "Docente/VisualizzaEsitiSessione.php";
+                                            case 'modificaaperta':
+                                                include_once VIEW_DIR . "Docente/ModificaDomandaAperta.php";
                                                 break;
-                                            case 'creamodificasessione':
-                                                include_once VIEW_DIR . "Docente/CreaModificaSessione.php";
+                                            case 'inseriscimultipla':
+                                                include_once VIEW_DIR . "Docente/InserisciDomandaMultipla.php";
                                                 break;
-                                            case 'correggi':
-                                                include_once VIEW_DIR . "Docente/CorreggiTest.php";
-                                                break;
-                                            case 'visualizza':
-                                                include_once VIEW_DIR . "Docente/VisualizzaElaborato.php";
-                                                break;
-                                            case 'sessioneincorso':
-                                                switch (isset($_URL[7]) ? $_URL[7] : '') {
-                                                    case 'aggiungistudente':
-                                                        include_once VIEW_DIR . "Docente/AggiungiStudente.php";
-                                                        break;
-                                                    default:
-                                                        include_once VIEW_DIR . "Docente/SessioneInCorso.php";
-                                                }
+                                            case 'modificamultipla':
+                                                include_once VIEW_DIR . "Docente/ModificaDomandaMultipla.php";
                                                 break;
                                             default:
-                                                include_once VIEW_DIR . "Docente/VisualizzaSessione.php";
+                                                include_once VIEW_DIR . "Docente/VisualizzaListaDomande2.php";
                                         }
                                         break;
                                     default:
                                         include_once VIEW_DIR . "Docente/HomeCorso2.php";
                                 }
                                 break;
-                            default:
-                                include_once VIEW_DIR . "Docente/Home.php";
-                        }
-                        break;
-                    case 'studente':
-                        StringUtils::checkPermission("Studente");
-                        switch (isset($_URL[2]) ? $_URL[2] : '') {
-                            case 'cdls':
-                                include_once VIEW_DIR . "Studente/visualizzaCdl.php";
-                                break;
-                            case 'cdl':
-                                include_once VIEW_DIR . "Studente/visualizzaCorsi.php";
-                                break;
-                            case 'corso':
+                            case 'test':
                                 switch (isset($_URL[4]) ? $_URL[4] : '') {
-                                    case 'test':
-                                        switch (isset($_URL[5]) ? $_URL[5] : '') {
-                                            case 'esegui':
-                                                include_once VIEW_DIR . "Studente/EseguiTest.php";
+                                    case 'crea':
+                                        include_once VIEW_DIR . "Docente/CreaTest.php";
+                                        break;
+                                    default:
+                                        include_once VIEW_DIR . "Docente/VisualizzaTest.php";
+                                }
+                                break;
+                            case 'sessione':
+                                switch (isset($_URL[5]) ? $_URL[5] : '') {
+                                    case 'aggiungistudenti':
+                                        include_once VIEW_DIR . "Docente/AggiungiStudenteTest2.php";
+                                        break;
+                                    case 'esiti':
+                                        include_once VIEW_DIR . "Docente/VisualizzaEsitiSessione.php";
+                                        break;
+                                    case 'creamodificasessione':
+                                        include_once VIEW_DIR . "Docente/CreaModificaSessione.php";
+                                        break;
+                                    case 'correggi':
+                                        include_once VIEW_DIR . "Docente/CorreggiTest.php";
+                                        break;
+                                    case 'visualizza':
+                                        include_once VIEW_DIR . "Docente/VisualizzaElaborato.php";
+                                        break;
+                                    case 'sessioneincorso':
+                                        switch (isset($_URL[6]) ? $_URL[6] : '') {
+                                            case 'aggiungistudente':
+                                                include_once VIEW_DIR . "Docente/AggiungiStudente.php";
                                                 break;
                                             default:
-                                                include_once VIEW_DIR . "Studente/VisualizzaTest.php";
+                                                include_once VIEW_DIR . "Docente/SessioneInCorso.php";
                                         }
                                         break;
                                     default:
-                                        include_once VIEW_DIR . "Studente/visualizzaCorso.php";
+                                        include_once VIEW_DIR . "Docente/VisualizzaSessione.php";
                                 }
                                 break;
                             default:
-                                include_once VIEW_DIR . "Studente/Home.php";
+                                include_once VIEW_DIR . "Docente/HomeCorso2.php";
                         }
                         break;
+                    default:
+                        include_once VIEW_DIR . "Docente/Home.php";
                 }
-            }
+                break;
+            case 'studente':
+                StringUtils::checkPermission("Studente");
+                switch (isset($_URL[1]) ? $_URL[1] : '') {
+                    case 'cdls':
+                        include_once VIEW_DIR . "Studente/visualizzaCdl.php";
+                        break;
+                    case 'cdl':
+                        include_once VIEW_DIR . "Studente/visualizzaCorsi.php";
+                        break;
+                    case 'corso':
+                        switch (isset($_URL[3]) ? $_URL[3] : '') {
+                            case 'test':
+                                switch (isset($_URL[4]) ? $_URL[4] : '') {
+                                    case 'esegui':
+                                        include_once VIEW_DIR . "Studente/EseguiTest.php";
+                                        break;
+                                    default:
+                                        include_once VIEW_DIR . "Studente/VisualizzaTest.php";
+                                }
+                                break;
+                            default:
+                                include_once VIEW_DIR . "Studente/visualizzaCorso.php";
+                        }
+                        break;
+                    default:
+                        include_once VIEW_DIR . "Studente/Home.php";
+
+                }
                 break;
             case 'esempio':
                 include_once VIEW_DIR . "design/VisualizzaEsempio.php";
@@ -321,7 +318,7 @@ try {
                 include_once VIEW_DIR . "Studente/HomeCorso.php";
                 break;
             default:
-                echo "Route inesistente";
+                include_once VIEW_DIR . "design/404.php";
         }
 
     }
