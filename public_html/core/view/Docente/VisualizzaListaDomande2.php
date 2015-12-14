@@ -114,7 +114,7 @@ if (isset($_POST['domandamultipla'])){
                     <?php
                     printf("<li>");
                     printf("<i class=\"fa fa-home\"></i>");
-                    printf("<a href=\"/usr/docente\">Home</a>");
+                    printf("<a href=\"/docente\">Home</a>");
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
