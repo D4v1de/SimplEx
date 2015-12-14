@@ -74,7 +74,7 @@ else {  //CASO IN CUI SI VUOLE CREARE LA SESSIONE
 }
 
 if($_URL[4]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tutti i campi
-    if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo']) ) {
+    if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo']) && $someTestsAorD=isset($_POST['tests']) ) {
         $newdataFrom = $_POST['dataFrom'];
         $newdataTo = $_POST['dataTo'];
         $newtipoSessione = $_POST['radio1'];
@@ -107,7 +107,7 @@ if($_URL[4]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
                 }
             }
 
-            if ($someTestsAorD=isset($_POST['tests'])) {
+            if ($someTestsAorD) {
                 //creo l'associazione tests-sessione
                 $cbTest = Array();
                 $cbTest = $_POST['tests'];
@@ -131,7 +131,7 @@ if($_URL[4]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
 }
 
 if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
-    if($dataFromSettato=isset($_POST['dataFrom']) && $radio1Settato=isset($_POST['radio1']) && $dataToSettato=isset($_POST['dataTo']) && $someTestsAorD=isset($_POST['tests']) && $someStudentsChange=isset($_POST['students']) ) {
+    if($dataFromSettato=isset($_POST['dataFrom']) && $radio1Settato=isset($_POST['radio1']) && $dataToSettato=isset($_POST['dataTo']) && $someTestsAorD=isset($_POST['tests']) ) {
 
         if($dataFromSettato)
             $newOrOldDataFrom = $_POST['dataFrom'];
@@ -207,7 +207,7 @@ if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
 <html lang="en">
 <!--<![endif]-->
 <!-- BEGIN HEAD -->
-<head id="saliQui">
+<head >
     <meta charset="utf-8"/>
     <title>Metronic | Page Layouts - Blank Page</title>
     <link rel="stylesheet" type="text/css"
@@ -274,7 +274,7 @@ if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
                 <?php
                     printf("<div class='alert alert-danger display-hide'>
                     <button class=\"close\" data-close=\"alert\"></button>
-                    Avvio e Termine della sessione sono obbligatori.
+                    Ricorda che occorre selezionare almeno un Test e che Avvio-Termine sono obbligatori.
                 </div>");
 
                 ?>
@@ -394,7 +394,7 @@ if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
                 <div class="portlet-body">
 
 
-                    <div id="tabella_test_wrapper" class="dataTables_wrapper no-footer">
+                    <div id="tabella_test_wrapper" class="dataTables_wrapper no-footer" >
                         <table class="table table-striped table-bordered table-hover dataTable no-footer" id="tabella_test" role="grid" aria-describedby="tabella_studenti_info">
                             <thead>
                             <tr role="row">
@@ -589,7 +589,7 @@ if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-9">
-                                <button type="submit"  href='#saliQui;' class="btn sm green-jungle "  data-toggle="confirmation"
+                                <button type="submit" class="btn sm green-jungle "  data-toggle="confirmation"
                                         data-singleton="true" data-popout="true" title="Sicuro?"> <span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                                     Salva
                                 </button>

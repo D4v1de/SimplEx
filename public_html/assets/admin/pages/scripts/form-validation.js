@@ -197,6 +197,10 @@ var FormValidation = function () {
                         required: true,
                         minlength: 1
                     },
+                    'tests[]': {
+                        required: true,
+                        minlength: 1
+                    },
                     email: {
                         required: true,
                         email: true

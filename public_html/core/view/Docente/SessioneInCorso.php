@@ -288,7 +288,8 @@ if(isset( $_POST['aggiorna'])) {
                                                 if($ela->getStato()=="Corretto" && $ela->getEsitoParziale()==0 && $ela->getEsitoFinale()==0) {
                                                     $toDisable="Disabled";
                                                 }
-                                                printf("<td><button type='submit' %s name='annullaEsame' value='%s' href=\"javascript:;\" class=\"btn btn-sm red-intense\">Annulla Esame</button></td>", $toDisable, $c->getMatricola());
+                                                printf("<td><button type='submit' %s name='annullaEsame' data-toggle=\"confirmation\"
+                                        data-singleton=\"true\" data-popout=\"true\" title=\"Sicuro?\" value='%s' href=\"javascript:;\" class=\"btn btn-sm red-intense\">Annulla Esame</button></td>", $toDisable, $c->getMatricola());
                                                 printf("</tr>");
                                             }
                                         }
@@ -328,7 +329,8 @@ if(isset( $_POST['aggiorna'])) {
                                 <i class="fa fa-edit"></i></button>
                     </div>
                         <div class="col-md-5"></div>
-                        <button type="submit"  name="termina" value="nada" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                        <button type="submit"  name="termina" value="nada" class="btn sm label-danger" data-toggle="confirmation"
+                                data-singleton="true" data-popout="true" title="Sicuro?"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                             TERMINA ORA
                         </button>
 
@@ -353,6 +355,8 @@ if(isset( $_POST['aggiorna'])) {
 <!--Script specifici per la pagina -->
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
+<script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 <script>
     jQuery(document).ready(function () {
@@ -360,6 +364,7 @@ if(isset( $_POST['aggiorna'])) {
         Layout.init(); // init current layout
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
+        UIConfirmations.init();
     });
 </script>
         <script>

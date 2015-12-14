@@ -244,6 +244,7 @@ if(isset($_POST['idtest'])){
                                     $vaiAModifica="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."creamodificasessione";
                                     $vaiAVisu="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."visualizzasessione";
                                     $vaiASesInCorso="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."sessioneincorso";
+                                    $vaiVisuEsiti= "/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."esiti";
 
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
                                     if($c->getStato()!="In esecuzione")
@@ -255,10 +256,17 @@ if(isset($_POST['idtest'])){
                                     printf("<td>%s</td>", $c->getStato());
                                     printf("<td>%s</td>", $controllerSessione->readMostraEsitoSessione($c->getId()));
                                     printf("<td>%s</td>", $controllerSessione->readMostraRisposteCorretteSessione($c->getId()));
-                                    printf("<td class=\"center\"><a href=\"visualizzaesitisessione\" class=\"btn btn-sm default\">Esiti</a>
+                                    if($c->getStato()=="Eseguita")
+                                        printf("<td class=\"center\"><a href=\"%s\" class=\"btn btn-sm default\">Esiti</a>
                                            <a href=\"%s\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></a>
                                                                  <button type='submit' name='IdSes' value='%d' class='btn btn-sm red-intense'><i class=\"fa fa-trash-o\"></i></button>
-                                           </td>", $vaiAModifica, $c->getId());
+                                           </td>", $vaiVisuEsiti,$vaiAModifica, $c->getId());
+                                    else
+                                        printf("<td class=\"center\"><a href=\"%s\"  disabled='' class=\"btn btn-sm default\">Esiti</a>
+                                           <a href=\"%s\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></a>
+                                                                 <button type='submit' name='IdSes' value='%d' class='btn btn-sm red-intense'  data-toggle=\"confirmation\"
+                                        data-singleton=\"true\" data-popout=\"true\" title=\"Sicuro?\"><i class=\"fa fa-trash-o\"></i></button>
+                                           </td>", $vaiVisuEsiti,$vaiAModifica, $c->getId());
                                     printf("</tr>");
                                 }
                             }

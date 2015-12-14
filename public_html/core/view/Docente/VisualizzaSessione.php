@@ -87,7 +87,7 @@ if(isset($_POST['rimuovi'])){
     <link rel="stylesheet" type="text/css"
           href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
-
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
     <?php include VIEW_DIR . "design/header.php"; ?>
 </head>
 <!-- END HEAD -->
@@ -405,7 +405,8 @@ if(isset($_POST['rimuovi'])){
                                 $vaiAVisu="/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."visualizzasessione";
 
                                 printf(" <a href=\"%s\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i>ModificaSessione</a>", $vaiAModifica);
-                                printf("<button type='submit' name='rimuovi' value='%d' class='btn btn-sm red-intense'><i class=\"fa fa-trash-o\"></i>Elimina Sessione</button>",$idSessione);
+                                printf("<button type='submit' name='rimuovi' value='%d' class='btn btn-sm red-intense'  data-toggle=\"confirmation\"
+                                        data-singleton=\"true\" data-popout=\"true\" title=\"Sicuro?\"><i class=\"fa fa-trash-o\"></i>Elimina Sessione</button>",$idSessione);
                                 ?>
                             </div>
                         </div>
@@ -431,7 +432,8 @@ if(isset($_POST['rimuovi'])){
     <script type="text/javascript"
             src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
     <script src="/assets/admin/pages/scripts/table-managed.js"></script>
-
+    <script src="/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
+    <script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
     <script type="text/javascript"
             src="/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 
@@ -443,7 +445,7 @@ if(isset($_POST['rimuovi'])){
             //Demo.init(); // init demo features
             TableManaged2.init('tabella_test','tabella_test_wrapper');
             TableManaged2.init('tabella_studenti','tabella_studenti_wrapper');
-
+            UIConfirmations.init();
         });
     </script>
 
