@@ -26,7 +26,7 @@ $someStudentsChange=null;
 $dataToSettato=null;
 $sogliAmm=null;
 $stato=null;
-$someTestsAorD=null;
+$someTestsAorD=false;
 $perModificaDataFrom =  null;
 $perModificaDataTo = null;
 $valu = null;
@@ -107,7 +107,7 @@ if($_URL[4]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
                 }
             }
 
-            if (isset($_POST['tests'])) {
+            if ($someTestsAorD=isset($_POST['tests'])) {
                 //creo l'associazione tests-sessione
                 $cbTest = Array();
                 $cbTest = $_POST['tests'];
@@ -157,16 +157,16 @@ if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
             $controller->disabilitaMostraRisposteCorrette($idSessione);
             $controller->updateSessione($_URL[4], $sessioneAggiornata);
 
-
-            if ($someTestsAorD) {
-                $cbTest = Array();
-                $cbTest = $_POST['tests'];
-                $controller->deleteAllTestFromSessione($idSessione);
-                foreach ($cbTest as $t) {
-                    $controller->associaTestASessione($idSessione, $t);
-                }
+            if (isset($_POST['tests'])) {
+                    $cbTest = Array();
+                    $cbTest = $_POST['tests'];
+                    $controller->deleteAllTestFromSessione($idSessione);
+                    foreach ($cbTest as $t) {
+                        $controller->associaTestASessione($idSessione, $t);
+                    }
             }
 
+            if($someStudentsChange=isset($_POST['students'])){
             if ($someStudentsChange) {
                 $cbStudents = Array();
                 $cbStudents = $_POST['students'];
@@ -180,6 +180,7 @@ if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
                     $controller->abilitaStudenteASessione($idSessione, $s);
                 }
             }
+        }
         }
         catch (ApplicationException $ex) {
             echo "<h1>ERRORE NELLE OPERAZIONI DELLA SESSIONE (fase modifica)!</h1>" . $ex;
@@ -214,6 +215,7 @@ if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
     <link rel="stylesheet" type="text/css"
           href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
 
     <?php include VIEW_DIR . "design/header.php"; ?>
@@ -267,12 +269,15 @@ if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
 
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <form action="" method="post" id="form_sample_1">
+            <form action="" method="post" id="form_sample_2">
 
-                <div class="alert alert-danger display-hide">
-                    <button class="close" data-close="alert"></button>
-                    Ci sono alcuni dati mancanti. Per favore riprova l'inserimento.
-                </div>
+                <?php
+                    printf("<div class='alert alert-danger display-hide'>
+                    <button class=\"close\" data-close=\"alert\"></button>
+                    Avvio e Termine della sessione sono obbligatori.
+                </div>");
+
+                ?>
                 <div class="alert alert-success display-hide">
                     <button class="close" data-close="alert"></button>
                     La sessione &egrave; stata salvata correttamente!
@@ -584,7 +589,8 @@ if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-9">
-                                <button type="submit"  href='#saliQui;' class="btn sm green-jungle "><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                <button type="submit"  href='#saliQui;' class="btn sm green-jungle "  data-toggle="confirmation"
+                                        data-singleton="true" data-popout="true" title="Sicuro?"> <span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                                     Salva
                                 </button>
                                 <a href="../../" class="btn sm red-intense">
@@ -622,6 +628,9 @@ if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
     <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
     <script src="/assets/admin/pages/scripts/ui-toastr.js"></script>
     <script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
+    <script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
+    <script src="/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
+
     <script>
         jQuery(document).ready(function () {
             Metronic.init(); // init metronic core components
@@ -631,6 +640,7 @@ if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
             TableManaged.init('tabella_test','tabella_test_wrapper');
             TableManaged.init('tabella_studenti','tabella_studenti_wrapper');
             UIToastr.init();
+            UIConfirmations.init();
             FormValidation.init();
         });
     </script>
