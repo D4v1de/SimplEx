@@ -85,7 +85,7 @@ try {
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="/usr/studente">Home</a>
+                        <a href="/studente">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
@@ -97,7 +97,7 @@ try {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/studente/corso/<?php echo $corso->getId(); ?>"><?php echo $corso->getNome(); ?></a>
+                        <?php echo $corso->getNome(); ?></a>
                     </li>
                 </ul>
             </div>
@@ -200,11 +200,11 @@ try {
                                         printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $s->getTipologia());
                                     else
                                         printf("<td class=\"sorting_1\"><span class=\"label label-sm label-danger\">%s</span></td>", $s->getTipologia());
-                                    printf("<td class=\"sorting_1\"><a href=\"\">%s</a></td>", $punt);
-                                    if (($elaborato == null) && (strtotime(date("Y-m-d H:i:s")) < strtotime($s->getDataFine())))
+                                    printf("<td class=\"sorting_1\">%s</td>", $punt);
+                                    if ($elaborato == null || ((!strcmp($elaborato->getStato(),"Non corretto")) && (strtotime(date("Y-m-d H:i:s")) < strtotime($s->getDataFine())) && (strtotime(date("Y-m-d H:i:s")) >= strtotime($s->getDataInizio()))))
                                         printf("<td><a href=\"/studente/corso/%d/test/esegui/%d\" onclick=\"javascript: creaElaborato(%d)\" class=\"btn btn-sm default blue-madison\"><i class=\"fa fa-pencil\"></i> Partecipa</a></td>", $url,$s->getId(),$s->getId());
                                     else
-                                        if ($elaborato != null)
+                                        if (strcmp($elaborato->getStato(),"Non corretto"))
                                             printf("<td><a href=\"/studente/corso/%d/test/%d\" class=\"btn btn-sm default\"><i class=\"fa fa-file-text-o\"></i> Visualizza</a></td>",$url,$s->getId());
                                         else
                                             printf("<td><a href=\"/studente/corso/%d/test/%d\" disabled class=\"btn btn-sm default\"><i class=\"fa fa-file-text-o\"></i> Visualizza</a></td>",$url,$s->getId());
@@ -262,7 +262,7 @@ try {
 	  var xhr = new XMLHttpRequest();
 	  //metodo tradizionale di registrazione eventi   
 	  xhr.onreadystatechange =gestoreRichiesta;   
-	  xhr.open("GET", "/creaElaborato?mat="+mat+"&sessId="+sId, true);   
+	  xhr.open("GET", "/studente/creaElaborato?mat="+mat+"&sessId="+sId, true);   
 	  xhr.send(""); 
 	} 
 	function gestoreRichiesta() {

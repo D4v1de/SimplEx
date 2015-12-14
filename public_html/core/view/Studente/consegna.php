@@ -44,5 +44,6 @@ include_once BEAN_DIR . "Elaborato.php";
             $rmCon->updateRispostaMultipla($rm, $sessioneId, $studenteMatricola, $rm->getDomandaMultiplaId());
     }
     $elaborato->setEsitoParziale($punteggio);
+    $elaborato->setStato("Parzialmente corretto");
     $elCon->updateElaborato($studenteMatricola,$sessioneId,$elaborato);
     

@@ -26,6 +26,13 @@ $sessione = $sessioneController->readSessione($sessId);
 $studente = $_SESSION['user'];
 $matricola = $studente->getMatricola();
 $elaborato = $elaboratoController->readElaborato($matricola,$sessId);
+
+$now = date("Y-m-d H:i:s");
+$end = $sessione->getDataFine();
+$start = $sessione->getDataInizio();
+if ($now < $start || $now > $end || strcmp($elaborato->getStato(),"Non corretto"))
+    header("Location: "."/studente/corso/"."$corsoId"."/");
+
 $studente = $testController->getUtentebyMatricola($matricola);
 $nome = $studente->getNome();
 $cognome = $studente->getCognome();
@@ -65,6 +72,8 @@ if (isset($_GET['consegna'])){
             $rmCon->updateRispostaMultipla($rm, $sessId, $matricola, $multId);
     }
     $elaborato->setEsitoParziale($punteggio);
+    
+    $elaborato->setStato("Parzialmente corretto");
     $elaboratoController->updateElaborato($matricola,$sessId,$elaborato);   
     header("Location: "."/studente/corso/"."$corsoId"."/");
 }
@@ -104,11 +113,11 @@ if (isset($_GET['consegna'])){
                     <ul class="page-breadcrumb">
                         <li>
                             <i class="fa fa-home"></i>
-                            <a href="../../../../../../index.html">Home</a>
+                            <a href="/studente">Home</a>
                             <i class="fa fa-angle-right"></i>
                         </li>
                         <li>
-                            <a href="../..">Nome Corso</a>
+                            <a href="/studente/corso/<?php echo $corsoId; ?>">Nome Corso</a>
                             <i class="fa fa-angle-right"></i>
                         </li>
                         <li>
@@ -296,18 +305,19 @@ if (isset($_GET['consegna'])){
         //    Metronic.stopPageLoading();
         //}, 2000);
         //countdown
-        $.get("/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});
-        intId2 = setInterval(function(){$.post("/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});},30000);
+        $.get("/studente/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});
+        intId2 = setInterval(function(){$.post("/studente/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});},10000);
         //fine countdown
         //controller abilitazione
-        intId4 = setInterval(function(){$.get("/controllerAbilitazione?mat="+mat+"&sessId="+sId,function(data){valutaAbilitazione(data);});},10000);
+        $.get("/studente/controllerAbilitazione?mat="+mat+"&sessId="+sId,function(data){valutaAbilitazione(data);});
+        intId4 = setInterval(function(){$.get("/studente/controllerAbilitazione?mat="+mat+"&sessId="+sId,function(data){valutaAbilitazione(data);});},10000);
         //fine controller
         //aperte
         $("textarea").focus(function() {
             var apId = $(this).attr('id');
-            $.get("/controllerAbilitazione?mat="+mat+"&sessId="+sId,function(data){
+            $.get("/studente/controllerAbilitazione?mat="+mat+"&sessId="+sId,function(data){
                 check = valutaAbilitazione(data);
-                $.get("/gestoreCountdown?sessId="+sId,function(data){
+                $.get("/studente/gestoreCountdown?sessId="+sId,function(data){
                 var date= data.split("|");
                 var end = date[0];
                 var start = date[1];
@@ -318,7 +328,7 @@ if (isset($_GET['consegna'])){
                             var testo = document.getElementById($(this).attr('id')).value;
                             var res = apId.split('-');
                             var id = res[1];
-                            $.post("/updateAperta?mat="+mat+"&sessId="+sId+"&domId="+id+"&testo="+testo);
+                            $.post("/studente/updateAperta?mat="+mat+"&sessId="+sId+"&domId="+id+"&testo="+testo);
                         },1000);
                     }
                 });
@@ -330,7 +340,7 @@ if (isset($_GET['consegna'])){
                 var testo = document.getElementById($(this).attr('id')).value;
                 var res = apId.split('-');
                 var id = res[1];
-                $.post("/updateAperta?mat="+mat+"&sessId="+sId+"&domId="+id+"&testo="+testo);
+                $.post("/studente/updateAperta?mat="+mat+"&sessId="+sId+"&domId="+id+"&testo="+testo);
                 clearInterval(intId3);
             }
         });/*
@@ -354,16 +364,16 @@ if (isset($_GET['consegna'])){
                 $(".md-check[name="+$(this).attr('name')+"]").prop( "checked", false);
                 $("#"+$(this).attr('id')).prop( "checked", true);
             }
-            $.get("/controllerAbilitazione?mat="+mat+"&sessId="+sId,function(data){
+            $.get("/studente/controllerAbilitazione?mat="+mat+"&sessId="+sId,function(data){
                 check = valutaAbilitazione(data);
-                $.get("/gestoreCountdown?sessId="+sId,function(data){
+                $.get("/studente/gestoreCountdown?sessId="+sId,function(data){
                 var date= data.split("|");
                 var end = date[0];
                 var start = date[1];
                 check = check & (new Date(start).getTime() < new Date(end).getTime());
                 StartCounter(data);
                     if (check){
-                        $.post("/updateMultipla?mat="+mat+"&sessId="+sId+"&domId="+rId+"&altId="+aId);
+                        $.post("/studente/updateMultipla?mat="+mat+"&sessId="+sId+"&domId="+rId+"&altId="+aId);
                     }
                 });
             });
@@ -438,7 +448,7 @@ if (isset($_GET['consegna'])){
         + minutes + ' <b>Minuti</b></span> <span class="seconds">' + seconds + ' <b>Secondi</b></span></span>';
                // countdown.innerHTML = '<span class="time" style="color: #c30"> '+ hours + ':' + minutes +':' + seconds + ' </span>'; 
         else{ 
-            $.get("/gestoreCountdown?sessId="+sId,function(data){
+            $.get("/studente/gestoreCountdown?sessId="+sId,function(data){
                 var date= data.split("|");
                 var end = date[0];
                 var start = date[1];
@@ -451,7 +461,7 @@ if (isset($_GET['consegna'])){
                     var current_date = new Date(start).getTime();
                     showTime(current_date,target_date);
                     clearInterval(intId2);
-                    intId2 = setInterval(function(){$.get("/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});},30000);
+                    intId2 = setInterval(function(){$.get("/studente/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});},10000);
                 }
                 
             });
@@ -467,7 +477,7 @@ if (isset($_GET['consegna'])){
     var valutaAbilitazione = function(string){
         if (string == "Corretto"){
             bootbox.dialog({
-                message: "Il docente ha annullato il tuo test. Ti verrà assegnato esito nullo",
+                message: "Impossibile continuare l'esecuzione. Il tuo test è stato annullato.",
                 title: "Test annullato!",
                 closeButton: false,
                 buttons: {
@@ -475,7 +485,28 @@ if (isset($_GET['consegna'])){
                     label: "Ok",
                     className: "red",
                     callback: function() {
-                      location.href = "../..";
+                      location.href = "/studente/corso/<?php echo $corsoId; ?>";
+                    }
+                  }
+                }
+            });
+            clearInterval(intId);
+            clearInterval(intId2);
+            clearInterval(intId3);
+            clearInterval(intId4);
+            return false;
+        }
+        else if (string == "Parzialmente corretto"){
+            bootbox.dialog({
+                message: "Impossibile continuare l'esecuzione. Hai già sostenuto questo test in precedenza.",
+                title: "Test già eseguito!",
+                closeButton: false,
+                buttons: {
+                  conferma: {
+                    label: "Ok",
+                    className: "red",
+                    callback: function() {
+                      location.href = "/studente/corso/<?php echo $corsoId; ?>";
                     }
                   }
                 }
@@ -488,6 +519,7 @@ if (isset($_GET['consegna'])){
         }
         else return true;
     }
+                                            
     function timeout_scaduto(){
         bootbox.dialog({
                     message: "Vuoi consegnare o ritirarti?",
@@ -498,16 +530,16 @@ if (isset($_GET['consegna'])){
                         label: "Consegna",
                         className: "green",
                         callback: function() {
-                          $.post("/consegna?mat="+mat+"&sessId="+sId);
-                          location.href = "../..";
+                            $.post("/studente/consegna?mat="+mat+"&sessId="+sId);
+                            location.href = "/studente/corso/<?php echo $corsoId; ?>";
                         }
                       },
                       abbandona: {
                         label: "Abbandona",
                         className: "red",
                         callback: function() {
-                          $.post("/abbandona?mat="+mat+"&sessId="+sId);
-                          location.href = "../..";
+                            $.post("/studente/abbandona?mat="+mat+"&sessId="+sId);
+                            location.href = "/studente/corso/<?php echo $corsoId; ?>";
                         }
                       }
                     }
@@ -516,7 +548,9 @@ if (isset($_GET['consegna'])){
                 clearInterval(intId2);
                 clearInterval(intId3);
                 clearInterval(intId4);
-            }/*
+            }
+        
+            /*
     var Consegna = function(){
                
         }
