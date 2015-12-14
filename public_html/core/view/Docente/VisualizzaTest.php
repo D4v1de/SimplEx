@@ -15,8 +15,8 @@ $controllerTest = new TestController();
 include_once CONTROL_DIR . "AlternativaController.php";
 $controllerAlternativa = new AlternativaController();
 
-$test=$_URL[5];
-$identificativoCorso=$_URL[3];
+$test=$_URL[4];
+$identificativoCorso=$_URL[2];
 
 function parseInt($Str) {
     return (int)$Str;   

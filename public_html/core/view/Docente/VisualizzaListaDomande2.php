@@ -15,8 +15,8 @@ $argomentoController = new ArgomentoController();
 $alternativaController = new AlternativaController();
 $corso = null;
 $argomento = null;
-$idCorso = $_URL[3];
-$idArgomento = $_URL[6];
+$idCorso = $_URL[2];
+$idArgomento = $_URL[5];
 
 try{
     $corso = $cdlController->readCorso($idCorso);

@@ -18,14 +18,14 @@ include_once CONTROL_DIR . "ElaboratoController.php";
 
 $controllerSessione = new SessioneController();
 $controlleCdl = new CdlController();
-$idSessione = $_URL[5];
-$identificativoCorso = $_URL[3];
+$idSessione = $_URL[4];
+$identificativoCorso = $_URL[2];
 $domandaController = new DomandaController();
 $elaboratoController = new ElaboratoController();
 $testController = new ControllerTest();
 $alternativaController = new AlternativaController();
 $soglia=null;
-$sessioneByUrl = $controllerSessione->readSessione($_URL[5]);
+$sessioneByUrl = $controllerSessione->readSessione($_URL[4]);
 $dataFrom = $sessioneByUrl->getDataInizio();
 $dataTo = $sessioneByUrl->getDataFine();
 $tipoSessione = $sessioneByUrl->getTipologia();
@@ -42,7 +42,7 @@ catch (ApplicationException $ex) {
 if(isset($_POST['soglia'])){
     $soglia=$_POST['soglia'];
     $sessioneAggiornata = new Sessione($dataFrom, $dataTo, $soglia , $sessioneByUrl->getStato(), $sessioneByUrl->getTipologia(), $identificativoCorso);
-    $controllerSessione->updateSessione($_URL[5], $sessioneAggiornata);
+    $controllerSessione->updateSessione($_URL[4], $sessioneAggiornata);
 }
 ?>
 <!DOCTYPE html>

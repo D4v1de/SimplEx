@@ -15,8 +15,8 @@ $controllerCdl = new CdlController();
 $controllerUtenti = new UtenteController();
 $sesController = new SessioneController();
 
-$idSessione=$_URL[5];
-$idCorso = $_URL[3];
+$idSessione=$_URL[4];
+$idCorso = $_URL[2];
 $corso = $controllerCdl->readCorso($idCorso);
 $nomecorso= $corso->getNome();
 
@@ -27,7 +27,7 @@ $docenti = null;
 $docente = null;
 $url = null;
 
-$url = $_URL[3];
+$url = $_URL[2];
 if(!is_numeric($url)) {
     echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
 }

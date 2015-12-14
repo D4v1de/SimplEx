@@ -19,7 +19,7 @@ $controllerCorso = new CdlController();
 $controllerDomande  = new DomandaController();
 $controllerTest = new TestController();
 
-$identificativoCorso = $_URL[3];
+$identificativoCorso = $_URL[2];
 
 function parseInt($Str) {
     return (int)$Str;   
@@ -98,7 +98,7 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
     
 }
 
-$corso = $controllerCorso->readCorso($_URL[3]); 
+$corso = $controllerCorso->readCorso($_URL[2]);
 $num = $controllerArgomento->getNumArgomenti(); 
 ?>
 <!DOCTYPE html>
