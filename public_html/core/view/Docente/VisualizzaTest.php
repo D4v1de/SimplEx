@@ -5,7 +5,7 @@
  * Date: 6/12/15
  */
 
-//TODO qui la logica iniziale, caricamento dei controller ecc
+// TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "DomandaController.php";
 $controllerDomanda = new DomandaController();
 

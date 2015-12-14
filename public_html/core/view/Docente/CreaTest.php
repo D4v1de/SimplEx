@@ -26,8 +26,8 @@ function parseInt($Str) {
 } 
 
 if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipologia']=='man')){
-    //qui va la parte manuale 
-    //LA STO RIFACENDO C***O
+    // qui va la parte manuale 
+    // LA STO RIFACENDO C***O
     $domAperte=Array(); //domande aperte selezionate
     $domAperte=$_POST['aperte']; //domande aperte selezionate
     $domMultiple=Array(); //domande multiple selezionate
