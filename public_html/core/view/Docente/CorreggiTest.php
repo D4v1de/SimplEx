@@ -54,7 +54,7 @@ if (isset($_GET['salva'])){
     $elaborato->setEsitoFinale($fin);
     $elaborato->setStato("Corretto");
     $elaboratoController->updateElaborato($matricola,$sessId,$elaborato);   
-    header("Location: "."/usr/docente/corso/"."$corsoId"."/sessione/"."$sessId"."/esiti/");
+    header("Location: "."/docente/corso/"."$corsoId"."/sessione/"."$sessId"."/esiti/");
 }
 
 ?>
@@ -96,24 +96,24 @@ if (isset($_GET['salva'])){
                             <i class="fa fa-angle-right"></i>
                         </li>
                         <li>
-                            <a href="<?php echo "/usr/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $controlleCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
+                            <a href="<?php echo "/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $controlleCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
                             <i class="fa fa-angle-right"></i>
                         </li>
                         <li>
                             <?php
-                            $vaiANomeCorso="/usr/docente/corso/".$corsoId;
+                            $vaiANomeCorso="/docente/corso/".$corsoId;
                             printf("<a href=\"%s\">%s</a><i class=\"fa fa-angle-right\"></i>", $vaiANomeCorso ,$nomecorso);
                             ?>
                         </li>
                         <li>
                             <?php
-                            $vaiAVisu="/usr/docente/corso/".$corsoId."/sessione"."/".$sessId."/"."visualizzasessione";
+                            $vaiAVisu="/docente/corso/".$corsoId."/sessione"."/".$sessId."/"."visualizzasessione";
                             printf("<a href=\"%s\">%s</a><i class=\"fa fa-angle-right\"></i>", $vaiAVisu ,"Sessione ".$sessId);
                             ?>
                         </li>
                         <li>
                             <?php
-                            $vaiAEsiti="/usr/docente/corso/".$corsoId."/sessione"."/".$sessId."/"."esiti";
+                            $vaiAEsiti="/docente/corso/".$corsoId."/sessione"."/".$sessId."/"."esiti";
                             printf("<a href=\"%s\">%s</a><i class=\"fa fa-angle-right\"></i>", $vaiAEsiti ,"Esiti");
                             ?>
                         </li>

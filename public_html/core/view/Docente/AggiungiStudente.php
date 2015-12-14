@@ -98,19 +98,19 @@ if($someStudentsChange=isset($_POST['abilita'])) {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="<?php echo "/usr/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $controllerCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
+                        <a href="<?php echo "/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $controllerCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
                         <?php
-                        $vaiANomeCorso="/usr/docente/corso/".$idCorso;
+                        $vaiANomeCorso="/docente/corso/".$idCorso;
                         printf("<a href=\"%s\">%s</a><i class=\"fa fa-angle-right\"></i>", $vaiANomeCorso ,$nomecorso);
                         ?>
                     </li>
                     <li>
                         <?php
                             $sex = "Sessione ".$idSessione;
-                            $vaiASex= "/usr/docente/corso/".$idCorso."/"."sessione"."/".$idSessione."/"."sessioneincorso";
+                            $vaiASex= "/docente/corso/".$idCorso."/"."sessione"."/".$idSessione."/"."sessioneincorso";
                             printf("<a href=\"%s\">%s</a>", $vaiASex, $sex);
                         ?>
                         <i class="fa fa-angle-right"></i>

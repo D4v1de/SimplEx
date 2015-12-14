@@ -51,7 +51,7 @@ if(isset($_POST['avvia'])){
     $dataNow=date('Y/m/d/ h:i:s ', time());
     $newSessione = new Sessione($dataNow, $dataTo, 18, "In Esecuzione", $tipoSessione, $identificativoCorso);
     $controllerSessione->updateSessione($idSessione,$newSessione);
-    $vaiASesInCorso= "Location: "."/usr/docente/corso/".$identificativoCorso."/sessione"."/".$idSesToGo."/"."sessioneincorso";
+    $vaiASesInCorso= "Location: "."/docente/corso/".$identificativoCorso."/sessione"."/".$idSesToGo."/"."sessioneincorso";
     header($vaiASesInCorso);
 }
 
@@ -61,7 +61,7 @@ if(isset($_POST['rimuovi'])){
     $idSes = $_POST['rimuovi'];
     try {
         $controllerSessione->deleteSessione($idSes);
-        $tornaACasa= "Location: "."/usr/docente/corso/"."$identificativoCorso";
+        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
         header($tornaACasa);
     }
     catch(ApplicationException $ex) {
@@ -115,12 +115,12 @@ if(isset($_POST['rimuovi'])){
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="<?php echo "/usr/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $controlleCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
+                        <a href="<?php echo "/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $controlleCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
                         <?php
-                            $vaiANomeCorso="/usr/docente/corso/".$identificativoCorso;
+                            $vaiANomeCorso="/docente/corso/".$identificativoCorso;
                             printf("<a href=\"%s\">%s</a><i class=\"fa fa-angle-right\"></i>", $vaiANomeCorso ,$nomecorso);
                          ?>
                     </li>
@@ -401,8 +401,8 @@ if(isset($_POST['rimuovi'])){
                             <div class="col-md-9">
                                 <?php
                                 printf("<button name=\"avvia\" value=\"%s\" class=\"btn sm green-jungle\"><span class=\"md-click-circle md-click-animate\" style=\"height: 94px; width: 94px; top: -23px; left: 2px;\"></span><i class=\"fa fa-play-circle-o\"></i>Avvia ora</button>",$idSessione);
-                                $vaiAModifica="/usr/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."creamodificasessione";
-                                $vaiAVisu="/usr/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."visualizzasessione";
+                                $vaiAModifica="/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."creamodificasessione";
+                                $vaiAVisu="/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."visualizzasessione";
 
                                 printf(" <a href=\"%s\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i>ModificaSessione</a>", $vaiAModifica);
                                 printf("<button type='submit' name='rimuovi' value='%d' class='btn btn-sm red-intense'><i class=\"fa fa-trash-o\"></i>Elimina Sessione</button>",$idSessione);

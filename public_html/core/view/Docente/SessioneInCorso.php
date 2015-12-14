@@ -36,7 +36,7 @@ if(isset( $_POST['datato']) && isset( $_POST['termina'] )) {
     $dataTo=$dataNow;
     $newSessione = new Sessione($dataFrom, $dataNow, 18, "Eseguita", $tipoSessione, $identificativoCorso);
     $controller->updateSessione($idSessione,$newSessione);
-    $vaiVisuEsiti= "Location: "."/usr/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."esiti";
+    $vaiVisuEsiti= "Location: "."/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."esiti";
     header($vaiVisuEsiti);
 
 }
@@ -48,7 +48,7 @@ else if(isset( $_POST['datato'])) {
 }
 
 if(isset( $_POST['addStu'])) {
-    $vaiAddStu= "Location: "."/usr/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."sessioneincorso/aggiungistudente";
+    $vaiAddStu= "Location: "."/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."sessioneincorso/aggiungistudente";
     header($vaiAddStu);
 }
 
@@ -105,12 +105,12 @@ if(isset( $_POST['aggiorna'])) {
                             <i class="fa fa-angle-right"></i>
                         </li>
                         <li>
-                            <a href="<?php echo "/usr/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $controlleCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
+                            <a href="<?php echo "/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $controlleCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
                             <i class="fa fa-angle-right"></i>
                         </li>
                         <li>
                             <?php
-                            $vaiANomeCorso="/usr/docente/corso/".$identificativoCorso;
+                            $vaiANomeCorso="/docente/corso/".$identificativoCorso;
                             printf("<a href=\"%s\">%s</a><i class=\"fa fa-angle-right\"></i>", $vaiANomeCorso ,$nomecorso);
                             ?>
                         </li>
@@ -237,7 +237,7 @@ if(isset( $_POST['aggiorna'])) {
                                         Aggiungi Studente</button>
 
                                         <a title="Aggiungi alla lista seguente gli Studenti che hanno appena cominciato il test!" name="aggiorna" href="<?php
-                                        $vaiASesInCorso="/usr/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."sessioneincorso";
+                                        $vaiASesInCorso="/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."sessioneincorso";
                                         printf("%s",$vaiASesInCorso);  ?>"
                                            class="btn sm green-jungle"><i class="fa fa-refresh" ></i><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                                             Aggiorna

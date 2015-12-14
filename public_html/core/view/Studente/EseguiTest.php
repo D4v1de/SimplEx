@@ -39,7 +39,7 @@ if (isset($_GET['abbandona'])){
     $elaborato->setEsitoFinale(0);
     $elaborato->setStato("Corretto");
     $elaboratoController->updateElaborato($matricola,$sessId,$elaborato);   
-    header("Location: "."/usr/studente/corso/"."$corsoId"."/");
+    header("Location: "."/studente/corso/"."$corsoId"."/");
 }
 
 if (isset($_GET['consegna'])){
@@ -66,7 +66,7 @@ if (isset($_GET['consegna'])){
     }
     $elaborato->setEsitoParziale($punteggio);
     $elaboratoController->updateElaborato($matricola,$sessId,$elaborato);   
-    header("Location: "."/usr/studente/corso/"."$corsoId"."/");
+    header("Location: "."/studente/corso/"."$corsoId"."/");
 }
 ?>
 <!DOCTYPE html>

@@ -37,7 +37,7 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
     $cont1=0;
     $cont2=0;
       
-         $tornaACasa= "Location: "."/usr/docente/corso/"."$identificativoCorso"."/";
+         $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/";
          header($tornaACasa);
  
          
@@ -93,7 +93,7 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
         $controllerDomande->associaMultTest($x->getId(), $idNuovoTest, NULL, NULL);
     }
     
-    $tornaACasa= "Location: "."/usr/docente/corso/"."$identificativoCorso"."/";
+    $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/";
          header($tornaACasa);
     
 }

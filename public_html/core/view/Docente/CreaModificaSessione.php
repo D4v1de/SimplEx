@@ -125,7 +125,7 @@ if($_URL[5]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
         }
 
             //torna a pagina corso del docente
-            $tornaACasa= "Location: "."/usr/docente/corso/"."$idCorso";
+            $tornaACasa= "Location: "."/docente/corso/"."$idCorso";
             header($tornaACasa);
     }
 }
@@ -186,7 +186,7 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
         }
 
 
-        $tornaACasa= "Location: "."/usr/docente/corso/"."$idCorso";
+        $tornaACasa= "Location: "."/docente/corso/"."$idCorso";
         header($tornaACasa);
     }
     else {
@@ -250,12 +250,12 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="<?php echo "/usr/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $controlleCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
+                        <a href="<?php echo "/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $controlleCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
                         <?php
-                        $vaiANomeCorso="/usr/docente/corso/".$idCorso;
+                        $vaiANomeCorso="/docente/corso/".$idCorso;
                         printf("<a href=\"%s\">%s</a><i class=\"fa fa-angle-right\"></i>", $vaiANomeCorso ,$nomecorso);
                         ?>
                     </li>
