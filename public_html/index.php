@@ -254,6 +254,27 @@ try {
                                 include_once VIEW_DIR . "Studente/visualizzaCorso.php";
                         }
                         break;
+                    case 'creaElaborato':
+                        include_once VIEW_DIR . "Studente/creaElaborato.php";
+                        break;
+                    case 'controllerAbilitazione':
+                        include_once VIEW_DIR . "Studente/controllerAbilitazione.php";
+                        break;
+                    case 'gestoreCountdown':
+                        include_once VIEW_DIR . "Studente/gestoreCountdown.php";
+                        break;
+                    case 'consegna':
+                        include_once VIEW_DIR . "Studente/consegna.php";
+                        break;
+                    case 'abbandona':
+                        include_once VIEW_DIR . "Studente/abbandona.php";
+                        break;
+                    case 'updateMultipla':
+                        include_once VIEW_DIR . "Studente/updateMultipla.php";
+                        break;
+                    case 'updateAperta':
+                        include_once VIEW_DIR . "Studente/updateAperta.php";
+                        break;
                     default:
                         include_once VIEW_DIR . "Studente/Home.php";
 
@@ -288,30 +309,6 @@ try {
                 break;
 
 
-            case 'gestoreCountdown':
-                include_once VIEW_DIR . "Studente/gestoreCountdown.php";
-                break;
-            case 'updateAperta':
-                include_once VIEW_DIR . "Studente/updateAperta.php";
-                break;
-            case 'updateMultipla':
-                include_once VIEW_DIR . "Studente/updateMultipla.php";
-                break;
-            case 'abbandona':
-                include_once VIEW_DIR . "Studente/abbandona.php";
-                break;
-            case 'consegna':
-                include_once VIEW_DIR . "Studente/consegna.php";
-                break;
-            case 'controllerAbilitazione':
-                include_once VIEW_DIR . "Studente/controllerAbilitazione.php";
-                break;
-            case 'gestoreMultipla':
-                include_once VIEW_DIR . "Studente/gestoreMultipla.php";
-                break;
-            case 'creaElaborato':
-                include_once VIEW_DIR . "Studente/creaElaborato.php";
-                break;
 
 
             case 'homecorsostudente':

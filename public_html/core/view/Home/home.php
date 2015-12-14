@@ -92,7 +92,7 @@
            	 		<div class="carousel-caption">
                	 		<div class="col-md-12 col-xs-12 text-center">
                       <h2>SimplEx</h2>
-               	 			<h3 class="animated2"> <b>Creative</b> Modern and clean </h3>
+               	 			<h3 class="animated2"> <b>Simple </b>Exam </h3>
                	 			<div class="line"></div>
                	 			<p class="animated3">Unique clean design</p>
                	 		</div>
@@ -105,7 +105,7 @@
            	 		<div class="carousel-caption">
                	 		<div class="col-md-12 col-xs-12 text-center">
                     <h2>SimplEx</h2>
-               	 			<h3 class="animated3"> responsive <b>Flat </b>design</h3>
+               	 			<h3 class="animated3"> Less <b>paper </b></h3>
                	 			<div class="line"></div>
                	 			<p class="animated2">best choice for you</p>
                	 		</div>
@@ -146,9 +146,17 @@
         <div class="container">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="feature_header text-center">
-                            <h3 class="feature_title">Il lavoro <b>svolto</b></h3>
-                            <h4 class="feature_sub">L’obiettivo del progetto è stato quello di apportare al Dipartimento d’Informatica <br>un beneficio dal punto di vista dei costi e dell'efficienza.</h4>
+                        <div class="feature_header text-justify">
+                            <h3 class="feature_title text-center">Il lavoro <b>svolto</b></h3>
+                            <h4 class="feature_sub">L’obiettivo del progetto &egrave; stato quello di apportare all'<b>Universit&agrave; degli studi di Salerno</b>, in particolare al <b>dipartimento di Informatica</b>,
+                                 un beneficio dal punto di vista dei costi (risparmiando sull’acquisto di carta) e dell'efficienza.
+                                <br> Il docente ha la possibilità di creare facilmente dei test, sia a carattere esercitativo che valutativo, inserendo sia domande a risposta multipla che
+                                domande a risposta aperta. Il sistema, nel caso di test con domande a risposta multipla, é in grado di valutare la prova sulla base delle risposte corrette
+                                segnalate dal docente. In questo modo il docente, e gli stessi studenti, hanno la possibilit&agrave; di conoscere quasi in tempo reale il risultato dei test.
+                                Inoltre lo studente ha la possibilità di valutare al meglio il proprio studio ed eventualmente venire incontro alle proprie carenze attraverso le esercitazioni proposte dal docente.
+                                <br>Il sistema &egrave; capace di gestire più corsi contemporaneamente. La gestione dei corsi comprende anche la possibilità di condurre esercitazioni ed esami relativi
+                                a quest’ultimi. Ogni utente avr&agrave; a disposizione una serie di esercitazioni che aiuteranno nella comprensione degli argomenti e l’accompagneranno di volta in volta verso
+                                il conseguimento dell’esame. Questa &egrave; una caratteristica fondamentale del sistema: <b> semplificare ed incentivare lo studente</b>.</h4>
                             <div class="divider"></div>
                         </div>
                     </div>  <!-- Col-md-12 End -->
@@ -212,12 +220,12 @@
                                         <div class="graph-right-half"></div>
                                     </div>
                                 </div>
-                                <i class="fa fa-thumbs-o-up fa-3x fw"></i>
+                                <i class="fa fa-envelope-o fa-3x fw"></i>
                                 <div class="facts-wrap-num">
                                     <span class="counter">87</span>
                                 </div>
                             </div>
-                            <h6>Clients</h6>
+                            <h6>Email</h6>
                         </div>
                     </div>
                     <div class="col-md-3 col-xs-12 col-sm-6 columns">
@@ -233,10 +241,29 @@
                                         <div class="graph-right-half"></div>
                                     </div>
                                 </div>
-                                <i class="fa fa-gift fa-3x fw"></i>
+                                <i class="fa fa-weixin fa-3x fw"></i>
                                 <div class="facts-wrap-num"><span class="counter">25</span></div>
                             </div>
-                            <h6>Awards</h6>
+                            <h6>Messaggi</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-12 col-sm-6 columns">
+                        <div class="facts-wrap">
+                            <div class="graph">
+                                <div class="graph-left-side">
+                                    <div class="graph-left-container">
+                                        <div class="graph-left-half"> </div>
+                                    </div>
+                                </div>
+                                <div class="graph-right-side">
+                                    <div class="graph-right-container">
+                                        <div class="graph-right-half"></div>
+                                    </div>
+                                </div>
+                                <i class="fa fa-group fa-3x fw"></i>
+                                <div class="facts-wrap-num"><span class="counter">68</span></div>
+                            </div>
+                            <h6>Meeting</h6>
                         </div>
                     </div>
                     <div class="col-md-3 col-xs-12 col-sm-6 columns">
@@ -253,28 +280,9 @@
                                     </div>
                                 </div>
                                 <i class="fa fa-check-square-o fa-3x fw"></i>
-                                <div class="facts-wrap-num"><span class="counter">68</span></div>
-                            </div>
-                            <h6>Projects</h6>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-xs-12 col-sm-6 columns">
-                        <div class="facts-wrap">
-                            <div class="graph">
-                                <div class="graph-left-side">
-                                    <div class="graph-left-container">
-                                        <div class="graph-left-half"> </div>
-                                    </div>
-                                </div>
-                                <div class="graph-right-side">
-                                    <div class="graph-right-container">
-                                        <div class="graph-right-half"></div>
-                                    </div>
-                                </div>
-                                <i class="fa fa-envelope-o fa-3x fw"></i>
                                 <div class="facts-wrap-num"><span class="counter">46</span></div>
                             </div>
-                            <h6>Mails</h6>
+                            <h6>Commit</h6>
                         </div>
                     </div>
                 </div> <!-- Conatainer End -->
@@ -332,7 +340,7 @@
                             <a href="#profile" role="tab" data-toggle="tab">
                                 <div class="single-tab">
                                     <div class="f-icon">
-                                        <i class="fa fa-send"></i>
+                                        <i class="fa fa-picture-o"></i>
                                     </div>
                                 </div>
                                 <h4>Home docente</h4>
@@ -342,7 +350,7 @@
                             <a href="#profile" role="tab" data-toggle="tab">
                                 <div class="single-tab">
                                     <div class="f-icon">
-                                        <i class="fa fa-send"></i>
+                                        <i class="fa fa-picture-o"></i>
                                     </div>
                                 </div>
                                <h4>Home studente</h4>
@@ -352,7 +360,7 @@
                             <a href="#profile" role="tab" data-toggle="tab">
                                 <div class="single-tab">
                                     <div class="f-icon">
-                                        <i class="fa fa-send"></i>
+                                        <i class="fa fa-picture-o"></i>
                                     </div>
                                 </div>
                                 <h4>Creazione test</h4>
@@ -362,7 +370,7 @@
                             <a href="#profile" role="tab" data-toggle="tab">
                                 <div class="single-tab">
                                     <div class="f-icon">
-                                        <i class="fa fa-send"></i>
+                                        <i class="fa fa-picture-o"></i>
                                     </div>
                                 </div>
                                 <h4>Esecuzione test</h4>
@@ -559,7 +567,6 @@
                                     <li><a href=""><i class="fa fa-facebook"></i></a></li>
                                     <li><a href=""><i class="fa fa-google-plus"></i></a></li>
                                     <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fa fa-pinterest"></i></a></li>
                                     <li><a href=""><i class="fa fa-skype"></i></a></li>
                                 </ul>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dignissimos, maxime ea excepturi veritatis itaque. </p>
@@ -578,7 +585,6 @@
                                     <li><a href=""><i class="fa fa-facebook"></i></a></li>
                                     <li><a href=""><i class="fa fa-google-plus"></i></a></li>
                                     <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fa fa-pinterest"></i></a></li>
                                     <li><a href=""><i class="fa fa-skype"></i></a></li>
                                 </ul>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dignissimos, maxime ea excepturi veritatis itaque. </p>
@@ -597,7 +603,6 @@
                                     <li><a href=""><i class="fa fa-facebook"></i></a></li>
                                     <li><a href=""><i class="fa fa-google-plus"></i></a></li>
                                     <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fa fa-pinterest"></i></a></li>
                                     <li><a href=""><i class="fa fa-skype"></i></a></li>
                                 </ul>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dignissimos, maxime ea excepturi veritatis itaque. </p>
@@ -616,7 +621,6 @@
                                     <li><a href=""><i class="fa fa-facebook"></i></a></li>
                                     <li><a href=""><i class="fa fa-google-plus"></i></a></li>
                                     <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fa fa-pinterest"></i></a></li>
                                     <li><a href=""><i class="fa fa-skype"></i></a></li>
                                 </ul>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dignissimos, maxime ea excepturi veritatis itaque. </p>
@@ -635,7 +639,6 @@
                                     <li><a href=""><i class="fa fa-facebook"></i></a></li>
                                     <li><a href=""><i class="fa fa-google-plus"></i></a></li>
                                     <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fa fa-pinterest"></i></a></li>
                                     <li><a href=""><i class="fa fa-skype"></i></a></li>
                                 </ul>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dignissimos, maxime ea excepturi veritatis itaque. </p>
@@ -654,7 +657,6 @@
                                     <li><a href=""><i class="fa fa-facebook"></i></a></li>
                                     <li><a href=""><i class="fa fa-google-plus"></i></a></li>
                                     <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fa fa-pinterest"></i></a></li>
                                     <li><a href=""><i class="fa fa-skype"></i></a></li>
                                 </ul>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dignissimos, maxime ea excepturi veritatis itaque. </p>
@@ -673,7 +675,6 @@
                                     <li><a href=""><i class="fa fa-facebook"></i></a></li>
                                     <li><a href=""><i class="fa fa-google-plus"></i></a></li>
                                     <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fa fa-pinterest"></i></a></li>
                                     <li><a href=""><i class="fa fa-skype"></i></a></li>
                                 </ul>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dignissimos, maxime ea excepturi veritatis itaque. </p>
@@ -692,7 +693,6 @@
                                     <li><a href=""><i class="fa fa-facebook"></i></a></li>
                                     <li><a href=""><i class="fa fa-google-plus"></i></a></li>
                                     <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fa fa-pinterest"></i></a></li>
                                     <li><a href=""><i class="fa fa-skype"></i></a></li>
                                 </ul>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dignissimos, maxime ea excepturi veritatis itaque. </p>
@@ -711,7 +711,6 @@
                                     <li><a href=""><i class="fa fa-facebook"></i></a></li>
                                     <li><a href=""><i class="fa fa-google-plus"></i></a></li>
                                     <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fa fa-pinterest"></i></a></li>
                                     <li><a href=""><i class="fa fa-skype"></i></a></li>
                                 </ul>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dignissimos, maxime ea excepturi veritatis itaque. </p>
@@ -730,7 +729,6 @@
                                     <li><a href=""><i class="fa fa-facebook"></i></a></li>
                                     <li><a href=""><i class="fa fa-google-plus"></i></a></li>
                                     <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fa fa-pinterest"></i></a></li>
                                     <li><a href=""><i class="fa fa-skype"></i></a></li>
                                 </ul>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dignissimos, maxime ea excepturi veritatis itaque. </p>
@@ -749,7 +747,6 @@
                                     <li><a href=""><i class="fa fa-facebook"></i></a></li>
                                     <li><a href=""><i class="fa fa-google-plus"></i></a></li>
                                     <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fa fa-pinterest"></i></a></li>
                                     <li><a href=""><i class="fa fa-skype"></i></a></li>
                                 </ul>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dignissimos, maxime ea excepturi veritatis itaque. </p>
@@ -768,7 +765,6 @@
                                     <li><a href=""><i class="fa fa-facebook"></i></a></li>
                                     <li><a href=""><i class="fa fa-google-plus"></i></a></li>
                                     <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fa fa-pinterest"></i></a></li>
                                     <li><a href=""><i class="fa fa-skype"></i></a></li>
                                 </ul>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dignissimos, maxime ea excepturi veritatis itaque. </p>
@@ -781,13 +777,12 @@
 				<div class="item text-center">
                     <div class="single-member">
                         <div class="overlay-hover">
-                            <img src="/assets/homepage/images/team/pic5.jpg" alt="" class="img-responsive">
+                            <img src="/assets/homepage/images/team/Sergio.jpg" alt="" class="img-responsive">
                             <div class="overlay-effect">
                                 <ul class="social list-inline">
                                     <li><a href=""><i class="fa fa-facebook"></i></a></li>
                                     <li><a href=""><i class="fa fa-google-plus"></i></a></li>
                                     <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fa fa-pinterest"></i></a></li>
                                     <li><a href=""><i class="fa fa-skype"></i></a></li>
                                 </ul>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dignissimos, maxime ea excepturi veritatis itaque. </p>
@@ -806,7 +801,6 @@
                                     <li><a href=""><i class="fa fa-facebook"></i></a></li>
                                     <li><a href=""><i class="fa fa-google-plus"></i></a></li>
                                     <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fa fa-pinterest"></i></a></li>
                                     <li><a href=""><i class="fa fa-skype"></i></a></li>
                                 </ul>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dignissimos, maxime ea excepturi veritatis itaque. </p>
@@ -825,7 +819,6 @@
                                     <li><a href=""><i class="fa fa-facebook"></i></a></li>
                                     <li><a href=""><i class="fa fa-google-plus"></i></a></li>
                                     <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fa fa-pinterest"></i></a></li>
                                     <li><a href=""><i class="fa fa-skype"></i></a></li>
                                 </ul>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dignissimos, maxime ea excepturi veritatis itaque. </p>
@@ -841,24 +834,6 @@
      </div> 
 
 </section>  <!-- Section TEam End -->
-
-<!-- Our Team Members End -->
-<!--<div class="clearfix"></div>
-
-
-<div class="clearfix"></div>
-
-        </div>
-    </div>
-</section>-->
-<!-- bLOG End -->
-
-
-
-    <!--    </div><!-- Main row end -->
-  	
-<!--  </section>
-<!-- Client Carousel End -->
 
 <!-- Conatct Area Start-->
 
@@ -1001,19 +976,19 @@
      var map;
         map = new GMaps({
           div: '#map',
-          lat: 40.7687158,
-          lng: 14.7898292,
+          lat: 40.7748473,
+          lng: 14.7882346,
           scrollwheel: false,
           panControl: false,
           zoomControl: false,
         });
 
         map.addMarker({
-          lat: 40.7687158,
-          lng: 14.7898292,
-          title: 'Smilebuddy',
+            lat: 40.7748473,
+            lng: 14.7882346,
+          title: 'Dipartimento di Informatica',
           infoWindow: { 
-            content: '<p> Smilebuddy, Dhanmondhi 27</p>'
+            content: '<p>Via Ponte don Melillo, 132,84084 Fisciano SA</p>'
           },
           icon: "/assets/homepage/images/map1.png"
         });
