@@ -33,7 +33,7 @@ if (isset($_POST['tipologia'])) {
 
     try {
         $uCtrl->register($matricola, $email, $pass, $tipologia, $nome, $cognome, $cdlMatricola);
-        header('location: /adm/utenti?success=Utente registrato nel sistema');
+        header('location: /admin/utenti?success=Utente registrato nel sistema');
     } catch (ApplicationException $ex) {
         $error = "<h5>Creazione utente FALLITO: " . $ex->getMessage() . "</h5>";
     } catch (IllegalArgumentException $ex) {
@@ -80,11 +80,11 @@ if (isset($_POST['tipologia'])) {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/adm/utenti">Gestione Utenti</a>
+                        <a href="/admin/utenti">Gestione Utenti</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/adm/utenti/crea">Crea <?= $tipologia ?></a>
+                        <a href="/admin/utenti/crea">Crea <?= $tipologia ?></a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>

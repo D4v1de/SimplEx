@@ -10,7 +10,7 @@ include_once CONTROL_DIR . "ArgomentoController.php";
 include_once CONTROL_DIR . "CdlController.php";
 $controller = new ArgomentoController();
 $controllerCorso = new CdlController();
-$corsoid = $_URL[3];
+$corsoid = $_URL[2];
 
 try{
     $corso = $controllerCorso->readCorso($corsoid);

@@ -12,7 +12,7 @@ $controller = new CdlController();
 
 $cdl = null;
 $corsi = Array();
-$url = $_URL[3];
+$url = $_URL[2];
 
 if(!is_numeric($url)) {
     echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
@@ -71,11 +71,11 @@ try {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/usr/docente/cdls">CdL</a>
+                        <a href="/docente/cdls">CdL</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/usr/docente/cdl/<?php echo $cdl->getMatricola(); ?>"><?php echo $cdl->getNome(); ?></a>
+                        <a href="/docente/cdl/<?php echo $cdl->getMatricola(); ?>"><?php echo $cdl->getNome(); ?></a>
                     </li>
                 </ul>
             </div>
@@ -121,7 +121,7 @@ try {
                                 <?php
                                 foreach ($corsi as $c) {
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    printf("<td class=\"sorting_1\"><a href=\"/usr/docente/corso/%s\">%s</a></td>", $c->getId(), $c->getNome());
+                                    printf("<td class=\"sorting_1\"><a href=\"/docente/corso/%s\">%s</a></td>", $c->getId(), $c->getNome());
                                     printf("<td class=\"sorting_1\"><span class=\"badge badge-success\">%s</span></td>", $c->getMatricola());
                                     printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
                                     printf("</tr>");

@@ -27,7 +27,7 @@ if (isset($_POST['nome'])) {
 
     try {
         $uCtrl->modificaUtenteByType($matricola, $nome, $cognome, $cdlMatricola, $email, $pass, $tipologia);
-        header('location: /adm/utenti?success=Utente modificato');
+        header('location: /admin/utenti?success=Utente modificato');
         exit;
     } catch (ApplicationException $ex) {
         $error = "<h5>Modifica utente FALLITO: " . $ex->getMessage() . "</h5>";
@@ -39,7 +39,7 @@ try {
     $victim = $uCtrl->getUtenteByMatricola($matricola);
     $cdls = $cdlCtrl->getCdl();
 } catch (ApplicationException $ex) {
-    header('Location: /adm/utenti/?error=Utente non esiste');
+    header('Location: /admin/utenti/?error=Utente non esiste');
 }
 ?>
 <!DOCTYPE html>
@@ -81,11 +81,11 @@ try {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/adm/utenti">Gestione Utenti</a>
+                        <a href="/admin/utenti">Gestione Utenti</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/adm/utenti/view/<?= $victim->getMatricola() ?>"><?= $victim->getNome() ?> <?= $victim->getCognome() ?></a>
+                        <a href="/admin/utenti/view/<?= $victim->getMatricola() ?>"><?= $victim->getNome() ?> <?= $victim->getCognome() ?></a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
@@ -201,7 +201,7 @@ try {
                                         <input type="submit" value="Conferma" class="btn green-jungle"/>
                                     </div>
                                     <div class="col-md-3">
-                                        <a href="/adm/utenti" value="Annulla" class="btn red-intense">Anulla</a>
+                                        <a href="/admin/utenti" value="Annulla" class="btn red-intense">Annulla</a>
                                     </div>
                                 </div>
                             </div>

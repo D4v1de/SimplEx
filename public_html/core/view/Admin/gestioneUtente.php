@@ -73,7 +73,7 @@ if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/adm/utenti">GestioneUtente</a>
+                        <a href="/admin/utenti">GestioneUtente</a>
                     </li>
                 </ul>
             </div>
@@ -89,13 +89,13 @@ if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
                         </div>
 
                         <div class="actions">
-                            <a href="/adm/utenti/crea/docente"
+                            <a href="/admin/utenti/crea/docente"
                                class="btn btn-default btn-sm">
                                 <i class="fa fa-plus"></i> Docente
                             </a>
                         </div>
                         <div class="actions">
-                            <a href="/adm/utenti/crea/studente"
+                            <a href="/admin/utenti/crea/studente"
                                class="btn btn-default btn-sm">
                                 <i class="fa fa-plus"></i> Studente
                             </a>
@@ -134,7 +134,7 @@ if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
                                 <?php
                                 foreach ($utente as $d) {
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    printf("<td><a href='/adm/utenti/view/%s'>%s</a></td>", $d->getMatricola(), $d->getMatricola());
+                                    printf("<td><a href='/admin/utenti/view/%s'>%s</a></td>", $d->getMatricola(), $d->getMatricola());
                                     printf("<td>%s</td>", $d->getNome());
                                     printf("<td><span>%s</span></td>", $d->getCognome());
                                     printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $d->getTipologia());

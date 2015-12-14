@@ -42,7 +42,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
             $cdl = new CdL($matricola, $nome, $tipologia);
             $controller->creaCdl($cdl);
 
-            header('location: /adm/cdl/view/successcrea');
+            header('location: /admin/cdl/view/successcrea');
         } catch (ApplicationException $ex) {
             echo "<h1>CREACDL FALLITO!</h1>" . $ex;
         }
@@ -92,11 +92,11 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/adm/cdl/view">GestioneCdL</a>
+                        <a href="/admin/cdl/view">GestioneCdL</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/adm/cdl/crea">CreaCdL</a>
+                        <a href="/admin/cdl/crea">CreaCdL</a>
                     </li>
                 </ul>
             </div>

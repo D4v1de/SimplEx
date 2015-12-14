@@ -19,13 +19,13 @@ $corso = null;
 $argomento = null;
 
 try{
-    $corso = $controllerCdl->readCorso($_URL[3]); //qui dentro andrà $_URL[..]; IDCORSO
+    $corso = $controllerCdl->readCorso($_URL[2]); //qui dentro andrà $_URL[..]; IDCORSO
 }catch(ApplicationException $exception){
     echo "ERRORE IN READ CORSO" . $exception;
 }
 
 try{
-    $argomento = $controller->readArgomento($_URL[6]);
+    $argomento = $controller->readArgomento($_URL[5]);
 }catch(ApplicationException $exception){
     echo "ERRORE IN READ ARGOMENTO" . $exception;
 }
@@ -35,7 +35,7 @@ if(isset($_POST['nome'])){
     $nome = $_POST['nome'];
         $argomento->setNome($nome);
         $controller->modificaArgomento($argomento->getId(), $argomento);
-        header('location: /usr/docente/corso/' . $corso->getId() . '/successmodifica');
+        header('location: /docente/corso/' . $corso->getId() . '/successmodifica');
 }
 ?>
 <!DOCTYPE html>
