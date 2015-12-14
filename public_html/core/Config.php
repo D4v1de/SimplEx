@@ -8,7 +8,7 @@
  */
 
 /**
- * Classe contiene tutte configurazioni necessari per il funzionamento del sistema
+ * Classe contiene tutte configurazioni necessarie per il funzionamento del sistema
  */
 class Config {
 
@@ -20,7 +20,7 @@ class Config {
     /**
      *  Varie configurazioni
      */
-    public static $MIN_PASSWORD_LEN = 6;    //minima lunghezza della password
+    public static $MIN_PASSWORD_LEN = 8;    //minima lunghezza della password
     public static $TIPI_UTENTE = array('Studente', 'Docente', 'Admin');
     public static $TIPI_CONTATTO = array('Telefono', 'E-mail', 'Cellulare', 'Fax');
     public static $TIPI_CDL = array('Triennale', 'Magistrale', 'Ciclo Unico');
