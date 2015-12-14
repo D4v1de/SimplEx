@@ -72,12 +72,11 @@ if (isset($_POST['checkbox'])) {
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="../../../gestionale/admin/index.html">Home</a>
+                        <a href="/adm">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
                         <a href="/adm/cdl/view">GestioneCdL</a>
-                        <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
             </div>
