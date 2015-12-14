@@ -201,7 +201,7 @@ try {
                                         <input type="submit" value="Conferma" class="btn green-jungle"/>
                                     </div>
                                     <div class="col-md-3">
-                                        <a href="/admin/utenti" value="Annulla" class="btn red-intense">Anulla</a>
+                                        <a href="/admin/utenti" value="Annulla" class="btn red-intense">Annulla</a>
                                     </div>
                                 </div>
                             </div>
