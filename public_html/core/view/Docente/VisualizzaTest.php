@@ -29,6 +29,11 @@ if(isset($_POST['idtest'])){
     header($tornaACasa);
 }
 
+if(isset($_POST['Indietro'])){
+    $tornaACasa= "Location: "."/usr/docente/corso/"."$identificativoCorso"."/";
+    header($tornaACasa);
+}
+
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -114,7 +119,7 @@ if(isset($_POST['idtest'])){
                                     ?>
                                     </div>
                                 <div class="col-md-4">
-                                    <button href="../../" class="btn btn sm red-intense">
+                                    <button type="submit" name="Indietro" class="btn btn sm red-intense">
                                         Indietro
                                     </button>
                                 </div>
