@@ -19,7 +19,7 @@ $studente = null;
 $corsistudente = Array();
 $url = null;
 
-$url = $_URL[3];
+$url = $_URL[2];
 if(!is_numeric($url)) {
     echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
 }
