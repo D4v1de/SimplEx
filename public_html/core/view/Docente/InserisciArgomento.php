@@ -8,14 +8,45 @@
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "ArgomentoController.php";
 include_once CONTROL_DIR . "CdlController.php";
+include_once CONTROL_DIR . "UtenteController.php";
+
+/** @var Utente $utenteLoggato */
+$utenteLoggato = $_SESSION['user'];
+
 $controller = new ArgomentoController();
 $controllerCorso = new CdlController();
-$corsoid = $_URL[3];
+$controllerUtente = new UtenteController();
+$corsoid = $_URL[2];
+$correttezzaLogin = false;
 
 try{
     $corso = $controllerCorso->readCorso($corsoid);
 }catch(ApplicationException $exception){
     echo "ERRORE IN READ CORSO" . $exception;
+}
+
+//CONTROLLO LOGIN CORRETTO
+
+try{
+    $matricolaLoggato = $utenteLoggato->getMatricola();
+}catch(ApplicationException $exception){
+    echo "ERRORE IN GET MATRICOLA" . $exception;
+}
+
+try{
+    $docentiAssociati = $controllerUtente->getDocenteAssociato($corsoid);
+}catch(ApplicationException $exception){
+    echo "ERRORE IN GET DOCENTE ASSOCIATI" . $exception;
+}
+
+foreach($docentiAssociati as $docente){
+    if($docente->getMatricola() == $matricolaLoggato){
+        $correttezzaLogin = true;
+    }
+}
+
+if($correttezzaLogin == false){
+    header('Location: /docente/corso/'.$corsoid);
 }
 
 if(isset($_POST['nome'])){

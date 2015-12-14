@@ -29,7 +29,7 @@ if (isset($_POST['checkbox'])) {
                 echo "<h1>ELIMINACDL FALLITO!</h1>" . $ex;
             }
         }
-        header('Location: /adm/cdl/view/successelimina');
+        header('Location: /admin/cdl/view/successelimina');
     }
 }
 
@@ -76,7 +76,7 @@ if (isset($_POST['checkbox'])) {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/adm/cdl/view">GestioneCdL</a>
+                        <a href="/admin/cdl/view">GestioneCdL</a>
                     </li>
                 </ul>
             </div>
@@ -100,7 +100,7 @@ if (isset($_POST['checkbox'])) {
                             <i class="fa fa-graduation-cap"></i>Gestione dei Corsi di Laurea
                         </div>
                         <div class="actions">
-                            <a href="/adm/cdl/crea" class="btn btn-default btn-sm">
+                            <a href="/admin/cdl/crea" class="btn btn-default btn-sm">
                                 <i class="fa fa-plus"></i> Crea CdL </a>
                         </div>
                         <div class="actions">
@@ -143,7 +143,7 @@ if (isset($_POST['checkbox'])) {
                                 foreach ($cdls as $c) {
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
                                     printf("<td class=\"sorting_1\"><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $c->getMatricola());
-                                    printf("<td class=\"sorting_1\"><a href=\"/adm/cdl/modifica/%s\">%s</a></td>", $c->getMatricola(), $c->getNome());
+                                    printf("<td class=\"sorting_1\"><a href=\"/admin/cdl/modifica/%s\">%s</a></td>", $c->getMatricola(), $c->getNome());
                                     printf("<td class=\"sorting_1\">%s</td>", $c->getMatricola());
                                     printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
                                     printf("</tr>");

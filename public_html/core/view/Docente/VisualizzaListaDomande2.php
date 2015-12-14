@@ -9,14 +9,22 @@ include_once CONTROL_DIR . "DomandaController.php";
 include_once CONTROL_DIR . "ArgomentoController.php";
 include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "AlternativaController.php";
+include_once CONTROL_DIR . "UtenteController.php";
+
+$utenteLoggato = $_SESSION['user'];
+
 $cdlController = new CdlController();
 $domandaController = new DomandaController();
 $argomentoController = new ArgomentoController();
 $alternativaController = new AlternativaController();
+$controllerUtente = new UtenteController();
+
 $corso = null;
 $argomento = null;
-$idCorso = $_URL[3];
-$idArgomento = $_URL[6];
+$idCorso = $_URL[2];
+$idArgomento = $_URL[5];
+$correttezzaLogin = false;
+
 
 try{
     $corso = $cdlController->readCorso($idCorso);
@@ -30,10 +38,30 @@ try{
     echo "ERRORE IN READ ARGOMENTO" . $exception;
 }
 
+//CONTROLLO LOGIN CORRETTO
+
+try{
+    $matricolaLoggato = $utenteLoggato->getMatricola();
+}catch(ApplicationException $exception){
+    echo "ERRORE IN GET MATRICOLA" . $exception;
+}
+
+try{
+    $docentiAssociati = $controllerUtente->getDocenteAssociato($idCorso);
+}catch(ApplicationException $exception){
+    echo "ERRORE IN GET DOCENTE ASSOCIATI" . $exception;
+}
+
+foreach($docentiAssociati as $docente){
+    if($docente->getMatricola() == $matricolaLoggato){
+        $correttezzaLogin = true;
+    }
+}
+
 if (isset($_POST['domandaaperta'])){
     try {
         $domandaController->rimuoviDomandaAperta($_POST['domandaaperta']);
-        header('Location: /usr/docente/corso/'. $corso->getId() .'/argomento/domande/'. $argomento->getId() .'/successelimina');
+        header('Location: /docente/corso/'. $corso->getId() .'/argomento/domande/'. $argomento->getId() .'/successelimina');
     } catch(ApplicationException $exception){
         echo "ERRORE ELIMINAZIONEDOMANDAAPERTA" . $exception;
     }
@@ -41,7 +69,7 @@ if (isset($_POST['domandaaperta'])){
 if (isset($_POST['domandamultipla'])){
     try {
         $domandaController->rimuoviDomandaMultipla($_POST['domandamultipla']);
-        header('Location: /usr/docente/corso/'. $corso->getId() .'/argomento/domande/'. $argomento->getId() .'/successelimina');
+        header('Location: /docente/corso/'. $corso->getId() .'/argomento/domande/'. $argomento->getId() .'/successelimina');
     } catch(ApplicationException $exception){
         echo "ERRORE ELIMINAZIONEDOMANDAMULTIPLA" . $exception;
     }
@@ -91,12 +119,12 @@ if (isset($_POST['domandamultipla'])){
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"/usr/docente/cdl/%s\">%s</a>", $corso->getCdlMatricola(), $cdlController->readCdl($corso->getCdlMatricola())->getNome());
+                    printf("<a href=\"/docente/cdl/%s\">%s</a>", $corso->getCdlMatricola(), $cdlController->readCdl($corso->getCdlMatricola())->getNome());
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"/usr/docente/corso/%d\">%s</a>", $corso->getId(), $corso->getNome());
+                    printf("<a href=\"/docente/corso/%d\">%s</a>", $corso->getId(), $corso->getNome());
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
@@ -121,13 +149,15 @@ if (isset($_POST['domandamultipla'])){
                         <a href="javascript:;" class="collapse" data-original-title="" title="">
                         </a>
                     </div>
-                    <div class="actions">
-                        <?php
-                        printf("<a href=\"/usr/docente/corso/%d/argomento/domande/inserisciaperta/%d\" class=\"btn btn-default btn-sm\">",$idCorso ,$idArgomento);
-                        ?>
-                        <i class="fa fa-plus"></i> Nuova Domanda Aperta
-                        </a>
-                    </div>
+                    <?php
+                    if($correttezzaLogin==true) {
+                        printf("<div class=\"actions\">");
+                        printf("<a href=\"/docente/corso/%d/argomento/domande/inserisciaperta/%d\" class=\"btn btn-default btn-sm\">", $idCorso, $idArgomento);
+                        printf("<i class=\"fa fa-plus\"></i> Nuova Domanda Aperta");
+                        printf("</a>");
+                        printf("</div>");
+                    }
+                    ?>
                 </div>
                 <div class="portlet-body">
                     <?php
@@ -135,13 +165,19 @@ if (isset($_POST['domandamultipla'])){
                     foreach ($domandeAperte as $d) {
                         printf("<div class=\"portlet\">");
                         printf("<div class=\"portlet-title \">");
-                        printf("<div class=\"caption\">");
+
+                        printf("<div class=\"col-md-6 caption\">");
                         printf("<i class=\"fa fa-file-o\"></i>%s", $d->getTesto());
                         printf("</div>");
-                        printf("<form method=\"post\" action=\"\" class=\"actions\">");
-                        printf("<a href=\"/usr/docente/corso/%d/argomento/domande/modificaaperta/%d/%d\" class=\"btn green-jungle\"><i class=\"fa fa-edit\"></i> Modifica </a>",$idCorso, $idArgomento, $d->getId());
-                        printf("<button class=\"btn sm red-intense\" data-toggle=\"confirmation\" data-singleton=\"true\" data-popout=\"true\" title=\"Sei sicuro?\" type=\"submit\" name=\"domandaaperta\" value=\"%d\"><i class=\"fa fa-remove\"></i> Rimuovi </button>", $d->getId());
-                        printf("</form>");
+                        printf("<div class=\"caption\">");
+                        printf("Punteggio Massimo: %s", $d->getPunteggioMax());
+                        printf("</div>");
+                        if($correttezzaLogin==true) {
+                            printf("<form method=\"post\" action=\"\" class=\"actions\">");
+                            printf("<a href=\"/docente/corso/%d/argomento/domande/modificaaperta/%d/%d\" class=\"btn green-jungle\"><i class=\"fa fa-edit\"></i> Modifica </a>", $idCorso, $idArgomento, $d->getId());
+                            printf("<button class=\"btn sm red-intense\" data-toggle=\"confirmation\" data-singleton=\"true\" data-popout=\"true\" title=\"Sei sicuro?\" type=\"submit\" name=\"domandaaperta\" value=\"%d\"><i class=\"fa fa-remove\"></i> Rimuovi </button>", $d->getId());
+                            printf("</form>");
+                        }
                         printf("</div>");
                         printf("</div>");
                     }
@@ -160,13 +196,15 @@ if (isset($_POST['domandamultipla'])){
                         <a href="javascript:;" class="collapse" data-original-title="" title="">
                         </a>
                     </div>
-                    <div class="actions">
-                        <?php
-                        printf("<a href=\"/usr/docente/corso/%d/argomento/domande/inseriscimultipla/%d\" class=\"btn btn-default btn-sm\">", $idCorso, $idArgomento);
-                        ?>
-                        <i class="fa fa-plus"></i> Nuova Domanda Multipla
-                        </a>
-                    </div>
+                    <?php
+                    if($correttezzaLogin==true) {
+                        printf("<div class=\"actions\" >");
+                        printf("<a href=\"/docente/corso/%d/argomento/domande/inseriscimultipla/%d\" class=\"btn btn-default btn-sm\">", $idCorso, $idArgomento);
+                        printf("<i class=\"fa fa-plus\" ></i > Nuova Domanda Multipla");
+                        printf("</a>");
+                        printf("</div>");
+                    }
+                    ?>
                 </div>
                 <div class="portlet-body">
                     <?php
@@ -176,15 +214,24 @@ if (isset($_POST['domandamultipla'])){
 
                         printf("<div class=\"portlet \">");
                         printf("<div class=\"portlet-title\">");
-                        printf("<div class=\"caption\">");
+                        printf("<div class=\"col-md-5 caption\">");
                         printf("<i class=\"fa fa-file-o\"></i>%s", $d->getTesto());
+                        printf("</div>");
+                        printf("<div class=\"caption\">");
+                        printf("Punteggio Corretta: %s/", $d->getPunteggioCorretta());
+                        printf("</div>");
+                        printf("<div class=\"caption\">");
+                        printf("Punteggio Errata: %s", $d->getPunteggioErrata());
                         printf("</div>");
                         printf("<div class=\"tools\">");
                         printf("<a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a>");
                         printf("</div>");
                         printf("<form method=\"post\" action=\"\" class=\"actions\">");
-                        printf("<a href=\"/usr/docente/corso/%d/argomento/domande/modificamultipla/%d/%d\" class=\"btn green-jungle\"><i class=\"fa fa-edit\"></i> Modifica </a>",$idCorso, $idArgomento, $d->getId());
-                        printf("<button class=\"btn sm red-intense\" data-toggle=\"confirmation\" data-singleton=\"true\" data-popout=\"true\" title=\"Sei sicuro?\" type=\"submit\" name=\"domandamultipla\" value=\"%d\"><i class=\"fa fa-remove\"></i> Rimuovi </button>", $d->getId());                        printf("</div>");
+                        if($correttezzaLogin==true) {
+                            printf("<a href=\"/docente/corso/%d/argomento/domande/modificamultipla/%d/%d\" class=\"btn green-jungle\"><i class=\"fa fa-edit\"></i> Modifica </a>", $idCorso, $idArgomento, $d->getId());
+                            printf("<button class=\"btn sm red-intense\" data-toggle=\"confirmation\" data-singleton=\"true\" data-popout=\"true\" title=\"Sei sicuro?\" type=\"submit\" name=\"domandamultipla\" value=\"%d\"><i class=\"fa fa-remove\"></i> Rimuovi </button>", $d->getId());
+                        }
+                        printf("</div>");
                         printf("</form>");
                         printf("<div class=\"portlet-body\">");
                         printf("<div id=\"tabella_domanda1_wrapper\" class=\"dataTables_wrapper no-footer\">");

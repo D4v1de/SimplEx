@@ -7,25 +7,23 @@
  */
 include_once CONTROL_DIR . "UtenteController.php";
 include_once CONTROL_DIR . "CdlController.php";
-include_once CONTROL_DIR . "CorsoController.php";
 $ctr = new UtenteController();
 $victim = null;
 $cdl = null;
 if (@$_POST['action'] == "elimina" && isset($_POST['matricola']) && $_POST['matricola'] == $_URL[3]) {
     $ctr->eliminaUtenteByMatricola($_POST['matricola']);
-    header('Location: /adm/utenti?success=Eliminato con successo');
+    header('Location: /admin/utenti?success=Eliminato con successo');
     exit;
 }
 try {
     $victim = $ctr->getUtenteByMatricola($_URL[3]);
     $cdlCtr = new CdlController();
-    $corsoCtr = new CorsoController();
     if (is_numeric($victim->getCdlMatricola())) {
         $cdl = $cdlCtr->readCdl($victim->getCdlMatricola());
     }
-    $cdls = $corsoCtr->getCoursesByMatricola($_URL[3]);
+    $cdls = $cdlCtr->getCoursesByMatricola($_URL[3]);
 } catch (ApplicationException $ex) {
-    header('Location: /adm/utenti');
+    header('Location: /admin/utenti');
 }
 ?>
 <!DOCTYPE html>
@@ -67,15 +65,15 @@ try {
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="index">Home</a>
+                        <a href="/">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="index">Utenti</a>
+                        <a href="/">Utenti</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="index">Visualizza</a>
+                        <a href="/">Visualizza</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
@@ -158,7 +156,7 @@ try {
 
                             <div class="col-md-3">
                                 <a class="btn green-jungle"
-                                   href="/adm/utenti/modifica/<?= $victim->getMatricola() ?>"><i class="fa fa-edit"></i>
+                                   href="/admin/utenti/modifica/<?= $victim->getMatricola() ?>"><i class="fa fa-edit"></i>
                                     Modifica</a>
                                 <button type="submit" value="Elimina" data-toggle="confirmation" data-singleton="true"
                                         data-popout="true" title="" data-original-title="sei sicuro?"
@@ -208,7 +206,7 @@ try {
                             <?php
                             foreach ($cdls as $c) {
                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                printf("<td class=\"sorting_1\"><a href=\"/adm/corsi/modifica/%s\">%s</a></td>", $c->getId(), $c->getNome());
+                                printf("<td class=\"sorting_1\"><a href=\"/admin/corsi/modifica/%s\">%s</a></td>", $c->getId(), $c->getNome());
                                 printf("<td class=\"sorting_1\">%s</td>", $c->getMatricola());
                                 printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
                                 printf("</tr>");

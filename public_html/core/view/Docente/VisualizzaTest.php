@@ -15,8 +15,8 @@ $controllerTest = new TestController();
 include_once CONTROL_DIR . "AlternativaController.php";
 $controllerAlternativa = new AlternativaController();
 
-$test=$_URL[5];
-$identificativoCorso=$_URL[3];
+$test=$_URL[4];
+$identificativoCorso=$_URL[2];
 
 function parseInt($Str) {
     return (int)$Str;   
@@ -25,12 +25,12 @@ function parseInt($Str) {
 if(isset($_POST['idtest'])){
     $id = $_POST['idtest'];
     $controllerTest->deleteTest($id);
-    $tornaACasa= "Location: "."/usr/docente/corso/"."$identificativoCorso"."/";
+    $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/";
     header($tornaACasa);
 }
 
 if(isset($_POST['Indietro'])){
-    $tornaACasa= "Location: "."/usr/docente/corso/"."$identificativoCorso"."/";
+    $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/";
     header($tornaACasa);
 }
 
