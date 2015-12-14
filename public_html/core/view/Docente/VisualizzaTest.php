@@ -5,7 +5,7 @@
  * Date: 6/12/15
  */
 
-//TODO qui la logica iniziale, caricamento dei controller ecc
+// TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "DomandaController.php";
 $controllerDomanda = new DomandaController();
 
@@ -25,6 +25,11 @@ function parseInt($Str) {
 if(isset($_POST['idtest'])){
     $id = $_POST['idtest'];
     $controllerTest->deleteTest($id);
+    $tornaACasa= "Location: "."/usr/docente/corso/"."$identificativoCorso"."/";
+    header($tornaACasa);
+}
+
+if(isset($_POST['Indietro'])){
     $tornaACasa= "Location: "."/usr/docente/corso/"."$identificativoCorso"."/";
     header($tornaACasa);
 }
@@ -114,7 +119,7 @@ if(isset($_POST['idtest'])){
                                     ?>
                                     </div>
                                 <div class="col-md-4">
-                                    <button href="../../" class="btn btn sm red-intense">
+                                    <button type="submit" name="Indietro" class="btn btn sm red-intense">
                                         Indietro
                                     </button>
                                 </div>

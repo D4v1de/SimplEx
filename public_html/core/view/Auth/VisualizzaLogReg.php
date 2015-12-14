@@ -5,6 +5,25 @@
  * Date: 18/11/15
  * Time: 10:33
  */
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) {
+    /** @var Utente $user */
+    $user = $_SESSION['user'];
+    switch (@$user->getTipologia()) {
+        case 'Docente':
+            $redirect = "/usr/docente";
+            break;
+        case 'Studente':
+            $redirect = "/usr/studente";
+            break;
+        case 'Admin':
+            $redirect = "/adm";
+            break;
+        default:
+            $redirect = "/";
+    }
+    header("Location: " . $redirect);
+}
+
 include_once CONTROL_DIR . "UtenteController.php";
 $controller = new UtenteController();
 /** @var Exception $error */
