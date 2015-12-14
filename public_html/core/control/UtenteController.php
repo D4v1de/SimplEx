@@ -169,6 +169,11 @@ class UtenteController extends Controller {
         $accountModel = new AccountModel();
         return $accountModel->getAllStudenti();
     }
+    
+     public function getAllStudentiSessione($idSessione) {
+        $accountModel = new AccountModel();
+        return $accountModel->getAllStudentiSessione($idSessione);
+    }
 
     /**
      * Restituisce tutti i Docenti
