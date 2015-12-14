@@ -321,7 +321,7 @@ try {
                 include_once VIEW_DIR . "Studente/HomeCorso.php";
                 break;
             default:
-                echo "Route inesistente";
+                include_once VIEW_DIR . "design/404.php";
         }
 
     }
