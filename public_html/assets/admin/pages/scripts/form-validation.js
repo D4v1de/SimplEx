@@ -28,12 +28,6 @@ var FormValidation = function () {
                         minlength: 2,
                         required: true
                     },
-                    dataTo: {
-                        required: true
-                    },
-                    dataFrom: {
-                        required: true
-                    },
                     nome: {
                         minlength: 2,
                         required: true
@@ -189,6 +183,12 @@ var FormValidation = function () {
                         required: true,
                         minlength: 1
                     },
+                    dataTo: {
+                        required: true
+                    },
+                    dataFrom: {
+                        required: true
+                    },
                     'testoRisposta[]': {
                         required: true,
                         minlength: 1
@@ -285,7 +285,7 @@ var FormValidation = function () {
                     email: {
                         required: true,
                         email: true
-                    },  
+                    },
                     options1: {
                         required: true
                     },
