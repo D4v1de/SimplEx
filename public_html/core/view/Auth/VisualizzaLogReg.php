@@ -5,7 +5,7 @@
  * Date: 18/11/15
  * Time: 10:33
  */
-if ($_SESSION['loggedin']) {
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) {
     /** @var Utente $user */
     $user = $_SESSION['user'];
     switch (@$user->getTipologia()) {
