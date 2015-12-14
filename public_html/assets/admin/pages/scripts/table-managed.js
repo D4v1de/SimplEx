@@ -24,21 +24,31 @@ var TableManaged = function () {
             // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
             // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js).
             // So when dropdowns used the scrollable div should be removed.
-            //"dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
+            "dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
 
-            "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
+            "bStateSave": false, // save datatable state(pagination, sort, etc) in cookie.
 
             "lengthMenu": [
                 [5, 15, 20, -1],
                 [5, 15, 20, "All"] // change per page values here
             ],
             // set the initial value
+
+            //aggiunti da federico
+            "scrollCollapse": true,
+            "paging":         false,
+            "scrollY":        '40vh',
+
             "pageLength": 5,
             "language": {
-                "lengthMenu": " _MENU_ records",
+                "lengthMenu": " _MENU_ elementi",
+                "emptyTable": "Non ci sono dati disponibili",
+                "infoEmpty": "Non ci sono elementi",
+                "info": "Mostra da _START_ a _END_ di _TOTAL_ risultati",
+                "search": "Cerca:",
                 "paging": {
-                    "previous": "Prev",
-                    "next": "Next"
+                    "previous": "Precedente",
+                    "next": "Prossimo"
                 }
             },
             "columnDefs": [{  // set default column settings
@@ -55,7 +65,7 @@ var TableManaged = function () {
 
         var tableWrapper = jQuery('#'+wrapperTabella);
 
-        table.find('.group-checkable').change(function () {
+        tableWrapper.find('.group-checkable').change(function () {
             var set = jQuery(this).attr("data-set");
             var checked = jQuery(this).is(":checked");
             jQuery(set).each(function () {
@@ -116,7 +126,7 @@ var TableManaged2 = function () {
             // So when dropdowns used the scrollable div should be removed.
             //"dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
 
-            "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
+            "bStateSave": false, // save datatable state(pagination, sort, etc) in cookie.
 
             "lengthMenu": [
                 [5, 15, 20, -1],
@@ -125,10 +135,14 @@ var TableManaged2 = function () {
             // set the initial value
             "pageLength": 5,
             "language": {
-                "lengthMenu": " _MENU_ records",
+                "lengthMenu": " _MENU_ elementi",
+                "emptyTable": "Non ci sono dati disponibili",
+                "infoEmpty": "Non ci sono elementi",
+                "info": "Mostra da _START_ a _END_ di _TOTAL_ risultati",
+                "search": "Cerca:",
                 "paging": {
-                    "previous": "Prev",
-                    "next": "Next"
+                    "previous": "Precedente",
+                    "next": "Prossimo"
                 }
             },
             "columnDefs": [{  // set default column settings
@@ -139,7 +153,7 @@ var TableManaged2 = function () {
                 "targets": [0]
             }],
             "order": [
-                [1, "asc"]
+                [0, "asc"]
             ] // set first column as a default sort by asc
         });
 

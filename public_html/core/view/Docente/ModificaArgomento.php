@@ -35,7 +35,7 @@ if(isset($_POST['nome'])){
     $nome = $_POST['nome'];
         $argomento->setNome($nome);
         $controller->modificaArgomento($argomento->getId(), $argomento);
-        header('location:../../../../corso/' . $corso->getId());
+        header('location: /usr/docente/corso/' . $corso->getId() . '/successmodifica');
 }
 ?>
 <!DOCTYPE html>
@@ -123,7 +123,7 @@ if(isset($_POST['nome'])){
                                         <div class="col-md-12">
                                             <div class="row">
                                                 <div class="col-md-9">
-                                                    <input type="submit" onclick='impostaNotifica()' class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                                    <input type="submit" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                                                     </input>
                                                     <a href="../../../<?php echo $corso->getId(); ?>" class="btn sm red-intense">
                                                         Annulla
@@ -174,11 +174,6 @@ if(isset($_POST['nome'])){
             });
         </script>
 
-        <script>
-            function impostaNotifica(){
-                sessionStorage.setItem('notModArgomento', 'si');
-            }
-        </script>
         <!-- END JAVASCRIPTS -->
     </body>
     <!-- END BODY -->

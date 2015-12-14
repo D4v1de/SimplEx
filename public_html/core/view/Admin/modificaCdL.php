@@ -39,7 +39,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
         try {
             $new = new CdL($matricolanew, $nomenew, $tipologianew);
             $controller->modificaCdl($cdl->getMatricola(), $new);
-            header('location: ../view');
+            header('location: /adm/cdl/view/successmodifica');
         } catch (ApplicationException $ex) {
             echo "<h1>MODIFICACDL FALLITO!</h1>" . $ex;
         }
@@ -81,16 +81,15 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="../../../gestionale/admin/index.html">Home</a>
+                        <a href="/adm">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../view">GestioneCdL</a>
+                        <a href="/adm/cdl/view">GestioneCdL</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../modifica/<?php echo $matricola; ?>">CdL<?php echo $nome; ?></a>
-                        <i class="fa fa-angle-right"></i>
+                        <a href="/adm/cdl/modifica/<?php echo $matricola; ?>">CdL<?php echo $nome; ?></a>
                     </li>
                 </ul>
             </div>
@@ -102,6 +101,15 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                 <div class="col-md-12">
 
                     <form id="form_sample_1" method="post" action="">
+
+                        <div class="alert alert-danger display-hide">
+                            <button class="close" data-close="alert"></button>
+                            Ci sono alcuni errori nei dati. Per favore riprova l'inserimento.
+                        </div>
+                        <div class="alert alert-success display-hide">
+                            <button class="close" data-close="alert"></button>
+                            La tua form &egrave; stata validata!
+                        </div>
 
                         <!-- BEGIN EXAMPLE TABLE PORTLET-->
                         <div class="portlet box blue-madison">
@@ -117,16 +125,6 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                             <div class="portlet-body">
 
                                 <div class="portlet-body form">
-
-                                    <div class="alert alert-danger display-hide">
-                                        <button class="close" data-close="alert"></button>
-                                        Ci sono alcuni errori nei dati. Per favore riprova l'inserimento.
-                                    </div>
-                                    <div class="alert alert-success display-hide">
-                                        <button class="close" data-close="alert"></button>
-                                        La tua form &egrave; stata validata!
-                                    </div>
-
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
                                             <select class="form-control" id="tipologiaCdl" name="tipologia">
@@ -174,7 +172,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                             <div class="col-md-12">
                                 <div class="form-actions">
                                     <div class="col-md-3">
-                                        <button type="submit" onclick="impostaNotifica()" class="btn green-jungle">Conferma</button>
+                                        <input type="submit" value="Conferma" class="btn green-jungle"/>
                                     </div>
                                     <div class="col-md-3">
                                         <input type="reset" value="Annulla" class="btn red-intense"/>
@@ -227,11 +225,6 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
         TableManaged.init();
         FormValidation.init();
     });
-</script>
-<script>
-    function impostaNotifica() {
-        sessionStorage.setItem('modifica','si');
-    }
 </script>
 <!-- END JAVASCRIPTS -->
 </body>

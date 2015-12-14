@@ -16,7 +16,7 @@ $user = $_SESSION['user'];
     <div class="page-header-inner">
         <!-- BEGIN LOGO -->
         <div class="page-logo">
-            <a href="index.html">
+            <a href="/">
                 <img src="/assets/admin/layout/img/logoPiccolo.png" alt="logo" class="logo-default"/>
             </a>
 
