@@ -37,7 +37,7 @@ try {
     echo "GETCORSICDL FALLITO!</h1>".$ex;
 }
 try {
-    $studente = $controllerUtente->getUtenteByMatricola('0512102396');
+    $studente = $_SESSION['user'];
 
 } catch (ApplicationException $ex) {
     echo "<h1>GETUTENTEBYMATRICOLA FALLITO!</h1>".$ex;
@@ -98,16 +98,15 @@ if(isset($_POST['disiscrivi'])) {
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="../../../gestionale/admin/index.html">Home</a>
+                        <a href="/usr/studente">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../">CdL</a>
+                        <a href="/usr/studente/cdls">CdL</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../cdl/<?php echo $cdl->getMatricola(); ?>"><?php echo $cdl->getNome(); ?></a>
-                        <i class="fa fa-angle-right"></i>
+                        <a href="/usr/studente/cdl/<?php echo $cdl->getMatricola(); ?>"><?php echo $cdl->getNome(); ?></a>
                     </li>
                 </ul>
             </div>
@@ -158,8 +157,8 @@ if(isset($_POST['disiscrivi'])) {
                                 <?php
                                 foreach ($corsi as $c) {
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    printf("<td class=\"sorting_1\"><a href=\"../corso/%s\">%s</a></td>", $c->getId(), $c->getNome());
-                                    printf("<td class=\"sorting_1\">%s</td>", $c->getMatricola());
+                                    printf("<td class=\"sorting_1\"><a href=\"/usr/studente/corso/%s\">%s</a></td>", $c->getId(), $c->getNome());
+                                    printf("<td class=\"sorting_1\"><span class=\"badge badge-success\">%s</span></td>", $c->getMatricola());
                                     printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
                                     if(in_array($c, $corsistudente)) {
                                         printf("<td class=\"sorting_1\"><button type=\"submit\" name=\"disiscrivi\" value=\"%d\" class=\"btn red-intense\"><span class=\"md-click-circle md-click-animate\"></span>Disiscriviti</button></td>", $c->getId());

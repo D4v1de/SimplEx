@@ -29,7 +29,7 @@ if (isset($_POST['checkbox'])) {
                 echo "<h1>ELIMINACORSO FALLITO!</h1>" . $ex;
             }
         }
-        header('Location: view');
+        header('Location: /adm/corsi/view/successelimina');
     }
 }
 
@@ -72,19 +72,18 @@ if (isset($_POST['checkbox'])) {
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="../../../gestionale/admin/index.html">Home</a>
+                        <a href="/adm">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="view">GestioneCorsi</a>
-                        <i class="fa fa-angle-right"></i>
+                        <a href="/adm/corsi/view">GestioneCorsi</a>
                     </li>
                 </ul>
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
 
-            <form id="form_sample_2" method="post" action="" onsubmit="impostaNotifica()">
+            <form id="form_sample_2" method="post" action="">
 
                 <div class="alert alert-danger display-hide">
                     <button class="close" data-close="alert"></button>
@@ -101,7 +100,7 @@ if (isset($_POST['checkbox'])) {
                             </a>
                         </div>
                         <div class="actions">
-                            <a href="crea" class="btn btn-default btn-sm">
+                            <a href="/adm/corsi/crea" class="btn btn-default btn-sm">
                                 <i class="fa fa-plus"></i> Crea Corso </a>
                         </div>
                         <div class="actions">
@@ -149,7 +148,7 @@ if (isset($_POST['checkbox'])) {
                                 foreach ($corsi as $c) {
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
                                     printf("<td class=\"sorting_1\"><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $c->getId());
-                                    printf("<td class=\"sorting_1\"><a href=\"modifica/%s\">%s</a></td>", $c->getId(), $c->getNome());
+                                    printf("<td class=\"sorting_1\"><a href=\"/adm/corsi/modifica/%s\">%s</a></td>", $c->getId(), $c->getNome());
                                     printf("<td class=\"sorting_1\"><span class=\"badge badge-success\">%s</span></td>", $c->getMatricola());
                                     printf("<td class=\"sorting_1\">%s</td>", $c->getCdlMatricola());
                                     printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
@@ -211,25 +210,20 @@ if (isset($_POST['checkbox'])) {
         FormValidation.init();
         UIToastr.init();
         UIConfirmations.init();
-
-        if(sessionStorage.getItem('notifica') == 'si') {
-            toastr.success('Nuovo CdL creato con successo.','Creazione');
-            sessionStorage.removeItem('notifica');
-        }
-        if (sessionStorage.getItem('elimina') == 'si') {
-            toastr.success('Corso eliminato con successo.', 'Eliminazione');
-            sessionStorage.removeItem('elimina');
-        }
-        if (sessionStorage.getItem('modifica') == 'si') {
-            toastr.success('Corso modificato con successo!', 'Modifica');
-            sessionStorage.removeItem('modifica');
-        }
-
+        checkNotifiche();
     });
 </script>
 <script>
-    function impostaNotifica() {
-        sessionStorage.setItem('elimina','si');
+    function checkNotifiche(){
+        var href = window.location.href;
+        var last = href.substr(href.lastIndexOf('/') + 1);
+        if(last == 'successcrea'){
+            toastr.success('Creazione Corso avvenuta con successo!', 'Creazione');
+        }else if(last == 'successmodifica'){
+            toastr.success('Modifica Corso avvenuta con successo!', 'Modifica');
+        }else if(last == 'successelimina'){
+            toastr.success('Eliminazione Corso avvenuta con successo!', 'Elimina');
+        }
     }
 </script>
 <!-- END JAVASCRIPTS -->

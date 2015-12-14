@@ -29,7 +29,7 @@ if (isset($_POST['checkbox'])) {
                 echo "<h1>ELIMINACDL FALLITO!</h1>" . $ex;
             }
         }
-        header('Location: view');
+        header('Location: /adm/cdl/view/successelimina');
     }
 }
 
@@ -48,8 +48,7 @@ if (isset($_POST['checkbox'])) {
     <title>Gestione CdL</title>
     <?php include VIEW_DIR . "design/header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
-    <link rel="stylesheet" type="text/css"
-          href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
 </head>
 <!-- END HEAD -->
@@ -73,19 +72,18 @@ if (isset($_POST['checkbox'])) {
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="../../../gestionale/admin/index.html">Home</a>
+                        <a href="/adm">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="view">GestioneCdL</a>
-                        <i class="fa fa-angle-right"></i>
+                        <a href="/adm/cdl/view">GestioneCdL</a>
                     </li>
                 </ul>
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
 
-            <form id="form_sample_2" method="post" action="" onsubmit="impostaNotifica()">
+            <form id="form_sample_2" method="post" action="">
 
                 <div class="alert alert-danger display-hide">
                     <button class="close" data-close="alert"></button>
@@ -102,7 +100,7 @@ if (isset($_POST['checkbox'])) {
                             <i class="fa fa-graduation-cap"></i>Gestione dei Corsi di Laurea
                         </div>
                         <div class="actions">
-                            <a href="crea" class="btn btn-default btn-sm">
+                            <a href="/adm/cdl/crea" class="btn btn-default btn-sm">
                                 <i class="fa fa-plus"></i> Crea CdL </a>
                         </div>
                         <div class="actions">
@@ -145,7 +143,7 @@ if (isset($_POST['checkbox'])) {
                                 foreach ($cdls as $c) {
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
                                     printf("<td class=\"sorting_1\"><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $c->getMatricola());
-                                    printf("<td class=\"sorting_1\"><a href=\"modifica/%s\">%s</a></td>", $c->getMatricola(), $c->getNome());
+                                    printf("<td class=\"sorting_1\"><a href=\"/adm/cdl/modifica/%s\">%s</a></td>", $c->getMatricola(), $c->getNome());
                                     printf("<td class=\"sorting_1\">%s</td>", $c->getMatricola());
                                     printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
                                     printf("</tr>");
@@ -209,26 +207,20 @@ if (isset($_POST['checkbox'])) {
         FormValidation.init();
         UIConfirmations.init();
         UIToastr.init();
-
-        if (sessionStorage.getItem('notifica') == 'si') {
-            toastr.success('Nuovo CdL creato con successo!', 'Creazione');
-            sessionStorage.removeItem('notifica');
-        }
-
-        if (sessionStorage.getItem('elimina') == 'si') {
-            toastr.success('Corso eliminato con successo!', 'Eliminazione');
-            sessionStorage.removeItem('elimina');
-        }
-
-        if (sessionStorage.getItem('modifica') == 'si') {
-            toastr.success('Corso modificato con successo!', 'Modifica');
-            sessionStorage.removeItem('modifica');
-        }
+        checkNotifiche();
     });
 </script>
 <script>
-    function impostaNotifica() {
-        sessionStorage.setItem('elimina', 'si');
+    function checkNotifiche(){
+        var href = window.location.href;
+        var last = href.substr(href.lastIndexOf('/') + 1);
+        if(last == 'successcrea'){
+            toastr.success('Creazione CdL avvenuta con successo!', 'Creazione');
+        }else if(last == 'successmodifica'){
+            toastr.success('Modifica CdL avvenuta con successo!', 'Modifica');
+        }else if(last == 'successelimina'){
+            toastr.success('Eliminazione CdL avvenuta con successo!', 'Elimina');
+        }
     }
 </script>
 <!-- END JAVASCRIPTS -->

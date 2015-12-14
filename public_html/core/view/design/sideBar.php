@@ -92,10 +92,17 @@ $user = $_SESSION['user'];
                 </li>
                 <!-- FINE ADMIN -->
             <?php } elseif ($user->getTipologia() == "Docente") { ?>
-                <li class="<?php if ($_URL[1] == "") echo "active open" ?>">
-                    <a href="javascript:;">
+                <li class="<?php if (@$_URL[2] == "") echo "active open" ?>">
+                    <a href="/usr/docente">
                         <i class="icon-home"></i>
                         <span class="title">Home</span>
+                    </a>
+                </li>
+
+                <li class="<?php if (@$_URL[2] == "cdls") echo "active open" ?>">
+                    <a href="/usr/docente/cdls">
+                        <i class="icon-notebook"></i>
+                        <span class="title">Tutti i Cdl</span>
                     </a>
                 </li>
                 <li class="<?php if ($_URL[1] == "utenti") echo "active open" ?>">
@@ -113,6 +120,20 @@ $user = $_SESSION['user'];
                     </ul>
                 </li>
             <?php } elseif ($user->getTipologia() == "Studente") { ?>
+                <li class="<?php if (@$_URL[2] == "") echo "active open" ?>">
+                    <a href="/usr/studente">
+                        <i class="icon-home"></i>
+                        <span class="title">Home</span>
+                    </a>
+                </li>
+
+                <li class="<?php if (@$_URL[2] == "cdls") echo "active open" ?>">
+                    <a href="/usr/studente/cdls">
+                        <i class="icon-notebook"></i>
+                        <span class="title">Tutti i Cdl</span>
+                    </a>
+                </li>
+
                 <li class="<?php if ($_URL[1] == "utenti") echo "active open" ?>">
                     <a href="javascript:;">
                         <i class="icon-users"></i>

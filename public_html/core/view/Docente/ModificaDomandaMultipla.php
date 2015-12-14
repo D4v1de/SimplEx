@@ -93,17 +93,21 @@ if (isset($_POST['eliminatore'])) {
             $rispostenuove = $_POST['risposteNuove'];
             $prevCount = count($testoRisposte);
             foreach ($rispostenuove as $item) {
-                if (++$prevCount == $radio) {
-                    $corretta2 = "Si";
-                } else {
-                    $corretta2 = "No";
-                }
+                if ($item == null || $item == '') {
+                    continue;
+                } else{
+                    if (++$prevCount == $radio) {
+                        $corretta2 = "Si";
+                    } else {
+                        $corretta2 = "No";
+                    }
                 $nuovaAlternativa = new Alternativa($idDomanda, $item, 0, $corretta2);
                 try {
                     $alternativaController->creaAlternativa($nuovaAlternativa);
                 } catch (ApplicationException $exception) {
                     echo "ERRORE IN CREA ALTERNATIVA" . $exception;
                 }
+              }
             }
         }
 
@@ -151,22 +155,22 @@ if (isset($_POST['eliminatore'])) {
                     <?php
                     printf("<li>");
                     printf("<i class=\"fa fa-home\"></i>");
-                    printf("<a href=\"../../../../../../\">Home</a>");
+                    printf("<a href=\"/usr/docente\">Home</a>");
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"../../../../../../cdl/%s\">%s</a>", $corso->getCdlMatricola(), $cdlController->readCdl($corso->getCdlMatricola())->getNome());
+                    printf("<a href=\"/usr/docente/cdl/%s\">%s</a>", $corso->getCdlMatricola(), $cdlController->readCdl($corso->getCdlMatricola())->getNome());
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"../../../../../%d\">%s</a>", $corso->getId(), $corso->getNome());
+                    printf("<a href=\"/usr/docente/corso/%d\">%s</a>", $corso->getId(), $corso->getNome());
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"../../%d\">%s</a>", $idArgomento, $argomento->getNome());
+                    printf("<a href=\"/usr/docente/corso/%d/argomento/domande/%d\">%s</a>",$idCorso, $idArgomento, $argomento->getNome());
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
@@ -236,9 +240,6 @@ if (isset($_POST['eliminatore'])) {
                                 $numRadio++;
                             }
                             ?>
-                            <div id="rispostevecchie">
-
-                            </div>
                             <div id="rispostenuove">
 
                             </div>
@@ -276,7 +277,7 @@ if (isset($_POST['eliminatore'])) {
                                 <div class="col-md-9">
                                     <button type="submit" class="btn sm green-jungle">Conferma</button>
                                     <?php
-                                    printf("<a href=\"../../%d\" class=\"btn sm red-intense\">", $idArgomento);
+                                    printf("<a href=\"/usr/docente/corso/%d/argomento/domande/%d\" class=\"btn sm red-intense\">", $idCorso, $idArgomento);
                                     ?>
                                     Annulla
                                     </a>

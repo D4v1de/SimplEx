@@ -86,17 +86,17 @@ if (isset($_POST['domandamultipla'])){
                     <?php
                     printf("<li>");
                     printf("<i class=\"fa fa-home\"></i>");
-                    printf("<a href=\"../../../../\">Home</a>");
+                    printf("<a href=\"/usr/docente\">Home</a>");
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"../../../../cdl/%s\">%s</a>", $corso->getCdlMatricola(), $cdlController->readCdl($corso->getCdlMatricola())->getNome());
+                    printf("<a href=\"/usr/docente/cdl/%s\">%s</a>", $corso->getCdlMatricola(), $cdlController->readCdl($corso->getCdlMatricola())->getNome());
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"../../../%d\">%s</a>", $corso->getId(), $corso->getNome());
+                    printf("<a href=\"/usr/docente/corso/%d\">%s</a>", $corso->getId(), $corso->getNome());
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
@@ -123,7 +123,7 @@ if (isset($_POST['domandamultipla'])){
                     </div>
                     <div class="actions">
                         <?php
-                        printf("<a href=\"inserisciaperta/%d\" class=\"btn btn-default btn-sm\">", $idArgomento);
+                        printf("<a href=\"/usr/docente/corso/%d/argomento/domande/inserisciaperta/%d\" class=\"btn btn-default btn-sm\">",$idCorso ,$idArgomento);
                         ?>
                         <i class="fa fa-plus"></i> Nuova Domanda Aperta
                         </a>
@@ -139,7 +139,7 @@ if (isset($_POST['domandamultipla'])){
                         printf("<i class=\"fa fa-file-o\"></i>%s", $d->getTesto());
                         printf("</div>");
                         printf("<form method=\"post\" action=\"\" class=\"actions\">");
-                        printf("<a href=\"modificaaperta/%d/%d\" class=\"btn green-jungle\"><i class=\"fa fa-edit\"></i> Modifica </a>", $idArgomento, $d->getId());
+                        printf("<a href=\"/usr/docente/corso/%d/argomento/domande/modificaaperta/%d/%d\" class=\"btn green-jungle\"><i class=\"fa fa-edit\"></i> Modifica </a>",$idCorso, $idArgomento, $d->getId());
                         printf("<button class=\"btn sm red-intense\" data-toggle=\"confirmation\" data-singleton=\"true\" data-popout=\"true\" title=\"Sei sicuro?\" type=\"submit\" name=\"domandaaperta\" value=\"%d\"><i class=\"fa fa-remove\"></i> Rimuovi </button>", $d->getId());
                         printf("</form>");
                         printf("</div>");
@@ -162,7 +162,7 @@ if (isset($_POST['domandamultipla'])){
                     </div>
                     <div class="actions">
                         <?php
-                        printf("<a href=\"inseriscimultipla/%d\" class=\"btn btn-default btn-sm\">", $idArgomento);
+                        printf("<a href=\"/usr/docente/corso/%d/argomento/domande/inseriscimultipla/%d\" class=\"btn btn-default btn-sm\">", $idCorso, $idArgomento);
                         ?>
                         <i class="fa fa-plus"></i> Nuova Domanda Multipla
                         </a>
@@ -183,7 +183,7 @@ if (isset($_POST['domandamultipla'])){
                         printf("<a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a>");
                         printf("</div>");
                         printf("<form method=\"post\" action=\"\" class=\"actions\">");
-                        printf("<a href=\"modificamultipla/%d/%d\" class=\"btn green-jungle\"><i class=\"fa fa-edit\"></i> Modifica </a>",$idArgomento, $d->getId());
+                        printf("<a href=\"/usr/docente/corso/%d/argomento/domande/modificamultipla/%d/%d\" class=\"btn green-jungle\"><i class=\"fa fa-edit\"></i> Modifica </a>",$idCorso, $idArgomento, $d->getId());
                         printf("<button class=\"btn sm red-intense\" data-toggle=\"confirmation\" data-singleton=\"true\" data-popout=\"true\" title=\"Sei sicuro?\" type=\"submit\" name=\"domandamultipla\" value=\"%d\"><i class=\"fa fa-remove\"></i> Rimuovi </button>", $d->getId());                        printf("</div>");
                         printf("</form>");
                         printf("<div class=\"portlet-body\">");

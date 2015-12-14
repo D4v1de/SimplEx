@@ -66,7 +66,7 @@ if (isset($_POST['checkbox']) && !isset($_POST['elimina'])) {
             }
         }
     }
-    header('location: ../gestione/' . $corso->getId());
+    header('location: /adm/corsi/gestione/' . $corso->getId() . '/successassocia');
 }
 
 if (isset($_POST['elimina'])) {
@@ -78,7 +78,7 @@ if (isset($_POST['elimina'])) {
             echo "<h1>ELIMINAINSEGNAMENTI FALLITO!</h1>".$ex;
         }
     }
-    header('location: ../gestione/' . $corso->getId());
+    header('location: /adm/corsi/gestione/' . $corso->getId() . '/successassocia');
 }
 
 
@@ -121,16 +121,15 @@ if (isset($_POST['elimina'])) {
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="../../../gestionale/admin/index.html">Home</a>
+                        <a href="/adm">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../view">GestioneCorsi</a>
+                        <a href="/adm/corsi/view">GestioneCorsi</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../gestione/<?php echo $corso->getId(); ?>"><?php echo $corso->getNome(); ?></a>
-                        <i class="fa fa-angle-right"></i>
+                        <a href="/adm/corsi/gestione/<?php echo $corso->getId(); ?>"><?php echo $corso->getNome(); ?></a>
                     </li>
                 </ul>
             </div>
@@ -158,7 +157,7 @@ if (isset($_POST['elimina'])) {
                                 </div>
                                 <div class="col-md-offset-3 col-md-2">
                                     <h3></h3>
-                                    <a href="<?php printf('../modifica/%s', $corso->getId()); ?>">
+                                    <a href="<?php printf('/adm/corsi/modifica/%s', $corso->getId()); ?>">
                                         <button type="button" class="btn green-jungle">Modifica</button>
                                     </a>
                                 </div>
@@ -172,7 +171,7 @@ if (isset($_POST['elimina'])) {
                 <h3></h3>
             </div>
 
-            <form id="form_sample_2" method="post" action="" onsubmit="impostaNotifica()">
+            <form id="form_sample_2" method="post" action="">
 
                 <div class="alert alert-danger display-hide">
                     <button class="close" data-close="alert"></button>
@@ -234,7 +233,7 @@ if (isset($_POST['elimina'])) {
                                     } else {
                                         printf("<td><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $d->getMatricola());
                                     }
-                                    printf("<td><a href=\"../../utenti/view/%s\">%s</a></td>", $d->getMatricola(), $d->getNome());
+                                    printf("<td><a href=\"/adm/utenti/view/%s\">%s</a></td>", $d->getMatricola(), $d->getNome());
                                     printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $d->getCognome());
                                     printf("<td>%s</td>", $d->getMatricola());
                                     printf("</tr>");
@@ -293,11 +292,7 @@ if (isset($_POST['elimina'])) {
         FormValidation.init();
         UIToastr.init();
         UIConfirmations.init();
-
-        if (sessionStorage.getItem('associa') == 'si') {
-            toastr.success('Corso associato con successo!', 'Associa');
-            sessionStorage.removeItem('associa');
-        }
+        checkNotifiche();
 
         /*$('#tabella_4_wrapper').DataTable( {
             scrollY:        50vh,
@@ -324,8 +319,12 @@ if (isset($_POST['elimina'])) {
     });
 </script>
 <script>
-    function impostaNotifica() {
-        sessionStorage.setItem('associa','si');
+    function checkNotifiche(){
+        var href = window.location.href;
+        var last = href.substr(href.lastIndexOf('/') + 1);
+        if(last == 'successassocia'){
+            toastr.success('Associazione avvenuta con successo!', 'Associa Docente-Corso');
+        }
     }
 </script>
 <!-- END JAVASCRIPTS -->
