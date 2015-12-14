@@ -93,17 +93,21 @@ if (isset($_POST['eliminatore'])) {
             $rispostenuove = $_POST['risposteNuove'];
             $prevCount = count($testoRisposte);
             foreach ($rispostenuove as $item) {
-                if (++$prevCount == $radio) {
-                    $corretta2 = "Si";
-                } else {
-                    $corretta2 = "No";
-                }
+                if ($item == null || $item == '') {
+                    continue;
+                } else{
+                    if (++$prevCount == $radio) {
+                        $corretta2 = "Si";
+                    } else {
+                        $corretta2 = "No";
+                    }
                 $nuovaAlternativa = new Alternativa($idDomanda, $item, 0, $corretta2);
                 try {
                     $alternativaController->creaAlternativa($nuovaAlternativa);
                 } catch (ApplicationException $exception) {
                     echo "ERRORE IN CREA ALTERNATIVA" . $exception;
                 }
+              }
             }
         }
 
