@@ -19,9 +19,9 @@ $sessioneController = new SessioneController();
 $alternativaController = new AlternativaController();
 $raController = new RispostaApertaController();
 
-$corsoId = $_URL[3];
-$sessId = $_URL[5];
-$matricola = $_URL[7];
+$corsoId = $_URL[2];
+$sessId = $_URL[4];
+$matricola = $_URL[6];
 
 $sessione = $sessioneController->readSessione($sessId);
 $elaborato = $elaboratoController->readElaborato($matricola,$sessId);

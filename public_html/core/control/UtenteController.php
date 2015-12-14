@@ -284,9 +284,13 @@ class UtenteController extends Controller {
         } else {
             throw new ApplicationException(Error::$CONGNOME_NON_VALIDO);
         }
-        if (($tipo == "Studente" && $cdlMatricola == null)) {
-            throw new ApplicationException(Error::$CDL_NON_TROVATO);
-        } else {
+        if ($utente->getTipologia() == "Studente") {
+            if ($cdlMatricola == null) {
+                throw new ApplicationException(Error::$CDL_NON_TROVATO);
+            } else {
+                $utente->setCldMatricola($cdlMatricola);
+            }
+        } elseif ($utente->getTipologia() == "Docente") {
             $utente->setCldMatricola(null);
         }
         if (isset($pass) && strlen($pass) > 0 && strlen($pass) < Config::$MIN_PASSWORD_LEN) {
@@ -296,7 +300,7 @@ class UtenteController extends Controller {
             $ident = AccountModel::createIdentity($email, $pass);
             $utente->setPassword($ident);
         }
-
+        
         $aModel->updateUtente($matricola, $utente);
     }
 }

@@ -11,7 +11,7 @@ include_once CONTROL_DIR . "SessioneController.php";
 $controller = new SessioneController();
 include_once CONTROL_DIR . "CdlController.php";
 $controlleCdl = new CdlController();
-$idCorso = $_URL[3];
+$idCorso = $_URL[2];
 try {
     $corso = $controlleCdl->readCorso($idCorso);
     $nomecorso= $corso->getNome();
@@ -34,11 +34,11 @@ $eser = null;
 $showE="";
 $showRC="";
 
-if($_URL[5]!=0) {  //CASO IN CUI SI VOGLIA MODIFICARE LA SESSIONE
+if($_URL[4]!=0) {  //CASO IN CUI SI VOGLIA MODIFICARE LA SESSIONE
     try {
-        $idSessione=$_URL[5];
+        $idSessione=$_URL[4];
         try {
-            $sessioneByUrl = $controller->readSessione($_URL[5]);
+            $sessioneByUrl = $controller->readSessione($_URL[4]);
             $dataFrom = $sessioneByUrl->getDataInizio();
             $dataTo = $sessioneByUrl->getDataFine();
             $tipoSessione = $sessioneByUrl->getTipologia();
@@ -73,7 +73,7 @@ else {  //CASO IN CUI SI VUOLE CREARE LA SESSIONE
 
 }
 
-if($_URL[5]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tutti i campi
+if($_URL[4]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tutti i campi
     if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo']) ) {
         $newdataFrom = $_POST['dataFrom'];
         $newdataTo = $_POST['dataTo'];
@@ -130,7 +130,7 @@ if($_URL[5]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
     }
 }
 
-if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
+if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
     if($dataFromSettato=isset($_POST['dataFrom']) && $radio1Settato=isset($_POST['radio1']) && $dataToSettato=isset($_POST['dataTo']) && $someTestsAorD=isset($_POST['tests']) && $someStudentsChange=isset($_POST['students']) ) {
 
         if($dataFromSettato)
@@ -155,7 +155,7 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
                 $controller->abilitaMostraRisposteCorrette($idSessione);
             }
             $controller->disabilitaMostraRisposteCorrette($idSessione);
-            $controller->updateSessione($_URL[5], $sessioneAggiornata);
+            $controller->updateSessione($_URL[4], $sessioneAggiornata);
 
 
             if ($someTestsAorD) {
@@ -235,7 +235,7 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
                 <?php
                 $creaSes="Crea Sessione";
                 $modSes= "Modifica Sessione";
-                if($_URL[5]!=0)
+                if($_URL[4]!=0)
                     printf("%s",$modSes);
                 else
                     printf("%s",$creaSes);
@@ -440,7 +440,7 @@ if($_URL[5]!=0) {  //CASO DI MODIFICA..CON POST
                             $array = Array();
                             try {
                                 $array = $controller->getAllTestByCorso($idCorso);
-                                $testsOfSessione = $controller->getAllTestBySessione($_URL[5]);
+                                $testsOfSessione = $controller->getAllTestBySessione($_URL[4]);
                             }
                             catch (ApplicationException $ex) {
                                 echo "<h1>ERRORE NELLA LETTURA DEI TESTS!</h1>" . $ex;

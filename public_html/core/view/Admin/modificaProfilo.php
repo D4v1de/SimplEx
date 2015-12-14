@@ -178,7 +178,7 @@ if (isset($_POST['nome'])) {
                                         <input type="submit" value="Conferma" class="btn green-jungle"/>
                                     </div>
                                     <div class="col-md-3">
-                                        <a href="/me" value="Annulla" class="btn red-intense">Anulla</a>
+                                        <a href="/me" value="Annulla" class="btn red-intense">Annulla</a>
                                     </div>
                                 </div>
                             </div>

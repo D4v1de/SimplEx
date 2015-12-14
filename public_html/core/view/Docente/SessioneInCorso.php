@@ -14,8 +14,8 @@ $controller = new SessioneController();
 $controlleCdl = new CdlController();
 $controllerEla= new ElaboratoController();
 
-$idSessione=$_URL[5];
-$identificativoCorso = $_URL[3];
+$idSessione=$_URL[4];
+$identificativoCorso = $_URL[2];
 $corso = $controlleCdl->readCorso($identificativoCorso);
 $nomecorso= $corso->getNome();
 

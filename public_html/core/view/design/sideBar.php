@@ -93,7 +93,7 @@ $user = $_SESSION['user'];
                 <!-- FINE ADMIN -->
             <?php } elseif ($user->getTipologia() == "Docente") { ?>
                 <li class="<?php if (@$_URL[2] == "") echo "active open" ?>">
-                    <a href="/usr/docente">
+                    <a href="/docente">
                         <i class="icon-home"></i>
                         <span class="title">Home</span>
                     </a>
@@ -121,7 +121,7 @@ $user = $_SESSION['user'];
                 </li>
             <?php } elseif ($user->getTipologia() == "Studente") { ?>
                 <li class="<?php if (@$_URL[2] == "") echo "active open" ?>">
-                    <a href="/usr/studente">
+                    <a href="/studente">
                         <i class="icon-home"></i>
                         <span class="title">Home</span>
                     </a>
