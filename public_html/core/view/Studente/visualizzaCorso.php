@@ -61,6 +61,7 @@ try {
     <meta charset="utf-8"/>
     <title><?php echo $corso->getNome(); ?></title>
     <?php include VIEW_DIR . "design/header.php"; ?>
+    <script src="jquery-1.11.3.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
 </head>
@@ -183,13 +184,17 @@ try {
                                 foreach ($sessioni as $s) {
                                     $elaborato = null;
                                     try {
+                                        $show = $sessioneController->readMostraEsitoSessione($s->getId());
                                         $elaborato = $elaboratoController->readElaborato($matricolaStudente,$s->getId());
-                                        $parz = $elaborato->getEsitoParziale();
-                                        $fin = $elaborato->getEsitoFinale();
-                                        $esito = strcmp($elaborato->getStato(),"Corretto")? $parz:$fin;     
-                                        $test = $testController->readTest($elaborato->getTestId());
-                                        $sogliaMax = $test->getPunteggioMax();      
-                                        $punt = sprintf("%s / %s", $esito,$sogliaMax);
+                                        if (!strcmp($show,"Si")){
+                                            $parz = $elaborato->getEsitoParziale();
+                                            $fin = $elaborato->getEsitoFinale();
+                                            $esito = strcmp($elaborato->getStato(),"Corretto")? $parz:$fin;     
+                                            $test = $testController->readTest($elaborato->getTestId());
+                                            $sogliaMax = $test->getPunteggioMax();      
+                                            $punt = sprintf("%s / %s", $esito,$sogliaMax);
+                                        }
+                                        else $punt = null;
                                     } catch (ApplicationException $ex) {
                                         $punt = null;
                                     }
@@ -201,7 +206,7 @@ try {
                                     else
                                         printf("<td class=\"sorting_1\"><span class=\"label label-sm label-danger\">%s</span></td>", $s->getTipologia());
                                     printf("<td class=\"sorting_1\">%s</td>", $punt);
-                                    if ($elaborato == null || ((!strcmp($elaborato->getStato(),"Non corretto")) && (strtotime(date("Y-m-d H:i:s")) < strtotime($s->getDataFine())) && (strtotime(date("Y-m-d H:i:s")) >= strtotime($s->getDataInizio()))))
+                                    if (($elaborato == null || (!strcmp($elaborato->getStato(),"Non corretto"))) && (strtotime(date("Y-m-d H:i:s")) < strtotime($s->getDataFine())) && (strtotime(date("Y-m-d H:i:s")) >= strtotime($s->getDataInizio())))
                                         printf("<td><a href=\"/studente/corso/%d/test/esegui/%d\" onclick=\"javascript: creaElaborato(%d)\" class=\"btn btn-sm default blue-madison\"><i class=\"fa fa-pencil\"></i> Partecipa</a></td>", $url,$s->getId(),$s->getId());
                                     else
                                         if (strcmp($elaborato->getStato(),"Non corretto"))
