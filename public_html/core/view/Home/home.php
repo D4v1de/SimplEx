@@ -76,7 +76,9 @@
                 <li><a href="#team" class="page-scroll">Il nostro Team </a></li>
                 <li><a href="#contact" class="page-scroll">Contattaci</a></li>
                 <li><a href="/auth"
-                       class="page-scroll"><?php echo (@$_SESSION['loggedin']) ? "Panello" : "Login"; ?></a>
+                       class="page-scroll"><?php
+
+                        echo (@$_SESSION['loggedin']) ? ("Home " . $_SESSION['user']->getTipologia()) : "Login"; ?></a>
                 </li>
             </ul>
         </nav>
