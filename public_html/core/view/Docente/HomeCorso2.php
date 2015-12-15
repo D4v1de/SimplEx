@@ -236,13 +236,12 @@ if(isset($_POST['idtest'])){
                             $array = Array();
                             $array = $idsSessione;
                             if ($array == null) {
-                                echo "l'array è null";
                             }
                             else {
 
                                 foreach ($array as $c) {
                                     $vaiAModifica="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."creamodificasessione";
-                                    $vaiAVisu="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."visualizzasessione";
+                                    $vaiAVisu="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId();
                                     $vaiASesInCorso="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."sessioneincorso";
                                     $vaiVisuEsiti= "/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."esiti";
 

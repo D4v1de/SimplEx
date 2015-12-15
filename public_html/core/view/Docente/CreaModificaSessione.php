@@ -125,7 +125,7 @@ if($_URL[4]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
         }
 
             //torna a pagina corso del docente
-            $tornaACasa= "Location: "."/docente/corso/"."$idCorso";
+            $tornaACasa= "Location: "."/docente/corso/"."$idCorso"."/successinserimento";
             header($tornaACasa);
     }
 }
@@ -278,10 +278,6 @@ if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
                 </div>");
 
                 ?>
-                <div class="alert alert-success display-hide">
-                    <button class="close" data-close="alert"></button>
-                    La sessione &egrave; stata salvata correttamente!
-                </div>
             <div class="row">
                 <div class="col-md-12">
 
@@ -479,11 +475,6 @@ if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
             </div>
 
 
-                <div class="alert alert-success display-hide">
-                    <button class="close" data-close="alert"></button>
-                    La sessione &egrave; stata salvata correttamente!
-                </div>
-
             <div class="portlet box blue-madison">
                 <div class="portlet-title">
                     <div class="caption">
@@ -579,10 +570,6 @@ if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
                 </div>
             </div>
 
-                <div class="alert alert-success display-hide">
-                    <button class="close" data-close="alert"></button>
-                    La sessione &egrave; stata salvata correttamente!
-                </div>
 
             <div class="form-actions">
                 <div class="row">
