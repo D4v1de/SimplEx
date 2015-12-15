@@ -8,19 +8,50 @@
 include_once CONTROL_DIR . "DomandaController.php";
 include_once CONTROL_DIR . "ArgomentoController.php";
 include_once CONTROL_DIR . "CdlController.php";
+include_once CONTROL_DIR . "UtenteController.php";
+
+$utenteLoggato = $_SESSION['user'];
+
 
 $cdlController = new CdlController();
 $domandaController = new DomandaController();
 $argomentoController = new ArgomentoController();
+$controllerUtente = new UtenteController();
+
 $corso = null;
 $argomento = null;
 $idCorso = $_URL[2];
 $idArgomento = $_URL[6];
+$correttezzaLogin = false;
+
 
 try {
     $corso = $cdlController->readCorso($idCorso);
 } catch (ApplicationException $exception) {
     echo "ERRORE IN READ CORSO" . $exception;
+}
+
+//CONTROLLO LOGIN CORRETTO
+try{
+    $matricolaLoggato = $utenteLoggato->getMatricola();
+}catch(ApplicationException $exception){
+    echo "ERRORE IN GET MATRICOLA" . $exception;
+}
+
+try{
+    $docentiAssociati = $controllerUtente->getDocenteAssociato($corso->getId());
+}catch(ApplicationException $exception){
+    echo "ERRORE IN GET DOCENTE ASSOCIATI" . $exception;
+}
+
+foreach($docentiAssociati as $docente){
+    if($docente->getMatricola() == $matricolaLoggato){
+        $correttezzaLogin = true;
+    }
+}
+
+if($correttezzaLogin == false){
+    header('Location: /docente');
 }
 
 try {

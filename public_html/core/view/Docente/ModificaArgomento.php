@@ -19,6 +19,7 @@ $controllerDomande = new DomandaController();
 $controllerRisposte = new AlternativaController();
 $controllerCdl = new CdlController();
 $controllerUtente = new UtenteController();
+
 $corso = null;
 $argomento = null;
 $correttezzaLogin = false;
@@ -55,7 +56,7 @@ foreach($docentiAssociati as $docente){
 }
 
 if($correttezzaLogin == false){
-    header('Location: /docente/corso/'.$corsoid);
+    header('Location: /docente');
 }
 
 
