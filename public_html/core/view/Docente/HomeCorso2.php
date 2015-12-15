@@ -307,10 +307,14 @@ if(isset($_POST['idtest'])){
                         <a href="javascript:;" class="collapse" data-original-title="" title="">
                         </a>
                     </div>
-                    <div class="actions">
-                        <a href="test/crea" class="btn btn-default btn-sm">
-                            <i class="fa fa-plus"></i> Crea Test </a>
-                    </div>
+                    <?php
+                    if($correttezzaLogin==true) {
+                        printf("<div class=\"actions\">");
+                        printf("<a href=\"/docente/corso/%s/test/crea\" class=\"btn btn-default btn-sm\">", $identificativoCorso);
+                        printf("<i class=\"fa fa-plus\"></i> Crea Test </a>");
+                        printf("</div>");
+                    }
+                    ?>
                 </div>
                 <div class="portlet-body">
                     <div id="tabella_test_wrapper" class="dataTables_wrapper no-footer">
@@ -351,11 +355,16 @@ if(isset($_POST['idtest'])){
                                 " style="width: 100px;">
                                     % Superato
                                 </th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                         Status
-                                " style="width: 14%;">
-                                    Azioni
-                                </th>
+                                <?php
+                                if($correttezzaLogin==true) {
+                                    printf("<th class=\"sorting_disabled\" rowspan=\"1\" colspan=\"1\" aria-label=\"Status\" style=\"width: 14%%;\">");
+                                    printf("Azioni");
+                                    printf("</th>");
+                                }
+                                ?>
+
+
+
 
 
                             </tr>
@@ -366,8 +375,6 @@ if(isset($_POST['idtest'])){
                                         $array = Array();
                                         $array = $controllerTest->getAllTestByCorso($identificativoCorso); 
                                         if($array == null){ 
-                                             //echo "l'array è null";
-                                             printf("<h4>Nessun Test presente</h4>");
                                             }
                                         else{    
                                         foreach($array as $c) {
@@ -379,9 +386,11 @@ if(isset($_POST['idtest'])){
                                         printf("<td>%s</td>",$c->getPunteggioMax());
                                         printf("<td>%s %%</td>",$c->getPercentualeScelto());
                                         printf("<td>%s %%</td>",$c->getPercentualeSuccesso());
-                                        printf("<td><a href=\"test/crea\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></i></a>");
-                                        printf("<button class=\"btn btn-sm red-intense\" type=\"submit\" name=\"idtest\" title=\"\" id=\"%d\" value=\"%d\" data-popout=\"true\" data-toggle=\"confirmation\" data-singleton=\"true\" data-original-title=\"Sei sicuro?\"><i class=\"fa fa-trash-o\"></i></button>", $c->getId(), $c->getId());
-                                        printf("</td>");
+                                            if($correttezzaLogin==true){
+                                                printf("<td><a href=\"test/crea\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></i></a>");
+                                                printf("<button class=\"btn btn-sm red-intense\" type=\"submit\" name=\"idtest\" title=\"\" id=\"%d\" value=\"%d\" data-popout=\"true\" data-toggle=\"confirmation\" data-singleton=\"true\" data-original-title=\"Sei sicuro?\"><i class=\"fa fa-trash-o\"></i></button>", $c->getId(), $c->getId());
+                                                printf("</td>");
+                                            }
                                         printf("</tr>");
                                         }
                                         }
@@ -445,7 +454,7 @@ if(isset($_POST['idtest'])){
                                 printf("<td><a href=\"/docente/corso/%d/argomento/domande/%d \">%s</a></td>", $a->getCorsoId() , $a->getId() , $a->getNome());
                                 if($correttezzaLogin==true){
                                     printf("<td>");
-                                    printf("<a href=\"/docente/corso/%d/argomento/modifica/%d\" class=\"btn btn-sm blue-madison\">", $a->getCorsoId(),$a->getId());
+                                    printf("<a href=\"/docente/corso/%d/argomento/modifica/%d \" class=\"btn btn-sm blue-madison\">", $a->getCorsoId(),$a->getId());
                                     printf("<i class=\"fa fa-edit\"></i>");
                                     printf("</a>");
                                     printf("<button class=\"btn btn-sm red-intense\" type=\"submit\" name=\"id\" title='Sei sicuro?' value=\"%d\" data-popout=\"true\" data-toggle=\"confirmation\" data-singleton=\"true\"><i class=\"fa fa-trash-o\"></i></button>",$a->getId());
