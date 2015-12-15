@@ -32,6 +32,10 @@ class TestController extends Controller {
         return $this->testModel->readTest($id);
     }
     
+    public function updateTest($id,$idnuovotest){
+        return $this->testModel->updateTest($id,$idnuovotest);
+    }
+    
     //ricerca i test relativi ad un corso
     public function getAllTestbyCorso($id) {
         return $this->testModel->getAllTestByCorso($id);

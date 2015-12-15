@@ -79,8 +79,9 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
         
     }
          $ilTest=$controllerTest->readTest($idNuovoTest);
-         $ilTest->setPunteggioMax($punteggio); //aggiorno il valore di punteggio totale del test(finora zero) con il puteggio calcolato finora
-         $tornaACasa= "Location: "."/usr/docente/corso/"."$identificativoCorso"."/";
+         $ilTest->setPunteggioMax($punteggio);
+         $controllerTest->updateTest($idNuovoTest,$ilTest);//aggiorno il valore di punteggio totale del test(finora zero) con il puteggio calcolato finora
+         $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/";
          header($tornaACasa);//torno alla home
  
          
@@ -100,35 +101,31 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
         $leMultiple = Array();
         foreach($Argomenti as $a){// per ogni argomento del corso prendo tutte le aperte e le multiple
         $nuoveAperte = Array();
-        $nuoveAperte = $controllerDomande->getAllAperte($a);
+        $nuoveAperte = $controllerDomande->getAllAperte($a->getId());
         $Aperte = array_merge($Aperte,$nuoveAperte);
         $nuoveMultiple = Array();
-        $nuoveMultiple = $controllerDomande->getAllMultiple($a);
+        $nuoveMultiple = $controllerDomande->getAllMultiple($a->getId());
         $Multiple = array_merge($Multiple,$nuoveMultiple);
     }
+
+    $indiciA=array_rand($Aperte,$nApe);
     
-    while($nApe>0){ //seleziono casualmente le N aperte desiderate 
-        $x=rand(0,((count($Aperte))-1));
-        if(($Aperte[$x]!=NULL) && isset($Aperte[$x])){
-        array_push($leAperte, $Aperte[$x]);
-        unset($Aperte[$x]);
-        $nApe=$nApe-1;
-        }
+    for($i=0;$i<$nApe;$i++){
+    $leAperte[]=$Aperte[$indiciA[$i]];
     }
-    while($nMul>0){ //seleziono casualmente le N multiple desiderate
-        $x=rand(0,((count($Multiple))-1));
-        if(($Aperte[$x]!=NULL) && isset($Aperte[$x])){
-        array_push($leMultiple, $Multiple[$x]);
-        unset($Multiple[$x]);
-        $nMul=$nMul-1;
-        }
+    
+    $indiciM=array_rand($Multiple,$nMul);
+    
+    for($i=0;$i<$nMul;$i++){
+    $leMultiple[]=$Multiple[$indiciM[$i]];
     }
+    
     foreach($leAperte as $s){ //leAperte selezionate vengono controllate per aggiorare il punteggio totale
-        $w=$controllerDomande->getDomandaAperta($s);
+        $w=$controllerDomande->getDomandaAperta($s->getId());
         $punteggio=$punteggio+($w->getPunteggioMax());
     }
     foreach($leMultiple as $s) { //leMultiple selezionate vengono controllate per aggiorare il punteggio totale
-        $w=$controllerDomande->getDomandaMultipla($s);
+        $w=$controllerDomande->getDomandaMultipla($s->getId());
         $punteggio=$punteggio+($w->getPunteggioCorretta());
     }
     $nApe=parseInt($_POST['numAperte']);//mi riprendo il numero delle aperte
@@ -143,7 +140,7 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
     }
     
     $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/";
-         header($tornaACasa); //torno alla home
+        header($tornaACasa); //torno alla home
     
 }
 
