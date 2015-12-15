@@ -19,6 +19,8 @@ $eser = null;
 $showE="";
 $showRC="";
 
+
+
 if (!is_numeric($idSessione)) {
     echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
 }
@@ -28,6 +30,12 @@ try {
 } catch (ApplicationException $ex) {
     echo "<h1>INSERIRE ID SESSIONE NEL PATH</h1>".$ex;
 }
+
+$now = date("Y-m-d H:i:s");
+$end = $sessione->getDataFine();
+$start = $sessione->getDataInizio();
+if ($now >= $start || $now <= $end || strcmp($elaborato->getStato(),"Non corretto"))
+    header("Location: "."/studente/corso/"."$corsoId"."/");
 
 $corso = $controlleCdl->readCorso($identificativoCorso);
 $nomecorso= $corso->getNome();
@@ -65,7 +73,7 @@ if(isset($_POST['rimuovi'])){
         header($tornaACasa);
     }
     catch(ApplicationException $ex) {
-        echo "PERCHè NON FUNZIONI?".$ex;
+        echo "Errore nella Rimozione?".$ex;
     }
 }
 
@@ -291,7 +299,6 @@ if(isset($_POST['rimuovi'])){
                             $array = Array();
                             $array = $controllerSessione->getAllTestBySessione($idSessione);
                             if ($array == null) {
-                                echo "l'array è null"." ".$idSessione;
                             }
                             else {
                                 foreach ($array as $c) {
@@ -374,7 +381,6 @@ if(isset($_POST['rimuovi'])){
                             $studentsOfSessione = Array();
                             $studentsOfSessione= $controllerSessione->getAllStudentiBySessione($idSessione);
                             if ($studentsOfSessione == null) {
-                                echo "l'array è null";
                             }
                             else {
                                 foreach ($studentsOfSessione as $c) {

@@ -43,7 +43,7 @@ catch (ApplicationException $ex) {
 if(isset($_POST['soglia'])){
     $soglia=$_POST['soglia'];
     $sessioneAggiornata = new Sessione($dataFrom, $dataTo, $soglia , $sessioneByUrl->getStato(), $sessioneByUrl->getTipologia(), $identificativoCorso);
-    $controllerSessione->updateSessione($_URL[5], $sessioneAggiornata);
+    $controllerSessione->updateSessione($_URL[4], $sessioneAggiornata);
     header("Refresh:0");
 }
 ?>
@@ -118,7 +118,7 @@ if(isset($_POST['soglia'])){
                 <label>Soglia esiti:
                     <?php printf("<input type='search' name='soglia' class='form-control input-small input-inline' placeholder='%s' aria-controls='sample_1'/>", $soglia);?>
                 </label>
-                <button  href="javascript:;" class="btn sm green-jungle">
+                <button  class="btn sm green-jungle">
                     Conferma
                 </button>
             </div>
@@ -182,7 +182,6 @@ if(isset($_POST['soglia'])){
                                         $array = Array();
                                         $array = $controllerSessione->getAllTestBySessione($idSessione);
                                         if ($array == null) {
-                                            echo "l'array è null"." ".$idSessione;
                                         }
                                         else {
                                             foreach ($array as $c) {
@@ -262,7 +261,6 @@ if(isset($_POST['soglia'])){
                                         $toDisable="";
                                         $esaminandiSessione= $controllerSessione->getEsaminandiSessione($idSessione);
                                         if ($esaminandiSessione == null) {
-                                            echo "l'array è null";
                                         }
                                         else {
                                             foreach ($esaminandiSessione as $c) {
