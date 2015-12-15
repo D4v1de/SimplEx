@@ -1,3 +1,8 @@
+<?php
+/**
+ * User: Alina
+ */
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>
 <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -103,10 +108,10 @@
                     <div class="col-md-12 col-xs-12 text-center">
                         <h2>SimplEx</h2>
 
-                        <h3 class="animated2"><b>Simple </b>Exam </h3>
+                        <h3 class="animated2">More <b> Exam</b></h3>
 
                         <div class="line"></div>
-                        <p class="animated3">Unique clean design</p>
+                        <p class="animated3">way to success</p>
                     </div>
                 </div>
             </div>
@@ -121,7 +126,7 @@
                         <h3 class="animated3"> Less <b>paper </b></h3>
 
                         <div class="line"></div>
-                        <p class="animated2">best choice for you</p>
+                        <p class="animated2">Nature is the art of God</p>
                     </div>
                 </div>
             </div>
@@ -133,10 +138,10 @@
                     <div class="col-md-12 col-xs-12 text-center">
                         <h2>SimplEx</h2>
 
-                        <h3 class="animated3"> We're crazy <b>coders</b></h3>
+                        <h3 class="animated3"> Simple <b>Exam</b></h3>
 
                         <div class="line"></div>
-                        <p class="animated2"> way to success</p>
+                        <p class="animated2"> best choice for you</p>
                     </div>
                 </div>
             </div>
@@ -168,13 +173,13 @@
                             degli studi di Salerno</b>, in particolare al <b>dipartimento di Informatica</b>,
                         un beneficio dal punto di vista dei costi (risparmiando sull’acquisto di carta) e
                         dell'efficienza.
-                        <br> Il docente ha la possibilità di creare facilmente dei test, sia a carattere esercitativo
+                        <br>Il docente ha la possibilità di creare facilmente dei test, sia a carattere esercitativo
                         che valutativo, inserendo sia domande a risposta multipla che
                         domande a risposta aperta. Il sistema, nel caso di test con domande a risposta multipla, é in
                         grado di valutare la prova sulla base delle risposte corrette
                         segnalate dal docente. In questo modo il docente, e gli stessi studenti, hanno la possibilit&agrave;
                         di conoscere quasi in tempo reale il risultato dei test.
-                        Inoltre lo studente ha la possibilità di valutare al meglio il proprio studio ed eventualmente
+                            Inoltre lo studente ha la possibilità di valutare al meglio il proprio studio ed eventualmente
                         venire incontro alle proprie carenze attraverso le esercitazioni proposte dal docente.
                         <br>Il sistema &egrave; capace di gestire più corsi contemporaneamente. La gestione dei corsi
                         comprende anche la possibilità di condurre esercitazioni ed esami relativi
@@ -191,41 +196,37 @@
             <div class="main_feature text-center">
                 <div class="col-md-3 col-xs-12 col-sm-6">
                     <div class="feature_content">
-                        <i class="fa fa-lightbulb-o"></i>
-                        <h5>Lightweight</h5>
+                        <i class="fa fa-pencil"></i>
+                        <h5>RAD</h5>
 
-                        <p>You can not ignore mobile devices anymore and with this theme all your visitors will be very
-                            pleased how they see your website.</p>
+                        <p><b>Requirement Analysis Document</b>.<br> Documento di analisi dei requisiti funzionali e non funzionali del sistema software <b>SimplEx</b>.</p>
 
                     </div>
                 </div>
                 <div class="col-md-3 col-xs-12 col-sm-6">
                     <div class="feature_content">
                         <i class="fa fa-pencil"></i>
-                        <h5>Beautiful Typrography</h5>
+                        <h5>SDD</h5>
 
-                        <p>This theme integrates with WordPress in the most awesome way! Functionality is separated from
-                            style through uncreadble useful for user. </p>
-
-                    </div>
-                </div> <!-- Col-md-4 Single_feature End -->
-                <div class="col-md-3 col-xs-12 col-sm-6">
-                    <div class="feature_content">
-                        <i class="fa fa-cog"></i>
-                        <h5>Full time Support</h5>
-
-                        <p>Full Time support. Very much helpful and possesive at the same time. With all this in mind
-                            you won’t be outdated anytime soon. Really!! </p>
+                        <p><b>System Design Document</b>.<br> Documento di specifica degli obiettivi di design del sistema software <b>SimplEx</b>. </p>
 
                     </div>
                 </div> <!-- Col-md-4 Single_feature End -->
                 <div class="col-md-3 col-xs-12 col-sm-6">
                     <div class="feature_content">
-                        <i class="fa fa-desktop"></i>
-                        <h5>Ultra Responsive</h5>
+                        <i class="fa fa-pencil"></i>
+                        <h5>ODD</h5>
 
-                        <p>Shadow is as optimized as it gets. No useless wrappers, no double headings, everything is
-                            coded with SEO in mind. Content is KING! </p>
+                        <p><b>Object Design Document</b>.<br> </p>
+
+                    </div>
+                </div> <!-- Col-md-4 Single_feature End -->
+                <div class="col-md-3 col-xs-12 col-sm-6">
+                    <div class="feature_content">
+                        <i class="fa fa-pencil"></i>
+                        <h5>Test Plan</h5>
+
+                        <p>Documento contenente il piano di test previsto per il sistema software <b>SimplEx</b>.</p>
 
                     </div>
                 </div> <!-- Col-md-4 Single_feature End -->
@@ -257,7 +258,7 @@
                         <i class="fa fa-envelope-o fa-3x fw"></i>
 
                         <div class="facts-wrap-num">
-                            <span class="counter">87</span>
+                            <span class="counter">1100</span>
                         </div>
                     </div>
                     <h6>Email</h6>
@@ -278,7 +279,7 @@
                         </div>
                         <i class="fa fa-weixin fa-3x fw"></i>
 
-                        <div class="facts-wrap-num"><span class="counter">25</span></div>
+                        <div class="facts-wrap-num"><span class="counter">7500</span></div>
                     </div>
                     <h6>Messaggi</h6>
                 </div>
@@ -298,7 +299,7 @@
                         </div>
                         <i class="fa fa-group fa-3x fw"></i>
 
-                        <div class="facts-wrap-num"><span class="counter">68</span></div>
+                        <div class="facts-wrap-num"><span class="counter">17</span></div>
                     </div>
                     <h6>Meeting</h6>
                 </div>
@@ -318,7 +319,7 @@
                         </div>
                         <i class="fa fa-check-square-o fa-3x fw"></i>
 
-                        <div class="facts-wrap-num"><span class="counter">46</span></div>
+                        <div class="facts-wrap-num"><span class="counter">820</span></div>
                     </div>
                     <h6>Commit</h6>
                 </div>
@@ -1089,17 +1090,17 @@
     var map;
     map = new GMaps({
         div: '#map',
-        lat: 40.7748473,
-        lng: 14.7882346,
+        lat: 40.774706,
+        lng: 14.789771,
         scrollwheel: false,
         panControl: false,
         zoomControl: false,
     });
 
     map.addMarker({
-        lat: 40.7748473,
-        lng: 14.7882346,
-        title: 'Dipartimento di Informatica',
+        lat: 40.774706,
+        lng: 14.789771,
+        title: 'Dipartimento di Informatica, Sesa Lab',
         infoWindow: {
             content: '<p>Via Ponte don Melillo, 132,84084 Fisciano SA</p>'
         },
