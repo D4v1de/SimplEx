@@ -38,10 +38,10 @@ try {
     echo "ERRORE IN GET DOMANDA APERTA" . $exception;
 }
 
-if (isset($_POST['testoDomanda']) && isset($_POST['number'])) {
+if (isset($_POST['testoDomanda']) && isset($_POST['punteggioEsatta'])) {
 
     $testo = $_POST['testoDomanda'];
-    $punteggio = $_POST['number'];
+    $punteggio = $_POST['punteggioEsatta'];
 
     $updatedDomanda = new DomandaAperta($idArgomento, $testo, $punteggio, 0);
     try {
@@ -143,7 +143,7 @@ if (isset($_POST['testoDomanda']) && isset($_POST['number'])) {
 
                                 <div class="col-md-4">
                                     <?php
-                                    printf("<input type=\"number\" id=\"number\" name=\"number\" value=\"%d\" class=\"form-control\">", $domandaOld->getPunteggioMax());
+                                    printf("<input type=\"punteggioEsatta\" id=\"punteggioEsatta\" name=\"punteggioEsatta\" value=\"%d\" class=\"form-control\">", $domandaOld->getPunteggioMax());
                                     printf("<span class=\"help-block\">");
                                     printf(" </span>");
                                     ?>

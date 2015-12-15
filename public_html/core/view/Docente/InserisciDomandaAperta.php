@@ -29,9 +29,9 @@ try {
     echo "ERRORE IN READ ARGOMENTO" . $exception;
 }
 
-if (isset($_POST['testoDomanda']) && isset($_POST['number'])) {
+if (isset($_POST['testoDomanda']) && isset($_POST['punteggioEsatta'])) {
     $testo = $_POST['testoDomanda'];
-    $punteggio = $_POST['number'];
+    $punteggio = $_POST['punteggioEsatta'];
 
     $domanda = new DomandaAperta($idArgomento, $testo, $punteggio, 0);
     try {
@@ -131,7 +131,7 @@ if (isset($_POST['testoDomanda']) && isset($_POST['number'])) {
                                 <label class="control-label col-md-3">Inserisci Punteggio</label>
 
                                 <div class="col-md-4">
-                                    <input type="number" id="punteggioDomanda" name="number" placeholder=""
+                                    <input type="punteggioEsatta" id="punteggioDomanda" name="punteggioEsatta" placeholder=""
                                            class="form-control">
                                             <span class="help-block">
                                                  </span>
