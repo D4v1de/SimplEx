@@ -263,7 +263,7 @@ if(isset($_POST['idtest'])){
 
                                 foreach ($array as $c) {
                                     $vaiAModifica="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."creamodificasessione";
-                                    $vaiAVisu="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."visualizzasessione";
+                                    $vaiAVisu="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId();
                                     $vaiASesInCorso="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."sessioneincorso";
                                     $vaiVisuEsiti= "/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."esiti";
 

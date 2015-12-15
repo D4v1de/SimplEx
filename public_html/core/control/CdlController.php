@@ -50,7 +50,7 @@ class CdlController extends Controller {
      */
     public function creaCorso($corso) {
         $corsoModel = new CorsoModel();
-        $corsoModel->createCorso($corso);
+        return $corsoModel->createCorso($corso);
     }
 
     /**
