@@ -18,6 +18,7 @@ $controller = new ArgomentoController();
 $controllerDomande = new DomandaController();
 $controllerRisposte = new AlternativaController();
 $controllerCdl = new CdlController();
+$controllerUtente = new UtenteController();
 $corso = null;
 $argomento = null;
 $correttezzaLogin = false;
@@ -42,7 +43,7 @@ try{
 }
 
 try{
-    $docentiAssociati = $controllerUtente->getDocenteAssociato($corsoid);
+    $docentiAssociati = $controllerUtente->getDocenteAssociato($corso->getId());
 }catch(ApplicationException $exception){
     echo "ERRORE IN GET DOCENTE ASSOCIATI" . $exception;
 }

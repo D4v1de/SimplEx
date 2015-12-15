@@ -105,20 +105,6 @@ $user = $_SESSION['user'];
                         <span class="title">Tutti i Cdl</span>
                     </a>
                 </li>
-                <li class="<?php if ($_URL[1] == "utenti") echo "active open" ?>">
-                    <a href="javascript:;">
-                        <i class="icon-users"></i>
-                        <span class="title">Da COMPLETARE</span>
-                        <span class="arrow"></span>
-                    </a>
-                    <ul class="sub-menu" style="display: none;">
-                        <li>
-                            <a href="/admin/utenti">
-                                <i class="icon-book-open"></i>
-                                IDEM</a>
-                        </li>
-                    </ul>
-                </li>
             <?php } elseif ($user->getTipologia() == "Studente") { ?>
                 <li class="<?php if (@$_URL[2] == "") echo "active open" ?>">
                     <a href="/studente">

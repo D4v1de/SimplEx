@@ -183,11 +183,11 @@ try {
                                     ?>
                                 </div>
                                 <div class="col-md col-md-4">
-                                    <h3>Esito <?php if ($elaborato->getEsitoFinale() != null) {
+                                    <h3>Esito <?php if ($elaborato->getStato() == 'Corretto') {
                                                     echo 'Finale: ' . $elaborato->getEsitoFinale();
                                                     } else {
                                                     echo 'Parziale: ' . $elaborato->getEsitoParziale();
-                                                    } ?>/<?php if($elaborato->getStato() != 'Non Corretto') {echo $test->getPunteggioMax();} ?>
+                                                    } ?>/<?php echo $test->getPunteggioMax(); ?>
                                     </h3>
                                 </div>
                             </div>
@@ -279,8 +279,9 @@ try {
 
                             <?php
                             foreach ($multiple as $m) {
-                                printf("<div class=\"portlet light bordered\"><div class=\"portlet-title\"><div id=\"div%s\" class=\"caption questions\"><i class=\"fa fa-question-circle\"></i><span class=\"caption-subject bold uppercase\">%s</span></div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div>",$i++ , $m->getTesto());
+                                printf("<div class=\"portlet light bordered\"><div class=\"portlet-title\"><div id=\"div%s\" class=\"caption questions\"><i id=\"i%s\" class=\"fa fa-question-circle\"></i><span class=\"caption-subject bold uppercase\">%s</span></div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div>",$i ,$i , $m->getTesto());
                                 printf("<div class=\"portlet-body\">");
+                                $i++;
                                 try {
                                     $alternative = $controllerAlternativa->getAllAlternativaByDomanda($m->getId());
                                 } catch (ApplicationException $ex) {
@@ -314,7 +315,14 @@ try {
                                     } else {
                                         printf("<input type=\"checkbox\" id=\"alt-12\" name=\"mul-12\" class=\"md-check\" disabled>");
                                     }
-                                    printf("<label for=\"alt-12\"><span class=\"inc\"></span><span class=\"check\"></span><span class=\"box\"></span>%s</label></div>", $a->getTesto());
+
+                                    //mi segna una classe a tutte le corrette e una a tutte le sbagliate
+                                    if($a->getCorretta() == 'Si') {
+                                        printf("<label for=\"alt-12\"><span class=\"inc\"></span><span class=\"check\"></span><span class=\"box\"></span>%s</label><div class=\"esatte\"></div></div>", $a->getTesto());
+                                    }
+                                    else {
+                                        printf("<label for=\"alt-12\"><span class=\"inc\"></span><span class=\"check\"></span><span class=\"box\"></span>%s</label><div class=\"sbagliate\"></div></div>", $a->getTesto());
+                                    }
                                     printf("</div></div>");
                                 }
                                 printf("</div></div>");
@@ -340,7 +348,7 @@ try {
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="col-md-4">
-                                        <?php if($elaborato->getStato() != 'Non Corretto') {printf("<a type=\"button\" onclick=\"correggi()\" class=\"btn green-jungle\">Correggi</a>");} ?>
+                                        <?php if($elaborato->getStato() != 'Non Corretto') {printf("<a href=\"#\" type=\"button\" onclick=\"correggi()\" class=\"btn green-jungle\">Correggi</a>");} ?>
                                     </div>
                                     <div class="col-md-4">
                                         <a href="/studente/corso/<?php echo $corso->getId(); ?>">
@@ -396,9 +404,17 @@ try {
         for(var r in ris) {
             if(ris[r] == 'Si') {
                 document.getElementById("div"+r).setAttribute('class','caption questions font-green-haze');
+                document.getElementById("i"+r).setAttribute('class','fa fa-question-circle font-green-haze');
+
+                document.getElementsByClassName("esatte").innerHTML = "<span class=\"col-md-offset-1 label label-sm label-success\">giusta</span>";
+                //<span class="corrette col-md-offset-1 label label-sm label-success"><!--giusto--></span>
             }
             else if(ris[r] == 'No') {
                 document.getElementById("div"+r).setAttribute('class','caption questions font-red-sunglo');
+                document.getElementById("i"+r).setAttribute('class','fa fa-question-circle font-red-sunglo');
+
+                document.getElementsByClassName("sbagliate").innerHTML = "<span class=\"col-md-offset-1 label label-sm label-danger\">sbagliato</span>";
+                //<span class="sbagliate col-md-offset-1 label label-sm label-danger"><!--sbagliato--></span>
             }
         }
 

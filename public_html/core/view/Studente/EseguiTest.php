@@ -90,6 +90,7 @@ if (isset($_GET['consegna'])){
 <head>
     <meta charset="utf-8" />
     <title>Metronic | Page Layouts - Blank Page</title>
+    <script src="jquery-1.11.3.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/assets/global/css/mycounter.css" />
     <?php include VIEW_DIR . "design/header.php"; ?>
 </head>
