@@ -107,17 +107,25 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
         $nuoveMultiple = $controllerDomande->getAllMultiple($a->getId());
         $Multiple = array_merge($Multiple,$nuoveMultiple);
     }
-
+    if($nApe>1){
     $indiciA=array_rand($Aperte,$nApe);
     
     for($i=0;$i<$nApe;$i++){
-    $leAperte[]=$Aperte[$indiciA[$i]];
+    $leAperte[$i]=$Aperte[$indiciA[$i]];
     }
-    
+    }else{
+      $x=rand(0,(count($Aperte)-1)); 
+      array_push($leAperte,$Aperte[$x]);  
+    }
+    if($nMul>1){
     $indiciM=array_rand($Multiple,$nMul);
     
     for($i=0;$i<$nMul;$i++){
-    $leMultiple[]=$Multiple[$indiciM[$i]];
+    $leMultiple[$i]=$Multiple[$indiciM[$i]];
+    }
+    }else{
+        $x=rand(0,(count($Multiple)-1)); 
+        array_push($leMultiple,$Multiple[$x]);
     }
     
     foreach($leAperte as $s){ //leAperte selezionate vengono controllate per aggiorare il punteggio totale
