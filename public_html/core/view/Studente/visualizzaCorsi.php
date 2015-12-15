@@ -20,44 +20,41 @@ $corsistudente = Array();
 $url = null;
 
 $url = $_URL[2];
-if(!is_numeric($url)) {
+if (!is_numeric($url)) {
     echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
 }
 
 
-
 $studente = $_SESSION['user'];
-
 
 
 try {
     $cdl = $controller->readCdl($url);
 
 } catch (ApplicationException $ex) {
-    echo "<h1>INSERIRE MATRICOLA CDL NEL PATH!</h1>".$ex;
+    echo "<h1>INSERIRE MATRICOLA CDL NEL PATH!</h1>" . $ex;
 }
 try {
     $corsi = $controller->getCorsiCdl($cdl->getMatricola());
 
 } catch (ApplicationException $ex) {
-    echo "GETCORSICDL FALLITO!</h1>".$ex;
+    echo "GETCORSICDL FALLITO!</h1>" . $ex;
+}
+
+if (isset($_POST['iscrivi'])) {
+    $iscrivi = $_POST['iscrivi'];
+    $controllerUtente->iscrizioneStudente($studente->getMatricola(), $iscrivi);
+    //header("Refresh:0");
+}
+if (isset($_POST['disiscrivi'])) {
+    $disiscrivi = $_POST['disiscrivi'];
+    $controllerUtente->disiscrizioneStudente($studente->getMatricola(), $disiscrivi);
+    //header("Refresh:0");
 }
 try {
     $corsistudente = $controller->getCorsiStudente($studente->getMatricola());
-
 } catch (ApplicationException $ex) {
-    echo "<h1>GETCORSISTUDENTE FALLITO!</h1>".$ex;
-}
-
-if(isset($_POST['iscrivi'])) {
-    $iscrivi = $_POST['iscrivi'];
-    $controllerUtente->iscrizioneStudente($studente->getMatricola(), $iscrivi);
-    header("Refresh:0");
-}
-if(isset($_POST['disiscrivi'])) {
-    $disiscrivi = $_POST['disiscrivi'];
-    $controllerUtente->disiscrizioneStudente($studente->getMatricola(), $disiscrivi);
-    header("Refresh:0");
+    echo "<h1>GETCORSISTUDENTE FALLITO!</h1>" . $ex;
 }
 
 ?>
@@ -75,7 +72,8 @@ if(isset($_POST['disiscrivi'])) {
     <title>CdL <?php echo $cdl->getNome(); ?></title>
     <?php include VIEW_DIR . "design/header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
-    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css"
+          href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -160,10 +158,9 @@ if(isset($_POST['disiscrivi'])) {
                                     printf("<td class=\"sorting_1\"><a href=\"/studente/corso/%s\">%s</a></td>", $c->getId(), $c->getNome());
                                     printf("<td class=\"sorting_1\"><span class=\"badge badge-success\">%s</span></td>", $c->getMatricola());
                                     printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
-                                    if(in_array($c, $corsistudente)) {
+                                    if (in_array($c, $corsistudente)) {
                                         printf("<td class=\"sorting_1\"><button type=\"submit\" name=\"disiscrivi\" value=\"%d\" class=\"btn red-intense\"><span class=\"md-click-circle md-click-animate\"></span>Disiscriviti</button></td>", $c->getId());
-                                    }
-                                    else {
+                                    } else {
                                         printf("<td class=\"sorting_1\"><button type=\"submit\" name=\"iscrivi\" value=\"%d\" class=\"btn green-jungle\"><span class=\"md-click-circle md-click-animate\"></span>Iscriviti</button></td>", $c->getId());
                                     }
                                     printf("</tr>");
@@ -195,7 +192,8 @@ if(isset($_POST['disiscrivi'])) {
 <!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
 <script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<script type="text/javascript"
+        src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <!-- END PAGE LEVEL PLUGINS aggiunta da me-->
 
 <script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>

@@ -185,7 +185,6 @@ if(isset( $_POST['aggiorna'])) {
                                         $array = Array();
                                         $array = $controller->getAllTestBySessione($idSessione);
                                         if ($array == null) {
-                                            echo "l'array è null"." ".$idSessione;
                                         }
                                         else {
                                             foreach ($array as $c) {
@@ -276,7 +275,6 @@ if(isset( $_POST['aggiorna'])) {
                                         $toDisable="";
                                         $esaminandiSessione= $controller->getEsaminandiSessione($idSessione);
                                         if ($esaminandiSessione == null) {
-                                            echo "l'array è null";
                                         }
                                         else {
                                             foreach ($esaminandiSessione as $c) {
@@ -329,7 +327,7 @@ if(isset( $_POST['aggiorna'])) {
                                 <i class="fa fa-edit"></i></button>
                     </div>
                         <div class="col-md-5"></div>
-                        <button type="submit"  name="termina" value="nada" class="btn sm label-danger" data-toggle="confirmation"
+                        <button type="submit"  name="termina" value="nada" class="btn sm red-intense" data-toggle="confirmation"
                                 data-singleton="true" data-popout="true" title="Sicuro?"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                             TERMINA ORA
                         </button>

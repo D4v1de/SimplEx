@@ -9,16 +9,49 @@ include_once CONTROL_DIR . "DomandaController.php";
 include_once CONTROL_DIR . "ArgomentoController.php";
 include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "AlternativaController.php";
+include_once CONTROL_DIR . "UtenteController.php";
+
+$utenteLoggato = $_SESSION['user'];
 
 $cdlController = new CdlController();
 $domandaController = new DomandaController();
 $argomentoController = new ArgomentoController();
 $alternativaController = new AlternativaController();
+$controllerUtente = new UtenteController();
 
 $idCorso = $_URL[2];
 $idArgomento = $_URL[6];
 $corso = null;
 $argomento = null;
+$correttezzaLogin = false;
+
+
+
+//CONTROLLO LOGIN CORRETTO
+try{
+    $matricolaLoggato = $utenteLoggato->getMatricola();
+}catch(ApplicationException $exception){
+    echo "ERRORE IN GET MATRICOLA" . $exception;
+}
+
+try{
+    $docentiAssociati = $controllerUtente->getDocenteAssociato($idCorso);
+}catch(ApplicationException $exception){
+    echo "ERRORE IN GET DOCENTE ASSOCIATI" . $exception;
+}
+
+foreach($docentiAssociati as $docente){
+    if($docente->getMatricola() == $matricolaLoggato){
+        $correttezzaLogin = true;
+    }
+}
+
+if($correttezzaLogin == false){
+    header('Location: /docente');
+}
+
+
+
 
 try {
     $corso = $cdlController->readCorso($idCorso);
@@ -53,7 +86,8 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($
             $corretta = "Si";
         } else {
             $corretta = "No";
-        }if($testoRisposte[$i]=='' || $testoRisposte[$i]==null){
+        }if($testoRisposte[$i] == '' || $testoRisposte[$i] == null){
+            echo $i;
             continue;
         }else {
             $alternativa = new Alternativa($idNuovaDomanda, $testoRisposte[$i], 0, $corretta);
@@ -272,31 +306,45 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($
         var newDiv = document.createElement("DIV");
         newDiv.setAttribute("id", "form"+num);
         var div = document.getElementById('rispostenuove');
-        var newNum = num;
         div.appendChild(newDiv);
         newDiv.innerHTML = "<div class=\"form-group form-md-line-input has-success ratio\" style=\"height: 90px\">"+
             "<div class=\"col-md-1\"><div class=\"col-md-offset-6 col-md-6\"><div class=\"form-md-radios\"><div class=\"md-radio-list\"><div class=\"md-radio\">"+
             "<input type=\"radio\" id=\"radio"+num+"\" value=\""+num+"\" name=\"radio\" class=\"md-radiobtn\">"+
-            "<label for=\"radio"+num+"\"><span></span><span class=\"check\"></span><span class=\"box\"></span>"+
+            "<label id=\"label" +num+ "\" for=\"radio"+num+"\"><span></span><span class=\"check\"></span><span class=\"box\"></span>"+
             "</label></div></div></div></div></div>" +
             "<label class=\"control-label col-md-2\">Inserisci Testo Risposta</label><div class=\"col-md-6\"><input type=\"text\" name=\"testoRisposta[]\" placeholder=\"\" class=\"form-control\"> <span class=\"help-block\"></span> </div> <div class=\"col-md-3\" id=\"padre"+num+"\"><a onclick=\"javascript:elimina(this)\" id=\"el"+num+"\" class=\"btn sm red-intense\"> <i class=\"fa fa-minus\"></i> Rimuovi </a> </div> </div>";
-        if(num != 2) {
-            var daEl = document.getElementById('el' + (newNum - 1));
-            daEl.parentNode.removeChild(daEl);
-        }
         num++;
     }
 
     function elimina(btn) {
-        var newNum = num;
-        if(num > 3) {
-            var daAg = document.getElementById('padre' + (newNum - 2));
-            daAg.innerHTML = "<a onclick=\"javascript:elimina(this)\" id=\"el" + (newNum - 2) + "\" class=\"btn sm red-intense\"> <i class=\"fa fa-minus\"></i> Rimuovi </a> ";
-        }
-        var daEl = document.getElementById("form"+(num-1));
 
-        daEl.parentNode.removeChild(daEl);
-        num--;
+        var idAttuale = btn.getAttribute('id');
+        var numAttuale = idAttuale.substr(2);
+
+        var daEliminare = btn.parentNode.parentNode.parentNode;
+        daEliminare.parentNode.removeChild(daEliminare);
+
+
+        if(numAttuale >= num){}
+        else {
+            for (i = numAttuale; i < (num-1); i++) {
+
+                var div = document.getElementById('form' + (parseInt(i) + 1));
+                div.setAttribute('id', 'form' + i);
+
+                var label = document.getElementById('label' + (parseInt(i) + 1));
+                label.setAttribute('id', 'label' + i);
+                label.setAttribute('for','radio' + i);
+
+                var radio = document.getElementById('radio' + (parseInt(i) + 1));
+                radio.setAttribute('id', 'radio' + i);
+                radio.setAttribute('value', '' + i);
+
+                var el = document.getElementById('el' + (parseInt(i) + 1));
+                el.setAttribute('id', 'el' + i);
+            }
+            num--;
+        }
     }
 
 </script>

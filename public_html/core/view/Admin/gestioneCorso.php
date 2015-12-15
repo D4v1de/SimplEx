@@ -325,6 +325,9 @@ if (isset($_POST['elimina'])) {
         if(last == 'successassocia'){
             toastr.success('Associazione avvenuta con successo!', 'Associa Docente-Corso');
         }
+        if(last == 'successcrea') {
+            toastr.success('Creazione Corso avvenuta con successo!', 'Creazione');
+        }
     }
 </script>
 <!-- END JAVASCRIPTS -->
