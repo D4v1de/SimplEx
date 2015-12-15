@@ -25,8 +25,13 @@ $sessId = $_URL[5];
 $sessione = $sessioneController->readSessione($sessId);
 $studente = $_SESSION['user'];
 $matricola = $studente->getMatricola();
-$elaborato = $elaboratoController->readElaborato($matricola,$sessId);
-
+try{
+    $elaborato = $elaboratoController->readElaborato($matricola,$sessId);
+}
+catch(ApplicationException $ex){
+    header("Location: "."/studente/corso/"."$corsoId"."/");
+}
+$eseguibili = $sessioneController->getAllSessioniByStudente($matricola);
 $now = date("Y-m-d H:i:s");
 $end = $sessione->getDataFine();
 $start = $sessione->getDataInizio();
@@ -90,7 +95,6 @@ if (isset($_GET['consegna'])){
 <head>
     <meta charset="utf-8" />
     <title>Metronic | Page Layouts - Blank Page</title>
-    <script src="jquery-1.11.3.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/assets/global/css/mycounter.css" />
     <?php include VIEW_DIR . "design/header.php"; ?>
 </head>
@@ -253,8 +257,8 @@ if (isset($_GET['consegna'])){
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-9">
-                                            <button type="submit" name="consegna" class="btn green" data-toggle="confirmation" data-singleton="true" data-popout="true" title="Sei sicuro di voler consegnare?">Consegna</button>
-                                            <button type="submit" name="abbandona" class="btn red-intense" data-toggle="confirmation" data-singleton="true" data-popout="true" title="Vuoi davvero ritirarti? Ti verrà assegnato esito nullo.">Abbandona</button>
+                                            <button href="javascript: stopInterval();" type="submit" name="consegna" class="btn green" data-toggle="confirmation" data-singleton="true" data-popout="true" title="Sei sicuro di voler consegnare?">Consegna</button>
+                                            <button href="javascript: stopInterval();" type="submit" name="abbandona" class="btn red-intense" data-toggle="confirmation" data-singleton="true" data-popout="true" title="Vuoi davvero ritirarti? Ti verrà assegnato esito nullo.">Abbandona</button>
                                         </div>
                                     </div>
                                 </div>
@@ -491,10 +495,7 @@ if (isset($_GET['consegna'])){
                   }
                 }
             });
-            clearInterval(intId);
-            clearInterval(intId2);
-            clearInterval(intId3);
-            clearInterval(intId4);
+            stopInterval();
             return false;
         }
         else if (string == "Parzialmente corretto"){
@@ -512,10 +513,7 @@ if (isset($_GET['consegna'])){
                   }
                 }
             });
-            clearInterval(intId);
-            clearInterval(intId2);
-            clearInterval(intId3);
-            clearInterval(intId4);
+            stopInterval();
             return false;
         }
         else return true;
@@ -545,11 +543,14 @@ if (isset($_GET['consegna'])){
                       }
                     }
                 });
-                clearInterval(intId);
-                clearInterval(intId2);
-                clearInterval(intId3);
-                clearInterval(intId4);
+                stopInterval();
             }
+function stopInterval(){
+    clearInterval(intId);
+    clearInterval(intId2);
+    clearInterval(intId3);
+    clearInterval(intId4);
+}
         
             /*
     var Consegna = function(){
