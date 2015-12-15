@@ -85,9 +85,27 @@ if(isset($_POST['id'])){
 
 if(isset($_POST['idtest'])){
     $id = $_POST['idtest'];
-    $controllerTest->deleteTest($id);
-    $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/";
-    header($tornaACasa);
+    $Tests=Array();
+    $Sess=Array();
+    $i=0;
+    $Sess=$controllerSessione->getAllSessioniByCorso($identificativoCorso); 
+    foreach($Sess as $s){
+        $nuoviTest=$controllerSessione->getAllTestBySessione($idSessione->getId());
+        $Tests=array_merge($Tests,$nuoviTest);
+    }
+    foreach($Tests as $t){
+        if($t==$id){
+           $i++; 
+        }
+    }
+    if($i>0){
+        
+    }else{
+     $controllerTest->deleteTest($id);
+     $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/";
+     header($tornaACasa);   
+    }
+    
 }
 
 
