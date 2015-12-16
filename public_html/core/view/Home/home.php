@@ -77,8 +77,8 @@
 
                 <li><a href="#service" class="page-scroll">Lavoro svolto</a></li>
                 <li><a href="#portfolio" class="page-scroll">Chi siamo</a></li>
-                <li><a href="#about" class="page-scroll">Preview </a></li>
                 <li><a href="#team" class="page-scroll">Il nostro Team </a></li>
+                <li><a href="#about" class="page-scroll">Preview </a></li>
                 <li><a href="#contact" class="page-scroll">Contattaci</a></li>
                 <li><a href="/auth"
                        class="page-scroll"><?php
@@ -338,7 +338,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="feature_header text-center">
                     <h3 class="feature_title">Chi <b>siamo</b></h3>
-                    <h4 class="feature_sub">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </h4>
+                    <h4 class="feature_sub">Il sistema <b>SimplEx</b> è stato realizzato come progetto per l'esame di <b>Ingegneria del software</b>, questo sistema è stato sviluppato da un gruppo di studenti dell'<b>Universita degli Studi di Salerno</b> della facolt&agrave; di Scienze MM.FF.NN. del dipartimento di Informatica. </h4>
 
                     <div class="divider"></div>
                 </div>
@@ -348,7 +348,371 @@
 
 </section>  <!-- Portfolio Section End -->
 
-<div class="clearfix"></div>
+
+
+<!-- Testimonial Start -->
+
+<section id="testimonial" class="wow fadeInUp">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="feature_header text-center">
+                    <h3 class="feature_title">I <b>Manager </b> del progetto</h3>
+                    <!--   <h4 class="feature_sub">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </h4> -->
+                    <div class="divider"></div>
+                </div>
+            </div>  <!-- Col-md-12 End -->
+        </div>
+        <div class="row">
+            <div id="testimonial-carousel" class="owl-carousel owl-theme text-center testimonial-slide">
+                <div class="item">
+                    <div class="testimonial-thumb">
+                        <img class="img-circle" src="/assets/homepage/images/team/DeLucia.jpg" alt="testimonial">
+                    </div>
+                    <div class="testimonial-content">
+                        <h3 class="name">Professore Andrea De Lucia <span><b>Top Manager</b></span></h3>
+
+                        <p class="testimonial-text">
+                            iLorem Ipsum as their default model text, and a search for ‘lorem ipsum’ will uncover many
+                            web sites still in their infancy. Various versions have evolved over the years, sometimes by
+                            accident, sometimes on purpose. Lorem Ipsum is that it as opposed to using.
+                        </p>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="testimonial-thumb">
+                        <img class="img-circle" src="/assets/homepage/images/team/Alex.png" alt="testimonial">
+                    </div>
+                    <div class="testimonial-content">
+                        <h3 class="name">Alessandro Longo <span><b>Project Manager</b></span></h3>
+
+                        <p class="testimonial-text">
+                            Lorem Ipsum as their default model text, and a search for ‘lorem ipsum’ will uncover many
+                            web sites still in their infancy. Various versions have evolved over the years, sometimes by
+                            accident, sometimes on purpose. Lorem Ipsum is that it as opposed to using.
+                        </p>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="testimonial-thumb">
+                        <img class="img-circle" src="/assets/homepage/images/team/Davide.png" alt="testimonial">
+                    </div>
+                    <div class="testimonial-content">
+                        <h3 class="name wow bounceInLeft">Davide De Chiara<span><b>Project Manager</b></span></h3>
+
+                        <p class="testimonial-text">
+                            Lorem Ipsum as their default model text, and a search for ‘lorem ipsum’ will uncover many
+                            web sites still in their infancy. Various versions have evolved over the years, sometimes by
+                            accident, sometimes on purpose. Lorem Ipsum is that it as opposed to using.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- Navigation start -->
+            <div class="customNavigation cyprass-carousel-controller">
+                <a class="prev left">
+                    <i class="fa fa-chevron-left"></i>
+                </a>
+                <a class="next right">
+                    <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+            <!-- Navigation ENd -->
+        </div>
+    </div> <!-- Row End -->
+</section> <!-- Section Testimonial End -->
+
+<!-- Testimonial Area End -->
+
+<!-- Team MEmber Start -->
+<section id="team">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="feature_header text-center">
+                    <h3 class="feature_title">Il nostro <b> Team Members</b></h3>
+                    <h4 class="feature_sub">Tutti i membri del progetto. </h4>
+
+                    <div class="divider"></div>
+                </div>
+            </div>  <!-- Col-md-12 End -->
+
+            <div id="owl-demo" class="owl-carousel owl-theme team-items">
+                <div class="item text-center">
+                    <div class="single-member">
+                        <div class="overlay-hover">
+                            <img src="/assets/homepage/images/team/DeLucia.jpg" alt="" class="img-responsive">
+
+                            <div class="overlay-effect">
+                                <ul class="social list-inline">
+                                    <li><a href=""><i class="fa fa-github-square"></i></a></li>
+                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href=""><i class="fa fa-linkedin-square"></i></a></li>
+                                </ul>
+                                <p> </p>
+                            </div>
+                        </div>
+                        <h3>Andrea De Lucia</h3>
+                        <h5>Top Manager</h5>
+                    </div>
+                </div>  <!-- item wrapper end -->
+                <div class="item text-center">
+                    <div class="single-member">
+                        <div class="overlay-hover">
+                            <img src="/assets/homepage/images/team/Alex.png" alt="" class="img-responsive">
+
+                            <div class="overlay-effect">
+                                <ul class="social list-inline">
+                                    <li><a href=""><i class="fa fa-github-square"></i></a></li>
+                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href=""><i class="fa fa-linkedin-square"></i></a></li>
+                                </ul>
+                                <p> </p>
+                            </div>
+                        </div>
+                        <h3>Alessandro Longo</h3>
+                        <h5>Project Manager</h5>
+                    </div>
+                </div>  <!-- item wrapper end -->
+                <div class="item text-center">
+                    <div class="single-member">
+                        <div class="overlay-hover">
+                            <img src="/assets/homepage/images/team/Davide.png" alt="" class="img-responsive">
+
+                            <div class="overlay-effect">
+                                <ul class="social list-inline">
+                                    <li><a href=""><i class="fa fa-github-square"></i></a></li>
+                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href=""><i class="fa fa-linkedin-square"></i></a></li>
+                                </ul>
+                                <p> </p>
+                            </div>
+                        </div>
+                        <h3>Davide De Chiara</h3>
+                        <h5>Project Manager</h5>
+                    </div>
+                </div>  <!-- item wrapper end -->
+                <div class="item text-center">
+                    <div class="single-member">
+                        <div class="overlay-hover">
+                            <img src="/assets/homepage/images/team/pic2.jpg" alt="" class="img-responsive">
+
+                            <div class="overlay-effect">
+                                <ul class="social list-inline">
+                                    <li><a href=""><i class="fa fa-github-square"></i></a></li>
+                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href=""><i class="fa fa-linkedin-square"></i></a></li>
+                                </ul>
+                                <p> </p>
+                            </div>
+                        </div>
+                        <h3>Dario Castellano</h3>
+                        <h5>Team Member</h5>
+                    </div>
+                </div>  <!-- item wrapper end -->
+                <div class="item text-center">
+                    <div class="single-member">
+                        <div class="overlay-hover">
+                            <img src="/assets/homepage/images/team/pic5.jpg" alt="" class="img-responsive">
+
+                            <div class="overlay-effect">
+                                <ul class="social list-inline">
+                                    <li><a href=""><i class="fa fa-github-square"></i></a></li>
+                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href=""><i class="fa fa-linkedin-square"></i></a></li>
+                                </ul>
+                                <p> </p>
+                            </div>
+                        </div>
+                        <h3>Antonio Luca D'Avanzo</h3>
+                        <h5>Team Member</h5>
+                    </div>
+                </div>  <!-- item wrapper end -->
+                <div class="item text-center">
+                    <div class="single-member">
+                        <div class="overlay-hover">
+                            <img src="/assets/homepage/images/team/Christian.jpg" alt="" class="img-responsive">
+
+                            <div class="overlay-effect">
+                                <ul class="social list-inline">
+                                    <li><a href=""><i class="fa fa-github-square"></i></a></li>
+                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href=""><i class="fa fa-linkedin-square"></i></a></li>
+                                </ul>
+                                <p> </p>
+                            </div>
+                        </div>
+                        <h3>Christian De Blasio</h3>
+                        <h5>Team Member</h5>
+                    </div>
+                </div>  <!-- item wrapper end -->
+                <div class="item text-center">
+                    <div class="single-member">
+                        <div class="overlay-hover">
+                            <img src="/assets/homepage/images/team/pic4.jpg" alt="" class="img-responsive">
+
+                            <div class="overlay-effect">
+                                <ul class="social list-inline">
+                                    <li><a href=""><i class="fa fa-github-square"></i></a></li>
+                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href=""><i class="fa fa-linkedin-square"></i></a></li>
+                                </ul>
+                                <p></p>
+                            </div>
+                        </div>
+                        <h3>Federico De Rosa</h3>
+                        <h5>Team Member</h5>
+                    </div>
+                </div>  <!-- item wrapper end -->
+                <div class="item text-center">
+                    <div class="single-member">
+                        <div class="overlay-hover">
+                            <img src="/assets/homepage/images/team/pic5.jpg" alt="" class="img-responsive">
+
+                            <div class="overlay-effect">
+                                <ul class="social list-inline">
+                                    <li><a href=""><i class="fa fa-github-square"></i></a></li>
+                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href=""><i class="fa fa-linkedin-square"></i></a></li>
+                                </ul>
+                                <p> </p>
+                            </div>
+                        </div>
+                        <h3>Carlo Di Domenico</h3>
+                        <h5>Team Member</h5>
+                    </div>
+                </div>  <!-- item wrapper end -->
+                <div class="item text-center">
+                    <div class="single-member">
+                        <div class="overlay-hover">
+                            <img src="/assets/homepage/images/team/pic5.jpg" alt="" class="img-responsive">
+
+                            <div class="overlay-effect">
+                                <ul class="social list-inline">
+                                    <li><a href=""><i class="fa fa-github-square"></i></a></li>
+                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href=""><i class="fa fa-linkedin-square"></i></a></li>
+                                </ul>
+                                <p> </p>
+                            </div>
+                        </div>
+                        <h3>Fabio Esposito</h3>
+                        <h5>Team Member</h5>
+                    </div>
+                </div>  <!-- item wrapper end -->
+                <div class="item text-center">
+                    <div class="single-member">
+                        <div class="overlay-hover">
+                            <img src="/assets/homepage/images/team/Alina.jpg" alt="" class="img-responsive">
+
+                            <div class="overlay-effect">
+                                <ul class="social list-inline">
+                                    <li><a href="https://www.facebook.com/alina.alert22"><i class="fa fa-github-square"></i></a></li>
+                                    <li><a href="https://plus.google.com/u/0/117270428071805224670/posts"><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href="https://www.linkedin.com/profile/view?id=AAIAABvcVp4BSdMe_XvYyATRQ1B-jO-_nHISiSs&trk=nav_responsive_tab_profile_pic"><i class="fa fa-linkedin-square"></i></a></li>
+                                </ul>
+                                <p> </p>
+                            </div>
+                        </div>
+                        <h3>Alina Korniychuk</h3>
+                        <h5>Team Member</h5>
+                    </div>
+                </div>  <!-- item wrapper end -->
+                <div class="item text-center">
+                    <div class="single-member">
+                        <div class="overlay-hover">
+                            <img src="/assets/homepage/images/team/pic5.jpg" alt="" class="img-responsive">
+
+                            <div class="overlay-effect">
+                                <ul class="social list-inline">
+                                    <li><a href=""><i class="fa fa-github-square"></i></a></li>
+                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href=""><i class="fa fa-linkedin-square"></i></a></li>
+                                </ul>
+                                <p> </p>
+                            </div>
+                        </div>
+                        <h3>Pasquale Martiniello</h3>
+                        <h5>Team Member</h5>
+                    </div>
+                </div>  <!-- item wrapper end -->
+                <div class="item text-center">
+                    <div class="single-member">
+                        <div class="overlay-hover">
+                            <img src="/assets/homepage/images/team/pic5.jpg" alt="" class="img-responsive">
+
+                            <div class="overlay-effect">
+                                <ul class="social list-inline">
+                                    <li><a href=""><i class="fa fa-github-square"></i></a></li>
+                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href=""><i class="fa fa-linkedin-square"></i></a></li>
+                                </ul>
+                                <p></p>
+                            </div>
+                        </div>
+                        <h3>Fabiano Pecorelli</h3>
+                        <h5>Team Member</h5>
+                    </div>
+                </div>  <!-- item wrapper end -->
+                <div class="item text-center">
+                    <div class="single-member">
+                        <div class="overlay-hover">
+                            <img src="/assets/homepage/images/team/Sergio.jpg" alt="" class="img-responsive">
+
+                            <div class="overlay-effect">
+                                <ul class="social list-inline">
+                                    <li><a href=""><i class="fa fa-github-square"></i></a></li>
+                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href=""><i class="fa fa-linkedin-square"></i></a></li>
+                                </ul>
+                                <p> </p>
+                            </div>
+                        </div>
+                        <h3>Sergiy Shevchenko</h3>
+                        <h5>Team Member</h5>
+                    </div>
+                </div>  <!-- item wrapper end -->
+                <div class="item text-center">
+                    <div class="single-member">
+                        <div class="overlay-hover">
+                            <img src="/assets/homepage/images/team/pic5.jpg" alt="" class="img-responsive">
+
+                            <div class="overlay-effect">
+                                <ul class="social list-inline">
+                                    <li><a href=""><i class="fa fa-github-square"></i></a></li>
+                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href=""><i class="fa fa-linkedin-square"></i></a></li>
+                                </ul>
+                                <p></p>
+                            </div>
+                        </div>
+                        <h3>Giuseppina Tufano</h3>
+                        <h5>Team Member</h5>
+                    </div>
+                </div>  <!-- item wrapper end -->
+                <div class="item text-center">
+                    <div class="single-member">
+                        <div class="overlay-hover">
+                            <img src="/assets/homepage/images/team/pic5.jpg" alt="" class="img-responsive">
+
+                            <div class="overlay-effect">
+                                <ul class="social list-inline">
+                                    <li><a href=""><i class="fa fa-github-square"></i></a></li>
+                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href=""><i class="fa fa-linkedin-square"></i></a></li>
+                                </ul>
+                                <p> </p>
+                            </div>
+                        </div>
+                        <h3>Elvira Zanin</h3>
+                        <h5>Team Member</h5>
+                    </div>
+                </div>  <!-- item wrapper end -->
+            </div>
+        </div>
+    </div> <!-- Conatiner Team end -->
+
+</section>  <!-- Section TEam End -->
 
 <!-- About us start -->
 <section id="about">
@@ -547,405 +911,8 @@
     </div>
 </section>
 <!-- About us End -->
-
-
-<!-- Testimonial Start -->
-
-<section id="testimonial" class="wow fadeInUp">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="feature_header text-center">
-                    <h3 class="feature_title">I <b>Manager </b> del progetto</h3>
-                    <!--   <h4 class="feature_sub">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </h4> -->
-                    <div class="divider"></div>
-                </div>
-            </div>  <!-- Col-md-12 End -->
-        </div>
-        <div class="row">
-            <div id="testimonial-carousel" class="owl-carousel owl-theme text-center testimonial-slide">
-                <div class="item">
-                    <div class="testimonial-thumb">
-                        <img class="img-circle" src="/assets/homepage/images/team/DeLucia.jpg" alt="testimonial">
-                    </div>
-                    <div class="testimonial-content">
-                        <h3 class="name">Professore Andrea De Lucia <span><b>Top Manager</b></span></h3>
-
-                        <p class="testimonial-text">
-                            iLorem Ipsum as their default model text, and a search for ‘lorem ipsum’ will uncover many
-                            web sites still in their infancy. Various versions have evolved over the years, sometimes by
-                            accident, sometimes on purpose. Lorem Ipsum is that it as opposed to using.
-                        </p>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="testimonial-thumb">
-                        <img class="img-circle" src="/assets/homepage/images/team/Alex.png" alt="testimonial">
-                    </div>
-                    <div class="testimonial-content">
-                        <h3 class="name">Alessandro Longo <span><b>Project Manager</b></span></h3>
-
-                        <p class="testimonial-text">
-                            Lorem Ipsum as their default model text, and a search for ‘lorem ipsum’ will uncover many
-                            web sites still in their infancy. Various versions have evolved over the years, sometimes by
-                            accident, sometimes on purpose. Lorem Ipsum is that it as opposed to using.
-                        </p>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="testimonial-thumb">
-                        <img class="img-circle" src="/assets/homepage/images/team/Davide.png" alt="testimonial">
-                    </div>
-                    <div class="testimonial-content">
-                        <h3 class="name wow bounceInLeft">Davide De Chiara<span><b>Project Manager</b></span></h3>
-
-                        <p class="testimonial-text">
-                            Lorem Ipsum as their default model text, and a search for ‘lorem ipsum’ will uncover many
-                            web sites still in their infancy. Various versions have evolved over the years, sometimes by
-                            accident, sometimes on purpose. Lorem Ipsum is that it as opposed to using.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <!-- Navigation start -->
-            <div class="customNavigation cyprass-carousel-controller">
-                <a class="prev left">
-                    <i class="fa fa-chevron-left"></i>
-                </a>
-                <a class="next right">
-                    <i class="fa fa-chevron-right"></i>
-                </a>
-            </div>
-            <!-- Navigation ENd -->
-        </div>
-    </div> <!-- Row End -->
-</section> <!-- Section Testimonial End -->
-
-<!-- Testimonial Area End -->
-
-<!-- Team MEmber Start -->
-<section id="team">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="feature_header text-center">
-                    <h3 class="feature_title">Il nostro <b> Team Members</b></h3>
-                    <h4 class="feature_sub">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </h4>
-
-                    <div class="divider"></div>
-                </div>
-            </div>  <!-- Col-md-12 End -->
-
-            <div id="owl-demo" class="owl-carousel owl-theme team-items">
-
-                <div class="item text-center">
-                    <div class="single-member">
-                        <div class="overlay-hover">
-                            <img src="/assets/homepage/images/team/DeLucia.jpg" alt="" class="img-responsive">
-
-                            <div class="overlay-effect">
-                                <ul class="social list-inline">
-                                    <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fa fa-skype"></i></a></li>
-                                </ul>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dignissimos,
-                                    maxime ea excepturi veritatis itaque. </p>
-                            </div>
-                        </div>
-                        <h3>Andrea De Lucia</h3>
-                        <h5>Top Manager</h5>
-                    </div>
-                </div>  <!-- item wrapper end -->
-                <div class="item text-center">
-                    <div class="single-member">
-                        <div class="overlay-hover">
-                            <img src="/assets/homepage/images/team/Alex.png" alt="" class="img-responsive">
-
-                            <div class="overlay-effect">
-                                <ul class="social list-inline">
-                                    <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fa fa-skype"></i></a></li>
-                                </ul>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dignissimos,
-                                    maxime ea excepturi veritatis itaque. </p>
-                            </div>
-                        </div>
-                        <h3>Alessandro Longo</h3>
-                        <h5>Project Manager</h5>
-                    </div>
-                </div>  <!-- item wrapper end -->
-                <div class="item text-center">
-                    <div class="single-member">
-                        <div class="overlay-hover">
-                            <img src="/assets/homepage/images/team/Davide.png" alt="" class="img-responsive">
-
-                            <div class="overlay-effect">
-                                <ul class="social list-inline">
-                                    <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fa fa-skype"></i></a></li>
-                                </ul>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dignissimos,
-                                    maxime ea excepturi veritatis itaque. </p>
-                            </div>
-                        </div>
-                        <h3>Davide De Chiara</h3>
-                        <h5>Project Manager</h5>
-                    </div>
-                </div>  <!-- item wrapper end -->
-                <div class="item text-center">
-                    <div class="single-member">
-                        <div class="overlay-hover">
-                            <img src="/assets/homepage/images/team/pic2.jpg" alt="" class="img-responsive">
-
-                            <div class="overlay-effect">
-                                <ul class="social list-inline">
-                                    <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fa fa-skype"></i></a></li>
-                                </ul>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dignissimos,
-                                    maxime ea excepturi veritatis itaque. </p>
-                            </div>
-                        </div>
-                        <h3>Dario Castellano</h3>
-                        <h5>Team Member</h5>
-                    </div>
-                </div>  <!-- item wrapper end -->
-                <div class="item text-center">
-                    <div class="single-member">
-                        <div class="overlay-hover">
-                            <img src="/assets/homepage/images/team/pic5.jpg" alt="" class="img-responsive">
-
-                            <div class="overlay-effect">
-                                <ul class="social list-inline">
-                                    <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fa fa-skype"></i></a></li>
-                                </ul>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dignissimos,
-                                    maxime ea excepturi veritatis itaque. </p>
-                            </div>
-                        </div>
-                        <h3>Antonio Luca D'Avanzo</h3>
-                        <h5>Team Member</h5>
-                    </div>
-                </div>  <!-- item wrapper end -->
-                <div class="item text-center">
-                    <div class="single-member">
-                        <div class="overlay-hover">
-                            <img src="/assets/homepage/images/team/pic4.jpg" alt="" class="img-responsive">
-
-                            <div class="overlay-effect">
-                                <ul class="social list-inline">
-                                    <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fa fa-skype"></i></a></li>
-                                </ul>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dignissimos,
-                                    maxime ea excepturi veritatis itaque. </p>
-                            </div>
-                        </div>
-                        <h3>Christian De Blasio</h3>
-                        <h5>Team Member</h5>
-                    </div>
-                </div>  <!-- item wrapper end -->
-                <div class="item text-center">
-                    <div class="single-member">
-                        <div class="overlay-hover">
-                            <img src="/assets/homepage/images/team/pic4.jpg" alt="" class="img-responsive">
-
-                            <div class="overlay-effect">
-                                <ul class="social list-inline">
-                                    <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fa fa-skype"></i></a></li>
-                                </ul>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dignissimos,
-                                    maxime ea excepturi veritatis itaque. </p>
-                            </div>
-                        </div>
-                        <h3>Federico De Rosa</h3>
-                        <h5>Team Member</h5>
-                    </div>
-                </div>  <!-- item wrapper end -->
-                <div class="item text-center">
-                    <div class="single-member">
-                        <div class="overlay-hover">
-                            <img src="/assets/homepage/images/team/pic5.jpg" alt="" class="img-responsive">
-
-                            <div class="overlay-effect">
-                                <ul class="social list-inline">
-                                    <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fa fa-skype"></i></a></li>
-                                </ul>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dignissimos,
-                                    maxime ea excepturi veritatis itaque. </p>
-                            </div>
-                        </div>
-                        <h3>Carlo Di Domenico</h3>
-                        <h5>Team Member</h5>
-                    </div>
-                </div>  <!-- item wrapper end -->
-                <div class="item text-center">
-                    <div class="single-member">
-                        <div class="overlay-hover">
-                            <img src="/assets/homepage/images/team/pic5.jpg" alt="" class="img-responsive">
-
-                            <div class="overlay-effect">
-                                <ul class="social list-inline">
-                                    <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fa fa-skype"></i></a></li>
-                                </ul>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dignissimos,
-                                    maxime ea excepturi veritatis itaque. </p>
-                            </div>
-                        </div>
-                        <h3>Fabio Esposito</h3>
-                        <h5>Team Member</h5>
-                    </div>
-                </div>  <!-- item wrapper end -->
-                <div class="item text-center">
-                    <div class="single-member">
-                        <div class="overlay-hover">
-                            <img src="/assets/homepage/images/team/pic5.jpg" alt="" class="img-responsive">
-
-                            <div class="overlay-effect">
-                                <ul class="social list-inline">
-                                    <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fa fa-skype"></i></a></li>
-                                </ul>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dignissimos,
-                                    maxime ea excepturi veritatis itaque. </p>
-                            </div>
-                        </div>
-                        <h3>Alina Korniychuk</h3>
-                        <h5>Team Member</h5>
-                    </div>
-                </div>  <!-- item wrapper end -->
-                <div class="item text-center">
-                    <div class="single-member">
-                        <div class="overlay-hover">
-                            <img src="/assets/homepage/images/team/pic5.jpg" alt="" class="img-responsive">
-
-                            <div class="overlay-effect">
-                                <ul class="social list-inline">
-                                    <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fa fa-skype"></i></a></li>
-                                </ul>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dignissimos,
-                                    maxime ea excepturi veritatis itaque. </p>
-                            </div>
-                        </div>
-                        <h3>Pasquale Martiniello</h3>
-                        <h5>Team Member</h5>
-                    </div>
-                </div>  <!-- item wrapper end -->
-                <div class="item text-center">
-                    <div class="single-member">
-                        <div class="overlay-hover">
-                            <img src="/assets/homepage/images/team/pic5.jpg" alt="" class="img-responsive">
-
-                            <div class="overlay-effect">
-                                <ul class="social list-inline">
-                                    <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fa fa-skype"></i></a></li>
-                                </ul>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dignissimos,
-                                    maxime ea excepturi veritatis itaque. </p>
-                            </div>
-                        </div>
-                        <h3>Fabiano Pecorelli</h3>
-                        <h5>Team Member</h5>
-                    </div>
-                </div>  <!-- item wrapper end -->
-                <div class="item text-center">
-                    <div class="single-member">
-                        <div class="overlay-hover">
-                            <img src="/assets/homepage/images/team/Sergio.jpg" alt="" class="img-responsive">
-
-                            <div class="overlay-effect">
-                                <ul class="social list-inline">
-                                    <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fa fa-skype"></i></a></li>
-                                </ul>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dignissimos,
-                                    maxime ea excepturi veritatis itaque. </p>
-                            </div>
-                        </div>
-                        <h3>Sergiy Shevchenko</h3>
-                        <h5>Team Member</h5>
-                    </div>
-                </div>  <!-- item wrapper end -->
-                <div class="item text-center">
-                    <div class="single-member">
-                        <div class="overlay-hover">
-                            <img src="/assets/homepage/images/team/pic5.jpg" alt="" class="img-responsive">
-
-                            <div class="overlay-effect">
-                                <ul class="social list-inline">
-                                    <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fa fa-skype"></i></a></li>
-                                </ul>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dignissimos,
-                                    maxime ea excepturi veritatis itaque. </p>
-                            </div>
-                        </div>
-                        <h3>Giuseppina Tufano</h3>
-                        <h5>Team Member</h5>
-                    </div>
-                </div>  <!-- item wrapper end -->
-                <div class="item text-center">
-                    <div class="single-member">
-                        <div class="overlay-hover">
-                            <img src="/assets/homepage/images/team/pic5.jpg" alt="" class="img-responsive">
-
-                            <div class="overlay-effect">
-                                <ul class="social list-inline">
-                                    <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href=""><i class="fa fa-skype"></i></a></li>
-                                </ul>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dignissimos,
-                                    maxime ea excepturi veritatis itaque. </p>
-                            </div>
-                        </div>
-                        <h3>Elvira Zanin</h3>
-                        <h5>Team Member</h5>
-                    </div>
-                </div>  <!-- item wrapper end -->
-            </div>
-        </div>
-    </div> <!-- Conatiner Team end -->
-    </div>
-
-</section>  <!-- Section TEam End -->
-
-<!-- Conatct Area Start-->
+<div class="clearfix"></div>
+<!-- Contact Area Start-->
 
 <section id="contact">
     <div class="container">
@@ -1008,10 +975,6 @@
 </div>
 
 
-</div>
-</div>
-</div>
-
 <div class="footer_b">
     <div class="container">
         <div class="row">
@@ -1023,12 +986,9 @@
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="footer_mid pull-right">
                     <ul class="social-contact list-inline">
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa fa-rss"></i></a></li>
+                        <li><a href="#"><i class="fa fa-github-square"></i></a></li>
                         <li><a href="#"><i class="fa fa-google-plus"></i> </a></li>
                         <li><a href="#"> <i class="fa fa-linkedin"></i></a></li>
-                        <li><a href="#"> <i class="fa fa-pinterest"></i></a></li>
                     </ul>
                 </div>
             </div>
