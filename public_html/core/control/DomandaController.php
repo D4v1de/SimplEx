@@ -5,7 +5,6 @@
  * Time: 07:00
  */
 
-include_once CONTROL_DIR . "Controller.php";
 include_once MODEL_DIR . "Model.php";
 include_once BEAN_DIR . "Argomento.php";
 include_once BEAN_DIR . "DomandaAperta.php";
@@ -15,7 +14,7 @@ include_once MODEL_DIR . "ArgomentoModel.php";
 include_once MODEL_DIR . "DomandaModel.php";
 
 
-class DomandaController extends Controller
+class DomandaController
 {
 
     /*NUOVE FUNZIONI*/
