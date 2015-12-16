@@ -27,6 +27,34 @@ $argomenti = Array();
 $correttezzaLogin = false;
 
 try {
+    $idsSessione = $controllerSessione->getAllSessioniByCorso($identificativoCorso);
+} catch (ApplicationException $ex) {
+    echo "<h1>GETALLSESSIONIBYCORSO FALLITO!</h1>" . $ex;
+}
+
+$now = date("Y-m-d H:i:s");
+foreach ($idsSessione as $c) {
+    $end = $c->getDataFine();
+    $start = $c->getDataInizio();
+
+    if ($c->getStato() == "Non eseguita" && ($now >= $start && $now <= $end)) { //vuol dire che è in esecuizione
+        $sessioneAggiornata = new Sessione($c->getDataInizio(), $c->getDataFine(), $c->getSogliaAmmissione(), "In esecuzione", $c->getTipologia(), $identificativoCorso);
+        $controllerSessione->updateSessione($c->getId(), $sessioneAggiornata);
+    }
+    else if ($c->getStato() == "Eseguita" && ($now >= $start && $now <= $end)) { //vuol dire che è in esecuizione
+        $sessioneAggiornata = new Sessione($c->getDataInizio(), $c->getDataFine(), $c->getSogliaAmmissione(), "In esecuzione", $c->getTipologia(), $identificativoCorso);
+        $controllerSessione->updateSessione($c->getId(), $sessioneAggiornata);
+    }else if ($c->getStato() == "Non eseguita" && ($now > $end)) {
+        $sessioneAggiornata = new Sessione($c->getDataInizio(), $c->getDataFine(), $c->getSogliaAmmissione(), "Eseguita", $c->getTipologia(), $identificativoCorso);
+        $controllerSessione->updateSessione($c->getId(), $sessioneAggiornata);
+    } else if ($c->getStato() == "In esecuzione" && ($now > $end)) {
+        $sessioneAggiornata = new Sessione($c->getDataInizio(), $c->getDataFine(), $c->getSogliaAmmissione(), "Eseguita", $c->getTipologia(), $identificativoCorso);
+        $controllerSessione->updateSessione($c->getId(), $sessioneAggiornata);
+    } else
+         ;
+}
+
+try {
     $corso = $controllerCorso->readCorso($_URL[2]);
 }catch(ApplicationException $exception){
     echo "ERRORE IN READ CORSO " . $exception;
@@ -53,9 +81,6 @@ foreach($docenteassociato as $docente){
     }
 }
 
-if($correttezzaLogin == false){
-    header('Location: /docente');
-}
 
 try{
     $argomenti = $controllerArgomento->getArgomenti($corso->getId());
@@ -63,12 +88,12 @@ try{
     echo "ERRORE IN READ ARGOMENTO" . $exception;
 }
 
-$idsSessione = $controllerSessione->getAllSessioniByCorso($identificativoCorso);
+
 if(isset($_POST['IdSes'])){
     $idSes = $_POST['IdSes'];
     try {
         $controllerSessione->deleteSessione($idSes);
-        header("Refresh:0");
+        header("location: "."/docente/corso/".$identificativoCorso."/successelimina");
     }
     catch(ApplicationException $ex) {
         echo "ERRORE". $ex;
@@ -112,6 +137,7 @@ if(isset($_POST['idtest'])){
     
 }
 
+$sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso);
 
 ?>
 <!DOCTYPE html>
@@ -256,7 +282,7 @@ if(isset($_POST['idtest'])){
                             <tbody>
                             <?php
                             $array = Array();
-                            $array = $idsSessione;
+                            $array = $sessioniByCorso;
                             $now = date("Y-m-d H:i:s");
                             if ($array == null) {
                             }
@@ -272,42 +298,35 @@ if(isset($_POST['idtest'])){
 
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
                                     if($c->getStato()!="In esecuzione")
-                                        printf("<td class=\"sorting_1\"><a href=\"%s\">%s</a></td>", $vaiAVisu,  "Sessione ".$c->getId());
+                                        printf("<td class=\"sorting_1\"><a class=\"btn default btn-xs green-stripe\" href=\"%s\">%s</a></td>", $vaiAVisu,  "Sessione ".$c->getId());
                                     else
-                                        printf("<td class=\"sorting_1\"><a href=\"%s\">%s</a></td>", $vaiASesInCorso,  "Sessione ".$c->getId());
+                                        printf("<td class=\"sorting_1\"><a class=\"btn default btn-xs green-stripe\" href=\"%s\">%s</a></td>", $vaiASesInCorso,  "Sessione ".$c->getId());
                                     printf("<td><div class='row'><div class='col-md-offset-1'><b>Inizio:</b>%s</div></div><div class='row'><div class='col-md-offset-1'><b>  Fine:</b>  %s</div></div></td>", $c->getDataInizio(),$c->getDataFine());
                                     printf("<td>%s</td>", $c->getTipologia());
-                                    if($c->getStato()=="Non eseguita" && ($now >= $start || $now <= $end) ) { //vuol dire che è in esecuizione
-                                        //devo fare l'update
-                                        $sessioneAggiornata = new Sessione( $c->getDataInizio(),$c->getDataFine(), $c->getSogliaAmmissione(), "In esecuzione", $c->getTipologia(), $identificativoCorso);
-                                        $controllerSessione->updateSessione($c->getId(), $sessioneAggiornata);
-                                        printf("<td>%s</td>", $c->getStato());
-                                    }
-                                    else if($c->getStato()=="Non eseguita" && ($now > $end) ){
-                                        $sessioneAggiornata = new Sessione( $c->getDataInizio(),$c->getDataFine(), $c->getSogliaAmmissione(), "Eseguita", $c->getTipologia(), $identificativoCorso);
-                                        $controllerSessione->updateSessione($c->getId(), $sessioneAggiornata);
-                                        printf("<td>%s</td>", $c->getStato());
-                                    }
-                                    else if($c->getStato()=="In esecuzione" && ($now > $end) ){
-                                        $sessioneAggiornata = new Sessione( $c->getDataInizio(),$c->getDataFine(), $c->getSogliaAmmissione(), "Eseguita", $c->getTipologia(), $identificativoCorso);
-                                        $controllerSessione->updateSessione($c->getId(), $sessioneAggiornata);
-                                        printf("<td>%s</td>", $c->getStato());
-                                    }
-                                    else
-                                        printf("<td>%s</td>", $c->getStato());
+                                    printf("<td>%s</td>", $c->getStato());
                                     printf("<td>%s</td>", $controllerSessione->readMostraEsitoSessione($c->getId()));
                                     printf("<td>%s</td>", $controllerSessione->readMostraRisposteCorretteSessione($c->getId()));
-                                    if($c->getStato()=="Eseguita")
+                                    if($c->getStato()=="Eseguita") {
                                         printf("<td class=\"center\"><a href=\"%s\" class=\"btn btn-sm default\">Esiti</a>
                                            <a href=\"%s\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></a>
-                                                                 <button type='submit' name='IdSes' value='%d' class='btn btn-sm red-intense'><i class=\"fa fa-trash-o\"></i></button>
-                                           </td>", $vaiVisuEsiti,$vaiAModifica, $c->getId());
-                                    else
+                                                                 <button type='submit' name='IdSes' value='%d' disabled='' class='btn btn-sm red-intense'  data-toggle=\"confirmation\"
+                                        data-singleton=\"true\" data-popout=\"true\" title=\"Sicuro?\"><i class=\"fa fa-trash-o\"></i></button>
+                                           </td>", $vaiVisuEsiti, $vaiAModifica, $c->getId());
+                                    }
+                                    else if($c->getStato()=="In esecuzione"){
+                                        printf("<td class=\"center\"><a href=\"%s\"  disabled='' class=\"btn btn-sm default\">Esiti</a>
+                                           <a href=\"%s\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></a>
+                                                                 <button type='submit' disabled=''  name='IdSes' value='%d' class='btn btn-sm red-intense'  data-toggle=\"confirmation\"
+                                        data-singleton=\"true\" data-popout=\"true\" title=\"Sicuro?\"><i class=\"fa fa-trash-o\"></i></button>
+                                           </td>", $vaiVisuEsiti, $vaiAModifica, $c->getId());
+                                    }
+                                    else {
                                         printf("<td class=\"center\"><a href=\"%s\"  disabled='' class=\"btn btn-sm default\">Esiti</a>
                                            <a href=\"%s\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></a>
                                                                  <button type='submit' name='IdSes' value='%d' class='btn btn-sm red-intense'  data-toggle=\"confirmation\"
                                         data-singleton=\"true\" data-popout=\"true\" title=\"Sicuro?\"><i class=\"fa fa-trash-o\"></i></button>
-                                           </td>", $vaiVisuEsiti,$vaiAModifica, $c->getId());
+                                           </td>", $vaiVisuEsiti, $vaiAModifica, $c->getId());
+                                    }
                                     printf("</tr>");
                                 }
                             }
