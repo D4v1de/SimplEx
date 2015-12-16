@@ -7,8 +7,6 @@
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "Esempio.php";
-$controller = new Esempio();
 include_once CONTROL_DIR . "ArgomentoController.php";
 include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "DomandaController.php";
@@ -81,7 +79,7 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
          $ilTest=$controllerTest->readTest($idNuovoTest);
          $ilTest->setPunteggioMax($punteggio);
          $controllerTest->updateTest($idNuovoTest,$ilTest);//aggiorno il valore di punteggio totale del test(finora zero) con il puteggio calcolato finora
-         $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/";
+         $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
          header($tornaACasa);//torno alla home
  
          
@@ -113,9 +111,12 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
     for($i=0;$i<$nApe;$i++){
     $leAperte[$i]=$Aperte[$indiciA[$i]];
     }
-    }else{
+    }else if($nApe==1){
       $x=rand(0,(count($Aperte)-1)); 
-      array_push($leAperte,$Aperte[$x]);  
+      $leAperte[0]=$Aperte[$x];  
+    }else{
+        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
+        header($tornaACasa); //torno alla home
     }
     if($nMul>1){
     $indiciM=array_rand($Multiple,$nMul);
@@ -123,9 +124,12 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
     for($i=0;$i<$nMul;$i++){
     $leMultiple[$i]=$Multiple[$indiciM[$i]];
     }
-    }else{
+    }else if($nMul==0){
         $x=rand(0,(count($Multiple)-1)); 
-        array_push($leMultiple,$Multiple[$x]);
+        $leMultiple[0]=$Multiple[$x];
+    }else{
+       $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
+        header($tornaACasa); //torno alla home 
     }
     
     foreach($leAperte as $s){ //leAperte selezionate vengono controllate per aggiorare il punteggio totale
@@ -144,10 +148,10 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
         $controllerDomande->associaAperTest(parseInt($s->getId()), $idNuovoTest, NULL);
     }
     foreach($leMultiple as $x) { //scansiono di nuovo le multiple per associarle al test
-        $controllerDomande->associaMultTest($x->getId(), $idNuovoTest, NULL, NULL);
+        $controllerDomande->associaMultTest(parseInt($x->getId()), $idNuovoTest, NULL, NULL);
     }
     
-    $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/";
+    $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
         header($tornaACasa); //torno alla home
     
 }
@@ -397,9 +401,11 @@ $num = $controllerArgomento->getNumArgomenti();
                                     <button type="submit" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                                     Conferma
                                     </button>
-                                    <a href="../" class="btn sm red-intense">
-                                        Annulla
-                                    </a>
+                                    <?php
+                                    printf("<a href=\"/docente/corso/%d\" class=\"btn sm red-intense\">Annulla</a>",$identificativoCorso);
+                                      
+                                    
+                                    ?>
                                 </div>
                             </div>
                         </div>
@@ -446,6 +452,8 @@ $num = $controllerArgomento->getNumArgomenti();
         TableManaged.init("tabella_argomenti2","tabella_argomenti2_wrapper");
         TableManaged.init("tabella_domande","tabella_domande_wrapper");
         UINestable.init(<?php echo $num; ?>);
+        UIConfirmations.init();
+        FormValidation.init();
         //TableManaged.init(3);
     });
 </script>

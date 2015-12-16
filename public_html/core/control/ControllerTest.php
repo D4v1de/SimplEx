@@ -6,7 +6,7 @@
  * Date: 25/11/15
  * Time: 22:26
  */
-include_once CONTROL_DIR . "Controller.php";
+
 include_once BEAN_DIR . "Argomento.php";
 include_once BEAN_DIR . "Test.php";
 include_once BEAN_DIR . "Sessione.php";
@@ -17,7 +17,7 @@ include_once MODEL_DIR . "SessioneModel.php";
 include_once MODEL_DIR . "TestModel.php";
 include_once MODEL_DIR . "AlternativaModel.php";
 
-class ControllerTest extends Controller {
+class ControllerTest {
     
     //Restituisce tutti i test
     public function getTest() {

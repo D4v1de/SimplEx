@@ -188,6 +188,9 @@ try {
                                     case 'crea':
                                         include_once VIEW_DIR . "Docente/CreaTest.php";
                                         break;
+                                    case 'modifica':
+                                        include_once VIEW_DIR . "Docente/ModificaTest.php";
+                                        break;
                                     default:
                                         include_once VIEW_DIR . "Docente/VisualizzaTest.php";
                                 }

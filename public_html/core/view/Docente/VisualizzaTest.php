@@ -25,12 +25,12 @@ function parseInt($Str) {
 if(isset($_POST['idtest'])){
     $id = $_POST['idtest'];
     $controllerTest->deleteTest($id);
-    $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/";
+    $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
     header($tornaACasa);
 }
 
 if(isset($_POST['Indietro'])){
-    $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/";
+    $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
     header($tornaACasa);
 }
 

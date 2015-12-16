@@ -6,7 +6,6 @@
  * Time: 17:44
  */
 
-include_once CONTROL_DIR . "Controller.php";
 include_once BEAN_DIR . "CdL.php";
 include_once BEAN_DIR . "Corso.php";
 include_once MODEL_DIR . "CdLModel.php";
@@ -15,7 +14,7 @@ include_once MODEL_DIR . "AccountModel.php";
 include_once MODEL_DIR . "SessioneModel.php";
 include_once BEAN_DIR . "Utente.php";
 
-class CdlController extends Controller {
+class CdlController {
 
     /**
      * Restituisco tutti i CdL
