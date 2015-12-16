@@ -30,7 +30,7 @@ if(isset($_POST['idtest'])){
 }
 
 if(isset($_POST['Indietro'])){
-    $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/";
+    $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
     header($tornaACasa);
 }
 

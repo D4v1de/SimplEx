@@ -155,6 +155,16 @@ class DomandaController extends Controller
         return $domandaModel->associaDomandaMultiplaTest($idDomanda, $idTest, $punteggioCorrettaAlternativo, $punteggioErrataAlternativo);
     }
     
+    public function dissociaMultTest($idDomanda, $idTest){
+        $domandaModel = new DomandaModel();
+        return $domandaModel->dissociaDomandaMultiplaTest($idDomanda, $idTest);
+    }
+    
+    public function dissociaAperTest($idDomanda, $idTest){
+        $domandaModel = new DomandaModel();
+        return $domandaModel->dissociaDomandaApertaTest($idDomanda, $idTest);
+    }
+    
     public function readPunteggioCorrettaAlternativo($idDomandaMultipla, $idTest){
         $domandaModel = new DomandaModel();
         return $domandaModel->readPunteggioCorrettaAlternativo($idDomandaMultipla, $idTest);

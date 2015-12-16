@@ -397,9 +397,11 @@ $num = $controllerArgomento->getNumArgomenti();
                                     <button type="submit" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                                     Conferma
                                     </button>
-                                    <a href="../" class="btn sm red-intense">
-                                        Annulla
-                                    </a>
+                                    <?php
+                                    printf("<a href=\"/docente/corso/%d\" class=\"btn sm red-intense\">Annulla</a>",$identificativoCorso);
+                                      
+                                    
+                                    ?>
                                 </div>
                             </div>
                         </div>
