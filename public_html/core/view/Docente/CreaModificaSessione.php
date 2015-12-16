@@ -142,6 +142,10 @@ if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
         else
             $newOrOldDataTo = $_POST['dataTo'];
 
+        $sessioneByUrl = $controller->readSessione($_URL[4]);
+        $stato=$sessioneByUrl->getStato();
+        $sogliAmm=$sessioneByUrl->getSogliaAmmissione();
+
         try {
             $sessioneAggiornata = new Sessione($newOrOldDataFrom, $newOrOldDataTo, $sogliAmm, $stato, $tipoSessione, $idCorso);
             $controller->disabilitaMostraEsito($idSessione);
