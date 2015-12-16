@@ -148,8 +148,8 @@ if (isset($_POST['checkbox'])) {
                                 foreach ($corsi as $c) {
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
                                     printf("<td class=\"sorting_1\"><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $c->getId());
-                                    printf("<td class=\"sorting_1\"><a href=\"/admin/corsi/modifica/%s\">%s</a></td>", $c->getId(), $c->getNome());
-                                    printf("<td class=\"sorting_1\"><span class=\"badge badge-success\">%s</span></td>", $c->getMatricola());
+                                    printf("<td class=\"sorting_1\"><a class=\"btn default btn-xs green-stripe\" href=\"/admin/corsi/modifica/%s\">%s</a></td>", $c->getId(), $c->getNome());
+                                    printf("<td class=\"sorting_1\">%s</td>", $c->getMatricola());
                                     printf("<td class=\"sorting_1\">%s</td>", $c->getCdlMatricola());
                                     printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
                                     printf("</tr>");

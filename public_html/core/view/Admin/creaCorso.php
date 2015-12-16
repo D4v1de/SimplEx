@@ -40,9 +40,9 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     if($flag) {
         try {
             $corso = new Corso($matricola, $nome, $tipologia, $cdlmatricola);
-            $controller->creaCorso($corso);
+            $id = $controller->creaCorso($corso);
 
-            header('location: /admin/corsi/view/successcrea');
+            header('location: /admin/corsi/gestione/' . $id . '/successcrea');
         } catch (ApplicationException $ex) {
             echo "<h1>CREACORSO FALLITO!</h1>.$ex";
         }
@@ -115,10 +115,10 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                             <button class="close" data-close="alert"></button>
                             Ci sono alcuni errori nei dati. Per favore riprova l'inserimento.
                         </div>
-                        <div class="alert alert-success display-hide">
+                        <!--<div class="alert alert-success display-hide">
                             <button class="close" data-close="alert"></button>
                             La tua form &egrave; stata validata!
-                        </div>
+                        </div>-->
 
                         <div class="portlet box blue-madison">
                             <div class="portlet-title">
@@ -194,6 +194,9 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                         </div>
                                     </div>
 
+                                    <div class="row">
+                                        <h3></h3>
+                                    </div>
                                 </div>
                             </div>
                         </div>

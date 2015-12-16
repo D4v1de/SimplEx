@@ -46,7 +46,7 @@ foreach($docentiAssociati as $docente){
 }
 
 if($correttezzaLogin == false){
-    header('Location: /docente/corso/'.$corsoid);
+    header('Location: /docente');
 }
 
 if(isset($_POST['nome'])){

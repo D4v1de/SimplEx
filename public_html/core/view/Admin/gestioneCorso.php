@@ -233,9 +233,9 @@ if (isset($_POST['elimina'])) {
                                     } else {
                                         printf("<td><input type=\"checkbox\" class=\"checkboxes\" name=\"checkbox[]\" id=\"checkbox\" value=\"%s\"></td>", $d->getMatricola());
                                     }
-                                    printf("<td>%s</td>", $d->getCognome());
-                                    printf("<td><a href=\"/admin/utenti/view/%s\">%s</a></td>", $d->getMatricola(), $d->getNome());
-                                    printf("<td><span class=\"badge badge-success\">%s</span></td>", $d->getMatricola());
+                                    printf("<td><a class=\"btn default btn-xs green-stripe\" href=\"/admin/utenti/view/%s\">%s</a></td>", $d->getMatricola(), $d->getCognome());
+                                    printf("<td>%s</td>", $d->getNome());
+                                    printf("<td>%s</td>", $d->getMatricola());
                                     printf("</tr>");
                                 }
                                 ?>
@@ -324,6 +324,9 @@ if (isset($_POST['elimina'])) {
         var last = href.substr(href.lastIndexOf('/') + 1);
         if(last == 'successassocia'){
             toastr.success('Associazione avvenuta con successo!', 'Associa Docente-Corso');
+        }
+        if(last == 'successcrea') {
+            toastr.success('Creazione Corso avvenuta con successo!', 'Creazione');
         }
     }
 </script>

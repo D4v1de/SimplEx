@@ -53,6 +53,10 @@ foreach($docenteassociato as $docente){
     }
 }
 
+if($correttezzaLogin == false){
+    header('Location: /docente');
+}
+
 try{
     $argomenti = $controllerArgomento->getArgomenti($corso->getId());
 }catch(ApplicationException $exception){
@@ -327,12 +331,10 @@ if(isset($_POST['idtest'])){
                         </a>
                     </div>
                     <?php
-                    if($correttezzaLogin==true) {
-                        printf("<div class=\"actions\">");
-                        printf("<a href=\"/docente/corso/%s/test/crea\" class=\"btn btn-default btn-sm\">", $identificativoCorso);
-                        printf("<i class=\"fa fa-plus\"></i> Crea Test </a>");
-                        printf("</div>");
-                    }
+                    printf("<div class=\"actions\">");
+                    printf("<a href=\"/docente/corso/%s/test/crea\" class=\"btn btn-default btn-sm\">", $identificativoCorso);
+                    printf("<i class=\"fa fa-plus\"></i> Crea Test </a>");
+                    printf("</div>");
                     ?>
                 </div>
                 <div class="portlet-body">
@@ -375,17 +377,10 @@ if(isset($_POST['idtest'])){
                                     % Superato
                                 </th>
                                 <?php
-                                if($correttezzaLogin==true) {
                                     printf("<th class=\"sorting_disabled\" rowspan=\"1\" colspan=\"1\" aria-label=\"Status\" style=\"width: 14%%;\">");
                                     printf("Azioni");
                                     printf("</th>");
-                                }
                                 ?>
-
-
-
-
-
                             </tr>
                             </thead>
                             <tbody>
@@ -405,11 +400,9 @@ if(isset($_POST['idtest'])){
                                         printf("<td>%s</td>",$c->getPunteggioMax());
                                         printf("<td>%s %%</td>",$c->getPercentualeScelto());
                                         printf("<td>%s %%</td>",$c->getPercentualeSuccesso());
-                                            if($correttezzaLogin==true){
-                                                printf("<td><a href=\"test/crea\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></i></a>");
-                                                printf("<button class=\"btn btn-sm red-intense\" type=\"submit\" name=\"idtest\" title=\"\" id=\"%d\" value=\"%d\" data-popout=\"true\" data-toggle=\"confirmation\" data-singleton=\"true\" data-original-title=\"Sei sicuro?\"><i class=\"fa fa-trash-o\"></i></button>", $c->getId(), $c->getId());
-                                                printf("</td>");
-                                            }
+                                        printf("<td><a href=\"test/crea\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></i></a>");
+                                        printf("<button class=\"btn btn-sm red-intense\" type=\"submit\" name=\"idtest\" title=\"\" id=\"%d\" value=\"%d\" data-popout=\"true\" data-toggle=\"confirmation\" data-singleton=\"true\" data-original-title=\"Sei sicuro?\"><i class=\"fa fa-trash-o\"></i></button>", $c->getId(), $c->getId());
+                                        printf("</td>");
                                         printf("</tr>");
                                         }
                                         }
@@ -436,12 +429,10 @@ if(isset($_POST['idtest'])){
                         </a>
                     </div>
                     <?php
-                        if($correttezzaLogin==true){
                             printf("<div class=\"actions\">");
                             printf("<a href=\"/docente/corso/%s/argomento/inserisci\" class=\"btn btn-default btn-sm\">",$corso->getId());
                             printf("<i class=\"fa fa-plus\"></i> Aggiungi Argomento </a>");
                             printf("</div>");
-                        }
                     ?>
                 </div>
                 <div class="portlet-body">
@@ -456,9 +447,7 @@ if(isset($_POST['idtest'])){
                                     Nome
                                 </th>
                                 <?php
-                                    if($correttezzaLogin==true){
                                         printf("<th class=\"sorting_disabled\" rowspan=\"1\" colspan=\"1\" aria-label=\"Email\" style=\"width: 14%%;\">Azioni</th>");
-                                    }
                                 ?>
                             </tr>
 
@@ -471,14 +460,12 @@ if(isset($_POST['idtest'])){
                             foreach($argomenti as $a) {
                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
                                 printf("<td><a href=\"/docente/corso/%d/argomento/domande/%d \">%s</a></td>", $a->getCorsoId() , $a->getId() , $a->getNome());
-                                if($correttezzaLogin==true){
                                     printf("<td>");
                                     printf("<a href=\"/docente/corso/%d/argomento/modifica/%d \" class=\"btn btn-sm blue-madison\">", $a->getCorsoId(),$a->getId());
                                     printf("<i class=\"fa fa-edit\"></i>");
                                     printf("</a>");
                                     printf("<button class=\"btn btn-sm red-intense\" type=\"submit\" name=\"id\" title='Sei sicuro?' value=\"%d\" data-popout=\"true\" data-toggle=\"confirmation\" data-singleton=\"true\"><i class=\"fa fa-trash-o\"></i></button>",$a->getId());
                                     printf("</td>");
-                                }
                                 printf("</tr>");
                             }
 

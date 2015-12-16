@@ -43,7 +43,7 @@ var TableManaged = function () {
             "language": {
                 "lengthMenu": " _MENU_ elementi",
                 "emptyTable": "Non ci sono dati disponibili",
-                "infoEmpty": "Non ci sono elementi",
+                "infoEmpty": "",
                 "info": "Mostra da _START_ a _END_ di _TOTAL_ risultati",
                 "search": "Cerca:",
                 "paging": {
@@ -137,7 +137,7 @@ var TableManaged2 = function () {
             "language": {
                 "lengthMenu": " _MENU_ elementi",
                 "emptyTable": "Non ci sono dati disponibili",
-                "infoEmpty": "Non ci sono elementi",
+                "infoEmpty": "",
                 "info": "Mostra da _START_ a _END_ di _TOTAL_ risultati",
                 "search": "Cerca:",
                 "paging": {

@@ -26,11 +26,35 @@ var FormValidation = function () {
                 rules: {
                     name: {
                         minlength: 2,
+                        maxlength: 30,
+                        number: false,
                         required: true
                     },
                     nome: {
                         minlength: 2,
+                        maxlength: 30,
+                        number: false,
                         required: true
+                    },
+                    nomecdl: {
+                        minlength: 2,
+                        maxlength: 40,
+                        required: true
+                    },
+                    nomecorso: {
+                        minlength: 2,
+                        maxlength: 40,
+                        required: true
+                    },
+                    nomeargomento: {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 50
+                    },
+                    nomedomanda: {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 500
                     },
                     email: {
                         required: true,
@@ -38,11 +62,19 @@ var FormValidation = function () {
                     },
                     cognome: {
                         required: true,
-                        minlenght: 2
+                        number: false,
+                        minlenght: 2,
+                        maxlength: 30
                     },
                     pass: {
                         required: true,
                         minlenght: 6
+                    },
+                    //per il test
+                    descrizione: {
+                        required: true,
+                        minlenght: 2,
+                        maxlength: 500
                     },
                     radio1: {
                         required: true
@@ -52,7 +84,8 @@ var FormValidation = function () {
                     },
                     testoDomanda: {
                         required:true,
-                        minlength: 2
+                        minlength: 2,
+                        maxlength: 500
                     },
                     testoRisposta: {
                         required:true,
@@ -64,11 +97,13 @@ var FormValidation = function () {
                     },
                     'testoRisposta[]': {
                         required: true,
-                        minlength: 1
+                        minlength: 1,
+                        maxlength: 100
                     },
                     'risposteNuove[]': {
                         required: true,
-                        minlength: 1
+                        minlength: 1,
+                        maxlength: 100
                     },
                     url: {
                         required: true,
@@ -78,10 +113,12 @@ var FormValidation = function () {
                         required: true,
                         number: true
                     },
+                    //da mettere maggiore uguale di zero
                     punteggioEsatta: {
                         required: true,
                         number: true
                     },
+                    // qui anche negativo (però dicono di fare solo negativo)
                     punteggioErrata: {
                         required: true,
                         number: true
@@ -89,12 +126,14 @@ var FormValidation = function () {
                     matricola: {
                         required: true,
                         number: true,
-                        minlength: 6
+                        minlength: 10,
+                        maxlength: 10
                     },
                     cdlmatricola: {
                         required: true,
                         number: true,
-                        minlength: 6
+                        minlength: 10,
+                        maxlength: 10
                     },
                     digits: {
                         required: true,
@@ -303,7 +342,7 @@ var FormValidation = function () {
                         required: true
                     },
                     occupation: {
-                        minlength: 5,
+                        minlength: 5
                     },
                     membership: {
                         required: true
