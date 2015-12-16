@@ -122,7 +122,7 @@ if(isset($_POST['idtest'])){
     $i=0;
     $Sess=$controllerSessione->getAllSessioniByCorso($identificativoCorso); 
     foreach($Sess as $s){
-        $nuoviTest=$controllerSessione->getAllTestBySessione($idSessione->getId());
+        $nuoviTest=$controllerSessione->getAllTestBySessione($s->getId());
         $Tests=array_merge($Tests,$nuoviTest);
     }
     foreach($Tests as $t){
@@ -134,7 +134,7 @@ if(isset($_POST['idtest'])){
         
     }else{
      $controllerTest->deleteTest($id);
-     $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/";
+     $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
      header($tornaACasa);   
     }
     
@@ -424,7 +424,7 @@ $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso
                                         printf("<td>%s %%</td>",$c->getPercentualeScelto());
                                         printf("<td>%s %%</td>",$c->getPercentualeSuccesso());
                                         $questoTest=$c->getId();
-                                        $alModificaTest="/docente/corso/".$identificativoCorso."/test/".$questoTest."/modifica";
+                                        $alModificaTest="/docente/corso/".$identificativoCorso."/test/modifica/".$questoTest;
                                         printf("<td><a href=\"%s\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></i></a>",$alModificaTest);
                                         printf("<button class=\"btn btn-sm red-intense\" type=\"submit\" name=\"idtest\" title=\"\" id=\"%d\" value=\"%d\" data-popout=\"true\" data-toggle=\"confirmation\" data-singleton=\"true\" data-original-title=\"Sei sicuro?\"><i class=\"fa fa-trash-o\"></i></button>", $c->getId(), $c->getId());
                                         printf("</td>");

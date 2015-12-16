@@ -52,7 +52,8 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
     }
     $test = new Test($descrizione,0,$cont2,$cont1,0,0,$identificativoCorso);  //creo il test
     $controllerTest->updateTest(parseInt($idTest),$test);   //inserisco il test nel db
-    
+    $MultipleTest=Array();
+    $AperteTest=Array();
     $MultipleTest=$controllerDomande->getAllDomandeMultipleByTest(parseInt($idTest));
     $AperteTest=$controllerDomande->getAllDomandeAperteByTest(parseInt($idTest));
     
@@ -148,18 +149,22 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
         array_push($leMultiple,$Multiple[$x]);
     }
     
-    foreach($leAperte as $s){ //leAperte selezionate vengono controllate per aggiorare il punteggio totale
-        $w=$controllerDomande->getDomandaAperta($s->getId());
+    foreach($leAperte as $x){ //leAperte selezionate vengono controllate per aggiorare il punteggio totale
+        $w=$controllerDomande->getDomandaAperta($x->getId());
         $punteggio=$punteggio+($w->getPunteggioMax());
     }
-    foreach($leMultiple as $s) { //leMultiple selezionate vengono controllate per aggiorare il punteggio totale
-        $w=$controllerDomande->getDomandaMultipla($s->getId());
+    foreach($leMultiple as $x) { //leMultiple selezionate vengono controllate per aggiorare il punteggio totale
+        $w=$controllerDomande->getDomandaMultipla($x->getId());
         $punteggio=$punteggio+($w->getPunteggioCorretta());
     }
     $nApe=parseInt($_POST['numAperte']);//mi riprendo il numero delle aperte
     $nMul=parseInt($_POST['numMultiple']);//mi riprendo il numero di multiple
     $test = new Test($descr,$punteggio,$nMul,$nApe,0,0,$identificativoCorso);//creo il test e lo metto nel db
     $controllerTest->updateTest(parseInt($idTest),$test);
+    $MultipleTest=Array();
+    $AperteTest=Array();
+    $MultipleTest=$controllerDomande->getAllDomandeMultipleByTest(parseInt($idTest));
+    $AperteTest=$controllerDomande->getAllDomandeAperteByTest(parseInt($idTest));
     foreach($MultipleTest as $x){
         $controllerDomande->dissociaMultTest($x->getId(), parseInt($idTest));
     }

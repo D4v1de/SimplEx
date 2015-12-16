@@ -7,8 +7,6 @@
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "Esempio.php";
-$controller = new Esempio();
 include_once CONTROL_DIR . "ArgomentoController.php";
 include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "DomandaController.php";
@@ -113,9 +111,12 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
     for($i=0;$i<$nApe;$i++){
     $leAperte[$i]=$Aperte[$indiciA[$i]];
     }
-    }else{
+    }else if($nApe==1){
       $x=rand(0,(count($Aperte)-1)); 
       array_push($leAperte,$Aperte[$x]);  
+    }else{
+        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/";
+        header($tornaACasa); //torno alla home
     }
     if($nMul>1){
     $indiciM=array_rand($Multiple,$nMul);
@@ -123,9 +124,12 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
     for($i=0;$i<$nMul;$i++){
     $leMultiple[$i]=$Multiple[$indiciM[$i]];
     }
-    }else{
+    }else if($nMul==0){
         $x=rand(0,(count($Multiple)-1)); 
         array_push($leMultiple,$Multiple[$x]);
+    }else{
+       $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/";
+        header($tornaACasa); //torno alla home 
     }
     
     foreach($leAperte as $s){ //leAperte selezionate vengono controllate per aggiorare il punteggio totale
