@@ -50,18 +50,19 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
     foreach($domMultiple as $s){
         $cont2=$cont2+1;   //conto le domande multiple
     }
-    $test = new Test($descrizione,0,$cont2,$cont1,0,0,$identificativoCorso);  //creo il test
-    $controllerTest->updateTest(parseInt($idTest),$test);   //inserisco il test nel db
     $MultipleTest=Array();
     $AperteTest=Array();
     $MultipleTest=$controllerDomande->getAllDomandeMultipleByTest(parseInt($idTest));
     $AperteTest=$controllerDomande->getAllDomandeAperteByTest(parseInt($idTest));
+    $test = new Test($descrizione,0,$cont2,$cont1,0,0,$identificativoCorso);  //creo il test
+    $controllerTest->updateTest(parseInt($idTest),$test);   //inserisco il test nel db
     
-    foreach($MultipleTest as $x){
-        $controllerDomande->dissociaMultTest($x->getId(), parseInt($idTest));
+    
+    foreach($MultipleTest as $non){
+        $controllerDomande->dissociaMultTest(parseInt($non->getId()), parseInt($idTest));
     }
-    foreach($AperteTest as $x){
-        $controllerDomande->dissociaAperTest($x->getId(), parseInt($idTest));
+    foreach($AperteTest as $non){
+        $controllerDomande->dissociaAperTest(parseInt($non->getId()), parseInt($idTest));
     }
     
     
@@ -101,8 +102,8 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
     }
          $ilTest=$controllerTest->readTest(parseInt($idTest));
          $ilTest->setPunteggioMax($punteggio);
-         $controllerTest->updateTest(parseInt($idTest),$test);//aggiorno il valore di punteggio totale del test(finora zero) con il puteggio calcolato finora
-         $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/";
+         $controllerTest->updateTest(parseInt($idTest),$ilTest);//aggiorno il valore di punteggio totale del test(finora zero) con il puteggio calcolato finora
+         $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
          header($tornaACasa);//torno alla home
  
          
@@ -159,26 +160,27 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
     }
     $nApe=parseInt($_POST['numAperte']);//mi riprendo il numero delle aperte
     $nMul=parseInt($_POST['numMultiple']);//mi riprendo il numero di multiple
-    $test = new Test($descr,$punteggio,$nMul,$nApe,0,0,$identificativoCorso);//creo il test e lo metto nel db
-    $controllerTest->updateTest(parseInt($idTest),$test);
     $MultipleTest=Array();
     $AperteTest=Array();
     $MultipleTest=$controllerDomande->getAllDomandeMultipleByTest(parseInt($idTest));
     $AperteTest=$controllerDomande->getAllDomandeAperteByTest(parseInt($idTest));
-    foreach($MultipleTest as $x){
-        $controllerDomande->dissociaMultTest($x->getId(), parseInt($idTest));
+    $test = new Test($descr,$punteggio,$nMul,$nApe,0,0,$identificativoCorso);//creo il test e lo metto nel db
+    $controllerTest->updateTest(parseInt($idTest),$test);
+    
+    foreach($MultipleTest as $s){
+        $controllerDomande->dissociaMultTest(parseInt($s), parseInt($idTest));
     }
-    foreach($AperteTest as $x){
-        $controllerDomande->dissociaAperTest($x->getId(), parseInt($idTest));
+    foreach($AperteTest as $s){
+        $controllerDomande->dissociaAperTest(parseInt($s), parseInt($idTest));
     }
-    foreach($leAperte as $x){ //scansiono di nuovo le aperte per associarle al test
-        $controllerDomande->associaAperTest(parseInt($x->getId()),parseInt($idTest), NULL);
+    foreach($leAperte as $s){ //scansiono di nuovo le aperte per associarle al test
+        $controllerDomande->associaAperTest(parseInt($s->getId()),parseInt($idTest), NULL);
     }
-    foreach($leMultiple as $x) { //scansiono di nuovo le multiple per associarle al test
-        $controllerDomande->associaMultTest($x->getId(), parseInt($idTest), NULL, NULL);
+    foreach($leMultiple as $s) { //scansiono di nuovo le multiple per associarle al test
+        $controllerDomande->associaMultTest(parseInt($s->getId()), parseInt($idTest), NULL, NULL);
     }
     
-    $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/";
+    $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
         header($tornaACasa); //torno alla home
     
 }

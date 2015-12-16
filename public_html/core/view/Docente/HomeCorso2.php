@@ -416,7 +416,7 @@ $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso
                                         foreach($array as $c) {
                                         $vaiATest="/docente/corso/".$identificativoCorso."/test"."/".$c->getId()."/"."visualizzatest";
                                         printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                        printf("<td class=\"sorting_1\"><a href=\"%s\">Test %s</a></td>", $vaiATest, $c->getId());
+                                        printf("<td class=\"sorting_1\"><a class=\"btn default btn-xs green-stripe\" href=\"%s\">Test %s</a></td>", $vaiATest, $c->getId());
                                         printf("<td>%s</td>",$c->getDescrizione());
                                         printf("<td>%s</td>",$c->getNumeroMultiple());
                                         printf("<td>%s</td>",$c->getNumeroAperte());

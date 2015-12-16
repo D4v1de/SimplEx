@@ -79,7 +79,7 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
          $ilTest=$controllerTest->readTest($idNuovoTest);
          $ilTest->setPunteggioMax($punteggio);
          $controllerTest->updateTest($idNuovoTest,$ilTest);//aggiorno il valore di punteggio totale del test(finora zero) con il puteggio calcolato finora
-         $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/";
+         $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
          header($tornaACasa);//torno alla home
  
          
@@ -113,9 +113,9 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
     }
     }else if($nApe==1){
       $x=rand(0,(count($Aperte)-1)); 
-      array_push($leAperte,$Aperte[$x]);  
+      $leAperte[0]=$Aperte[$x];  
     }else{
-        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/";
+        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
         header($tornaACasa); //torno alla home
     }
     if($nMul>1){
@@ -126,9 +126,9 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
     }
     }else if($nMul==0){
         $x=rand(0,(count($Multiple)-1)); 
-        array_push($leMultiple,$Multiple[$x]);
+        $leMultiple[0]=$Multiple[$x];
     }else{
-       $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/";
+       $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
         header($tornaACasa); //torno alla home 
     }
     
@@ -148,10 +148,10 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
         $controllerDomande->associaAperTest(parseInt($s->getId()), $idNuovoTest, NULL);
     }
     foreach($leMultiple as $x) { //scansiono di nuovo le multiple per associarle al test
-        $controllerDomande->associaMultTest($x->getId(), $idNuovoTest, NULL, NULL);
+        $controllerDomande->associaMultTest(parseInt($x->getId()), $idNuovoTest, NULL, NULL);
     }
     
-    $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/";
+    $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
         header($tornaACasa); //torno alla home
     
 }
@@ -452,6 +452,8 @@ $num = $controllerArgomento->getNumArgomenti();
         TableManaged.init("tabella_argomenti2","tabella_argomenti2_wrapper");
         TableManaged.init("tabella_domande","tabella_domande_wrapper");
         UINestable.init(<?php echo $num; ?>);
+        UIConfirmations.init();
+        FormValidation.init();
         //TableManaged.init(3);
     });
 </script>
