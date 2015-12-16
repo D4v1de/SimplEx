@@ -106,9 +106,9 @@ class AccountModel extends Model {
     /**
      * Il metodo rimuove l'utente dato la matricola
      * @param $matricola La matricola dell'utente da cancellare
+     * @throws ApplicationException
      * @throws ConnectionException
      */
-
     public function deleteUtente($matricola) {
         $qr = sprintf(self::$DELETE_UTENTE, $matricola);
         Model::getDB()->query($qr);
@@ -250,8 +250,10 @@ class AccountModel extends Model {
 
     /**
      * Restituisce tutti gli studenti abilitati ad una sessione
-     * @param int $id L'id della sessione per la quale si vogliono conoscere gli studenti abilitati
+     * @param $idSessione
      * @return Utente[] Tutti gli studenti che sono abilitati alla sessione
+     * @throws ConnectionException
+     * @internal param int $id L'id della sessione per la quale si vogliono conoscere gli studenti abilitati
      */
     public function getAllStudentiSessione($idSessione) {
         $query = sprintf(self::$GET_ALL_STUDENTI_SESSIONE, $idSessione);

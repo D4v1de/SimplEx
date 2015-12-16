@@ -31,7 +31,7 @@ catch (ApplicationException $ex) {
     echo "<h1>INSERIRE ID CORSO NEL PATH!</h1>".$ex;
 }
 try {
-    $docenti = $controllerUtenti->getDocenti();
+    $docenti = $controllerUtenti->getUtenti("Docente");
 }
 catch (ApplicationException $ex) {
     echo "<h1>GETDOCENTI FALLITA!</h1>".$ex;

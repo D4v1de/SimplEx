@@ -29,7 +29,7 @@ if (isset($_POST['nome'])) {
     $pass = $_POST['pass'];
 
     try {
-        $uCtrl->modificaUtenteByType($matricola, $nome, $cognome, $cdlMatricola, $email, $pass, $tipologia);
+        $uCtrl->modificaUtente($matricola, $nome, $cognome, $cdlMatricola, $email, $pass, $tipologia);
         header('location: /me?success=Utente modificato');
         exit;
     } catch (ApplicationException $ex) {
