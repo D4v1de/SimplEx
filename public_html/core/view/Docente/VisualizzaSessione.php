@@ -9,6 +9,9 @@
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "SessioneController.php";
 include_once CONTROL_DIR . "CdlController.php";
+include_once CONTROL_DIR . "ElaboratoController.php";
+$elaboratoController= new ElaboratoController();
+
 $controllerSessione = new SessioneController();
 $controlleCdl = new CdlController();
 $idSessione = $_URL[4];
@@ -31,12 +34,6 @@ try {
     echo "<h1>INSERIRE ID SESSIONE NEL PATH</h1>".$ex;
 }
 
-$now = date("Y-m-d H:i:s");
-$end = $sessione->getDataFine();
-$start = $sessione->getDataInizio();
-if ($now >= $start || $now <= $end || strcmp($elaborato->getStato(),"Non corretto"))
-    header("Location: "."/studente/corso/"."$corsoId"."/");
-
 $corso = $controlleCdl->readCorso($identificativoCorso);
 $nomecorso= $corso->getNome();
 
@@ -55,12 +52,44 @@ else $eser = "Checked";
 
 
 if(isset($_POST['avvia'])){
-    $idSesToGo=$_POST['avvia'];
-    $dataNow=date('Y/m/d/ h:i:s ', time());
-    $newSessione = new Sessione($dataNow, $dataTo, 18, "In Esecuzione", $tipoSessione, $identificativoCorso);
-    $controllerSessione->updateSessione($idSessione,$newSessione);
-    $vaiASesInCorso= "Location: "."/docente/corso/".$identificativoCorso."/sessione"."/".$idSesToGo."/"."sessioneincorso";
-    header($vaiASesInCorso);
+
+
+
+    $almenoUnoCorretto=0;
+    $esaminandiSessione = Array();
+    $esaminandiSessione= $controllerSessione->getEsaminandiSessione($idSessione);
+    if ($esaminandiSessione == null) {
+    }
+    else {
+        foreach ($esaminandiSessione as $c) {
+            $ela=$elaboratoController->readElaborato($c->getMatricola(),$idSessione);
+            if($ela->getStato()=="Corretto") {
+                $almenoUnoCorretto++;
+            }
+        }
+    }
+    if($almenoUnoCorretto!=0) {
+        echo "<script> alert('Uno o più Tests sono stati già corretti. Impossibile riprendere la sessione!') </script>";
+        printf("<script>
+            var var1='/docente/corso/';
+            var var2=$identificativoCorso;
+            var var3='/sessione/';
+            var var4=$idSessione;
+            var var5='/esiti';
+            var res1 = var1.concat(var2);
+            var res2 = res1.concat(var3);
+            var res3 = res2.concat(var4);
+            var res4 = res3.concat(var5);
+            window.location.replace(res4) </script>");
+    }
+    else {
+        $idSesToGo = $_POST['avvia'];
+        $dataNow = date('Y/m/d/ h:i:s ', time());
+        $newSessione = new Sessione($dataNow, $dataTo, 18, "In Esecuzione", $tipoSessione, $identificativoCorso);
+        $controllerSessione->updateSessione($idSessione, $newSessione);
+        $vaiASesInCorso = "Location: " . "/docente/corso/" . $identificativoCorso . "/sessione" . "/" . $idSesToGo . "/" . "sessioneincorso";
+        header($vaiASesInCorso);
+    }
 }
 
 
@@ -406,7 +435,10 @@ if(isset($_POST['rimuovi'])){
                         <div class="row">
                             <div class="col-md-9">
                                 <?php
-                                printf("<button name=\"avvia\" value=\"%s\" class=\"btn sm green-jungle\"><span class=\"md-click-circle md-click-animate\" style=\"height: 94px; width: 94px; top: -23px; left: 2px;\"></span><i class=\"fa fa-play-circle-o\"></i>Avvia ora</button>",$idSessione);
+                                $avviaOripr="Avvia Ora";
+                                if($sessione->getStato()=="Eseguita")
+                                    $avviaOripr="Riprendi";
+                                printf("<button name=\"avvia\" value=\"%s\" class=\"btn sm green-jungle\"><span class=\"md-click-circle md-click-animate\" style=\"height: 94px; width: 94px; top: -23px; left: 2px;\"></span><i class=\"fa fa-play-circle-o\"></i>%s</button>", $idSessione , $avviaOripr);
                                 $vaiAModifica="/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."creamodificasessione";
                                 $vaiAVisu="/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."visualizzasessione";
 
@@ -452,13 +484,10 @@ if(isset($_POST['rimuovi'])){
             TableManaged2.init('tabella_test','tabella_test_wrapper');
             TableManaged2.init('tabella_studenti','tabella_studenti_wrapper');
             UIConfirmations.init();
+            UIAlertDialogApi.init();
         });
     </script>
-
-    <script>
-        //SCRIPT PER AVVIARE DATETIMEPICKER
-        //$(".form_datetime").datetimepicker({format: 'dd-mm-yyyy hh:ii'});
-    </script>
+    <script src="/assets/admin/pages/scripts/ui-alert-dialog-api.js"></script>
 
     <!-- END JAVASCRIPTS -->
 </body>

@@ -10,7 +10,7 @@ include_once MODEL_DIR . "TestModel.php";
 include_once MODEL_DIR . "AlternativaModel.php";
 include_once MODEL_DIR . "AccountModel.php";
 
-class TestController extends Controller {
+class TestController {
     
     private $testModel;
 

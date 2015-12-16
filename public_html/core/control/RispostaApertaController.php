@@ -5,11 +5,10 @@
  * Time: 20:00
  */
 
-include_once CONTROL_DIR . "Controller.php";
 include_once MODEL_DIR . "RispostaApertaModel.php";
 
 
-class RispostaApertaController extends Controller
+class RispostaApertaController
 {
 
      public function __construct() {

@@ -8,13 +8,12 @@
  */
 include_once BEAN_DIR . "Utente.php";
 include_once MODEL_DIR . "AccountModel.php";
-include_once CONTROL_DIR . "Controller.php";
 include_once BEAN_DIR . "CdL.php";
 include_once MODEL_DIR . "CdLModel.php";
 include_once EXCEPTION_DIR . "IllegalArgumentException.php";
 include_once UTILS_DIR . "StringUtils.php";
 
-class UtenteController extends Controller {
+class UtenteController {
 
     const PERMA_COOKIE = "permaCookie";
 
