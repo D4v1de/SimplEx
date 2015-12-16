@@ -7,8 +7,6 @@
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "Esempio.php";
-$controller = new Esempio();
 include_once CONTROL_DIR . "ArgomentoController.php";
 include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "DomandaController.php";
@@ -27,7 +25,12 @@ function parseInt($Str) {
 
 $toCheck="";
 
+try{
 $idTest=$_URL[4];
+} catch (ApplicationException $ex) {
+        echo "<h1>ERRORE! ApplicationException->non c'è l' ID test nel path!</h1>";
+        echo "<h4>" . $ex . "</h4>";
+    }
 
 if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipologia']=='man')){
     // qui va la parte manuale 
@@ -200,7 +203,7 @@ $num = $controllerArgomento->getNumArgomenti();
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                    Crea Test
+                    Modifica Test
                 </h3>
                 <div class="page-bar">
                     <ul class="page-breadcrumb">
@@ -237,7 +240,16 @@ $num = $controllerArgomento->getNumArgomenti();
                         <div class="portlet-body">
                             <h4> Descrizione</h4>
                                 <div class="col-md-12">
-                                    <textarea class="form-control" name="descrizione" id="descrizione" rows="4" placeholder="Inserisci descrizione" style="resize:none"></textarea>
+                                    <textarea class="form-control" name="descrizione" id="descrizione" rows="4" placeholder="Inserisci descrizione" style="resize:none">
+                                        <?php
+                                        try{
+                                        $x=$controllerTest->readTest($idTest);
+                                        printf("%s", $x->getDescrizione());
+                                        }catch(ApplicationException $ex){
+                                            echo "<h1>ERRORE NELLA LETTURA DELLA DESCRIZIONE TEST!</h1>" . $ex;
+                                        }
+                                        ?>
+                                    </textarea>
                                 </div>
                             <br>
                             <br>
@@ -353,7 +365,12 @@ $num = $controllerArgomento->getNumArgomenti();
                                 $Aperte = $controllerDomande->getAllAperte($a->getId());
                                 foreach($Multiple as $s){
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    foreach($Multiple as $t){
+                                    try{
+                                    $MulTest=$controllerTest->getAllDomandeMultipleByTest($idTest);
+                                    }catch(ApplicationException $ex){
+                                        echo "<h1>ERRORE NELLA LETTURA DELLE DOMANDE TEST!</h1>" . $ex;
+                                    }
+                                    foreach($MulTest as $t){
                                         if($s->getId()==$t->getId())
                                             $toCheck="Checked";
                                     }
@@ -373,7 +390,12 @@ $num = $controllerArgomento->getNumArgomenti();
                                 }
                                 foreach($Aperte as $s){
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    foreach($Aperte as $t){
+                                    try{
+                                    $ApeTest=$controllerTest->getAllDomandeAperteByTest($idTest);
+                                    }catch(ApplicationException $ex){
+                                        echo "<h1>ERRORE NELLA LETTURA DELLE DOMANDE TEST!</h1>" . $ex;
+                                    }
+                                    foreach($ApeTest as $t){
                                         if($s->getId()==$t->getId())
                                             $toCheck="Checked";
                                     }
@@ -409,7 +431,7 @@ $num = $controllerArgomento->getNumArgomenti();
                             <div class="row">
                                 <div class="col-md-9">
                                     <button type="submit" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
-                                    Conferma
+                                    Salva
                                     </button>
                                     <a href="../" class="btn sm red-intense">
                                         Annulla
