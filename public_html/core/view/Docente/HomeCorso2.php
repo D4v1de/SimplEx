@@ -253,11 +253,14 @@ if(isset($_POST['idtest'])){
                             <?php
                             $array = Array();
                             $array = $idsSessione;
+                            $now = date("Y-m-d H:i:s");
                             if ($array == null) {
                             }
                             else {
 
                                 foreach ($array as $c) {
+                                    $end = $c->getDataFine();
+                                    $start = $c->getDataInizio();
                                     $vaiAModifica="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."creamodificasessione";
                                     $vaiAVisu="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId();
                                     $vaiASesInCorso="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."sessioneincorso";
@@ -270,7 +273,24 @@ if(isset($_POST['idtest'])){
                                         printf("<td class=\"sorting_1\"><a href=\"%s\">%s</a></td>", $vaiASesInCorso,  "Sessione ".$c->getId());
                                     printf("<td><div class='row'><div class='col-md-offset-1'><b>Inizio:</b>%s</div></div><div class='row'><div class='col-md-offset-1'><b>  Fine:</b>  %s</div></div></td>", $c->getDataInizio(),$c->getDataFine());
                                     printf("<td>%s</td>", $c->getTipologia());
-                                    printf("<td>%s</td>", $c->getStato());
+                                    if($c->getStato()=="Non eseguita" && ($now >= $start || $now <= $end) ) { //vuol dire che è in esecuizione
+                                        //devo fare l'update
+                                        $sessioneAggiornata = new Sessione( $c->getDataInizio(),$c->getDataFine(), $c->getSogliaAmmissione(), "In esecuzione", $c->getTipologia(), $identificativoCorso);
+                                        $controllerSessione->updateSessione($c->getId(), $sessioneAggiornata);
+                                        printf("<td>%s</td>", $c->getStato());
+                                    }
+                                    else if($c->getStato()=="Non eseguita" && ($now > $end) ){
+                                        $sessioneAggiornata = new Sessione( $c->getDataInizio(),$c->getDataFine(), $c->getSogliaAmmissione(), "Eseguita", $c->getTipologia(), $identificativoCorso);
+                                        $controllerSessione->updateSessione($c->getId(), $sessioneAggiornata);
+                                        printf("<td>%s</td>", $c->getStato());
+                                    }
+                                    else if($c->getStato()=="In esecuzione" && ($now > $end) ){
+                                        $sessioneAggiornata = new Sessione( $c->getDataInizio(),$c->getDataFine(), $c->getSogliaAmmissione(), "Eseguita", $c->getTipologia(), $identificativoCorso);
+                                        $controllerSessione->updateSessione($c->getId(), $sessioneAggiornata);
+                                        printf("<td>%s</td>", $c->getStato());
+                                    }
+                                    else
+                                        printf("<td>%s</td>", $c->getStato());
                                     printf("<td>%s</td>", $controllerSessione->readMostraEsitoSessione($c->getId()));
                                     printf("<td>%s</td>", $controllerSessione->readMostraRisposteCorretteSessione($c->getId()));
                                     if($c->getStato()=="Eseguita")

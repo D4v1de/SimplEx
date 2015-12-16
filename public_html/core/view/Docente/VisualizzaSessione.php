@@ -31,12 +31,6 @@ try {
     echo "<h1>INSERIRE ID SESSIONE NEL PATH</h1>".$ex;
 }
 
-$now = date("Y-m-d H:i:s");
-$end = $sessione->getDataFine();
-$start = $sessione->getDataInizio();
-if ($now >= $start || $now <= $end || strcmp($elaborato->getStato(),"Non corretto"))
-    header("Location: "."/studente/corso/"."$corsoId"."/");
-
 $corso = $controlleCdl->readCorso($identificativoCorso);
 $nomecorso= $corso->getNome();
 
