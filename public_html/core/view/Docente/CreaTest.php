@@ -17,13 +17,42 @@ $controllerCorso = new CdlController();
 $controllerDomande  = new DomandaController();
 $controllerTest = new TestController();
 
-$identificativoCorso = $_URL[2];
-$flag = 1;
-$flag2 = 1;
-
 function parseInt($Str) {
     return (int)$Str;
 }
+
+function contaAperte($idcorso){
+    $cont=0;
+    $controllerArgomento = new ArgomentoController();
+    $controllerDomande  = new DomandaController();
+    $Argomenti=$controllerArgomento->getArgomenti($idcorso);
+    foreach($Argomenti as $x){
+        $nuoveAperte = $controllerDomande->getAllAperte($x->getId());
+        foreach($nuoveAperte as $h){
+            $cont++;
+        }
+    }
+    return $cont;
+}
+
+function contaMultiple($idcorso){
+    $cont=0;
+    $Argomenti=$controllerArgomento->getArgomenti($identificativoCorso);
+    foreach($Argomenti as $x){
+        $nuoveMultiple = $controllerDomande->getAllMultiple($x->getId());
+        foreach($nuoveMultiple as $h){
+            $cont++;
+        }
+    }
+    return $cont;
+}
+
+$identificativoCorso = parseInt($_URL[2]);
+$flag = 1;
+$flag2 = 1;
+$flag3= 1;
+
+
 
 if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipologia']=='man')){
     // qui va la parte manuale
@@ -101,17 +130,20 @@ if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && isset($_POST['
     //qui va la parte random
     $nApe=parseInt($_POST['numAperte']);
     $nMul=parseInt($_POST['numMultiple']);
-
+    $dbAperte;
+    $dbMultiple;
 
     if($nApe < 0 || $nMul < 0) {
         $flag = 0;
         //TODO echo della funzione che effettua il cambiamento di contenuto da manuale a random
-        //echo "<script type='text/javascript'>ChangeContent();</script>";
+        echo "<script type='text/javascript'>checkIt();</script>";
     }
     else if($nApe == 0 && $nMul == 0) {
         $flag2 = 0;
         //TODO echo della funzione che effettua il cambiamento di contenuto da manuale a random
-        //echo "<script type='text/javascript'>ChangeContent();</script>";
+        echo "<script type='text/javascript'>checkIt();</script>";
+    }else if($nApe>(contaAperte($identificativoCorso)) || $nMul>(contaMultiple($identificativoCorso))){
+        $flag3 = 0;
     }
     else {
         $descr=$_POST['descrizione'];
@@ -260,8 +292,9 @@ $corso = $controllerCorso->readCorso($_URL[2]);
                     if(!$flag) {
                         echo "<div class=\"alert alert-danger\">
                         <button class=\"close\" data-close=\"alert\"></button>
-                        Errore nei Dati. Devi inserire un numero domande maggiore di 0.
+                        Errore nei Dati. Per un test RANDOM devi inserire un numero domande maggiore di 0.
                         </div>";
+                        //echo "<script type='text/javascript'>checkIt();</script>";
                     }
                 ?>
 
@@ -270,8 +303,20 @@ $corso = $controllerCorso->readCorso($_URL[2]);
                     //TODO (aggiungere da nmin a nmax domande) effettuare query per recuperare i valori e mostrarli nel messaggio
                     echo "<div class=\"alert alert-danger\">
                         <button class=\"close\" data-close=\"alert\"></button>
-                        Errore nei Dati. Devi inserire un numero di domande valido.
+                        Errore nei Dati. Per un test RANDOM devi inserire un numero di domande valido.
                         </div>";
+                    //echo "<script type='text/javascript'>checkIt();</script>";
+                }
+                ?>
+                
+                <?php
+                if(!$flag3) {
+                    //TODO (aggiungere da nmin a nmax domande) effettuare query per recuperare i valori e mostrarli nel messaggio
+                    echo "<div class=\"alert alert-danger\">
+                        <button class=\"close\" data-close=\"alert\"></button>
+                        Errore nei Dati. Hai richiesto troppe domande per il test RANDOM.
+                        </div>";
+                    //echo "<script type='text/javascript'>checkIt();</script>";
                 }
                 ?>
 
@@ -483,7 +528,7 @@ $corso = $controllerCorso->readCorso($_URL[2]);
 
 <!--Script specifici per la pagina -->
 <script src="/assets/global/scripts/manuale_random.js" type="text/javascript"></script>
-<script src="/assets/global/scripts/creazioneTest.js" type="text/javascript"></script>
+<script src="/assets/global/scripts/radioCreaTest.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
