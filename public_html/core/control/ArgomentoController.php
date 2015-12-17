@@ -1,6 +1,6 @@
 <?php
 /**.
- * User: Alina
+ * User: Carlo Di Domenico
  * Date: 25/11/15
  * Time: 22:00
  */
@@ -27,11 +27,6 @@ class ArgomentoController extends Controller {
     }
 
 
-    public function getNumArgomenti(){
-        //  $argomentoModel = new ArgomentoModel();
-        return 17; //$argomentoModel->getNumArgomenti();
-    }
-
     public function getAllDomandaMultipla($id,$corso_id){
         $domandaModel = new DomandaModel();
         return $domandaModel->getAllDomandaMultiplaByArgomento($id,$corso_id);
@@ -42,15 +37,6 @@ class ArgomentoController extends Controller {
         return $domandaModel->getAllDomandaApertaByArgomento($id,$corso_id);
     }
 
-    /**
-     * Restituisco un Corso
-     * @param matricola del Corso
-     * @return il Corso con la matricola specificata
-     */
-    public function readCorso($id) {
-        $corsoModel = new CorsoModel();
-        return $corsoModel->readCorso($id);//qui ci sarà $id (riferito all'id del corso)
-    }
 
     /**
      * Restituisce i Docenti associati a un Corso

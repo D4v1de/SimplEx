@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Fabiano
+ * User: Carlo, Fabio, Luca
  * Date: 23/11/15
  * Time: 21:59
  */
@@ -269,9 +269,9 @@ if(isset($_POST['idtest'])){
 
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
                                     if($c->getStato()!="In esecuzione")
-                                        printf("<td class=\"sorting_1\"><a href=\"%s\">%s</a></td>", $vaiAVisu,  "Sessione ".$c->getId());
+                                        printf("<td class=\"sorting_1\"><a class=\"btn default btn-xs green-stripe\" href=\"%s\">%s</a></td>", $vaiAVisu,  "Sessione ".$c->getId());
                                     else
-                                        printf("<td class=\"sorting_1\"><a href=\"%s\">%s</a></td>", $vaiASesInCorso,  "Sessione ".$c->getId());
+                                        printf("<td class=\"sorting_1\"><a class=\"btn default btn-xs green-stripe\" href=\"%s\">%s</a></td>", $vaiASesInCorso,  "Sessione ".$c->getId());
                                     printf("<td><div class='row'><div class='col-md-offset-1'><b>Inizio:</b>%s</div></div><div class='row'><div class='col-md-offset-1'><b>  Fine:</b>  %s</div></div></td>", $c->getDataInizio(),$c->getDataFine());
                                     printf("<td>%s</td>", $c->getTipologia());
                                     printf("<td>%s</td>", $c->getStato());
@@ -373,7 +373,7 @@ if(isset($_POST['idtest'])){
                                         else{    
                                         foreach($array as $c) {
                                         printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                        printf("<td class=\"sorting_1\"><a href=\"test/%s/visualizzatest\">Test %s</a></td>", $c->getId(),$c->getId());
+                                        printf("<td class=\"sorting_1\"><a class=\"btn default btn-xs green-stripe\" href=\"test/%s/visualizzatest\">Test %s</a></td>", $c->getId(),$c->getId());
                                         printf("<td>%s</td>",$c->getDescrizione());
                                         printf("<td>%s</td>",$c->getNumeroMultiple());
                                         printf("<td>%s</td>",$c->getNumeroAperte());
@@ -439,7 +439,7 @@ if(isset($_POST['idtest'])){
 
                             foreach($argomenti as $a) {
                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                printf("<td><a href=\"/docente/corso/%d/argomento/domande/%d \">%s</a></td>", $a->getCorsoId() , $a->getId() , $a->getNome());
+                                printf("<td><a class=\"btn default btn-xs green-stripe\" href=\"/docente/corso/%d/argomento/domande/%d \">%s</a></td>", $a->getCorsoId() , $a->getId() , $a->getNome());
                                     printf("<td>");
                                     printf("<a href=\"/docente/corso/%d/argomento/modifica/%d \" class=\"btn btn-sm blue-madison\">", $a->getCorsoId(),$a->getId());
                                     printf("<i class=\"fa fa-edit\"></i>");

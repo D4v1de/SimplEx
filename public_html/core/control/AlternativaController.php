@@ -28,12 +28,6 @@ class AlternativaController extends Controller
         $alternativaModel->updateAlternativa($id, $updatedAlternativa);
     }
 
-    public function getArgomenti()
-    {
-        $argomentoModel = new ArgomentoModel();
-        return $argomentoModel->getAllArgomento();
-    }
-
     public function getAllAlternativaByDomanda($idDomandaMultipla)
     {
         $alternativaModel = new AlternativaModel();
