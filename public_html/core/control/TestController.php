@@ -8,7 +8,7 @@
  */
 include_once MODEL_DIR . "TestModel.php";
 include_once MODEL_DIR . "AlternativaModel.php";
-include_once MODEL_DIR . "AccountModel.php";
+include_once MODEL_DIR . "UtenteModel.php";
 
 class TestController {
     

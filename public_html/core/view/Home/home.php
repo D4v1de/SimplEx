@@ -217,7 +217,7 @@
                         <i class="fa fa-pencil"></i>
                         <h5>ODD</h5>
 
-                        <p><b>Object Design Document</b>.<br> </p>
+                        <p><b>Object Design Document</b>.<br> Documento che descrive gli oggetti di design.</p>
 
                     </div>
                 </div> <!-- Col-md-4 Single_feature End -->
@@ -567,7 +567,7 @@
                 <div class="item text-center">
                     <div class="single-member">
                         <div class="overlay-hover">
-                            <img src="/assets/homepage/images/team/pic5.jpg" alt="" class="img-responsive">
+                            <img src="/assets/homepage/images/team/Carlo.jpg" alt="" class="img-responsive">
 
                             <div class="overlay-effect">
                                 <ul class="social list-inline">
@@ -639,7 +639,7 @@
                 <div class="item text-center">
                     <div class="single-member">
                         <div class="overlay-hover">
-                            <img src="/assets/homepage/images/team/pic5.jpg" alt="" class="img-responsive">
+                            <img src="/assets/homepage/images/team/Fabiano.png" alt="" class="img-responsive">
 
                             <div class="overlay-effect">
                                 <ul class="social list-inline">
@@ -675,7 +675,7 @@
                 <div class="item text-center">
                     <div class="single-member">
                         <div class="overlay-hover">
-                            <img src="/assets/homepage/images/team/pic5.jpg" alt="" class="img-responsive">
+                            <img src="/assets/homepage/images/team/Giusy.png" alt="" class="img-responsive">
 
                             <div class="overlay-effect">
                                 <ul class="social list-inline">
