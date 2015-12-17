@@ -5,21 +5,26 @@
  * Date: 18/11/15
  * Time: 09:58
  */
+
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "ArgomentoController.php";
 include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "DomandaController.php";
 include_once CONTROL_DIR . "TestController.php";
+
 $controllerArgomento = new ArgomentoController();
 $controllerCorso = new CdlController();
 $controllerDomande  = new DomandaController();
 $controllerTest = new TestController();
+
 $identificativoCorso = $_URL[2];
 $flag = 1;
+$flag2 = 1;
 
 function parseInt($Str) {
     return (int)$Str;
 }
+
 if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipologia']=='man')){
     // qui va la parte manuale
     // LA STO RIFACENDO C***O
@@ -31,134 +36,153 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
     $punteggio=0;
     $cont1=0;
     $cont2=0;
-    foreach($domAperte as $s){
-        $cont1=$cont1+1;   //conto le domande aperte
-    }
-    foreach($domMultiple as $s){
-        $cont2=$cont2+1;   //conto le domande multiple
-    }
-    $test = new Test($descrizione,0,$cont2,$cont1,0,0,$identificativoCorso);  //creo il test
-    $idNuovoTest=$controllerTest->creaTest($test);   //inserisco il test nel db
 
-    foreach($domAperte as $s){      //per ogni domanda aperta selezionata controllo se è stato inserito un punteggio alternativo
-        $stringa=sprintf("ApertaCorr-%d", $s);
-        if(!(empty($_POST[$stringa]))){  //se si associo quella domanda al test con quel valore e incremento il punteggio totale
-            $z=$_POST[$stringa];
-            $punteggio=$punteggio+(parseInt($z));
-            $controllerDomande->associaAperTest($s,$idNuovoTest,$z);
-        }else{   //altrimenti la associo con valore null(valore di default presente nel db) e incremento il punteggio totale
-            $w=$controllerDomande->getDomandaAperta($s);
-            $punteggio=$punteggio+($w->getPunteggioMax());
-            $controllerDomande->associaAperTest($s,$idNuovoTest,NULL);
-        }
+    //TODO qui l'errore credo sia nell isset iniziale dove metti l'or.... bisogna pensarla un pò meglio..
+    if(empty($domMultiple) && empty($domAperte)) {
+        echo "DAI CAZZOOOOOOOOO(qua dobbiamo gestire l'errore nel caso non è stata selezionata nessuna check)";
     }
-    $z1=0;
-    $z2=0;
-    foreach($domMultiple as $s){  //per ogni domanda multipla selezionata controllo se è stato inserito un punteggio alternativo
-        $stringa1=sprintf("alternCorr-%d", $s);
-        if(!(empty($_POST[$stringa1]))){  //se si incremento il punteggio totale con quel punteggio alternativo
-            $z1=$_POST[$stringa1];
-            $punteggio=$punteggio+(parseInt($z1));
-        }else{ // altrimenti incremento con il valore di default preso dal db
-            $w=$controllerDomande->getDomandaMultipla($s);
-            $punteggio=$punteggio+($w->getPunteggioCorretta());
-            $z1=NULL;
+    else {
+        foreach($domAperte as $s){
+            $cont1=$cont1+1;   //conto le domande aperte
         }
-        $stringa2=sprintf("alternErr-%d", $s);
-        if(!(empty($_POST[$stringa2]))){  //controllo per il punteggio alternativo dell' errore
-            $z2=$_POST[$stringa2];
-        }else{
-            $z2=NULL;
+        foreach($domMultiple as $s){
+            $cont2=$cont2+1;   //conto le domande multiple
         }
-        $controllerDomande->associaMultTest($s, $idNuovoTest, $z1, $z2);//associo la domanda multipla al test
+        $test = new Test($descrizione,0,$cont2,$cont1,0,0,$identificativoCorso);  //creo il test
+        $idNuovoTest=$controllerTest->creaTest($test);   //inserisco il test nel db
 
+        foreach($domAperte as $s){      //per ogni domanda aperta selezionata controllo se è stato inserito un punteggio alternativo
+            $stringa=sprintf("ApertaCorr-%d", $s);
+            if(!(empty($_POST[$stringa]))){  //se si associo quella domanda al test con quel valore e incremento il punteggio totale
+                $z=$_POST[$stringa];
+                $punteggio=$punteggio+(parseInt($z));
+                $controllerDomande->associaAperTest($s,$idNuovoTest,$z);
+            }else{   //altrimenti la associo con valore null(valore di default presente nel db) e incremento il punteggio totale
+                $w=$controllerDomande->getDomandaAperta($s);
+                $punteggio=$punteggio+($w->getPunteggioMax());
+                $controllerDomande->associaAperTest($s,$idNuovoTest,NULL);
+            }
+        }
+        $z1=0;
+        $z2=0;
+        foreach($domMultiple as $s){  //per ogni domanda multipla selezionata controllo se è stato inserito un punteggio alternativo
+            $stringa1=sprintf("alternCorr-%d", $s);
+            if(!(empty($_POST[$stringa1]))){  //se si incremento il punteggio totale con quel punteggio alternativo
+                $z1=$_POST[$stringa1];
+                $punteggio=$punteggio+(parseInt($z1));
+            }else{ // altrimenti incremento con il valore di default preso dal db
+                $w=$controllerDomande->getDomandaMultipla($s);
+                $punteggio=$punteggio+($w->getPunteggioCorretta());
+                $z1=NULL;
+            }
+            $stringa2=sprintf("alternErr-%d", $s);
+            if(!(empty($_POST[$stringa2]))){  //controllo per il punteggio alternativo dell' errore
+                $z2=$_POST[$stringa2];
+            }else{
+                $z2=NULL;
+            }
+            $controllerDomande->associaMultTest($s, $idNuovoTest, $z1, $z2);//associo la domanda multipla al test
+
+        }
+        $ilTest=$controllerTest->readTest($idNuovoTest);
+        $ilTest->setPunteggioMax($punteggio);
+        $controllerTest->updateTest($idNuovoTest,$ilTest);//aggiorno il valore di punteggio totale del test(finora zero) con il puteggio calcolato finora
+        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
+        header($tornaACasa);//torno alla home
     }
-    $ilTest=$controllerTest->readTest($idNuovoTest);
-    $ilTest->setPunteggioMax($punteggio);
-    $controllerTest->updateTest($idNuovoTest,$ilTest);//aggiorno il valore di punteggio totale del test(finora zero) con il puteggio calcolato finora
-    $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
-    header($tornaACasa);//torno alla home
+
 
 
 }
 
-if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && !(empty($_POST['descrizione'])) && !(empty($_POST['numAperte'])) && !(empty($_POST['numMultiple']))){
+
+
+if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && isset($_POST['descrizione']) && isset($_POST['numAperte']) && isset($_POST['numMultiple'])){
     //qui va la parte random
     $nApe=parseInt($_POST['numAperte']);
     $nMul=parseInt($_POST['numMultiple']);
-    $descr=$_POST['descrizione'];
-    $punteggio=0;
-    $Argomenti = Array();
-    $Multiple = Array();
-    $Aperte = Array();
-    $Argomenti=$controllerArgomento->getArgomenti($identificativoCorso);
-    $leAperte = Array();
-    $leMultiple = Array();
-    foreach($Argomenti as $a){// per ogni argomento del corso prendo tutte le aperte e le multiple
-        $nuoveAperte = Array();
-        $nuoveAperte = $controllerDomande->getAllAperte($a->getId());
-        $Aperte = array_merge($Aperte,$nuoveAperte);
-        $nuoveMultiple = Array();
-        $nuoveMultiple = $controllerDomande->getAllMultiple($a->getId());
-        $Multiple = array_merge($Multiple,$nuoveMultiple);
-    }
-    if($nApe>1){
-        $indiciA=array_rand($Aperte,$nApe);
 
-        for($i=0;$i<$nApe;$i++){
-            $leAperte[$i]=$Aperte[$indiciA[$i]];
-        }
-    }else if($nApe==1){
-        $x=rand(0,(count($Aperte)-1));
-        $leAperte[0]=$Aperte[$x];
-    }else{
-        /*$tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
-        header($tornaACasa); //torno alla home*/
+
+    if($nApe < 0 || $nMul < 0) {
         $flag = 0;
+        //TODO echo della funzione che effettua il cambiamento di contenuto da manuale a random
+        //echo "<script type='text/javascript'>ChangeContent();</script>";
     }
-    if($nMul>1){
-        $indiciM=array_rand($Multiple,$nMul);
-
-        for($i=0;$i<$nMul;$i++){
-            $leMultiple[$i]=$Multiple[$indiciM[$i]];
-        }
-    }else if($nMul==1){
-        $x=rand(0,(count($Multiple)-1));
-        $leMultiple[0]=$Multiple[$x];
-    }else{
-        /*$tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
-        header($tornaACasa); //torno alla home*/
-        $flag = 0;
+    else if($nApe == 0 && $nMul == 0) {
+        $flag2 = 0;
+        //TODO echo della funzione che effettua il cambiamento di contenuto da manuale a random
+        //echo "<script type='text/javascript'>ChangeContent();</script>";
     }
-
-    if($flag) {
-        foreach ($leAperte as $s) { //leAperte selezionate vengono controllate per aggiorare il punteggio totale
-            $w = $controllerDomande->getDomandaAperta($s->getId());
-            $punteggio = $punteggio + ($w->getPunteggioMax());
+    else {
+        $descr=$_POST['descrizione'];
+        $punteggio=0;
+        $Argomenti = Array();
+        $Multiple = Array();
+        $Aperte = Array();
+        $Argomenti=$controllerArgomento->getArgomenti($identificativoCorso);
+        $leAperte = Array();
+        $leMultiple = Array();
+        foreach($Argomenti as $a){// per ogni argomento del corso prendo tutte le aperte e le multiple
+            $nuoveAperte = Array();
+            $nuoveAperte = $controllerDomande->getAllAperte($a->getId());
+            $Aperte = array_merge($Aperte,$nuoveAperte);
+            $nuoveMultiple = Array();
+            $nuoveMultiple = $controllerDomande->getAllMultiple($a->getId());
+            $Multiple = array_merge($Multiple,$nuoveMultiple);
         }
-        foreach ($leMultiple as $s) { //leMultiple selezionate vengono controllate per aggiorare il punteggio totale
-            $w = $controllerDomande->getDomandaMultipla($s->getId());
-            $punteggio = $punteggio + ($w->getPunteggioCorretta());
+        if($nApe>1){
+            $indiciA=array_rand($Aperte,$nApe);
+
+            for($i=0;$i<$nApe;$i++){
+                $leAperte[$i]=$Aperte[$indiciA[$i]];
+            }
+        }else if($nApe==1){
+            $x=rand(0,(count($Aperte)-1));
+            $leAperte[0]=$Aperte[$x];
+        }else{
+            $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
+            header($tornaACasa); //torno alla home
         }
-        $nApe = parseInt($_POST['numAperte']);//mi riprendo il numero delle aperte
-        $nMul = parseInt($_POST['numMultiple']);//mi riprendo il numero di multiple
+        if($nMul>1){
+            $indiciM=array_rand($Multiple,$nMul);
 
+            for($i=0;$i<$nMul;$i++){
+                $leMultiple[$i]=$Multiple[$indiciM[$i]];
+            }
+        }else if($nMul==1){
+            $x=rand(0,(count($Multiple)-1));
+            $leMultiple[0]=$Multiple[$x];
+        }else{
+            $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
+            header($tornaACasa); //torno alla home
+        }
 
-        $test = new Test($descr, $punteggio, $nMul, $nApe, 0, 0, $identificativoCorso);//creo il test e lo metto nel db
-        $idNuovoTest = $controllerTest->creaTest($test);
-        foreach ($leAperte as $s) { //scansiono di nuovo le aperte per associarle al test
+        foreach($leAperte as $s){ //leAperte selezionate vengono controllate per aggiorare il punteggio totale
+            $w=$controllerDomande->getDomandaAperta($s->getId());
+            $punteggio=$punteggio+($w->getPunteggioMax());
+        }
+        foreach($leMultiple as $s) { //leMultiple selezionate vengono controllate per aggiorare il punteggio totale
+            $w=$controllerDomande->getDomandaMultipla($s->getId());
+            $punteggio=$punteggio+($w->getPunteggioCorretta());
+        }
+        $nApe=parseInt($_POST['numAperte']);//mi riprendo il numero delle aperte
+        $nMul=parseInt($_POST['numMultiple']);//mi riprendo il numero di multiple
+        $test = new Test($descr,$punteggio,$nMul,$nApe,0,0,$identificativoCorso);//creo il test e lo metto nel db
+        $idNuovoTest=$controllerTest->creaTest($test);
+        foreach($leAperte as $s){ //scansiono di nuovo le aperte per associarle al test
             $controllerDomande->associaAperTest(parseInt($s->getId()), $idNuovoTest, NULL);
         }
-        foreach ($leMultiple as $x) { //scansiono di nuovo le multiple per associarle al test
+        foreach($leMultiple as $x) { //scansiono di nuovo le multiple per associarle al test
             $controllerDomande->associaMultTest(parseInt($x->getId()), $idNuovoTest, NULL, NULL);
         }
 
-        $tornaACasa = "Location: " . "/docente/corso/" . "$identificativoCorso";
+        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
         header($tornaACasa); //torno alla home
     }
 
 
 }
+
 $corso = $controllerCorso->readCorso($_URL[2]);
 ?>
 <!DOCTYPE html>
@@ -178,6 +202,15 @@ $corso = $controllerCorso->readCorso($_URL[2]);
           href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
     <?php include VIEW_DIR . "design/header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/jquery-nestable/jquery.nestable.css">
+
+    <style type="text/css">
+        div.scroll {
+            height: auto;
+            width: 500px;
+            overflow: auto;
+            padding: 8px;
+        }
+    </style>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -215,21 +248,34 @@ $corso = $controllerCorso->readCorso($_URL[2]);
 
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <form action="" method="post" id="form_sample_1">
+            <form id="form_sample_1" action="" method="post">
+
 
                 <div class="alert alert-danger display-hide">
                     <button class="close" data-close="alert"></button>
-                    Ricorda che occorre selezionare almeno un Test e che Avvio-Termine sono obbligatori.
+                    Errore nei Dati. Devi inserire la descrizione del test, e selezionare almeno una domanda.
                 </div>
 
                 <?php
-                if(!$flag) {
+                    if(!$flag) {
+                        echo "<div class=\"alert alert-danger\">
+                        <button class=\"close\" data-close=\"alert\"></button>
+                        Errore nei Dati. Devi inserire un numero domande maggiore di 0.
+                        </div>";
+                    }
+                ?>
+
+                <?php
+                if(!$flag2) {
+                    //TODO (aggiungere da nmin a nmax domande) effettuare query per recuperare i valori e mostrarli nel messaggio
                     echo "<div class=\"alert alert-danger\">
-                    <button class=\"close\" data-close=\"alert\"></button>
-                    I numeri devono essere maggiori di 0.
-                </div>";
+                        <button class=\"close\" data-close=\"alert\"></button>
+                        Errore nei Dati. Devi inserire un numero di domande valido.
+                        </div>";
                 }
                 ?>
+
+
                 <div class="form-body">
                     <div class="portlet box blue-madison">
                         <div class="portlet-title">
@@ -242,10 +288,13 @@ $corso = $controllerCorso->readCorso($_URL[2]);
                         </div>
 
                         <div class="portlet-body">
-                            <h4> Descrizione</h4>
-                            <div class="col-md-12">
-                                <input type="text" class="form-control" name="descrizione" id="descrizione" rows="4" placeholder="Inserisci descrizione" style="resize:none"/>
-                                <span class="help-block"></span>
+                            <div class="form-group form-md-line-input">
+                                <h4> Descrizione</h4>
+                                <div class="col-md-12">
+                                    <textarea class="form-control" name="descrizione" id="descrizione" rows="3" placeholder="Inserisci descrizione" style="resize:none"></textarea>
+                                    <span class="help-block"></span>
+                                    <h3></h3>
+                                </div>
                             </div>
                             <br>
                             <br>
@@ -277,16 +326,20 @@ $corso = $controllerCorso->readCorso($_URL[2]);
                                 <div class="col-md-8" id="scelte_random" style="visibility: hidden" >
                                     <div class="col-md-6">
                                         <div class="form-group form-md-line-input">
+                                            <div class="input-icon">
                                                 <input type="text" id="numAperte" name="numAperte" class="form-control">
                                                 <label for="numAperte">Numero domande a risposta aperta:</label>
                                                 <span class="help-block"></span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group form-md-line-input">
+                                            <div class="input-icon">
                                                 <input type="text" id="numMultiple" name="numMultiple" class="form-control">
                                                 <label for="numMultiple">Numero domande a risposta multipla:</label>
                                                 <span class="help-block"></span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -430,7 +483,7 @@ $corso = $controllerCorso->readCorso($_URL[2]);
 
 <!--Script specifici per la pagina -->
 <script src="/assets/global/scripts/manuale_random.js" type="text/javascript"></script>
-<!--<script src="/assets/global/scripts/creazioneTest.js" type="text/javascript"></script>-->
+<script src="/assets/global/scripts/creazioneTest.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
@@ -445,12 +498,12 @@ $corso = $controllerCorso->readCorso($_URL[2]);
 <script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
 <script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
 <script src="/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
-<script src="/assets/admin/pages/scripts/ui-nestable.js"></script>
+<!--<script src="/assets/admin/pages/scripts/ui-nestable.js"></script>
 <script src="/assets/global/plugins/jquery-nestable/jquery.nestable.js"></script>
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
-<script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<!--<script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>
-<script src="/assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="/assets/admin/layout/scripts/layout.js" type="text/javascript"></script>-->
 <!-- BEGIN aggiunta da me -->
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
 <!-- END aggiunta da me -->
@@ -462,7 +515,7 @@ $corso = $controllerCorso->readCorso($_URL[2]);
         //Demo.init(); // init demo features
         TableManaged.init("tabella_argomenti2","tabella_argomenti2_wrapper");
         TableManaged.init("tabella_domande","tabella_domande_wrapper");
-        UIConfirmations.init();
+        //UIConfirmations.init();
         FormValidation.init();
         //TableManaged.init(3);
     });
