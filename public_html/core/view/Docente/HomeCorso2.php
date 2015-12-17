@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Carlo, Fabio, Luca
+ * User: Fabiano
  * Date: 23/11/15
  * Time: 21:59
  */
@@ -25,6 +25,34 @@ $id = null;
 $idcorso = null;
 $argomenti = Array();
 $correttezzaLogin = false;
+
+try {
+    $idsSessione = $controllerSessione->getAllSessioniByCorso($identificativoCorso);
+} catch (ApplicationException $ex) {
+    echo "<h1>GETALLSESSIONIBYCORSO FALLITO!</h1>" . $ex;
+}
+
+$now = date("Y-m-d H:i:s");
+foreach ($idsSessione as $c) {
+    $end = $c->getDataFine();
+    $start = $c->getDataInizio();
+
+    if ($c->getStato() == "Non eseguita" && ($now >= $start && $now <= $end)) { //vuol dire che è in esecuizione
+        $sessioneAggiornata = new Sessione($c->getDataInizio(), $c->getDataFine(), $c->getSogliaAmmissione(), "In esecuzione", $c->getTipologia(), $identificativoCorso);
+        $controllerSessione->updateSessione($c->getId(), $sessioneAggiornata);
+    }
+    else if ($c->getStato() == "Eseguita" && ($now >= $start && $now <= $end)) { //vuol dire che è in esecuizione
+        $sessioneAggiornata = new Sessione($c->getDataInizio(), $c->getDataFine(), $c->getSogliaAmmissione(), "In esecuzione", $c->getTipologia(), $identificativoCorso);
+        $controllerSessione->updateSessione($c->getId(), $sessioneAggiornata);
+    }else if ($c->getStato() == "Non eseguita" && ($now > $end)) {
+        $sessioneAggiornata = new Sessione($c->getDataInizio(), $c->getDataFine(), $c->getSogliaAmmissione(), "Eseguita", $c->getTipologia(), $identificativoCorso);
+        $controllerSessione->updateSessione($c->getId(), $sessioneAggiornata);
+    } else if ($c->getStato() == "In esecuzione" && ($now > $end)) {
+        $sessioneAggiornata = new Sessione($c->getDataInizio(), $c->getDataFine(), $c->getSogliaAmmissione(), "Eseguita", $c->getTipologia(), $identificativoCorso);
+        $controllerSessione->updateSessione($c->getId(), $sessioneAggiornata);
+    } else
+         ;
+}
 
 try {
     $corso = $controllerCorso->readCorso($_URL[2]);
@@ -63,12 +91,12 @@ try{
     echo "ERRORE IN READ ARGOMENTO" . $exception;
 }
 
-$idsSessione = $controllerSessione->getAllSessioniByCorso($identificativoCorso);
+
 if(isset($_POST['IdSes'])){
     $idSes = $_POST['IdSes'];
     try {
         $controllerSessione->deleteSessione($idSes);
-        header("Refresh:0");
+        header("location: "."/docente/corso/".$identificativoCorso."/successelimina");
     }
     catch(ApplicationException $ex) {
         echo "ERRORE". $ex;
@@ -94,7 +122,7 @@ if(isset($_POST['idtest'])){
     $i=0;
     $Sess=$controllerSessione->getAllSessioniByCorso($identificativoCorso); 
     foreach($Sess as $s){
-        $nuoviTest=$controllerSessione->getAllTestBySessione($idSessione->getId());
+        $nuoviTest=$controllerSessione->getAllTestBySessione($s->getId());
         $Tests=array_merge($Tests,$nuoviTest);
     }
     foreach($Tests as $t){
@@ -106,12 +134,13 @@ if(isset($_POST['idtest'])){
         
     }else{
      $controllerTest->deleteTest($id);
-     $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/";
+     $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
      header($tornaACasa);   
     }
     
 }
 
+$sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso);
 
 ?>
 <!DOCTYPE html>
@@ -256,12 +285,15 @@ if(isset($_POST['idtest'])){
                             <tbody>
                             <?php
                             $array = Array();
-                            $array = $idsSessione;
+                            $array = $sessioniByCorso;
+                            $now = date("Y-m-d H:i:s");
                             if ($array == null) {
                             }
                             else {
 
                                 foreach ($array as $c) {
+                                    $end = $c->getDataFine();
+                                    $start = $c->getDataInizio();
                                     $vaiAModifica="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."creamodificasessione";
                                     $vaiAVisu="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId();
                                     $vaiASesInCorso="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."sessioneincorso";
@@ -277,17 +309,27 @@ if(isset($_POST['idtest'])){
                                     printf("<td>%s</td>", $c->getStato());
                                     printf("<td>%s</td>", $controllerSessione->readMostraEsitoSessione($c->getId()));
                                     printf("<td>%s</td>", $controllerSessione->readMostraRisposteCorretteSessione($c->getId()));
-                                    if($c->getStato()=="Eseguita")
+                                    if($c->getStato()=="Eseguita") {
                                         printf("<td class=\"center\"><a href=\"%s\" class=\"btn btn-sm default\">Esiti</a>
                                            <a href=\"%s\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></a>
-                                                                 <button type='submit' name='IdSes' value='%d' class='btn btn-sm red-intense'><i class=\"fa fa-trash-o\"></i></button>
-                                           </td>", $vaiVisuEsiti,$vaiAModifica, $c->getId());
-                                    else
+                                                                 <button type='submit' name='IdSes' value='%d' disabled='' class='btn btn-sm red-intense'  data-toggle=\"confirmation\"
+                                        data-singleton=\"true\" data-popout=\"true\" title=\"Sicuro?\"><i class=\"fa fa-trash-o\"></i></button>
+                                           </td>", $vaiVisuEsiti, $vaiAModifica, $c->getId());
+                                    }
+                                    else if($c->getStato()=="In esecuzione"){
+                                        printf("<td class=\"center\"><a href=\"%s\"  disabled='' class=\"btn btn-sm default\">Esiti</a>
+                                           <a href=\"%s\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></a>
+                                                                 <button type='submit' disabled=''  name='IdSes' value='%d' class='btn btn-sm red-intense'  data-toggle=\"confirmation\"
+                                        data-singleton=\"true\" data-popout=\"true\" title=\"Sicuro?\"><i class=\"fa fa-trash-o\"></i></button>
+                                           </td>", $vaiVisuEsiti, $vaiAModifica, $c->getId());
+                                    }
+                                    else {
                                         printf("<td class=\"center\"><a href=\"%s\"  disabled='' class=\"btn btn-sm default\">Esiti</a>
                                            <a href=\"%s\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></a>
                                                                  <button type='submit' name='IdSes' value='%d' class='btn btn-sm red-intense'  data-toggle=\"confirmation\"
                                         data-singleton=\"true\" data-popout=\"true\" title=\"Sicuro?\"><i class=\"fa fa-trash-o\"></i></button>
-                                           </td>", $vaiVisuEsiti,$vaiAModifica, $c->getId());
+                                           </td>", $vaiVisuEsiti, $vaiAModifica, $c->getId());
+                                    }
                                     printf("</tr>");
                                 }
                             }
@@ -372,15 +414,18 @@ if(isset($_POST['idtest'])){
                                             }
                                         else{    
                                         foreach($array as $c) {
+                                        $vaiATest="/docente/corso/".$identificativoCorso."/test"."/".$c->getId()."/"."visualizzatest";
                                         printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                        printf("<td class=\"sorting_1\"><a class=\"btn default btn-xs green-stripe\" href=\"test/%s/visualizzatest\">Test %s</a></td>", $c->getId(),$c->getId());
+                                        printf("<td class=\"sorting_1\"><a class=\"btn default btn-xs green-stripe\" href=\"%s\">Test %s</a></td>", $vaiATest, $c->getId());
                                         printf("<td>%s</td>",$c->getDescrizione());
                                         printf("<td>%s</td>",$c->getNumeroMultiple());
                                         printf("<td>%s</td>",$c->getNumeroAperte());
                                         printf("<td>%s</td>",$c->getPunteggioMax());
                                         printf("<td>%s %%</td>",$c->getPercentualeScelto());
                                         printf("<td>%s %%</td>",$c->getPercentualeSuccesso());
-                                        printf("<td><a href=\"test/crea\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></i></a>");
+                                        $questoTest=$c->getId();
+                                        $alModificaTest="/docente/corso/".$identificativoCorso."/test/modifica/".$questoTest;
+                                        printf("<td><a href=\"%s\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></i></a>",$alModificaTest);
                                         printf("<button class=\"btn btn-sm red-intense\" type=\"submit\" name=\"idtest\" title=\"\" id=\"%d\" value=\"%d\" data-popout=\"true\" data-toggle=\"confirmation\" data-singleton=\"true\" data-original-title=\"Sei sicuro?\"><i class=\"fa fa-trash-o\"></i></button>", $c->getId(), $c->getId());
                                         printf("</td>");
                                         printf("</tr>");
@@ -439,7 +484,7 @@ if(isset($_POST['idtest'])){
 
                             foreach($argomenti as $a) {
                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                printf("<td><a class=\"btn default btn-xs green-stripe\" href=\"/docente/corso/%d/argomento/domande/%d \">%s</a></td>", $a->getCorsoId() , $a->getId() , $a->getNome());
+                                printf("<td><a href=\"/docente/corso/%d/argomento/domande/%d \">%s</a></td>", $a->getCorsoId() , $a->getId() , $a->getNome());
                                     printf("<td>");
                                     printf("<a href=\"/docente/corso/%d/argomento/modifica/%d \" class=\"btn btn-sm blue-madison\">", $a->getCorsoId(),$a->getId());
                                     printf("<i class=\"fa fa-edit\"></i>");

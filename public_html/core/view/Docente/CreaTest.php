@@ -7,8 +7,6 @@
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "Esempio.php";
-$controller = new Esempio();
 include_once CONTROL_DIR . "ArgomentoController.php";
 include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "DomandaController.php";
@@ -81,7 +79,7 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
          $ilTest=$controllerTest->readTest($idNuovoTest);
          $ilTest->setPunteggioMax($punteggio);
          $controllerTest->updateTest($idNuovoTest,$ilTest);//aggiorno il valore di punteggio totale del test(finora zero) con il puteggio calcolato finora
-         $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/";
+         $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
          header($tornaACasa);//torno alla home
  
          
@@ -113,9 +111,12 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
     for($i=0;$i<$nApe;$i++){
     $leAperte[$i]=$Aperte[$indiciA[$i]];
     }
-    }else{
+    }else if($nApe==1){
       $x=rand(0,(count($Aperte)-1)); 
-      array_push($leAperte,$Aperte[$x]);  
+      $leAperte[0]=$Aperte[$x];  
+    }else{
+        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
+        header($tornaACasa); //torno alla home
     }
     if($nMul>1){
     $indiciM=array_rand($Multiple,$nMul);
@@ -123,9 +124,12 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
     for($i=0;$i<$nMul;$i++){
     $leMultiple[$i]=$Multiple[$indiciM[$i]];
     }
-    }else{
+    }else if($nMul==1){
         $x=rand(0,(count($Multiple)-1)); 
-        array_push($leMultiple,$Multiple[$x]);
+        $leMultiple[0]=$Multiple[$x];
+    }else{
+       $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
+        header($tornaACasa); //torno alla home 
     }
     
     foreach($leAperte as $s){ //leAperte selezionate vengono controllate per aggiorare il punteggio totale
@@ -144,10 +148,10 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
         $controllerDomande->associaAperTest(parseInt($s->getId()), $idNuovoTest, NULL);
     }
     foreach($leMultiple as $x) { //scansiono di nuovo le multiple per associarle al test
-        $controllerDomande->associaMultTest($x->getId(), $idNuovoTest, NULL, NULL);
+        $controllerDomande->associaMultTest(parseInt($x->getId()), $idNuovoTest, NULL, NULL);
     }
     
-    $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/";
+    $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
         header($tornaACasa); //torno alla home
     
 }
@@ -218,7 +222,14 @@ $num = $controllerArgomento->getNumArgomenti();
 
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <form action="" method="post">
+            <form action="" method="post" id="form_sample_1">
+           
+                    <div class='alert alert-danger display-hide'>
+                    <button class=\"close\" data-close=\"alert\"></button>
+                    Ricorda che occorre selezionare almeno un Test e che Avvio-Termine sono obbligatori.
+                    </div>
+
+               
                 <div class="form-body">
                     <div class="portlet box blue-madison">
                         <div class="portlet-title">
@@ -233,7 +244,8 @@ $num = $controllerArgomento->getNumArgomenti();
                         <div class="portlet-body">
                             <h4> Descrizione</h4>
                                 <div class="col-md-12">
-                                    <textarea class="form-control" name="descrizione" id="descrizione" rows="4" placeholder="Inserisci descrizione" style="resize:none"></textarea>
+                                    <input type="text" class="form-control" name="descrizione" id="descrizione" rows="4" placeholder="Inserisci descrizione" style="resize:none"></input>
+                                    <span class="help-block"></span>
                                 </div>
                             <br>
                             <br>
@@ -390,6 +402,7 @@ $num = $controllerArgomento->getNumArgomenti();
 
                     </div>
                 <div class="form-actions">
+                    
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
@@ -397,9 +410,11 @@ $num = $controllerArgomento->getNumArgomenti();
                                     <button type="submit" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                                     Conferma
                                     </button>
-                                    <a href="../" class="btn sm red-intense">
-                                        Annulla
-                                    </a>
+                                    <?php
+                                    printf("<a href=\"/docente/corso/%d\" class=\"btn sm red-intense\">Annulla</a>",$identificativoCorso);
+                                      
+                                    
+                                    ?>
                                 </div>
                             </div>
                         </div>
@@ -428,6 +443,13 @@ $num = $controllerArgomento->getNumArgomenti();
 <script type="text/javascript"
         src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <!-- END PAGE LEVEL PLUGINS aggiunta da me-->
+<script src="/assets/admin/pages/scripts/form-validation.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
+<script src="/assets/admin/pages/scripts/ui-toastr.js"></script>
+<script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
+<script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
+<script src="/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
 <script src="/assets/admin/pages/scripts/ui-nestable.js"></script>
 <script src="/assets/global/plugins/jquery-nestable/jquery.nestable.js"></script>
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
@@ -446,6 +468,8 @@ $num = $controllerArgomento->getNumArgomenti();
         TableManaged.init("tabella_argomenti2","tabella_argomenti2_wrapper");
         TableManaged.init("tabella_domande","tabella_domande_wrapper");
         UINestable.init(<?php echo $num; ?>);
+        UIConfirmations.init();
+        FormValidation.init();
         //TableManaged.init(3);
     });
 </script>

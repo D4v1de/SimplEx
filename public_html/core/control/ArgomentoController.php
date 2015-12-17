@@ -5,7 +5,6 @@
  * Time: 22:00
  */
 
-include_once CONTROL_DIR . "Controller.php";
 include_once MODEL_DIR . "Model.php";
 include_once BEAN_DIR . "Argomento.php";
 include_once BEAN_DIR . "DomandaAperta.php";
@@ -18,7 +17,7 @@ include_once MODEL_DIR . "CorsoModel.php";
 include_once MODEL_DIR . "AccountModel.php";
 
 
-class ArgomentoController extends Controller {
+class ArgomentoController {
 
 
     public function getArgomenti($corso_id) {

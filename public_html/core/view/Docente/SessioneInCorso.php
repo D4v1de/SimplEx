@@ -19,16 +19,16 @@ $identificativoCorso = $_URL[2];
 $corso = $controlleCdl->readCorso($identificativoCorso);
 $nomecorso= $corso->getNome();
 
-    try {
-        $sessioneByUrl = $controller->readSessione($idSessione);
-        $dataFrom = $sessioneByUrl->getDataInizio();
-        $dataTo = $sessioneByUrl->getDataFine();
-        $tipoSessione = $sessioneByUrl->getTipologia();
+try {
+    $sessioneByUrl = $controller->readSessione($idSessione);
+    $dataFrom = $sessioneByUrl->getDataInizio();
+    $dataTo = $sessioneByUrl->getDataFine();
+    $tipoSessione = $sessioneByUrl->getTipologia();
 
-    } catch (ApplicationException $ex) {
-        echo "<h1>errore! ApplicationException->errore manca id sessione nel path!</h1>";
-        echo "<h4>" . $ex . "</h4>";
-    }
+} catch (ApplicationException $ex) {
+    echo "<h1>errore! ApplicationException->errore manca id sessione nel path!</h1>";
+    echo "<h4>" . $ex . "</h4>";
+}
 
 
 if(isset( $_POST['datato']) && isset( $_POST['termina'] )) {
@@ -44,7 +44,6 @@ else if(isset( $_POST['datato'])) {
     $dataFineNow=$_POST['datato'];
     $newSessione = new Sessione($dataFrom, $dataFineNow, 18, "In Esecuzione", $tipoSessione, $identificativoCorso);
     $controller->updateSessione($idSessione,$newSessione);
-    header("Refresh:0");
 }
 
 if(isset( $_POST['addStu'])) {
@@ -63,6 +62,8 @@ if(isset( $_POST['annullaEsame'])) {
 if(isset( $_POST['aggiorna'])) {
     header("Refresh:0");
 }
+$sessioneByUrl = $controller->readSessione($idSessione);
+$dataTo = $sessioneByUrl->getDataFine();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>

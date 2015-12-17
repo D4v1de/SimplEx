@@ -7,11 +7,10 @@
  * Time: 15:58
  */
 
-include_once CONTROL_DIR . "Controller.php";
 include_once MODEL_DIR . "ElaboratoModel.php";
 
 
-class ElaboratoController extends Controller {   //UTLIZZARE ALTRO CONTROLLER..NON ALTRO MODEL
+class ElaboratoController {   //UTLIZZARE ALTRO CONTROLLER..NON ALTRO MODEL
 
 
     private $elaboratoModel;
