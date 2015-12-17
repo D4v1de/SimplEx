@@ -152,80 +152,25 @@ class UtenteController {
     }
 
     /**
-     * Restituisce tutti gli Utenti
+     * Restituisce tutti gli Utenti dato un filtro
      * @return array con tutti gli Utenti
      */
-    public function getUtenti() {
+    public function getUtenti($filter = "ALL") {
         $accountModel = new AccountModel();
-        return $accountModel->getAllUtenti();
+        switch ($filter) {
+            case "Docente":
+                return $accountModel->getAllDocenti();
+            case "Studente":
+                return $accountModel->getAllStudenti();
+            default:
+                return $accountModel->getAllUtenti();
+        }
     }
 
-    /**
-     * Restituisce tutti gli Studenti
-     * @return array con tutti gli Studenti
-     */
-    public function getStudenti() { //da vedere
-        $accountModel = new AccountModel();
-        return $accountModel->getAllStudenti();
-    }
-    
-     public function getAllStudentiSessione($idSessione) {
+
+    public function getAllStudentiSessione($idSessione) {
         $accountModel = new AccountModel();
         return $accountModel->getAllStudentiSessione($idSessione);
-    }
-
-    /**
-     * Restituisce tutti i Docenti
-     * @return array con tutti i Docenti
-     */
-    public function getDocenti() {
-        $accountModel = new AccountModel();
-        return $accountModel->getAllDocenti();
-    }
-
-    public function modificaUtente($matricola, $fieldName, $value) {
-        //TODO verifiche in più
-        if (!is_numeric($matricola)) {
-            throw new ApplicationException(Error::$MATRICOLA_INESISTENTE);
-        }
-        $aModel = new AccountModel();
-        $utente = $aModel->getUtenteByMatricola($matricola);
-
-        //!!! CRAZY CODE START
-        if ($fieldName == "matricola" && preg_match(Patterns::$MATRICOLA, $value)) {
-            $utente->setMatricola($value);
-        } else {
-            throw new ApplicationException(Error::$MATRICOLA_INESISTENTE);
-        }
-
-        if ($fieldName == "username" && preg_match(Patterns::$EMAIL, $value)) {
-            $utente->setUsername($value);
-        } else {
-            throw new ApplicationException(Error::$EMAIL_NON_VALIDA);
-        }
-
-        if ($fieldName == "nome" && preg_match(Patterns::$NAME_GENERIC, $value)) {
-            $utente->setNome($value);
-        } else {
-            throw new ApplicationException(Error::$NOME_NON_VALIDO);
-        }
-        if ($fieldName == "cognome" && preg_match(Patterns::$NAME_GENERIC, $value)) {
-            $utente->setCognome($value);
-        } else {
-            throw new ApplicationException(Error::$CONGNOME_NON_VALIDO);
-        }
-
-        if ($fieldName == "tipologia" && is_numeric($value)) {
-            $utente->setCognome($value);
-        } else {
-            throw new ApplicationException(Error::$TIPO_UTENTE_ERRATO);
-        }
-
-        if ($fieldName == "corsi_tenuti") {
-            //todo settare i corsi
-        }
-
-        $aModel->updateUtente($matricola, $utente);
     }
 
     /**
@@ -264,7 +209,7 @@ class UtenteController {
         $accountModel->deleteUtente($matricola);
     }
 
-    public function modificaUtenteByType($matricola, $nome, $cognome, $cdlMatricola, $email, $pass, $tipo) {
+    public function modificaUtente($matricola, $nome, $cognome, $cdlMatricola, $email, $pass, $tipo) {
         if (!is_numeric($matricola)) {
             throw new ApplicationException(Error::$MATRICOLA_INESISTENTE);
         }
@@ -304,7 +249,7 @@ class UtenteController {
             $ident = AccountModel::createIdentity($email, $pass);
             $utente->setPassword($ident);
         }
-        
+
         $aModel->updateUtente($matricola, $utente);
     }
 }

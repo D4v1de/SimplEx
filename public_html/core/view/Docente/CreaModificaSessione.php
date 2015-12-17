@@ -7,6 +7,9 @@
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
+
+
+
 include_once CONTROL_DIR . "SessioneController.php";
 $controller = new SessioneController();
 include_once CONTROL_DIR . "CdlController.php";
@@ -82,6 +85,29 @@ if($_URL[4]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
         $sogliAmm= 18;
         $stato='Non Eseguita';
 
+        $timeTo = strtotime($newdataTo);
+        $toCompareTo = date('yyyy-mm-dd hh:ii:ss',$timeTo);
+
+        $timeFrom = strtotime($newdataFrom);
+        $toCompareFrom = date('yyyy-mm-dd hh:ii:ss',$timeFrom);
+
+        if($toCompareTo<$toCompareFrom) {
+            echo "<script> alert('La data di Fine non può essere inferiore alla data di Inizio!') </script>";
+            printf("<script>
+            var var1='/docente/corso/';
+            var var2=$idCorso;
+            var var3='/sessione/';
+            var var4=$idSessione;
+            var var5='/creamodificasessione';
+            var res1 = var1.concat(var2);
+            var res2 = res1.concat(var3);
+            var res3 = res2.concat(var4);
+            var res4 = res3.concat(var5);
+            window.location.replace(res4) </script>");
+        }
+
+
+
         //creo la sessione
         $sessione = new Sessione($newdataFrom, $newdataTo, $sogliAmm, $stato, $newtipoSessione, $idCorso);
         try {
@@ -125,8 +151,8 @@ if($_URL[4]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
         }
 
             //torna a pagina corso del docente
-            $tornaACasa= "Location: "."/docente/corso/"."$idCorso"."/successinserimento";
-            header($tornaACasa);
+          //  $tornaACasa= "Location: "."/docente/corso/"."$idCorso"."/successinserimento";
+          //  header($tornaACasa);
     }
 }
 
@@ -199,7 +225,6 @@ if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
     }
 
 }
-
 
 ?>
 <!DOCTYPE html>
@@ -278,7 +303,7 @@ if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
                 <?php
                     printf("<div class='alert alert-danger display-hide'>
                     <button class=\"close\" data-close=\"alert\"></button>
-                    Ricorda che occorre selezionare almeno un Test e che Avvio-Termine sono obbligatori.
+                    Occorre selezionare almeno un Test con Avvio e Termine.
                 </div>");
 
                 ?>
@@ -303,8 +328,8 @@ if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
                             <label class="control-label">Termine:</label>
 
                             <div class="input-group date form_datetime">
-                                <input name="dataTo" type="text" value='<?php printf("%s",$perModificaDataTo ); ?>' size="16" readonly="" class="form-control"/>
-                                        <span class="input-group-btn">
+                                <input name="dataTo" id="dataTo" class="form-control" type="text" value='<?php printf("%s",$perModificaDataTo ); ?>' size="16"  readonly="" />
+                                        <span class="input-group-btn" >
                                             <button class="btn default date-set" type="button"><i
                                                     class="fa fa-calendar"></i></button>
                                         </span>
