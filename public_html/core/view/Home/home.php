@@ -513,7 +513,7 @@
                 <div class="item text-center">
                     <div class="single-member">
                         <div class="overlay-hover">
-                            <img src="/assets/homepage/images/team/pic5.jpg" alt="" class="img-responsive">
+                            <img src="/assets/homepage/images/team/Luca.jpg" alt="" class="img-responsive">
 
                             <div class="overlay-effect">
                                 <ul class="social list-inline">
