@@ -255,7 +255,10 @@ $corso = $controllerCorso->readCorso($_URL[2]);
 
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <form action="" method="post">
+            <form action="" method="post" id="form_sample_1">
+                <div class="alert alert-danger display-hide">
+                    <button class="close" data-close="alert"></button>
+                    Ricorda che occorre selezionare almeno una domanda dalla tabella e che la descrizione è obbligatoria.         </div>
                 <div class="form-body">
                     <div class="portlet box blue-madison">
                         <div class="portlet-title">
@@ -279,6 +282,7 @@ $corso = $controllerCorso->readCorso($_URL[2]);
                                     }
                                     ?>
                                     <input class="form-control" name="descrizione" id="descrizione" value="<?php echo $testo; ?>" rows="4" style="resize:none"/>
+                                    <span class="help-block"></span>
                                 </div>
                             <br>
                             <br>
@@ -498,6 +502,9 @@ $corso = $controllerCorso->readCorso($_URL[2]);
 <script type="text/javascript"
         src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <!-- END PAGE LEVEL PLUGINS aggiunta da me-->
+<script src="/assets/admin/pages/scripts/form-validation.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
 <script src="/assets/admin/pages/scripts/ui-nestable.js"></script>
 <script src="/assets/global/plugins/jquery-nestable/jquery.nestable.js"></script>
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
@@ -515,6 +522,7 @@ $corso = $controllerCorso->readCorso($_URL[2]);
         //Demo.init(); // init demo features
         TableManaged.init("tabella_argomenti2","tabella_argomenti2_wrapper");
         TableManaged.init("tabella_domande","tabella_domande_wrapper");
+        FormValidation.init();
         //TableManaged.init(3);
     });
 </script>
