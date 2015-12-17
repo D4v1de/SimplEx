@@ -222,7 +222,7 @@ $num = $controllerArgomento->getNumArgomenti();
 
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <form action="" method="post" id="form_sample_2">
+            <form action="" method="post" id="form_sample_1">
            
                     <div class='alert alert-danger display-hide'>
                     <button class=\"close\" data-close=\"alert\"></button>
@@ -244,7 +244,8 @@ $num = $controllerArgomento->getNumArgomenti();
                         <div class="portlet-body">
                             <h4> Descrizione</h4>
                                 <div class="col-md-12">
-                                    <textarea class="form-control" name="descrizione" id="descrizione" rows="4" placeholder="Inserisci descrizione" style="resize:none"></textarea>
+                                    <input type="text" class="form-control" name="descrizione" id="descrizione" rows="4" placeholder="Inserisci descrizione" style="resize:none"></input>
+                                    <span class="help-block"></span>
                                 </div>
                             <br>
                             <br>
