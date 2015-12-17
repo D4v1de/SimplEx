@@ -289,7 +289,7 @@ if (isset($_GET['consegna'])){
 <script src="/assets/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
 <script src="/assets/admin/pages/scripts/ui-alert-dialog-api.js"></script>
 <script src="/assets/admin/pages/scripts/ui-blockui.js"></script>
-<script>
+<script type="text/javascript">
     var sId = <?= $sessId ?>;
     var mat = "<?= $matricola; ?>";
     var intId = null;
@@ -389,7 +389,7 @@ if (isset($_GET['consegna'])){
     });
 </script>
 <!-- countdown -->
-<script>
+<script type="text/javascript">
     
    function checkConnection() {
         if (navigator.onLine) {
@@ -474,11 +474,8 @@ if (isset($_GET['consegna'])){
     }
 </script>
 <!-- risposte -->
-<script>
-    
-</script>
 <!-- consegna e abbandono -->
-<script>    
+<script type="text/javascript">    
     var valutaAbilitazione = function(string){
         if (string == "Corretto"){
             bootbox.dialog({
