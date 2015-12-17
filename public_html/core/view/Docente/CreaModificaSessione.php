@@ -34,6 +34,7 @@ $perModificaDataFrom =  null;
 $perModificaDataTo = null;
 $valu = null;
 $eser = null;
+$flag=1;
 $showE="";
 $showRC="";
 
@@ -82,77 +83,75 @@ if($_URL[4]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
         $newdataTo = $_POST['dataTo'];
         $newtipoSessione = $_POST['radio1'];
 
-        $sogliAmm= 18;
-        $stato='Non Eseguita';
+        $sogliAmm = 18;
+        $stato = 'Non Eseguita';
 
         $timeTo = strtotime($newdataTo);
-        $toCompareTo = date('yyyy-mm-dd hh:ii:ss',$timeTo);
+        $toCompareTo = date('yyyy-mm-dd hh:ii:ss', $timeTo);
 
         $timeFrom = strtotime($newdataFrom);
-        $toCompareFrom = date('yyyy-mm-dd hh:ii:ss',$timeFrom);
+        $toCompareFrom = date('yyyy-mm-dd hh:ii:ss', $timeFrom);
 
-        if($toCompareTo<$toCompareFrom) {
-            echo "<script> alert('La data di Fine non può essere inferiore alla data di Inizio!') </script>";
-            printf("<script>
-            var var1='/docente/corso/';
-            var var2=$idCorso;
-            var var3='/sessione/';
-            var var4=$idSessione;
-            var var5='/creamodificasessione';
-            var res1 = var1.concat(var2);
-            var res2 = res1.concat(var3);
-            var res3 = res2.concat(var4);
-            var res4 = res3.concat(var5);
-            window.location.replace(res4) </script>");
-        }
+        if ($toCompareTo < $toCompareFrom) {
+            /* echo "<script> alert('La data di Fine non può essere inferiore alla data di Inizio!') </script>";
+             printf("<script>
+             var var1='/docente/corso/';
+             var var2=$idCorso;
+             var var3='/sessione/';
+             var var4=$idSessione;
+             var var5='/creamodificasessione';
+             var res1 = var1.concat(var2);
+             var res2 = res1.concat(var3);
+             var res3 = res2.concat(var4);
+             var res4 = res3.concat(var5);
+             window.location.replace(res4) </script>");*/
+            $flag = 0;
+        } else {
+            //creo la sessione
+            $sessione = new Sessione($newdataFrom, $newdataTo, $sogliAmm, $stato, $newtipoSessione, $idCorso);
+            try {
+                $idNuovaSessione = $controller->creaSessione($sessione);
 
+                if (isset($_POST['cbShowEsiti'])) {
+                    $controller->abilitaMostraEsito($idNuovaSessione);
+                }
 
+                if (isset($_POST['cbShowRispCorr'])) {
+                    $controller->abilitaMostraRisposteCorrette($idNuovaSessione);
+                }
 
-        //creo la sessione
-        $sessione = new Sessione($newdataFrom, $newdataTo, $sogliAmm, $stato, $newtipoSessione, $idCorso);
-        try {
-            $idNuovaSessione = $controller->creaSessione($sessione);
-
-            if (isset($_POST['cbShowEsiti'])) {
-                $controller->abilitaMostraEsito($idNuovaSessione);
-            }
-
-            if (isset($_POST['cbShowRispCorr'])) {
-                $controller->abilitaMostraRisposteCorrette($idNuovaSessione);
-            }
-
-            if (isset($_POST['students'])) {
-                $cbStudents = $_POST['students'];
-                if ($cbStudents == null) {
-                    echo "<h1>CBSTUDENTS VUOTO!</h1>";
-                } else {
-                    //creo l'abilitazione students-sessione
-                    foreach ($cbStudents as $s) {
-                        $controller->abilitaStudenteASessione($idNuovaSessione, $s);
+                if (isset($_POST['students'])) {
+                    $cbStudents = $_POST['students'];
+                    if ($cbStudents == null) {
+                        echo "<h1>CBSTUDENTS VUOTO!</h1>";
+                    } else {
+                        //creo l'abilitazione students-sessione
+                        foreach ($cbStudents as $s) {
+                            $controller->abilitaStudenteASessione($idNuovaSessione, $s);
+                        }
                     }
                 }
-            }
 
-            if ($someTestsAorD) {
-                //creo l'associazione tests-sessione
-                $cbTest = Array();
-                $cbTest = $_POST['tests'];
-                if ($cbTest != null) {
-                    print_r($cbTest);
-                }
+                if ($someTestsAorD) {
+                    //creo l'associazione tests-sessione
+                    $cbTest = Array();
+                    $cbTest = $_POST['tests'];
+                    if ($cbTest != null) {
+                        print_r($cbTest);
+                    }
 
-                foreach ($cbTest as $t) {
-                  $controller->associaTestASessione($idNuovaSessione, $t);
+                    foreach ($cbTest as $t) {
+                        $controller->associaTestASessione($idNuovaSessione, $t);
+                    }
                 }
+            } catch (ApplicationException $ex) {
+                echo "<h1>ERRORE NELLE OPERAZIONI DELLA SESSIONE (fase creazione)!</h1>" . $ex;
             }
-        }
-        catch (ApplicationException $ex) {
-            echo "<h1>ERRORE NELLE OPERAZIONI DELLA SESSIONE (fase creazione)!</h1>" . $ex;
-        }
 
             //torna a pagina corso del docente
-          //  $tornaACasa= "Location: "."/docente/corso/"."$idCorso"."/successinserimento";
-          //  header($tornaACasa);
+            //  $tornaACasa= "Location: "."/docente/corso/"."$idCorso"."/successinserimento";
+            //  header($tornaACasa);
+        }
     }
 }
 
@@ -301,11 +300,15 @@ if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
             <form action="" method="post" id="form_sample_2">
 
                 <?php
+                if($flag==0) {
+                    printf("<div class='alert alert-danger'>
+                    <button class=\"close\" data-close=\"alert\"></button>
+                       La data di Fine non può essere inferiore alla data di Inizio. </div>");
+                }
                     printf("<div class='alert alert-danger display-hide'>
                     <button class=\"close\" data-close=\"alert\"></button>
                     Occorre selezionare almeno un Test con Avvio e Termine.
                 </div>");
-
                 ?>
             <div class="row">
                 <div class="col-md-12">
@@ -609,9 +612,10 @@ if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
                                         data-singleton="true" data-popout="true" title="Sicuro?"> <span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                                     Salva
                                 </button>
-                                <a href="../../" class="btn sm red-intense">
-                                    Annulla
-                                </a>
+                                    <?php
+                                    $vaiANomeCorso="/docente/corso/".$idCorso;
+                                    printf("<a href=\"%s\" class=\"btn sm red-intense\">Annulla</a>", $vaiANomeCorso ,$nomecorso);
+                                    ?>
                             </div>
                         </div>
                     </div>

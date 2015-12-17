@@ -323,16 +323,18 @@ $dataTo = $sessioneByUrl->getDataFine();
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <button type="submit" href="javascript:;" class="btn btn-sm blue-madison"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                            <button type="submit" href="javascript:;" class="btn btn-md blue-madison"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                                 Modifica Termine
                                 <i class="fa fa-edit"></i></button>
-                    </div>
-                        <div class="col-md-5"></div>
-                        <button type="submit"  name="termina" value="nada" class="btn sm red-intense" data-toggle="confirmation"
+                        </div>
+                        <div class="col-md-2" >
+                        </div>
+                        <div class="col-md-1" >
+                         <button type="submit"  name="termina" value="nada" class="btn sm red-intense" data-toggle="confirmation"
                                 data-singleton="true" data-popout="true" title="Sicuro?"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
-                            TERMINA ORA
-                        </button>
-
+                             TERMINA ORA
+                         </button>
+                            </div>
                     </div>
                 </div>
             </form>
