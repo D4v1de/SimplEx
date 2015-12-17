@@ -124,7 +124,7 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
     for($i=0;$i<$nMul;$i++){
     $leMultiple[$i]=$Multiple[$indiciM[$i]];
     }
-    }else if($nMul==0){
+    }else if($nMul==1){
         $x=rand(0,(count($Multiple)-1)); 
         $leMultiple[0]=$Multiple[$x];
     }else{
@@ -222,7 +222,14 @@ $num = $controllerArgomento->getNumArgomenti();
 
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <form action="" method="post">
+            <form action="" method="post" id="form_sample_2">
+           
+                    <div class='alert alert-danger display-hide'>
+                    <button class=\"close\" data-close=\"alert\"></button>
+                    Ricorda che occorre selezionare almeno un Test e che Avvio-Termine sono obbligatori.
+                    </div>
+
+               
                 <div class="form-body">
                     <div class="portlet box blue-madison">
                         <div class="portlet-title">
@@ -394,6 +401,7 @@ $num = $controllerArgomento->getNumArgomenti();
 
                     </div>
                 <div class="form-actions">
+                    
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
@@ -434,6 +442,13 @@ $num = $controllerArgomento->getNumArgomenti();
 <script type="text/javascript"
         src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <!-- END PAGE LEVEL PLUGINS aggiunta da me-->
+<script src="/assets/admin/pages/scripts/form-validation.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
+<script src="/assets/admin/pages/scripts/ui-toastr.js"></script>
+<script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
+<script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
+<script src="/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
 <script src="/assets/admin/pages/scripts/ui-nestable.js"></script>
 <script src="/assets/global/plugins/jquery-nestable/jquery.nestable.js"></script>
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
