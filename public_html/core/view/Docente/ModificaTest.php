@@ -191,7 +191,6 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
 }
 
 $corso = $controllerCorso->readCorso($_URL[2]); 
-$num = $controllerArgomento->getNumArgomenti(); 
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -271,16 +270,15 @@ $num = $controllerArgomento->getNumArgomenti();
                         <div class="portlet-body">
                             <h4> Descrizione</h4>
                                 <div class="col-md-12">
-                                    <textarea class="form-control" name="descrizione" id="descrizione" rows="4" style="resize:none">
-                                        <?php
-                                        try{
+                                    <?php
+                                    try{
                                         $x=$controllerTest->readTest($idTest);
-                                        printf("%s", $x->getDescrizione());
-                                        }catch(ApplicationException $ex){
-                                            echo "<h1>ERRORE NELLA LETTURA DELLA DESCRIZIONE TEST!</h1>" . $ex;
-                                        }
-                                        ?>
-                                    </textarea>
+                                        $testo = $x->getDescrizione();
+                                    }catch(ApplicationException $ex){
+                                        echo "<h1>ERRORE NELLA LETTURA DELLA DESCRIZIONE TEST!</h1>" . $ex;
+                                    }
+                                    ?>
+                                    <input class="form-control" name="descrizione" id="descrizione" value="<?php echo $testo; ?>" rows="4" style="resize:none"/>
                                 </div>
                             <br>
                             <br>
@@ -517,7 +515,6 @@ $num = $controllerArgomento->getNumArgomenti();
         //Demo.init(); // init demo features
         TableManaged.init("tabella_argomenti2","tabella_argomenti2_wrapper");
         TableManaged.init("tabella_domande","tabella_domande_wrapper");
-        UINestable.init(<?php echo $num; ?>);
         //TableManaged.init(3);
     });
 </script>

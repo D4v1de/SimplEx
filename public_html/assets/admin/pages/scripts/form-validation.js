@@ -73,8 +73,7 @@ var FormValidation = function () {
                     //per il test
                     descrizione: {
                         required: true,
-                        minlenght: 2,
-                        maxlength: 500
+                        minlenght: 2
                     },
                     radio1: {
                         required: true
@@ -110,6 +109,14 @@ var FormValidation = function () {
                         url: true
                     },
                     number: {
+                        required: true,
+                        number: true
+                    },
+                    numAperte: {
+                        required: true,
+                        number: true
+                    },
+                    numMultiple: {
                         required: true,
                         number: true
                     },
