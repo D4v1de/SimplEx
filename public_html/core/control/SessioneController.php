@@ -8,25 +8,22 @@
  */
 
 include_once MODEL_DIR . "Model.php";
-include_once MODEL_DIR . "AccountModel.php";
 include_once MODEL_DIR . "SessioneModel.php";
 include_once BEAN_DIR . "Sessione.php";
-include_once MODEL_DIR . "TestModel.php";
-
+include_once CONTROL_DIR . "TestController.php";
+include_once CONTROL_DIR . "UtenteController.php";
 
 class SessioneController {   //UTLIZZARE ALTRO CONTROLLER..NON ALTRO MODEL
 
 
     private $sessioneModel;
-    private $accountModel;
-    private $testModel;
-    private $accountController;
+    private $utenteController;
     private $testController;
 
     public function __construct() {
         $this->sessioneModel = new SessioneModel();
-        $this->accountModel = new AccountModel();
-        $this->testModel = new TestModel();
+        $this->testController = new TestController();
+        $this->utenteController = new UtenteController();
 
     }
 
@@ -36,16 +33,7 @@ class SessioneController {   //UTLIZZARE ALTRO CONTROLLER..NON ALTRO MODEL
      * @return type array di Test
      */
     public function getAllTestBySessione($idSessione) {
-        return $this->testModel->getAllTestBySessione($idSessione);
-    }
-
-    /**
-     * Ritorna tutti gli studenti associati al id relativo alla sessione
-     * @param type $idSessione
-     * @return type array di Studenti
-     */
-    public function getAllStudentiBySessione($idSessione) {
-        return  $this->accountModel->getAllStudentiSessione($idSessione);
+        return $this->testController->getAllTestBySessione($idSessione);
     }
 
     /**
@@ -87,11 +75,6 @@ class SessioneController {   //UTLIZZARE ALTRO CONTROLLER..NON ALTRO MODEL
         return $this->sessioneModel->getAllSessioni();
     }
 
-
-        public function getAllStudentiByCorso($idCorso) {
-        return $this->accountModel->getAllStudentiByCorso($idCorso);
-    }
-
     public function getAllSessioniByCorso($idCorso) {
         return $this->sessioneModel->getAllSessioniByCorso($idCorso);
     }
@@ -101,23 +84,15 @@ class SessioneController {   //UTLIZZARE ALTRO CONTROLLER..NON ALTRO MODEL
     }
 
     public function getAllTestByCorso($idCorso) {
-        return $this->testModel->getAllTestByCorso($idCorso);
+        return $this->testController->getAllTestbyCorso($idCorso);
     }
 
     public function associaTestASessione($idSes, $idTest) {
-            $this->sessioneModel->associaTestSessione($idSes,$idTest);
+        $this->sessioneModel->associaTestSessione($idSes,$idTest);
     }
 
     public function deleteAllTestFromSessione($idSes) {
         $this->sessioneModel->DeleteAllTestFromSessione($idSes);
-    }
-
-    public function abilitaStudenteASessione($idSessione, $studenteMatricola) {
-        $this->accountModel->abilitaStudenteSessione($idSessione, $studenteMatricola);
-    }
-
-    public function disabilitaStudenteDaSessione($idSessione, $studenteMatricola) {
-        $this->accountModel->disabilitaStudenteSessione($idSessione, $studenteMatricola);
     }
 
     public function disabilitaMostraRisposteCorrette($id) {
@@ -159,6 +134,29 @@ class SessioneController {   //UTLIZZARE ALTRO CONTROLLER..NON ALTRO MODEL
      * @return Utente[]
      */
     public function getEsaminandiSessione($idSes) {
-        return $this->accountModel->getEsaminandiSessione($idSes);
+        return $this->utenteController->getEsaminandiSessione($idSes);
     }
+
+    /**
+     * Ritorna tutti gli studenti associati al id relativo alla sessione
+     * @param type $idSessione
+     * @return type array di Studenti
+     */
+    public function getAllStudentiBySessione($idSessione) {
+        return  $this->utenteController->getAllStudentiSessione($idSessione);
+    }
+
+    public function abilitaStudenteASessione($idSessione, $studenteMatricola) {
+        $this->utenteController->abilitaStudenteSessione($idSessione,$studenteMatricola);
+    }
+
+    public function disabilitaStudenteDaSessione($idSessione, $studenteMatricola) {
+        $this->utenteController->disabilitaStudenteDaSessione($idSessione,$studenteMatricola);
+    }
+
+    public function getAllStudentiByCorso($idCorso) {
+        return $this->utenteController->getAllStudentiByCorso($idCorso);
+    }
+
+
 }
