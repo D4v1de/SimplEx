@@ -10,7 +10,7 @@ include_once BEAN_DIR . "CdL.php";
 include_once BEAN_DIR . "Corso.php";
 include_once MODEL_DIR . "CdLModel.php";
 include_once MODEL_DIR . "CorsoModel.php";
-include_once MODEL_DIR . "AccountModel.php";
+include_once MODEL_DIR . "UtenteModel.php";
 include_once MODEL_DIR . "SessioneModel.php";
 include_once BEAN_DIR . "Utente.php";
 

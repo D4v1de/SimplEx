@@ -7,7 +7,7 @@
  * Time: 20:59
  */
 include_once BEAN_DIR . "Utente.php";
-include_once MODEL_DIR . "AccountModel.php";
+include_once MODEL_DIR . "UtenteModel.php";
 include_once BEAN_DIR . "CdL.php";
 include_once MODEL_DIR . "CdLModel.php";
 include_once EXCEPTION_DIR . "IllegalArgumentException.php";

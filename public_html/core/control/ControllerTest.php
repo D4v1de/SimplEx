@@ -11,7 +11,7 @@ include_once BEAN_DIR . "Argomento.php";
 include_once BEAN_DIR . "Test.php";
 include_once BEAN_DIR . "Sessione.php";
 include_once BEAN_DIR . "Utente.php";
-include_once MODEL_DIR . "AccountModel.php";
+include_once MODEL_DIR . "UtenteModel.php";
 include_once MODEL_DIR . "ArgomentoModel.php";
 include_once MODEL_DIR . "SessioneModel.php";
 include_once MODEL_DIR . "TestModel.php";
