@@ -124,7 +124,7 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
     for($i=0;$i<$nMul;$i++){
     $leMultiple[$i]=$Multiple[$indiciM[$i]];
     }
-    }else if($nMul==0){
+    }else if($nMul==1){
         $x=rand(0,(count($Multiple)-1)); 
         $leMultiple[0]=$Multiple[$x];
     }else{
@@ -222,7 +222,14 @@ $num = $controllerArgomento->getNumArgomenti();
 
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <form action="" method="post">
+            <form id="form_sample_1" action="" method="post">
+           
+                    <div class='alert alert-danger display-hide'>
+                    <button class=\"close\" data-close=\"alert\"></button>
+                    Ricorda che occorre selezionare almeno un Test e che Avvio-Termine sono obbligatori.
+                    </div>
+
+               
                 <div class="form-body">
                     <div class="portlet box blue-madison">
                         <div class="portlet-title">
@@ -235,10 +242,13 @@ $num = $controllerArgomento->getNumArgomenti();
                         </div>
 
                         <div class="portlet-body">
+                            <div class="form-group form-md-line-input">
                             <h4> Descrizione</h4>
                                 <div class="col-md-12">
-                                    <textarea class="form-control" name="descrizione" id="descrizione" rows="4" placeholder="Inserisci descrizione" style="resize:none"></textarea>
+                                    <textarea type="text" class="form-control" name="descrizione" id="descrizione" rows="4" placeholder="Inserisci descrizione" style="resize:none"></textarea>
+                                    <span class="help-block"></span>
                                 </div>
+                            </div>
                             <br>
                             <br>
                             <br>
@@ -270,7 +280,7 @@ $num = $controllerArgomento->getNumArgomenti();
                                         <div class="col-md-6">
                                             <div class="form-group form-md-line-input has-success">
                                                 <div class="input-icon">
-                                                    <input type="text" id="numAperte" name="numAperte" class="form-control">
+                                                    <input type="text" id="numAperte" name="name" class="form-control">
                                                         <label for="numAperte">Numero domande a risposta aperta:</label>
                                                             <span class="help-block">Inserire numero</span>
                                                 </div>
@@ -279,7 +289,7 @@ $num = $controllerArgomento->getNumArgomenti();
                                         <div class="col-md-6">
                                             <div class="form-group form-md-line-input has-success">
                                                 <div class="input-icon">
-                                                    <input type="text" id="numMultiple" name="numMultiple" class="form-control">
+                                                    <input type="text" id="numMultiple" name="email" class="form-control">
                                                         <label for="numMultiple">Numero domande a risposta multipla:</label>
                                                             <span class="help-block">Inserire numero</span>
                                                 </div>
@@ -289,8 +299,8 @@ $num = $controllerArgomento->getNumArgomenti();
                                 </div>
                         </div>
                     </div>
-                    
-                    
+
+
                     <div class="row" id="domande">
                     
                     <div class="portlet box blue-madison">
@@ -394,6 +404,7 @@ $num = $controllerArgomento->getNumArgomenti();
 
                     </div>
                 <div class="form-actions">
+                    
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
@@ -431,15 +442,21 @@ $num = $controllerArgomento->getNumArgomenti();
 <!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
 <script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript"
-        src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <!-- END PAGE LEVEL PLUGINS aggiunta da me-->
-<script src="/assets/admin/pages/scripts/ui-nestable.js"></script>
+<script src="/assets/admin/pages/scripts/form-validation.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
+<script src="/assets/admin/pages/scripts/ui-toastr.js"></script>
+<script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
+<script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
+<script src="/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
+<!--<script src="/assets/admin/pages/scripts/ui-nestable.js"></script>
 <script src="/assets/global/plugins/jquery-nestable/jquery.nestable.js"></script>
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
-<script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<!--<script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>
-<script src="/assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="/assets/admin/layout/scripts/layout.js" type="text/javascript"></script>-->
 <!-- BEGIN aggiunta da me -->
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
 <!-- END aggiunta da me -->
@@ -451,8 +468,8 @@ $num = $controllerArgomento->getNumArgomenti();
         //Demo.init(); // init demo features
         TableManaged.init("tabella_argomenti2","tabella_argomenti2_wrapper");
         TableManaged.init("tabella_domande","tabella_domande_wrapper");
-        UINestable.init(<?php echo $num; ?>);
-        UIConfirmations.init();
+        //UINestable.init(<?php echo $num; ?>);
+        //UIConfirmations.init();
         FormValidation.init();
         //TableManaged.init(3);
     });

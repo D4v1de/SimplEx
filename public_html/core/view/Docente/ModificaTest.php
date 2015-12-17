@@ -26,7 +26,7 @@ function parseInt($Str) {
 $toCheck="";
 
 try{
-$idTest=$_URL[5];
+$idTest=parseInt($_URL[5]);
 $ilTestDalDB=$controllerTest->readTest($idTest);
 } catch (ApplicationException $ex) {
         echo "<h1>ERRORE! ApplicationException->non c'è l' ID test nel path!</h1>";
@@ -44,69 +44,74 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
     $punteggio=0; 
     $cont1=0;
     $cont2=0;
-    foreach($domAperte as $s){
-        $cont1=$cont1+1;   //conto le domande aperte
+    if ($domAperte!= null){
+        foreach($domAperte as $s){
+            $cont1=$cont1+1;   //conto le domande aperte
+        }
     }
-    foreach($domMultiple as $s){
-        $cont2=$cont2+1;   //conto le domande multiple
+    if ($domMultiple!= null){
+        foreach($domMultiple as $s){
+            $cont2=$cont2+1;   //conto le domande multiple
+        }
     }
     $MultipleTest=Array();
     $AperteTest=Array();
-    $MultipleTest=$controllerDomande->getAllDomandeMultipleByTest(parseInt($idTest));
-    $AperteTest=$controllerDomande->getAllDomandeAperteByTest(parseInt($idTest));
+    $MultipleTest=$controllerDomande->getAllDomandeMultipleByTest($idTest);
+    $AperteTest=$controllerDomande->getAllDomandeAperteByTest($idTest);
     $test = new Test($descrizione,0,$cont2,$cont1,0,0,$identificativoCorso);  //creo il test
-    $controllerTest->updateTest(parseInt($idTest),$test);   //inserisco il test nel db
+    $controllerTest->updateTest($idTest,$test);   //inserisco il test nel db
     
     
     foreach($MultipleTest as $non){
-        $controllerDomande->dissociaMultTest(parseInt($non->getId()), parseInt($idTest));
+        $controllerDomande->dissociaMultTest($non->getId(), $idTest);
     }
     foreach($AperteTest as $non){
-        $controllerDomande->dissociaAperTest(parseInt($non->getId()), parseInt($idTest));
+        $controllerDomande->dissociaAperTest($non->getId(), $idTest);
     }
     
     
     
     foreach($domAperte as $x){      //per ogni domanda aperta selezionata controllo se è stato inserito un punteggio alternativo
-        $stringa=sprintf("ApertaCorr-%d", $x);
+        $id = parseInt($x);
+        $stringa=sprintf("ApertaCorr-%d", $id);
         if(!(empty($_POST[$stringa]))){  //se si associo quella domanda al test con quel valore e incremento il punteggio totale
             $z=$_POST[$stringa];
             $punteggio=$punteggio+(parseInt($z));
-            $controllerDomande->associaAperTest($x->getId(),parseInt($idTest),$z);
+            $controllerDomande->associaAperTest($id,$idTest,$z);
         }else{   //altrimenti la associo con valore null(valore di default presente nel db) e incremento il punteggio totale
-            $w=$controllerDomande->getDomandaAperta($x);
+            $w=$controllerDomande->getDomandaAperta($id);
             $punteggio=$punteggio+($w->getPunteggioMax());
-            $controllerDomande->associaAperTest(parseInt($x),parseInt($idTest),NULL); 
+            $controllerDomande->associaAperTest($id,$idTest,NULL); 
         }
     }
         $z1=0;
         $z2=0;
     foreach($domMultiple as $x){  //per ogni domanda multipla selezionata controllo se è stato inserito un punteggio alternativo
-        $stringa1=sprintf("alternCorr-%d", $x);
+        $id = parseInt($x);
+        $stringa1=sprintf("alternCorr-%d", $id);
         if(!(empty($_POST[$stringa1]))){  //se si incremento il punteggio totale con quel punteggio alternativo
             $z1=$_POST[$stringa1];
             $punteggio=$punteggio+(parseInt($z1));
         }else{ // altrimenti incremento con il valore di default preso dal db
-            $w=$controllerDomande->getDomandaMultipla($x);
+            $w=$controllerDomande->getDomandaMultipla($id);
             $punteggio=$punteggio+($w->getPunteggioCorretta());
             $z1=NULL; 
         }
-        $stringa2=sprintf("alternErr-%d", $x);
+        $stringa2=sprintf("alternErr-%d", $id);
         if(!(empty($_POST[$stringa2]))){  //controllo per il punteggio alternativo dell' errore
             $z2=$_POST[$stringa2];
         }else{
             $z2=NULL; 
         }
-        $controllerDomande->associaMultTest(parseInt($x), parseInt($idTest), $z1, $z2);//associo la domanda multipla al test
+        $controllerDomande->associaMultTest($id, $idTest, $z1, $z2);//associo la domanda multipla al test
         
     }
-         $ilTest=$controllerTest->readTest(parseInt($idTest));
+         $ilTest=$controllerTest->readTest($idTest);
          $ilTest->setPunteggioMax($punteggio);
-         $controllerTest->updateTest(parseInt($idTest),$ilTest);//aggiorno il valore di punteggio totale del test(finora zero) con il puteggio calcolato finora
+         $controllerTest->updateTest($idTest,$ilTest);//aggiorno il valore di punteggio totale del test(finora zero) con il puteggio calcolato finora
          $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
          header($tornaACasa);//torno alla home
- 
-         
+
         }
         
     if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && !(empty($_POST['descrizione'])) && !(empty($_POST['numAperte'])) && !(empty($_POST['numMultiple']))){
@@ -162,22 +167,22 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
     $nMul=parseInt($_POST['numMultiple']);//mi riprendo il numero di multiple
     $MultipleTest=Array();
     $AperteTest=Array();
-    $MultipleTest=$controllerDomande->getAllDomandeMultipleByTest(parseInt($idTest));
-    $AperteTest=$controllerDomande->getAllDomandeAperteByTest(parseInt($idTest));
+    $MultipleTest=$controllerDomande->getAllDomandeMultipleByTest($idTest);
+    $AperteTest=$controllerDomande->getAllDomandeAperteByTest($idTest);
     $test = new Test($descr,$punteggio,$nMul,$nApe,0,0,$identificativoCorso);//creo il test e lo metto nel db
-    $controllerTest->updateTest(parseInt($idTest),$test);
+    $controllerTest->updateTest($idTest,$test);
     
     foreach($MultipleTest as $s){
-        $controllerDomande->dissociaMultTest(parseInt($s), parseInt($idTest));
+        $controllerDomande->dissociaMultTest($s->getId(), $idTest);
     }
     foreach($AperteTest as $s){
-        $controllerDomande->dissociaAperTest(parseInt($s), parseInt($idTest));
+        $controllerDomande->dissociaAperTest($s->getId(), $idTest);
     }
     foreach($leAperte as $s){ //scansiono di nuovo le aperte per associarle al test
-        $controllerDomande->associaAperTest(parseInt($s->getId()),parseInt($idTest), NULL);
+        $controllerDomande->associaAperTest($s->getId(),$idTest, NULL);
     }
     foreach($leMultiple as $s) { //scansiono di nuovo le multiple per associarle al test
-        $controllerDomande->associaMultTest(parseInt($s->getId()), parseInt($idTest), NULL, NULL);
+        $controllerDomande->associaMultTest($s->getId(), $idTest, NULL, NULL);
     }
     
     $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
@@ -382,6 +387,7 @@ $num = $controllerArgomento->getNumArgomenti();
                             <tbody>
                             <!-- qui va il riempimento automatico -->    
                             <?php
+                            $toCheck="";
                             $Argomenti = Array();
                             $Multiple = Array();
                             $Aperte = Array();
@@ -401,7 +407,7 @@ $num = $controllerArgomento->getNumArgomenti();
                                             $toCheck="Checked";
                                         }
                                     }
-                                    printf("<td><input type=\"checkbox\" value=\"%d\" name=\"multiple[]\" %s class=\"checkboxes\"></td>", $s->getId(),$s->getId(), $toCheck);
+                                    printf("<td><input type=\"checkbox\" value=\"%d\" name=\"multiple[]\" %s class=\"checkboxes\"></td>", $s->getId(), $toCheck);
                                     $toCheck="";
                                     printf("<td>%s</td>",$s->getId());
                                     printf("<td>%s</td>",$a->getNome());
@@ -427,7 +433,7 @@ $num = $controllerArgomento->getNumArgomenti();
                                             $toCheck="Checked";
                                         }
                                     }
-                                    printf("<td><input type=\"checkbox\" value=\"%d\" name=\"aperte[]\" %s class=\"checkboxes\"></td>", $s->getId(), $s->getId(), $toCheck);
+                                    printf("<td><input type=\"checkbox\" value=\"%d\" name=\"aperte[]\" %s class=\"checkboxes\"></td>", $s->getId(), $toCheck);
                                     $toCheck="";
                                     printf("<td>%s</td>",$s->getId());
                                     printf("<td>%s</td>",$a->getNome());

@@ -330,7 +330,7 @@ class DomandaModel extends Model {
      * @throws ApplicationException
      */
     public function dissociaDomandaApertaTest($idDomanda, $idTest) {
-        $query = sprintf(self::$DISSOCIA_DOMANDA_APERTA_TEST, $$idDomanda, $idTest);
+        $query = sprintf(self::$DISSOCIA_DOMANDA_APERTA_TEST, $idDomanda, $idTest);
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
@@ -410,7 +410,7 @@ class DomandaModel extends Model {
      * @throws ApplicationException
      */
     public function dissociaDomandaMultiplaTest($idDomanda, $idTest) {
-        $query = sprintf(self::$DISSOCIA_DOMANDA_MULTIPLA_TEST, $$idDomanda, $idTest);
+        $query = sprintf(self::$DISSOCIA_DOMANDA_MULTIPLA_TEST, $idDomanda, $idTest);
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
