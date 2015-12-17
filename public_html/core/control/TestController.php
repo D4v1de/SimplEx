@@ -50,22 +50,5 @@ class TestController {
     public function deleteTest($id){
         return $this->testModel->deleteTest($id);
     }
-
-
     
-    
-    
-    //SPOSTARE!!!
-
-    //restituisce le risposte multiple di una specifica domanda
-    public function getRispMult($id, $argomentoId, $argomentoCorsoId) {
-        $alternativaModel = new AlternativaModel();
-        return $alternativaModel->getAllAlternativaByDomanda($id, $argomentoId, $argomentoCorsoId);
-    }
-    
-    //ricerca un utente attraverso la matricola
-    public function getUtentebyMatricola($matricola) {
-        $accountModel = new AccountModel();
-        return $accountModel->getUtenteByMatricola($matricola);
-    }
 }

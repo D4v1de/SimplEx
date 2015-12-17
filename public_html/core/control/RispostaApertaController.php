@@ -1,6 +1,6 @@
 <?php
 /**.
- * User: Carlo
+ * User: Fabiano Pecorelli
  * Date: 30/11/15
  * Time: 20:00
  */
@@ -10,6 +10,7 @@ include_once MODEL_DIR . "RispostaApertaModel.php";
 
 class RispostaApertaController
 {
+    private $rispApertaModel;
 
      public function __construct() {
          $this->rispApertaModel = new RispostaApertaModel();
