@@ -7,7 +7,7 @@
  * Time: 20:59
  */
 include_once BEAN_DIR . "Utente.php";
-include_once MODEL_DIR . "AccountModel.php";
+include_once MODEL_DIR . "UtenteModel.php";
 include_once BEAN_DIR . "CdL.php";
 include_once MODEL_DIR . "CdLModel.php";
 include_once EXCEPTION_DIR . "IllegalArgumentException.php";
@@ -166,13 +166,6 @@ class UtenteController {
                 return $accountModel->getAllUtenti();
         }
     }
-
-
-    public function getAllStudentiSessione($idSessione) {
-        $accountModel = new AccountModel();
-        return $accountModel->getAllStudentiSessione($idSessione);
-    }
-
     /**
      * Iscrive uno studente ad un Corso
      * @param matricola dello Studente
@@ -208,6 +201,7 @@ class UtenteController {
         }
         $accountModel->deleteUtente($matricola);
     }
+
 
     public function modificaUtente($matricola, $nome, $cognome, $cdlMatricola, $email, $pass, $tipo) {
         if (!is_numeric($matricola)) {
@@ -252,4 +246,30 @@ class UtenteController {
 
         $aModel->updateUtente($matricola, $utente);
     }
+
+    public function getEsaminandiSessione($idSes) {
+        $accountModel = new AccountModel();
+        return $accountModel->getEsaminandiSessione($idSes);
+    }
+
+    public function disabilitaStudenteDaSessione($idSessione, $studenteMatricola) {
+        $accountModel = new AccountModel();
+        $accountModel->disabilitaStudenteSessione($idSessione,$studenteMatricola);
+    }
+
+    public function abilitaStudenteSessione($idSessione, $studenteMatricola){
+        $accountModel = new AccountModel();
+        $accountModel->abilitaStudenteSessione($idSessione,$studenteMatricola);
+    }
+
+    public function getAllStudentiByCorso($idCorso) {
+        $accountModel = new AccountModel();
+        return $accountModel->getAllStudentiByCorso($idCorso);
+    }
+
+    public function getAllStudentiSessione($idSessione) {
+        $accountModel = new AccountModel();
+        return $accountModel->getAllStudentiSessione($idSessione);
+    }
+
 }

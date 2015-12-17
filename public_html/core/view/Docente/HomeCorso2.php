@@ -484,13 +484,13 @@ $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso
 
                             foreach($argomenti as $a) {
                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                printf("<td><a href=\"/docente/corso/%d/argomento/domande/%d \">%s</a></td>", $a->getCorsoId() , $a->getId() , $a->getNome());
-                                    printf("<td>");
-                                    printf("<a href=\"/docente/corso/%d/argomento/modifica/%d \" class=\"btn btn-sm blue-madison\">", $a->getCorsoId(),$a->getId());
-                                    printf("<i class=\"fa fa-edit\"></i>");
-                                    printf("</a>");
-                                    printf("<button class=\"btn btn-sm red-intense\" type=\"submit\" name=\"id\" title='Sei sicuro?' value=\"%d\" data-popout=\"true\" data-toggle=\"confirmation\" data-singleton=\"true\"><i class=\"fa fa-trash-o\"></i></button>",$a->getId());
-                                    printf("</td>");
+                                printf("<td><a class=\"btn default btn-xs green-stripe\" href=\"/docente/corso/%d/argomento/domande/%d \">%s</a></td>", $a->getCorsoId() , $a->getId() , $a->getNome());
+                                printf("<td>");
+                                printf("<a href=\"/docente/corso/%d/argomento/modifica/%d \" class=\"btn btn-sm blue-madison\">", $a->getCorsoId(),$a->getId());
+                                printf("<i class=\"fa fa-edit\"></i>");
+                                printf("</a>");
+                                printf("<button class=\"btn btn-sm red-intense\" type=\"submit\" name=\"id\" title='Sei sicuro?' value=\"%d\" data-popout=\"true\" data-toggle=\"confirmation\" data-singleton=\"true\"><i class=\"fa fa-trash-o\"></i></button>",$a->getId());
+                                printf("</td>");
                                 printf("</tr>");
                             }
 
