@@ -378,23 +378,24 @@ $dataTo = $sessioneByUrl->getDataFine();
             //SCRIPT PER AVVIARE DATETIMEPICKER
             $(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii:ss'});
         </script>
-
+        <script src="/assets/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
         <script>
+            var count=0;
             function loadDoc() {
 
                 var datTo = document.getElementById('bottoneT').value;
                 var xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function() {
                     if (xhttp.readyState == 4 && xhttp.status == 200) {
-                        var boT = new Date(datTo);
-                        var timeFromServer = new Date(xhttp.responseText);
+                        var boT = new Date(datTo.substr(0, 4), datTo.substr(5, 2) - 1, datTo.substr(8, 2), datTo.substr(11, 2), datTo.substr(14, 2), datTo.substr(17, 2) );
+                        var timeFromServer = new Date(xhttp.responseText.substr(0, 4), xhttp.responseText.substr(5, 2) - 1, xhttp.responseText.substr(8, 2), xhttp.responseText.substr(11, 2), xhttp.responseText.substr(14, 2), xhttp.responseText.substr(17, 2));
                         if(boT>=timeFromServer)
                             document.getElementById("demo").innerHTML = "Sessione in Corso" ;
                         else {
-                            var var1='/docente/corso/';
-                            var var2=<?php echo "$identificativoCorso" ?>;
+                            /* var var1='/docente/corso/';
+                            var var2=<?php //echo "$identificativoCorso" ?>;
                             var var3='/sessione/';
-                            var var4=<?php echo "$idSessione" ?>;
+                            var var4=<?php //echo "$idSessione" ?>;
                             var var5='/esiti/autoendsuccess';
                             var res1 = var1.concat(var2);
                             var res2 = res1.concat(var3);
@@ -402,7 +403,34 @@ $dataTo = $sessioneByUrl->getDataFine();
                             var res4 = res3.concat(var5);
                             document.getElementById("demo").innerHTML = "Sessione Terminata";
                             alert('La sessione è terminata! Sarai indirizzato alla pagina deli Esiti.');
-                            window.location.replace(res4);
+                            window.location.replace(res4);*/
+                            if(count==0) {
+                                document.getElementById("demo").innerHTML = "Sessione Terminata";
+                                bootbox.dialog({
+                                    message: "Vai alla visualizzazione degli esiti.",
+                                    title: "La sessione è terminata.",
+                                    closeButton: false,
+                                    buttons: {
+                                        conferma: {
+                                            label: "Ok",
+                                            className: "green",
+                                            callback: function () {
+                                                var var1='/docente/corso/';
+                                                var var2=<?php echo "$identificativoCorso" ?>;
+                                                var var3='/sessione/';
+                                                var var4=<?php echo "$idSessione" ?>;
+                                                var var5='/esiti/autoendsuccess';
+                                                var res1 = var1.concat(var2);
+                                                var res2 = res1.concat(var3);
+                                                var res3 = res2.concat(var4);
+                                                var res4 = res3.concat(var5);
+                                                location.href = res4;
+                                            }
+                                        }
+                                    }
+                                });
+                                count++;
+                            }
                         }
                     }
                 };
