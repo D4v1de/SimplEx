@@ -31,7 +31,6 @@ try{
 catch(ApplicationException $ex){
     header("Location: "."/studente/corso/"."$corsoId"."/");
 }
-$eseguibili = $sessioneController->getAllSessioniByStudente($matricola);
 $now = date("Y-m-d H:i:s");
 $end = $sessione->getDataFine();
 $start = $sessione->getDataInizio();
@@ -441,7 +440,6 @@ if (isset($_GET['consegna'])){
         var target_date = new Date(end.substr(0, 4), end.substr(5, 2) - 1, end.substr(8, 2), end.substr(11, 2), end.substr(14, 2), end.substr(17, 2)).getTime();
         var current_date = new Date(start.substr(0, 4), start.substr(5, 2) - 1, start.substr(8, 2), start.substr(11, 2), start.substr(14, 2), start.substr(17, 2)).getTime();
         
-        alert(target_date+" - "+current_date);
         showTime(current_date,target_date);
         clearInterval(intId);
         intId = setInterval(function(){
