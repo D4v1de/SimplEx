@@ -1,10 +1,13 @@
 <?php
 
 /**
- * User: Elvira
- * Date: 27/11/15
- * Time: 09:00
+ * La classe descrive un contatto.
+ *
+ * @author Elvira Zanin
+ * @version 1.0
+ * @since 27/11/15
  */
+
 class Contatto {
     private $id;
     private $valore;

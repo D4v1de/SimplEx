@@ -1,10 +1,13 @@
 <?php
 
 /**
- * User: Elvira
- * Date: 27/11/15
- * Time: 09:10
+ * La classe descrive un utente.
+ *
+ * @author Elvira Zanin
+ * @version 1.0
+ * @since 27/11/15
  */
+
 class Utente {
     private $matricola;
     private $username;
