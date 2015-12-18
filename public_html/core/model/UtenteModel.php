@@ -8,7 +8,7 @@ include_once BEAN_DIR . "Utente.php";
  * Date: 18/11/15
  * Time: 09:34
  */
-class AccountModel extends Model {
+class UtenteModel extends Model {
     private static $SALT = "r#*1542&ztnsa7uABN83gtkw7lcSjy";
     private static $SELECT_UTENTE = "SELECT * FROM `utente` WHERE `password`='%s' LIMIT 1";
     private static $SELECT_UTENTE_MATRICOLA = "SELECT * FROM `utente` WHERE `matricola`='%s' LIMIT 1 ";

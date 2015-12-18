@@ -1,13 +1,16 @@
 <?php
+
+/**
+ * La classe costituisce il model che effettua tutte le query riguardanti le funzionalità legate ai contatti di un utente, interfacciandosi al db al quale è connesso
+ *
+ * @author Elvira Zanin
+ * @version 1.0
+ * @since 02/12/15
+ */
+
 include_once MODEL_DIR . "Model.php";
 include_once BEAN_DIR . "Contatto.php";
 
-/**
- * Created by PhpStorm.
- * User: Elvira
- * Date: 02/12/15
- * Time: 13:00
- */
 class ContattoModel extends Model {
     private static $CREATE_CONTATTO = "INSERT INTO `contatto` (valore, tipologia, utente_matricola) VALUES ('%s','%s','%s')";
     private static $UPDATE_CONTATTO = "UPDATE `contatto` SET valore = '%s', tipologia = '%s' , utente_matricola = '%s' WHERE id = '%d'";

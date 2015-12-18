@@ -1,12 +1,14 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: sergio
- * Date: 26/11/15
- * Time: 17:34
+ * La classe effettua il test di tutti i metodi della classe UtenteModel.php
+ *
+ * @author Elvira Zanin
+ * @version 1.0
+ * @since 26/11/15
  */
-class AccountModelTest extends PHPUnit_Framework_TestCase {
+
+class UtenteModelTest extends PHPUnit_Framework_TestCase {
 
     const MATRICOLA = "12312312";
     const EMAIL = "testemail@gmail.com";
@@ -20,8 +22,8 @@ class AccountModelTest extends PHPUnit_Framework_TestCase {
     const MATRICOLACDL = "051211";
     const IDSESSIONE = 1;
 
-    public function testCreateRemoveEditUtente() {
-        $model = new AccountModel();
+    public function testUtente() {
+        $model = new UtenteModel();
 
         //Nel caso se l'utente già esiste nel db lo rimuovo
         $model->deleteUtente(self::MATRICOLA);
