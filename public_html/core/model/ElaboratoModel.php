@@ -1,9 +1,12 @@
 <?php
 
+
 /**
- * User: Dario
- * Date: 27/11/15
- * Time: 16:00
+ * La classe descrive un elaborato.
+ *
+ * @author Elvira Zanin
+ * @version 1.0
+ * @since 27/11/15
  */
 
 include_once MODEL_DIR . "Model.php";

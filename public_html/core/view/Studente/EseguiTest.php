@@ -312,15 +312,16 @@ if (isset($_GET['consegna'])){
         //    Metronic.stopPageLoading();
         //}, 2000);
         //countdown
+        /*
         $.ajax({
             url: "/studente/gestoreCountdown",
             method: "GET",
             data: "sessId="+sId
         }).done(function(data) {
             StartCounter(data);
-           });
- //       $.get("/studente/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});
-   //     intId2 = setInterval(function(){$.post("/studente/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);},10000);
+           });*/
+        $.get("/studente/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});
+        intId2 = setInterval(function(){$.get("/studente/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});},10000);
         //fine countdown
         //controller abilitazione
         $.get("/studente/controllerAbilitazione?mat="+mat+"&sessId="+sId,function(data){valutaAbilitazione(data);});

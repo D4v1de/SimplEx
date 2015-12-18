@@ -53,26 +53,30 @@ $identificativoCorso = parseInt($_URL[2]);
 $flag = 1;
 $flag2 = 1;
 $flag3= 1;
+$flag4=1;
 
 
 
-if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipologia']=='man')){
+if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipologia']=='man')){
     // qui va la parte manuale
     // LA STO RIFACENDO C***O
-    $domAperte=Array(); //domande aperte selezionate
-    $domAperte=$_POST['aperte']; //domande aperte selezionate
-    $domMultiple=Array(); //domande multiple selezionate
-    $domMultiple=$_POST['multiple']; //domande multiple selezionate
+    
     $descrizione=$_POST['descrizione']; //descrizione testo
     $punteggio=0;
     $cont1=0;
     $cont2=0;
 
-    //TODO qui l'errore credo sia nell isset iniziale dove metti l'or.... bisogna pensarla un pò meglio..
-    if(empty($domMultiple) && empty($domAperte)) {
-        echo "DAI CAZZOOOOOOOOO(qua dobbiamo gestire l'errore nel caso non è stata selezionata nessuna check)";
+    
+    if(empty($_POST['aperte']) && empty($_POST['multiple'])) {
+        //echo "DAI CAZZOOOOOOOOO(qua dobbiamo gestire l'errore nel caso non è stata selezionata nessuna check)";
+        $flag4=0;
+        
     }
     else {
+        $domAperte=Array(); //domande aperte selezionate
+        $domAperte=$_POST['aperte']; //domande aperte selezionate
+        $domMultiple=Array(); //domande multiple selezionate
+        $domMultiple=$_POST['multiple']; //domande multiple selezionate
         foreach($domAperte as $s){
             $cont1=$cont1+1;   //conto le domande aperte
         }
@@ -147,7 +151,7 @@ if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && isset($_POST['
     }else if($nApe>(contaAperte($identificativoCorso)) || $nMul>(contaMultiple($identificativoCorso))){
         $flag3 = 0;
     }
-    else {
+    else  {
         $descr=$_POST['descrizione'];
         $punteggio=0;
         $Argomenti = Array();
@@ -317,6 +321,17 @@ $corso = $controllerCorso->readCorso($_URL[2]);
                     echo "<div class=\"alert alert-danger\">
                         <button class=\"close\" data-close=\"alert\"></button>
                         Errore nei Dati. Hai richiesto troppe domande per il test RANDOM.
+                        </div>";
+                    //echo "<script type='text/javascript'>checkIt();</script>";
+                }
+                ?>
+                <?php
+                
+                if(!$flag4) {
+                    //TODO (aggiungere da nmin a nmax domande) effettuare query per recuperare i valori e mostrarli nel messaggio
+                    echo "<div class=\"alert alert-danger\">
+                        <button class=\"close\" data-close=\"alert\"></button>
+                        Errore nei Dati. E' necessario selezionare almeno una domanda dalla tabella.
                         </div>";
                     //echo "<script type='text/javascript'>checkIt();</script>";
                 }

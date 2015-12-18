@@ -1,13 +1,16 @@
 <?php
+
+/**
+ * La classe costituisce il model che effettua tutte le query riguardanti le funzionalità legate ai corsi di un CdL, interfacciandosi al db al quale è connesso
+ *
+ * @author Elvira Zanin
+ * @version 1.0
+ * @since 25/11/15
+ */
+
 include_once MODEL_DIR . "Model.php";
 include_once BEAN_DIR . "Corso.php";
 
-/**
- * Created by PhpStorm.
- * User: Elvira
- * Date: 25/11/15
- * Time: 15:42
- */
 class CorsoModel extends Model {
     private static $CREATE_CORSO = "INSERT INTO `corso` (matricola, nome, tipologia, cdl_matricola) VALUES ('%s','%s','%s','%s')";
     private static $UPDATE_CORSO = "UPDATE `corso` SET matricola = '%s', nome = '%s', tipologia = '%s' , cdl_matricola = '%s' WHERE id = '%d'";
@@ -15,8 +18,6 @@ class CorsoModel extends Model {
     private static $READ_CORSO = "SELECT * FROM `corso` WHERE id = '%d'";
     private static $GET_ALL_CORSI = "SELECT * FROM `corso` ORDER BY nome";
     private static $GET_ALL_CORSI_CDL = "SELECT * FROM `corso` WHERE cdl_matricola = '%s' ORDER BY nome";
-    private static $CREATE_INSEGNAMENTO = "INSERT INTO `insegnamento` (corso_id, docente_matricola) VALUES ('%d','%s')";
-    private static $DELETE_INSEGNAMENTO = "DELETE FROM `insegnamento` WHERE corso_id = '%d' AND docente_matricola = '%s'";
     private static $GET_ALL_CORSI_DOCENTE = "SELECT c.* FROM `insegnamento` as i,`corso` as c WHERE i.corso_id = c.id AND i.docente_matricola = '%s' ORDER BY c.nome";
     private static $GET_ALL_CORSI_STUDENTE = "SELECT c.* FROM `frequenta` as f,`corso` as c WHERE f.corso_id = c.id AND f.studente_matricola = '%s' ORDER BY c.nome";
     
@@ -113,35 +114,6 @@ class CorsoModel extends Model {
                 $corsi[] = $corso;            }
         }
         return $corsi;
-    }
-    
-    /**
-     * Inserisce un nuovo insegnamento nel database
-     * @param int $corso_id L'id del corso
-     * @param string $docente_matricola La matricola del docente
-     * @throws ApplicationException
-     */
-    public function createInsegnamento($corso_id, $docente_matricola){
-        $query = sprintf(self::$CREATE_INSEGNAMENTO, $corso_id, $docente_matricola);
-        Model::getDB()->query($query);
-        if (Model::getDB()->affected_rows==-1) {
-            throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
-        }
-        
-    }
-    
-    /**
-     * Cancella un insegnamento nel database
-     * @param int $corso_id L'id del corso
-     * @param string $docente_matricola La matricola del docente
-     * @throws ApplicationException
-     */
-    public function deleteInsegnamento($corso_id, $docente_matricola){
-        $query = sprintf(self::$DELETE_INSEGNAMENTO, $corso_id, $docente_matricola);
-        Model::getDB()->query($query);
-        if (Model::getDB()->affected_rows==-1) {
-            throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
-        }
     }
     
     /**

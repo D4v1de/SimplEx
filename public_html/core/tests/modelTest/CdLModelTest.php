@@ -1,13 +1,12 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: Alina
- * Date: 30/11/2015
- * Time: 12:12
+ * La classe effettua il test di tutti i metodi della classe CdLModel.php
+ *
+ * @author Elvira Zanin
+ * @version 1
+ * @since 30/11/15
  */
-
-
-
 
 class CdLModelTest extends \PHPUnit_Framework_TestCase
 {
