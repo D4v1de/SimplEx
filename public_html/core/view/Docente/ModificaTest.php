@@ -18,12 +18,44 @@ $controllerDomande  = new DomandaController();
 $controllerTest = new TestController();
 
 $identificativoCorso = $_URL[2];
+$flag = 1;
+$flag2 = 1;
+$flag3= 1;
+$toCheck="";
 
 function parseInt($Str) {
     return (int)$Str;   
-} 
+}
 
-$toCheck="";
+function contaAperte($idcorso){
+    $cont=0;
+    $controllerArgomento = new ArgomentoController();
+    $controllerDomande  = new DomandaController();
+    $Argomenti=$controllerArgomento->getArgomenti($idcorso);
+    foreach($Argomenti as $x){
+        $nuoveAperte = $controllerDomande->getAllAperte($x->getId());
+        foreach($nuoveAperte as $h){
+            $cont++;
+        }
+    }
+    return $cont;
+}
+
+function contaMultiple($idcorso){
+    $cont=0;
+     $controllerArgomento = new ArgomentoController();
+    $controllerDomande  = new DomandaController();
+    $Argomenti=$controllerArgomento->getArgomenti($idcorso);
+    foreach($Argomenti as $x){
+        $nuoveMultiple = $controllerDomande->getAllMultiple($x->getId());
+        foreach($nuoveMultiple as $h){
+            $cont++;
+        }
+    }
+    return $cont;
+}
+
+
 
 try{
 $idTest=parseInt($_URL[5]);
@@ -44,6 +76,10 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
     $punteggio=0; 
     $cont1=0;
     $cont2=0;
+    
+    if(empty($domMultiple) && empty($domAperte)) {
+        echo "DAI CAZZOOOOOOOOO(qua dobbiamo gestire l'errore nel caso non è stata selezionata nessuna check)";
+    }else{
     if ($domAperte!= null){
         foreach($domAperte as $s){
             $cont1=$cont1+1;   //conto le domande aperte
@@ -113,11 +149,24 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
          header($tornaACasa);//torno alla home
 
         }
+    }
         
-    if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && !(empty($_POST['descrizione'])) && !(empty($_POST['numAperte'])) && !(empty($_POST['numMultiple']))){
+    if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && isset($_POST['descrizione']) && isset($_POST['numAperte']) && isset($_POST['numMultiple'])){
     //qui va la parte random
     $nApe=parseInt($_POST['numAperte']);
     $nMul=parseInt($_POST['numMultiple']);
+    if($nApe < 0 || $nMul < 0) {
+        $flag = 0;
+        //TODO echo della funzione che effettua il cambiamento di contenuto da manuale a random
+        //echo "<script type='text/javascript'>checkIt();</script>";
+    }else if($nApe == 0 && $nMul == 0) {
+        $flag2 = 0;
+        //TODO echo della funzione che effettua il cambiamento di contenuto da manuale a random
+        //echo "<script type='text/javascript'>checkIt();</script>";
+    }else if($nApe>(contaAperte($identificativoCorso)) || $nMul>(contaMultiple($identificativoCorso))){
+        $flag3 = 0;
+    }else{
+    
     $descr=$_POST['descrizione'];
     $punteggio=0;
     $Argomenti = Array();
@@ -142,7 +191,11 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
     }
     }else if($nApe==1){
       $x=rand(0,(count($Aperte)-1)); 
-      array_push($leAperte,$Aperte[$x]);  
+      $leAperte[0]=$Aperte[$x];  
+    }else{
+        
+        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
+        header($tornaACasa); //torno alla home
     }
     if($nMul>1){
     $indiciM=array_rand($Multiple,$nMul);
@@ -152,7 +205,10 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
     }
     }else if($nMul==1){
         $x=rand(0,(count($Multiple)-1)); 
-        array_push($leMultiple,$Multiple[$x]);
+        $leMultiple[0]=$Multiple[$x];
+    }else{
+        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
+        header($tornaACasa); //torno alla home
     }
     
     foreach($leAperte as $x){ //leAperte selezionate vengono controllate per aggiorare il punteggio totale
@@ -187,11 +243,12 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
     
     $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
         header($tornaACasa); //torno alla home
+        
+        } 
     
 }
 
 $corso = $controllerCorso->readCorso($_URL[2]); 
-$num = $controllerArgomento->getNumArgomenti(); 
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -256,7 +313,46 @@ $num = $controllerArgomento->getNumArgomenti();
 
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <form action="" method="post">
+            <form id="form_sample_1" action="" method="post">
+                
+                
+                <div class="alert alert-danger display-hide">
+                    <button class="close" data-close="alert"></button>
+                    Errore nei Dati. Devi inserire la descrizione del test, e selezionare almeno una domanda.
+                </div>
+                
+                <?php
+                    if(!$flag) {
+                        echo "<div class=\"alert alert-danger\">
+                        <button class=\"close\" data-close=\"alert\"></button>
+                        Errore nei Dati. Per un test RANDOM devi inserire un numero domande maggiore di 0.
+                        </div>";
+                        //echo "<script type='text/javascript'>checkIt();</script>";
+                    }
+                ?>
+
+                <?php
+                if(!$flag2) {
+                    //TODO (aggiungere da nmin a nmax domande) effettuare query per recuperare i valori e mostrarli nel messaggio
+                    echo "<div class=\"alert alert-danger\">
+                        <button class=\"close\" data-close=\"alert\"></button>
+                        Errore nei Dati. Per un test RANDOM devi inserire un numero di domande valido.
+                        </div>";
+                    //echo "<script type='text/javascript'>checkIt();</script>";
+                }
+                ?>
+                
+                <?php
+                if(!$flag3) {
+                    //TODO (aggiungere da nmin a nmax domande) effettuare query per recuperare i valori e mostrarli nel messaggio
+                    echo "<div class=\"alert alert-danger\">
+                        <button class=\"close\" data-close=\"alert\"></button>
+                        Errore nei Dati. Hai richiesto troppe domande per il test RANDOM.
+                        </div>";
+                    //echo "<script type='text/javascript'>checkIt();</script>";
+                }
+                ?>
+
                 <div class="form-body">
                     <div class="portlet box blue-madison">
                         <div class="portlet-title">
@@ -269,19 +365,21 @@ $num = $controllerArgomento->getNumArgomenti();
                         </div>
 
                         <div class="portlet-body">
+                             <div class="form-group form-md-line-input">
                             <h4> Descrizione</h4>
                                 <div class="col-md-12">
-                                    <textarea class="form-control" name="descrizione" id="descrizione" rows="4" style="resize:none">
-                                        <?php
-                                        try{
+                                    <?php
+                                    try{
                                         $x=$controllerTest->readTest($idTest);
-                                        printf("%s", $x->getDescrizione());
-                                        }catch(ApplicationException $ex){
-                                            echo "<h1>ERRORE NELLA LETTURA DELLA DESCRIZIONE TEST!</h1>" . $ex;
-                                        }
-                                        ?>
-                                    </textarea>
+                                        $testo = $x->getDescrizione();
+                                    }catch(ApplicationException $ex){
+                                        echo "<h1>ERRORE NELLA LETTURA DELLA DESCRIZIONE TEST!</h1>" . $ex;
+                                    }
+                                    ?>
+                                    <input class="form-control" name="descrizione" id="descrizione" value="<?php echo $testo; ?>" rows="4" style="resize:none"/>
+                                    <span class="help-block"></span>
                                 </div>
+                             </div>
                             <br>
                             <br>
                             <br>
@@ -491,21 +589,27 @@ $num = $controllerArgomento->getNumArgomenti();
 
 <!--Script specifici per la pagina -->
 <script src="/assets/global/scripts/manuale_random.js" type="text/javascript"></script>
-<script src="/assets/global/scripts/creazioneTest.js" type="text/javascript"></script>
+<script src="/assets/global/scripts/radioCreaTest.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
 <script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript"
-        src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <!-- END PAGE LEVEL PLUGINS aggiunta da me-->
-<script src="/assets/admin/pages/scripts/ui-nestable.js"></script>
+<script src="/assets/admin/pages/scripts/form-validation.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
+<script src="/assets/admin/pages/scripts/ui-toastr.js"></script>
+<script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
+<script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
+<script src="/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
+<!--<script src="/assets/admin/pages/scripts/ui-nestable.js"></script>
 <script src="/assets/global/plugins/jquery-nestable/jquery.nestable.js"></script>
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>
-<script src="/assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="/assets/admin/layout/scripts/layout.js" type="text/javascript"></script>-->
 <!-- BEGIN aggiunta da me -->
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
 <!-- END aggiunta da me -->
@@ -517,7 +621,7 @@ $num = $controllerArgomento->getNumArgomenti();
         //Demo.init(); // init demo features
         TableManaged.init("tabella_argomenti2","tabella_argomenti2_wrapper");
         TableManaged.init("tabella_domande","tabella_domande_wrapper");
-        UINestable.init(<?php echo $num; ?>);
+        FormValidation.init();
         //TableManaged.init(3);
     });
 </script>

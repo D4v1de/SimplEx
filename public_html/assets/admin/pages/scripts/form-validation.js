@@ -73,8 +73,8 @@ var FormValidation = function () {
                     //per il test
                     descrizione: {
                         required: true,
-                        minlenght: 2,
-                        maxlength: 500
+                        minlenght: 2
+                        //maxlength: 500
                     },
                     radio1: {
                         required: true
@@ -112,6 +112,12 @@ var FormValidation = function () {
                     number: {
                         required: true,
                         number: true
+                    },
+                    numAperte: {
+                        required: true
+                    },
+                    numMultiple: {
+                        required: true
                     },
                     //da mettere maggiore uguale di zero
                     punteggioEsatta: {
@@ -292,7 +298,7 @@ var FormValidation = function () {
                 submitHandler: function (form) {
                     success2.show();
                     error2.hide();
-                    form[0].submit(); // submit the form
+                    form.submit(); // submit the form
                 }
             });
 

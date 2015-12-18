@@ -1,6 +1,6 @@
 <?php
 /**.
- * User: Carlo
+ * User: Fabiano Pecorelli
  * Date: 30/11/15
  * Time: 20:00
  */
@@ -10,6 +10,7 @@ include_once MODEL_DIR . "RispostaMultiplaModel.php";
 
 class RispostaMultiplaController
 {
+    private $rispMulModel;
 
      public function __construct() {
          $this->rispMulModel = new RispostaMultiplaModel();
@@ -30,5 +31,4 @@ class RispostaMultiplaController
      public function getMultipleByElaborato($elaborato){
         return $this->rispMulModel->getMultipleByElaborato($elaborato);
     }
-    
 }

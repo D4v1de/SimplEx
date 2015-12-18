@@ -25,6 +25,9 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) {
 }
 
 include_once CONTROL_DIR . "UtenteController.php";
+include_once CONTROL_DIR . "CdlController.php";
+$cdlController=new CdlController();
+$corsi=$cdlController->getCdl();
 $controller = new UtenteController();
 /** @var Exception $error */
 $error = null;
@@ -198,7 +201,6 @@ $error = null;
             <select name="cdl_matricola" id="select2_sample4" class="select2 form-control">
                 <option value=""></option>
                 <?php
-                $corsi = $controller->getCDL();
                 /** @var CdL $corso */
                 foreach ($corsi as $corso) {
                     printf("<option value='%s'>%s</option>", $corso->getMatricola(), $corso->getNome());

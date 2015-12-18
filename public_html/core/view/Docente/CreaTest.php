@@ -17,147 +17,207 @@ $controllerCorso = new CdlController();
 $controllerDomande  = new DomandaController();
 $controllerTest = new TestController();
 
-$identificativoCorso = $_URL[2];
-
 function parseInt($Str) {
-    return (int)$Str;   
-} 
+    return (int)$Str;
+}
+
+function contaAperte($idcorso){
+    $cont=0;
+    $controllerArgomento = new ArgomentoController();
+    $controllerDomande  = new DomandaController();
+    $Argomenti=$controllerArgomento->getArgomenti($idcorso);
+    foreach($Argomenti as $x){
+        $nuoveAperte = $controllerDomande->getAllAperte($x->getId());
+        foreach($nuoveAperte as $h){
+            $cont++;
+        }
+    }
+    return $cont;
+}
+
+function contaMultiple($idcorso){
+    $cont=0;
+    $controllerArgomento = new ArgomentoController();
+    $controllerDomande  = new DomandaController();
+    $Argomenti=$controllerArgomento->getArgomenti($idcorso);
+    foreach($Argomenti as $x){
+        $nuoveMultiple = $controllerDomande->getAllMultiple($x->getId());
+        foreach($nuoveMultiple as $h){
+            $cont++;
+        }
+    }
+    return $cont;
+}
+
+$identificativoCorso = parseInt($_URL[2]);
+$flag = 1;
+$flag2 = 1;
+$flag3= 1;
+
+
 
 if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipologia']=='man')){
-    // qui va la parte manuale 
+    // qui va la parte manuale
     // LA STO RIFACENDO C***O
     $domAperte=Array(); //domande aperte selezionate
     $domAperte=$_POST['aperte']; //domande aperte selezionate
     $domMultiple=Array(); //domande multiple selezionate
     $domMultiple=$_POST['multiple']; //domande multiple selezionate
     $descrizione=$_POST['descrizione']; //descrizione testo
-    $punteggio=0; 
+    $punteggio=0;
     $cont1=0;
     $cont2=0;
-    foreach($domAperte as $s){
-        $cont1=$cont1+1;   //conto le domande aperte
+
+    //TODO qui l'errore credo sia nell isset iniziale dove metti l'or.... bisogna pensarla un pò meglio..
+    if(empty($domMultiple) && empty($domAperte)) {
+        echo "DAI CAZZOOOOOOOOO(qua dobbiamo gestire l'errore nel caso non è stata selezionata nessuna check)";
     }
-    foreach($domMultiple as $s){
-        $cont2=$cont2+1;   //conto le domande multiple
-    }
-    $test = new Test($descrizione,0,$cont2,$cont1,0,0,$identificativoCorso);  //creo il test
-    $idNuovoTest=$controllerTest->creaTest($test);   //inserisco il test nel db
-    
-    foreach($domAperte as $s){      //per ogni domanda aperta selezionata controllo se è stato inserito un punteggio alternativo
-        $stringa=sprintf("ApertaCorr-%d", $s);
-        if(!(empty($_POST[$stringa]))){  //se si associo quella domanda al test con quel valore e incremento il punteggio totale
-            $z=$_POST[$stringa];
-            $punteggio=$punteggio+(parseInt($z));
-            $controllerDomande->associaAperTest($s,$idNuovoTest,$z);
-        }else{   //altrimenti la associo con valore null(valore di default presente nel db) e incremento il punteggio totale
-            $w=$controllerDomande->getDomandaAperta($s);
-            $punteggio=$punteggio+($w->getPunteggioMax());
-            $controllerDomande->associaAperTest($s,$idNuovoTest,NULL); 
+    else {
+        foreach($domAperte as $s){
+            $cont1=$cont1+1;   //conto le domande aperte
         }
-    }
+        foreach($domMultiple as $s){
+            $cont2=$cont2+1;   //conto le domande multiple
+        }
+        $test = new Test($descrizione,0,$cont2,$cont1,0,0,$identificativoCorso);  //creo il test
+        $idNuovoTest=$controllerTest->creaTest($test);   //inserisco il test nel db
+
+        foreach($domAperte as $s){      //per ogni domanda aperta selezionata controllo se è stato inserito un punteggio alternativo
+            $stringa=sprintf("ApertaCorr-%d", $s);
+            if(!(empty($_POST[$stringa]))){  //se si associo quella domanda al test con quel valore e incremento il punteggio totale
+                $z=$_POST[$stringa];
+                $punteggio=$punteggio+(parseInt($z));
+                $controllerDomande->associaAperTest($s,$idNuovoTest,$z);
+            }else{   //altrimenti la associo con valore null(valore di default presente nel db) e incremento il punteggio totale
+                $w=$controllerDomande->getDomandaAperta($s);
+                $punteggio=$punteggio+($w->getPunteggioMax());
+                $controllerDomande->associaAperTest($s,$idNuovoTest,NULL);
+            }
+        }
         $z1=0;
         $z2=0;
-    foreach($domMultiple as $s){  //per ogni domanda multipla selezionata controllo se è stato inserito un punteggio alternativo
-        $stringa1=sprintf("alternCorr-%d", $s);
-        if(!(empty($_POST[$stringa1]))){  //se si incremento il punteggio totale con quel punteggio alternativo
-            $z1=$_POST[$stringa1];
-            $punteggio=$punteggio+(parseInt($z1));
-        }else{ // altrimenti incremento con il valore di default preso dal db
-            $w=$controllerDomande->getDomandaMultipla($s);
-            $punteggio=$punteggio+($w->getPunteggioCorretta());
-            $z1=NULL; 
+        foreach($domMultiple as $s){  //per ogni domanda multipla selezionata controllo se è stato inserito un punteggio alternativo
+            $stringa1=sprintf("alternCorr-%d", $s);
+            if(!(empty($_POST[$stringa1]))){  //se si incremento il punteggio totale con quel punteggio alternativo
+                $z1=$_POST[$stringa1];
+                $punteggio=$punteggio+(parseInt($z1));
+            }else{ // altrimenti incremento con il valore di default preso dal db
+                $w=$controllerDomande->getDomandaMultipla($s);
+                $punteggio=$punteggio+($w->getPunteggioCorretta());
+                $z1=NULL;
+            }
+            $stringa2=sprintf("alternErr-%d", $s);
+            if(!(empty($_POST[$stringa2]))){  //controllo per il punteggio alternativo dell' errore
+                $z2=$_POST[$stringa2];
+            }else{
+                $z2=NULL;
+            }
+            $controllerDomande->associaMultTest($s, $idNuovoTest, $z1, $z2);//associo la domanda multipla al test
+
         }
-        $stringa2=sprintf("alternErr-%d", $s);
-        if(!(empty($_POST[$stringa2]))){  //controllo per il punteggio alternativo dell' errore
-            $z2=$_POST[$stringa2];
-        }else{
-            $z2=NULL; 
-        }
-        $controllerDomande->associaMultTest($s, $idNuovoTest, $z1, $z2);//associo la domanda multipla al test
-        
+        $ilTest=$controllerTest->readTest($idNuovoTest);
+        $ilTest->setPunteggioMax($punteggio);
+        $controllerTest->updateTest($idNuovoTest,$ilTest);//aggiorno il valore di punteggio totale del test(finora zero) con il puteggio calcolato finora
+        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
+        header($tornaACasa);//torno alla home
     }
-         $ilTest=$controllerTest->readTest($idNuovoTest);
-         $ilTest->setPunteggioMax($punteggio);
-         $controllerTest->updateTest($idNuovoTest,$ilTest);//aggiorno il valore di punteggio totale del test(finora zero) con il puteggio calcolato finora
-         $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
-         header($tornaACasa);//torno alla home
- 
-         
-        }
-        
-    if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && !(empty($_POST['descrizione'])) && !(empty($_POST['numAperte'])) && !(empty($_POST['numMultiple']))){
+
+
+
+}
+
+
+
+if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && isset($_POST['descrizione']) && isset($_POST['numAperte']) && isset($_POST['numMultiple'])){
     //qui va la parte random
     $nApe=parseInt($_POST['numAperte']);
     $nMul=parseInt($_POST['numMultiple']);
-    $descr=$_POST['descrizione'];
-    $punteggio=0;
-    $Argomenti = Array();
-    $Multiple = Array();
-    $Aperte = Array();
-    $Argomenti=$controllerArgomento->getArgomenti($identificativoCorso);
+    $dbAperte;
+    $dbMultiple;
+
+    if($nApe < 0 || $nMul < 0) {
+        $flag = 0;
+        //TODO echo della funzione che effettua il cambiamento di contenuto da manuale a random
+        echo "<script type='text/javascript'>checkIt();</script>";
+    }
+    else if($nApe == 0 && $nMul == 0) {
+        $flag2 = 0;
+        //TODO echo della funzione che effettua il cambiamento di contenuto da manuale a random
+        echo "<script type='text/javascript'>checkIt();</script>";
+    }else if($nApe>(contaAperte($identificativoCorso)) || $nMul>(contaMultiple($identificativoCorso))){
+        $flag3 = 0;
+    }
+    else {
+        $descr=$_POST['descrizione'];
+        $punteggio=0;
+        $Argomenti = Array();
+        $Multiple = Array();
+        $Aperte = Array();
+        $Argomenti=$controllerArgomento->getArgomenti($identificativoCorso);
         $leAperte = Array();
         $leMultiple = Array();
         foreach($Argomenti as $a){// per ogni argomento del corso prendo tutte le aperte e le multiple
-        $nuoveAperte = Array();
-        $nuoveAperte = $controllerDomande->getAllAperte($a->getId());
-        $Aperte = array_merge($Aperte,$nuoveAperte);
-        $nuoveMultiple = Array();
-        $nuoveMultiple = $controllerDomande->getAllMultiple($a->getId());
-        $Multiple = array_merge($Multiple,$nuoveMultiple);
-    }
-    if($nApe>1){
-    $indiciA=array_rand($Aperte,$nApe);
-    
-    for($i=0;$i<$nApe;$i++){
-    $leAperte[$i]=$Aperte[$indiciA[$i]];
-    }
-    }else if($nApe==1){
-      $x=rand(0,(count($Aperte)-1)); 
-      $leAperte[0]=$Aperte[$x];  
-    }else{
+            $nuoveAperte = Array();
+            $nuoveAperte = $controllerDomande->getAllAperte($a->getId());
+            $Aperte = array_merge($Aperte,$nuoveAperte);
+            $nuoveMultiple = Array();
+            $nuoveMultiple = $controllerDomande->getAllMultiple($a->getId());
+            $Multiple = array_merge($Multiple,$nuoveMultiple);
+        }
+        if($nApe>1){
+            $indiciA=array_rand($Aperte,$nApe);
+
+            for($i=0;$i<$nApe;$i++){
+                $leAperte[$i]=$Aperte[$indiciA[$i]];
+            }
+        }else if($nApe==1){
+            $x=rand(0,(count($Aperte)-1));
+            $leAperte[0]=$Aperte[$x];
+        }else{
+            $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
+            header($tornaACasa); //torno alla home
+        }
+        if($nMul>1){
+            $indiciM=array_rand($Multiple,$nMul);
+
+            for($i=0;$i<$nMul;$i++){
+                $leMultiple[$i]=$Multiple[$indiciM[$i]];
+            }
+        }else if($nMul==1){
+            $x=rand(0,(count($Multiple)-1));
+            $leMultiple[0]=$Multiple[$x];
+        }else{
+            $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
+            header($tornaACasa); //torno alla home
+        }
+
+        foreach($leAperte as $s){ //leAperte selezionate vengono controllate per aggiorare il punteggio totale
+            $w=$controllerDomande->getDomandaAperta($s->getId());
+            $punteggio=$punteggio+($w->getPunteggioMax());
+        }
+        foreach($leMultiple as $s) { //leMultiple selezionate vengono controllate per aggiorare il punteggio totale
+            $w=$controllerDomande->getDomandaMultipla($s->getId());
+            $punteggio=$punteggio+($w->getPunteggioCorretta());
+        }
+        $nApe=parseInt($_POST['numAperte']);//mi riprendo il numero delle aperte
+        $nMul=parseInt($_POST['numMultiple']);//mi riprendo il numero di multiple
+        $test = new Test($descr,$punteggio,$nMul,$nApe,0,0,$identificativoCorso);//creo il test e lo metto nel db
+        $idNuovoTest=$controllerTest->creaTest($test);
+        foreach($leAperte as $s){ //scansiono di nuovo le aperte per associarle al test
+            $controllerDomande->associaAperTest(parseInt($s->getId()), $idNuovoTest, NULL);
+        }
+        foreach($leMultiple as $x) { //scansiono di nuovo le multiple per associarle al test
+            $controllerDomande->associaMultTest(parseInt($x->getId()), $idNuovoTest, NULL, NULL);
+        }
+
         $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
         header($tornaACasa); //torno alla home
     }
-    if($nMul>1){
-    $indiciM=array_rand($Multiple,$nMul);
-    
-    for($i=0;$i<$nMul;$i++){
-    $leMultiple[$i]=$Multiple[$indiciM[$i]];
-    }
-    }else if($nMul==1){
-        $x=rand(0,(count($Multiple)-1)); 
-        $leMultiple[0]=$Multiple[$x];
-    }else{
-       $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
-        header($tornaACasa); //torno alla home 
-    }
-    
-    foreach($leAperte as $s){ //leAperte selezionate vengono controllate per aggiorare il punteggio totale
-        $w=$controllerDomande->getDomandaAperta($s->getId());
-        $punteggio=$punteggio+($w->getPunteggioMax());
-    }
-    foreach($leMultiple as $s) { //leMultiple selezionate vengono controllate per aggiorare il punteggio totale
-        $w=$controllerDomande->getDomandaMultipla($s->getId());
-        $punteggio=$punteggio+($w->getPunteggioCorretta());
-    }
-    $nApe=parseInt($_POST['numAperte']);//mi riprendo il numero delle aperte
-    $nMul=parseInt($_POST['numMultiple']);//mi riprendo il numero di multiple
-    $test = new Test($descr,$punteggio,$nMul,$nApe,0,0,$identificativoCorso);//creo il test e lo metto nel db
-    $idNuovoTest=$controllerTest->creaTest($test);
-    foreach($leAperte as $s){ //scansiono di nuovo le aperte per associarle al test
-        $controllerDomande->associaAperTest(parseInt($s->getId()), $idNuovoTest, NULL);
-    }
-    foreach($leMultiple as $x) { //scansiono di nuovo le multiple per associarle al test
-        $controllerDomande->associaMultTest(parseInt($x->getId()), $idNuovoTest, NULL, NULL);
-    }
-    
-    $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
-        header($tornaACasa); //torno alla home
-    
+
+
 }
 
-$corso = $controllerCorso->readCorso($_URL[2]); 
-$num = $controllerArgomento->getNumArgomenti(); 
+$corso = $controllerCorso->readCorso($_URL[2]);
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -200,36 +260,69 @@ $num = $controllerArgomento->getNumArgomenti();
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                    Crea Test
-                </h3>
-                <div class="page-bar">
-                    <ul class="page-breadcrumb">
-                        <li>
-                            <i class="fa fa-home"></i>
-                            <a href="index.html">Home</a>
-                            <i class="fa fa-angle-right"></i>
-                        </li>
-                        <li>
-                            <a href="#">Nome Corso</a>
-                            <i class="fa fa-angle-right"></i>
-                        </li>
-                        <li>
-                            <a href="#">Crea Test</a>
-                        </li>
+                Crea Test
+            </h3>
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li>
+                        <i class="fa fa-home"></i>
+                        <a href="index.html">Home</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="#">Nome Corso</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="#">Crea Test</a>
+                    </li>
 
-                    </ul>
-                </div>
+                </ul>
+            </div>
 
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
             <form id="form_sample_1" action="" method="post">
-           
-                    <div class='alert alert-danger display-hide'>
-                    <button class=\"close\" data-close=\"alert\"></button>
-                    Ricorda che occorre selezionare almeno un Test e che Avvio-Termine sono obbligatori.
-                    </div>
 
-               
+
+                <div class="alert alert-danger display-hide">
+                    <button class="close" data-close="alert"></button>
+                    Errore nei Dati. Devi inserire la descrizione del test, e selezionare almeno una domanda.
+                </div>
+
+                <?php
+                    if(!$flag) {
+                        echo "<div class=\"alert alert-danger\">
+                        <button class=\"close\" data-close=\"alert\"></button>
+                        Errore nei Dati. Per un test RANDOM devi inserire un numero domande maggiore di 0.
+                        </div>";
+                        //echo "<script type='text/javascript'>checkIt();</script>";
+                    }
+                ?>
+
+                <?php
+                if(!$flag2) {
+                    //TODO (aggiungere da nmin a nmax domande) effettuare query per recuperare i valori e mostrarli nel messaggio
+                    echo "<div class=\"alert alert-danger\">
+                        <button class=\"close\" data-close=\"alert\"></button>
+                        Errore nei Dati. Per un test RANDOM devi inserire un numero di domande valido.
+                        </div>";
+                    //echo "<script type='text/javascript'>checkIt();</script>";
+                }
+                ?>
+                
+                <?php
+                if(!$flag3) {
+                    //TODO (aggiungere da nmin a nmax domande) effettuare query per recuperare i valori e mostrarli nel messaggio
+                    echo "<div class=\"alert alert-danger\">
+                        <button class=\"close\" data-close=\"alert\"></button>
+                        Errore nei Dati. Hai richiesto troppe domande per il test RANDOM.
+                        </div>";
+                    //echo "<script type='text/javascript'>checkIt();</script>";
+                }
+                ?>
+
+
                 <div class="form-body">
                     <div class="portlet box blue-madison">
                         <div class="portlet-title">
@@ -243,179 +336,180 @@ $num = $controllerArgomento->getNumArgomenti();
 
                         <div class="portlet-body">
                             <div class="form-group form-md-line-input">
-                            <h4> Descrizione</h4>
+                                <h4> Descrizione</h4>
                                 <div class="col-md-12">
-                                    <textarea type="text" class="form-control" name="descrizione" id="descrizione" rows="4" placeholder="Inserisci descrizione" style="resize:none"></textarea>
+                                    <textarea class="form-control" name="descrizione" id="descrizione" rows="3" placeholder="Inserisci descrizione" style="resize:none"></textarea>
                                     <span class="help-block"></span>
+                                    <h3></h3>
                                 </div>
                             </div>
                             <br>
                             <br>
                             <br>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <h4> Tipologia selezione domande</h4>
-                                            <div class="col-md-10">
-                                                    <div class="md-radio-inline">
-                                                            <div class="md-radio">
-                                                                    <input type="radio" id="man" value="man" checked="" onclick="javascript: SetContent();" name="tipologia" class="md-radiobtn">
-                                                                    <label for="man">
-                                                                    <span></span>
-                                                                    <span class="check"></span>
-                                                                    <span class="box"></span>
-                                                                    Manuale </label>
-                                                            </div>
-                                                            <div class="md-radio">
-                                                                    <input type="radio" id="rand" value="rand" onclick="javascript: SetContent();" name="tipologia" class="md-radiobtn">
-                                                                    <label for="rand">
-                                                                    <span></span>
-                                                                    <span class="check"></span>
-                                                                    <span class="box"></span>
-                                                                    Random </label>
-                                                            </div>
-                                                    </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h4> Tipologia selezione domande</h4>
+                                    <div class="col-md-10">
+                                        <div class="md-radio-inline">
+                                            <div class="md-radio">
+                                                <input type="radio" id="man" value="man" checked="" onclick="javascript: SetContent();" name="tipologia" class="md-radiobtn">
+                                                <label for="man">
+                                                    <span></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span>
+                                                    Manuale </label>
                                             </div>
-                                    </div>
-                                    <div class="col-md-8" id="scelte_random" style="visibility: hidden" >
-                                        <div class="col-md-6">
-                                            <div class="form-group form-md-line-input has-success">
-                                                <div class="input-icon">
-                                                    <input type="text" id="numAperte" name="name" class="form-control">
-                                                        <label for="numAperte">Numero domande a risposta aperta:</label>
-                                                            <span class="help-block">Inserire numero</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group form-md-line-input has-success">
-                                                <div class="input-icon">
-                                                    <input type="text" id="numMultiple" name="email" class="form-control">
-                                                        <label for="numMultiple">Numero domande a risposta multipla:</label>
-                                                            <span class="help-block">Inserire numero</span>
-                                                </div>
+                                            <div class="md-radio">
+                                                <input type="radio" id="rand" value="rand" onclick="javascript: SetContent();" name="tipologia" class="md-radiobtn">
+                                                <label for="rand">
+                                                    <span></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span>
+                                                    Random </label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-8" id="scelte_random" style="visibility: hidden" >
+                                    <div class="col-md-6">
+                                        <div class="form-group form-md-line-input">
+                                            <div class="input-icon">
+                                                <input type="text" id="numAperte" name="numAperte" class="form-control">
+                                                <label for="numAperte">Numero domande a risposta aperta:</label>
+                                                <span class="help-block"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group form-md-line-input">
+                                            <div class="input-icon">
+                                                <input type="text" id="numMultiple" name="numMultiple" class="form-control">
+                                                <label for="numMultiple">Numero domande a risposta multipla:</label>
+                                                <span class="help-block"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
 
                     <div class="row" id="domande">
-                    
-                    <div class="portlet box blue-madison">
-                <div class="portlet-title">
-                    <div class="caption">
-                        <i class="fa fa-file-text-o"></i>Domande
-                    </div>
-                    <div class="tools">
-                        <a href="javascript:;" class="collapse" data-original-title="" title="">
-                        </a>
-                    </div>
-                    
-                </div>
-                <div class="portlet-body">
-                    <div id="tabella_domande_wrapper" class="dataTables_wrapper no-footer">
-                        <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                               id="tabella_domande" role="grid" aria-describedby="tabella_domande_info">
-                            <thead>
-                            <tr role="row">
-                                <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1"
-                                        aria-label="">
-                                        <input type="checkbox" class="group-checkable"
-                                               data-set="#tabella_domande .checkboxes">
-                                    </th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+
+                        <div class="portlet box blue-madison">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-file-text-o"></i>Domande
+                                </div>
+                                <div class="tools">
+                                    <a href="javascript:;" class="collapse" data-original-title="" title="">
+                                    </a>
+                                </div>
+
+                            </div>
+                            <div class="portlet-body">
+                                <div id="tabella_domande_wrapper" class="dataTables_wrapper no-footer">
+                                    <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                                           id="tabella_domande" role="grid" aria-describedby="tabella_domande_info">
+                                        <thead>
+                                        <tr role="row">
+                                            <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1"
+                                                aria-label="">
+                                                <input type="checkbox" class="group-checkable"
+                                                       data-set="#tabella_domande .checkboxes">
+                                            </th>
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Points
                                 " style="width: 50px;">
-                                    ID
-                                </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                                ID
+                                            </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Status
                                 " style="width: 150px;">
-                                    Argomento
-                                </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                                Argomento
+                                            </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Points
                                 " style="width: 800px;">
-                                    Testo
-                                </th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                                Testo
+                                            </th>
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Status
                                 " style="width: 200px;">
-                                    Tipologia
-                                </th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                                Tipologia
+                                            </th>
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Status
                                 " style="width: 200px;">
-                                    Punteggio Alternativo
-                                </th>
-                                
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <!-- qui va il riempimento automatico -->    
-                            <?php
-                            $Argomenti = Array();
-                            $Multiple = Array();
-                            $Aperte = Array();
-                            $Argomenti = $controllerArgomento->getArgomenti($identificativoCorso);
-                            foreach($Argomenti as $a){
-                                $Multiple = $controllerDomande->getAllMultiple($a->getId());
-                                $Aperte = $controllerDomande->getAllAperte($a->getId());
-                                foreach($Multiple as $s){
-                                    printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    printf("<td><input type=\"checkbox\" value=\"%d\" name=\"multiple[]\" class=\"checkboxes\"></td>", $s->getId(),$s->getId());
-                                    printf("<td>%s</td>",$s->getId());
-                                    printf("<td>%s</td>",$a->getNome());
-                                    printf("<td>%s</td>",$s->getTesto());
-                                    printf("<td>Multipla</td>");
-                                    printf("<td><div class=\"form-group form-md-line-input has-success\"><div class=\"input-icon\"><input type=\"text\" name=\"alternCorr-%d\" class=\"form-control\">
+                                                Punteggio Alternativo
+                                            </th>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <!-- qui va il riempimento automatico -->
+                                        <?php
+                                        $Argomenti = Array();
+                                        $Multiple = Array();
+                                        $Aperte = Array();
+                                        $Argomenti = $controllerArgomento->getArgomenti($identificativoCorso);
+                                        foreach($Argomenti as $a){
+                                            $Multiple = $controllerDomande->getAllMultiple($a->getId());
+                                            $Aperte = $controllerDomande->getAllAperte($a->getId());
+                                            foreach($Multiple as $s){
+                                                printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                                printf("<td><input type=\"checkbox\" value=\"%d\" name=\"multiple[]\" class=\"checkboxes\"></td>", $s->getId(),$s->getId());
+                                                printf("<td>%s</td>",$s->getId());
+                                                printf("<td>%s</td>",$a->getNome());
+                                                printf("<td>%s</td>",$s->getTesto());
+                                                printf("<td>Multipla</td>");
+                                                printf("<td><div class=\"form-group form-md-line-input has-success\"><div class=\"input-icon\"><input type=\"text\" name=\"alternCorr-%d\" class=\"form-control\">
                                             <label for=\"alternCorr\">Corretta:</label>
                                             ", $s->getId());
-                                    printf("</div><div class=\"form-group form-md-line-input has-success\"><div class=\"input-icon\"><input type=\"text\" name=\"alternErr-%d\" class=\"form-control\">
+                                                printf("</div><div class=\"form-group form-md-line-input has-success\"><div class=\"input-icon\"><input type=\"text\" name=\"alternErr-%d\" class=\"form-control\">
                                             <label for=\"alternErr\">Errata:</label>
                                             </div></div></td>", $s->getId());
-                                    printf("</tr>");
-                                }
-                                foreach($Aperte as $s){
-                                    printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    printf("<td><input type=\"checkbox\" value=\"%d\" name=\"aperte[]\" class=\"checkboxes\"></td>", $s->getId(), $s->getId());
-                                    printf("<td>%s</td>",$s->getId());
-                                    printf("<td>%s</td>",$a->getNome());
-                                    printf("<td>%s</td>",$s->getTesto());
-                                    printf("<td>Aperta</td>");
-                                    printf("<td><div class=\"form-group form-md-line-input has-success\"><div class=\"input-icon\"><input type=\"text\" name=\"ApertaCorr-%d\" class=\"form-control\">
+                                                printf("</tr>");
+                                            }
+                                            foreach($Aperte as $s){
+                                                printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                                printf("<td><input type=\"checkbox\" value=\"%d\" name=\"aperte[]\" class=\"checkboxes\"></td>", $s->getId(), $s->getId());
+                                                printf("<td>%s</td>",$s->getId());
+                                                printf("<td>%s</td>",$a->getNome());
+                                                printf("<td>%s</td>",$s->getTesto());
+                                                printf("<td>Aperta</td>");
+                                                printf("<td><div class=\"form-group form-md-line-input has-success\"><div class=\"input-icon\"><input type=\"text\" name=\"ApertaCorr-%d\" class=\"form-control\">
                                             <label for=name=\"ApertaCorr\">Punteggio max:</label>
-                           
-                                            </div></div></td>", $s->getId());
-                                    printf("</tr>");
-                                }
-                                
-                            }
-                            ?>
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    </div>
-                    
-                    </div>
-                    </div>
-                
 
+                                            </div></div></td>", $s->getId());
+                                                printf("</tr>");
+                                            }
+
+                                        }
+                                        ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+                        </div>
                     </div>
+
+
+                </div>
                 <div class="form-actions">
-                    
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-9">
                                     <button type="submit" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
-                                    Conferma
+                                        Conferma
                                     </button>
                                     <?php
                                     printf("<a href=\"/docente/corso/%d\" class=\"btn sm red-intense\">Annulla</a>",$identificativoCorso);
-                                      
-                                    
+
+
                                     ?>
                                 </div>
                             </div>
@@ -436,7 +530,7 @@ $num = $controllerArgomento->getNumArgomenti();
 
 <!--Script specifici per la pagina -->
 <script src="/assets/global/scripts/manuale_random.js" type="text/javascript"></script>
-<script src="/assets/global/scripts/creazioneTest.js" type="text/javascript"></script>
+<script src="/assets/global/scripts/radioCreaTest.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
@@ -468,7 +562,6 @@ $num = $controllerArgomento->getNumArgomenti();
         //Demo.init(); // init demo features
         TableManaged.init("tabella_argomenti2","tabella_argomenti2_wrapper");
         TableManaged.init("tabella_domande","tabella_domande_wrapper");
-        //UINestable.init(<?php echo $num; ?>);
         //UIConfirmations.init();
         FormValidation.init();
         //TableManaged.init(3);

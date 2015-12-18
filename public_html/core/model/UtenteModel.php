@@ -253,7 +253,6 @@ class AccountModel extends Model {
      * @param $idSessione
      * @return Utente[] Tutti gli studenti che sono abilitati alla sessione
      * @throws ConnectionException
-     * @internal param int $id L'id della sessione per la quale si vogliono conoscere gli studenti abilitati
      */
     public function getAllStudentiSessione($idSessione) {
         $query = sprintf(self::$GET_ALL_STUDENTI_SESSIONE, $idSessione);
