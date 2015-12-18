@@ -37,7 +37,9 @@ function contaAperte($idcorso){
 
 function contaMultiple($idcorso){
     $cont=0;
-    $Argomenti=$controllerArgomento->getArgomenti($identificativoCorso);
+    $controllerArgomento = new ArgomentoController();
+    $controllerDomande  = new DomandaController();
+    $Argomenti=$controllerArgomento->getArgomenti($idcorso);
     foreach($Argomenti as $x){
         $nuoveMultiple = $controllerDomande->getAllMultiple($x->getId());
         foreach($nuoveMultiple as $h){
