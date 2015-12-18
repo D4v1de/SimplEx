@@ -17,11 +17,7 @@ $controllerCorso = new CdlController();
 $controllerDomande  = new DomandaController();
 $controllerTest = new TestController();
 
-$identificativoCorso = $_URL[2];
-$flag = 1;
-$flag2 = 1;
-$flag3= 1;
-$toCheck="";
+
 
 function parseInt($Str) {
     return (int)$Str;   
@@ -55,6 +51,12 @@ function contaMultiple($idcorso){
     return $cont;
 }
 
+$identificativoCorso = $_URL[2];
+$flag = 1;
+$flag2 = 1;
+$flag3= 1;
+$flag4=1;
+$toCheck="";
 
 
 try{
@@ -65,21 +67,24 @@ $ilTestDalDB=$controllerTest->readTest($idTest);
         echo "<h4>" . $ex . "</h4>";
     }
 
-if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipologia']=='man')){
+if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipologia']=='man')){
     // qui va la parte manuale 
     // LA STO RIFACENDO C***O
-    $domAperte=Array(); //domande aperte selezionate
-    $domAperte=$_POST['aperte']; //domande aperte selezionate
-    $domMultiple=Array(); //domande multiple selezionate
-    $domMultiple=$_POST['multiple']; //domande multiple selezionate
+    
     $descrizione=$_POST['descrizione']; //descrizione test
     $punteggio=0; 
     $cont1=0;
     $cont2=0;
     
-    if(empty($domMultiple) && empty($domAperte)) {
-        echo "DAI CAZZOOOOOOOOO(qua dobbiamo gestire l'errore nel caso non è stata selezionata nessuna check)";
+    if(empty($_POST['multiple']) && empty($_POST['aperte'])) {
+        //echo "DAI CAZZOOOOOOOOO(qua dobbiamo gestire l'errore nel caso non è stata selezionata nessuna check)";
+        $flag4=0;
+        
     }else{
+    $domAperte=Array(); //domande aperte selezionate
+    $domAperte=$_POST['aperte']; //domande aperte selezionate
+    $domMultiple=Array(); //domande multiple selezionate
+    $domMultiple=$_POST['multiple']; //domande multiple selezionate
     if ($domAperte!= null){
         foreach($domAperte as $s){
             $cont1=$cont1+1;   //conto le domande aperte
@@ -193,9 +198,7 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
       $x=rand(0,(count($Aperte)-1)); 
       $leAperte[0]=$Aperte[$x];  
     }else{
-        
-        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
-        header($tornaACasa); //torno alla home
+     //NON DOVREBBE MAI ARRIVARE QUI 
     }
     if($nMul>1){
     $indiciM=array_rand($Multiple,$nMul);
@@ -207,8 +210,7 @@ if(isset($_POST['aperte']) or isset($_POST['multiple']) && isset($_POST['descriz
         $x=rand(0,(count($Multiple)-1)); 
         $leMultiple[0]=$Multiple[$x];
     }else{
-        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
-        header($tornaACasa); //torno alla home
+        //NON DOVREBBE MAI ARRIVARE QUI 
     }
     
     foreach($leAperte as $x){ //leAperte selezionate vengono controllate per aggiorare il punteggio totale
@@ -352,6 +354,16 @@ $corso = $controllerCorso->readCorso($_URL[2]);
                     //echo "<script type='text/javascript'>checkIt();</script>";
                 }
                 ?>
+                <?php
+                if(!$flag4) {
+                    //TODO (aggiungere da nmin a nmax domande) effettuare query per recuperare i valori e mostrarli nel messaggio
+                    echo "<div class=\"alert alert-danger\">
+                        <button class=\"close\" data-close=\"alert\"></button>
+                        Errore nei Dati. E' necessario selezionare almeno una domanda dalla tabella.
+                        </div>";
+                    //echo "<script type='text/javascript'>checkIt();</script>";
+                }
+                ?>
 
                 <div class="form-body">
                     <div class="portlet box blue-madison">
@@ -413,7 +425,7 @@ $corso = $controllerCorso->readCorso($_URL[2]);
                                                 <div class="input-icon">
                                                     <input type="text" id="numAperte" name="numAperte" class="form-control">
                                                         <label for="numAperte">Numero domande a risposta aperta:</label>
-                                                            <span class="help-block">Inserire numero</span>
+                                                           
                                                 </div>
                                             </div>
                                         </div>
@@ -422,7 +434,7 @@ $corso = $controllerCorso->readCorso($_URL[2]);
                                                 <div class="input-icon">
                                                     <input type="text" id="numMultiple" name="numMultiple" class="form-control">
                                                         <label for="numMultiple">Numero domande a risposta multipla:</label>
-                                                            <span class="help-block">Inserire numero</span>
+                                                          
                                                 </div>
                                             </div>
                                         </div>
