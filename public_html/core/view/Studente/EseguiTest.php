@@ -289,7 +289,9 @@ if (isset($_GET['consegna'])){
 <script src="/assets/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
 <script src="/assets/admin/pages/scripts/ui-alert-dialog-api.js"></script>
 <script src="/assets/admin/pages/scripts/ui-blockui.js"></script>
+
 <script type="text/javascript">
+
     var sId = <?= $sessId ?>;
     var mat = "<?= $matricola; ?>";
     var intId = null;
@@ -305,13 +307,21 @@ if (isset($_GET['consegna'])){
         UIAlertDialogApi.init();
         checkConnection();
         intCheck = setInterval(checkConnection,1000);
+        
         //Metronic.startPageLoading({animate: true});
         //window.setTimeout(function() {
         //    Metronic.stopPageLoading();
         //}, 2000);
         //countdown
-        $.get("/studente/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});
-        intId2 = setInterval(function(){$.post("/studente/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});},10000);
+        $.ajax({
+            url: "/studente/gestoreCountdown",
+            method: "GET",
+            data: "sessId="+sId
+        }).done(function(data) {
+            StartCounter(data);
+           });
+ //       $.get("/studente/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});
+   //     intId2 = setInterval(function(){$.post("/studente/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);},10000);
         //fine countdown
         //controller abilitazione
         $.get("/studente/controllerAbilitazione?mat="+mat+"&sessId="+sId,function(data){valutaAbilitazione(data);});
@@ -326,7 +336,9 @@ if (isset($_GET['consegna'])){
                 var date= data.split("|");
                 var end = date[0];
                 var start = date[1];
-                check = check & (new Date(start).getTime() < new Date(end).getTime());
+                var fine = new Date(end.substr(0, 4), end.substr(5, 2) - 1, end.substr(8, 2), end.substr(11, 2), end.substr(14, 2), end.substr(17, 2)).getTime();
+                var inizio = new Date(start.substr(0, 4), start.substr(5, 2) - 1, start.substr(8, 2), start.substr(11, 2), start.substr(14, 2), start.substr(17, 2)).getTime();
+                check = check & (inizio < fine);
                 StartCounter(data);
                     if (check){
                         intId3 = setInterval(function(){
@@ -375,7 +387,9 @@ if (isset($_GET['consegna'])){
                 var date= data.split("|");
                 var end = date[0];
                 var start = date[1];
-                check = check & (new Date(start).getTime() < new Date(end).getTime());
+                var fine = new Date(end.substr(0, 4), end.substr(5, 2) - 1, end.substr(8, 2), end.substr(11, 2), end.substr(14, 2), end.substr(17, 2)).getTime();
+                var inizio = new Date(start.substr(0, 4), start.substr(5, 2) - 1, start.substr(8, 2), start.substr(11, 2), start.substr(14, 2), start.substr(17, 2)).getTime();
+                check = check & (inizio < fine);
                 StartCounter(data);
                     if (check){
                         $.post("/studente/updateMultipla?mat="+mat+"&sessId="+sId+"&domId="+rId+"&altId="+aId);
@@ -387,9 +401,6 @@ if (isset($_GET['consegna'])){
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
     });
-</script>
-<!-- countdown -->
-<script type="text/javascript">
     
    function checkConnection() {
         if (navigator.onLine) {
@@ -419,11 +430,18 @@ if (isset($_GET['consegna'])){
         //}, 2000);
         
    var StartCounter = function(string){
+       
         var date= string.split("|");
         var end = date[0];
         var start = date[1];
-        var target_date = new Date(end).getTime();
-        var current_date = new Date(start).getTime();
+        
+        //var target_date = new Date(end).getTime();
+        //var current_date = new Date(start).getTime();
+        
+        var target_date = new Date(end.substr(0, 4), end.substr(5, 2) - 1, end.substr(8, 2), end.substr(11, 2), end.substr(14, 2), end.substr(17, 2)).getTime();
+        var current_date = new Date(start.substr(0, 4), start.substr(5, 2) - 1, start.substr(8, 2), start.substr(11, 2), start.substr(14, 2), start.substr(17, 2)).getTime();
+        
+        alert(target_date+" - "+current_date);
         showTime(current_date,target_date);
         clearInterval(intId);
         intId = setInterval(function(){
@@ -442,7 +460,6 @@ if (isset($_GET['consegna'])){
         seconds_left = seconds_left % 3600;
         var minutes = parseInt(seconds_left / 60);
         var seconds = parseInt(seconds_left % 60);
-        
         if (remaining_time > 0)
             if (remaining_time >= 600)
                 countdown.innerHTML = '<span  style="color: #cf6"><span class="days">' + days +  ' <b>Giorni</b></span> <span class="hours">' + hours + ' <b>Ore</b></span> <span class="minutes">'
@@ -457,13 +474,17 @@ if (isset($_GET['consegna'])){
                 var date= data.split("|");
                 var end = date[0];
                 var start = date[1];
-                if (new Date(start).getTime() >= new Date(end).getTime()){
+                
+                var fine = new Date(end.substr(0, 4), end.substr(5, 2) - 1, end.substr(8, 2), end.substr(11, 2), end.substr(14, 2), end.substr(17, 2)).getTime();
+                var inizio = new Date(start.substr(0, 4), start.substr(5, 2) - 1, start.substr(8, 2), start.substr(11, 2), start.substr(14, 2), start.substr(17, 2)).getTime();
+                
+                if (inizio >= fine){
                     countdown.innerHTML = '<span class="time" style="color: #c30"> Tempo Scaduto </span>';
                     timeout_scaduto();
                 }
                 else{
-                    var target_date = new Date(end).getTime();
-                    var current_date = new Date(start).getTime();
+                    var target_date = fine;
+                    var current_date = inizio;
                     showTime(current_date,target_date);
                     clearInterval(intId2);
                     intId2 = setInterval(function(){$.get("/studente/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});},10000);
@@ -472,10 +493,7 @@ if (isset($_GET['consegna'])){
             });
         }
     }
-</script>
-<!-- risposte -->
-<!-- consegna e abbandono -->
-<script type="text/javascript">    
+    
     var valutaAbilitazione = function(string){
         if (string == "Corretto"){
             bootbox.dialog({
