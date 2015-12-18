@@ -69,18 +69,8 @@ if(isset($_POST['avvia'])){
         }
     }
     if($almenoUnoCorretto!=0) {
-        echo "<script> alert('Uno o più Tests sono stati già corretti. Impossibile riprendere la sessione!') </script>";
-        printf("<script>
-            var var1='/docente/corso/';
-            var var2=$identificativoCorso;
-            var var3='/sessione/';
-            var var4=$idSessione;
-            var var5='/esiti';
-            var res1 = var1.concat(var2);
-            var res2 = res1.concat(var3);
-            var res3 = res2.concat(var4);
-            var res4 = res3.concat(var5);
-            window.location.replace(res4) </script>");
+        $vaiEsiti = "Location: " . "/docente/corso/" . $identificativoCorso . "/sessione" . "/" . $idSessione. "/" . "esiti/norestart";
+        header($vaiEsiti);
     }
     else {
         $idSesToGo = $_POST['avvia'];
@@ -436,15 +426,18 @@ if(isset($_POST['rimuovi'])){
                             <div class="col-md-9">
                                 <?php
                                 $avviaOripr="Avvia Ora";
-                                if($sessione->getStato()=="Eseguita")
-                                    $avviaOripr="Riprendi";
+                                $disabled="";
+                                if($sessione->getStato()=="Eseguita") {
+                                    $avviaOripr = "Riprendi";
+                                    $disabled="disabled";
+                                }
                                 printf("<button name=\"avvia\" value=\"%s\" class=\"btn sm green-jungle\"><span class=\"md-click-circle md-click-animate\" style=\"height: 94px; width: 94px; top: -23px; left: 2px;\"></span><i class=\"fa fa-play-circle-o\"></i>%s</button>", $idSessione , $avviaOripr);
                                 $vaiAModifica="/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."creamodificasessione";
                                 $vaiAVisu="/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."visualizzasessione";
 
                                 printf(" <a href=\"%s\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i>ModificaSessione</a>", $vaiAModifica);
                                 printf("<button type='submit' name='rimuovi' value='%d' class='btn btn-sm red-intense'  data-toggle=\"confirmation\"
-                                        data-singleton=\"true\" data-popout=\"true\" title=\"Sicuro?\"><i class=\"fa fa-trash-o\"></i>Elimina Sessione</button>",$idSessione);
+                                        data-singleton=\"true\" data-popout=\"true\" %s title=\"Sicuro?\"><i class=\"fa fa-trash-o\"></i>Elimina Sessione</button>",$idSessione, $disabled);
                                 ?>
                             </div>
                         </div>

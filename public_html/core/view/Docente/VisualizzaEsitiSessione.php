@@ -25,12 +25,24 @@ $elaboratoController = new ElaboratoController();
 $testController = new ControllerTest();
 $alternativaController = new AlternativaController();
 $soglia=null;
+$flag=1;
 $sessioneByUrl = $controllerSessione->readSessione($_URL[4]);
 $dataFrom = $sessioneByUrl->getDataInizio();
 $dataTo = $sessioneByUrl->getDataFine();
 $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
 $tipoSessione = $sessioneByUrl->getTipologia();
 $soglia=$sessioneByUrl->getSogliaAmmissione();
+
+if($_URL[6]=="autoendsuccess") {
+    $dataNow=date('Y/m/d/ H:i:s ', time());
+    $dataTo=$dataNow;
+    $newSessione = new Sessione($dataFrom, $dataNow, 18, "Eseguita", $tipoSessione, $identificativoCorso);
+    $controllerSessione->updateSessione($idSessione,$newSessione);
+}
+
+if($_URL[6]=="norestart") {
+    $flag=0;
+}
 
 try {
     $corso = $controlleCdl->readCorso($identificativoCorso);
@@ -124,7 +136,13 @@ if(isset($_POST['soglia'])){
             </div>
         </div>
             <!-- TABELLA 1 -->
-
+            <?php
+            if($flag==0) {
+                printf("<div class='alert alert-danger'>
+                    <button class=\"close\" data-close=\"alert\"></button>
+                      Uno o più Tests sono stati già corretti. Impossibile riprendere la sessione! </div>");
+            }
+            ?>
             <div class="portlet box blue-madison">
                 <div class="portlet-title">
                     <div class="caption">
@@ -332,6 +350,9 @@ if(isset($_POST['soglia'])){
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN aggiunta da me -->
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
+<script src="/assets/admin/pages/scripts/form-validation.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
 <!-- END aggiunta da me -->
 <script>
     jQuery(document).ready(function () {

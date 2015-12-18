@@ -297,7 +297,7 @@ $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso
                                     $vaiAModifica="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."creamodificasessione";
                                     $vaiAVisu="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId();
                                     $vaiASesInCorso="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."sessioneincorso";
-                                    $vaiVisuEsiti= "/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."esiti";
+                                    $vaiVisuEsiti= "/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."esiti/show";
 
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
                                     if($c->getStato()!="In esecuzione")

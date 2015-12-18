@@ -93,18 +93,6 @@ if($_URL[4]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
         $toCompareFrom = date('yyyy-mm-dd hh:ii:ss', $timeFrom);
 
         if ($toCompareTo < $toCompareFrom) {
-            /* echo "<script> alert('La data di Fine non può essere inferiore alla data di Inizio!') </script>";
-             printf("<script>
-             var var1='/docente/corso/';
-             var var2=$idCorso;
-             var var3='/sessione/';
-             var var4=$idSessione;
-             var var5='/creamodificasessione';
-             var res1 = var1.concat(var2);
-             var res2 = res1.concat(var3);
-             var res3 = res2.concat(var4);
-             var res4 = res3.concat(var5);
-             window.location.replace(res4) </script>");*/
             $flag = 0;
         } else {
             //creo la sessione
@@ -149,8 +137,8 @@ if($_URL[4]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
             }
 
             //torna a pagina corso del docente
-            //  $tornaACasa= "Location: "."/docente/corso/"."$idCorso"."/successinserimento";
-            //  header($tornaACasa);
+                $tornaACasa= "Location: "."/docente/corso/"."$idCorso"."/successinserimento";
+                header($tornaACasa);
         }
     }
 }
@@ -171,6 +159,15 @@ if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
         $stato=$sessioneByUrl->getStato();
         $sogliAmm=$sessioneByUrl->getSogliaAmmissione();
 
+        $timeTo = strtotime( $newOrOldDataTo);
+        $toCompareTo = date('yyyy-mm-dd hh:ii:ss', $timeTo);
+        $timeFrom = strtotime($newOrOldDataFrom);
+        $toCompareFrom = date('yyyy-mm-dd hh:ii:ss', $timeFrom);
+        if ($toCompareTo < $toCompareFrom) {
+            $flag = 0;
+        }
+
+        else {
         try {
             $sessioneAggiornata = new Sessione($newOrOldDataFrom, $newOrOldDataTo, $sogliAmm, $stato, $tipoSessione, $idCorso);
             $controller->disabilitaMostraEsito($idSessione);
@@ -218,6 +215,7 @@ if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
 
         $tornaACasa= "Location: "."/docente/corso/"."$idCorso";
         header($tornaACasa);
+        }
     }
     else {
         //è stato tolto qualcosa di essenziale per una sessione..e non va bene! ERRORE
