@@ -1,9 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: sergio
- * Date: 18/11/15
- * Time: 09:58
+ * La view che consente al docente di creare e modificare una sessione
+ *
+ * @author Antonio Luca D'Avanzo
+ * @version 1
+ * @since 18/11/15 09:58
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc

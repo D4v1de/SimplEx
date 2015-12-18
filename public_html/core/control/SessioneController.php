@@ -1,10 +1,12 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: Antonio Luca
- * Date: 29/11/2015
- * Time: 15:58
+ * Si occupa di far interagire il model SessioneModel
+ * con le views che richiedo le operazioni ad esso relative.
+ *
+ * @author Antonio Luca D'Avanzo
+ * @version 1
+ * @since 18/11/15 09:58
  */
 
 include_once MODEL_DIR . "Model.php";
