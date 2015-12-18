@@ -4,7 +4,7 @@
 /**
  * La classe descrive un elaborato.
  *
- * @author Dario Castellano
+ * @author Elvira Zanin
  * @version 1.0
  * @since 27/11/15
  */

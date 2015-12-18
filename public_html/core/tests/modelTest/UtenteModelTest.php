@@ -36,7 +36,7 @@ class UtenteModelTest extends PHPUnit_Framework_TestCase {
         //Leggo dal db utente creato
         $utente = $model->getUtente(self::EMAIL, self::PASS);
 
-        //Verifico tutti i campi
+        //Confronto tutti i campi
         $this->assertEquals(self::MATRICOLA, $utente->getMatricola());
         $this->assertEquals(self::EMAIL, $utente->getUsername());
         $this->assertEquals(self::TIPO, $utente->getTipologia());
@@ -53,9 +53,9 @@ class UtenteModelTest extends PHPUnit_Framework_TestCase {
         $utente2 = $model->getUtenteByIdentity($utente->getPassword());
         $this->assertEquals($utente, $utente2);
 
-        //Altero l'utente, modificando il nome
+        //Modifico l'utente
         $utente->setNome(self::NOME2);
-        //ed applico le modifiche
+        //ed applico le modifiche al db
         $model->updateUtente($utente->getMatricola(), $utente);
 
         //Rileggo di nuovo l'utente dal db
@@ -63,16 +63,15 @@ class UtenteModelTest extends PHPUnit_Framework_TestCase {
         //confronto i nomi
         $this->assertEquals(self::NOME2, $utente->getNome());
 
-        //cancello (ovviamente verificando se mi restituisce TRUE)
-        $model->deleteUtente(self::MATRICOLA);
-
-        //cancello di nuovo, la seconda volta dovrebbe restituire false (utente non esiste)
-        $model->deleteUtente(self::MATRICOLA);
-
         //restituisco tutti gli studenti
         $allStudenti = $model->getAllStudenti();
         print("Restituisce tutti gli studenti\n");
         print_r($allStudenti);
+
+        //restituisco tutti i docenti
+        $allDocenti = $model->getAllDocenti();
+        print("Restituisce tutti i docenti\n");
+        print_r($allDocenti);
 
         //cerco tutti gli studenti di un corso
         $studenti = $model->getAllStudentiByCorso(self::IDCORSO);
@@ -88,13 +87,30 @@ class UtenteModelTest extends PHPUnit_Framework_TestCase {
         print("Restituisce tutti gli studenti di un cdl\n");
         print_r($studenteCdl);
 
+        $model->iscriviStudenteCorso(self::MATRICOLA, self::IDCORSO);
+
+        $model->abilitaStudenteSessione(self::IDSESSIONE, self::MATRICOLA);
+
         $studentiSess = $model->getAllStudentiSessione(self::IDSESSIONE);
-        print("Restituisce tutti gli studenti di una sessione\n");
+        print("Restituisce tutti gli studenti abilitati ad una sessione\n");
         print_r($studentiSess);
 
+        $model->disabilitaStudenteSessione(self::IDSESSIONE, self::MATRICOLA);
+
+        $studentiSess = $model->getAllStudentiSessione(self::IDSESSIONE);
+        print("Restituisce tutti gli studenti abilitati ad una sessione\n");
+        print_r($studentiSess);
+
+        $studentiSess = $model->getEsaminandiSessione(self::IDSESSIONE);
+        print("Restituisce tutti gli studenti che stanno sostenendo una sessione\n");
+        print_r($studentiSess);
+
+        $model->disiscriviStudenteCorso(self::MATRICOLA, self::IDCORSO);
+
+        //cancello (ovviamente verificando se mi restituisce TRUE)
+        $model->deleteUtente(self::MATRICOLA);
+
+        //cancello di nuovo, la seconda volta dovrebbe restituire false (utente non esiste)
+        $model->deleteUtente(self::MATRICOLA);
     }
-
-
-
-
 }
