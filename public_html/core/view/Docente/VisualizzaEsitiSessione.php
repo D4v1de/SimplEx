@@ -7,7 +7,6 @@
  * @since 18/11/15 09:58
  */
 
-//TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "SessioneController.php";
 include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "ControllerTest.php";
@@ -355,13 +354,10 @@ if(isset($_POST['soglia'])){
 <!-- END aggiunta da me -->
 <script>
     jQuery(document).ready(function () {
-        Metronic.init(); // init metronic core components
-        Layout.init(); // init current layout
-        //QuickSidebar.init(); // init quick sidebar
-        //Demo.init(); // init demo features
+        Metronic.init();
+        Layout.init();
         TableManaged2.init("tabella_test2","tabella_test2_wrapper");
         TableManaged2.init("tabella_studenti_esiti","tabella_studenti_esiti_wrapper");
-        //TableManaged.init(3);
     });
 </script>
 <!-- END JAVASCRIPTS -->

@@ -6,8 +6,6 @@
  * @since 18/11/15 09:58
  */
 
-
-//TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "SessioneController.php";
 include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "ElaboratoController.php";
@@ -468,10 +466,8 @@ if(isset($_POST['rimuovi'])){
 
     <script>
         jQuery(document).ready(function () {
-            Metronic.init(); // init metronic core components
-            Layout.init(); // init current layout
-            //QuickSidebar.init(); // init quick sidebar
-            //Demo.init(); // init demo features
+            Metronic.init();
+            Layout.init();
             TableManaged2.init('tabella_test','tabella_test_wrapper');
             TableManaged2.init('tabella_studenti','tabella_studenti_wrapper');
             UIConfirmations.init();

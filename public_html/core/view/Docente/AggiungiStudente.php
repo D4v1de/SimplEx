@@ -6,7 +6,15 @@
  * Time: 21:58
  */
 
-//TODO qui la logica iniziale, caricamento dei controller ecc
+/**
+ * La view consente al docente di abilitare nuovi studenti mentre
+ * la sessione è in corso.
+ *
+ * @author Antonio Luca D'Avanzo
+ * @version 1
+ * @since 18/11/15 09:58
+ */
+
 include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "UtenteController.php";
 include_once CONTROL_DIR . "SessioneController.php";
@@ -46,7 +54,6 @@ if($someStudentsChange=isset($_POST['abilita'])) {
         foreach($allStuAbi as $s) {
             $sesController->disabilitaStudenteDaSessione($idSessione, $s->getMatricola());
         }
-        //creo l'abilitazione students-sessione
         foreach($cbStudents as $s) {
             $sesController->abilitaStudenteASessione($idSessione,$s);
         }
@@ -241,10 +248,8 @@ if($someStudentsChange=isset($_POST['abilita'])) {
 <!-- END aggiunta da me -->
 <script>
     jQuery(document).ready(function () {
-        Metronic.init(); // init metronic core components
-        Layout.init(); // init current layout
-        //QuickSidebar.init(); // init quick sidebar
-        //Demo.init(); // init demo features
+        Metronic.init();
+        Layout.init();
         TableManaged.init("tabella_4", "tabella_4_wrapper");
     });
 </script>

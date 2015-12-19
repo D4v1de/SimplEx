@@ -15,7 +15,7 @@ include_once BEAN_DIR . "Sessione.php";
 include_once CONTROL_DIR . "TestController.php";
 include_once CONTROL_DIR . "UtenteController.php";
 
-class SessioneController {   //UTLIZZARE ALTRO CONTROLLER..NON ALTRO MODEL
+class SessioneController {
 
 
     private $sessioneModel;
