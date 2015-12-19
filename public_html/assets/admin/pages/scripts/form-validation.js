@@ -21,7 +21,7 @@ var FormValidation = function () {
                     },
                     'checkbox[]': {
                         required: ""
-                    }
+                    },
                 },
                 rules: {
                     name: {

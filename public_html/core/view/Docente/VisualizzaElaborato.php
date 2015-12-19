@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * La view che consente al docente di visualizzare l’elaborato di un test di uno studente
+ *
+ * @author Antonio Luca D'Avanzo, Fabiano Pecorelli
+ * @version 1
+ * @since 18/11/15 09:58
+ */
+
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "ControllerTest.php";

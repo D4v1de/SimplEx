@@ -1,10 +1,13 @@
 <?php
 
 /**
- * User: Elvira
- * Date: 20/11/15
- * Time: 09:09
+ * La classe descrive un corso di laurea.
+ *
+ * @author Elvira Zanin
+ * @version 1.0
+ * @since 20/11/15
  */
+
 class CdL {
     private $matricola;
     private $nome;

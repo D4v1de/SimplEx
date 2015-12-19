@@ -1,12 +1,14 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: sergio
- * Date: 26/11/15
- * Time: 17:34
+ * La classe effettua il test di tutti i metodi della classe UtenteModel.php
+ *
+ * @author Elvira Zanin
+ * @version 1.0
+ * @since 26/11/15
  */
-class AccountModelTest extends PHPUnit_Framework_TestCase {
+
+class UtenteModelTest extends PHPUnit_Framework_TestCase {
 
     const MATRICOLA = "12312312";
     const EMAIL = "testemail@gmail.com";
@@ -20,8 +22,8 @@ class AccountModelTest extends PHPUnit_Framework_TestCase {
     const MATRICOLACDL = "051211";
     const IDSESSIONE = 1;
 
-    public function testCreateRemoveEditUtente() {
-        $model = new AccountModel();
+    public function testUtente() {
+        $model = new UtenteModel();
 
         //Nel caso se l'utente già esiste nel db lo rimuovo
         $model->deleteUtente(self::MATRICOLA);
@@ -34,7 +36,7 @@ class AccountModelTest extends PHPUnit_Framework_TestCase {
         //Leggo dal db utente creato
         $utente = $model->getUtente(self::EMAIL, self::PASS);
 
-        //Verifico tutti i campi
+        //Confronto tutti i campi
         $this->assertEquals(self::MATRICOLA, $utente->getMatricola());
         $this->assertEquals(self::EMAIL, $utente->getUsername());
         $this->assertEquals(self::TIPO, $utente->getTipologia());
@@ -51,9 +53,9 @@ class AccountModelTest extends PHPUnit_Framework_TestCase {
         $utente2 = $model->getUtenteByIdentity($utente->getPassword());
         $this->assertEquals($utente, $utente2);
 
-        //Altero l'utente, modificando il nome
+        //Modifico l'utente
         $utente->setNome(self::NOME2);
-        //ed applico le modifiche
+        //ed applico le modifiche al db
         $model->updateUtente($utente->getMatricola(), $utente);
 
         //Rileggo di nuovo l'utente dal db
@@ -61,16 +63,15 @@ class AccountModelTest extends PHPUnit_Framework_TestCase {
         //confronto i nomi
         $this->assertEquals(self::NOME2, $utente->getNome());
 
-        //cancello (ovviamente verificando se mi restituisce TRUE)
-        $model->deleteUtente(self::MATRICOLA);
-
-        //cancello di nuovo, la seconda volta dovrebbe restituire false (utente non esiste)
-        $model->deleteUtente(self::MATRICOLA);
-
         //restituisco tutti gli studenti
         $allStudenti = $model->getAllStudenti();
         print("Restituisce tutti gli studenti\n");
         print_r($allStudenti);
+
+        //restituisco tutti i docenti
+        $allDocenti = $model->getAllDocenti();
+        print("Restituisce tutti i docenti\n");
+        print_r($allDocenti);
 
         //cerco tutti gli studenti di un corso
         $studenti = $model->getAllStudentiByCorso(self::IDCORSO);
@@ -86,13 +87,30 @@ class AccountModelTest extends PHPUnit_Framework_TestCase {
         print("Restituisce tutti gli studenti di un cdl\n");
         print_r($studenteCdl);
 
+        $model->iscriviStudenteCorso(self::MATRICOLA, self::IDCORSO);
+
+        $model->abilitaStudenteSessione(self::IDSESSIONE, self::MATRICOLA);
+
         $studentiSess = $model->getAllStudentiSessione(self::IDSESSIONE);
-        print("Restituisce tutti gli studenti di una sessione\n");
+        print("Restituisce tutti gli studenti abilitati ad una sessione\n");
         print_r($studentiSess);
 
+        $model->disabilitaStudenteSessione(self::IDSESSIONE, self::MATRICOLA);
+
+        $studentiSess = $model->getAllStudentiSessione(self::IDSESSIONE);
+        print("Restituisce tutti gli studenti abilitati ad una sessione\n");
+        print_r($studentiSess);
+
+        $studentiSess = $model->getEsaminandiSessione(self::IDSESSIONE);
+        print("Restituisce tutti gli studenti che stanno sostenendo una sessione\n");
+        print_r($studentiSess);
+
+        $model->disiscriviStudenteCorso(self::MATRICOLA, self::IDCORSO);
+
+        //cancello (ovviamente verificando se mi restituisce TRUE)
+        $model->deleteUtente(self::MATRICOLA);
+
+        //cancello di nuovo, la seconda volta dovrebbe restituire false (utente non esiste)
+        $model->deleteUtente(self::MATRICOLA);
     }
-
-
-
-
 }

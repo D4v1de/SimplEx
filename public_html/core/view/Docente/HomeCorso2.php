@@ -1,9 +1,12 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Fabiano
- * Date: 23/11/15
- * Time: 21:59
+ * La view consente al docente di visualizzare la home del corso.
+ * In particolare si occupa di mostrare la lista di tutte le sessioni, tutti i
+ * tests e tutti gli argomenti relativi a quel corso.
+ *
+ * @author Antonio Luca D'Avanzo, Fabio Esposito, Carlo Di Domenico
+ * @version 1
+ * @since 18/11/15 09:58
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
@@ -297,7 +300,7 @@ $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso
                                     $vaiAModifica="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."creamodificasessione";
                                     $vaiAVisu="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId();
                                     $vaiASesInCorso="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."sessioneincorso";
-                                    $vaiVisuEsiti= "/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."esiti";
+                                    $vaiVisuEsiti= "/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."esiti/show";
 
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
                                     if($c->getStato()!="In esecuzione")

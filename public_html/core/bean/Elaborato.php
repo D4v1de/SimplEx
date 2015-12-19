@@ -1,10 +1,13 @@
 <?php
 
 /**
- * User: Elvira
- * Date: 27/11/15
- * Time: 10:33
+ * La classe descrive un elaborato.
+ *
+ * @author Elvira Zanin
+ * @version 1.0
+ * @since 27/11/15
  */
+
 class Elaborato {
     private $studenteMatricola;
     private $sessioneId;

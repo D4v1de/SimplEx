@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: Elvira
- * Date: 02/12/2015
- * Time: 08:30
+ * La classe effettua il test di tutti i metodi della classe ContattoModel.php
+ *
+ * @author Elvira Zanin
+ * @version 1.0
+ * @since 02/12/15
  */
-
 
 class ContattoModelTest extends \PHPUnit_Framework_TestCase
 {

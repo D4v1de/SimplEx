@@ -55,8 +55,8 @@ if (!is_numeric($url)) {
 }
 
 
-//$studente = $_SESSION['user'];
-$studente = $controllerUtente->getUtenteByMatricola('0512102390');
+$studente = $_SESSION['user'];
+//$studente = $controllerUtente->getUtenteByMatricola('0512102390');
 
 
 try {
@@ -200,7 +200,7 @@ try {
                 <h3></h3>
             </div>
 
-            <div class="portlet light bordered">
+            <!--<div class="portlet light bordered">
                 <div class="portlet-title">
                     <div class="caption font-red-sunglo">
                         <i class="fa fa-question-circle font-red-sunglo"></i>
@@ -229,7 +229,7 @@ try {
                         </div>
                     </form>
                 </div>
-            </div>
+            </div>-->
 
 
             <div class="row">
@@ -318,10 +318,13 @@ try {
 
                                     //mi segna una classe a tutte le corrette e una a tutte le sbagliate
                                     if($a->getCorretta() == 'Si') {
-                                        printf("<label for=\"alt-12\"><span class=\"inc\"></span><span class=\"check\"></span><span class=\"box\"></span>%s</label><div class=\"esatte\"></div></div>", $a->getTesto());
+                                        printf("<label for=\"alt-12\"><span class=\"inc\"></span><span class=\"check\"></span><span class=\"box\"></span>%s</label><span class=\"esatte col-md-offset-3\"></span></div>", $a->getTesto());
+                                    }
+                                    else if($a->getCorretta() == 'No' && $rispostamultipla->getAlternativaId() == $a->getId()) {
+                                        printf("<label for=\"alt-12\"><span class=\"inc\"></span><span class=\"check\"></span><span class=\"box\"></span>%s</label><span class=\"sbagliate col-md-offset-3\"></span></div>", $a->getTesto());
                                     }
                                     else {
-                                        printf("<label for=\"alt-12\"><span class=\"inc\"></span><span class=\"check\"></span><span class=\"box\"></span>%s</label><div class=\"sbagliate\"></div></div>", $a->getTesto());
+                                        printf("<label for=\"alt-12\"><span class=\"inc\"></span><span class=\"check\"></span><span class=\"box\"></span>%s</label></div>", $a->getTesto());
                                     }
                                     printf("</div></div>");
                                 }
@@ -401,21 +404,40 @@ try {
                 q.setAttribute('class','caption questions font-red-sunglo');
             }
         }*/
+
         for(var r in ris) {
             if(ris[r] == 'Si') {
                 document.getElementById("div"+r).setAttribute('class','caption questions font-green-haze');
                 document.getElementById("i"+r).setAttribute('class','fa fa-question-circle font-green-haze');
 
-                document.getElementsByClassName("esatte").innerHTML = "<span class=\"col-md-offset-1 label label-sm label-success\">giusta</span>";
+                //document.getElementsByClassName("esatte").innerHTML = "<span class=\"col-md-offset-1 label label-sm label-success\">giusta</span>";
                 //<span class="corrette col-md-offset-1 label label-sm label-success"><!--giusto--></span>
+
             }
             else if(ris[r] == 'No') {
                 document.getElementById("div"+r).setAttribute('class','caption questions font-red-sunglo');
                 document.getElementById("i"+r).setAttribute('class','fa fa-question-circle font-red-sunglo');
 
-                document.getElementsByClassName("sbagliate").innerHTML = "<span class=\"col-md-offset-1 label label-sm label-danger\">sbagliato</span>";
+                //document.getElementsByClassName("sbagliate").innerHTML = "<span class=\"col-md-offset-1 label label-sm label-danger\">sbagliato</span>";
                 //<span class="sbagliate col-md-offset-1 label label-sm label-danger"><!--sbagliato--></span>
+
             }
+        }
+
+        var array = document.getElementsByClassName("esatte");
+        for(var i=0; i<array.length; i++) {
+            var span = document.createElement("span");
+            span.setAttribute("class","label label-sm label-success");
+            span.innerHTML = "esatta";
+            array[i].appendChild(span);
+        }
+
+        var array2 = document.getElementsByClassName("sbagliate");
+        for(var j=0; j<array2.length; j++) {
+            var span2 = document.createElement("span");
+            span2.setAttribute("class","label label-sm label-danger");
+            span2.innerHTML = "sbagliata";
+            array2[j].appendChild(span2);
         }
 
     }

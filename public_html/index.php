@@ -225,6 +225,10 @@ try {
                                         include_once VIEW_DIR . "Docente/VisualizzaSessione.php";
                                 }
                                 break;
+
+                            case 'gestoredata':
+                                include_once VIEW_DIR . "Docente/gestoreDataServer.php";
+                                break;
                             case 'griglia':
                                 include_once VIEW_DIR . "Docente/GrigliaEsiti.php";
                                 break;

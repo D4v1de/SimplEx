@@ -1,11 +1,13 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: Elvira
- * Date: 25/11/15
- * Time: 15:00
+ * La classe costuituisce il model che effettua tutte le query riguardanti le funzionalità dei corsi di laurea, interfacciandosi al db al quale è connesso
+ *
+ * @author Elvira Zanin
+ * @version 1.0
+ * @since 25/11/15
  */
+
 include_once MODEL_DIR . "Model.php";
 include_once BEAN_DIR . "CdL.php";
 
@@ -21,7 +23,6 @@ class CdLModel extends Model {
      * @param CdL $cdl Il corso di laurea da inserire nel database
      * @throws ApplicationException
      */
-
     public function createCdL($cdl) {
         $query = sprintf(self::$CREATE_CDL, $cdl->getMatricola(), $cdl->getNome(), $cdl->getTipologia());
         Model::getDB()->query($query);
