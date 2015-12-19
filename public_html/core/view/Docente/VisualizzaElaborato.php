@@ -103,7 +103,7 @@ catch (ApplicationException $ex) {
                         </li>
                         <li>
                             <?php
-                            $vaiAEsiti="/docente/corso/".$corsoId."/sessione"."/".$sessId."/"."esiti";
+                            $vaiAEsiti="/docente/corso/".$corsoId."/sessione"."/".$sessId."/"."esiti/show";
                             printf("<a href=\"%s\">%s</a><i class=\"fa fa-angle-right\"></i>", $vaiAEsiti ,"Esiti");
                             ?>
                         </li>

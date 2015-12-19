@@ -59,7 +59,7 @@ if (isset($_GET['salva'])){
     $elaborato->setEsitoFinale($fin);
     $elaborato->setStato("Corretto");
     $elaboratoController->updateElaborato($matricola,$sessId,$elaborato);   
-    header("Location: "."/docente/corso/"."$corsoId"."/sessione/"."$sessId"."/esiti/");
+    header("Location: "."/docente/corso/"."$corsoId"."/sessione/"."$sessId"."/esiti/show");
 }
 
 ?>
@@ -74,7 +74,7 @@ if (isset($_GET['salva'])){
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>Metronic | Page Layouts - Blank Page</title>
+    <title>Correzione elaborato</title>
     <?php include VIEW_DIR . "design/header.php"; ?>
 </head>
 <!-- END HEAD -->
@@ -231,9 +231,9 @@ if (isset($_GET['salva'])){
                     $dom = $domandaController->getDomandaAperta($apId);
                     $max = $dom->getPunteggioMax();                            
                 }
-                echo    '  <div class="row">  <div class="col-md-9">
+                echo    '  <div class="row">  <div class="col-md-10">
                                                 <textarea class="form-control" disabled id="ap-'.$apId.'" rows="3" style="resize:none">'.$txt.'</textarea>
-                                            </div>  <div class="col-md-1">
+                                            </div>  <div class="col-md-2">
                             <select class="form-control" name="sel-'.$apId.'">';
                             for($x = 0; $x <= $max; $x++)
                                 echo '<option>'.$x.'</option>';

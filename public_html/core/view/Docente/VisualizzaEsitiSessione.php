@@ -54,8 +54,12 @@ if(isset($_POST['soglia'])){
     $soglia=$_POST['soglia'];
     $sessioneAggiornata = new Sessione($dataFrom, $dataTo, $soglia , $sessioneByUrl->getStato(), $sessioneByUrl->getTipologia(), $identificativoCorso);
     $controllerSessione->updateSessione($_URL[4], $sessioneAggiornata);
-    header("Refresh:0");
+    //header("Refresh:0");
 }
+
+$sessioneByUrl = $controllerSessione->readSessione($_URL[4]);
+$esaminandiSessione= $controllerSessione->getEsaminandiSessione($sessioneByUrl->getId());
+$sogliaMin=$sessioneByUrl->getSogliaAmmissione();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -273,9 +277,7 @@ if(isset($_POST['soglia'])){
                                         </thead>
                                         <tbody>
                                         <?php
-                                        $esaminandiSessione = Array();
                                         $toDisable="";
-                                        $esaminandiSessione= $controllerSessione->getEsaminandiSessione($idSessione);
                                         if ($esaminandiSessione == null) {
                                         }
                                         else {
