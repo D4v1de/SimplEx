@@ -236,7 +236,7 @@ if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
 <!-- BEGIN HEAD -->
 <head >
     <meta charset="utf-8"/>
-    <title>Metronic | Page Layouts - Blank Page</title>
+    <title>Gestione Sessione</title>
     <link rel="stylesheet" type="text/css"
           href="/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" type="text/css"

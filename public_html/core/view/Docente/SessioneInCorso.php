@@ -26,12 +26,12 @@ try {
     $dataFrom = $sessioneByUrl->getDataInizio();
     $dataTo = $sessioneByUrl->getDataFine();
     $tipoSessione = $sessioneByUrl->getTipologia();
+    $soglia = $sessioneByUrl->getSogliaAmmissione();
 
 } catch (ApplicationException $ex) {
     echo "<h1>errore! ApplicationException->errore manca id sessione nel path!</h1>";
     echo "<h4>" . $ex . "</h4>";
 }
-
 
 if(isset( $_POST['datato']) && isset( $_POST['termina'] )) {
     $dataNow=date('Y/m/d/ h:i:s ', time());
@@ -64,6 +64,14 @@ if(isset( $_POST['annullaEsame'])) {
 if(isset( $_POST['aggiorna'])) {
     header("Refresh:0");
 }
+
+
+if($_URL[6]=="autostart") {
+    $newSessione = new Sessione($dataFrom, $dataTo, $soglia, "In esecuzione", $tipoSessione, $identificativoCorso);
+    $controller->updateSessione($idSessione,$newSessione);
+}
+
+
 $sessioneByUrl = $controller->readSessione($idSessione);
 $dataTo = $sessioneByUrl->getDataFine();
 ?>
@@ -78,7 +86,7 @@ $dataTo = $sessioneByUrl->getDataFine();
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>Metronic | Page Layouts - Blank Page</title>
+    <title>Sessione in Corso</title>
     <?php include VIEW_DIR . "design/header.php"; ?>
     <link rel="stylesheet" type="text/css"
           href="/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css">
@@ -318,7 +326,7 @@ $dataTo = $sessioneByUrl->getDataFine();
                         </div>
                         <div class="col-md-3">
                             <div class="input-group date form_datetime">
-                                <input name="datato" id="termine" type="text" value='<?php printf("%s", $dataTo) ?>'  size="16" class="form-control"/>
+                                <input name="datato" id="termine" type="text" value='<?php printf("%s", $dataTo) ?>' readonly  size="16" class="form-control"/>
                                         <span class="input-group-btn">
                                             <button class="btn default date-set" type="button"><i
                                                     class="fa fa-calendar"></i></button>
@@ -434,7 +442,7 @@ $dataTo = $sessioneByUrl->getDataFine();
                         }
                     }
                 };
-                xhttp.open("GET", "/docente/corso/18/gestoredata", true);
+                xhttp.open("GET", "/docente/corso/something/gestoredata", true);
                 xhttp.send();
             }
             setInterval(loadDoc, 1000);
