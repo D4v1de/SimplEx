@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: fede_dr
- * Date: 13/12/15
- * Time: 15:58
+ * La view consente allo studente di visualizzare un test precedentemente eseguito e se possibile visualizzare risultati e correzione
+ * @author Federico De Rosa
+ * @version 1
+ * @since 18/11/15 09:58
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
@@ -395,16 +395,6 @@ try {
         /*for(var r in ris) {
             alert(ris[r]);
         }*/
-        /*var questions = document.getElementsByClassName('caption questions');
-        for(var q in questions) {
-            if(q == 'Si') {
-                q.setAttribute('class','caption questions font-green-haze');
-            }
-            else if(q == 'No') {
-                q.setAttribute('class','caption questions font-red-sunglo');
-            }
-        }*/
-
         for(var r in ris) {
             if(ris[r] == 'Si') {
                 document.getElementById("div"+r).setAttribute('class','caption questions font-green-haze');
@@ -423,7 +413,6 @@ try {
 
             }
         }
-
         var array = document.getElementsByClassName("esatte");
         for(var i=0; i<array.length; i++) {
             var span = document.createElement("span");
@@ -431,7 +420,6 @@ try {
             span.innerHTML = "esatta";
             array[i].appendChild(span);
         }
-
         var array2 = document.getElementsByClassName("sbagliate");
         for(var j=0; j<array2.length; j++) {
             var span2 = document.createElement("span");
@@ -439,7 +427,6 @@ try {
             span2.innerHTML = "sbagliata";
             array2[j].appendChild(span2);
         }
-
     }
 </script>
 <!-- END JAVASCRIPTS -->

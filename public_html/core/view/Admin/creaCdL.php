@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: fede_dr
- * Date: 23/11/15
- * Time: 21:46
+ * La view consente all'Admin di creare un nuovo CdL
+ * @author Federico De Rosa
+ * @version 1
+ * @since 23/11/15 21:58
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc

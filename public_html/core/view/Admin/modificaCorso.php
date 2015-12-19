@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: fede_dr
- * Date: 23/11/15
- * Time: 09:57
+ * La view consente all'Admin di modificare un Corso presente nel sistema SimplEx
+ * @author Federico De Rosa
+ * @version 1
+ * @since 23/11/15 09:58
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
