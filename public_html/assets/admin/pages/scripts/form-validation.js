@@ -21,6 +21,22 @@ var FormValidation = function () {
                     },
                     nome: {
                         validchar: "Puoi inserire solo caratteri validi"
+                    },
+                    punteggioErrata: {
+                        min: "il punteggio non può essere negativo",
+                        max: "il punteggio non può essere positivo"
+                    },
+                    punteggioEsatta: {
+                        min: "il punteggio non può essere negativo",
+                        max: "il punteggio non può essere positivo"
+                    },
+                    matricola: {
+                        min: "non puoi inserire un numero negativo",
+                        max: "non puoi inserire un numero positivo"
+                    },
+                    cdlmatricola: {
+                        min: "non puoi inserire un numero negativo",
+                        max: "non puoi inserire un numero positivo"
                     }
                 },
                 rules: {
@@ -62,12 +78,14 @@ var FormValidation = function () {
                     matricola: {
                         required: true,
                         number: true,
+                        min: 0,
                         minlength: 10,
                         maxlength: 10
                     },
                     cdlmatricola: {
                         required: true,
                         number: true,
+                        min: 0,
                         minlength: 10,
                         maxlength: 10
                     },
@@ -137,12 +155,14 @@ var FormValidation = function () {
                     //da mettere maggiore uguale di zero
                     punteggioEsatta: {
                         required: true,
-                        number: true
+                        number: true,
+                        min: 0
                     },
                     // qui anche negativo (però dicono di fare solo negativo)
                     punteggioErrata: {
                         required: true,
-                        number: true
+                        number: true,
+                        max: 0
                     },
                     digits: {
                         required: true,
