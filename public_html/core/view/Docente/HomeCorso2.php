@@ -53,6 +53,12 @@ foreach ($idsSessione as $c) {
     } else if ($c->getStato() == "In esecuzione" && ($now > $end)) {
         $sessioneAggiornata = new Sessione($c->getDataInizio(), $c->getDataFine(), $c->getSogliaAmmissione(), "Eseguita", $c->getTipologia(), $identificativoCorso);
         $controllerSessione->updateSessione($c->getId(), $sessioneAggiornata);
+    } else if ($c->getStato() == "In esecuzione" && ($now < $start)) {
+        $sessioneAggiornata = new Sessione($c->getDataInizio(), $c->getDataFine(), $c->getSogliaAmmissione(), "Non eseguita", $c->getTipologia(), $identificativoCorso);
+        $controllerSessione->updateSessione($c->getId(), $sessioneAggiornata);
+    } else if ($c->getStato() == "Eseguita" && ($now < $start)) {
+        $sessioneAggiornata = new Sessione($c->getDataInizio(), $c->getDataFine(), $c->getSogliaAmmissione(), "Non eseguita", $c->getTipologia(), $identificativoCorso);
+        $controllerSessione->updateSessione($c->getId(), $sessioneAggiornata);
     } else
          ;
 }
@@ -299,7 +305,7 @@ $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso
                                     $start = $c->getDataInizio();
                                     $vaiAModifica="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."creamodificasessione";
                                     $vaiAVisu="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId();
-                                    $vaiASesInCorso="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."sessioneincorso";
+                                    $vaiASesInCorso="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."sessioneincorso/show";
                                     $vaiVisuEsiti= "/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."esiti/show";
 
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");

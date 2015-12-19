@@ -35,9 +35,7 @@ $tipoSessione = $sessioneByUrl->getTipologia();
 $soglia=$sessioneByUrl->getSogliaAmmissione();
 
 if($_URL[6]=="autoendsuccess") {
-    $dataNow=date('Y/m/d/ H:i:s ', time());
-    $dataTo=$dataNow;
-    $newSessione = new Sessione($dataFrom, $dataNow, 18, "Eseguita", $tipoSessione, $identificativoCorso);
+    $newSessione = new Sessione($dataFrom, $dataTo, $soglia, "Eseguita", $tipoSessione, $identificativoCorso);
     $controllerSessione->updateSessione($idSessione,$newSessione);
 }
 
