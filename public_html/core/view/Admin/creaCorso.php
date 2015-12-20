@@ -164,7 +164,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                     </div>
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
-                                            <input type="number" class="form-control" id="matricolaCorso"
+                                            <input type="text" class="form-control" id="matricolaCorso"
                                                    name="matricola"
                                                    placeholder="Inserisci matricola"
                                                    value="<?php if (isset($matricola)) echo $matricola; ?>">

@@ -11,6 +11,10 @@ include_once CONTROL_DIR . "SessioneController.php";
 $controller = new SessioneController();
 include_once CONTROL_DIR . "CdlController.php";
 $controlleCdl = new CdlController();
+include_once CONTROL_DIR . "TestController.php";
+$testController = new TestController();
+include_once CONTROL_DIR . "ElaboratoController.php";
+$controllerElaborato = new ElaboratoController();
 $idCorso = $_URL[2];
 try {
     $corso = $controlleCdl->readCorso($idCorso);
@@ -123,8 +127,31 @@ if($_URL[4]==0) {
 
                     foreach ($cbTest as $t) {
                         $controller->associaTestASessione($idNuovaSessione, $t);
+                        $updated = $testController->readTest($t);
+                        $perc = $updated->getPercentualeScelto() +1;
+                        $updated->setPercentualeScelto($perc);
+                        $testController->updateTest($t, $updated);
                     }
-                }
+                    
+                    //Statistica percentuale scelta test
+                    
+                    /*$allTests = $testController->getAllTestbyCorso($idCorso);
+                    $sessioni = $controller->getAllSessioniByCorso($idCorso);
+                    foreach ($allTests as $test){
+                        $testId = $test->getId();
+                        $c = 0;
+                        foreach ($sessioni as $s){
+                            $tests = $testController->getAllTestBySessione($s->getId());
+                            foreach ($tests as $t)
+                                if ($t->getId() == $testId)
+                                    $c++;
+                            }
+                            $updated = $testController->readTest($testId);
+                            $perc = $c/count($sessioni) * 100;
+                            $updated->setPercentualeScelto($perc);
+                            $testController->updateTest($testId, $updated);
+                        }*/
+                    }
             } catch (ApplicationException $ex) {
                 echo "<h1>ERRORE NELLE OPERAZIONI DELLA SESSIONE (fase creazione)!</h1>" . $ex;
             }
@@ -180,6 +207,10 @@ if($_URL[4]!=0) {
                     $controller->deleteAllTestFromSessione($idSessione);
                     foreach ($cbTest as $t) {
                         $controller->associaTestASessione($idSessione, $t);
+                        $updated = $testController->readTest($t);
+                        $perc = $updated->getPercentualeScelto() +1;
+                        $updated->setPercentualeScelto($perc);
+                        $testController->updateTest($t, $updated);
                     }
             }
 
@@ -468,7 +499,17 @@ if($_URL[4]!=0) {
                             if ($array == null) {
                             }
                             else {
+                                $sessioniByCorso = $controller->getAllSessioniByCorso($idCorso);
                                 foreach ($array as $c) {
+                                    $elaborati = $controllerElaborato->getAllElaboratiTest($c->getId());
+                                    if ($sessioniByCorso != null)
+                                        $percSce = round(($c->getPercentualeScelto()/count($sessioniByCorso)*100),2);
+                                    else
+                                        $percSce = 0;
+                                    if ($elaborati != null)
+                                        $percSuc = round(($c->getPercentualeSuccesso()/count($elaborati)*100),2);
+                                    else
+                                        $percSuc = 0;
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
                                     foreach($testsOfSessione as $t){
                                         if($c->getId()==$t->getId())
@@ -481,8 +522,8 @@ if($_URL[4]!=0) {
                                     printf("<td>%d</td>", $c->getNumeroMultiple());
                                     printf("<td>%d</td>", $c->getNumeroAperte());
                                     printf("<td>%d</td>", $c->getPunteggioMax());
-                                    printf("<td>%d</td>", $c->getPercentualeScelto());
-                                    printf("<td>%d</td>", $c->getPercentualeSuccesso());
+                                    printf("<td>%d%%</td>", $percSce);
+                                    printf("<td>%d%%</td>", $percSuc);
                                     printf("</tr>");
                                 }
                             }
