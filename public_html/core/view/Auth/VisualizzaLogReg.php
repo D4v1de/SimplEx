@@ -1,9 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: sergio
- * Date: 18/11/15
- * Time: 10:33
+ * Registrazione ed autenticazione
+ *
+ * @author Sergio Shevchenko
+ * @version 1.0
+ * @since 18/11/15
  */
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) {
     /** @var Utente $user */

@@ -1,13 +1,15 @@
 <?php
+/**
+ * Modello di gestione dell'Utente
+ *
+ * @author Sergio Shevchenko
+ * @version 1.0
+ * @since 27/11/15
+ */
+
 include_once MODEL_DIR . "Model.php";
 include_once BEAN_DIR . "Utente.php";
 
-/**
- * Created by PhpStorm.
- * User: sergio
- * Date: 18/11/15
- * Time: 09:34
- */
 class UtenteModel extends Model {
     private static $SALT = "r#*1542&ztnsa7uABN83gtkw7lcSjy";
     private static $SELECT_UTENTE = "SELECT * FROM `utente` WHERE `password`='%s' LIMIT 1";

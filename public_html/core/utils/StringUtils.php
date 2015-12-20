@@ -1,10 +1,11 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: sergio
- * Date: 23/11/15
- * Time: 10:56
+ * Classe di supporto per la gestione delle stringhe
+ *
+ * @author Sergio Shevchenko
+ * @version 1.0
+ * @since 23/11/15
  */
 class StringUtils {
 
