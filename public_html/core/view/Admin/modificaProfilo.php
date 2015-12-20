@@ -167,6 +167,17 @@ if (isset($_POST['nome'])) {
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="form-group form-md-line-input">
+                                        <div class="col-md-10">
+                                            <input type="password" class="form-control" id="pass2"
+                                                   name="pass"
+                                                   placeholder="Ripeti la password"
+                                                   value="">
+
+                                            <div class="form-control-focus">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

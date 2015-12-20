@@ -111,19 +111,19 @@ $error = null;
                 Login <i class="m-icon-swapright m-icon-white"></i>
             </button>
         </div>
-        <div class="forget-password">
-            <h4>Hai dimenticato la password?</h4>
-
-            <p>
-                nessun problema, clicca <a href="javascript:;" id="forget-password">
-                    qui </a>
-                per resettarla.
-            </p>
-        </div>
+<!--        <div class="forget-password">-->
+<!--            <h4>Hai dimenticato la password?</h4>-->
+<!---->
+<!--            <p>-->
+<!--                nessun problema, clicca <a href="javascript:;" id="forget-password">-->
+<!--                    qui </a>-->
+<!--                per resettarla.-->
+<!--            </p>-->
+<!--        </div>-->
         <div class="create-account">
             <p>
-                Non hai ancora account ?&nbsp; <a href="javascript:;" id="register-btn">
-                    Registrazione </a>
+                Non hai ancora l'account ?&nbsp; <a href="javascript:;" id="register-btn">
+                    Registrati! </a>
             </p>
         </div>
     </form>
