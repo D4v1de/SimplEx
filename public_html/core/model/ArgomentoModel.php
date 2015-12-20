@@ -1,10 +1,13 @@
 <?php
 
 /**
- * User: Alina
- * Date: 27/11/15
- * Time: 14:47
+ * La classe costituisce il model che effettua tutte le query riguardanti le funzionalità legate agli argomenti, interfacciandosi al db al quale è connesso
+ *
+ * @author Alina Korniychuk
+ * @version 1.0
+ * @since 27/11/15
  */
+
 include_once MODEL_DIR . "Model.php";
 include_once BEAN_DIR . "Argomento.php";
 
