@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: fede_dr
- * Date: 18/11/15
- * Time: 21:47
+ * La view consente all'Admin di creare un nuovo Corso
+ * @author Federico De Rosa
+ * @version 1
+ * @since 18/11/15 21:58
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc

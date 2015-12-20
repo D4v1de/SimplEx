@@ -1,17 +1,11 @@
 <?php
-/**
- * La view consente allo studente di visualizzare un test precedentemente eseguito e se possibile visualizzare risultati e correzione
- * @author Federico De Rosa
- * @version 1
- * @since 18/11/15 09:58
- */
 
-//TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "UtenteController.php";
 include_once CONTROL_DIR . "ElaboratoController.php";
 include_once CONTROL_DIR . "SessioneController.php";
 include_once CONTROL_DIR . "TestController.php";
+include_once CONTROL_DIR . "DomandaController.php";
 include_once CONTROL_DIR . "DomandaController.php";
 include_once CONTROL_DIR . "AlternativaController.php";
 include_once CONTROL_DIR . "RispostaApertaController.php";
@@ -34,6 +28,8 @@ $sessione = null;
 $test = null;
 $elaborato = null;
 $studente = null;
+$max=null;
+$dom=null;
 $multiple = Array();
 $aperte = Array();
 $alternative = Array();
@@ -43,7 +39,8 @@ $rispostamultipla = null;
 $i = 0;
 $url = null;
 $url2 = null;
-
+$matricola = $_URL[6];
+$studente=$controllerUtente->getUtenteByMatricola($matricola);
 
 $url = $_URL[2];
 if (!is_numeric($url)) {
@@ -54,9 +51,6 @@ if (!is_numeric($url)) {
     echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
 }
 
-
-$studente = $_SESSION['user'];
-//$studente = $controllerUtente->getUtenteByMatricola('0512102390');
 
 
 try {
@@ -100,6 +94,22 @@ try {
     echo "<h1>GETALLDOMANDEAPERTEBYTEST FALLITO!</h1>" . $ex;
 }
 
+if (isset($_GET['salva'])){
+    $fin = $elaborato->getEsitoParziale();
+    foreach ($aperte as $ap){
+        $apId = $ap->getId();
+        $punt = $_GET['sel-'.$apId.''];
+        $fin = $fin + $punt;
+        $rispAp = $controllerRispostaAperta->readRispostaAperta($url2, $matricola, $apId);
+        $rispAp->setPunteggio($punt);
+        $controllerRispostaAperta->updateRispostaAperta($rispAp, $url2, $matricola, $apId);
+    }
+    $elaborato->setEsitoFinale($fin);
+    $elaborato->setStato("Corretto");
+    $controllerElaborato->updateElaborato($matricola,$url2,$elaborato);
+    header("Location: "."/docente/corso/".$corso->getId()."/sessione"."/".$sessione->getId()."/"."esiti/show");
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -121,7 +131,7 @@ try {
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
-<body class="page-md page-header-fixed page-quick-sidebar-over-content">
+<body class="page-md page-header-fixed page-quick-sidebar-over-content" onload="correggi()">
 <?php include VIEW_DIR . "design/headMenu.php"; ?>
 <div class="clearfix">
 </div>
@@ -140,23 +150,33 @@ try {
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="/studente">Home</a>
+                        <a href="index.html">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/studente/cdls">CdL</a>
+                        <a href="<?php echo "/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $controller->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/studente/cdl/<?php echo $cdl->getMatricola(); ?>"><?php echo $cdl->getNome(); ?></a>
-                        <i class="fa fa-angle-right"></i>
+                        <?php
+                        $vaiANomeCorso="/docente/corso/".$corso->getId();
+                        printf("<a href=\"%s\">%s</a><i class=\"fa fa-angle-right\"></i>", $vaiANomeCorso ,$corso->getNome());
+                        ?>
                     </li>
                     <li>
-                        <a href="/studente/corso/<?php echo $corso->getId(); ?>"><?php echo $corso->getNome(); ?></a>
-                        <i class="fa fa-angle-right"></i>
+                        <?php
+                        $vaiAVisu="/docente/corso/".$corso->getId()."/sessione"."/".$sessione->getId()."/"."visualizzasessione";
+                        printf("<a href=\"%s\">%s</a><i class=\"fa fa-angle-right\"></i>", $vaiAVisu ,"Sessione ".$sessione->getId());
+                        ?>
                     </li>
                     <li>
-                        <a href="/studente/corso/<?php echo $corso->getId(); ?>/test/<?php echo $sessione->getId(); ?>">Test <?php echo $test->getId(); ?></a>
+                        <?php
+                        $vaiAEsiti="/docente/corso/".$corso->getId()."/sessione"."/".$sessione->getId()."/"."esiti/show";
+                        printf("<a href=\"%s\">%s</a><i class=\"fa fa-angle-right\"></i>", $vaiAEsiti ,"Esiti");
+                        ?>
+                    </li>
+                    <li>
+                        Correggi Elaborato
                     </li>
                 </ul>
             </div>
@@ -183,11 +203,7 @@ try {
                                     ?>
                                 </div>
                                 <div class="col-md col-md-4">
-                                    <h3>Esito <?php if ($elaborato->getStato() == 'Corretto') {
-                                                    echo 'Finale: ' . $elaborato->getEsitoFinale();
-                                                    } else {
-                                                    echo 'Parziale: ' . $elaborato->getEsitoParziale();
-                                                    } ?>/<?php echo $test->getPunteggioMax(); ?>
+                                    <h3>Esito <?php echo 'Parziale: ' . $elaborato->getEsitoParziale();?>/<?php echo $test->getPunteggioMax(); ?>
                                     </h3>
                                 </div>
                             </div>
@@ -199,38 +215,6 @@ try {
             <div class="row">
                 <h3></h3>
             </div>
-
-            <!--<div class="portlet light bordered">
-                <div class="portlet-title">
-                    <div class="caption font-red-sunglo">
-                        <i class="fa fa-question-circle font-red-sunglo"></i>
-                        <span class="caption-subject bold uppercase"> Question1 false</span>
-                    </div>
-                </div>
-                <div class="portlet-body form">
-                    <form role="form">
-                        <div class="form-body">
-
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="portlet light bordered">
-                <div class="portlet-title">
-                    <div class="caption font-green-haze">
-                        <i class="fa fa-question-circle font-green-haze"></i>
-                        <span class="caption-subject bold uppercase"> Question2 true</span>
-                    </div>
-                </div>
-                <div class="portlet-body form">
-                    <form role="form">
-                        <div class="form-body">
-
-                        </div>
-                    </form>
-                </div>
-            </div>-->
-
 
             <div class="row">
                 <div class="col-md-12">
@@ -311,9 +295,9 @@ try {
                                             printf("<script> ris.push('%s'); </script>", $a->getCorretta());
                                         }*/
                                         printf("<script> ris.push('%s'); </script>", $a->getCorretta());
-                                        printf("<input type=\"checkbox\" id=\"alt-12\" name=\"mul-12\" class=\"md-check\" disabled checked>");
+                                        printf("<input type=\"checkbox\" id=\"alt-12\" class=\"md-check\" disabled checked>");
                                     } else {
-                                        printf("<input type=\"checkbox\" id=\"alt-12\" name=\"mul-12\" class=\"md-check\" disabled>");
+                                        printf("<input type=\"checkbox\" id=\"alt-12\" class=\"md-check\" disabled>");
                                     }
 
                                     //mi segna una classe a tutte le corrette e una a tutte le sbagliate
@@ -331,6 +315,14 @@ try {
                                 printf("</div></div>");
                             }
                             foreach ($aperte as $a) {
+                                
+                                echo "<form method='get' action=''>";
+                                
+                                $max = $controllerDomanda->readPunteggioMaxAlternativo($a->getId(), $test->getId());
+                                if ($max == null){
+                                    $dom = $controllerDomanda->getDomandaAperta($a->getId());
+                                    $max = $dom->getPunteggioMax();
+                                }
                                 printf("<div class=\"portlet light bordered\"><div class=\"portlet-title\"><div class=\"caption\"><i class=\"fa fa-question-circle\"></i><span class=\"caption-subject bold uppercase\">%s (aperta)</span></div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div>", $a->getTesto());
                                 printf("<div class=\"portlet-body\">");
                                 try {
@@ -339,27 +331,32 @@ try {
                                     echo "<h1>READRISPOSTAAPERTA FALLITO!</h1>" . $ex;
                                 }
                                 if ($rispostaaperta->getDomandaApertaId() == $a->getId()) {
-                                    printf("<textarea class=\"form-control\" id=\"ap-12\" rows=\"3\" placeholder=\"\" style=\"resize:none\" disabled>%s</textarea>", $rispostaaperta->getTesto());
+                                    printf("<div class=\"row\"> <div class=\"col-md-10\"><textarea class=\"form-control\" id=\"ap-12\" rows=\"3\" placeholder=\"\" style=\"resize:none\" disabled>%s</textarea> </div>", $rispostaaperta->getTesto());
+                                    printf("<div class=\"col-md-2\">  <select class=\"form-control\" name=\"sel-%s\">", $a->getId());
+                                    for($x = 0; $x <= $max; $x++)
+                                        printf("<option value=\"%s\">%s</option>", $x, $x);
+                                        echo '</select></div></div>';
                                 }
                                 printf("</div></div>");
+                                
+
                             }
-                            /*if (($multiple == null) && ($aperte == null)) {
-                                printf("<h2> Il test selezionato non ha alcuna domanda associata </h2>");
-                            }*/
                             ?>
 
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="col-md-4">
-                                        <?php if($elaborato->getStato() != 'Non Corretto') {printf("<a href=\"#\" type=\"button\" onclick=\"correggi()\" class=\"btn green-jungle\">Correggi</a>");} ?>
+                                <div class="col-md-4">
+                                    <div class="col-md-3">
+                                        <button type="submit" name="salva" class="btn green-jungle">Salva</button>
                                     </div>
-                                    <div class="col-md-4">
-                                        <a href="/studente/corso/<?php echo $corso->getId(); ?>">
+                                    <div class="col-md-1">
+                                        <a href="<?php echo $vaiAEsiti; ?>">
                                             <button type="button" class="btn red-intense">Esci</button>
                                         </a>
                                     </div>
                                 </div>
                             </div>
+
+                            <?php echo "</form>"; ?>
 
                         </div>
                     </div>
@@ -393,41 +390,39 @@ try {
 <script type="text/javascript">
     function correggi() {
         /*for(var r in ris) {
-            alert(ris[r]);
-        }*/
-        if(document.getElementsByClassName('label label-sm label-success').length == 0) {
-            for(var r in ris) {
-                if(ris[r] == 'Si') {
-                    document.getElementById("div"+r).setAttribute('class','caption questions font-green-haze');
-                    document.getElementById("i"+r).setAttribute('class','fa fa-question-circle font-green-haze');
+         alert(ris[r]);
+         }*/
+        for(var r in ris) {
+            if(ris[r] == 'Si') {
+                document.getElementById("div"+r).setAttribute('class','caption questions font-green-haze');
+                document.getElementById("i"+r).setAttribute('class','fa fa-question-circle font-green-haze');
 
-                    //document.getElementsByClassName("esatte").innerHTML = "<span class=\"col-md-offset-1 label label-sm label-success\">giusta</span>";
-                    //<span class="corrette col-md-offset-1 label label-sm label-success"><!--giusto--></span>
+                //document.getElementsByClassName("esatte").innerHTML = "<span class=\"col-md-offset-1 label label-sm label-success\">giusta</span>";
+                //<span class="corrette col-md-offset-1 label label-sm label-success"><!--giusto--></span>
 
-                }
-                else if(ris[r] == 'No') {
-                    document.getElementById("div"+r).setAttribute('class','caption questions font-red-sunglo');
-                    document.getElementById("i"+r).setAttribute('class','fa fa-question-circle font-red-sunglo');
-
-                    //document.getElementsByClassName("sbagliate").innerHTML = "<span class=\"col-md-offset-1 label label-sm label-danger\">sbagliato</span>";
-                    //<span class="sbagliate col-md-offset-1 label label-sm label-danger"><!--sbagliato--></span>
-
-                }
             }
-            var array = document.getElementsByClassName("esatte");
-            for(var i=0; i<array.length; i++) {
-                var span = document.createElement("span");
-                span.setAttribute("class","label label-sm label-success");
-                span.innerHTML = "esatta";
-                array[i].appendChild(span);
+            else if(ris[r] == 'No') {
+                document.getElementById("div"+r).setAttribute('class','caption questions font-red-sunglo');
+                document.getElementById("i"+r).setAttribute('class','fa fa-question-circle font-red-sunglo');
+
+                //document.getElementsByClassName("sbagliate").innerHTML = "<span class=\"col-md-offset-1 label label-sm label-danger\">sbagliato</span>";
+                //<span class="sbagliate col-md-offset-1 label label-sm label-danger"><!--sbagliato--></span>
+
             }
-            var array2 = document.getElementsByClassName("sbagliate");
-            for(var j=0; j<array2.length; j++) {
-                var span2 = document.createElement("span");
-                span2.setAttribute("class","label label-sm label-danger");
-                span2.innerHTML = "sbagliata";
-                array2[j].appendChild(span2);
-            }
+        }
+        var array = document.getElementsByClassName("esatte");
+        for(var i=0; i<array.length; i++) {
+            var span = document.createElement("span");
+            span.setAttribute("class","label label-sm label-success");
+            span.innerHTML = "esatta";
+            array[i].appendChild(span);
+        }
+        var array2 = document.getElementsByClassName("sbagliate");
+        for(var j=0; j<array2.length; j++) {
+            var span2 = document.createElement("span");
+            span2.setAttribute("class","label label-sm label-danger");
+            span2.innerHTML = "sbagliata";
+            array2[j].appendChild(span2);
         }
     }
 </script>

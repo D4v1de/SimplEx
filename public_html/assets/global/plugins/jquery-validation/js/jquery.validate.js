@@ -1150,6 +1150,11 @@ $.extend( $.validator, {
 			return this.optional( element ) || /^-?(?:\d+|\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/.test( value );
 		},
 
+		// creato da federico
+		validchar: function( value, element ) {
+			return this.optional( element ) || /^[a-zA-Z0-9]+$/.test( value );
+		},
+
 		// http://jqueryvalidation.org/digits-method/
 		digits: function( value, element ) {
 			return this.optional( element ) || /^\d+$/.test( value );

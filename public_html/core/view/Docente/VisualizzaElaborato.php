@@ -8,8 +8,6 @@
  * @since 18/11/15 09:58
  */
 
-
-//TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "ControllerTest.php";
 include_once CONTROL_DIR . "SessioneController.php";
 include_once CONTROL_DIR . "DomandaController.php";
@@ -105,7 +103,7 @@ catch (ApplicationException $ex) {
                         </li>
                         <li>
                             <?php
-                            $vaiAEsiti="/docente/corso/".$corsoId."/sessione"."/".$sessId."/"."esiti";
+                            $vaiAEsiti="/docente/corso/".$corsoId."/sessione"."/".$sessId."/"."esiti/show";
                             printf("<a href=\"%s\">%s</a><i class=\"fa fa-angle-right\"></i>", $vaiAEsiti ,"Esiti");
                             ?>
                         </li>
@@ -246,11 +244,9 @@ catch (ApplicationException $ex) {
 
 <script>
     jQuery(document).ready(function () {
-        Metronic.init(); // init metronic core components
-        Layout.init(); // init current layout
+        Metronic.init();
+        Layout.init();
         UIConfirmations.init();
-        //QuickSidebar.init(); // init quick sidebar
-        //Demo.init(); // init demo features
     });
 </script>
 <!-- END JAVASCRIPTS -->

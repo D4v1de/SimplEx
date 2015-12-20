@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: fede_dr
- * Date: 23/11/15
- * Time: 21:48
+ * La view consente ad uno Studente di visualizzare tutti i CdL presenti nel sistema SimplEx
+ * @author Federico De Rosa
+ * @version 1
+ * @since 21/11/15 19:58
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc

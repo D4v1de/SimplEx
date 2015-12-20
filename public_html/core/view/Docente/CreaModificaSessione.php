@@ -7,10 +7,6 @@
  * @since 18/11/15 09:58
  */
 
-//TODO qui la logica iniziale, caricamento dei controller ecc
-
-
-
 include_once CONTROL_DIR . "SessioneController.php";
 $controller = new SessioneController();
 include_once CONTROL_DIR . "CdlController.php";
@@ -24,7 +20,6 @@ catch (ApplicationException $ex) {
     echo "<h1>ERRORE NELLA LETTURA DEL CORSO!</h1>" . $ex;
 }
 
-//$sessioneByUrl = null;
 $idSessione=0;
 $someStudentsChange=null;
 $dataToSettato=null;
@@ -39,7 +34,7 @@ $flag=1;
 $showE="";
 $showRC="";
 
-if($_URL[4]!=0) {  //CASO IN CUI SI VOGLIA MODIFICARE LA SESSIONE
+if($_URL[4]!=0) {
     try {
         $idSessione=$_URL[4];
         try {
@@ -74,11 +69,11 @@ if($_URL[4]!=0) {  //CASO IN CUI SI VOGLIA MODIFICARE LA SESSIONE
     }
 }
 
-else {  //CASO IN CUI SI VUOLE CREARE LA SESSIONE
+else {
 
 }
 
-if($_URL[4]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tutti i campi
+if($_URL[4]==0) {
     if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo']) && $someTestsAorD=isset($_POST['tests']) ) {
         $newdataFrom = $_POST['dataFrom'];
         $newdataTo = $_POST['dataTo'];
@@ -96,7 +91,6 @@ if($_URL[4]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
         if ($toCompareTo < $toCompareFrom) {
             $flag = 0;
         } else {
-            //creo la sessione
             $sessione = new Sessione($newdataFrom, $newdataTo, $sogliAmm, $stato, $newtipoSessione, $idCorso);
             try {
                 $idNuovaSessione = $controller->creaSessione($sessione);
@@ -114,7 +108,6 @@ if($_URL[4]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
                     if ($cbStudents == null) {
                         echo "<h1>CBSTUDENTS VUOTO!</h1>";
                     } else {
-                        //creo l'abilitazione students-sessione
                         foreach ($cbStudents as $s) {
                             $controller->abilitaStudenteASessione($idNuovaSessione, $s);
                         }
@@ -122,7 +115,6 @@ if($_URL[4]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
                 }
 
                 if ($someTestsAorD) {
-                    //creo l'associazione tests-sessione
                     $cbTest = Array();
                     $cbTest = $_POST['tests'];
                     if ($cbTest != null) {
@@ -136,15 +128,13 @@ if($_URL[4]==0) {  //CASO IN CUI SI CREA UNA SESSIONE..devono essere settati tut
             } catch (ApplicationException $ex) {
                 echo "<h1>ERRORE NELLE OPERAZIONI DELLA SESSIONE (fase creazione)!</h1>" . $ex;
             }
-
-            //torna a pagina corso del docente
                 $tornaACasa= "Location: "."/docente/corso/"."$idCorso"."/successinserimento";
                 header($tornaACasa);
         }
     }
 }
 
-if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
+if($_URL[4]!=0) {
     if($dataFromSettato=isset($_POST['dataFrom']) && $radio1Settato=isset($_POST['radio1']) && $dataToSettato=isset($_POST['dataTo']) && $someTestsAorD=isset($_POST['tests']) ) {
 
         if($dataFromSettato)
@@ -197,12 +187,10 @@ if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
             if ($someStudentsChange) {
                 $cbStudents = Array();
                 $cbStudents = $_POST['students'];
-                //disabilito tutti gli studenti
                 $allStuAbi = $controller->getAllStudentiBySessione($idSessione);
                 foreach ($allStuAbi as $s) {
                     $controller->disabilitaStudenteDaSessione($idSessione, $s->getMatricola());
                 }
-                //creo l'abilitazione students-sessione
                 foreach ($cbStudents as $s) {
                     $controller->abilitaStudenteASessione($idSessione, $s);
                 }
@@ -219,7 +207,7 @@ if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
         }
     }
     else {
-        //è stato tolto qualcosa di essenziale per una sessione..e non va bene! ERRORE
+
     }
 
 }
@@ -236,7 +224,7 @@ if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
 <!-- BEGIN HEAD -->
 <head >
     <meta charset="utf-8"/>
-    <title>Metronic | Page Layouts - Blank Page</title>
+    <title>Gestione Sessione</title>
     <link rel="stylesheet" type="text/css"
           href="/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" type="text/css"
@@ -652,10 +640,8 @@ if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
 
     <script>
         jQuery(document).ready(function () {
-            Metronic.init(); // init metronic core components
-            Layout.init(); // init current layout
-            //QuickSidebar.init(); // init quick sidebar
-            //Demo.init(); // init demo features
+            Metronic.init();
+            Layout.init();
             TableManaged.init('tabella_test','tabella_test_wrapper');
             TableManaged.init('tabella_studenti','tabella_studenti_wrapper');
             UIToastr.init();
@@ -665,7 +651,6 @@ if($_URL[4]!=0) {  //CASO DI MODIFICA..CON POST
     </script>
 
     <script>
-        //SCRIPT PER AVVIARE DATETIMEPICKER
         $(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii:ss'});
     </script>
 

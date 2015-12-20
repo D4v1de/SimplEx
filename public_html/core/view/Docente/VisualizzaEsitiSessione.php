@@ -7,7 +7,6 @@
  * @since 18/11/15 09:58
  */
 
-//TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "SessioneController.php";
 include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "ControllerTest.php";
@@ -35,9 +34,7 @@ $tipoSessione = $sessioneByUrl->getTipologia();
 $soglia=$sessioneByUrl->getSogliaAmmissione();
 
 if($_URL[6]=="autoendsuccess") {
-    $dataNow=date('Y/m/d/ H:i:s ', time());
-    $dataTo=$dataNow;
-    $newSessione = new Sessione($dataFrom, $dataNow, 18, "Eseguita", $tipoSessione, $identificativoCorso);
+    $newSessione = new Sessione($dataFrom, $dataTo, $soglia, "Eseguita", $tipoSessione, $identificativoCorso);
     $controllerSessione->updateSessione($idSessione,$newSessione);
 }
 
@@ -57,8 +54,12 @@ if(isset($_POST['soglia'])){
     $soglia=$_POST['soglia'];
     $sessioneAggiornata = new Sessione($dataFrom, $dataTo, $soglia , $sessioneByUrl->getStato(), $sessioneByUrl->getTipologia(), $identificativoCorso);
     $controllerSessione->updateSessione($_URL[4], $sessioneAggiornata);
-    header("Refresh:0");
+    //header("Refresh:0");
 }
+
+$sessioneByUrl = $controllerSessione->readSessione($_URL[4]);
+$esaminandiSessione= $controllerSessione->getEsaminandiSessione($sessioneByUrl->getId());
+$sogliaMin=$sessioneByUrl->getSogliaAmmissione();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -276,9 +277,7 @@ if(isset($_POST['soglia'])){
                                         </thead>
                                         <tbody>
                                         <?php
-                                        $esaminandiSessione = Array();
                                         $toDisable="";
-                                        $esaminandiSessione= $controllerSessione->getEsaminandiSessione($idSessione);
                                         if ($esaminandiSessione == null) {
                                         }
                                         else {
@@ -357,13 +356,10 @@ if(isset($_POST['soglia'])){
 <!-- END aggiunta da me -->
 <script>
     jQuery(document).ready(function () {
-        Metronic.init(); // init metronic core components
-        Layout.init(); // init current layout
-        //QuickSidebar.init(); // init quick sidebar
-        //Demo.init(); // init demo features
+        Metronic.init();
+        Layout.init();
         TableManaged2.init("tabella_test2","tabella_test2_wrapper");
         TableManaged2.init("tabella_studenti_esiti","tabella_studenti_esiti_wrapper");
-        //TableManaged.init(3);
     });
 </script>
 <!-- END JAVASCRIPTS -->

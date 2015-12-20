@@ -6,8 +6,6 @@
  * @since 18/11/15 09:58
  */
 
-
-//TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "SessioneController.php";
 include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "ElaboratoController.php";
@@ -53,9 +51,6 @@ else $eser = "Checked";
 
 
 if(isset($_POST['avvia'])){
-
-
-
     $almenoUnoCorretto=0;
     $esaminandiSessione = Array();
     $esaminandiSessione= $controllerSessione->getEsaminandiSessione($idSessione);
@@ -78,7 +73,7 @@ if(isset($_POST['avvia'])){
         $dataNow = date('Y/m/d/ h:i:s ', time());
         $newSessione = new Sessione($dataNow, $dataTo, 18, "In Esecuzione", $tipoSessione, $identificativoCorso);
         $controllerSessione->updateSessione($idSessione, $newSessione);
-        $vaiASesInCorso = "Location: " . "/docente/corso/" . $identificativoCorso . "/sessione" . "/" . $idSesToGo . "/" . "sessioneincorso";
+        $vaiASesInCorso = "Location: " . "/docente/corso/" . $identificativoCorso . "/sessione" . "/" . $idSesToGo . "/" . "sessioneincorso/show";
         header($vaiASesInCorso);
     }
 }
@@ -134,7 +129,7 @@ if(isset($_POST['rimuovi'])){
             <h3 class="page-title">
                 Visualizza Sessione
             </h3>
-
+            <div id="demo"></div>
             <div class="page-bar">
                 <ul class="page-breadcrumb">
                     <li>
@@ -168,7 +163,7 @@ if(isset($_POST['rimuovi'])){
                             <label class="control-label">Avvio:</label>
 
                             <div class="input-group date form_datetime">
-                                <input type="text"  size="16" readonly="" class="form-control" value='<?php printf("%s", $dataFrom ); ?>' disabled="true"/>
+                                <input type="text"  size="16" readonly="" id="dataFrom" class="form-control" value='<?php printf("%s", $dataFrom ); ?>' disabled="true"/>
                                         <span class="input-group-btn">
                                             <button class="btn default date-set" type="button"><i
                                                     class="fa fa-calendar"></i></button>
@@ -181,7 +176,7 @@ if(isset($_POST['rimuovi'])){
                             <label class="control-label">Termine:</label>
 
                             <div class="input-group date form_datetime">
-                                <input type="text" size="16" readonly="" class="form-control" value='<?php printf("%s", $dataTo ); ?>' disabled="true"/>
+                                <input type="text" size="16" readonly="" id="dataTo" class="form-control" value='<?php printf("%s", $dataTo ); ?>' disabled="true"/>
                                         <span class="input-group-btn">
                                             <button class="btn default date-set" type="button"><i
                                                     class="fa fa-calendar"></i></button>
@@ -432,7 +427,7 @@ if(isset($_POST['rimuovi'])){
                                     $avviaOripr = "Riprendi";
                                     $disabled="disabled";
                                 }
-                                printf("<button name=\"avvia\" value=\"%s\" class=\"btn sm green-jungle\"><span class=\"md-click-circle md-click-animate\" style=\"height: 94px; width: 94px; top: -23px; left: 2px;\"></span><i class=\"fa fa-play-circle-o\"></i>%s</button>", $idSessione , $avviaOripr);
+                                printf("<button name=\"avvia\"  value=\"%s\" class=\"btn sm green-jungle\"><span class=\"md-click-circle md-click-animate\" style=\"height: 94px; width: 94px; top: -23px; left: 2px;\"></span><i class=\"fa fa-play-circle-o\"></i>%s</button>", $idSessione , $avviaOripr);
                                 $vaiAModifica="/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."creamodificasessione";
                                 $vaiAVisu="/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."visualizzasessione";
 
@@ -471,18 +466,66 @@ if(isset($_POST['rimuovi'])){
 
     <script>
         jQuery(document).ready(function () {
-            Metronic.init(); // init metronic core components
-            Layout.init(); // init current layout
-            //QuickSidebar.init(); // init quick sidebar
-            //Demo.init(); // init demo features
+            Metronic.init();
+            Layout.init();
             TableManaged2.init('tabella_test','tabella_test_wrapper');
             TableManaged2.init('tabella_studenti','tabella_studenti_wrapper');
             UIConfirmations.init();
             UIAlertDialogApi.init();
         });
     </script>
-    <script src="/assets/admin/pages/scripts/ui-alert-dialog-api.js"></script>
+    <script src="/assets/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
+    <!-- END JAVASCRIPTS -->
 
+    <script>
+        var count=0;
+        function loadDoc() {
+
+            var dataFrom = document.getElementById('dataFrom').value;
+            var dataTo = document.getElementById('dataTo').value;
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    var boT = new Date(dataFrom.substr(0, 4), dataFrom.substr(5, 2) - 1, dataFrom.substr(8, 2), dataFrom.substr(11, 2), dataFrom.substr(14, 2), dataFrom.substr(17, 2) );
+                    var timeFromServer = new Date(xhttp.responseText.substr(0, 4), xhttp.responseText.substr(5, 2) - 1, xhttp.responseText.substr(8, 2), xhttp.responseText.substr(11, 2), xhttp.responseText.substr(14, 2), xhttp.responseText.substr(17, 2));
+                    var bdataTo = new Date(dataTo.substr(0, 4), dataTo.substr(5, 2) - 1, dataTo.substr(8, 2), dataTo.substr(11, 2), dataTo.substr(14, 2), dataTo.substr(17, 2) );
+                    if(boT>timeFromServer)
+                       ;
+                    else {
+                        if(count==0 && bdataTo>timeFromServer) {
+                            bootbox.dialog({
+                                message: "Visulizza i dettagli della Sessione in corso!",
+                                title: "La sessione è iniziata.",
+                                closeButton: false,
+                                buttons: {
+                                    conferma: {
+                                        label: "Ok",
+                                        className: "green",
+                                        callback: function () {
+                                            var var1='/docente/corso/';
+                                            var var2=<?php echo "$identificativoCorso" ?>;
+                                            var var3='/sessione/';
+                                            var var4=<?php echo "$idSessione" ?>;
+                                            var var5='/sessioneincorso/autostartsuccess';
+                                            var res1 = var1.concat(var2);
+                                            var res2 = res1.concat(var3);
+                                            var res3 = res2.concat(var4);
+                                            var res4 = res3.concat(var5);
+                                            location.href = res4;
+                                        }
+                                    }
+                                }
+                            });
+                            count++;
+                        }
+                    }
+                }
+            };
+            xhttp.open("GET", "/docente/corso/something/gestoredata", true);
+            xhttp.send();
+        }
+        setInterval(loadDoc, 1000);
+    </script>
     <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->
