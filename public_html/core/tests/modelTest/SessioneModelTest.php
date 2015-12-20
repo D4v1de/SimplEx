@@ -1,9 +1,10 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: Giuseppina
- * Date: 30/11/2015
- * Time: 10:00
+ * La classe effettua il test di tutti i metodi della classe SessioneModel.php
+ * @author Alina Korniychuk
+ * @version 1.0
+ * @since 30/11/15
  */
 
 
@@ -75,6 +76,15 @@ class SessioneModelTest extends \PHPUnit_Framework_TestCase
         $allSC = $model ->getAllSessioniByCorso(self::CORSOID);
         print_r($allSC);
 
+
+        /*da testare ancora
+         $ASSOCIA_TEST_SESSIONE
+       $DISSOCIA_TEST_SESSIONE
+        $DELETE_ALL_TEST_FROM_SESSIONE
+        $ABILITA_MOSTRA_ESITO =
+         $DISABILITA_MOSTRA_ESITO =
+         $ABILITA_MOSTRA_RISPOSTE_CORRETTE
+        $DISABILITA_MOSTRA_RISPOSTE_CORRETTE */
 
     }
 
