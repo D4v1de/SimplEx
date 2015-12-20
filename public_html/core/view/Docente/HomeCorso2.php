@@ -426,7 +426,7 @@ $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso
                                         printf("<td>%s</td>",$c->getNumeroMultiple());
                                         printf("<td>%s</td>",$c->getNumeroAperte());
                                         printf("<td>%s</td>",$c->getPunteggioMax());
-                                        printf("<td>%s %%</td>",$c->getPercentualeScelto());
+                                        printf("<td>%s %%</td>",round(($c->getPercentualeScelto()/count($sessioniByCorso)*100),2));
                                         printf("<td>%s %%</td>",$c->getPercentualeSuccesso());
                                         $questoTest=$c->getId();
                                         $alModificaTest="/docente/corso/".$identificativoCorso."/test/modifica/".$questoTest;

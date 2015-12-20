@@ -235,6 +235,9 @@ try {
                             case 'griglia':
                                 include_once VIEW_DIR . "Docente/GrigliaEsiti.php";
                                 break;
+                            case 'statistiche':
+                                include_once VIEW_DIR . "Docente/Statistiche.php";
+                                break;
                             default:
                                 include_once VIEW_DIR . "Docente/HomeCorso2.php";
                         }
