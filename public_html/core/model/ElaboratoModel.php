@@ -117,7 +117,8 @@ class ElaboratoModel extends Model {
      * @return Elaborato[] $elaborati Elenco degli elaborati di un test
      */
     public function getAllElaboratiTest($test) {
-        $res = Model::getDB()->query(self::$GET_ELABORATI_TEST, $test);
+        $query = sprintf(self::$GET_ELABORATI_TEST, $test);
+        $res = Model::getDB()->query($query);
         $elaborati = array();
         if($res) {
             while($obj = $res->fetch_assoc()) {
