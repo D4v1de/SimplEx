@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: Dario
- * Date: 02/12/2015
- * Time: 11:52
+ * La classe effettua il test di tutti i metodi della classe RispostaApertaModel.php
+ * @author Dario
+ * @version 1.0
+ * @since 02/12/15
  */
 class RispostaApertaModelTest extends PHPUnit_Framework_TestCase
 {
@@ -37,7 +37,7 @@ class RispostaApertaModelTest extends PHPUnit_Framework_TestCase
 
     public function testGetRisposteByElaborato () {
         $model = new RispostaApertaModel();
-        $all = $model->getAperteByElaborato(new Elaborato(self::STUDENTE_MATRICOLA,self::SESSIONE_ID,"","",self::TEST_ID));
+        $all = $model->getAperteByElaborato(new Elaborato(self::STUDENTE_MATRICOLA,self::SESSIONE_ID,"","",self::TEST_ID,""));
         print_r($all);
     }
 }
