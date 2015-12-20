@@ -395,37 +395,39 @@ try {
         /*for(var r in ris) {
             alert(ris[r]);
         }*/
-        for(var r in ris) {
-            if(ris[r] == 'Si') {
-                document.getElementById("div"+r).setAttribute('class','caption questions font-green-haze');
-                document.getElementById("i"+r).setAttribute('class','fa fa-question-circle font-green-haze');
+        if(document.getElementsByClassName('label label-sm label-success').length == 0) {
+            for(var r in ris) {
+                if(ris[r] == 'Si') {
+                    document.getElementById("div"+r).setAttribute('class','caption questions font-green-haze');
+                    document.getElementById("i"+r).setAttribute('class','fa fa-question-circle font-green-haze');
 
-                //document.getElementsByClassName("esatte").innerHTML = "<span class=\"col-md-offset-1 label label-sm label-success\">giusta</span>";
-                //<span class="corrette col-md-offset-1 label label-sm label-success"><!--giusto--></span>
+                    //document.getElementsByClassName("esatte").innerHTML = "<span class=\"col-md-offset-1 label label-sm label-success\">giusta</span>";
+                    //<span class="corrette col-md-offset-1 label label-sm label-success"><!--giusto--></span>
 
+                }
+                else if(ris[r] == 'No') {
+                    document.getElementById("div"+r).setAttribute('class','caption questions font-red-sunglo');
+                    document.getElementById("i"+r).setAttribute('class','fa fa-question-circle font-red-sunglo');
+
+                    //document.getElementsByClassName("sbagliate").innerHTML = "<span class=\"col-md-offset-1 label label-sm label-danger\">sbagliato</span>";
+                    //<span class="sbagliate col-md-offset-1 label label-sm label-danger"><!--sbagliato--></span>
+
+                }
             }
-            else if(ris[r] == 'No') {
-                document.getElementById("div"+r).setAttribute('class','caption questions font-red-sunglo');
-                document.getElementById("i"+r).setAttribute('class','fa fa-question-circle font-red-sunglo');
-
-                //document.getElementsByClassName("sbagliate").innerHTML = "<span class=\"col-md-offset-1 label label-sm label-danger\">sbagliato</span>";
-                //<span class="sbagliate col-md-offset-1 label label-sm label-danger"><!--sbagliato--></span>
-
+            var array = document.getElementsByClassName("esatte");
+            for(var i=0; i<array.length; i++) {
+                var span = document.createElement("span");
+                span.setAttribute("class","label label-sm label-success");
+                span.innerHTML = "esatta";
+                array[i].appendChild(span);
             }
-        }
-        var array = document.getElementsByClassName("esatte");
-        for(var i=0; i<array.length; i++) {
-            var span = document.createElement("span");
-            span.setAttribute("class","label label-sm label-success");
-            span.innerHTML = "esatta";
-            array[i].appendChild(span);
-        }
-        var array2 = document.getElementsByClassName("sbagliate");
-        for(var j=0; j<array2.length; j++) {
-            var span2 = document.createElement("span");
-            span2.setAttribute("class","label label-sm label-danger");
-            span2.innerHTML = "sbagliata";
-            array2[j].appendChild(span2);
+            var array2 = document.getElementsByClassName("sbagliate");
+            for(var j=0; j<array2.length; j++) {
+                var span2 = document.createElement("span");
+                span2.setAttribute("class","label label-sm label-danger");
+                span2.innerHTML = "sbagliata";
+                array2[j].appendChild(span2);
+            }
         }
     }
 </script>
