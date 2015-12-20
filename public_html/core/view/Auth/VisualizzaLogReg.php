@@ -77,7 +77,7 @@ $error = null;
     <form class="login-form" action="" method="post">
         <input type="hidden" name="action" value="login">
 
-        <h3 class="form-title">Effetua il login</h3>
+        <h3 class="form-title">Effettua il login</h3>
 
         <div class="alert alert-danger display-hide">
             <button class="close" data-close="alert"></button>
