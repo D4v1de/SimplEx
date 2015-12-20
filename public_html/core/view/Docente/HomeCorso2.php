@@ -12,6 +12,7 @@
 include_once CONTROL_DIR . "SessioneController.php";
 include_once CONTROL_DIR . "TestController.php";
 include_once CONTROL_DIR . "ArgomentoController.php";
+include_once CONTROL_DIR . "ElaboratoController.php";
 include_once CONTROL_DIR . "CdlController.php";
 
 $utenteLoggato = $_SESSION['user'];
@@ -19,6 +20,7 @@ $utenteLoggato = $_SESSION['user'];
 $controllerSessione = new SessioneController();
 $controllerTest = new TestController();
 $controllerArgomento = new ArgomentoController();
+$controllerElaborato = new ElaboratoController();
 $controllerCorso = new CdlController();
 
 $corso = null;
@@ -414,11 +416,21 @@ $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso
                                 
                                  <?php
                                         $array = Array();
-                                        $array = $controllerTest->getAllTestByCorso($identificativoCorso); 
+                                        $array = $controllerTest->getAllTestByCorso($identificativoCorso);
                                         if($array == null){ 
                                             }
                                         else{    
                                         foreach($array as $c) {
+                                        $elaborati = $controllerElaborato->getAllElaboratiTest($c->getId());
+                                        if ($sessioniByCorso != null)
+                                            $percSce = round(($c->getPercentualeScelto()/count($sessioniByCorso)*100),2);
+                                        else
+                                            $percSce = 0;
+                                        if ($elaborati != null)
+                                            $percSuc = round(($c->getPercentualeSuccesso()/count($elaborati)*100),2);
+                                        else
+                                            $percSuc = 0;
+                                        
                                         $vaiATest="/docente/corso/".$identificativoCorso."/test"."/".$c->getId()."/"."visualizzatest";
                                         printf("<tr class=\"gradeX odd\" role=\"row\">");
                                         printf("<td class=\"sorting_1\"><a class=\"btn default btn-xs green-stripe\" href=\"%s\">Test %s</a></td>", $vaiATest, $c->getId());
@@ -426,8 +438,8 @@ $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso
                                         printf("<td>%s</td>",$c->getNumeroMultiple());
                                         printf("<td>%s</td>",$c->getNumeroAperte());
                                         printf("<td>%s</td>",$c->getPunteggioMax());
-                                        printf("<td>%s %%</td>",round(($c->getPercentualeScelto()/count($sessioniByCorso)*100),2));
-                                        printf("<td>%s %%</td>",$c->getPercentualeSuccesso());
+                                        printf("<td>%d%%</td>",$percSce);
+                                        printf("<td>%d%%</td>",$percSuc);
                                         $questoTest=$c->getId();
                                         $alModificaTest="/docente/corso/".$identificativoCorso."/test/modifica/".$questoTest;
                                         printf("<td><a href=\"%s\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></i></a>",$alModificaTest);

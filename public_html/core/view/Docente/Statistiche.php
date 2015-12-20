@@ -2,11 +2,15 @@
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "TestController.php";
 include_once CONTROL_DIR . "ArgomentoController.php";
+include_once CONTROL_DIR . "ElaboratoController.php";
+include_once CONTROL_DIR . "SessioneController.php";
 include_once CONTROL_DIR . "CdlController.php";
 
 $controlleCdl = new CdlController();
 $testController = new TestController();
 $argomentoController = new ArgomentoController();
+$elaboratoController = new ElaboratoController();
+$sessioneController = new SessioneController();
         
 $corsoId = $_URL[2];
 $tests = $testController->getAllTestbyCorso($corsoId);
@@ -256,12 +260,23 @@ try {
                     "color":    \'#888\',
 
                     "dataProvider": [';
+                    $sessioniByCorso=$sessioneController->getAllSessioniByCorso($corsoId);
                     for ($i = 0; $i<$n; $i++){
+                        $testId = $tests[$i]->getId();
+                        $elaborati = $elaboratoController->getAllElaboratiTest($testId);
+                        if ($sessioniByCorso != null)
+                            $percSce = round(($tests[$i]->getPercentualeScelto()/count($sessioniByCorso)*100),2);
+                        else
+                            $percSce = 0;
+                        if ($elaborati != null)
+                            $percSuc = round(($tests[$i]->getPercentualeSuccesso()/count($elaborati)*100),2);
+                        else
+                            $percSuc = 0;
                         echo'{
                             "year":';
                         echo '"Test '.$tests[$i]->getId().'"';
                         echo ',"income": ';
-                        echo $tests[$i]->getPercentualeScelto();
+                        echo $percSce;
                         echo '},';}
                     echo '],"startDuration": 1,
                     "graphs": [{
@@ -316,11 +331,17 @@ try {
 
                     "dataProvider": [';
                     for ($i = 0; $i<$n; $i++){
+                        $testId = $tests[$i]->getId();
+                        $elaborati = $elaboratoController->getAllElaboratiTest($testId);
+                        if ($elaborati != null)
+                            $percSuc = round(($tests[$i]->getPercentualeSuccesso()/count($elaborati)*100),2);
+                        else
+                            $percSuc = 0;
                         echo'{
                             "year":';
                         echo '"Test '.$tests[$i]->getId().'"';
                         echo ',"income": ';
-                        echo $tests[$i]->getPercentualeSuccesso();
+                        echo $percSuc;
                         echo '},';}
                     echo '],"startDuration": 1,
                     "graphs": [{
