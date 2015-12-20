@@ -9,12 +9,25 @@
 include_once CONTROL_DIR . "SessioneController.php";
 include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "ElaboratoController.php";
-$elaboratoController= new ElaboratoController();
+include_once CONTROL_DIR . "UtenteController.php";
 
+$elaboratoController= new ElaboratoController();
+$controllerUtente = new UtenteController();
 $controllerSessione = new SessioneController();
 $controlleCdl = new CdlController();
 $idSessione = $_URL[4];
 $identificativoCorso = $_URL[2];
+$numProfs=0;
+$doc = $_SESSION['user'];
+$docentiOe=$controllerUtente->getDocenteAssociato($identificativoCorso);
+foreach($docentiOe as $d) {
+    if($doc==$d){
+        $numProfs++;
+    }
+}
+if($numProfs==0){
+    header("Location: "."/docente/corso/".$corso->getId());
+}
 $sessione = null;
 $valu = null;
 $eser = null;
