@@ -1,9 +1,11 @@
 <?php
 
 /**
- * User: Dario
- * Date: 27/11/15
- * Time: 16:00
+ * La classe costituisce il model che effettua tutte le query riguardanti le funzionalità legate alle risposte aperte, interfacciandosi al db al quale è connesso
+ *
+ * @author Dario Castellano
+ * @version 1.0
+ * @since 27/11/15
  */
 
 include_once MODEL_DIR . "Model.php";
@@ -103,7 +105,7 @@ class RispostaMultiplaModel extends Model {
      * @return RispostaMultipla[] $risposte Elenco di tutte le risposte multiple di una domanda
      */
     public function getAllRisposteMultipleByDomanda($domanda) {
-        $query = sprintf(self::$GET_ALL_RISPOSTA_MULTIPLA_ELABORATO , $domanda);
+        $query = sprintf(self::$GET_ALL_RISPOSTA_MULTIPLA_DOMANDA, $domanda);
         $res = Model::getDB()->query($query);
         $risposte = array();
         if($res){
