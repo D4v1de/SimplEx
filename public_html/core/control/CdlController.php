@@ -173,7 +173,7 @@ class CdlController {
      * @return array|Corso[]
      */
     public function getCoursesByMatricola($matricola) {
-        $aModel = new AccountModel();
+        $aModel = new UtenteModel();
         $utente = $aModel->getUtenteByMatricola($matricola);
         $model = new CorsoModel();
         if ($utente->getTipologia() == "Studente") {
