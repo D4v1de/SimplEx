@@ -1,12 +1,12 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: sergio
- * Date: 18/11/15
- * Time: 09:58
+ *La view che consente al docente di visualizzare gli esiti di una sessione
+ *
+ * @author Antonio Luca D'Avanzo
+ * @version 1
+ * @since 18/11/15 09:58
  */
 
-//TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "SessioneController.php";
 include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "ControllerTest.php";
@@ -25,12 +25,22 @@ $elaboratoController = new ElaboratoController();
 $testController = new ControllerTest();
 $alternativaController = new AlternativaController();
 $soglia=null;
+$flag=1;
 $sessioneByUrl = $controllerSessione->readSessione($_URL[4]);
 $dataFrom = $sessioneByUrl->getDataInizio();
 $dataTo = $sessioneByUrl->getDataFine();
 $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
 $tipoSessione = $sessioneByUrl->getTipologia();
 $soglia=$sessioneByUrl->getSogliaAmmissione();
+
+if($_URL[6]=="autoendsuccess") {
+    $newSessione = new Sessione($dataFrom, $dataTo, $soglia, "Eseguita", $tipoSessione, $identificativoCorso);
+    $controllerSessione->updateSessione($idSessione,$newSessione);
+}
+
+if($_URL[6]=="norestart") {
+    $flag=0;
+}
 
 try {
     $corso = $controlleCdl->readCorso($identificativoCorso);
@@ -44,8 +54,12 @@ if(isset($_POST['soglia'])){
     $soglia=$_POST['soglia'];
     $sessioneAggiornata = new Sessione($dataFrom, $dataTo, $soglia , $sessioneByUrl->getStato(), $sessioneByUrl->getTipologia(), $identificativoCorso);
     $controllerSessione->updateSessione($_URL[4], $sessioneAggiornata);
-    header("Refresh:0");
+    //header("Refresh:0");
 }
+
+$sessioneByUrl = $controllerSessione->readSessione($_URL[4]);
+$esaminandiSessione= $controllerSessione->getEsaminandiSessione($sessioneByUrl->getId());
+$sogliaMin=$sessioneByUrl->getSogliaAmmissione();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -124,7 +138,13 @@ if(isset($_POST['soglia'])){
             </div>
         </div>
             <!-- TABELLA 1 -->
-
+            <?php
+            if($flag==0) {
+                printf("<div class='alert alert-danger'>
+                    <button class=\"close\" data-close=\"alert\"></button>
+                      Uno o più Tests sono stati già corretti. Impossibile riprendere la sessione! </div>");
+            }
+            ?>
             <div class="portlet box blue-madison">
                 <div class="portlet-title">
                     <div class="caption">
@@ -257,9 +277,7 @@ if(isset($_POST['soglia'])){
                                         </thead>
                                         <tbody>
                                         <?php
-                                        $esaminandiSessione = Array();
                                         $toDisable="";
-                                        $esaminandiSessione= $controllerSessione->getEsaminandiSessione($idSessione);
                                         if ($esaminandiSessione == null) {
                                         }
                                         else {
@@ -332,16 +350,16 @@ if(isset($_POST['soglia'])){
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN aggiunta da me -->
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
+<script src="/assets/admin/pages/scripts/form-validation.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
 <!-- END aggiunta da me -->
 <script>
     jQuery(document).ready(function () {
-        Metronic.init(); // init metronic core components
-        Layout.init(); // init current layout
-        //QuickSidebar.init(); // init quick sidebar
-        //Demo.init(); // init demo features
+        Metronic.init();
+        Layout.init();
         TableManaged2.init("tabella_test2","tabella_test2_wrapper");
         TableManaged2.init("tabella_studenti_esiti","tabella_studenti_esiti_wrapper");
-        //TableManaged.init(3);
     });
 </script>
 <!-- END JAVASCRIPTS -->

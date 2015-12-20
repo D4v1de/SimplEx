@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: fede_dr
- * Date: 23/11/15
- * Time: 21:59
+ * La view consente all'Admin di visualizzare tutti i corsi presenti nel sistema, ed eventualmente eliminarli
+ * @author Federico De Rosa
+ * @version 1
+ * @since 23/11/15 21:58
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc

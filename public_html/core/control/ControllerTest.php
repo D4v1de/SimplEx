@@ -27,7 +27,7 @@ class ControllerTest {
     
     //Restituisce tutti gli studenti
     public function getStudenti() {
-        $accountModel = new AccountModel();
+        $accountModel = new UtenteModel();
         return $accountModel->getAllUtenti();
     }
     
@@ -63,7 +63,7 @@ class ControllerTest {
     
     //ricerca un utente attraverso la matricola
     public function getUtentebyMatricola($matricola) {
-        $accountModel = new AccountModel();
+        $accountModel = new UtenteModel();
         return $accountModel->getUtenteByMatricola($matricola);
     }
     

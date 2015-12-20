@@ -29,7 +29,7 @@ class UtenteController {
         if (strlen($password) < Config::$MIN_PASSWORD_LEN) {
             throw new ApplicationException(Error::$PASS_CORTA);
         }
-        $accModel = new AccountModel();
+        $accModel = new UtenteModel();
         $user = $accModel->getUtente($email, $password);
 
         $_SESSION['loggedin'] = true;
@@ -54,7 +54,7 @@ class UtenteController {
             }
             $identity = $this->getIdentityFromPerm($_COOKIE[self::PERMA_COOKIE]);
 
-            $accModel = new AccountModel();
+            $accModel = new UtenteModel();
             $user = $accModel->getUtenteByIdentity($identity);
             $_SESSION['loggedin'] = true;
             $_SESSION['user'] = $user;
@@ -105,7 +105,7 @@ class UtenteController {
         if (!preg_match(Patterns::$MATRICOLA, $cdl) && $tipologia == "Studente") {
             throw new IllegalArgumentException("Cdl sbagliato o assente");
         }
-        $accModel = new AccountModel();
+        $accModel = new UtenteModel();
         return $accModel->createUtente(new Utente($matricola, $email, $password, $tipologia, $nome, $cognome, $cdl));
     }
 
@@ -127,7 +127,7 @@ class UtenteController {
     }
 
     public function getUtenteByMatricola($matricola) {
-        $accModel = new AccountModel();
+        $accModel = new UtenteModel();
         return $accModel->getUtenteByMatricola($matricola);
     }
 
@@ -137,7 +137,7 @@ class UtenteController {
      * @return array con i Docenti associati al corso specificato
      */
     public function getDocenteAssociato($corsoID) {
-        $accountModel = new AccountModel();
+        $accountModel = new UtenteModel();
         return $accountModel->getAllDocentiByCorso($corsoID);
     }
 
@@ -146,7 +146,7 @@ class UtenteController {
      * @return array con tutti gli Utenti
      */
     public function getUtenti($filter = "ALL") {
-        $accountModel = new AccountModel();
+        $accountModel = new UtenteModel();
         switch ($filter) {
             case "Docente":
                 return $accountModel->getAllDocenti();
@@ -162,7 +162,7 @@ class UtenteController {
      * @param id del Corso
      */
     public function iscrizioneStudente($matricola_studente, $id_corso) {
-        $accountModel = new AccountModel();
+        $accountModel = new UtenteModel();
         $accountModel->iscriviStudenteCorso($matricola_studente, $id_corso);
     }
 
@@ -172,7 +172,7 @@ class UtenteController {
      * @param id del Corso
      */
     public function disiscrizioneStudente($matricola_studente, $id_corso) {
-        $accountModel = new AccountModel();
+        $accountModel = new UtenteModel();
         $accountModel->disiscriviStudenteCorso($matricola_studente, $id_corso);
     }
 
@@ -182,7 +182,7 @@ class UtenteController {
      * @throws ApplicationException
      */
     public function eliminaUtenteByMatricola($matricola) {
-        $accountModel = new AccountModel();
+        $accountModel = new UtenteModel();
         if (!is_numeric($matricola)) {
             throw new ApplicationException(Error::$MATRICOLA_INESISTENTE);
         }
@@ -197,7 +197,7 @@ class UtenteController {
         if (!is_numeric($matricola)) {
             throw new ApplicationException(Error::$MATRICOLA_INESISTENTE);
         }
-        $aModel = new AccountModel();
+        $aModel = new UtenteModel();
         $utente = $aModel->getUtenteByMatricola($matricola);
 
         //!!! CRAZY CODE START
@@ -238,27 +238,27 @@ class UtenteController {
     }
 
     public function getEsaminandiSessione($idSes) {
-        $accountModel = new AccountModel();
+        $accountModel = new UtenteModel();
         return $accountModel->getEsaminandiSessione($idSes);
     }
 
     public function disabilitaStudenteDaSessione($idSessione, $studenteMatricola) {
-        $accountModel = new AccountModel();
+        $accountModel = new UtenteModel();
         $accountModel->disabilitaStudenteSessione($idSessione,$studenteMatricola);
     }
 
     public function abilitaStudenteSessione($idSessione, $studenteMatricola){
-        $accountModel = new AccountModel();
+        $accountModel = new UtenteModel();
         $accountModel->abilitaStudenteSessione($idSessione,$studenteMatricola);
     }
 
     public function getAllStudentiByCorso($idCorso) {
-        $accountModel = new AccountModel();
+        $accountModel = new UtenteModel();
         return $accountModel->getAllStudentiByCorso($idCorso);
     }
 
     public function getAllStudentiSessione($idSessione) {
-        $accountModel = new AccountModel();
+        $accountModel = new UtenteModel();
         return $accountModel->getAllStudentiSessione($idSessione);
     }
 

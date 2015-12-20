@@ -1,10 +1,12 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: Antonio Luca
- * Date: 29/11/2015
- * Time: 15:58
+ * Si occupa di far interagire il model SessioneModel
+ * con le views che richiedo le operazioni ad esso relative.
+ *
+ * @author Antonio Luca D'Avanzo
+ * @version 1
+ * @since 18/11/15 09:58
  */
 
 include_once MODEL_DIR . "Model.php";
@@ -13,7 +15,7 @@ include_once BEAN_DIR . "Sessione.php";
 include_once CONTROL_DIR . "TestController.php";
 include_once CONTROL_DIR . "UtenteController.php";
 
-class SessioneController {   //UTLIZZARE ALTRO CONTROLLER..NON ALTRO MODEL
+class SessioneController {
 
 
     private $sessioneModel;
@@ -25,15 +27,6 @@ class SessioneController {   //UTLIZZARE ALTRO CONTROLLER..NON ALTRO MODEL
         $this->testController = new TestController();
         $this->utenteController = new UtenteController();
 
-    }
-
-    /**
-     * Ritorna tutti i testi associati al id relativo alla sessione
-     * @param type $idSessione
-     * @return type array di Test
-     */
-    public function getAllTestBySessione($idSessione) {
-        return $this->testController->getAllTestBySessione($idSessione);
     }
 
     /**
@@ -49,7 +42,7 @@ class SessioneController {   //UTLIZZARE ALTRO CONTROLLER..NON ALTRO MODEL
      * @param type $id E' l'id della sessione che è stata appena modificata
      * @param type $updatedSessione E' la nuova sessione appena creata
      */
-    public function updateSessione($id, $updatedSessione) {     //verrà chiamato premuto il salva button
+    public function updateSessione($id, $updatedSessione) {
         $this->sessioneModel->updateSessione($id, $updatedSessione);
     }
 
@@ -59,7 +52,7 @@ class SessioneController {   //UTLIZZARE ALTRO CONTROLLER..NON ALTRO MODEL
      * @param type $idSessione
      * @return type
      */
-    public function readSessione($idSessione) {   //funziona chiamata quando si accede a questa pagina per caricare i dati
+    public function readSessione($idSessione) {
         return $this->sessioneModel->readSessione($idSessione);
     }
 
@@ -83,16 +76,12 @@ class SessioneController {   //UTLIZZARE ALTRO CONTROLLER..NON ALTRO MODEL
         return $this->sessioneModel->getAllSessioniByStudente($matricola);
     }
 
-    public function getAllTestByCorso($idCorso) {
-        return $this->testController->getAllTestbyCorso($idCorso);
-    }
-
     public function associaTestASessione($idSes, $idTest) {
         $this->sessioneModel->associaTestSessione($idSes,$idTest);
     }
 
     public function deleteAllTestFromSessione($idSes) {
-        $this->sessioneModel->DeleteAllTestFromSessione($idSes);
+        $this->sessioneModel->deleteAllTestFromSessione($idSes);
     }
 
     public function disabilitaMostraRisposteCorrette($id) {
@@ -133,7 +122,7 @@ class SessioneController {   //UTLIZZARE ALTRO CONTROLLER..NON ALTRO MODEL
      * @param $idSes La relativa Sessione
      * @return Utente[]
      */
-    public function getEsaminandiSessione($idSes) {
+        public function getEsaminandiSessione($idSes) {
         return $this->utenteController->getEsaminandiSessione($idSes);
     }
 
@@ -156,6 +145,19 @@ class SessioneController {   //UTLIZZARE ALTRO CONTROLLER..NON ALTRO MODEL
 
     public function getAllStudentiByCorso($idCorso) {
         return $this->utenteController->getAllStudentiByCorso($idCorso);
+    }
+
+    /**
+     * Ritorna tutti i testi associati al id relativo alla sessione
+     * @param type $idSessione
+     * @return type array di Test
+     */
+    public function getAllTestBySessione($idSessione) {
+        return $this->testController->getAllTestBySessione($idSessione);
+    }
+
+    public function getAllTestByCorso($idCorso) {
+        return $this->testController->getAllTestbyCorso($idCorso);
     }
 
 

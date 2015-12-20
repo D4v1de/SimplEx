@@ -209,6 +209,9 @@ try {
                                     case 'correggi':
                                         include_once VIEW_DIR . "Docente/CorreggiTest.php";
                                         break;
+                                    case 'correggi2':
+                                        include_once VIEW_DIR . "Docente/CorreggiTest2.php";
+                                        break;
                                     case 'visualizza':
                                         include_once VIEW_DIR . "Docente/VisualizzaElaborato.php";
                                         break;
@@ -224,6 +227,10 @@ try {
                                     default:
                                         include_once VIEW_DIR . "Docente/VisualizzaSessione.php";
                                 }
+                                break;
+
+                            case 'gestoredata':
+                                include_once VIEW_DIR . "Docente/gestoreDataServer.php";
                                 break;
                             case 'griglia':
                                 include_once VIEW_DIR . "Docente/GrigliaEsiti.php";
