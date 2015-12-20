@@ -1,10 +1,11 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: sergio
- * Date: 30/11/15
- * Time: 20:59
+ * Controller dell'utente
+ *
+ * @author Sergio Shevchenko
+ * @version 1.0
+ * @since 30/11/15
  */
 include_once BEAN_DIR . "Utente.php";
 include_once MODEL_DIR . "UtenteModel.php";
@@ -38,7 +39,6 @@ class UtenteController {
         if ($remember) {
             $this->setPermanentCookie($user->getPassword());
         }
-        //todo protezione anti-bruteforce
 
         return $user;
     }
