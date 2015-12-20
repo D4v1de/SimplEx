@@ -197,8 +197,10 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
     }else if($nApe==1){
       $x=rand(0,(count($Aperte)-1)); 
       $leAperte[0]=$Aperte[$x];  
+    }else if($nApe==0){
+      
     }else{
-     //NON DOVREBBE MAI ARRIVARE QUI 
+      //NON DOVREBBE MAI ARRIVARE QUI     
     }
     if($nMul>1){
     $indiciM=array_rand($Multiple,$nMul);
@@ -209,8 +211,10 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
     }else if($nMul==1){
         $x=rand(0,(count($Multiple)-1)); 
         $leMultiple[0]=$Multiple[$x];
+    }else if($nMul==0){
+         
     }else{
-        //NON DOVREBBE MAI ARRIVARE QUI 
+        //NON DOVREBBE MAI ARRIVARE QUI
     }
     
     foreach($leAperte as $x){ //leAperte selezionate vengono controllate per aggiorare il punteggio totale

@@ -177,9 +177,10 @@ if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && isset($_POST['
         }else if($nApe==1){
             $x=rand(0,(count($Aperte)-1));
             $leAperte[0]=$Aperte[$x];
+        }else if($nApe==0){
+            
         }else{
-            $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
-            header($tornaACasa); //torno alla home
+            //NON DOVREBBE MAI ARRIVARE QUI
         }
         if($nMul>1){
             $indiciM=array_rand($Multiple,$nMul);
@@ -190,9 +191,10 @@ if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && isset($_POST['
         }else if($nMul==1){
             $x=rand(0,(count($Multiple)-1));
             $leMultiple[0]=$Multiple[$x];
+        }else if($nMul==0){
+            
         }else{
-            $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
-            header($tornaACasa); //torno alla home
+            //NON DOVREBBE MAI ARRIVARE QUI
         }
 
         foreach($leAperte as $s){ //leAperte selezionate vengono controllate per aggiorare il punteggio totale
