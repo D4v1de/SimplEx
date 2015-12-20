@@ -12,8 +12,14 @@ var Login = function () {
                 password: {
                     required: true
                 },
+                rpassword: {
+                    required: true
+                },
                 remember: {
                     required: false
+                },
+                name: {
+                    required: true
                 }
             },
 
@@ -98,7 +104,7 @@ var Login = function () {
 
             messages: {
                 email: {
-                    required: "Email is required."
+                    required: "Email è obbligatorio."
                 }
             },
 
@@ -212,7 +218,7 @@ var Login = function () {
 
             messages: { // custom messages for radio buttons and checkboxes
                 tnc: {
-                    required: "Please accept TNC first."
+                    required: "Accetta trattamento dei dati personali"
                 }
             },
 
