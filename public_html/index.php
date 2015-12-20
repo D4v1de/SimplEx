@@ -146,10 +146,10 @@ try {
                 StringUtils::checkPermission("Docente");
                 switch (isset($_URL[1]) ? $_URL[1] : '') {
                     case 'cdls':
-                        include_once VIEW_DIR . "Docente/visualizzaCdl.php";
+                        include_once VIEW_DIR . "Docente/VisualizzaCdl.php";
                         break;
                     case 'cdl':
-                        include_once VIEW_DIR . "Docente/visualizzaCorsi.php";
+                        include_once VIEW_DIR . "Docente/VisualizzaCorsi.php";
                         break;
                     case 'corso':
                         switch (isset($_URL[3]) ? $_URL[3] : '') {
