@@ -32,11 +32,15 @@ var FormValidation = function () {
                     },
                     matricola: {
                         min: "non puoi inserire un numero negativo",
-                        max: "non puoi inserire un numero positivo"
+                        max: "non puoi inserire un numero positivo",
+                        maxlength: "inserire esattamente 10 numeri",
+                        minlength: "inserire esattamente 10 numeri"
                     },
                     cdlmatricola: {
                         min: "non puoi inserire un numero negativo",
-                        max: "non puoi inserire un numero positivo"
+                        max: "non puoi inserire un numero positivo",
+                        maxlength: "inserire esattamente 10 numeri",
+                        minlength: "inserire esattamente 10 numeri"
                     }
                 },
                 rules: {
