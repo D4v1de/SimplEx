@@ -104,10 +104,22 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
     
     
     foreach($MultipleTest as $non){
-        $controllerDomande->dissociaMultTest($non->getId(), $idTest);
+        $id = $non->getId();
+        $controllerDomande->dissociaMultTest($id, $idTest);
+        
+        $updated = $controllerDomande->getDomandaMultipla($id);
+        $perc = $updated->getPercentualeScelta() -1;
+        $updated->setPercentualeScelta($perc);
+        $controllerDomande->modificaDomandaMultipla($id, $updated);
     }
     foreach($AperteTest as $non){
-        $controllerDomande->dissociaAperTest($non->getId(), $idTest);
+        $id = $non->getId();
+        $controllerDomande->dissociaAperTest($id, $idTest);
+        
+        $updated = $controllerDomande->getDomandaAperta($id);
+        $perc = $updated->getPercentualeScelta() -1;
+        $updated->setPercentualeScelta($perc);
+        $controllerDomande->modificaDomandaAperta($id, $updated);
     }
     
     
@@ -124,6 +136,10 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
             $punteggio=$punteggio+($w->getPunteggioMax());
             $controllerDomande->associaAperTest($id,$idTest,NULL); 
         }
+        $updated = $controllerDomande->getDomandaAperta($id);
+        $perc = $updated->getPercentualeScelta() +1;
+        $updated->setPercentualeScelta($perc);
+        $controllerDomande->modificaDomandaAperta($id, $updated);
     }
         $z1=0;
         $z2=0;
@@ -146,6 +162,10 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
         }
         $controllerDomande->associaMultTest($id, $idTest, $z1, $z2);//associo la domanda multipla al test
         
+        $updated = $controllerDomande->getDomandaMultipla($id);
+        $perc = $updated->getPercentualeScelta() +1;
+        $updated->setPercentualeScelta($perc);
+        $controllerDomande->modificaDomandaMultipla($id, $updated);
     }
          $ilTest=$controllerTest->readTest($idTest);
          $ilTest->setPunteggioMax($punteggio);
@@ -241,10 +261,22 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
         $controllerDomande->dissociaAperTest($s->getId(), $idTest);
     }
     foreach($leAperte as $s){ //scansiono di nuovo le aperte per associarle al test
-        $controllerDomande->associaAperTest($s->getId(),$idTest, NULL);
+        $id = $s->getId();
+        $controllerDomande->associaAperTest($id,$idTest, NULL);
+        
+        $updated = $controllerDomande->getDomandaAperta($id);
+        $perc = $updated->getPercentualeScelta() +1;
+        $updated->setPercentualeScelta($perc);
+        $controllerDomande->modificaDomandaAperta($id, $updated);
     }
     foreach($leMultiple as $s) { //scansiono di nuovo le multiple per associarle al test
-        $controllerDomande->associaMultTest($s->getId(), $idTest, NULL, NULL);
+        $id = $s->getId();
+        $controllerDomande->associaMultTest($id, $idTest, NULL, NULL);
+        
+        $updated = $controllerDomande->getDomandaMultipla($id);
+        $perc = $updated->getPercentualeScelta() +1;
+        $updated->setPercentualeScelta($perc);
+        $controllerDomande->modificaDomandaMultipla($id, $updated);
     }
     
     $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";

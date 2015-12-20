@@ -57,23 +57,33 @@ if (isset($_GET['consegna'])){
     $rispMul = $rmCon->getMultipleByElaborato($elaborato);
     $punteggio = 0;
     foreach ($rispMul as $rm) {
-        $dom = $domandaController->getDomandaMultipla($rm->getDomandaMultiplaId());
         $multId = $rm->getDomandaMultiplaId();
+        $dom = $domandaController->getDomandaMultipla($multId);
         $puntCorrAlt = $domandaController->readPunteggioCorrettaAlternativo($multId, $testId);
         $puntErrAlt = $domandaController->readPunteggioErrataAlternativo($multId, $testId);
         $puntCor = ($puntCorrAlt != null)? $puntCorrAlt:$dom->getPunteggioCorretta();
         $puntErr = ($puntErrAlt != null)? $puntErrAlt:$dom->getPunteggioErrata();
         $altCor = $alternativaController->getAlternativaCorrettaByDomanda($multId);
-        if ($rm->getAlternativaId() != 0)
+        $altId = $rm->getAlternativaId();
+        if ($altId != 0)
             if ($altCor->getId() == $rm->getAlternativaId()){
                 $punteggio = $punteggio + $puntCor;
                 $rm->setPunteggio($puntCor);
+                $updated = $domandaController->getDomandaMultipla($multId);
+                $perc = $updated->getPercentualeRispostaCorretta() +1;
+                $updated->setPercentualeRispostaCorretta($perc);
+                $domandaController->modificaDomandaMultipla($multId, $updated);
             }
             else{
                 $punteggio = $punteggio + $puntErr;
                 $rm->setPunteggio($puntErr);
             }
             $rmCon->updateRispostaMultipla($rm, $sessId, $matricola, $multId);
+
+            $updated = $alternativaController->readAlternativa($altId);
+            $perc = $updated->getPercentualeScelta() +1;
+            $updated->setPercentualeScelta($perc);
+            $alternativaController->modificaAlternativa($altId, $updated);
     }
     $elaborato->setEsitoParziale($punteggio);
     

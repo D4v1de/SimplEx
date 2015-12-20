@@ -105,6 +105,15 @@ if (isset($_GET['salva'])){
         $controllerRispostaAperta->updateRispostaAperta($rispAp, $url2, $matricola, $apId);
     }
     $elaborato->setEsitoFinale($fin);
+    
+    $updated = $test;
+    $soglia = $sessione->getSogliaAmmissione();
+    if ($fin >= $soglia){
+        $perc = $updated->getPercentualeSuccesso() +1;
+        $updated->setPercentualeSuccesso($perc);
+        $controllerTest->updateTest($elaborato->getTestId(), $updated);
+    }
+    
     $elaborato->setStato("Corretto");
     $controllerElaborato->updateElaborato($matricola,$url2,$elaborato);
     header("Location: "."/docente/corso/".$corso->getId()."/sessione"."/".$sessione->getId()."/"."esiti/show");
