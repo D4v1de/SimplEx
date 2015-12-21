@@ -17,7 +17,7 @@ class CdlControllerTest extends \PHPUnit_Framework_TestCase
     const TIPOLOGIA4 = 'Semestrale';
     const CDLMATRICOLA = '051210';
     const STUDENTEMATRICOLA = '0512102360';
-    const DOCENTEMATRICOLA = '0512102999';
+    const DOCENTEMATRICOLA = '022500161';
 
     public function testCdlController() {
 
@@ -76,8 +76,7 @@ class CdlControllerTest extends \PHPUnit_Framework_TestCase
         $corsomodificato = $controller->readCorso($idCorso);
         $this->assertEquals(self::TIPOLOGIA4, $corsomodificato->getTipologia());
 
-        //elimino il corso
-        $controller->eliminaCorso($idCorso);
+
 
         //leggo tutti i corsi dal db
         $allCorsi = $controller->getCorsi();
@@ -90,12 +89,13 @@ class CdlControllerTest extends \PHPUnit_Framework_TestCase
         //creo una relazione insegnamento
         $controller->creaInsegnamento($idCorso, self::DOCENTEMATRICOLA);
 
+        //elimino il corso
+        $controller->eliminaCorso($idCorso);
+
         //leggo tutti i corsi insegnati da un docente
         $allCorsiDocente = $controller->getCoursesByMatricola(self::DOCENTEMATRICOLA);
         print_r($allCorsiDocente);
 
-        //elimino la relazione insegnamento
-        $controller->eliminaInsegnamento($idCorso, self::DOCENTEMATRICOLA);
 
         //leggo tutti i corsi insegnati da un docente
         $allCorsiDocente = $controller->getCoursesByMatricola(self::DOCENTEMATRICOLA);
@@ -104,6 +104,10 @@ class CdlControllerTest extends \PHPUnit_Framework_TestCase
         //leggo tutti i corsi frequentati da uno studente
         $allCorsiStudente = $controller->getCorsiStudente(self::STUDENTEMATRICOLA);
         print_r($allCorsiStudente);
+
+
+        //elimino la relazione insegnamento
+        $controller->eliminaInsegnamento($idCorso, self::DOCENTEMATRICOLA);
 
     }
 
