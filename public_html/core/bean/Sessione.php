@@ -1,9 +1,11 @@
 <?php
 
 /**
- * User: Giuseppina
- * Date: 27/11/15
- * Time: 10:30
+ * La classe descrive una sessione.
+ *
+ * @author Giuseppina Tufano
+ * @version 1.0
+ * @since 27/11/15
  */
 class Sessione {
     private $id;
