@@ -13,7 +13,7 @@ class CorsoModelTest extends PHPUnit_Framework_TestCase
     const NOME = "Reti";
     const TIPOLOGIA = "Semestrale";
     const TIPOLOGIA2 = "Annuale";
-    const CDLMATRICOLA = "051214";
+    const CDLMATRICOLA = "051210";
     const STUDENTEMATRICOLA = "0512102396";
     const DOCENTEMATRICOLA = "0512109999";
 
