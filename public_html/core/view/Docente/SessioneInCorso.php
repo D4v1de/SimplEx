@@ -8,15 +8,26 @@
 
 include_once CONTROL_DIR . "SessioneController.php";
 include_once CONTROL_DIR . "CdlController.php";
+include_once CONTROL_DIR . "UtenteController.php";
 include_once CONTROL_DIR . "ElaboratoController.php";
 $controller = new SessioneController();
 $controlleCdl = new CdlController();
 $controllerEla= new ElaboratoController();
+$controllerUtente = new UtenteController();
 
-
-$diLuca=0;
 $idSessione=$_URL[4];
 $identificativoCorso = $_URL[2];
+$numProfs=0;
+$doc = $_SESSION['user'];
+$docentiOe=$controllerUtente->getDocenteAssociato($identificativoCorso);
+foreach($docentiOe as $d) {
+    if($doc==$d){
+        $numProfs++;
+    }
+}
+if($numProfs==0){
+    header("Location: "."/docente/corso/".$corso->getId());
+}
 $corso = $controlleCdl->readCorso($identificativoCorso);
 $nomecorso= $corso->getNome();
 
@@ -429,7 +440,7 @@ $dataTo = $sessioneByUrl->getDataFine();
                 xhttp.open("GET", "/docente/corso/something/gestoredata", true);
                 xhttp.send();
             }
-            setInterval(loadDoc, 1000);
+            setInterval(loadDoc, 10000);
         </script>
 
 <!-- END JAVASCRIPTS -->
