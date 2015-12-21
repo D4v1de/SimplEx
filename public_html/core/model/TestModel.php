@@ -3,7 +3,7 @@
 /**
  * La classe costituisce il model che effettua tutte le query riguardanti le funzionalità legate al Test, interfacciandosi al db al quale è connesso
  *
- * @author Elvira Zanin
+ * @author Giuseppina Tufano 
  * @version 1.0
  * @since 27/11/15
  */
