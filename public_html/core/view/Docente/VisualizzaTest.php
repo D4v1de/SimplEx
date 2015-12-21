@@ -15,6 +15,9 @@ $controllerTest = new TestController();
 include_once CONTROL_DIR . "AlternativaController.php";
 $controllerAlternativa = new AlternativaController();
 
+include_once CONTROL_DIR . "RispostaMultiplaController.php";
+$rmController = new RispostaMultiplaController();
+
 $test=$_URL[4];
 $identificativoCorso=$_URL[2];
 
@@ -89,14 +92,18 @@ if(isset($_POST['Indietro'])){
                             $Multiple = Array();
                             $Multiple = $controllerDomanda->getAllDomandeMultipleByTest($test);
                             foreach($Multiple as $x) {
-                                printf("<div class=\"portlet box blue-madison\"><div class=\"portlet-title\"><div class=\"caption\"><i class=\"fa fa-question-circle\"></i>%s</div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div>", $x->getTesto());
+                                $tests = $controllerTest->getAllTestByCorso($identificativoCorso);
+                                $risps = $rmController->getAllRisposteMultipleByDomanda($x->getId());
+                                $percSce = round(($x->getPercentualeScelta()/count($tests) * 100),2);
+                                printf("<div class=\"portlet box blue-madison\"><div class=\"portlet-title\"><div class=\"caption\"><i class=\"fa fa-question-circle\"></i>%s</div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div><div class=\"actions\">Inserita: %d%%</div></div>", $x->getTesto(),$percSce);
                                 $Alternative = Array();
                                 $Alternative = $controllerAlternativa->getAllAlternativaByDomanda($x->getId());
-                                printf("<div class=\"portlet-body\">");
+                                printf("<div class=\"portlet-body\"><table style=\"width:100%%\">");
                                 foreach($Alternative as $b){
-                                 printf("<p>%s</p>", $b->getTesto());  
+                                    $percSel = round(($b->getPercentualeScelta()/count($risps) * 100),2);
+                                    printf("<tr><td>%s</td><td align=\"right\">Selezionata: %d%%</td></tr>", $b->getTesto(),$percSel);  
                                 }
-                                printf("</div></div>");
+                                printf("</table></div></div>");
                             }
                             $Aperte = Array();
                             $Aperte = $controllerDomanda->getAllDomandeAperteByTest($test);

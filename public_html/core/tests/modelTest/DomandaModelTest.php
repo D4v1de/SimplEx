@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: Alina
- * Date: 29/11/2015
- * Time: 12:45
+ * La classe effettua il test di tutti i metodi della classe DomandaModel.php
+ * @author Alina Korniychuk
+ * @version 1.0
+ * @since 23/11/15
  */
 
 

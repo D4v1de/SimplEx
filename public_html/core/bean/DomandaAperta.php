@@ -1,9 +1,11 @@
 <?php
 
 /**
- * User: Alina
- * Date: 27/11/15
- * Time: 10:00
+ * La classe descrive una domanda aperta.
+ *
+ * @author Alina Korniychuk
+ * @version 1.0
+ * @since 27/11/15
  */
 class DomandaAperta {
     private $id;

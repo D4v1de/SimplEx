@@ -1,10 +1,13 @@
 <?php
 
 /**
- * User: Alina
- * Date: 27/11/15
- * Time: 10:11
+ * La classe descrive una domanda multipla.
+ *
+ * @author Alina Korniychuk
+ * @version 1.0
+ * @since 27/11/15
  */
+
 class DomandaMultipla {
     private $id;
     private $argomentoId;
@@ -15,7 +18,7 @@ class DomandaMultipla {
     private $percentualeRispostaCorretta;
     
     /**
-     * DomandaMultipla constructor.
+     * Costruttore di DomandaMultipla.
      * @param int $argomentoId L'id dell'argomento a cui appartiene la domanda
      * @param string $testo Il testo della domanda
      * @param float $punteggioCorretta Il punteggio da assegnare in caso di risposta corretta
