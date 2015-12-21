@@ -170,7 +170,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                     </div>
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
-                                            <input type="number" class="form-control" name="matricola" id="matricolaCdl"
+                                            <input type="text" class="form-control" name="matricola" id="matricolaCdl"
                                                    placeholder="Inserisci matricola"
                                                    value="<?php if (isset($matricola)) echo $matricola; ?>" required>
 

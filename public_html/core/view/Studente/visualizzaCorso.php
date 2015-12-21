@@ -181,37 +181,39 @@ try {
                                 <tbody>
                                 <?php
                                 foreach ($sessioni as $s) {
-                                    $elaborato = null;
-                                    try {
-                                        $show = $sessioneController->readMostraEsitoSessione($s->getId());
-                                        $elaborato = $elaboratoController->readElaborato($matricolaStudente,$s->getId());
-                                        if (!strcmp($show,"Si")){
-                                            $parz = $elaborato->getEsitoParziale();
-                                            $fin = $elaborato->getEsitoFinale();
-                                            $esito = strcmp($elaborato->getStato(),"Corretto")? $parz:$fin;     
-                                            $test = $testController->readTest($elaborato->getTestId());
-                                            $sogliaMax = $test->getPunteggioMax();      
-                                            $punt = sprintf("%s / %s", $esito,$sogliaMax);
+                                    if ($s->getCorsoId() == $corso->getId()){
+                                        $elaborato = null;
+                                        try {
+                                            $show = $sessioneController->readMostraEsitoSessione($s->getId());
+                                            $elaborato = $elaboratoController->readElaborato($matricolaStudente,$s->getId());
+                                            if (!strcmp($show,"Si")){
+                                                $parz = $elaborato->getEsitoParziale();
+                                                $fin = $elaborato->getEsitoFinale();
+                                                $esito = strcmp($elaborato->getStato(),"Corretto")? $parz:$fin;     
+                                                $test = $testController->readTest($elaborato->getTestId());
+                                                $sogliaMax = $test->getPunteggioMax();      
+                                                $punt = sprintf("%s / %s", $esito,$sogliaMax);
+                                            }
+                                            else $punt = null;
+                                        } catch (ApplicationException $ex) {
+                                            $punt = null;
                                         }
-                                        else $punt = null;
-                                    } catch (ApplicationException $ex) {
-                                        $punt = null;
+                                        printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                        printf("<td class=\"sorting_1\">Sessione %d</td>", $s->getId());
+                                        printf("<td class=\"sorting_1\">%s</td>", $s->getDataInizio());
+                                        if (!strcmp($s->getTipologia(), "Esercitativa"))
+                                            printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $s->getTipologia());
+                                        else
+                                            printf("<td class=\"sorting_1\"><span class=\"label label-sm label-danger\">%s</span></td>", $s->getTipologia());
+                                        printf("<td class=\"sorting_1\">%s</td>", $punt);
+                                        if (($elaborato == null || (!strcmp($elaborato->getStato(),"Non corretto"))) && (strtotime(date("Y-m-d H:i:s")) < strtotime($s->getDataFine())) && (strtotime(date("Y-m-d H:i:s")) >= strtotime($s->getDataInizio())))
+                                            printf("<td><a href=\"/studente/corso/%d/test/esegui/%d\" onclick=\"javascript: creaElaborato(%d)\" class=\"btn btn-sm default blue-madison\"><i class=\"fa fa-pencil\"></i> Partecipa</a></td>", $url,$s->getId(),$s->getId());
+                                        else if (($elaborato != null) && (strcmp($elaborato->getStato(),"Non corretto")))
+                                                printf("<td><a href=\"/studente/corso/%d/test/%d\" class=\"btn btn-sm default\"><i class=\"fa fa-file-text-o\"></i> Visualizza</a></td>",$url,$s->getId());
+                                            else 
+                                                printf("<td><a href=\"/studente/corso/%d/test/%d\" disabled class=\"btn btn-sm default\"><i class=\"fa fa-file-text-o\"></i> Visualizza</a></td>",$url,$s->getId());
+                                        printf("</tr>");
                                     }
-                                    printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    printf("<td class=\"sorting_1\">Sessione %d</td>", $s->getId());
-                                    printf("<td class=\"sorting_1\">%s</td>", $s->getDataInizio());
-                                    if (!strcmp($s->getTipologia(), "Esercitativa"))
-                                        printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $s->getTipologia());
-                                    else
-                                        printf("<td class=\"sorting_1\"><span class=\"label label-sm label-danger\">%s</span></td>", $s->getTipologia());
-                                    printf("<td class=\"sorting_1\">%s</td>", $punt);
-                                    if (($elaborato == null || (!strcmp($elaborato->getStato(),"Non corretto"))) && (strtotime(date("Y-m-d H:i:s")) < strtotime($s->getDataFine())) && (strtotime(date("Y-m-d H:i:s")) >= strtotime($s->getDataInizio())))
-                                        printf("<td><a href=\"/studente/corso/%d/test/esegui/%d\" onclick=\"javascript: creaElaborato(%d)\" class=\"btn btn-sm default blue-madison\"><i class=\"fa fa-pencil\"></i> Partecipa</a></td>", $url,$s->getId(),$s->getId());
-                                    else if (($elaborato != null) && (strcmp($elaborato->getStato(),"Non corretto")))
-                                            printf("<td><a href=\"/studente/corso/%d/test/%d\" class=\"btn btn-sm default\"><i class=\"fa fa-file-text-o\"></i> Visualizza</a></td>",$url,$s->getId());
-                                        else 
-                                            printf("<td><a href=\"/studente/corso/%d/test/%d\" disabled class=\"btn btn-sm default\"><i class=\"fa fa-file-text-o\"></i> Visualizza</a></td>",$url,$s->getId());
-                                    printf("</tr>");
                                 }
                                 ?>
                                 </tbody>

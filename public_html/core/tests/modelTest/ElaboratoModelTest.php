@@ -51,6 +51,10 @@ class ElaboratoModelTest extends PHPUnit_Framework_TestCase
         $allElab2 = $model->getElaboratiStudente(new Utente(self::STUDENTE_MATRICOLA,"","","","","",self::CDLMATRICOLA));
         print_r($allElab2);
 
+        //leggo tutti gli elaborati di un test
+        $allElab3 = $model->getAllElaboratiTest(self::TEST_ID);
+        print_r($allElab3);
+
         //cancello l'elaborato
         $model->deleteElaborato(self::STUDENTE_MATRICOLA,self::SESSIONE_ID);
     }

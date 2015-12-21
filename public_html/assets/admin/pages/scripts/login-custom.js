@@ -1,3 +1,7 @@
+jQuery.extend(jQuery.validator.messages, {
+    digits: "Solo i numeri sono amessi",
+    equalTo: "Le password non coincidono"
+});
 var Login = function () {
 
     var handleLogin = function () {
@@ -7,10 +11,12 @@ var Login = function () {
             focusInvalid: true, // do not focus the last invalid input
             rules: {
                 email: {
-                    required: true
+                    required: true,
+                    email: true
                 },
                 password: {
-                    required: true
+                    required: true,
+                    minlength: 8
                 },
                 remember: {
                     required: false
@@ -27,7 +33,7 @@ var Login = function () {
             },
 
             invalidHandler: function (event, validator) { //display error alert on form submit
-                $('.alert-danger', $('.login-form')).show();
+                //$('.alert-danger', $('.login-form')).show();
             },
 
             highlight: function (element) { // hightlight error inputs
@@ -79,7 +85,7 @@ var Login = function () {
                 });
             }
             event.preventDefault();
-            return;
+            return false;
         });
     }
 
@@ -98,7 +104,7 @@ var Login = function () {
 
             messages: {
                 email: {
-                    required: "Email is required."
+                    required: "Email è obbligatorio."
                 }
             },
 
@@ -178,8 +184,15 @@ var Login = function () {
             ignore: "",
             rules: {
 
-                fullname: {
+                name: {
                     required: true
+                },
+                surname: {
+                    required: true
+                },
+                matricola: {
+                    required: true,
+                    digits: true
                 },
                 email: {
                     required: true,
@@ -202,7 +215,12 @@ var Login = function () {
                     required: true
                 },
                 rpassword: {
-                    equalTo: "#register_password"
+                    equalTo: "#register_password",
+                    required: true
+                },
+
+                cdl_matricola: {
+                    required: true
                 },
 
                 tnc: {
@@ -212,7 +230,10 @@ var Login = function () {
 
             messages: { // custom messages for radio buttons and checkboxes
                 tnc: {
-                    required: "Please accept TNC first."
+                    required: "Accetta trattamento dei dati personali"
+                },
+                rpassword: {
+                    required: "Password non coincidono"
                 }
             },
 
@@ -256,21 +277,23 @@ var Login = function () {
 
         $('.register-form').submit(function (e) {
             var request = $(this).serialize();
-            $.ajax({
-                type: "POST",
-                url: "/auth/register",
-                data: request,
-                success: function (r) {
-                    if (r.status) {
-                        window.location.replace(r.redirect);
-                    } else {
-                        $('.alert-danger', $('.register-form')).show();
-                        $('#alert_message', $('.register-form')).text(r.error);
-                    }
-                },
-                dataType: "json"
-            });
-            return;
+            if ($('.register-form').validate().form()) {
+                $.ajax({
+                    type: "POST",
+                    url: "/auth/register",
+                    data: request,
+                    success: function (r) {
+                        if (r.status) {
+                            window.location.replace(r.redirect);
+                        } else {
+                            $('.alert-danger', $('.register-form')).show();
+                            $('#alert_message', $('.register-form')).text(r.error);
+                        }
+                    },
+                    dataType: "json"
+                });
+            }
+            return false;
         });
 
         jQuery('#register-btn').click(function () {
@@ -288,7 +311,7 @@ var Login = function () {
         //main function to initiate the module
         init: function () {
             handleLogin();
-            handleForgetPassword();
+            //handleForgetPassword();
             handleRegister();
         }
 

@@ -21,6 +21,8 @@ $valu = null;
 $eser = null;
 $showE="";
 $showRC="";
+$flag=1;
+$flag1=1;
 
 
 
@@ -29,6 +31,18 @@ $nomecorso= $corso->getNome();
 
 if (isset($_GET['vai'])){
     $sessioni = $controllerSessione->getAllSessioniByCorso($identificativoCorso);
+    if(empty($_GET['from']) || empty($_GET['to'])){
+        $flag=0;
+    }else{
+        $timeTo = strtotime($_GET['to']);
+        $toCompareTo = date('yyyy-mm-dd hh:ii:ss', $timeTo);
+
+        $timeFrom = strtotime($_GET['from']);
+        $toCompareFrom = date('yyyy-mm-dd hh:ii:ss', $timeFrom);
+
+        if ($toCompareTo < $toCompareFrom) {
+        $flag1 = 0;
+        }else{
     $from = $_GET['from'];
     $to = $_GET['to'];
     $sessList = Array();
@@ -42,6 +56,8 @@ if (isset($_GET['vai'])){
             $studenti = array_merge($studenti,$stud);
         }
     }
+    }
+}
 }
 ?>
 <!DOCTYPE html>
@@ -105,7 +121,27 @@ if (isset($_GET['vai'])){
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <form action='' method='GET'>
+            <form id="form_sample_1" action='' method='GET'>
+                
+                <?php
+                    if(!$flag) {
+                        echo "<div class=\"alert alert-danger\">
+                        <button class=\"close\" data-close=\"alert\"></button>
+                        Errore nei Dati. Devi inserire un intervallo temporale per visualizzare gli esiti.
+                        </div>";
+                        
+                    }
+                ?>
+                <?php
+                    if(!$flag1) {
+                        echo "<div class=\"alert alert-danger\">
+                        <button class=\"close\" data-close=\"alert\"></button>
+                        Errore nei Dati. Non è stato inserito un intervallo temporale valido.
+                        </div>";
+                        
+                    }
+                ?>
+                
             <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-1">
@@ -120,11 +156,10 @@ if (isset($_GET['vai'])){
                             <div class="input-group date form_datetime">
                                 <input type="text"  size="16" readonly="" name='from' class="form-control" value=''/>
                                         <span class="input-group-btn">
-                                            <button class="btn default date-set" type="button"><i
-                                                    class="fa fa-calendar"></i></button>
+                                            <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
                                         </span>
                             </div>
-                            <span class="help-block"><br></span>
+                            
 
                         </div>
                         <div class="col-md-6">
@@ -133,8 +168,7 @@ if (isset($_GET['vai'])){
                             <div class="input-group date form_datetime">
                                 <input type="text" size="16" readonly="" name='to' class="form-control" value=''/>
                                         <span class="input-group-btn">
-                                            <button class="btn default date-set" type="button"><i
-                                                    class="fa fa-calendar"></i></button>
+                                            <button class="btn default date-set" type="button"><i class="fa fa-calendar"></i></button>
                                         </span>
                             </div>
                         </div>
@@ -149,6 +183,9 @@ if (isset($_GET['vai'])){
             </div>
             </form>
 
+            <br>
+            <br>
+            
             <div class="portlet box blue-madison">
                 <div class="portlet-title">
                     <div class="caption">
@@ -258,6 +295,9 @@ if (isset($_GET['vai'])){
     <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
     <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
     <script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
+    <script src="/assets/admin/pages/scripts/form-validation.js"></script>
+    <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
     <script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript"
             src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
@@ -274,7 +314,7 @@ if (isset($_GET['vai'])){
             //Demo.init(); // init demo features
             TableManaged2.init('tabella_test','tabella_test_wrapper');
             TableManaged2.init('tabella_studenti','tabella_studenti_wrapper');
-
+            FormValidation.init();
         });
     </script>
 

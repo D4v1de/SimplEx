@@ -20,6 +20,7 @@ class ElaboratoModel extends Model {
     public static $DELETE_ELABORATO ="DELETE FROM `elaborato` WHERE studente_matricola = '%s' AND sessione_id = '%d'";
     public static $GET_ALL_ELABORATO = "SELECT * FROM `elaborato`";
     public static $GET_ELABORATI_STUDENTE = "SELECT * FROM `elaborato` WHERE `studente_matricola` = '%s'";
+    public static $GET_ELABORATI_TEST = "SELECT * FROM `elaborato` WHERE `test_id` = '%d'";
 
     /**
      * Inserisce il nuovo elaborato nel database
@@ -106,6 +107,23 @@ class ElaboratoModel extends Model {
             while($obj=$res->fetch_assoc()) {
                 $elaborati[] = new Elaborato($obj['studente_matricola'], $obj['sessione_id'], $obj['esito_parziale'], $obj['esito_finale'], $obj['test_id'], $obj['stato']);
             }   
+        }
+        return $elaborati;
+    }
+
+    /**
+     * Restituisce tutti gli elaborati di un test
+     * @param int $test L'id del test per il quale cercare tutti gli elaborati
+     * @return Elaborato[] $elaborati Elenco degli elaborati di un test
+     */
+    public function getAllElaboratiTest($test) {
+        $query = sprintf(self::$GET_ELABORATI_TEST, $test);
+        $res = Model::getDB()->query($query);
+        $elaborati = array();
+        if($res) {
+            while($obj = $res->fetch_assoc()) {
+                $elaborati[] = new Elaborato($obj['studente_matricola'], $obj['sessione_id'], $obj['esito_parziale'], $obj['esito_finale'], $obj['test_id'], $obj['stato']);
+            }
         }
         return $elaborati;
     }

@@ -1,9 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: sergio
- * Date: 11/12/15
- * Time: 20:33
+ * Modifica del profilo
+ *
+ * @author Sergio Shevchenko
+ * @version 1.0
+ * @since 11/12/15
  */
 
 include_once CONTROL_DIR . "CdlController.php";
@@ -20,22 +21,20 @@ if (isset($_POST['nome'])) {
     $cognome = $_POST['cognome'];
     $email = $_POST['email'];
     $cdlMatricola = $victim->getCdlMatricola();
-//    if ($tipologia != "Studente") {
-//        $cdlMatricola = null;
-//    } else {
-//        $cdlMatricola = $_POST['cdl'];
-//    }
+
 
     $pass = $_POST['pass'];
+    $pass2 = $_POST['pass2'];
 
     try {
+        if ($pass != $pass2) throw new IllegalArgumentException("Password non coincidono");
         $uCtrl->modificaUtente($matricola, $nome, $cognome, $cdlMatricola, $email, $pass, $tipologia);
         header('location: /me?success=Utente modificato');
         exit;
     } catch (ApplicationException $ex) {
-        $error = "<h5>Modifica profilo FALLITO: " . $ex->getMessage() . "</h5>";
+        $error = "<h5>Errore nella modifica del profilo: " . $ex->getMessage() . "</h5>";
     } catch (IllegalArgumentException $ex) {
-        $error = "<h5>Modifica profilo FALLITO: " . $ex->getMessage() . "</h5>";
+        $error = "<h5>Errore nella modifica del profilo: " . $ex->getMessage() . "</h5>";
     }
 }
 
@@ -162,6 +161,17 @@ if (isset($_POST['nome'])) {
                                             <input type="password" class="form-control" id="pass"
                                                    name="pass"
                                                    placeholder="Inserisci se necessario nuova password"
+                                                   value="">
+
+                                            <div class="form-control-focus">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-md-line-input">
+                                        <div class="col-md-10">
+                                            <input type="password" class="form-control" id="pass2"
+                                                   name="pass"
+                                                   placeholder="Ripeti la password"
                                                    value="">
 
                                             <div class="form-control-focus">

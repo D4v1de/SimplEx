@@ -1,9 +1,11 @@
 <?php
 
 /**
- * User: Dario
- * Date: 27/11/15
- * Time: 16:00
+ * La classe costituisce il model che effettua tutte le query riguardanti le funzionalità legate alle risposte multiple, interfacciandosi al db al quale è connesso
+ *
+ * @author Dario Castellano
+ * @version 1.0
+ * @since 27/11/15
  */
 
 include_once MODEL_DIR . "Model.php";
@@ -16,10 +18,12 @@ class RispostaApertaModel extends Model {
     public static $UPDATE_RISPOSTA_APERTA = "UPDATE `risposta_aperta` SET testo = '%s', punteggio = '%f' WHERE elaborato_sessione_id = '%d' AND elaborato_studente_matricola = '%s' AND domanda_aperta_id = '%d'";
     public static $DELETE_RISPOSTA_APERTA = "DELETE FROM `risposta_aperta` WHERE elaborato_sessione_id = '%d' AND elaborato_studente_matricola = '%s' AND domanda_aperta_id = '%d'";
     public static $GET_ALL_RISPOSTA_APERTA_ELABORATO = "SELECT * FROM `risposta_aperta` WHERE elaborato_sessione_id = '%d' AND elaborato_studente_matricola = '%s'";
-    
+
     /**
      * Inserisce una risposta aperta nel database
      * @param RispostaAperta $risposta La nuova risposta da inserire nel database
+     * @return int L'id della risposta inserita
+     * @throws ApplicationException
      */
     public function createRispostaAperta($risposta) {
         $query = sprintf(self::$CREATE_RISPOSTA_APERTA, $risposta->getElaboratoSessioneId(), $risposta->getElaboratoStudenteMatricola(), $risposta->getDomandaApertaId(), $risposta->getTesto(),$risposta->getPunteggio());
@@ -57,7 +61,8 @@ class RispostaApertaModel extends Model {
      * @param int $elaboratoSessioneId L'id della sessione a cui appartiene l'elaborato relativo
      * @param string $elaboratoStudenteMatricola La matricola dello studente a cui appartiene l'elaborato relativo
      * @param int $domandaApertaId L'id della domanda aperta relativa
-     **/
+     * @throws ApplicationException
+     */
     public function updateRispostaAperta($updatedRisposta, $elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId){
         $query = sprintf(self::$UPDATE_RISPOSTA_APERTA, $updatedRisposta->getTesto(),$updatedRisposta->getPunteggio(), $elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId);
         Model::getDB()->query($query);
@@ -71,6 +76,7 @@ class RispostaApertaModel extends Model {
      * @param int $elaboratoSessioneId L'id della sessione a cui appartiene l'elaborato relativo
      * @param string $elaboratoStudenteMatricola La matricola dello studente a cui appartiene l'elaborato relativo
      * @param int $domandaApertaId L'id della domanda aperta relativa
+     * @throws ApplicationException
      */
     public function deleteRispostaAperta ( $elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId) {
         $query = sprintf(self::$DELETE_RISPOSTA_APERTA,  $elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId);
@@ -84,6 +90,7 @@ class RispostaApertaModel extends Model {
      * Ricerca tutte le risposte aperte di un elborato
      * @param Elaborato $elaborato L'elaborato di cui cercare le risposte aperte
      * @return RispostaMultipla[] $risposte Elenco delle risposte aperte dell'elaborato
+     * @throws ApplicationException
      */
     public function getAperteByElaborato($elaborato) {
         $query = sprintf(self::$GET_ALL_RISPOSTA_APERTA_ELABORATO, $elaborato->getSessioneId(), $elaborato->getStudenteMatricola());

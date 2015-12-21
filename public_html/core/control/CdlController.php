@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: fede_dr
- * Date: 24/11/15
- * Time: 17:44
+ * CdlController classe che si occupa di creare un'interfaccia tra tra i model CdL e Corso e le rispettive view
+ * @author Federico De Rosa, Christian De Blasio
+ * @version 1
+ * @since 18/11/15 09:58
  */
 
 include_once BEAN_DIR . "CdL.php";
@@ -173,7 +173,7 @@ class CdlController {
      * @return array|Corso[]
      */
     public function getCoursesByMatricola($matricola) {
-        $aModel = new AccountModel();
+        $aModel = new UtenteModel();
         $utente = $aModel->getUtenteByMatricola($matricola);
         $model = new CorsoModel();
         if ($utente->getTipologia() == "Studente") {

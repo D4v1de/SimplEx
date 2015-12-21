@@ -20,23 +20,27 @@ var FormValidation = function () {
                         minlength: jQuery.validator.format("At least {0} items must be selected")
                     },
                     nome: {
-                        validchar: "Puoi inserire solo caratteri validi"
+                        validchar: "Puoi inserire solo caratteri validi."
                     },
                     punteggioErrata: {
-                        min: "il punteggio non può essere negativo",
-                        max: "il punteggio non può essere positivo"
+                        min: "Il punteggio non può essere negativo.",
+                        max: "Il punteggio non può essere positivo."
                     },
                     punteggioEsatta: {
-                        min: "il punteggio non può essere negativo",
-                        max: "il punteggio non può essere positivo"
+                        min: "Il punteggio non può essere negativo.",
+                        max: "il punteggio non può essere positivo."
                     },
                     matricola: {
-                        min: "non puoi inserire un numero negativo",
-                        max: "non puoi inserire un numero positivo"
+                        min: "Non puoi inserire un numero negativo.",
+                        max: "Non puoi inserire un numero positivo.",
+                        maxlength: "Inserire esattamente 10 numeri.",
+                        minlength: "Inserire esattamente 10 numeri."
                     },
                     cdlmatricola: {
-                        min: "non puoi inserire un numero negativo",
-                        max: "non puoi inserire un numero positivo"
+                        min: "Non puoi inserire un numero negativo.",
+                        max: "Non puoi inserire un numero positivo.",
+                        maxlength: "Inserire esattamente 10 numeri.",
+                        minlength: "Inserire esattamente 10 numeri."
                     }
                 },
                 rules: {

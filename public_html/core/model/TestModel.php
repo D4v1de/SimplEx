@@ -18,7 +18,9 @@ class TestModel extends Model {
     private static $GET_ALL_TEST_CORSO = "SELECT * FROM `test` WHERE corso_id = '%d'";
     private static $GET_ALL_TEST_SESSIONE = "SELECT t.* FROM `sessione_test` as s, `test` as t WHERE s.sessione_id = '%d' AND s.test_id = t.id";
     private static $GET_TEST_ELABORATO = "SELECT t.* FROM `test` as t, `elaborato` as e where e.test_id = t.id AND e.studente_matricola = '%s' AND e.sessione_id = '%d'";
-    
+    private static $GET_TEST_MULTIPLA = "SELECT t.* FROM `test` as t, `compone_multipla` as c where c.test_id = t.id AND c.domanda_multipla_id = '%d'";
+    private static $GET_TEST_APERTA = "SELECT t.* FROM `test` as t, `compone_aperta` as c where c.test_id = t.id AND c.domanda_aperta_id = '%d'";
+
     /**
      * Inserisce un nuovo test nel database
      * @param Test $test Il test da inserire nel database
@@ -151,5 +153,41 @@ class TestModel extends Model {
         else{
             throw new ApplicationException(Error::$TEST_NON_TROVATO);
         }
+    }
+
+    /**
+     * Restituisce tutti i test composti da una domanda multipla
+     * @param int $domanda L'id della domanda multipla
+     * @return Test[] Tutti i test composti dalla domanda multipla
+     */
+    public function getAllTestByMultipla($domanda) {
+        $query = sprintf(self::$GET_TEST_MULTIPLA, $domanda);
+        $res = Model::getDB()->query($query);
+        $tests = array();
+        if($res){
+            while ($obj = $res->fetch_assoc()) {
+                $test = new Test($obj['descrizione'], $obj['punteggio_max'], $obj['n_multiple'], $obj['n_aperte'], $obj['percentuale_scelto'], $obj['percentuale_successo'], $obj['corso_id']);
+                $test->setId($obj['id']);
+                $tests[] = $test;            }
+        }
+        return $tests;
+    }
+
+    /**
+     * Restituisce tutti i test composti da una domanda aperta
+     * @param int $domanda L'id della domanda aperta
+     * @return Test[] Tutti i test composti dalla domanda aperta
+     */
+    public function getAllTestByAperta($domanda) {
+        $query = sprintf(self::$GET_TEST_APERTA, $domanda);
+        $res = Model::getDB()->query($query);
+        $tests = array();
+        if($res){
+            while ($obj = $res->fetch_assoc()) {
+                $test = new Test($obj['descrizione'], $obj['punteggio_max'], $obj['n_multiple'], $obj['n_aperte'], $obj['percentuale_scelto'], $obj['percentuale_successo'], $obj['corso_id']);
+                $test->setId($obj['id']);
+                $tests[] = $test;            }
+        }
+        return $tests;
     }
 }

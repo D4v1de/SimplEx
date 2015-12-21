@@ -1,9 +1,11 @@
 <?php
 
 /**
- * User: Dario
- * Date: 27/11/15
- * Time: 16:00
+ * La classe costituisce il model che effettua tutte le query riguardanti le funzionalità legate alle risposte aperte, interfacciandosi al db al quale è connesso
+ *
+ * @author Dario Castellano
+ * @version 1.0
+ * @since 27/11/15
  */
 
 include_once MODEL_DIR . "Model.php";
@@ -16,7 +18,9 @@ class RispostaMultiplaModel extends Model {
     public static $UPDATE_RISPOSTA_MULTIPLA = "UPDATE `risposta_multipla` SET punteggio = '%f', alternativa_id = '%d' WHERE elaborato_sessione_id = '%d' AND elaborato_studente_matricola = '%s' AND domanda_multipla_id = '%d'";
     public static $DELETE_RISPOSTA_MULTIPLA = "DELETE FROM `risposta_multipla` WHERE elaborato_sessione_id = '%d' AND elaborato_studente_matricola = '%s' AND domanda_multipla_id = '%d'";
     public static $GET_ALL_RISPOSTA_MULTIPLA_ELABORATO = "SELECT * FROM `risposta_multipla` WHERE elaborato_sessione_id = '%d' AND elaborato_studente_matricola = '%s'";
-    
+    public static $GET_ALL_RISPOSTA_MULTIPLA_DOMANDA = "SELECT * FROM `risposta_multipla` WHERE domanda_multipla_id = '%d'";
+
+
     /**
      * Inserisce una risposta multipla nel database
      * @param RispostaMultipla $risposta La nuova risposta da inserire nel database
@@ -84,6 +88,24 @@ class RispostaMultiplaModel extends Model {
      */
     public function getMultipleByElaborato($elaborato) {
         $query = sprintf(self::$GET_ALL_RISPOSTA_MULTIPLA_ELABORATO , $elaborato->getSessioneId(), $elaborato->getStudenteMatricola());
+        $res = Model::getDB()->query($query);
+        $risposte = array();
+        if($res){
+            while($obj=$res->fetch_assoc()) {
+                $risposta = new RispostaMultipla($obj['elaborato_sessione_id'], $obj['elaborato_studente_matricola'], $obj['domanda_multipla_id'],$obj['punteggio'], $obj['alternativa_id']);
+                $risposte[] = $risposta;
+            }
+        }
+        return $risposte;
+    }
+
+    /**
+     * Ricerca tutte le risposte multiple di una domanda
+     * @param int $domanda La domanda per la quale si vogliono cercare tutte le risposte multiple
+     * @return RispostaMultipla[] $risposte Elenco di tutte le risposte multiple di una domanda
+     */
+    public function getAllRisposteMultipleByDomanda($domanda) {
+        $query = sprintf(self::$GET_ALL_RISPOSTA_MULTIPLA_DOMANDA, $domanda);
         $res = Model::getDB()->query($query);
         $risposte = array();
         if($res){
