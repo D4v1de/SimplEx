@@ -440,7 +440,7 @@ $dataTo = $sessioneByUrl->getDataFine();
                 xhttp.open("GET", "/docente/corso/something/gestoredata", true);
                 xhttp.send();
             }
-            setInterval(loadDoc, 1000);
+            setInterval(loadDoc, 10000);
         </script>
 
 <!-- END JAVASCRIPTS -->
