@@ -123,7 +123,7 @@ $dataTo = $sessioneByUrl->getDataFine();
                     <ul class="page-breadcrumb">
                         <li>
                             <i class="fa fa-home"></i>
-                            <a href="index.html">Home</a>
+                            <a href="/docente">Home</a>
                             <i class="fa fa-angle-right"></i>
                         </li>
                         <li>
