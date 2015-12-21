@@ -1,18 +1,19 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: Alina
- * Date: 28/11/2015
- * Time: 13:04
+ * La classe effettua il test di tutti i metodi della classe ArgomentoModel.php
+ * @author Alina Korniychuk
+ * @version 1.0
+ * @since 28/11/15
  */
 
 
 class ArgomentoModelTest extends \PHPUnit_Framework_TestCase
 {
     const IDARGOMENTO = 1;//CI DEVE ESSERE SEMPRE NEL DB UN ARGOMENTO CON QUESTO ID
-    const NOMEARG = "Funzioni";
-    const IDCORSO = 19;
-    const NOMEARG2 = "Funzioni complesse";
+    const NOMEARG = "Funzioni4";
+    const IDCORSO = 18;
+    const NOMEARG2 = "Funzioni complesse4";
 
     public function testArgomento()
     {
@@ -21,6 +22,8 @@ class ArgomentoModelTest extends \PHPUnit_Framework_TestCase
 
         //Funziona perfettamente
 
+        $model->deleteArgomento(143);
+        $model->deleteArgomento(144);
         //testo la read
         $argomento = $model->readArgomento(self::IDARGOMENTO);
         print_r($argomento);
@@ -54,6 +57,7 @@ class ArgomentoModelTest extends \PHPUnit_Framework_TestCase
 
         //leggo tutti gli argomenti e verifico se l'argomento in questione è stato eliminato
         $allAr = $model->getAllArgomento();
+        print("Stampo tutti gli argomenti");
         print_r($allAr);
     }
 }

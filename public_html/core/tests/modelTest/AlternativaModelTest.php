@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Alina
- * Date: 29/11/2015
- * Time: 20:30
+ * La classe effettua il test di tutti i metodi della classe AlternativaModel.php
+ * @author Alina Korniychuk
+ * @version 1.0
+ * @since 29/11/15
  */
 
 
@@ -12,8 +12,8 @@
 class AlternativaModelTest extends \PHPUnit_Framework_TestCase
 {
 
-    const IDALTERNATIVA = 1;//CI DEVE STARE NEL DB ALTERNATIVA CON QUESTO ID
-    const IDDOMMULTIPLA =  3;
+    const IDALTERNATIVA = 2;//CI DEVE STARE NEL DB ALTERNATIVA CON QUESTO ID
+    const IDDOMMULTIPLA =  5;
     const TESTO = "Risposta di prova";
     const PERCSCELTA = 10;
     const CORRETTA = 'No';
