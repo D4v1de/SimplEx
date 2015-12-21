@@ -25,7 +25,7 @@ $argomento = null;
 $correttezzaLogin = false;
 
 try{
-    $corso = $controllerCdl->readCorso($_URL[2]); //qui dentro andrà $_URL[..]; IDCORSO
+    $corso = $controllerCdl->readCorso($_URL[2]);
 }catch(ApplicationException $exception){
     echo "ERRORE IN READ CORSO" . $exception;
 }
@@ -36,7 +36,7 @@ try{
     echo "ERRORE IN READ ARGOMENTO" . $exception;
 }
 
-//CONTROLLO LOGIN CORRETTO
+//PRENDE INFORMAZIONI SULL'UTENTE LOGGATO E CONTROLLA SE E' LO STESSO AL QUALE E' ASSOCIATO IL CORSO
 try{
     $matricolaLoggato = $utenteLoggato->getMatricola();
 }catch(ApplicationException $exception){
@@ -59,7 +59,7 @@ if($correttezzaLogin == false){
     header('Location: /docente');
 }
 
-
+//MODIFICA L'ARGOMENTO PRECEDENTEMENTE SELEZIONATO
 if(isset($_POST['nome'])){
     $nome = $_POST['nome'];
         $argomento->setNome($nome);

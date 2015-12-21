@@ -64,12 +64,15 @@ foreach ($idsSessione as $c) {
          ;
 }
 
+
 try {
     $corso = $controllerCorso->readCorso($_URL[2]);
 }catch(ApplicationException $exception){
     echo "ERRORE IN READ CORSO " . $exception;
 }
 
+
+//PRENDE INFORMAZIONI SULL'UTENTE LOGGATO E CONTROLLA SE E' LO STESSO AL QUALE E' ASSOCIATO IL CORSO
 try {
     $docenteassociato = $controllerArgomento->getDocenteAssociato($corso->getId());
 }catch(ApplicationException $exception){
@@ -111,7 +114,7 @@ if(isset($_POST['IdSes'])){
 }
 
 
-
+//RIMUOVE L'ARGOMENTO SELEZIONATO
 if(isset($_POST['id'])){
     $id = $_POST['id'];
     $idcorso = $corso->getId();
@@ -581,6 +584,7 @@ $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso
 </script>
 
 <script>
+    //controlla se c'è qualche notifica da mostrare
     function checkNotifiche(){
         var href = window.location.href;
         var last = href.substr(href.lastIndexOf('/') + 1);
