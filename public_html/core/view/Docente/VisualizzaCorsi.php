@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: fede_dr
- * Date: 23/11/15
- * Time: 21:59
+ * La view consente ad un Docente di visualizzare tutti i corsi relativi ad un CdL
+ * @author Federico De Rosa
+ * @version 1
+ * @since 18/11/15 09:58
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc

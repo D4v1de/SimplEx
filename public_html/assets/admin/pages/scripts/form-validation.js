@@ -19,9 +19,25 @@ var FormValidation = function () {
                         maxlength: jQuery.validator.format("Max {0} items allowed for selection"),
                         minlength: jQuery.validator.format("At least {0} items must be selected")
                     },
-                    'checkbox[]': {
-                        required: ""
+                    nome: {
+                        validchar: "Puoi inserire solo caratteri validi"
                     },
+                    punteggioErrata: {
+                        min: "il punteggio non può essere negativo",
+                        max: "il punteggio non può essere positivo"
+                    },
+                    punteggioEsatta: {
+                        min: "il punteggio non può essere negativo",
+                        max: "il punteggio non può essere positivo"
+                    },
+                    matricola: {
+                        min: "non puoi inserire un numero negativo",
+                        max: "non puoi inserire un numero positivo"
+                    },
+                    cdlmatricola: {
+                        min: "non puoi inserire un numero negativo",
+                        max: "non puoi inserire un numero positivo"
+                    }
                 },
                 rules: {
                     name: {
@@ -34,17 +50,20 @@ var FormValidation = function () {
                         minlength: 2,
                         maxlength: 30,
                         number: false,
-                        required: true
+                        required: true,
+                        validchar: true
                     },
                     nomecdl: {
                         minlength: 2,
                         maxlength: 40,
-                        required: true
+                        required: true,
+                        validchar: true
                     },
                     nomecorso: {
                         minlength: 2,
                         maxlength: 40,
-                        required: true
+                        required: true,
+                        validchar: true
                     },
                     nomeargomento: {
                         required: true,
@@ -55,6 +74,20 @@ var FormValidation = function () {
                         required: true,
                         minlength: 1,
                         maxlength: 500
+                    },
+                    matricola: {
+                        required: true,
+                        number: true,
+                        min: 0,
+                        minlength: 10,
+                        maxlength: 10
+                    },
+                    cdlmatricola: {
+                        required: true,
+                        number: true,
+                        min: 0,
+                        minlength: 10,
+                        maxlength: 10
                     },
                     email: {
                         required: true,
@@ -73,8 +106,8 @@ var FormValidation = function () {
                     //per il test
                     descrizione: {
                         required: true,
-                        minlenght: 2
-                        //maxlength: 500
+                        minlenght: 2,
+                        maxlength: 500
                     },
                     radio1: {
                         required: true
@@ -83,7 +116,7 @@ var FormValidation = function () {
                         required: true
                     },
                     testoDomanda: {
-                        required:true,
+                        required: true,
                         minlength: 2,
                         maxlength: 500
                     },
@@ -92,7 +125,7 @@ var FormValidation = function () {
                         minlength: 2
                     },
                     risposteNuove: {
-                        required:true,
+                        required: true,
                         minlength: 2
                     },
                     'testoRisposta[]': {
@@ -122,24 +155,14 @@ var FormValidation = function () {
                     //da mettere maggiore uguale di zero
                     punteggioEsatta: {
                         required: true,
-                        number: true
+                        number: true,
+                        min: 0
                     },
                     // qui anche negativo (però dicono di fare solo negativo)
                     punteggioErrata: {
                         required: true,
-                        number: true
-                    },
-                    matricola: {
-                        required: true,
                         number: true,
-                        minlength: 10,
-                        maxlength: 10
-                    },
-                    cdlmatricola: {
-                        required: true,
-                        number: true,
-                        minlength: 10,
-                        maxlength: 10
+                        max: 0
                     },
                     digits: {
                         required: true,

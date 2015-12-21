@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: fede_dr
- * Date: 23/11/15
- * Time: 21:58
+ * La view consente all'Admin di visualizzare un corso e tutti i docenti ad esso associati, eventualmente associare o disassociare docenti
+ * @author Federico De Rosa
+ * @version 1
+ * @since 23/11/15 21:58
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc

@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: fede_dr
- * Date: 23/11/15
- * Time: 21:58
+ * La view consente ad uno Studente di visualizzare un corso e le relative sessioni
+ * @author Federico De Rosa, Fabiano Pecorelli
+ * @version 1
+ * @since 23/11/15 21:58
  */
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "CdlController.php";

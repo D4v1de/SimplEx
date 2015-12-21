@@ -1,12 +1,11 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: sergio
- * Date: 18/11/15
- * Time: 09:58
+ * La view che consente al docente di visualizzare i dettagli di una sessione in corso
+ * @author Antonio Luca D'Avanzo
+ * @version 1
+ * @since 18/11/15 09:58
  */
 
-//TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "SessioneController.php";
 include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "ElaboratoController.php";
@@ -14,6 +13,8 @@ $controller = new SessioneController();
 $controlleCdl = new CdlController();
 $controllerEla= new ElaboratoController();
 
+
+$diLuca=0;
 $idSessione=$_URL[4];
 $identificativoCorso = $_URL[2];
 $corso = $controlleCdl->readCorso($identificativoCorso);
@@ -24,19 +25,19 @@ try {
     $dataFrom = $sessioneByUrl->getDataInizio();
     $dataTo = $sessioneByUrl->getDataFine();
     $tipoSessione = $sessioneByUrl->getTipologia();
+    $soglia = $sessioneByUrl->getSogliaAmmissione();
 
 } catch (ApplicationException $ex) {
     echo "<h1>errore! ApplicationException->errore manca id sessione nel path!</h1>";
     echo "<h4>" . $ex . "</h4>";
 }
 
-
 if(isset( $_POST['datato']) && isset( $_POST['termina'] )) {
     $dataNow=date('Y/m/d/ h:i:s ', time());
     $dataTo=$dataNow;
     $newSessione = new Sessione($dataFrom, $dataNow, 18, "Eseguita", $tipoSessione, $identificativoCorso);
     $controller->updateSessione($idSessione,$newSessione);
-    $vaiVisuEsiti= "Location: "."/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."esiti";
+    $vaiVisuEsiti= "Location: "."/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."esiti/show";
     header($vaiVisuEsiti);
 
 }
@@ -62,6 +63,14 @@ if(isset( $_POST['annullaEsame'])) {
 if(isset( $_POST['aggiorna'])) {
     header("Refresh:0");
 }
+
+
+if($_URL[6]=="autostart") {
+    $newSessione = new Sessione($dataFrom, $dataTo, $soglia, "In esecuzione", $tipoSessione, $identificativoCorso);
+    $controller->updateSessione($idSessione,$newSessione);
+}
+
+
 $sessioneByUrl = $controller->readSessione($idSessione);
 $dataTo = $sessioneByUrl->getDataFine();
 ?>
@@ -76,7 +85,7 @@ $dataTo = $sessioneByUrl->getDataFine();
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>Metronic | Page Layouts - Blank Page</title>
+    <title>Sessione in Corso</title>
     <?php include VIEW_DIR . "design/header.php"; ?>
     <link rel="stylesheet" type="text/css"
           href="/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css">
@@ -96,8 +105,9 @@ $dataTo = $sessioneByUrl->getDataFine();
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                    Sessione in Corso
+                <div id="demo"></div>
                 </h3>
+
                 <div class="page-bar">
                     <ul class="page-breadcrumb">
                         <li>
@@ -215,7 +225,7 @@ $dataTo = $sessioneByUrl->getDataFine();
 
 
             <!-- TABELLA 2 -->
-            <form method="post" action="">
+            <form method="post" action="" name="myForm">
 
             <div class="row">
                 <div class="col-md-12">
@@ -315,7 +325,7 @@ $dataTo = $sessioneByUrl->getDataFine();
                         </div>
                         <div class="col-md-3">
                             <div class="input-group date form_datetime">
-                                <input name="datato" type="text" value='<?php printf("%s", $dataTo) ?>' readonly size="16" class="form-control"/>
+                                <input name="datato" id="termine" type="text" value='<?php printf("%s", $dataTo) ?>' readonly  size="16" class="form-control"/>
                                         <span class="input-group-btn">
                                             <button class="btn default date-set" type="button"><i
                                                     class="fa fa-calendar"></i></button>
@@ -330,13 +340,16 @@ $dataTo = $sessioneByUrl->getDataFine();
                         <div class="col-md-2" >
                         </div>
                         <div class="col-md-1" >
-                         <button type="submit"  name="termina" value="nada" class="btn sm red-intense" data-toggle="confirmation"
+                         <button type="submit"  id="bottoneT" name="termina" value="<?php printf("%s", $dataTo) ?>" class="btn sm red-intense" data-toggle="confirmation"
                                 data-singleton="true" data-popout="true" title="Sicuro?"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                              TERMINA ORA
                          </button>
                             </div>
                     </div>
                 </div>
+
+
+
             </form>
 
 
@@ -361,17 +374,64 @@ $dataTo = $sessioneByUrl->getDataFine();
 <script type="text/javascript" src="/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 <script>
     jQuery(document).ready(function () {
-        Metronic.init(); // init metronic core components
-        Layout.init(); // init current layout
-        //QuickSidebar.init(); // init quick sidebar
-        //Demo.init(); // init demo features
+        Metronic.init();
+        Layout.init();
         UIConfirmations.init();
     });
 </script>
         <script>
-            //SCRIPT PER AVVIARE DATETIMEPICKER
             $(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii:ss'});
         </script>
+        <script src="/assets/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
+        <script>
+            var count=0;
+            function loadDoc() {
+
+                var datTo = document.getElementById('bottoneT').value;
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (xhttp.readyState == 4 && xhttp.status == 200) {
+                        var boT = new Date(datTo.substr(0, 4), datTo.substr(5, 2) - 1, datTo.substr(8, 2), datTo.substr(11, 2), datTo.substr(14, 2), datTo.substr(17, 2) );
+                        var timeFromServer = new Date(xhttp.responseText.substr(0, 4), xhttp.responseText.substr(5, 2) - 1, xhttp.responseText.substr(8, 2), xhttp.responseText.substr(11, 2), xhttp.responseText.substr(14, 2), xhttp.responseText.substr(17, 2));
+                        if(boT>=timeFromServer)
+                            document.getElementById("demo").innerHTML = "Sessione in Corso" ;
+                        else {
+                            if(count==0) {
+                                document.getElementById("demo").innerHTML = "Sessione Terminata";
+                                bootbox.dialog({
+                                    message: "Vai alla visualizzazione degli esiti.",
+                                    title: "La sessione è terminata.",
+                                    closeButton: false,
+                                    buttons: {
+                                        conferma: {
+                                            label: "Ok",
+                                            className: "green",
+                                            callback: function () {
+                                                var var1='/docente/corso/';
+                                                var var2=<?php echo "$identificativoCorso" ?>;
+                                                var var3='/sessione/';
+                                                var var4=<?php echo "$idSessione" ?>;
+                                                var var5='/esiti/autoendsuccess';
+                                                var res1 = var1.concat(var2);
+                                                var res2 = res1.concat(var3);
+                                                var res3 = res2.concat(var4);
+                                                var res4 = res3.concat(var5);
+                                                location.href = res4;
+                                            }
+                                        }
+                                    }
+                                });
+                                count++;
+                            }
+                        }
+                    }
+                };
+                xhttp.open("GET", "/docente/corso/something/gestoredata", true);
+                xhttp.send();
+            }
+            setInterval(loadDoc, 1000);
+        </script>
+
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

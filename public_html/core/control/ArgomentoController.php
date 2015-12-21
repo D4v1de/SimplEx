@@ -46,7 +46,7 @@ class ArgomentoController {
      */
 
     public function getDocenteAssociato($corsoID) {
-        $accountModel = new AccountModel();
+        $accountModel = new UtenteModel();
         return $accountModel->getAllDocentiByCorso($corsoID);
     }
 

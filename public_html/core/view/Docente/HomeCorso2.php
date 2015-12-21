@@ -1,12 +1,14 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Carlo, Fabio, Luca
- * Date: 23/11/15
- * Time: 21:59
+ * La view consente al docente di visualizzare la home del corso.
+ * In particolare si occupa di mostrare la lista di tutte le sessioni, tutti i
+ * tests e tutti gli argomenti relativi a quel corso.
+ *
+ * @author Antonio Luca D'Avanzo, Fabio Esposito, Carlo Di Domenico
+ * @version 1
+ * @since 18/11/15 09:58
  */
 
-//TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "SessioneController.php";
 include_once CONTROL_DIR . "TestController.php";
 include_once CONTROL_DIR . "ArgomentoController.php";
@@ -37,11 +39,11 @@ foreach ($idsSessione as $c) {
     $end = $c->getDataFine();
     $start = $c->getDataInizio();
 
-    if ($c->getStato() == "Non eseguita" && ($now >= $start && $now <= $end)) { //vuol dire che è in esecuizione
+    if ($c->getStato() == "Non eseguita" && ($now >= $start && $now <= $end)) {
         $sessioneAggiornata = new Sessione($c->getDataInizio(), $c->getDataFine(), $c->getSogliaAmmissione(), "In esecuzione", $c->getTipologia(), $identificativoCorso);
         $controllerSessione->updateSessione($c->getId(), $sessioneAggiornata);
     }
-    else if ($c->getStato() == "Eseguita" && ($now >= $start && $now <= $end)) { //vuol dire che è in esecuizione
+    else if ($c->getStato() == "Eseguita" && ($now >= $start && $now <= $end)) {
         $sessioneAggiornata = new Sessione($c->getDataInizio(), $c->getDataFine(), $c->getSogliaAmmissione(), "In esecuzione", $c->getTipologia(), $identificativoCorso);
         $controllerSessione->updateSessione($c->getId(), $sessioneAggiornata);
     }else if ($c->getStato() == "Non eseguita" && ($now > $end)) {
@@ -49,6 +51,12 @@ foreach ($idsSessione as $c) {
         $controllerSessione->updateSessione($c->getId(), $sessioneAggiornata);
     } else if ($c->getStato() == "In esecuzione" && ($now > $end)) {
         $sessioneAggiornata = new Sessione($c->getDataInizio(), $c->getDataFine(), $c->getSogliaAmmissione(), "Eseguita", $c->getTipologia(), $identificativoCorso);
+        $controllerSessione->updateSessione($c->getId(), $sessioneAggiornata);
+    } else if ($c->getStato() == "In esecuzione" && ($now < $start)) {
+        $sessioneAggiornata = new Sessione($c->getDataInizio(), $c->getDataFine(), $c->getSogliaAmmissione(), "Non eseguita", $c->getTipologia(), $identificativoCorso);
+        $controllerSessione->updateSessione($c->getId(), $sessioneAggiornata);
+    } else if ($c->getStato() == "Eseguita" && ($now < $start)) {
+        $sessioneAggiornata = new Sessione($c->getDataInizio(), $c->getDataFine(), $c->getSogliaAmmissione(), "Non eseguita", $c->getTipologia(), $identificativoCorso);
         $controllerSessione->updateSessione($c->getId(), $sessioneAggiornata);
     } else
          ;
@@ -65,9 +73,6 @@ try {
 }catch(ApplicationException $exception){
     echo "ERRORE IN GETDOCENTEASSOCIATO" . $exception;
 }
-
-
-//CONTROLLO LOGIN CORRETTO
 
 try{
     $matricolaLoggato = $utenteLoggato->getMatricola();
@@ -296,8 +301,8 @@ $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso
                                     $start = $c->getDataInizio();
                                     $vaiAModifica="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."creamodificasessione";
                                     $vaiAVisu="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId();
-                                    $vaiASesInCorso="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."sessioneincorso";
-                                    $vaiVisuEsiti= "/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."esiti";
+                                    $vaiASesInCorso="/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."sessioneincorso/show";
+                                    $vaiVisuEsiti= "/docente/corso/".$identificativoCorso."/sessione"."/".$c->getId()."/"."esiti/show";
 
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
                                     if($c->getStato()!="In esecuzione")
@@ -551,10 +556,8 @@ $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso
 <!-- END aggiunta da me -->
 <script>
     jQuery(document).ready(function () {
-        Metronic.init(); // init metronic core components
-        Layout.init(); // init current layout
-        //QuickSidebar.init(); // init quick sidebar
-        //Demo.init(); // init demo features
+        Metronic.init();
+        Layout.init();
         TableManaged2.init("tabella_sessioni","tabella_sessioni_wrapper");
         TableManaged2.init("tabella_test","tabella_test_wrapper");
         TableManaged2.init("tabella_argomenti","tabella_argomenti_wrapper");
