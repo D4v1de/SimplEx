@@ -22,8 +22,6 @@ class ArgomentoModelTest extends \PHPUnit_Framework_TestCase
 
         //Funziona perfettamente
 
-        $model->deleteArgomento(143);
-        $model->deleteArgomento(144);
         //testo la read
         $argomento = $model->readArgomento(self::IDARGOMENTO);
         print_r($argomento);

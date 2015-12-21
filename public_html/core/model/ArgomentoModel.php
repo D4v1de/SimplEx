@@ -22,7 +22,8 @@ class ArgomentoModel extends Model {
     private static $GET_ALL_ARGOMENTI_BY_CORSO = "SELECT * FROM `argomento` WHERE corso_id = '%d' AND stato = 'In uso' ORDER BY nome";
     private static $DELETE_DOMANDA_APERTA_ARGOMENTO = "UPDATE `domanda_aperta` SET stato = 'Obsoleto' WHERE argomento_id = '%d'";
     private static $DELETE_DOMANDA_MULTIPLA_ARGOMENTO = "UPDATE `domanda_multipla` SET stato = 'Obsoleto' WHERE argomento_id = '%d'";
-    
+
+
     /**
      *Inserisce un nuovo argomento nel database
      * @param Argomento L'argomento da inserire nel database
