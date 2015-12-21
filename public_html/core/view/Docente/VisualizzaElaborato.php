@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * La view consente al docente di visualizzare uno specifico elaborato.
+ *
+ * @author Antonio Luca D'Avanzo
+ * @version 1
+ * @since 18/11/15 09:58
+ */
+
+
 include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "UtenteController.php";
 include_once CONTROL_DIR . "ElaboratoController.php";
@@ -58,6 +67,18 @@ try {
 } catch (ApplicationException $ex) {
     echo "<h1>INSERIRE ID CORSO NEL PATH!</h1>" . $ex;
 }
+$numProfs=0;
+$doc = $_SESSION['user'];
+$docentiOe=$controllerUtente->getDocenteAssociato($url);
+foreach($docentiOe as $d) {
+    if($doc==$d){
+        $numProfs++;
+    }
+}
+if($numProfs==0){
+    header("Location: "."/docente/corso/".$corso->getId());
+}
+
 try {
     $cdl = $controller->readCdl($corso->getCdlMatricola());
 } catch (ApplicationException $ex) {
