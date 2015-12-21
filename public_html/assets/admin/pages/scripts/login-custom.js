@@ -1,5 +1,6 @@
 jQuery.extend(jQuery.validator.messages, {
     digits: "Solo i numeri sono amessi",
+    email: "L'email inserita non è corretta",
     equalTo: "Le password non coincidono"
 });
 var Login = function () {
@@ -12,11 +13,14 @@ var Login = function () {
             rules: {
                 email: {
                     required: true,
-                    email: true
+                    email: true,
+                    minlength: 5,
+                    maxlength: 50
                 },
                 password: {
                     required: true,
-                    minlength: 8
+                    minlength: 8,
+                    maxlength: 32
                 },
                 remember: {
                     required: false
@@ -28,7 +32,7 @@ var Login = function () {
                     required: "E-mail è obbligatorio"
                 },
                 password: {
-                    required: "Password è obbligatorio"
+                    required: "Formato password errato. La password deve contenere minimo 8 caratteri."
                 }
             },
 
@@ -185,18 +189,26 @@ var Login = function () {
             rules: {
 
                 name: {
-                    required: true
+                    required: true,
+                    minlength: 2,
+                    maxlength: 30
                 },
                 surname: {
-                    required: true
+                    required: true,
+                    minlength: 2,
+                    maxlength: 30
                 },
                 matricola: {
                     required: true,
-                    digits: true
+                    digits: true,
+                    minlength: 10,
+                    maxlength: 10
                 },
                 email: {
                     required: true,
-                    email: true
+                    email: true,
+                    minlength: 5,
+                    maxlength: 50
                 },
                 address: {
                     required: true
@@ -212,11 +224,15 @@ var Login = function () {
                     required: true
                 },
                 password: {
-                    required: true
+                    required: true,
+                    minlength: 8,
+                    maxlength: 32
                 },
                 rpassword: {
                     equalTo: "#register_password",
-                    required: true
+                    required: true,
+                    minlength: 8,
+                    maxlength: 32
                 },
 
                 cdl_matricola: {
