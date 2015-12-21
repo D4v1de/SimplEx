@@ -13,13 +13,16 @@ class CdlControllerTest extends \PHPUnit_Framework_TestCase
     const TIPOLOGIA = 'Triennale';
     const NOME2 = 'Nome corso2';
     const TIPOLOGIA2 = 'Magistrale';
-    const CDLMATRICOLA = '051214';
-    const STUDENTEMATRICOLA = '0512102396';
-    const DOCENTEMATRICOLA = '0512109999';
+    const TIPOLOGIA3 = 'Annuale';
+    const TIPOLOGIA4 = 'Semestrale';
+    const CDLMATRICOLA = '051210';
+    const STUDENTEMATRICOLA = '0512102360';
+    const DOCENTEMATRICOLA = '022500161';
 
-    public function TestCdlController() {
+    public function testCdlController() {
 
         $controller = new \CdlController();
+
         //creo cdl
         $cdl = new CdL(self::MATRICOLA, self::NOME, self::TIPOLOGIA);
         $controller->creaCdl($cdl);
@@ -55,7 +58,7 @@ class CdlControllerTest extends \PHPUnit_Framework_TestCase
 
 
         //creo il corso
-        $idCorso = $controller->creaCorso(new Corso(self::MATRICOLA,self::NOME,self::TIPOLOGIA,self::CDLMATRICOLA));
+        $idCorso = $controller->creaCorso(new Corso(self::MATRICOLA,self::NOME,self::TIPOLOGIA3,self::CDLMATRICOLA));
 
         //leggo dal db corso creato
         $corso = $controller->readCorso($idCorso);
@@ -64,17 +67,16 @@ class CdlControllerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($idCorso, $corso->getId());
         $this->assertEquals(self::MATRICOLA, $corso->getMatricola());
         $this->assertEquals(self::NOME, $corso->getNome());
-        $this->assertEquals(self::TIPOLOGIA, $corso->getTipologia());
+        $this->assertEquals(self::TIPOLOGIA3, $corso->getTipologia());
         $this->assertEquals(self::CDLMATRICOLA, $corso->getCdlMatricola());
 
         //modifico il corso
-        $controller->modificaCorso($idCorso, new Corso(self::MATRICOLA,self::NOME,self::TIPOLOGIA2,self::CDLMATRICOLA));
+        $controller->modificaCorso($idCorso, new Corso(self::MATRICOLA,self::NOME,self::TIPOLOGIA4,self::CDLMATRICOLA));
         //leggo il corso modificato dal db
         $corsomodificato = $controller->readCorso($idCorso);
-        $this->assertEquals(self::TIPOLOGIA2, $corsomodificato->getTipologia());
+        $this->assertEquals(self::TIPOLOGIA4, $corsomodificato->getTipologia());
 
-        //elimino il corso
-        $controller->eliminaCorso($idCorso);
+
 
         //leggo tutti i corsi dal db
         $allCorsi = $controller->getCorsi();
@@ -87,12 +89,13 @@ class CdlControllerTest extends \PHPUnit_Framework_TestCase
         //creo una relazione insegnamento
         $controller->creaInsegnamento($idCorso, self::DOCENTEMATRICOLA);
 
+        //elimino il corso
+        $controller->eliminaCorso($idCorso);
+
         //leggo tutti i corsi insegnati da un docente
         $allCorsiDocente = $controller->getCoursesByMatricola(self::DOCENTEMATRICOLA);
         print_r($allCorsiDocente);
 
-        //elimino la relazione insegnamento
-        $controller->eliminaInsegnamento($idCorso, self::DOCENTEMATRICOLA);
 
         //leggo tutti i corsi insegnati da un docente
         $allCorsiDocente = $controller->getCoursesByMatricola(self::DOCENTEMATRICOLA);
@@ -101,6 +104,10 @@ class CdlControllerTest extends \PHPUnit_Framework_TestCase
         //leggo tutti i corsi frequentati da uno studente
         $allCorsiStudente = $controller->getCorsiStudente(self::STUDENTEMATRICOLA);
         print_r($allCorsiStudente);
+
+
+        //elimino la relazione insegnamento
+        $controller->eliminaInsegnamento($idCorso, self::DOCENTEMATRICOLA);
 
     }
 

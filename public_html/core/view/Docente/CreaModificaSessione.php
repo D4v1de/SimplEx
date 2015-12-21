@@ -6,7 +6,8 @@
  * @version 1
  * @since 18/11/15 09:58
  */
-
+include_once CONTROL_DIR . "UtenteController.php";
+$controllerUtente = new UtenteController();
 include_once CONTROL_DIR . "SessioneController.php";
 $controller = new SessioneController();
 include_once CONTROL_DIR . "CdlController.php";
@@ -16,6 +17,18 @@ $testController = new TestController();
 include_once CONTROL_DIR . "ElaboratoController.php";
 $controllerElaborato = new ElaboratoController();
 $idCorso = $_URL[2];
+$numProfs=0;
+$doc = $_SESSION['user'];
+$docentiOe=$controllerUtente->getDocenteAssociato($idCorso);
+foreach($docentiOe as $d) {
+    if($doc==$d){
+        $numProfs++;
+    }
+}
+if($numProfs==0){
+    header("Location: "."/docente/corso/".$corso->getId());
+}
+
 try {
     $corso = $controlleCdl->readCorso($idCorso);
     $nomecorso= $corso->getNome();
@@ -294,7 +307,7 @@ if($_URL[4]!=0) {
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="index.html">Home</a>
+                        <a href="/docente">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>

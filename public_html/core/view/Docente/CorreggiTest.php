@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * La view consente al docente di correggere uno specifico elaborato.
+ *
+ * @author Antonio Luca D'Avanzo
+ * @version 1
+ * @since 18/11/15 09:58
+ */
+
+
 include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "UtenteController.php";
 include_once CONTROL_DIR . "ElaboratoController.php";
@@ -51,13 +60,23 @@ if (!is_numeric($url)) {
     echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
 }
 
-
-
 try {
     $corso = $controller->readCorso($url);
 } catch (ApplicationException $ex) {
     echo "<h1>INSERIRE ID CORSO NEL PATH!</h1>" . $ex;
 }
+$numProfs=0;
+$doc = $_SESSION['user'];
+$docentiOe=$controllerUtente->getDocenteAssociato($url);
+foreach($docentiOe as $d) {
+    if($doc==$d){
+        $numProfs++;
+    }
+}
+if($numProfs==0){
+    header("Location: "."/docente/corso/".$corso->getId());
+}
+
 try {
     $cdl = $controller->readCdl($corso->getCdlMatricola());
 } catch (ApplicationException $ex) {
@@ -160,7 +179,7 @@ if (isset($_GET['salva'])){
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="index.html">Home</a>
+                        <a href="/docente">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>

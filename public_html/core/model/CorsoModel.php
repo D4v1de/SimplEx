@@ -20,7 +20,9 @@ class CorsoModel extends Model {
     private static $GET_ALL_CORSI_CDL = "SELECT * FROM `corso` WHERE cdl_matricola = '%s' ORDER BY nome";
     private static $GET_ALL_CORSI_DOCENTE = "SELECT c.* FROM `insegnamento` as i,`corso` as c WHERE i.corso_id = c.id AND i.docente_matricola = '%s' ORDER BY c.nome";
     private static $GET_ALL_CORSI_STUDENTE = "SELECT c.* FROM `frequenta` as f,`corso` as c WHERE f.corso_id = c.id AND f.studente_matricola = '%s' ORDER BY c.nome";
-    
+    private static $CREATE_INSEGNAMENTO = "INSERT INTO `insegnamento` (corso_id, docente_matricola) VALUES ('%d','%s')";
+    private static $DELETE_INSEGNAMENTO = "DELETE FROM `insegnamento` WHERE corso_id = '%d' AND docente_matricola = '%s'";
+
     /**
      * Inserisce un nuovo corso nel database
      * @param Corso $corso Il corso da inserire nel database
@@ -78,6 +80,35 @@ class CorsoModel extends Model {
         }
         else{
             throw new ApplicationException(Error::$CORSO_NON_TROVATO); 
+        }
+    }
+
+    /**
+    * Inserisce un nuovo insegnamento nel database
+    * @param int $corso_id L'id del corso
+    * @param string $docente_matricola La matricola del docente
+    * @throws ApplicationException
+    */
+    public function createInsegnamento($corso_id, $docente_matricola){
+            $query = sprintf(self::$CREATE_INSEGNAMENTO, $corso_id, $docente_matricola);
+            Model::getDB()->query($query);
+            if (Model::getDB()->affected_rows==-1) {
+                    throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
+        }
+
+    }
+
+    /**
+     * Cancella un insegnamento nel database
+     * @param int $corso_id L'id del corso
+     * @param string $docente_matricola La matricola del docente
+     * @throws ApplicationException
+     */
+    public function deleteInsegnamento($corso_id, $docente_matricola){
+            $query = sprintf(self::$DELETE_INSEGNAMENTO, $corso_id, $docente_matricola);
+            Model::getDB()->query($query);
+            if (Model::getDB()->affected_rows==-1) {
+                    throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
         }
     }
     

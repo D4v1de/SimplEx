@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: fede_dr
- * Date: 23/11/15
- * Time: 21:58
- */
 
 /**
  * La view consente al docente di abilitare nuovi studenti mentre
@@ -46,11 +40,23 @@ try {
 catch (ApplicationException $ex) {
     echo "<h1>INSERIRE ID CORSO NEL PATH!</h1>".$ex;
 }
+$numProfs=0;
+$doc = $_SESSION['user'];
+$docentiOe=$controllerUtenti->getDocenteAssociato($corso->getId());
+foreach($docentiOe as $d) {
+    if($doc==$d){
+        $numProfs++;
+    }
+}
+if($numProfs==0){
+    header("Location: "."/docente/corso/".$corso->getId());
+}
 
 if($someStudentsChange=isset($_POST['abilita'])) {
     if($someStudentsChange){
         $cbStudents= Array();
         $cbStudents = $_POST['students'];
+        $allStuAbi= $sesController->getAllStudentiBySessione($idSessione);
         foreach($allStuAbi as $s) {
             $sesController->disabilitaStudenteDaSessione($idSessione, $s->getMatricola());
         }
@@ -58,8 +64,7 @@ if($someStudentsChange=isset($_POST['abilita'])) {
             $sesController->abilitaStudenteASessione($idSessione,$s);
         }
     }
-
-    header("Location: ../sessioneincorso");
+    header("Location: "."/docente/corso/".$idCorso."/"."sessione"."/".$idSessione."/"."sessioneincorso/show");
 
 }
 
@@ -101,7 +106,7 @@ if($someStudentsChange=isset($_POST['abilita'])) {
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="index.html">Home</a>
+                        <a href="/docente">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
@@ -117,7 +122,7 @@ if($someStudentsChange=isset($_POST['abilita'])) {
                     <li>
                         <?php
                             $sex = "Sessione ".$idSessione;
-                            $vaiASex= "/docente/corso/".$idCorso."/"."sessione"."/".$idSessione."/"."sessioneincorso";
+                            $vaiASex= "/docente/corso/".$idCorso."/"."sessione"."/".$idSessione."/"."sessioneincorso/show";
                             printf("<a href=\"%s\">%s</a>", $vaiASex, $sex);
                         ?>
                         <i class="fa fa-angle-right"></i>
@@ -188,6 +193,7 @@ if($someStudentsChange=isset($_POST['abilita'])) {
                                 $disabilita="";
                                 $array = $sesController->getAllStudentiByCorso($idCorso);
                                 $studentsOfSessione= $sesController->getAllStudentiBySessione($idSessione);
+                                $esaminandiSessione= $sesController->getEsaminandiSessione($idSessione);
                                 if ($array == null) {
                                     echo "l'array è null";
                                 }
@@ -196,9 +202,12 @@ if($someStudentsChange=isset($_POST['abilita'])) {
                                         printf("<tr class=\"gradeX odd\" role=\"row\">");
                                         foreach($studentsOfSessione as $t){
                                             if($c->getMatricola()==$t->getMatricola()) {
-                                                $disabilita="disabled";
                                                 $toCheckS = "Checked";
                                             }
+                                        }
+                                        foreach($esaminandiSessione as $e){
+                                            if($e->getMatricola()==$c->getMatricola())
+                                                $disabilita="disabled";
                                         }
                                         printf("<td><input name=\"students[]\" type=\"checkbox\" %s %s class=\"checkboxes\" value='%s'></td>",$disabilita,$toCheckS, $c->getMatricola());
                                         $toCheckS="";

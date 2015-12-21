@@ -15,11 +15,24 @@ include_once CONTROL_DIR . "RispostaApertaController.php";
 include_once CONTROL_DIR . "RispostaMultiplaController.php";
 include_once CONTROL_DIR . "AlternativaController.php";
 include_once CONTROL_DIR . "ElaboratoController.php";
+include_once CONTROL_DIR . "UtenteController.php";
 
+$controllerUtente = new UtenteController();
 $controllerSessione = new SessioneController();
 $controlleCdl = new CdlController();
 $idSessione = $_URL[4];
 $identificativoCorso = $_URL[2];
+$numProfs=0;
+$doc = $_SESSION['user'];
+$docentiOe=$controllerUtente->getDocenteAssociato($identificativoCorso);
+foreach($docentiOe as $d) {
+    if($doc==$d){
+        $numProfs++;
+    }
+}
+if($numProfs==0){
+    header("Location: "."/docente/corso/".$corso->getId());
+}
 $domandaController = new DomandaController();
 $elaboratoController = new ElaboratoController();
 $testController = new ControllerTest();
@@ -98,7 +111,7 @@ $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
                     <ul class="page-breadcrumb">
                         <li>
                             <i class="fa fa-home"></i>
-                            <a href="index.html">Home</a>
+                            <a href="/docente">Home</a>
                             <i class="fa fa-angle-right"></i>
                         </li>
                         <li>

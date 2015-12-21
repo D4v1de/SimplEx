@@ -9,12 +9,25 @@
 include_once CONTROL_DIR . "SessioneController.php";
 include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "ElaboratoController.php";
-$elaboratoController= new ElaboratoController();
+include_once CONTROL_DIR . "UtenteController.php";
 
+$elaboratoController= new ElaboratoController();
+$controllerUtente = new UtenteController();
 $controllerSessione = new SessioneController();
 $controlleCdl = new CdlController();
 $idSessione = $_URL[4];
 $identificativoCorso = $_URL[2];
+$numProfs=0;
+$doc = $_SESSION['user'];
+$docentiOe=$controllerUtente->getDocenteAssociato($identificativoCorso);
+foreach($docentiOe as $d) {
+    if($doc==$d){
+        $numProfs++;
+    }
+}
+if($numProfs==0){
+    header("Location: "."/docente/corso/".$corso->getId());
+}
 $sessione = null;
 $valu = null;
 $eser = null;
@@ -134,7 +147,7 @@ if(isset($_POST['rimuovi'])){
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="index.html">Home</a>
+                        <a href="/docente">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
@@ -534,7 +547,7 @@ if(isset($_POST['rimuovi'])){
             xhttp.open("GET", "/docente/corso/something/gestoredata", true);
             xhttp.send();
         }
-        setInterval(loadDoc, 1000);
+        setInterval(loadDoc, 10000);
     </script>
     <!-- END JAVASCRIPTS -->
 </body>
