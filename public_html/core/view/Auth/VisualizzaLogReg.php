@@ -77,7 +77,7 @@ $error = null;
     <form class="login-form" action="" method="post">
         <input type="hidden" name="action" value="login">
 
-        <h3 class="form-title">Effetua il login</h3>
+        <h3 class="form-title">Effettua il login</h3>
 
         <div class="alert alert-danger display-hide">
             <button class="close" data-close="alert"></button>
@@ -111,19 +111,19 @@ $error = null;
                 Login <i class="m-icon-swapright m-icon-white"></i>
             </button>
         </div>
-        <div class="forget-password">
-            <h4>Hai dimenticato la password?</h4>
-
-            <p>
-                nessun problema, clicca <a href="javascript:;" id="forget-password">
-                    qui </a>
-                per resettarla.
-            </p>
-        </div>
+<!--        <div class="forget-password">-->
+<!--            <h4>Hai dimenticato la password?</h4>-->
+<!---->
+<!--            <p>-->
+<!--                nessun problema, clicca <a href="javascript:;" id="forget-password">-->
+<!--                    qui </a>-->
+<!--                per resettarla.-->
+<!--            </p>-->
+<!--        </div>-->
         <div class="create-account">
             <p>
-                Non hai ancora account ?&nbsp; <a href="javascript:;" id="register-btn">
-                    Registrazione </a>
+                Non hai ancora l'account ?&nbsp; <a href="javascript:;" id="register-btn">
+                    Registrati! </a>
             </p>
         </div>
     </form>
