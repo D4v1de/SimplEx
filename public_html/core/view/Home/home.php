@@ -1,7 +1,12 @@
 <?php
 /**
- * User: Alina
+ * La HomePage di SimplEx
+ *
+ * @author Alina Korniychuk
+ * @version 1.0
+ * @since 27/11/15
  */
+
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>
@@ -675,7 +680,7 @@
                 <div class="item text-center">
                     <div class="single-member">
                         <div class="overlay-hover">
-                            <img src="/assets/homepage/images/team/Giusy.png" alt="" class="img-responsive">
+                            <img src="/assets/homepage/images/team/pic5.jpg" alt="" class="img-responsive">
 
                             <div class="overlay-effect">
                                 <ul class="social list-inline">
