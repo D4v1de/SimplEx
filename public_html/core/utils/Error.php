@@ -30,8 +30,8 @@ class Error {
      */
 
     public static $UTENTE_NON_TROVATO = "Utente non trovato";
-    public static $EMAIL_NON_VALIDA = "Email non è valida";
-    public static $PASS_CORTA = "La password inserita è troppo corta";
+    public static $EMAIL_NON_VALIDA = "L'email inserita non è corretta";
+    public static $PASS_CORTA = "Lunghezza password non valida";
     public static $MATRICOLA_INESISTENTE = "Matricola inesistente";
     public static $NOME_NON_VALIDO = "Nome non valido";
     public static $CONGNOME_NON_VALIDO = "Cognome non valido";

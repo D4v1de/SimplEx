@@ -97,7 +97,7 @@ try {
                                 include_once VIEW_DIR . "Admin/modificaUtente.php";
                                 break;
                             case '':
-                                include_once VIEW_DIR . "Admin/GestioneUtente.php";
+                                include_once VIEW_DIR . "Admin/gestioneUtente.php";
                                 break;
                             default:
                                 include_once VIEW_DIR . "Admin/Home.php";
