@@ -10,7 +10,7 @@
 
 class SessioneControllerTest extends \PHPUnit_Framework_TestCase
 {
-    const IDSESSIONE = 1;
+    const IDSESSIONE = 170; // CI DEVE STARE QUESTO ID NEL DB
     const TIPOLOGIASESS = 'Esercitativa';
     const TIPOLOGIASESS2 = "Valutativa";
     const CORSOID  = 18;
@@ -21,6 +21,7 @@ class SessioneControllerTest extends \PHPUnit_Framework_TestCase
     const DATAI2 = '2015-10-28 10:00:00';
     const DATAF2 = '2015-11-28 10:00:00';
     const MATRICOLA = "0512109994";
+    const IDTEST = 1;
 
     public function testSessione()
     {
@@ -77,14 +78,84 @@ class SessioneControllerTest extends \PHPUnit_Framework_TestCase
         print_r($allSC);
 
 
-        /*da testare ancora
-         $ASSOCIA_TEST_SESSIONE
-       $DISSOCIA_TEST_SESSIONE
-        $DELETE_ALL_TEST_FROM_SESSIONE
-        $ABILITA_MOSTRA_ESITO =
-         $DISABILITA_MOSTRA_ESITO =
-         $ABILITA_MOSTRA_RISPOSTE_CORRETTE
-        $DISABILITA_MOSTRA_RISPOSTE_CORRETTE */
+        //associo di nuovo il test per poi cancellare
+        $control->associaTestASessione(self::IDSESSIONE, self::IDTEST);
+        $control->deleteAllTestFromSessione(self::IDSESSIONE);
+        //stampo tutti i test per verificare che il test non esiste piu
+        $allTestsSessione = $control->getAllTestBySessione(self::IDSESSIONE);
+        print("Stampo tutti i test di sessione per verificare se il test è stato eliminato");
+        print_r($allTestsSessione);
+
+
+        //associo test ad una sessione
+        $control->associaTestASessione(self::IDSESSIONE, self::IDTEST);
+        //controllo se è stato associato
+        $allTestsSessione = $control->getAllTestBySessione(self::IDSESSIONE);
+        print("Stampo tutti i test di sessione per verificare se il test è stato associato");
+        print_r($allTestsSessione);
+
+
+        //testo abilita mostra esiti
+        $control->abilitaMostraEsito(self::IDSESSIONE);
+        $mostraEsito = $control->readMostraEsitoSessione(self::IDSESSIONE);
+        $this->assertEquals('Si', $mostraEsito);
+
+        //testo disabilita mostra esiti
+        $control->disabilitaMostraEsito(self::IDSESSIONE);
+        $mostraEsito = $control->readMostraEsitoSessione(self::IDSESSIONE);
+        $this->assertEquals('No', $mostraEsito);
+
+        //testo abilita mostra risposte corrette
+        $control->abilitaMostraRisposteCorrette(self::IDSESSIONE);
+        $mostraEsito = $control->readMostraRisposteCorretteSessione(self::IDSESSIONE);
+        $this->assertEquals('Si', $mostraEsito);
+
+        //testo disabilita mostra risposte corrette
+        $control->disabilitaMostraRisposteCorrette(self::IDSESSIONE);
+        $mostraEsito = $control->readMostraRisposteCorretteSessione(self::IDSESSIONE);
+        $this->assertEquals('No', $mostraEsito);
+
+        //elimino la sessione dal db
+        $control->deleteSessione($idSess);
+
+        //leggo tutte le sessioni e verifico se la sessione è stata eliminata
+        $allSess = $control->getAllSessioni();
+        print_r($allSess);
+
+        //leggo tutte le sessioni di uno studente
+        $allSbS = $control->getAllSessioniByStudente(self::MATRICOLA);
+        print_r($allSbS);
+
+        //leggo tutte le sessioni di un corso
+        $allSC = $control ->getAllSessioniByCorso(self::CORSOID);
+        print_r($allSC);
+
+        $studentiSess = $control->getEsaminandiSessione(self::IDSESSIONE);
+        print("Restituisce tutti gli studenti che stanno sostenendo una sessione\n");
+        print_r($studentiSess);
+
+        
+        $control->abilitaStudenteASessione(self::IDSESSIONE, self::MATRICOLA);
+        
+        $studentiSess = $control->getAllStudentiBySessione(self::IDSESSIONE);
+        print("Restituisce tutti gli studenti abilitati ad una sessione\n");
+        print_r($studentiSess);
+        
+        $control->disabilitaStudenteDaSessione(self::IDSESSIONE, self::MATRICOLA);
+
+        //cerco tutti gli studenti di un corso
+        $studenti = $control->getAllStudentiByCorso(self::CORSOID );
+        print("Restituisce tutti gli studenti di un corso\n");
+        print_r($studenti);
+
+        //leggo tutti i test del corso
+        $allTestsCorso = $control->getAllTestByCorso(self::CORSOID);
+        $allTestsCorso = $control->getAllTestByCorso(self::CORSOID);
+        print_r($allTestsCorso);
+
+        //leggo tutti i test della sessione
+        $allTestsSessione = $control->getAllTestBySessione(self::IDSESSIONE);
+        print_r($allTestsSessione);
 
     }
 
