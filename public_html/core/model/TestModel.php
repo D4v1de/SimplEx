@@ -1,10 +1,11 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: Elvira
- * Date: 23/11/15
- * Time: 11:50
+ * La classe costituisce il model che effettua tutte le query riguardanti le funzionalità legate al Test, interfacciandosi al db al quale è connesso
+ *
+ * @author Elvira Zanin
+ * @version 1.0
+ * @since 27/11/15
  */
 include_once MODEL_DIR . "Model.php";
 include_once BEAN_DIR . "Test.php";
