@@ -25,8 +25,8 @@ try{
     echo "ERRORE IN READ CORSO" . $exception;
 }
 
-//CONTROLLO LOGIN CORRETTO
 
+//PRENDE INFORMAZIONI SULL'UTENTE LOGGATO E CONTROLLA SE E' LO STESSO AL QUALE E' ASSOCIATO IL CORSO
 try{
     $matricolaLoggato = $utenteLoggato->getMatricola();
 }catch(ApplicationException $exception){
@@ -49,6 +49,7 @@ if($correttezzaLogin == false){
     header('Location: /docente');
 }
 
+//CREA UN NUOVO ARGOMENTO
 if(isset($_POST['nome'])){
     $nome = $_POST['nome'];
 

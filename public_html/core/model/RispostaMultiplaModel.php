@@ -3,7 +3,7 @@
 /**
  * La classe costituisce il model che effettua tutte le query riguardanti le funzionalità legate alle risposte aperte, interfacciandosi al db al quale è connesso
  *
- * @author Dario Castellano
+ * @author Giuseppina Tufano
  * @version 1.0
  * @since 27/11/15
  */

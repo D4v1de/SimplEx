@@ -1,9 +1,11 @@
 <?php
 
 /**
- * User: Giuseppina
- * Date: 27/11/15
- * Time: 10:36
+ * La classe descrive una risposta aperta.
+ *
+ * @author Giuseppina Tufano
+ * @version 1.0
+ * @since 27/11/15
  */
 class RispostaAperta {
 

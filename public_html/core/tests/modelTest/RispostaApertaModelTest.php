@@ -2,7 +2,7 @@
 
 /**
  * La classe effettua il test di tutti i metodi della classe RispostaApertaModel.php
- * @author Dario
+ * @author Giuseppina Tufano
  * @version 1.0
  * @since 02/12/15
  */

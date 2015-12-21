@@ -2,7 +2,7 @@
 
 /**
  * La classe effettua il test di tutti i metodi della classe SessioneModel.php
- * @author Alina Korniychuk
+ * @author Giuseppina Tufano
  * @version 1.0
  * @since 30/11/15
  */
@@ -10,7 +10,7 @@
 
 class SessioneModelTest extends \PHPUnit_Framework_TestCase
 {
-    const IDSESSIONE = 1; // CI DEVE STARE QUESTO ID NEL DB
+    const IDSESSIONE = 170; // CI DEVE STARE QUESTO ID NEL DB
     const TIPOLOGIASESS = 'Esercitativa';
     const TIPOLOGIASESS2 = "Valutativa";
     const CORSOID  = 18;
@@ -21,6 +21,7 @@ class SessioneModelTest extends \PHPUnit_Framework_TestCase
     const DATAI2 = '2015-10-28 10:00:00';
     const DATAF2 = '2015-11-28 10:00:00';
     const MATRICOLA = "0512109994";
+    const IDTEST = 1;
 
     public function testSessione()
     {
@@ -61,6 +62,50 @@ class SessioneModelTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(self::TIPOLOGIASESS, $sessioneModificata->getTipologia());
         $this->assertEquals(self::CORSOID, $sessioneModificata->getCorsoId());
 
+        //associo test ad una sessione
+        $model->associaTestSessione(self::IDSESSIONE, self::IDTEST);
+        //controllo se è stato associato
+        $allTestsSessione = $model->getAllTestBySessione(self::IDSESSIONE);
+        print("Stampo tutti i test di sessione per verificare se il test è stato associato");
+        print_r($allTestsSessione);
+
+        //dissocio test ad una sessione
+        $model->dissociaTestSessione(self::IDSESSIONE, self::IDTEST);
+        //controllo se è stato dissociato
+        $allTestsSessione = $model->getAllTestBySessione(self::IDSESSIONE);
+        print("Stampo tutti i test di sessione per verificare se il test è stato dissociato");
+        print_r($allTestsSessione);
+
+
+        //associo di nuovo il test per poi cancellare
+        $model->associaTestSessione(self::IDSESSIONE, self::IDTEST);
+        $model->deleteAllTestFromSessione(self::IDSESSIONE);
+        //stampo tutti i test per verificare che il test non esiste piu
+        $allTestsSessione = $model->getAllTestBySessione(self::IDSESSIONE);
+        print("Stampo tutti i test di sessione per verificare se il test è stato eliminato");
+        print_r($allTestsSessione);
+
+
+        //testo abilita mostra esiti
+        $model->abilitaMostraEsito(self::IDSESSIONE);
+        $mostraEsito = $model->readMostraEsitoSessione(self::IDSESSIONE);
+        $this->assertEquals('Si', $mostraEsito);
+
+        //testo disabilita mostra esiti
+        $model->disabilitaMostraEsito(self::IDSESSIONE);
+        $mostraEsito = $model->readMostraEsitoSessione(self::IDSESSIONE);
+        $this->assertEquals('No', $mostraEsito);
+
+        //testo abilita mostra risposte corrette
+        $model->abilitaMostraRisposteCorrette(self::IDSESSIONE);
+        $mostraEsito = $model->readMostraRisposteCorretteSessione(self::IDSESSIONE);
+        $this->assertEquals('Si', $mostraEsito);
+
+        //testo disabilita mostra risposte corrette
+        $model->disabilitaMostraRisposteCorrette(self::IDSESSIONE);
+        $mostraEsito = $model->readMostraRisposteCorretteSessione(self::IDSESSIONE);
+        $this->assertEquals('No', $mostraEsito);
+
         //elimino la sessione dal db
         $model->deleteSessione($idSess);
 
@@ -76,15 +121,6 @@ class SessioneModelTest extends \PHPUnit_Framework_TestCase
         $allSC = $model ->getAllSessioniByCorso(self::CORSOID);
         print_r($allSC);
 
-
-        /*da testare ancora
-         $ASSOCIA_TEST_SESSIONE
-       $DISSOCIA_TEST_SESSIONE
-        $DELETE_ALL_TEST_FROM_SESSIONE
-        $ABILITA_MOSTRA_ESITO =
-         $DISABILITA_MOSTRA_ESITO =
-         $ABILITA_MOSTRA_RISPOSTE_CORRETTE
-        $DISABILITA_MOSTRA_RISPOSTE_CORRETTE */
 
     }
 

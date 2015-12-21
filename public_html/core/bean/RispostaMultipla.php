@@ -1,10 +1,13 @@
 <?php
 
 /**
- * User: Giuseppina
- * Date: 27/11/15
- * Time: 10:40
+ * La classe descrive una risposta multipla.
+ *
+ * @author Giuseppina Tufano
+ * @version 1.0
+ * @since 27/11/15
  */
+
 class RispostaMultipla {
 
     private $elaboratoSessioneId;

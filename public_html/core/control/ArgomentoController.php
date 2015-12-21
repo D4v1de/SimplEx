@@ -74,9 +74,9 @@ class ArgomentoController {
         return $argomentoModel->updateArgomento($id, $updatedArgomento);
     }
 
-    public function rimuoviArgomento($id, $corsoId){
+    public function rimuoviArgomento($id){
         $argomentoModel = new ArgomentoModel();
-        return $argomentoModel->deleteArgomento($id, $corsoId);
+        return $argomentoModel->deleteArgomento($id);
     }
 
 
