@@ -1,10 +1,13 @@
 <?php
 
 /**
- * User: Giuseppina
- * Date: 20/11/15
- * Time: 16:40
+ * La classe descrive un test.
+ *
+ * @author Giuseppina Tufano
+ * @version 1.0
+ * @since 27/11/15
  */
+
 class Test {
     private $id;
     private $descrizione;
