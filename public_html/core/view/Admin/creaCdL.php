@@ -13,6 +13,9 @@ $controller = new CdlController();
 $cdls = Array();
 $flag = 1;
 $flag2 = 1;
+$flag3 = 1;
+$flag4 = 1;
+$flag5 = 1;
 
 try {
     $cdls = $controller->getCdl();
@@ -23,13 +26,12 @@ try {
 if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricola'])) {
 
     $nome = $_POST['nome'];
-    $tipologia = $_POST['tipologia'];
     $matricola = $_POST['matricola'];
+    $tipologia = $_POST['tipologia'];
 
-    foreach($cdls as $c) {
-        if($c->getMatricola() == $matricola) {
-            $flag = 0;
-        }
+    //controllo sul nome
+    if(empty($nome)) {
+        $flag3 = 0;
     }
     foreach($cdls as $c) {
         if($c->getNome() == $nome) {
@@ -37,7 +39,22 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
         }
     }
 
-    if($flag && $flag2) {
+    //controllo su matricola
+    if(empty($matricola)  || !is_numeric($matricola)) {
+        $flag4 = 0;
+    }
+    foreach($cdls as $c) {
+        if($c->getMatricola() == $matricola) {
+            $flag = 0;
+        }
+    }
+
+    //controllo su tipologia
+    if(empty($tipologia)) {
+        $flag5 = 0;
+    }
+
+    if($flag && $flag2 && $flag3 && $flag4 && $flag5) {
         try {
             $cdl = new CdL($matricola, $nome, $tipologia);
             $controller->creaCdl($cdl);
@@ -116,7 +133,17 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                         if(!$flag2) {
                             echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>Il nome del corso di laurea è già presente nel DataBase.</div>";
                         }
+                        if(!$flag3) {
+                            echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>Il nome del corso di laurea non è valido.</div>";
+                        }
+                        if(!$flag4) {
+                            echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>La matricola del corso di laurea non è valida.</div>";
+                        }
+                        if(!$flag5) {
+                            echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>La tipologia del corso di laurea non è valida.</div>";
+                        }
                         ?>
+
                         <div class="alert alert-danger display-hide">
                             <button class="close" data-close="alert"></button>
                             Ci sono alcuni errori nei dati. Per favore riprova l'inserimento.
