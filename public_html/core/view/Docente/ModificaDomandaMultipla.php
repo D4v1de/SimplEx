@@ -238,6 +238,11 @@ if (isset($_POST['eliminatore'])) {
                                     printf("</span>");
                                     ?>
                                 </div>
+                                <div class="col-md-3">
+                                    <?php
+                                    printf("<a href=\"javascript:insRisposte();\" class=\"btn sm green-jungle\"><i class=\"fa fa-plus\"></i> Aggiungi Risposta</a>");
+                                    ?>
+                                </div>
                             </div>
                             <?php
                             $numRadio = 1;
@@ -260,9 +265,6 @@ if (isset($_POST['eliminatore'])) {
                                 printf("</span>");
                                 printf("</div>");
                                 printf("<div class=\"col-md-3\">");
-                                printf("<a href=\"javascript:insRisposte();\" class=\"btn sm green-jungle\">");
-                                printf("<i class=\"fa fa-plus\"></i> Aggiungi");
-                                printf("</a>");
                                 printf("<button name=\"eliminatore\" value=\"%s\" class=\"btn sm red-intense\" data-toggle=\"confirmation\" data-singleton=\"true\" data-popout=\"true\" title=\"sei sicuro?\">", $r->getId());
                                 printf("<i class=\"fa fa-minus\"></i> Rimuovi");
                                 printf("</button>");

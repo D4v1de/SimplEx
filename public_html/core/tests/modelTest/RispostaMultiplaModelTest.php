@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: Dario
- * Date: 02/12/2015
- * Time: 12:27
+ * La classe effettua il test di tutti i metodi della classe RispostaMultiplaModel.php
+ * @author Giuseppina Tufano
+ * @version 1.0
+ * @since 02/12/15
  */
 class RispostaMultiplaModelTest extends PHPUnit_Framework_TestCase
 {
@@ -20,24 +20,32 @@ class RispostaMultiplaModelTest extends PHPUnit_Framework_TestCase
     {
         $model = new RispostaMultiplaModel();
 
+        //creo una risposta
         $model->createRispostaMultipla(new RispostaMultipla(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID, self::PUNTEGGIO, null));
-        print_r($model->readRispostaMultipla(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID));
-
+        //leggo una risposta
         $ris = $model->readRispostaMultipla(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID);
         $this->assertEquals(self::SESSIONE_ID,$ris->getElaboratoSessioneId());
         $this->assertEquals(self::STUDENTE_MATRICOLA,$ris->getElaboratoStudenteMatricola());
         $this->assertEquals(self::PUNTEGGIO,$ris->getPunteggio());
-
+        //aggiorno una risposta
         $model->updateRispostaMultipla(new RispostaMultipla(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID, self::PUNTEGGIO2, self::ALT_ID), self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID);
         $ris2 = $model->readRispostaMultipla(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID);
         $this->assertEquals(self::PUNTEGGIO2,$ris2->getPunteggio());
-
+        //rimuovo una risposta
         $model->deleteRispostaMultipla(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID);
     }
 
+    //testo la funzionalità di recupero risposte dato un elaborato
     public function testGetRisposteByElaborato () {
         $model = new RispostaMultiplaModel();
-        $all = $model->getMultipleByElaborato(new Elaborato(self::STUDENTE_MATRICOLA,self::SESSIONE_ID,"","",self::TEST_ID));
+        $all = $model->getMultipleByElaborato(new Elaborato(self::STUDENTE_MATRICOLA,self::SESSIONE_ID,"","",self::TEST_ID,""));
+        print_r($all);
+    }
+
+    //testo la funzionalità di recupero risposte data una domanda
+    public function testGetRisposteByDomanda () {
+        $model = new RispostaMultiplaModel();
+        $all = $model->getAllRisposteMultipleByDomanda(self::DOMANDAMULTIPLAID);
         print_r($all);
     }
 }

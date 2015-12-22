@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: Alina
- * Date: 29/11/2015
- * Time: 12:45
+ * La classe effettua il test di tutti i metodi della classe DomandaModel.php
+ * @author Alina Korniychuk
+ * @version 1.0
+ * @since 23/11/15
  */
 
 
@@ -12,8 +12,8 @@ class DomandaModelTest extends PHPUnit_Framework_TestCase
 {
 
 
-    const TESTODOM = "Domanda di prova";
-    const ARGOMENTOID = 1;
+    const TESTODOM = "Nuova domanda";
+    const ARGOMENTOID = 9;
     const PUNTEGGIOMAX = 10;
     const PERCENTUALESCELTA = 10;
     const PUNTEGGIOMAX2 = 15;
@@ -23,7 +23,11 @@ class DomandaModelTest extends PHPUnit_Framework_TestCase
     const PERCRISPCORRETTA = 10;
     const PUNTEGGIOCORRETTA2 = 7;
     const PUNTEGGIOERRATA2 = 0;
-
+    const IDTEST = 1;
+    const IDDOMAPERTA = 1;
+    const PUNTALT = 40;
+    const PUNTALTCORRETTA = 10;
+    const PUNTALTERRATA = -10;
 
     public function testDomandaAperta()
     {
@@ -53,16 +57,42 @@ class DomandaModelTest extends PHPUnit_Framework_TestCase
        $this->assertEquals(self::PUNTEGGIOMAX2, $domAM->getPunteggioMax());
        $this->assertEquals(self::PERCENTUALESCELTA2, $domAM->getPercentualeScelta());
 
-        //cancello la domanda aperta
+
+
+        //leggo tutte le domande aperte dell argomento che ha l'ID 9
+        $allDomByArg = $model->getAllDomandaApertaByArgomento(self::ARGOMENTOID);
+        print_r($allDomByArg);
+
+        //associo una domanda aperta al test
+        $model ->associaDomandaApertaTest($idDom, self::IDTEST, 3);
+
+        //modifico il punteggio della domanda aperta per il test
+        $model->modificaDomandaApertaTest($idDom, self::IDTEST, self::PUNTALT);
+
+        //leggo il punteggio max alternativo e lo confronto
+        $punt = $model->readPunteggioMaxAlternativo($idDom, self::IDTEST);
+        $this->assertEquals(self::PUNTALT, $punt);
+
+        //verifico se la domanda associata fa parte del test e se ha cambiato il punteggio
+        $allDomByTest = $model->getAllDomandeAperteByTest(self::IDTEST);
+        print("Stampo la lista di tutte le domande aperte di un test");
+        print_r($allDomByTest);
+
+        //dissocio una domanda aperta al test
+        $model ->dissociaDomandaApertaTest($idDom, self::IDTEST);
+        //verifico che la domanda non fa parte piu del test
+        $allDomByTest2 = $model->getAllDomandeAperteByTest(self::IDTEST);
+        print("Stampo la lista di tutte le domande aperte di un test per la seconda volta");
+        print_r($allDomByTest2);
+
+         //cancello la domanda aperta
        $model->deleteDomandaAperta($idDom);
 
        //verifico la cancellazione
        $allDom = $model->getAllDomandaAperta();
+        print("Stampo tutte le domande aperte");
        print_r($allDom);
 
-        //leggo tutte le domande aperte dell argomento che ha l'ID 9
-        $allDomByArg = $model->getAllDomandaApertaByArgomento(9);
-        print_r($allDomByArg);
 
    }
 
@@ -97,6 +127,37 @@ class DomandaModelTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(self::PERCENTUALESCELTA, $domA->getPercentualeScelta());
         $this->assertEquals(self::PERCRISPCORRETTA, $domA->getPercentualeRispostaCorretta());
 
+
+
+        //associo una domanda multipla al test
+        $model ->associaDomandaMultiplaTest($idDom, self::IDTEST, 3, -1);
+
+        //modifico il punteggio della domanda multipla per il test
+        $model->modificaDomandaMultiplaTest($idDom, self::IDTEST, self::PUNTALTCORRETTA,self::PUNTALTERRATA);
+
+        //leggo il punteggio alternativo corretto e lo confronto
+        $punt = $model->readPunteggioCorrettaAlternativo($idDom, self::IDTEST);
+        $this->assertEquals(self::PUNTALTCORRETTA, $punt);
+
+        //leggo il punteggio alternativo errato e lo confronto
+        $punt = $model->readPunteggioErrataAlternativo($idDom, self::IDTEST);
+        $this->assertEquals(self::PUNTALTERRATA, $punt);
+
+        //verifico se la domanda associata fa parte del test
+        $allDomByTest = $model->getAllDomandeMultipleByTest(self::IDTEST);
+        print("Stampo la lista di tutte le domande multipla di un test e verifico la presenza della domanda\n");
+        print_r($allDomByTest);
+
+        //dissocio una domanda multipla al test
+        $model ->dissociaDomandaMultiplaTest($idDom, self::IDTEST);
+
+        //verifico che la domanda non fa parte piu del test
+        //stampo una lista di domande multiple di un test
+        $allDomMByTest = $model->getAllDomandeMultipleByTest(self::IDTEST);
+        print("Stampo la lista di tutte le domande multiple di un test e verifico l'assenza\n");
+        print_r($allDomMByTest);
+
+
         //cancello la domanda multipla
         $model->deleteDomandaMultipla($idDom);
 
@@ -107,5 +168,8 @@ class DomandaModelTest extends PHPUnit_Framework_TestCase
         //leggo le domande multiple dell argomento con l'ID 7
         $allDomMByArg = $model->getAllDomandaMultiplaByArgomento(7);
         print_r($allDomMByArg);
+
+
+
     }
 }

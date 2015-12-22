@@ -13,6 +13,10 @@ $controller = new CdlController();
 $corso = null;
 $cdls = Array();
 $flag = 1;
+$flag2 = 1;
+$flag3 = 1;
+$flag4 = 1;
+$flag5 = 1;
 
 try {
     $cdls = $controller->getCdl();
@@ -32,12 +36,32 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     $matricola = $_POST['matricola'];
     $cdlmatricola = $_POST['tipologia2'];
 
+    //controllo sul nome
+    if(empty($nome)) {
+        $flag2 = 0;
+    }
+
+    //controllo sulla tipologia
+    if(empty($tipologia)) {
+        $flag3 = 0;
+    }
+
+    //controllo sulla matricola
+    if(empty($matricola) || !is_numeric($matricola)) {
+        $flag4 = 0;
+    }
     foreach($corsi as $c) {
         if($c->getMatricola() == $matricola) {
             $flag = 0;
         }
     }
-    if($flag) {
+
+    //controllo cdl matricola
+    if(empty($cdlmatricola) || !is_numeric($cdlmatricola)) {
+        $flag5 = 0;
+    }
+
+    if($flag && $flag2 && $flag3 && $flag4 && $flag5) {
         try {
             $corso = new Corso($matricola, $nome, $tipologia, $cdlmatricola);
             $id = $controller->creaCorso($corso);
@@ -85,7 +109,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="/adm">Home</a>
+                        <a href="/admin">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>

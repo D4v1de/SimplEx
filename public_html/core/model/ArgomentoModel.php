@@ -1,10 +1,13 @@
 <?php
 
 /**
- * User: Alina
- * Date: 27/11/15
- * Time: 14:47
+ * La classe costituisce il model che effettua tutte le query riguardanti le funzionalità legate agli argomenti, interfacciandosi al db al quale è connesso
+ *
+ * @author Alina Korniychuk
+ * @version 1.0
+ * @since 27/11/15
  */
+
 include_once MODEL_DIR . "Model.php";
 include_once BEAN_DIR . "Argomento.php";
 
@@ -19,7 +22,8 @@ class ArgomentoModel extends Model {
     private static $GET_ALL_ARGOMENTI_BY_CORSO = "SELECT * FROM `argomento` WHERE corso_id = '%d' AND stato = 'In uso' ORDER BY nome";
     private static $DELETE_DOMANDA_APERTA_ARGOMENTO = "UPDATE `domanda_aperta` SET stato = 'Obsoleto' WHERE argomento_id = '%d'";
     private static $DELETE_DOMANDA_MULTIPLA_ARGOMENTO = "UPDATE `domanda_multipla` SET stato = 'Obsoleto' WHERE argomento_id = '%d'";
-    
+
+
     /**
      *Inserisce un nuovo argomento nel database
      * @param Argomento L'argomento da inserire nel database

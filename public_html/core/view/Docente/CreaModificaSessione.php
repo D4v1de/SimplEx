@@ -6,14 +6,29 @@
  * @version 1
  * @since 18/11/15 09:58
  */
-
+include_once CONTROL_DIR . "UtenteController.php";
+$controllerUtente = new UtenteController();
 include_once CONTROL_DIR . "SessioneController.php";
 $controller = new SessioneController();
 include_once CONTROL_DIR . "CdlController.php";
 $controlleCdl = new CdlController();
 include_once CONTROL_DIR . "TestController.php";
 $testController = new TestController();
+include_once CONTROL_DIR . "ElaboratoController.php";
+$controllerElaborato = new ElaboratoController();
 $idCorso = $_URL[2];
+$numProfs=0;
+$doc = $_SESSION['user'];
+$docentiOe=$controllerUtente->getDocenteAssociato($idCorso);
+foreach($docentiOe as $d) {
+    if($doc==$d){
+        $numProfs++;
+    }
+}
+if($numProfs==0){
+    header("Location: "."/docente/corso/".$corso->getId());
+}
+
 try {
     $corso = $controlleCdl->readCorso($idCorso);
     $nomecorso= $corso->getNome();
@@ -292,7 +307,7 @@ if($_URL[4]!=0) {
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="index.html">Home</a>
+                        <a href="/docente">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
@@ -497,7 +512,17 @@ if($_URL[4]!=0) {
                             if ($array == null) {
                             }
                             else {
+                                $sessioniByCorso = $controller->getAllSessioniByCorso($idCorso);
                                 foreach ($array as $c) {
+                                    $elaborati = $controllerElaborato->getAllElaboratiTest($c->getId());
+                                    if ($sessioniByCorso != null)
+                                        $percSce = round(($c->getPercentualeScelto()/count($sessioniByCorso)*100),2);
+                                    else
+                                        $percSce = 0;
+                                    if ($elaborati != null)
+                                        $percSuc = round(($c->getPercentualeSuccesso()/count($elaborati)*100),2);
+                                    else
+                                        $percSuc = 0;
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
                                     foreach($testsOfSessione as $t){
                                         if($c->getId()==$t->getId())
@@ -510,8 +535,8 @@ if($_URL[4]!=0) {
                                     printf("<td>%d</td>", $c->getNumeroMultiple());
                                     printf("<td>%d</td>", $c->getNumeroAperte());
                                     printf("<td>%d</td>", $c->getPunteggioMax());
-                                    printf("<td>%d</td>", $c->getPercentualeScelto());
-                                    printf("<td>%d</td>", $c->getPercentualeSuccesso());
+                                    printf("<td>%d%%</td>", $percSce);
+                                    printf("<td>%d%%</td>", $percSuc);
                                     printf("</tr>");
                                 }
                             }

@@ -13,9 +13,9 @@ class CorsoModelTest extends PHPUnit_Framework_TestCase
     const NOME = "Reti";
     const TIPOLOGIA = "Semestrale";
     const TIPOLOGIA2 = "Annuale";
-    const CDLMATRICOLA = "051214";
+    const CDLMATRICOLA = "051210";
     const STUDENTEMATRICOLA = "0512102396";
-    const DOCENTEMATRICOLA = "0512109999";
+    const DOCENTEMATRICOLA = "0512109998";
 
     public function testCorso() {
 
@@ -39,6 +39,20 @@ class CorsoModelTest extends PHPUnit_Framework_TestCase
         //leggo il corso modificato dal db
         $corsoMod = $model->readCorso($idCorso);
         $this->assertEquals(self::TIPOLOGIA2,$corsoMod->getTipologia());
+
+        //creo un insegnamento
+        $model->createInsegnamento($idCorso, self::DOCENTEMATRICOLA);
+
+        //leggo tutti i corsi insegnati da un docente
+        $allCorsiDocente = $model->getAllCorsiByDocente(self::DOCENTEMATRICOLA);
+        print_r($allCorsiDocente);
+
+        //elimino un insegnamento
+        $model->deleteInsegnamento($idCorso, self::DOCENTEMATRICOLA);
+
+        //leggo tutti i corsi insegnati da un docente
+        $allCorsiDocente = $model->getAllCorsiByDocente(self::DOCENTEMATRICOLA);
+        print_r($allCorsiDocente);
 
         //elimino il corso
         $model->deleteCorso($idCorso);

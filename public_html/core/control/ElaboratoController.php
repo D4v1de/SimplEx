@@ -31,4 +31,7 @@ class ElaboratoController {   //UTLIZZARE ALTRO CONTROLLER..NON ALTRO MODEL
         return $this->elaboratoModel->readElaborato($studenteMatricola,$sessioneId);
     }
     
+    public function getAllElaboratiTest($test) {
+        return $this->elaboratoModel->getAllElaboratiTest($test);
+    }
 }

@@ -97,7 +97,7 @@ try {
                                 include_once VIEW_DIR . "Admin/modificaUtente.php";
                                 break;
                             case '':
-                                include_once VIEW_DIR . "Admin/GestioneUtente.php";
+                                include_once VIEW_DIR . "Admin/gestioneUtente.php";
                                 break;
                             default:
                                 include_once VIEW_DIR . "Admin/Home.php";
@@ -146,10 +146,10 @@ try {
                 StringUtils::checkPermission("Docente");
                 switch (isset($_URL[1]) ? $_URL[1] : '') {
                     case 'cdls':
-                        include_once VIEW_DIR . "Docente/visualizzaCdl.php";
+                        include_once VIEW_DIR . "Docente/VisualizzaCdl.php";
                         break;
                     case 'cdl':
-                        include_once VIEW_DIR . "Docente/visualizzaCorsi.php";
+                        include_once VIEW_DIR . "Docente/VisualizzaCorsi.php";
                         break;
                     case 'corso':
                         switch (isset($_URL[3]) ? $_URL[3] : '') {
@@ -208,9 +208,6 @@ try {
                                         break;
                                     case 'correggi':
                                         include_once VIEW_DIR . "Docente/CorreggiTest.php";
-                                        break;
-                                    case 'correggi2':
-                                        include_once VIEW_DIR . "Docente/CorreggiTest2.php";
                                         break;
                                     case 'visualizza':
                                         include_once VIEW_DIR . "Docente/VisualizzaElaborato.php";

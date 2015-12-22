@@ -108,6 +108,10 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
                 $punteggio=$punteggio+($w->getPunteggioMax());
                 $controllerDomande->associaAperTest($s,$idNuovoTest,NULL);
             }
+            $updated = $controllerDomande->getDomandaAperta($s);
+            $perc = $updated->getPercentualeScelta() +1;
+            $updated->setPercentualeScelta($perc);
+            $controllerDomande->modificaDomandaAperta($s, $updated);
         }
         $z1=0;
         $z2=0;
@@ -128,6 +132,11 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
                 $z2=NULL;
             }
             $controllerDomande->associaMultTest($s, $idNuovoTest, $z1, $z2);//associo la domanda multipla al test
+            
+            $updated = $controllerDomande->getDomandaMultipla($s);
+            $perc = $updated->getPercentualeScelta() +1;
+            $updated->setPercentualeScelta($perc);
+            $controllerDomande->modificaDomandaMultipla($s, $updated);
 
         }
         $ilTest=$controllerTest->readTest($idNuovoTest);
@@ -221,10 +230,22 @@ if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && isset($_POST['
         $test = new Test($descr,$punteggio,$nMul,$nApe,0,0,$identificativoCorso);//creo il test e lo metto nel db
         $idNuovoTest=$controllerTest->creaTest($test);
         foreach($leAperte as $s){ //scansiono di nuovo le aperte per associarle al test
-            $controllerDomande->associaAperTest(parseInt($s->getId()), $idNuovoTest, NULL);
+            $id = parseInt($s->getId());
+            $controllerDomande->associaAperTest($id, $idNuovoTest, NULL);
+            
+            $updated = $controllerDomande->getDomandaAperta($id);
+            $perc = $updated->getPercentualeScelta() +1;
+            $updated->setPercentualeScelta($perc);
+            $controllerDomande->modificaDomandaAperta($id, $updated);
         }
         foreach($leMultiple as $x) { //scansiono di nuovo le multiple per associarle al test
-            $controllerDomande->associaMultTest(parseInt($x->getId()), $idNuovoTest, NULL, NULL);
+            $id = parseInt($x->getId());
+            $controllerDomande->associaMultTest($id, $idNuovoTest, NULL, NULL);
+            
+            $updated = $controllerDomande->getDomandaMultipla($id);
+            $perc = $updated->getPercentualeScelta() +1;
+            $updated->setPercentualeScelta($perc);
+            $controllerDomande->modificaDomandaMultipla($id, $updated);
         }
 
         $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";

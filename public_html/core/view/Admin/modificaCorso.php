@@ -57,13 +57,32 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     $matricolanew = $_POST['matricola'];
     $cdlmatricolanew = $_POST['tipologia2'];
 
+    //controllo sul nome
+    if(empty($nomenew)) {
+        $flag2 = 0;
+    }
+
+    //controllo sulla tipologia
+    if(empty($tipologianew)) {
+        $flag3 = 0;
+    }
+
     $x = array_search($corso ,$corsi);
     unset($corsi[$x]);
 
+    //controllo sulla matricola
+    if(empty($matricola) || !is_numeric($matricola)) {
+        $flag4 = 0;
+    }
     foreach($corsi as $c) {
         if($c->getMatricola() == $matricolanew) {
             $flag = 0;
         }
+    }
+
+    //controllo cdl matricola
+    if(empty($cdlmatricola) || !is_numeric($cdlmatricola)) {
+        $flag5 = 0;
     }
 
     if($flag) {
@@ -114,7 +133,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="/adm">Home</a>
+                        <a href="/admin">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>

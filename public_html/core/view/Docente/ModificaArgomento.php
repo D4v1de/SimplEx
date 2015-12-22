@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: Carlo
- * Date: 18/11/15
- * Time: 09:58
+ * Date: 4/12/15
+ * Time: 10:58
  */
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once CONTROL_DIR . "ArgomentoController.php";
@@ -25,7 +25,7 @@ $argomento = null;
 $correttezzaLogin = false;
 
 try{
-    $corso = $controllerCdl->readCorso($_URL[2]); //qui dentro andrà $_URL[..]; IDCORSO
+    $corso = $controllerCdl->readCorso($_URL[2]);
 }catch(ApplicationException $exception){
     echo "ERRORE IN READ CORSO" . $exception;
 }
@@ -36,7 +36,7 @@ try{
     echo "ERRORE IN READ ARGOMENTO" . $exception;
 }
 
-//CONTROLLO LOGIN CORRETTO
+//PRENDE INFORMAZIONI SULL'UTENTE LOGGATO E CONTROLLA SE E' LO STESSO AL QUALE E' ASSOCIATO IL CORSO
 try{
     $matricolaLoggato = $utenteLoggato->getMatricola();
 }catch(ApplicationException $exception){
@@ -59,7 +59,7 @@ if($correttezzaLogin == false){
     header('Location: /docente');
 }
 
-
+//MODIFICA L'ARGOMENTO PRECEDENTEMENTE SELEZIONATO
 if(isset($_POST['nome'])){
     $nome = $_POST['nome'];
         $argomento->setNome($nome);
@@ -78,7 +78,7 @@ if(isset($_POST['nome'])){
     <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8"/>
-        <title>Metronic | Page Layouts - Blank Page</title>
+        <title> <?php echo $corso->getNome(); ?> | Modifica Argomento </title>
         <?php include VIEW_DIR . "design/header.php"; ?>
     </head>
     <!-- END HEAD -->
@@ -126,12 +126,6 @@ if(isset($_POST['nome'])){
                             </div>
                             <div class="tools">
                                 <a href="javascript:;" class="collapse" data-original-title="" title="">
-                                </a>
-                                <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title="">
-                                </a>
-                                <a href="javascript:;" class="reload" data-original-title="" title="">
-                                </a>
-                                <a href="javascript:;" class="remove" data-original-title="" title="">
                                 </a>
                             </div>
                         </div>

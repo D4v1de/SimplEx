@@ -1,15 +1,15 @@
 <?php
 /**
- * La classe effettua il test di tutti i metodi della classe AlternativaModel.php
- * @author Alina Korniychuk
- * @version 1.0
- * @since 29/11/15
+ * Created by PhpStorm.
+ * User: Alina
+ * Date: 29/11/2015
+ * Time: 20:30
  */
 
 
 
 
-class AlternativaModelTest extends \PHPUnit_Framework_TestCase
+class AlternativaControllerTest extends \PHPUnit_Framework_TestCase
 {
 
     const IDALTERNATIVA = 2;//CI DEVE STARE NEL DB ALTERNATIVA CON QUESTO ID
@@ -24,17 +24,15 @@ class AlternativaModelTest extends \PHPUnit_Framework_TestCase
     public function testAlternativa()
     {
 
-        $model = new AlternativaModel();
+        $controller = new AlternativaController();
 
 
-        //testo la read
-        $altern = $model->readAlternativa(self::IDALTERNATIVA);
 
         //crea un'alterntaiva
-        $idAlt = $model->createAlternativa(new Alternativa(self::IDDOMMULTIPLA, self::TESTO, self::PERCSCELTA, self::CORRETTA));
+        $idAlt = $controller->creaAlternativa(new Alternativa(self::IDDOMMULTIPLA,self::TESTO,self::PERCSCELTA, self::CORRETTA));
 
         //legge l'arternativa creata
-        $altern = $model->readAlternativa($idAlt);
+        $altern = $controller->readAlternativa($idAlt);
 
         //confronta le due alternative
         $this->assertEquals(self::IDDOMMULTIPLA, $altern->getDomandaMultiplaId());
@@ -43,10 +41,10 @@ class AlternativaModelTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(self::CORRETTA, $altern->getCorretta());
 
         //modifico l'alternativa in questione
-        $model->updateAlternativa($idAlt, (new Alternativa(self::IDDOMMULTIPLA, self::TESTO2, self::PERCSCELTA2, self::CORRETTA)));
+        $controller->modificaAlternativa($idAlt, (new Alternativa(self::IDDOMMULTIPLA, self::TESTO2, self::PERCSCELTA2, self::CORRETTA)));
 
         //leggo l'alternativa modificata
-        $altMod = $model->readAlternativa($idAlt);
+        $altMod = $controller->readAlternativa($idAlt);
 
         //verifico la modifica
         $this->assertEquals(self::IDDOMMULTIPLA, $altMod->getDomandaMultiplaId());
@@ -55,18 +53,14 @@ class AlternativaModelTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(self::CORRETTA, $altMod->getCorretta());
 
         //cancello l'alternativa
-        $model->deleteAlternativa($idAlt);
-
-        //verifico la cancellazione
-        $allAltern = $model->getAllAlternativa();
-        print_r($allAltern);
+        $controller->rimuoviAlternativa($idAlt);
 
         //leggo tutte le alternative della domanda multipla
-        $allAltByDom = $model->getAllAlternativaByDomanda(self::IDDOMMULTIPLA);
+        $allAltByDom = $controller->getAllAlternativaByDomanda(self::IDDOMMULTIPLA);
         print_r($allAltByDom);
 
         //trovo l'alternativa corretta di una domanda
-        $altCorretta = $model->getAlternativaCorrettaByDomanda(self::IDDOMMULTIPLA);
+        $altCorretta = $controller->getAlternativaCorrettaByDomanda(self::IDDOMMULTIPLA);
         print_r($altCorretta);
 
     }

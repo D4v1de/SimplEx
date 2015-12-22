@@ -26,7 +26,6 @@ class UtenteModel extends Model {
     private static $SELECT_ALL_DOCENTI = "SELECT * FROM `utente` WHERE tipologia = 'Docente' ORDER BY cognome, nome, matricola";
     private static $INSERT_FREQUENTA = "INSERT INTO `frequenta` (studente_matricola, corso_id) VALUES ('%s','%d')";
     private static $DELETE_FREQUENTA = "DELETE FROM `frequenta` WHERE studente_matricola = '%s' AND corso_id = '%d'";
-    private static $INSERT_INSEGNAMENTO = "INSERT INTO `insegna` (docente_matricola, corso_id) VALUES ('%s','%d')";
     private static $INSERT_ABILITAZIONE = "INSERT INTO `abilitazione` (sessione_id, studente_matricola) VALUES ('%d', '%s')";
     private static $DELETE_ABILITAZIONE = "DELETE FROM `abilitazione` WHERE sessione_id = '%d' AND studente_matricola = '%s'";
     private static $GET_ALL_ESAMINANDI_SESSIONE = "SELECT * FROM utente WHERE tipologia = 'Studente' AND matricola IN (SELECT studente_matricola FROM elaborato WHERE sessione_id = '%d')";
@@ -294,20 +293,6 @@ class UtenteModel extends Model {
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
-        }
-    }
-
-    /**
-     * Inserisce un insegnamento nel database
-     * @param string $docenteMatricola La matricola del docente che insegna il corso
-     * @param Corso idCorso Il corso insegnato dal docente
-     * @throws ApplicationException
-     */
-    public function inserisciInsegnamento($docenteMatricola, $idCorso) {
-        $query = sprintf(self::$INSERT_INSEGNAMENTO, $docenteMatricola, $idCorso);
-        Model::getDB()->query($query);
-        if (Model::getDB()->affected_rows == -1) {
-            throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
         }
     }
 

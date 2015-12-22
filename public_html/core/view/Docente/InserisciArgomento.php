@@ -2,7 +2,7 @@
 /**
  * Created by PhpStorm.
  * User: Carlo
- * Date: 18/11/15
+ * Date: 3/12/15
  * Time: 09:58
  */
 //TODO qui la logica iniziale, caricamento dei controller ecc
@@ -25,8 +25,8 @@ try{
     echo "ERRORE IN READ CORSO" . $exception;
 }
 
-//CONTROLLO LOGIN CORRETTO
 
+//PRENDE INFORMAZIONI SULL'UTENTE LOGGATO E CONTROLLA SE E' LO STESSO AL QUALE E' ASSOCIATO IL CORSO
 try{
     $matricolaLoggato = $utenteLoggato->getMatricola();
 }catch(ApplicationException $exception){
@@ -49,6 +49,7 @@ if($correttezzaLogin == false){
     header('Location: /docente');
 }
 
+//CREA UN NUOVO ARGOMENTO
 if(isset($_POST['nome'])){
     $nome = $_POST['nome'];
 
@@ -70,7 +71,7 @@ if(isset($_POST['nome'])){
     <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8"/>
-        <title>Metronic | Page Layouts - Blank Page</title>
+        <title> <?php echo $corso->getNome(); ?> | Inserisci Argomento </title>
         <?php include VIEW_DIR . "design/header.php"; ?>
         <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
     </head>
@@ -119,12 +120,6 @@ if(isset($_POST['nome'])){
                             </div>
                             <div class="tools">
                                 <a href="javascript:;" class="collapse" data-original-title="" title="">
-                                </a>
-                                <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title="">
-                                </a>
-                                <a href="javascript:;" class="reload" data-original-title="" title="">
-                                </a>
-                                <a href="javascript:;" class="remove" data-original-title="" title="">
                                 </a>
                             </div>
                         </div>

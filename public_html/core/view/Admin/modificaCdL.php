@@ -14,6 +14,10 @@ $new = null;
 $cdl = null;
 $url = null;
 $flag = 1;
+$flag2 = 1;
+$flag3 = 1;
+$flag4 = 1;
+$flag5 = 1;
 
 $url = $_URL[3];
 if (!is_numeric($url)) {
@@ -24,6 +28,11 @@ try {
     $cdl = $controller->readCdl($url);
 } catch (ApplicationException $ex) {
     echo "<h1>INSERIRE ID CDL NEL PATH!</h1>" . $ex;
+}
+try {
+    $cdls = $controller->getCdl();
+} catch (ApplicationException $ex) {
+    echo "<h1>GETCDL FALLITO!</h1>" . $ex;
 }
 
 $nome = $cdl->getNome();
@@ -36,13 +45,44 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     $tipologianew = $_POST['tipologia'];
     $matricolanew = $_POST['matricola'];
 
+    $x = array_search($cdl ,$cdls);
+    unset($cdls[$x]);
+
+    //controllo su nome
+    if(empty($nomenew)) {
+        $flag = 0;
+    }
+    foreach($cdls as $c) {
+        if($c->getNome() == $nomenew) {
+            $flag4 = 0;
+        }
+    }
+
+    //controllo su matricola
+    if(empty($matricolanew) || !is_numeric($matricolanew)) {
+        $flag3 = 0;
+    }
+    foreach($cdls as $c) {
+        if($c->getMatricola() == $matricolanew) {
+            $flag5 = 0;
+        }
+    }
+
+    //controllo su tipologia
+    if(empty($tipologianew)) {
+        $flag2 = 0;
+    }
+
+    if($flag && $flag2 && $flag3 && $flag4 && $flag5) {
         try {
             $new = new CdL($matricolanew, $nomenew, $tipologianew);
             $controller->modificaCdl($cdl->getMatricola(), $new);
+
             header('location: /admin/cdl/view/successmodifica');
         } catch (ApplicationException $ex) {
             echo "<h1>MODIFICACDL FALLITO!</h1>" . $ex;
         }
+    }
 }
 
 ?>
@@ -81,7 +121,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="/adm">Home</a>
+                        <a href="/admin">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
@@ -101,6 +141,24 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                 <div class="col-md-12">
 
                     <form id="form_sample_1" method="post" action="">
+
+                        <?php
+                        if(!$flag5) {
+                            echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>La matricola del corso di laurea è già presente nel DataBase.</div>";
+                        }
+                        if(!$flag4) {
+                            echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>Il nome del corso di laurea è già presente nel DataBase.</div>";
+                        }
+                        if(!$flag) {
+                            echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>Il nome del corso di laurea non è valido.</div>";
+                        }
+                        if(!$flag3) {
+                            echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>La matricola del corso di laurea non è valida.</div>";
+                        }
+                        if(!$flag2) {
+                            echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>La tipologia del corso di laurea non è valida.</div>";
+                        }
+                        ?>
 
                         <div class="alert alert-danger display-hide">
                             <button class="close" data-close="alert"></button>

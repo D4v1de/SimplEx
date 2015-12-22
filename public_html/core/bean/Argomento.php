@@ -1,9 +1,11 @@
 <?php
 
 /**
- * User: Dario
- * Date: 27/11/15
- * Time: 09:54
+ * La classe descrive un argomento
+ *
+ * @author Dario Castellano
+ * @version 1.0
+ * @since 27/11/15
  */
 
 class Argomento {

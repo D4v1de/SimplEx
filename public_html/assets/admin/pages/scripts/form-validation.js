@@ -52,8 +52,7 @@ var FormValidation = function () {
                     },
                     nome: {
                         minlength: 2,
-                        maxlength: 30,
-                        number: false,
+                        maxlength: 40,
                         required: true,
                         validchar: true
                     },

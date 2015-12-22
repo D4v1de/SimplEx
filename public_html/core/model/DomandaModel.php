@@ -1,9 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Alina
- * Date: 29/11/2015
- * Time: 11:19
+ * La classe costituisce il model che effettua tutte le query riguardanti le funzionalità legate alle domande, interfacciandosi al db al quale è connesso
+ *
+ * @author Alina Korniychuk
+ * @version 1.0
+ * @since 27/11/15
  */
 
 
@@ -26,11 +27,13 @@ class DomandaModel extends Model {
     private static $READ_DOMANDA_MULTIPLA = "SELECT * FROM `domanda_multipla` WHERE id = '%d'";
     private static $GET_ALL_DOMANDA_MULTIPLA = "SELECT * FROM `domanda_multipla` WHERE stato = 'In uso' ORDER BY testo";
     private static $GET_ALL_DOMANDA_MULTIPLA_BY_ARGOMENTO = "SELECT * FROM `domanda_multipla` WHERE argomento_id = '%d' AND stato = 'In uso' ORDER BY testo";
+
     private static $GET_ALL_DOMANDE_MULTIPLE_TEST = "SELECT d.* FROM `domanda_multipla` as d,`compone_multipla` as c WHERE c.test_id = '%s' AND c.domanda_multipla_id = d.id ORDER BY d.testo";
     private static $ASSOCIA_DOMANDA_APERTA_TEST = "INSERT INTO `compone_aperta` (domanda_aperta_id, test_id, punteggio_max_alternativo) VALUES ('%d','%d', '%f')";
     private static $MODIFICA_DOMANDA_APERTA_TEST = "UPDATE `compone_aperta` SET punteggio_max_alternativo = '%f' WHERE domanda_aperta_id = '%d' AND test_id= '%d'";
     private static $DISSOCIA_DOMANDA_APERTA_TEST = "DELETE FROM `compone_aperta` WHERE domanda_aperta_id = '%d' AND test_id= '%d'";
     private static $READ_PUNTEGGIO_MAX_ALTERNATIVO_DOMANDA_TEST = "SELECT punteggio_max_alternativo FROM `compone_aperta` WHERE domanda_aperta_id = '%d' AND test_id= '%d'";
+    //da testare ancora
     private static $ASSOCIA_DOMANDA_MULTIPLA_TEST = "INSERT INTO `compone_multipla` (domanda_multipla_id, test_id, punteggio_corretta_alternativo, punteggio_errata_alternativo) VALUES ('%d','%d', '%f', '%f')";
     private static $MODIFICA_DOMANDA_MULTIPLA_TEST = "UPDATE `compone_multipla` SET punteggio_corretta_alternativo = '%f', punteggio_errata_alternativo = '%f' WHERE domanda_multipla_id = '%d' AND test_id= '%d'";
     private static $DISSOCIA_DOMANDA_MULTIPLA_TEST = "DELETE FROM `compone_multipla` WHERE domanda_multipla_id = '%d' AND test_id= '%d'";

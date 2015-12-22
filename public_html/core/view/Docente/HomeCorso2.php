@@ -12,6 +12,7 @@
 include_once CONTROL_DIR . "SessioneController.php";
 include_once CONTROL_DIR . "TestController.php";
 include_once CONTROL_DIR . "ArgomentoController.php";
+include_once CONTROL_DIR . "ElaboratoController.php";
 include_once CONTROL_DIR . "CdlController.php";
 
 $utenteLoggato = $_SESSION['user'];
@@ -19,6 +20,7 @@ $utenteLoggato = $_SESSION['user'];
 $controllerSessione = new SessioneController();
 $controllerTest = new TestController();
 $controllerArgomento = new ArgomentoController();
+$controllerElaborato = new ElaboratoController();
 $controllerCorso = new CdlController();
 
 $corso = null;
@@ -62,12 +64,15 @@ foreach ($idsSessione as $c) {
          ;
 }
 
+
 try {
     $corso = $controllerCorso->readCorso($_URL[2]);
 }catch(ApplicationException $exception){
     echo "ERRORE IN READ CORSO " . $exception;
 }
 
+
+//PRENDE INFORMAZIONI SULL'UTENTE LOGGATO E CONTROLLA SE E' LO STESSO AL QUALE E' ASSOCIATO IL CORSO
 try {
     $docenteassociato = $controllerArgomento->getDocenteAssociato($corso->getId());
 }catch(ApplicationException $exception){
@@ -109,7 +114,7 @@ if(isset($_POST['IdSes'])){
 }
 
 
-
+//RIMUOVE L'ARGOMENTO SELEZIONATO
 if(isset($_POST['id'])){
     $id = $_POST['id'];
     $idcorso = $corso->getId();
@@ -183,11 +188,11 @@ $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="../">Home</a>
+                        <a href="/docente">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../cdl/<?php echo $corso->getCdlMatricola(); ?>"> <?php echo $controllerCorso->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
+                        <a href="/docente/cdl/<?php echo $corso->getCdlMatricola(); ?>"> <?php echo $controllerCorso->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
@@ -315,23 +320,23 @@ $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso
                                     printf("<td>%s</td>", $controllerSessione->readMostraEsitoSessione($c->getId()));
                                     printf("<td>%s</td>", $controllerSessione->readMostraRisposteCorretteSessione($c->getId()));
                                     if($c->getStato()=="Eseguita") {
-                                        printf("<td class=\"center\"><a href=\"%s\" class=\"btn btn-sm default\">Esiti</a>
-                                           <a href=\"%s\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></a>
-                                                                 <button type='submit' name='IdSes' value='%d' disabled='' class='btn btn-sm red-intense'  data-toggle=\"confirmation\"
+                                        printf("<td class=\"center\"><a href=\"%s\" class=\"btn btn-icon-only default\">Esiti</a>
+                                           <a title=\"Modifica\" href=\"%s\" class=\"btn btn-icon-only blue\"><i class=\"fa fa-edit\"></i></a>
+                                                                 <button title=\"Elimina\" type='submit' name='IdSes' value='%d' disabled='' class=\"btn btn-icon-only red-intense\"  data-toggle=\"confirmation\"
                                         data-singleton=\"true\" data-popout=\"true\" title=\"Sicuro?\"><i class=\"fa fa-trash-o\"></i></button>
                                            </td>", $vaiVisuEsiti, $vaiAModifica, $c->getId());
                                     }
                                     else if($c->getStato()=="In esecuzione"){
-                                        printf("<td class=\"center\"><a href=\"%s\"  disabled='' class=\"btn btn-sm default\">Esiti</a>
-                                           <a href=\"%s\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></a>
-                                                                 <button type='submit' disabled=''  name='IdSes' value='%d' class='btn btn-sm red-intense'  data-toggle=\"confirmation\"
+                                        printf("<td class=\"center\"><a href=\"%s\"  disabled='' class=\"btn btn-icon-only default\">Esiti</a>
+                                           <a href=\"%s\" title=\"Modifica\" class=\"btn btn-icon-only blue\"><i class=\"fa fa-edit\"></i></a>
+                                                                 <button title=\"Elimina\" type='submit' disabled=''  name='IdSes' value='%d' class=\"btn btn-icon-only red-intense\" data-toggle=\"confirmation\"
                                         data-singleton=\"true\" data-popout=\"true\" title=\"Sicuro?\"><i class=\"fa fa-trash-o\"></i></button>
                                            </td>", $vaiVisuEsiti, $vaiAModifica, $c->getId());
                                     }
                                     else {
-                                        printf("<td class=\"center\"><a href=\"%s\"  disabled='' class=\"btn btn-sm default\">Esiti</a>
-                                           <a href=\"%s\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></a>
-                                                                 <button type='submit' name='IdSes' value='%d' class='btn btn-sm red-intense'  data-toggle=\"confirmation\"
+                                        printf("<td class=\"center\"><a href=\"%s\"  disabled='' class=\"btn btn-icon-only default\">Esiti</a>
+                                           <a href=\"%s\" title=\"Modifica\" class=\"btn btn-icon-only blue\"><i class=\"fa fa-edit\"></i></a>
+                                                                 <button type='submit' title=\"Elimina\" name='IdSes' value='%d' class=\"btn btn-icon-only red-intense\"  data-toggle=\"confirmation\"
                                         data-singleton=\"true\" data-popout=\"true\" title=\"Sicuro?\"><i class=\"fa fa-trash-o\"></i></button>
                                            </td>", $vaiVisuEsiti, $vaiAModifica, $c->getId());
                                     }
@@ -414,11 +419,21 @@ $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso
                                 
                                  <?php
                                         $array = Array();
-                                        $array = $controllerTest->getAllTestByCorso($identificativoCorso); 
+                                        $array = $controllerTest->getAllTestByCorso($identificativoCorso);
                                         if($array == null){ 
                                             }
                                         else{    
                                         foreach($array as $c) {
+                                        $elaborati = $controllerElaborato->getAllElaboratiTest($c->getId());
+                                        if ($sessioniByCorso != null)
+                                            $percSce = round(($c->getPercentualeScelto()/count($sessioniByCorso)*100),2);
+                                        else
+                                            $percSce = 0;
+                                        if ($elaborati != null)
+                                            $percSuc = round(($c->getPercentualeSuccesso()/count($elaborati)*100),2);
+                                        else
+                                            $percSuc = 0;
+                                        
                                         $vaiATest="/docente/corso/".$identificativoCorso."/test"."/".$c->getId()."/"."visualizzatest";
                                         printf("<tr class=\"gradeX odd\" role=\"row\">");
                                         printf("<td class=\"sorting_1\"><a class=\"btn default btn-xs green-stripe\" href=\"%s\">Test %s</a></td>", $vaiATest, $c->getId());
@@ -426,8 +441,8 @@ $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso
                                         printf("<td>%s</td>",$c->getNumeroMultiple());
                                         printf("<td>%s</td>",$c->getNumeroAperte());
                                         printf("<td>%s</td>",$c->getPunteggioMax());
-                                        printf("<td>%s %%</td>",round(($c->getPercentualeScelto()/count($sessioniByCorso)*100),2));
-                                        printf("<td>%s %%</td>",$c->getPercentualeSuccesso());
+                                        printf("<td>%d%%</td>",$percSce);
+                                        printf("<td>%d%%</td>",$percSuc);
                                         $questoTest=$c->getId();
                                         $alModificaTest="/docente/corso/".$identificativoCorso."/test/modifica/".$questoTest;
                                         printf("<td><a href=\"%s\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i></i></a>",$alModificaTest);
@@ -569,6 +584,7 @@ $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso
 </script>
 
 <script>
+    //controlla se c'è qualche notifica da mostrare
     function checkNotifiche(){
         var href = window.location.href;
         var last = href.substr(href.lastIndexOf('/') + 1);

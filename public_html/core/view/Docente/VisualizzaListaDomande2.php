@@ -166,12 +166,10 @@ if (isset($_POST['domandamultipla'])){
                         printf("<div class=\"portlet\">");
                         printf("<div class=\"portlet-title \">");
 
-                        printf("<div class=\"col-md-6 caption\">");
-                        printf("<i class=\"fa fa-file-o\"></i>%s", $d->getTesto());
+                        printf("<div class=\"col-md-6\">");
+                        printf("<i class=\"fa fa-file-o\"></i> %s", $d->getTesto());
                         printf("</div>");
-                        printf("<div class=\"caption\">");
                         printf("Punteggio Massimo: %s", $d->getPunteggioMax());
-                        printf("</div>");
                         if($correttezzaLogin==true) {
                             printf("<form method=\"post\" action=\"\" class=\"actions\">");
                             printf("<a href=\"/docente/corso/%d/argomento/domande/modificaaperta/%d/%d\" class=\"btn green-jungle\"><i class=\"fa fa-edit\"></i> Modifica </a>", $idCorso, $idArgomento, $d->getId());
@@ -214,15 +212,11 @@ if (isset($_POST['domandamultipla'])){
 
                         printf("<div class=\"portlet \">");
                         printf("<div class=\"portlet-title\">");
-                        printf("<div class=\"col-md-5 caption\">");
-                        printf("<i class=\"fa fa-file-o\"></i>%s", $d->getTesto());
+                        printf("<div class=\"col-md-5\">");
+                        printf("<i class=\"fa fa-file-o\"></i> %s", $d->getTesto());
                         printf("</div>");
-                        printf("<div class=\"caption\">");
                         printf("Punteggio Corretta: %s/", $d->getPunteggioCorretta());
-                        printf("</div>");
-                        printf("<div class=\"caption\">");
                         printf("Punteggio Errata: %s", $d->getPunteggioErrata());
-                        printf("</div>");
                         printf("<div class=\"tools\">");
                         printf("<a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a>");
                         printf("</div>");

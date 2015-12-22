@@ -15,11 +15,24 @@ include_once CONTROL_DIR . "RispostaApertaController.php";
 include_once CONTROL_DIR . "RispostaMultiplaController.php";
 include_once CONTROL_DIR . "AlternativaController.php";
 include_once CONTROL_DIR . "ElaboratoController.php";
+include_once CONTROL_DIR . "UtenteController.php";
 
+$controllerUtente = new UtenteController();
 $controllerSessione = new SessioneController();
 $controlleCdl = new CdlController();
 $idSessione = $_URL[4];
 $identificativoCorso = $_URL[2];
+$numProfs=0;
+$doc = $_SESSION['user'];
+$docentiOe=$controllerUtente->getDocenteAssociato($identificativoCorso);
+foreach($docentiOe as $d) {
+    if($doc==$d){
+        $numProfs++;
+    }
+}
+if($numProfs==0){
+    header("Location: "."/docente/corso/".$corso->getId());
+}
 $domandaController = new DomandaController();
 $elaboratoController = new ElaboratoController();
 $testController = new ControllerTest();
@@ -98,7 +111,7 @@ $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
                     <ul class="page-breadcrumb">
                         <li>
                             <i class="fa fa-home"></i>
-                            <a href="index.html">Home</a>
+                            <a href="/docente">Home</a>
                             <i class="fa fa-angle-right"></i>
                         </li>
                         <li>
@@ -204,15 +217,25 @@ $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
                                         if ($array == null) {
                                         }
                                         else {
+                                            $sessioniByCorso = $controllerSessione->getAllSessioniByCorso($identificativoCorso);
                                             foreach ($array as $c) {
+                                                $elaborati = $elaboratoController->getAllElaboratiTest($c->getId());
+                                                if ($sessioniByCorso != null)
+                                                    $percSce = round(($c->getPercentualeScelto()/count($sessioniByCorso)*100),2);
+                                                else
+                                                    $percSce = 0;
+                                                if ($elaborati != null)
+                                                    $percSuc = round(($c->getPercentualeSuccesso()/count($elaborati)*100),2);
+                                                else
+                                                    $percSuc = 0;
                                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
                                                 printf("<td class=\"sorting_1\">Test %s</td>", $c->getId());
                                                 printf("<td>%s</td>", $c->getDescrizione());
                                                 printf("<td>%d</td>", $c->getNumeroMultiple());
                                                 printf("<td>%d</td>", $c->getNumeroAperte());
                                                 printf("<td>%d</td>", $c->getPunteggioMax());
-                                                printf("<td>%d</td>", $c->getPercentualeScelto());
-                                                printf("<td>%d</td>", $c->getPercentualeSuccesso());
+                                                printf("<td>%d%%</td>", $percSce);
+                                                printf("<td>%d%%</td>", $percSuc);
                                                 printf("</tr>");
                                             }
                                         }
@@ -260,6 +283,11 @@ $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
                                             <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Email
                                 " style="width: 100px;">
+                                                Test
+                                            </th>
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                         Email
+                                " style="width: 100px;">
                                                 Esito
                                             </th>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
@@ -287,6 +315,7 @@ $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
                                                 printf("<td class=\"sorting_1\">%s</td>", $c->getNome());
                                                 printf("<td>%s</td>", $c->getCognome());
                                                 printf("<td>%s</td>", $c->getMatricola());
+                                                printf("<td>%s</td>", $ela->getTestId());
                                                 if($ela->getStato()=="Corretto") {
                                                     if($ela->getEsitoFinale()>=$sogliaMin)
                                                       printf("<td><span class=\"label label-sm label-success\">%s</span>", $ela->getEsitoFinale());

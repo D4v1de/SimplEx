@@ -1,9 +1,11 @@
 <?php
 
 /**
- * User: Alina
- * Date: 27/11/15
- * Time: 10:15
+ * La classe descrive un alternativa.
+ *
+ * @author Alina Korniychuk
+ * @version 1.0
+ * @since 27/11/15
  */
 class Alternativa {
     private $id;
@@ -13,7 +15,7 @@ class Alternativa {
     private $corretta;
 
     /**
-     * Alternativa constructor.
+     * Costruttore di Alternativa.
      * @param int $domandaMultiplaId L'identificatore della domanda multipla relativa
      * @param string $testo Il testo dell'alternativa
      * @param float $percentualeScelta La percentuale di volte in cui è stata scelta

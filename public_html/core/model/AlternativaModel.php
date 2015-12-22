@@ -1,9 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Alina
- * Date: 29/11/2015
- * Time: 11:26
+ * La classe costituisce il model che effettua tutte le query riguardanti le funzionalità legate alle alternative, interfacciandosi al db al quale è connesso
+ *
+ * @author Alina Korniychuk
+ * @version 1.0
+ * @since 27/11/15
  */
 
 
