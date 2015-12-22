@@ -283,6 +283,11 @@ $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
                                             <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Email
                                 " style="width: 100px;">
+                                                Test
+                                            </th>
+                                            <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                         Email
+                                " style="width: 100px;">
                                                 Esito
                                             </th>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
@@ -310,6 +315,7 @@ $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
                                                 printf("<td class=\"sorting_1\">%s</td>", $c->getNome());
                                                 printf("<td>%s</td>", $c->getCognome());
                                                 printf("<td>%s</td>", $c->getMatricola());
+                                                printf("<td>%s</td>", $ela->getTestId());
                                                 if($ela->getStato()=="Corretto") {
                                                     if($ela->getEsitoFinale()>=$sogliaMin)
                                                       printf("<td><span class=\"label label-sm label-success\">%s</span>", $ela->getEsitoFinale());
