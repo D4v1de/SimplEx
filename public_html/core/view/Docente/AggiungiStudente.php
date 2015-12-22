@@ -184,6 +184,11 @@ if($someStudentsChange=isset($_POST['abilita'])) {
                                         aria-label="Status: activate to sort column ascending" style="width: 36px;">
                                         Matricola
                                     </th>
+                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Status: activate to sort column ascending" style="width: 36px;">
+                                        Stato
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -191,6 +196,8 @@ if($someStudentsChange=isset($_POST['abilita'])) {
                                 $array = Array();
                                 $toCheckS="";
                                 $disabilita="";
+                                $stato="";
+                                $bgr="";
                                 $array = $sesController->getAllStudentiByCorso($idCorso);
                                 $studentsOfSessione= $sesController->getAllStudentiBySessione($idSessione);
                                 $esaminandiSessione= $sesController->getEsaminandiSessione($idSessione);
@@ -203,11 +210,15 @@ if($someStudentsChange=isset($_POST['abilita'])) {
                                         foreach($studentsOfSessione as $t){
                                             if($c->getMatricola()==$t->getMatricola()) {
                                                 $toCheckS = "Checked";
+                                                $stato="In attesa";
                                             }
                                         }
                                         foreach($esaminandiSessione as $e){
-                                            if($e->getMatricola()==$c->getMatricola())
-                                                $disabilita="disabled";
+                                            if($e->getMatricola()==$c->getMatricola()) {
+                                                $disabilita = "disabled";
+                                                $toCheckS = "Checked";
+                                                $stato="Esame in corso";
+                                            }
                                         }
                                         printf("<td><input name=\"students[]\" type=\"checkbox\" %s %s class=\"checkboxes\" value='%s'></td>",$disabilita,$toCheckS, $c->getMatricola());
                                         $toCheckS="";
@@ -215,6 +226,12 @@ if($someStudentsChange=isset($_POST['abilita'])) {
                                         printf("<td class=\"sorting_1\">%s</td>", $c->getNome());
                                         printf("<td>%s</td>", $c->getCognome());
                                         printf("<td>%s</td>", $c->getMatricola());
+                                        if($stato=="In attesa"){
+                                            $bgr="bg-red";
+                                        }
+                                        printf("<td><span class=\"label label-sm label-success %s\">%s</span> </td>", $bgr,$stato);
+                                        $bgr="";
+                                        $stato="";
                                         printf("</tr>");
                                     }
                                 }
