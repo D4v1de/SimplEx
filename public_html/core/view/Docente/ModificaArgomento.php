@@ -78,7 +78,7 @@ if(isset($_POST['nome'])){
     <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8"/>
-        <title>Metronic | Page Layouts - Blank Page</title>
+        <title> <?php echo $corso->getNome(); ?> | Modifica Argomento </title>
         <?php include VIEW_DIR . "design/header.php"; ?>
     </head>
     <!-- END HEAD -->
@@ -126,12 +126,6 @@ if(isset($_POST['nome'])){
                             </div>
                             <div class="tools">
                                 <a href="javascript:;" class="collapse" data-original-title="" title="">
-                                </a>
-                                <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title="">
-                                </a>
-                                <a href="javascript:;" class="reload" data-original-title="" title="">
-                                </a>
-                                <a href="javascript:;" class="remove" data-original-title="" title="">
                                 </a>
                             </div>
                         </div>
