@@ -111,31 +111,25 @@ if(isset($_POST['Indietro'])){
                             $Multiple = Array();
                             $Multiple = $controllerDomanda->getAllDomandeMultipleByTest($test);
                             foreach($Multiple as $x) {
-                                $tests = $controllerTest->getAllTestByCorso($identificativoCorso);
-                                $risps = $rmController->getAllRisposteMultipleByDomanda($x->getId());
-                                $percSce = round(($x->getPercentualeScelta()/count($tests) * 100),2);
-                                printf("<div class=\"portlet box blue-madison\"><div class=\"portlet-title\"><div class=\"caption\"><i class=\"fa fa-question-circle\"></i>%s</div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div><div class=\"actions\">Inserita: %d%%</div></div>", $x->getTesto(),$percSce);
-                                $Alternative = Array();
-                                $Alternative = $controllerAlternativa->getAllAlternativaByDomanda($x->getId());
-                                printf("<div class=\"portlet-body\"><table style=\"width:100%%\">");
-                                foreach($Alternative as $b){
-                                    $percSel = round(($b->getPercentualeScelta()/count($risps) * 100),2);
-                                    printf("<tr><td>%s</td><td align=\"right\">Selezionata: %d%%</td></tr>", $b->getTesto(),$percSel);  
-                                }
-                                printf("</table></div></div>");
-                            foreach ($Multiple as $d) {
-                        $risposte = $controllerAlternativa->getAllAlternativaByDomanda($d->getId());
+                            
+                        $risposte = $controllerAlternativa->getAllAlternativaByDomanda($x->getId());
+                        $tests = $controllerTest->getAllTestByCorso($identificativoCorso);
+                        $risps = $rmController->getAllRisposteMultipleByDomanda($x->getId());
+                        $percSce = round(($x->getPercentualeScelta()/count($tests) * 100),2);
 
                         printf("<div class=\"portlet box blue-madison\">");
                         printf("<div class=\"portlet-title\">");
                         printf("<div class=\"col-md-5 caption\">");
-                        printf("<i class=\"fa fa-file-o\"></i>%s", $d->getTesto());
+                        printf("<i class=\"fa fa-file-o\"></i>%s", $x->getTesto());
                         printf("</div>");
                         printf("<div class=\"caption\">");
-                        printf("Punteggio Corretta: %s/", $d->getPunteggioCorretta());
+                        printf("Punteggio Corretta: %s &nbsp", $x->getPunteggioCorretta());
                         printf("</div>");
                         printf("<div class=\"caption\">");
-                        printf("Punteggio Errata: %s", $d->getPunteggioErrata());
+                        printf("Punteggio Errata: %s &nbsp", $x->getPunteggioErrata());
+                        printf("</div>");
+                        printf("<div class=\"caption\">");
+                        printf("Percentuale Scelta: %s",$percSce );
                         printf("</div>");
                         printf("<div class=\"tools\">");
                         printf("<a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a>");
@@ -147,6 +141,7 @@ if(isset($_POST['Indietro'])){
                         printf("<tbody>");
 
                         foreach ($risposte as $r) {
+                            $percSel = round(($r->getPercentualeScelta()/count($risps) * 100),2);
                             printf("<tr class=\"gradeX odd\" role=\"row\">");
                             printf("<td width='30'>");
                             if(!strcmp($r->getCorretta(),'Si')){
@@ -155,7 +150,7 @@ if(isset($_POST['Indietro'])){
                                 printf("<input type=\"checkbox\" disabled=\"\">");
                             }
                             printf("</td>");
-                            printf("<td>%s</td>", $r->getTesto());
+                            printf("<td>%s</td><td align=\"right\">Selezionata: %d%%</td>", $r->getTesto(),$percSel);
                             printf("</tr>");
                         }
                         printf("</tbody>");
@@ -167,13 +162,20 @@ if(isset($_POST['Indietro'])){
                             $Aperte = Array();
                             $Aperte = $controllerDomanda->getAllDomandeAperteByTest($test);
                             foreach($Aperte as $x){
+                                $tests = $controllerTest->getAllTestByCorso($identificativoCorso);
+                                $risps = $rmController->getAllRisposteMultipleByDomanda($x->getId());
+                                $percSce = round(($x->getPercentualeScelta()/count($tests) * 100),2);
+                                
                                 printf("<div class=\"portlet box blue-madison\">");
                                 printf("<div class=\"portlet-title\">");
                                 printf("<div class=\"col-md-5 caption\">");
                                 printf("<i class=\"fa fa-file-o\"></i>%s (APERTA)", $x->getTesto());
                                 printf("</div>");
                                 printf("<div class=\"caption\">");
-                                printf("Punteggio Max Corretta: %s ", $x->getPunteggioMax());
+                                printf("Punteggio Max Corretta: %s &nbsp", $x->getPunteggioMax());
+                                printf("</div>");
+                                printf("<div class=\"caption\">");
+                                printf("Percentuale Scelta: %s",$percSce );
                                 printf("</div>");
                                 printf("</div>");
                                 printf("<div class=\"portlet-body\">");
