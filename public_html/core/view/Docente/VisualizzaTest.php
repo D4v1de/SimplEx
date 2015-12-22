@@ -9,6 +9,9 @@
 include_once CONTROL_DIR . "DomandaController.php";
 $controllerDomanda = new DomandaController();
 
+include_once CONTROL_DIR . "CdlController.php";
+$controlleCdl = new CdlController();
+
 include_once CONTROL_DIR . "TestController.php";
 $controllerTest = new TestController();
 
@@ -21,6 +24,14 @@ $identificativoCorso=$_URL[2];
 function parseInt($Str) {
     return (int)$Str;   
 } 
+
+try {
+    $corso = $controlleCdl->readCorso($identificativoCorso);
+    $nomecorso= $corso->getNome();
+}
+catch (ApplicationException $ex) {
+    echo "<h1>ERRORE NELLA LETTURA DEL CORSO!</h1>" . $ex;
+}
 
 if(isset($_POST['idtest'])){
     $id = $_POST['idtest'];
@@ -46,7 +57,9 @@ if(isset($_POST['Indietro'])){
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>Metronic | Page Layouts - Blank Page</title>
+    <title><?php 
+    $titoloPagina="Test ".$test;
+    echo $titoloPagina;?></title>
     <?php include VIEW_DIR . "design/header.php"; ?>
 </head>
 <!-- END HEAD -->
@@ -73,11 +86,17 @@ if(isset($_POST['Indietro'])){
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="#">Nome Corso</a>
+                        <a href="<?php echo "/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $controlleCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        Visualizza Test
+                        <?php
+                        $vaiANomeCorso="/docente/corso/".$identificativoCorso;
+                        printf("<a href=\"%s\">%s</a><i class=\"fa fa-angle-right\"></i>", $vaiANomeCorso ,$nomecorso);
+                        ?>
+                    </li>
+                    <li>
+                        <?php echo $titoloPagina; ?>
                     </li>
                 </ul>
             </div>
@@ -88,22 +107,66 @@ if(isset($_POST['Indietro'])){
             <?php
                             $Multiple = Array();
                             $Multiple = $controllerDomanda->getAllDomandeMultipleByTest($test);
-                            foreach($Multiple as $x) {
-                                printf("<div class=\"portlet box blue-madison\"><div class=\"portlet-title\"><div class=\"caption\"><i class=\"fa fa-question-circle\"></i>%s</div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div>", $x->getTesto());
-                                $Alternative = Array();
-                                $Alternative = $controllerAlternativa->getAllAlternativaByDomanda($x->getId());
-                                printf("<div class=\"portlet-body\">");
-                                foreach($Alternative as $b){
-                                 printf("<p>%s</p>", $b->getTesto());  
-                                }
-                                printf("</div></div>");
+                            foreach ($Multiple as $d) {
+                        $risposte = $controllerAlternativa->getAllAlternativaByDomanda($d->getId());
+
+                        printf("<div class=\"portlet box blue-madison\">");
+                        printf("<div class=\"portlet-title\">");
+                        printf("<div class=\"col-md-5 caption\">");
+                        printf("<i class=\"fa fa-file-o\"></i>%s", $d->getTesto());
+                        printf("</div>");
+                        printf("<div class=\"caption\">");
+                        printf("Punteggio Corretta: %s/", $d->getPunteggioCorretta());
+                        printf("</div>");
+                        printf("<div class=\"caption\">");
+                        printf("Punteggio Errata: %s", $d->getPunteggioErrata());
+                        printf("</div>");
+                        printf("<div class=\"tools\">");
+                        printf("<a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a>");
+                        printf("</div>");
+                        printf("</div>");
+                        printf("<div class=\"portlet-body\">");
+                        printf("<div id=\"tabella_domanda1_wrapper\" class=\"dataTables_wrapper no-footer\">");
+                        printf("<table class=\"table table-striped table-bordered table-hover dataTable no-footer\"id=\"tabella_domanda1\" role=\"grid\" aria-describedby=\"tabella_domanda1_info\">");
+                        printf("<tbody>");
+
+                        foreach ($risposte as $r) {
+                            printf("<tr class=\"gradeX odd\" role=\"row\">");
+                            printf("<td width='30'>");
+                            if(!strcmp($r->getCorretta(),'Si')){
+                                printf("<input type=\"checkbox\" disabled=\"\" checked=\"\">");
+                            } else  {
+                                printf("<input type=\"checkbox\" disabled=\"\">");
                             }
+                            printf("</td>");
+                            printf("<td>%s</td>", $r->getTesto());
+                            printf("</tr>");
+                        }
+                        printf("</tbody>");
+                        printf("</table>");
+                        printf("</div>");
+                        printf("</div>");
+                        printf("</div>");
+                    }
                             $Aperte = Array();
                             $Aperte = $controllerDomanda->getAllDomandeAperteByTest($test);
                             foreach($Aperte as $x){
-                             printf("<div class=\"portlet box blue-madison\"><div class=\"portlet-title\"><div class=\"caption\"><i class=\"fa fa-question-circle\"></i>%s (aperta)</div></div></div>", $x->getTesto());   
-                             
-                            }
+                                printf("<div class=\"portlet box blue-madison\">");
+                                printf("<div class=\"portlet-title\">");
+                                printf("<div class=\"col-md-5 caption\">");
+                                printf("<i class=\"fa fa-file-o\"></i>%s (APERTA)", $x->getTesto());
+                                printf("</div>");
+                                printf("<div class=\"caption\">");
+                                printf("Punteggio Max Corretta: %s ", $x->getPunteggioMax());
+                                printf("</div>");
+                                printf("</div>");
+                                printf("<div class=\"portlet-body\">");
+                                printf("<div id=\"tabella_domanda1_wrapper\" class=\"dataTables_wrapper no-footer\">");
+                                printf("<table class=\"table table-striped table-bordered table-hover dataTable no-footer\"id=\"tabella_domanda1\" role=\"grid\" aria-describedby=\"tabella_domanda1_info\">");
+                                printf("</table>");
+                                printf("</div>");
+                                printf("</div>");
+                                printf("</div>");}
                             if(($Multiple==null) && ($Aperte==null)){
                                 printf("<h2> Il test selezionato non ha alcuna domanda associata </h2><br><br>"); 
                             }

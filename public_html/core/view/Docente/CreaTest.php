@@ -11,7 +11,10 @@ include_once CONTROL_DIR . "ArgomentoController.php";
 include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "DomandaController.php";
 include_once CONTROL_DIR . "TestController.php";
+include_once CONTROL_DIR . "CdlController.php";
 
+
+$controlleCdl = new CdlController();
 $controllerArgomento = new ArgomentoController();
 $controllerCorso = new CdlController();
 $controllerDomande  = new DomandaController();
@@ -19,6 +22,14 @@ $controllerTest = new TestController();
 
 function parseInt($Str) {
     return (int)$Str;
+}
+
+try {
+    $corso = $controlleCdl->readCorso(parseInt($_URL[2]));
+    $nomecorso= $corso->getNome();
+}
+catch (ApplicationException $ex) {
+    echo "<h1>ERRORE NELLA LETTURA DEL CORSO!</h1>" . $ex;
 }
 
 function contaAperte($idcorso){
@@ -236,7 +247,7 @@ $corso = $controllerCorso->readCorso($_URL[2]);
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>Metronic | Page Layouts - Blank Page</title>
+    <title>Crea Test</title>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
     <link rel="stylesheet" type="text/css"
           href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
@@ -276,11 +287,17 @@ $corso = $controllerCorso->readCorso($_URL[2]);
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="#">Nome Corso</a>
+                        <a href="<?php echo "/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $controlleCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="#">Crea Test</a>
+                        <?php
+                        $vaiANomeCorso="/docente/corso/".$identificativoCorso;
+                        printf("<a href=\"%s\">%s</a><i class=\"fa fa-angle-right\"></i>", $vaiANomeCorso ,$nomecorso);
+                        ?>
+                    </li>
+                    <li>
+                        Crea Test
                     </li>
 
                 </ul>
@@ -448,6 +465,14 @@ $corso = $controllerCorso->readCorso($_URL[2]);
                                          Points
                                 " style="width: 800px;">
                                                 Testo
+                                            </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                         Points
+                                " style="width: 100px;">
+                                                Percentuale Scelta
+                                            </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                         Points
+                                " style="width: 100px;">
+                                                Percentuale Corretta
                                             </th>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Status
@@ -478,6 +503,8 @@ $corso = $controllerCorso->readCorso($_URL[2]);
                                                 printf("<td>%s</td>",$s->getId());
                                                 printf("<td>%s</td>",$a->getNome());
                                                 printf("<td>%s</td>",$s->getTesto());
+                                                printf("<td>%s %%</td>",$s->getPercentualeScelta());
+                                                printf("<td>%s %%</td>",$s->getPercentualeRispostaCorretta());
                                                 printf("<td>Multipla</td>");
                                                 printf("<td><div class=\"form-group form-md-line-input has-success\"><div class=\"input-icon\"><input type=\"text\" name=\"alternCorr-%d\" class=\"form-control\">
                                             <label for=\"alternCorr\">Corretta:</label>
@@ -493,6 +520,8 @@ $corso = $controllerCorso->readCorso($_URL[2]);
                                                 printf("<td>%s</td>",$s->getId());
                                                 printf("<td>%s</td>",$a->getNome());
                                                 printf("<td>%s</td>",$s->getTesto());
+                                                printf("<td>%s %%</td>",$s->getPercentualeScelta());
+                                                printf("<td>-----</td>");
                                                 printf("<td>Aperta</td>");
                                                 printf("<td><div class=\"form-group form-md-line-input has-success\"><div class=\"input-icon\"><input type=\"text\" name=\"ApertaCorr-%d\" class=\"form-control\">
                                             <label for=name=\"ApertaCorr\">Punteggio max:</label>
