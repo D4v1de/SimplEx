@@ -239,6 +239,9 @@ try {
                                 include_once VIEW_DIR . "Docente/HomeCorso2.php";
                         }
                         break;
+                    case 'getTestforStat':
+                        include_once VIEW_DIR . "Docente/getTestforStat.php";
+                        break;
                     default:
                         include_once VIEW_DIR . "Docente/Home.php";
                 }
