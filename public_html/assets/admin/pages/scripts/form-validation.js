@@ -52,19 +52,19 @@ var FormValidation = function () {
                     },
                     nome: {
                         minlength: 2,
-                        maxlength: 40,
+                        maxlength: 100,
                         required: true,
                         validchar: true
                     },
                     nomecdl: {
                         minlength: 2,
-                        maxlength: 40,
+                        maxlength: 100,
                         required: true,
                         validchar: true
                     },
                     nomecorso: {
                         minlength: 2,
-                        maxlength: 40,
+                        maxlength: 100,
                         required: true,
                         validchar: true
                     },
