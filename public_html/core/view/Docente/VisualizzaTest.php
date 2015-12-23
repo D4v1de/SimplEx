@@ -141,7 +141,11 @@ if(isset($_POST['Indietro'])){
                         printf("<tbody>");
 
                         foreach ($risposte as $r) {
+                            if(count($risps)==0){
+                              $percSel=0;  
+                            }else{
                             $percSel = round(($r->getPercentualeScelta()/count($risps) * 100),2);
+                            }
                             printf("<tr class=\"gradeX odd\" role=\"row\">");
                             printf("<td width='30'>");
                             if(!strcmp($r->getCorretta(),'Si')){

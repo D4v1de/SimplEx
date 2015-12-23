@@ -30,7 +30,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     $tipologia = $_POST['tipologia'];
 
     //controllo sul nome
-    if(empty($nome)) {
+    if(empty($nome) || !preg_match('/^[a-zA-Z0-9\s-]+$/', $nome)) {
         $flag3 = 0;
     }
     foreach($cdls as $c) {
@@ -50,7 +50,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     }
 
     //controllo su tipologia
-    if(empty($tipologia)) {
+    if(empty($tipologia) || !in_array($tipologia, Config::$TIPI_CDL)) {
         $flag5 = 0;
     }
 
@@ -98,7 +98,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                Crea CdL
+                Crea Corso di Laurea
             </h3>
 
             <div class="page-bar">

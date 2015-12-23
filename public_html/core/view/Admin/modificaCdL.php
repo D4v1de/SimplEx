@@ -49,7 +49,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     unset($cdls[$x]);
 
     //controllo su nome
-    if(empty($nomenew)) {
+    if(empty($nomenew) || !preg_match('/^[a-zA-Z0-9\s-]+$/', $nomenew)) {
         $flag = 0;
     }
     foreach($cdls as $c) {
@@ -69,7 +69,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     }
 
     //controllo su tipologia
-    if(empty($tipologianew)) {
+    if(empty($tipologianew) || !in_array($tipologianew, Config::$TIPI_CDL)) {
         $flag2 = 0;
     }
 

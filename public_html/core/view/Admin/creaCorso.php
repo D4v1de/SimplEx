@@ -37,12 +37,12 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     $cdlmatricola = $_POST['tipologia2'];
 
     //controllo sul nome
-    if(empty($nome)) {
+    if(empty($nome) || !preg_match('/^[a-zA-Z0-9\s-]+$/', $nome)) {
         $flag2 = 0;
     }
 
     //controllo sulla tipologia
-    if(empty($tipologia)) {
+    if(empty($tipologia) || !in_array($tipologia, Config::$TIPI_CORSO)) {
         $flag3 = 0;
     }
 

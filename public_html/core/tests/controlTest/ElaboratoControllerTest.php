@@ -1,0 +1,61 @@
+<?php
+
+/**
+ * La classe effettua il test di tutti i metodi della classe ElaboratoModel.php
+ *
+ * @author Fabiano Pecorelli
+ * @version 1.0
+ * @since 21/12/2015
+ */
+
+class ElaboratoControllerTest extends PHPUnit_Framework_TestCase
+{
+    const SESSIONE_ID = 1;
+    const CDLMATRICOLA = "051214";
+    const STUDENTE_MATRICOLA = "0512102552";
+    const ESITO_FINALE = 25.0;
+    const ESITO_PARZIALE = 18.0;
+    const ESITO_PARZIALE2 = 20.0;
+    const ESITO_FINALE2 = 27.0;
+    const TEST_ID = 3;
+
+    public function testCreateRemoveEditElaborato() {
+        $controller = new ElaboratoController();
+
+        //testo delete
+        $controller->deleteElaborato(self::STUDENTE_MATRICOLA,self::SESSIONE_ID);
+
+        //creo un elaborato
+        $controller->createElaborato(new Elaborato(self::STUDENTE_MATRICOLA,self::SESSIONE_ID,self::ESITO_PARZIALE, self::ESITO_FINALE,self::TEST_ID, null));
+
+        //leggo l'elaborato creato
+        $elaborato = $controller->readElaborato(self::STUDENTE_MATRICOLA,self::SESSIONE_ID);
+        //confronto gli elaborati
+        $this->assertEquals(self::STUDENTE_MATRICOLA,$elaborato->getStudenteMatricola());
+        $this->assertEquals(self::SESSIONE_ID,$elaborato->getSessioneId());
+        $this->assertEquals(self::ESITO_FINALE,$elaborato->getEsitoFinale());
+        $this->assertEquals(self::ESITO_PARZIALE,$elaborato->getEsitoParziale());
+        $this->assertEquals(self::TEST_ID,$elaborato->getTestId());
+
+        //eseguo una modifica sul cdl creato prima
+        $controller->updateElaborato(self::STUDENTE_MATRICOLA, self::SESSIONE_ID, new Elaborato(self::STUDENTE_MATRICOLA, self::SESSIONE_ID, self::ESITO_PARZIALE2, self::ESITO_FINALE2,self::TEST_ID, null ));
+
+        //leggo cdl modificato dal db e verifico la correzione
+        $elaboratoModificato = $controller->readElaborato(self::STUDENTE_MATRICOLA, self::SESSIONE_ID);
+        print_r($elaboratoModificato);
+
+        //leggo tutti gli elaborati del db
+        $allElab = $controller->getAllElaborato();
+        print_r($allElab);
+        //leggo tutti gli elaborati di uno studente
+        $allElab2 = $model->getElaboratiStudente(new Utente(self::STUDENTE_MATRICOLA,"","","","","",self::CDLMATRICOLA));
+        print_r($allElab2);
+
+        //leggo tutti gli elaborati di un test
+        $allElab3 = $controller->getAllElaboratiTest(self::TEST_ID);
+        print_r($allElab3);
+
+        //cancello l'elaborato
+        $controller->deleteElaborato(self::STUDENTE_MATRICOLA,self::SESSIONE_ID);
+    }
+}
