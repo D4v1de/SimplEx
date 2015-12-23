@@ -121,7 +121,8 @@ var FormValidation = function () {
                     testoDomanda: {
                         required: true,
                         minlength: 2,
-                        maxlength: 500
+                        maxlength: 500,
+                        validchar: true
                     },
                     testoRisposta: {
                         required:true,
@@ -134,12 +135,14 @@ var FormValidation = function () {
                     'testoRisposta[]': {
                         required: true,
                         minlength: 1,
-                        maxlength: 100
+                        maxlength: 100,
+                        validchar: true
                     },
                     'risposteNuove[]': {
                         required: true,
                         minlength: 1,
-                        maxlength: 100
+                        maxlength: 100,
+                        validchar: true
                     },
                     url: {
                         required: true,
