@@ -265,7 +265,7 @@
                         <i class="fa fa-envelope-o fa-3x fw"></i>
 
                         <div class="facts-wrap-num">
-                            <span class="counter">1100</span>
+                            <span class="counter">1200</span>
                         </div>
                     </div>
                     <h6>Email</h6>
@@ -286,7 +286,7 @@
                         </div>
                         <i class="fa fa-weixin fa-3x fw"></i>
 
-                        <div class="facts-wrap-num"><span class="counter">7500</span></div>
+                        <div class="facts-wrap-num"><span class="counter">8500</span></div>
                     </div>
                     <h6>Messaggi</h6>
                 </div>
@@ -306,7 +306,7 @@
                         </div>
                         <i class="fa fa-group fa-3x fw"></i>
 
-                        <div class="facts-wrap-num"><span class="counter">17</span></div>
+                        <div class="facts-wrap-num"><span class="counter">20</span></div>
                     </div>
                     <h6>Meeting</h6>
                 </div>
@@ -326,7 +326,7 @@
                         </div>
                         <i class="fa fa-check-square-o fa-3x fw"></i>
 
-                        <div class="facts-wrap-num"><span class="counter">820</span></div>
+                        <div class="facts-wrap-num"><span class="counter">1100</span></div>
                     </div>
                     <h6>Commit</h6>
                 </div>
@@ -506,8 +506,8 @@
                             <div class="overlay-effect">
                                 <ul class="social list-inline">
                                     <li><a href="https://github.com/dariocast"><i class="fa fa-github-square"></i></a></li>
-                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href=""><i class="fa fa-linkedin-square"></i></a></li>
+                                    <li><a href="https://www.google.com/+DarioCastellano94"><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href=" https://www.linkedin.com/in/dario-castellano-4aa617100"><i class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
                                 <p> </p>
                             </div>
@@ -541,9 +541,9 @@
 
                             <div class="overlay-effect">
                                 <ul class="social list-inline">
-                                    <li><a href=""><i class="fa fa-github-square"></i></a></li>
-                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href=""><i class="fa fa-linkedin-square"></i></a></li>
+                                    <li><a href=" https://github.com/christian161291"><i class="fa fa-github-square"></i></a></li>
+                                    <li><a href=" https://www.facebook.com/christian.deblasio.16"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="https://www.linkedin.com/profile/preview?vpa=pub&locale=it_IT"><i class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
                                 <p> </p>
                             </div>
@@ -577,9 +577,8 @@
 
                             <div class="overlay-effect">
                                 <ul class="social list-inline">
-                                    <li><a href=""><i class="fa fa-github-square"></i></a></li>
-                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href=""><i class="fa fa-linkedin-square"></i></a></li>
+                                    <li><a href=" https://github.com/chardido"><i class="fa fa-github-square"></i></a></li>
+                                    <li><a href="https://it.linkedin.com/in/carlo-di-domenico-651658110"><i class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
                                 <p> </p>
                             </div>
@@ -591,13 +590,12 @@
                 <div class="item text-center">
                     <div class="single-member">
                         <div class="overlay-hover">
-                            <img src="/assets/homepage/images/team/pic5.jpg" alt="" class="img-responsive">
+                            <img src="/assets/homepage/images/team/Fabio.jpg" alt="" class="img-responsive">
 
                             <div class="overlay-effect">
                                 <ul class="social list-inline">
-                                    <li><a href=""><i class="fa fa-github-square"></i></a></li>
-                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href=""><i class="fa fa-linkedin-square"></i></a></li>
+                                    <li><a href="https://github.com/fabesp1994"><i class="fa fa-github-square"></i></a></li>
+                                    <li><a href=" https://plus.google.com/u/0/?hl=it"><i class="fa fa-google-plus"></i></a></li>
                                 </ul>
                                 <p> </p>
                             </div>
@@ -627,13 +625,12 @@
                 <div class="item text-center">
                     <div class="single-member">
                         <div class="overlay-hover">
-                            <img src="/assets/homepage/images/team/pic5.jpg" alt="" class="img-responsive">
+                            <img src="/assets/homepage/images/team/Pasquale.jpg" alt="" class="img-responsive">
 
                             <div class="overlay-effect">
                                 <ul class="social list-inline">
                                     <li><a href="https://github.com/PasqualeMartiniello"><i class="fa fa-github-square"></i></a></li>
-                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href=""><i class="fa fa-linkedin-square"></i></a></li>
+                                    <li><a href="https://it.linkedin.com/in/pasquale-martiniello-651129111"><i class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
                                 <p> </p>
                             </div>
@@ -794,7 +791,7 @@
                     <div class="tab-content main-tab-content">
                         <div role="tabpanel" class="tab-pane active " id="home">
                             <div class="col-md-12 col-sm-9">
-                                <img src="/assets/homepage/images/about/web1.png" alt="" class="img-responsive">
+                                <img src="/assets/homepage/images/about/web2.jpg" alt="" class="img-responsive">
                             </div>
                             <div class="col-md-12 col-sm-9">
                                 <div class="c-tab">
@@ -818,14 +815,13 @@
                         </div>
                         <div role="tabpanel" class="tab-pane" id="profile">
                             <div class="col-md-12 col-sm-9">
-                                <img src="/assets/homepage/images/about/browse.png" alt="" class="img-responsive">
+                                <img src="/assets/homepage/images/about/HomeDocente.png" alt="" class="img-responsive">
                             </div>
                             <div class="col-md-12 col-sm-9">
                                 <div class="c-tab">
-                                    <h4>La pagina Home del docente</h4>
+                                    <h4>La pagina Home del Docente</h4>
 
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus praesentium
-                                        dolore sequi excepturi recusandae reprehenderit, distinctio.</p>
+                                    <p>La Home del Docente mostra la lista dei corsi da lui tenuti. Una volta selezionato un corso specifico viene visualizzata la pagina con tutte le sessioni, i test e gli argomenti del relativo corso. Inoltre da qui il Docente ha la possibilit&agrave; di accedere a tutti i corsi di laurea dell'ateneo.</p>
                                     <br>
 
 
@@ -838,10 +834,9 @@
                             </div>
                             <div class="col-md-12 col-sm-9">
                                 <div class="c-tab">
-                                    <h4>La pagina Home dello studente</h4>
+                                    <h4>La pagina Home dello Studente</h4>
 
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus praesentium
-                                        dolore sequi excepturi recusandae reprehenderit, distinctio.</p>
+                                    <p>La Home dello Studente mostra la lista di tutti i corsi da lui seguiti. Una volta selezionato un corso, lo Studente ha la possibilita di visualizzare le sessioni con i relativi test. Inoltre da qui lo Studente ha la possibilità di visulizzare tutti i corsi di Laurea dell'eteneo e di conseguenza inscriversi.</p>
                                     <br>
 
 
@@ -850,14 +845,13 @@
                         </div>
                         <div role="tabpanel" class="tab-pane" id="profile2">
                             <div class="col-md-12 col-sm-9">
-                                <img src="/assets/homepage/images/about/browse.png" alt="" class="img-responsive">
+                                <img src="/assets/homepage/images/about/creaTest.png" alt="" class="img-responsive">
                             </div>
                             <div class="col-md-12 col-sm-9">
                                 <div class="c-tab">
                                     <h4>La pagina di creazione test</h4>
 
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus praesentium
-                                        dolore sequi excepturi recusandae reprehenderit, distinctio.</p>
+                                    <p>In questa pagina il Docente ha la possibilità di creare un test in modo manuale e in automatico ovvero lasciando che vengano scelti casualmente.</p>
                                     <br>
 
                                 </div>
@@ -888,58 +882,91 @@
 <div class="clearfix"></div>
 <!-- Contact Area Start-->
 
-<section id="contact">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="feature_header text-center">
-                    <h3 class="feature_title"><b>Contattaci</b></h3>
-                    <h4 class="feature_sub">Per qualsiasi informazione su SimplEx compila il modulo e verrai
-                        ricontattato. </h4>
+<script>
+    function goBack()
+    {
+        window.history.back()
+    }
+</script>
+<?php
+$my_email = "alinakim@libero.it"; //il mio indirizzo
 
-                    <div class="divider"></div>
+
+if (isset($_REQUEST['email'])) {
+    //send email
+    $email = $_REQUEST['email'] ;
+    $subject = $_REQUEST['subject'] ;
+    $message = $_REQUEST['message'] ;
+
+   /* if ($email == "") {
+        echo "ERROR: Devi inserire un email!<br>";
+        echo "<input type='button' value='Back' onclick='goBack()' />";
+        exit;
+    }
+    if ($subject == "") {
+        echo "ERROR: Devi inserire il numero di telefono!<br>";
+        echo "<input type='button' value='Back' onclick='goBack()' />";
+        exit;
+    }
+    if ($message == "") {
+        echo "ERROR: Devi inserire un messaggio!<br>";
+        echo "<input type='button' value='Back' onclick='goBack()' />";
+        exit;
+    }*/
+
+    mail($my_email, $subject, $message, "From:" . $email);
+   // echo "<META HTTP-EQUIV='Refresh' CONTENT='0'; url='http://localhost:9080/'>";
+
+} else {
+    echo"<form method='post' action='home.php'>
+    <section id='contact'>
+      <div class='container'>
+        <div class='row'>
+  			<div class='col-md-12 col-sm-12 col-xs-12'>
+                <div class='feature_header text-center'>
+                    <h3 class='feature_title'> <b>Contattaci</b></h3>
+                    <h4 class='feature_sub'>Per qualsiasi informazione su SimplEx compila il modulo e verrai ricontattato. </h4>
+                    <div class='divider'></div>
                 </div>
-            </div>
+  			</div>
         </div>
-        <div class="row">
-            <div class="contact_full">
-                <div class="col-md-6 left">
-                    <div class="left_contact">
-                        <form method="POST" action="mailto:adolcina@gmail.com" enctype="text/plain">
-                            <div class="form-level">
-                                <input name="name" placeholder="Il tuo nome" id="name" value="" type="text"
-                                       class="input-block">
-                                <span class="form-icon fa fa-user"></span>
+        <div class='row'>
+             <div class='contact_full'>
+                <div class='col-md-6 left'>
+                    <div class='left_contact'>
+                        <form action='role'>
+                            <div class='form-level'>
+                                <input name='name' placeholder='Il tuo nome' id='name'  value='' type='text' class='input-block'>
+                                <span class='form-icon fa fa-user'></span>
                             </div>
-                            <div class="form-level">
-                                <input name="email" placeholder="La tua email" id="mail" class="input-block" value="from"
-                                       type="email">
-                                <span class="form-icon fa fa-envelope-o"></span>
+                            <div class='form-level'>
+                                <input name='email' placeholder='La tua email' id='mail' class='input-block' value='' type='email'>
+                                <span class='form-icon fa fa-envelope-o'></span>
                             </div>
-                            <div class="form-level">
-                                <input name="name" placeholder="Il tuo telefono" id="phone" class="input-block" value=""
-                                       type="text">
-                                <span class="form-icon fa fa-phone"></span>
+                            <div class='form-level'>
+                                <input name='subject' placeholder='Il tuo telefono' id='phone' class='input-block' value='' type='text'>
+                                <span class='form-icon fa fa-phone'></span>
                             </div>
                         </form>
                     </div>
                 </div>
 
-                <div class="col-md-6 right">
-                    <div class="form-level">
-                        <textarea name="body" id="messege" rows="5" class="textarea-block"
-                                  placeholder="Il messaggio per lo staff"></textarea>
-                        <span class="form-icon fa fa-pencil"></span>
+                <div class='col-md-6 right'>
+                    <div class='form-level'>
+                        <textarea name='message' id='messege'  rows='5' class='textarea-block' placeholder='Il messaggio per lo staff'></textarea>
+                        <span class='form-icon fa fa-pencil'></span>
                     </div>
                 </div>
-                <div class="col-md-12 text-center">
-                    <input class="btn btn-main featured" type="submit" value="Invia">
-                 <!--   <button class="btn btn-main featured">Invia</button>-->
+                <div class='col-md-12 text-center'>
+                    <input type='submit' class='btn btn-main featured' value='Invio'>
                 </div>
             </div>
         </div>
     </div>
-</section>
+</section>";
+
+}
+?>
 
 <div id="g-map" class="no-padding">
     <div class="container-fluid">
