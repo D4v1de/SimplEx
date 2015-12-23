@@ -664,9 +664,8 @@
 
                             <div class="overlay-effect">
                                 <ul class="social list-inline">
-                                    <li><a href=""><i class="fa fa-github-square"></i></a></li>
-                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href=""><i class="fa fa-linkedin-square"></i></a></li>
+                                    <li><a href="https://github.com/mrneutro"><i class="fa fa-github-square"></i></a></li>
+                                    <li><a href="https://it.linkedin.com/in/sergey-shevchenko-b6122353"><i class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
                                 <p> </p>
                             </div>
@@ -918,7 +917,7 @@ if (isset($_REQUEST['email'])) {
    // echo "<META HTTP-EQUIV='Refresh' CONTENT='0'; url='http://localhost:9080/'>";
 
 } else {
-    echo"<form method='post' action='home.php'>
+    echo"<form method='post' action='/'>
     <section id='contact'>
       <div class='container'>
         <div class='row'>
