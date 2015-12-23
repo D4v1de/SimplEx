@@ -29,15 +29,20 @@ $flag1=1;
 $corso = $controlleCdl->readCorso($identificativoCorso);
 $nomecorso= $corso->getNome();
 
-if (isset($_GET['vai'])){
+if(isset($_POST['Home'])){
+    $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
+    header($tornaACasa);
+}
+
+if (isset($_POST['vai'])){
     $sessioni = $controllerSessione->getAllSessioniByCorso($identificativoCorso);
-    if(empty($_GET['from']) || empty($_GET['to'])){
+    if(empty($_POST['from']) || empty($_POST['to'])){
         $flag=0;
     }else{
-        $timeTo = strtotime($_GET['to']);
+        $timeTo = strtotime($_POST['to']);
         $toCompareTo = date('yyyy-mm-dd hh:ii:ss', $timeTo);
 
-        $timeFrom = strtotime($_GET['from']);
+        $timeFrom = strtotime($_POST['from']);
         $toCompareFrom = date('yyyy-mm-dd hh:ii:ss', $timeFrom);
 
         if ($toCompareTo < $toCompareFrom) {
@@ -45,8 +50,8 @@ if (isset($_GET['vai'])){
         $sessList = Array();
         $studenti = Array();
         }else{
-    $from = $_GET['from'];
-    $to = $_GET['to'];
+    $from = $_POST['from'];
+    $to = $_POST['to'];
     $sessList = Array();
     $studenti = Array();
     $uc = new UtenteController();
@@ -123,7 +128,7 @@ if (isset($_GET['vai'])){
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <form id="form_sample_1" action='' method='GET'>
+            <form id="form_sample_1" action='' method='POST'>
                 
                 <?php
                     if(!$flag) {
@@ -177,13 +182,13 @@ if (isset($_GET['vai'])){
                     </div>
                     <div class="col-md-1">
                         <h2></h2>
-                        <button type="submit" name='vai' href='' class="btn sm green-jungle "> <span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                        <button type="submit" name='vai' class="btn sm green-jungle "> <span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                             Vai
                         </button>
                     </div>
                 </div>
             </div>
-            </form>
+            
 
             <br>
             <br>
@@ -217,10 +222,12 @@ if (isset($_GET['vai'])){
                             </ul>
                         </div>
                     </div>
+                    
+                    
                 </div>
                 <div class="portlet-body">
                     
-                    <div id="tabella_studenti_wrapper" class="dataTables_wrapper no-footer" <?php if (!isset($_GET['vai']) || $_GET['from']== null || $_GET['to']== null ) echo 'hidden=""' ?>>
+                    <div id="tabella_studenti_wrapper" class="dataTables_wrapper no-footer" <?php if (!isset($_POST['vai']) || $_POST['from']== null || $_POST['to']== null ) echo 'hidden=""' ?>>
                         <table class="table table-striped table-bordered table-hover dataTable no-footer" id="tabella_studenti" role="grid" aria-describedby="tabella_studenti_info">
                             <thead>
                             <tr role="row">
@@ -282,6 +289,11 @@ if (isset($_GET['vai'])){
                     </div>
                 </div>
             </div>
+            
+            <button name='Home' class="btn sm blue-madison "> <span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                            Home
+                        </button>
+            </form>
             <!-- END PAGE CONTENT-->
         </div>
         <!-- END CONTENT -->
