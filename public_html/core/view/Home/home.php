@@ -201,8 +201,9 @@
             <div class="main_feature text-center">
                 <div class="col-md-3 col-xs-12 col-sm-6">
                     <div class="feature_content">
-                        <i class="fa fa-pencil"></i>
-                        <h5>RAD</h5>
+                        <a href="http://5.9.123.184/Documentazione/Simplex%20-%20Requirements%20Analysis%20Document.pdf">  <i class="fa fa-pencil"></i>
+
+                        <h5>RAD</h5></a>
 
                         <p><b>Requirement Analysis Document</b>.<br> Documento di analisi dei requisiti funzionali e non funzionali del sistema software <b>SimplEx</b>.</p>
 
@@ -210,8 +211,9 @@
                 </div>
                 <div class="col-md-3 col-xs-12 col-sm-6">
                     <div class="feature_content">
-                        <i class="fa fa-pencil"></i>
-                        <h5>SDD</h5>
+                        <a href="">  <i class="fa fa-pencil"></i>
+
+                            <h5>SDD</h5></a>
 
                         <p><b>System Design Document</b>.<br> Documento di specifica degli obiettivi di design del sistema software <b>SimplEx</b>. </p>
 
@@ -219,8 +221,8 @@
                 </div> <!-- Col-md-4 Single_feature End -->
                 <div class="col-md-3 col-xs-12 col-sm-6">
                     <div class="feature_content">
-                        <i class="fa fa-pencil"></i>
-                        <h5>ODD</h5>
+                        <a href="http://5.9.123.184/Documentazione/ODD.pdf"> <i class="fa fa-pencil"></i> <h5>ODD</h5></a></li>
+
 
                         <p><b>Object Design Document</b>.<br> Documento che descrive gli oggetti di design.</p>
 
@@ -228,8 +230,8 @@
                 </div> <!-- Col-md-4 Single_feature End -->
                 <div class="col-md-3 col-xs-12 col-sm-6">
                     <div class="feature_content">
-                        <i class="fa fa-pencil"></i>
-                        <h5>Test Plan</h5>
+                        <a href="http://5.9.123.184/Documentazione/TestPlan.pdf"> <i class="fa fa-pencil"></i>
+                        <h5>Test Plan</h5></a>
 
                         <p>Documento contenente il piano di test previsto per il sistema software <b>SimplEx</b>.</p>
 
@@ -378,9 +380,8 @@
                         <h3 class="name">Professore Andrea De Lucia <span><b>Top Manager</b></span></h3>
 
                         <p class="testimonial-text">
-                            iLorem Ipsum as their default model text, and a search for ‘lorem ipsum’ will uncover many
-                            web sites still in their infancy. Various versions have evolved over the years, sometimes by
-                            accident, sometimes on purpose. Lorem Ipsum is that it as opposed to using.
+                            La mia attivit&agrave; didattica &egrave; incentrata sull'<b>Ingegneria del Software</b>, coerentemente alla mia attivit&agrave; di ricerca.
+                            Il mio obiettivo è da sempre quello di trasferire agli studenti i principi, i metodi e gli strumenti per lo sviluppo, l'evoluzione e la gestione del software, fornendo allo stesso tempo esperienze pratiche significative (tipicamente nell'ambito di un progetto), che potranno essere utili quando entreranno nel mondo del lavoro.
                         </p>
                     </div>
                 </div>
@@ -450,9 +451,9 @@
 
                             <div class="overlay-effect">
                                 <ul class="social list-inline">
-                                    <li><a href=""><i class="fa fa-github-square"></i></a></li>
-                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href=""><i class="fa fa-linkedin-square"></i></a></li>
+                                    <li><a href="https://www.facebook.com/andrea.delucia.5686?fref=ts"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="https://plus.google.com/u/0/116598927567654271356/posts"><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href="https://www.linkedin.com/profile/view?id=AAkAAADyWAMBD27_vJoLSc5XNrmdA7RtLp9wPLA&authType=NAME_SEARCH&authToken=5V0u&locale=it_IT&trk=tyah&trkInfo=clickedVertical%3Amynetwork%2CclickedEntityId%3A15882243%2CauthType%3ANAME_SEARCH%2Cidx%3A1-1-1%2CtarId%3A1450817493260%2Ctas%3Aandrea%20de%20lucia"><i class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
                                 <p> </p>
                             </div>
@@ -468,9 +469,9 @@
 
                             <div class="overlay-effect">
                                 <ul class="social list-inline">
-                                    <li><a href=""><i class="fa fa-github-square"></i></a></li>
-                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href=""><i class="fa fa-linkedin-square"></i></a></li>
+                                    <li><a href="https://github.com/alexl87"><i class="fa fa-github-square"></i></a></li>
+                                    <li><a href="https://plus.google.com/u/0/105812069876884913820/posts"><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href="https://www.linkedin.com/profile/view?id=ADEAAAhAnPcBaq_rcApOeZSw2VTlFE3j7TO_1Hw&authType=NAME_SEARCH&authToken=I1n9&locale=it_IT&srchid=4674249261450817344258&srchindex=1&srchtotal=104&trk=vsrp_people_res_name&trkInfo=VSRPsearchId%3A4674249261450817344258%2CVSRPtargetId%3A138452215%2CVSRPcmpt%3Aprimary%2CVSRPnm%3Atrue%2CauthType%3ANAME_SEARCH"><i class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
                                 <p> </p>
                             </div>
@@ -486,9 +487,9 @@
 
                             <div class="overlay-effect">
                                 <ul class="social list-inline">
-                                    <li><a href=""><i class="fa fa-github-square"></i></a></li>
-                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href=""><i class="fa fa-linkedin-square"></i></a></li>
+                                    <li><a href="https://github.com/D4v1de"><i class="fa fa-github-square"></i></a></li>
+                                    <li><a href="https://plus.google.com/u/0/107433973753755438977/posts"><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href="https://www.linkedin.com/profile/view?id=AAkAAA7wPCUBSBZYb7M0n6mXsh1rIm7KveZu348&authType=NAME_SEARCH&authToken=tjFv&locale=it_IT&trk=tyah&trkInfo=clickedVertical%3Amynetwork%2CclickedEntityId%3A250625061%2CauthType%3ANAME_SEARCH%2Cidx%3A1-1-1%2CtarId%3A1450817378306%2Ctas%3Adavide%20de%20chiara"><i class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
                                 <p> </p>
                             </div>
@@ -500,11 +501,11 @@
                 <div class="item text-center">
                     <div class="single-member">
                         <div class="overlay-hover">
-                            <img src="/assets/homepage/images/team/pic2.jpg" alt="" class="img-responsive">
+                            <img src="/assets/homepage/images/team/Dario.jpg" alt="" class="img-responsive">
 
                             <div class="overlay-effect">
                                 <ul class="social list-inline">
-                                    <li><a href=""><i class="fa fa-github-square"></i></a></li>
+                                    <li><a href="https://github.com/dariocast"><i class="fa fa-github-square"></i></a></li>
                                     <li><a href=""><i class="fa fa-google-plus"></i></a></li>
                                     <li><a href=""><i class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
@@ -612,7 +613,7 @@
 
                             <div class="overlay-effect">
                                 <ul class="social list-inline">
-                                    <li><a href="https://www.facebook.com/alina.alert22"><i class="fa fa-github-square"></i></a></li>
+                                    <li><a href="https://github.com/alert22"><i class="fa fa-github-square"></i></a></li>
                                     <li><a href="https://plus.google.com/u/0/117270428071805224670/posts"><i class="fa fa-google-plus"></i></a></li>
                                     <li><a href="https://www.linkedin.com/profile/view?id=AAIAABvcVp4BSdMe_XvYyATRQ1B-jO-_nHISiSs&trk=nav_responsive_tab_profile_pic"><i class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
@@ -630,7 +631,7 @@
 
                             <div class="overlay-effect">
                                 <ul class="social list-inline">
-                                    <li><a href=""><i class="fa fa-github-square"></i></a></li>
+                                    <li><a href="https://github.com/PasqualeMartiniello"><i class="fa fa-github-square"></i></a></li>
                                     <li><a href=""><i class="fa fa-google-plus"></i></a></li>
                                     <li><a href=""><i class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
@@ -648,9 +649,9 @@
 
                             <div class="overlay-effect">
                                 <ul class="social list-inline">
-                                    <li><a href=""><i class="fa fa-github-square"></i></a></li>
-                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href=""><i class="fa fa-linkedin-square"></i></a></li>
+                                    <li><a href="https://github.com/fabianopecorelli"><i class="fa fa-github-square"></i></a></li>
+                                    <li><a href="https://plus.google.com/u/0/110805340083652923912"><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href="https://www.linkedin.com/profile/view?id=AAIAABvcTB4BBQnZ-h5XKhjYQpHS83kKsVuY560"><i class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
                                 <p></p>
                             </div>
@@ -680,7 +681,7 @@
                 <div class="item text-center">
                     <div class="single-member">
                         <div class="overlay-hover">
-                            <img src="/assets/homepage/images/team/pic5.jpg" alt="" class="img-responsive">
+                            <img src="/assets/homepage/images/team/Giusy.jpg" alt="" class="img-responsive">
 
                             <div class="overlay-effect">
                                 <ul class="social list-inline">
@@ -698,13 +699,13 @@
                 <div class="item text-center">
                     <div class="single-member">
                         <div class="overlay-hover">
-                            <img src="/assets/homepage/images/team/pic5.jpg" alt="" class="img-responsive">
+                            <img src="/assets/homepage/images/team/Elvira.jpg" alt="" class="img-responsive">
 
                             <div class="overlay-effect">
                                 <ul class="social list-inline">
-                                    <li><a href=""><i class="fa fa-github-square"></i></a></li>
-                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href=""><i class="fa fa-linkedin-square"></i></a></li>
+                                    <li><a href="https://github.com/elvis1994"><i class="fa fa-github-square"></i></a></li>
+                                    <li><a href="https://www.facebook.com/ElviraZanin"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="https://it.linkedin.com/in/elvira-zanin-330893110"><i class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
                                 <p> </p>
                             </div>
@@ -726,7 +727,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="feature_header text-center">
                     <h3 class="feature_title">Preview di <b>SimplEx</b></h3>
-                    <h4 class="feature_sub">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </h4>
+                    <h4 class="feature_sub">Qui una piccola anteprima di SimplEx. </h4>
 
                     <div class="divider"></div>
                 </div>
@@ -757,7 +758,7 @@
                             </a>
                         </li>
                         <li role="presentation">
-                            <a href="#profile" role="tab" data-toggle="tab">
+                            <a href="#profile1" role="tab" data-toggle="tab">
                                 <div class="single-tab">
                                     <div class="f-icon">
                                         <i class="fa fa-picture-o"></i>
@@ -767,7 +768,7 @@
                             </a>
                         </li>
                         <li role="presentation">
-                            <a href="#profile" role="tab" data-toggle="tab">
+                            <a href="#profile2" role="tab" data-toggle="tab">
                                 <div class="single-tab">
                                     <div class="f-icon">
                                         <i class="fa fa-picture-o"></i>
@@ -777,7 +778,7 @@
                             </a>
                         </li>
                         <li role="presentation">
-                            <a href="#profile" role="tab" data-toggle="tab">
+                            <a href="#profile3" role="tab" data-toggle="tab">
                                 <div class="single-tab">
                                     <div class="f-icon">
                                         <i class="fa fa-picture-o"></i>
@@ -797,7 +798,7 @@
                             </div>
                             <div class="col-md-12 col-sm-9">
                                 <div class="c-tab">
-                                    <h4>Web Design and Development</h4>
+                                   <!-- <h4>Web Design and Development</h4>
 
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus praesentium
                                         dolore sequi excepturi recusandae reprehenderit, distinctio.</p>
@@ -809,8 +810,8 @@
                                         fugit aspernatur harum reprehenderit temporibus, pariatur esse laborum qui
                                         quisquam.
                                     </p>
-                                    <br>
-                                    <a href="#"> Learn More</a>
+                                    <br>-->
+
                                 </div>
                             </div>
 
@@ -821,95 +822,63 @@
                             </div>
                             <div class="col-md-12 col-sm-9">
                                 <div class="c-tab">
-                                    <h4>Email and Socail Marketing</h4>
+                                    <h4>La pagina Home del docente</h4>
 
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus praesentium
                                         dolore sequi excepturi recusandae reprehenderit, distinctio.</p>
                                     <br>
 
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae dolorum, quisquam
-                                        eum eaque. Excepturi nisi necessitatibus, inventore explicabo corporis expedita
-                                        fugit aspernatur harum reprehenderit temporibus, pariatur esse laborum qui
-                                        quisquam.
-                                    </p>
-                                    <br>
-                                    <a href="#"> Learn More</a>
+
                                 </div>
                             </div>
                         </div>
-                        <div role="tabpanel" class="tab-pane" id="messages">
+                        <div role="tabpanel" class="tab-pane" id="profile1">
                             <div class="col-md-12 col-sm-9">
-                                <img src="/assets/homepage/images/about/web1.png" alt="" class="img-responsive">
+                                <img src="/assets/homepage/images/about/browse.png" alt="" class="img-responsive">
                             </div>
                             <div class="col-md-12 col-sm-9">
                                 <div class="c-tab">
-                                    <h4>Graphics Brand Identity</h4>
+                                    <h4>La pagina Home dello studente</h4>
 
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus praesentium
                                         dolore sequi excepturi recusandae reprehenderit, distinctio.</p>
                                     <br>
 
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae dolorum, quisquam
-                                        eum eaque. Excepturi nisi necessitatibus, inventore explicabo corporis expedita
-                                        fugit aspernatur harum reprehenderit temporibus, pariatur esse laborum qui
-                                        quisquam.
-                                    </p>
-                                    <br>
-                                    <a href="#"> Learn More</a>
+
                                 </div>
                             </div>
                         </div>
-                        <div role="tabpanel" class="tab-pane" id="photo">
+                        <div role="tabpanel" class="tab-pane" id="profile2">
                             <div class="col-md-12 col-sm-9">
-                                <img src="/assets/homepage/images/about/graphics.png" alt="" class="img-responsive">
+                                <img src="/assets/homepage/images/about/browse.png" alt="" class="img-responsive">
                             </div>
                             <div class="col-md-12 col-sm-9">
                                 <div class="c-tab">
-                                    <h4>Photography Design</h4>
+                                    <h4>La pagina di creazione test</h4>
 
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus praesentium
                                         dolore sequi excepturi recusandae reprehenderit, distinctio.</p>
                                     <br>
 
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae dolorum, quisquam
-                                        eum eaque. Excepturi nisi necessitatibus, inventore explicabo corporis expedita
-                                        fugit aspernatur harum reprehenderit temporibus, pariatur esse laborum qui
-                                        quisquam.
-                                    </p>
-                                    <br>
-                                    <a href="#"> Learn More</a>
                                 </div>
                             </div>
                         </div>
-                        <div role="tabpanel" class="tab-pane" id="ios">
+                        <div role="tabpanel" class="tab-pane" id="profile3">
                             <div class="col-md-12 col-sm-9">
-                                <img src="/assets/homepage/images/about/web1.png" alt="" class="img-responsive">
+                                <img src="/assets/homepage/images/about/browse.png" alt="" class="img-responsive">
                             </div>
                             <div class="col-md-12 col-sm-9">
                                 <div class="c-tab">
-                                    <h4>ios application</h4>
+                                    <h4>La pagina di esecuzione test</h4>
 
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus praesentium
                                         dolore sequi excepturi recusandae reprehenderit, distinctio.</p>
                                     <br>
 
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae dolorum, quisquam
-                                        eum eaque. Excepturi nisi necessitatibus, inventore explicabo corporis expedita
-                                        fugit aspernatur harum reprehenderit temporibus, pariatur esse laborum qui
-                                        quisquam.
-                                    </p>
-                                    <br>
-                                    <a href="#"> Learn More</a>
+
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-
 
             </div>
         </div>
@@ -936,14 +905,14 @@
             <div class="contact_full">
                 <div class="col-md-6 left">
                     <div class="left_contact">
-                        <form action="role">
+                        <form method="POST" action="mailto:adolcina@gmail.com" enctype="text/plain">
                             <div class="form-level">
                                 <input name="name" placeholder="Il tuo nome" id="name" value="" type="text"
                                        class="input-block">
                                 <span class="form-icon fa fa-user"></span>
                             </div>
                             <div class="form-level">
-                                <input name="email" placeholder="La tua email" id="mail" class="input-block" value=""
+                                <input name="email" placeholder="La tua email" id="mail" class="input-block" value="from"
                                        type="email">
                                 <span class="form-icon fa fa-envelope-o"></span>
                             </div>
@@ -958,13 +927,14 @@
 
                 <div class="col-md-6 right">
                     <div class="form-level">
-                        <textarea name="" id="messege" rows="5" class="textarea-block"
+                        <textarea name="body" id="messege" rows="5" class="textarea-block"
                                   placeholder="Il messaggio per lo staff"></textarea>
                         <span class="form-icon fa fa-pencil"></span>
                     </div>
                 </div>
                 <div class="col-md-12 text-center">
-                    <button class="btn btn-main featured">Invia</button>
+                    <input class="btn btn-main featured" type="submit" value="Invia">
+                 <!--   <button class="btn btn-main featured">Invia</button>-->
                 </div>
             </div>
         </div>
@@ -991,9 +961,7 @@
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="footer_mid pull-right">
                     <ul class="social-contact list-inline">
-                        <li><a href="#"><i class="fa fa-github-square"></i></a></li>
-                        <li><a href="#"><i class="fa fa-google-plus"></i> </a></li>
-                        <li><a href="#"> <i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="https://github.com/D4v1de/SimplEx"><i class="fa fa-github-square"></i></a></li>
                     </ul>
                 </div>
             </div>

@@ -576,7 +576,7 @@ ul.navbar-nav > .active > a{
 }
 .feature_content a{
     text-decoration:none;
-    padding: 8px;
+    padding: 0px;
     margin-top: 10px;
 }
 .feature_content a:hover{
