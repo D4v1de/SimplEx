@@ -25,6 +25,7 @@ var TableManaged = function () {
             // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js).
             // So when dropdowns used the scrollable div should be removed.
             "dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
+            //"dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-12 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
 
             "bStateSave": false, // save datatable state(pagination, sort, etc) in cookie.
 
@@ -38,12 +39,14 @@ var TableManaged = function () {
             "scrollCollapse": true,
             "paging":         false,
             "scrollY":        '40vh',
+            "dom": 'Bfrtip',
 
             "pageLength": 5,
             "language": {
                 "lengthMenu": " _MENU_ elementi",
                 "emptyTable": "Non ci sono dati disponibili",
                 "infoEmpty": "",
+                "infoFiltered": "(di _MAX_ elementi totali)",
                 "info": "Mostra da _START_ a _END_ di _TOTAL_ risultati",
                 "search": "Cerca:",
                 "paging": {
