@@ -42,6 +42,8 @@ if (isset($_GET['vai'])){
 
         if ($toCompareTo < $toCompareFrom) {
         $flag1 = 0;
+        $sessList = Array();
+        $studenti = Array();
         }else{
     $from = $_GET['from'];
     $to = $_GET['to'];
