@@ -289,7 +289,6 @@ if (isset($_GET['consegna'])){
 
 <!--Script specifici per la pagina -->
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
-<!--<script src="/assets/global/scripts/mycountdown.js" type="text/javascript"></script>-->
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 
 <script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
@@ -411,6 +410,7 @@ if (isset($_GET['consegna'])){
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
     });
+    
     
    function checkConnection() {
         if (navigator.onLine) {

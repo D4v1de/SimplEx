@@ -57,18 +57,18 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     $matricolanew = $_POST['matricola'];
     $cdlmatricolanew = $_POST['tipologia2'];
 
+    $x = array_search($corso ,$corsi);
+    unset($corsi[$x]);
+
     //controllo sul nome
-    if(empty($nomenew)) {
+    if(empty($nomenew) || !preg_match('/^[a-zA-Z0-9\s-]+$/', $nome)) {
         $flag2 = 0;
     }
 
     //controllo sulla tipologia
-    if(empty($tipologianew)) {
+    if(empty($tipologianew) || !in_array($tipologianew, Config::$TIPI_CORSO)) {
         $flag3 = 0;
     }
-
-    $x = array_search($corso ,$corsi);
-    unset($corsi[$x]);
 
     //controllo sulla matricola
     if(empty($matricola) || !is_numeric($matricola)) {

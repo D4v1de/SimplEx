@@ -99,6 +99,8 @@ if (isset($_POST['elimina'])) {
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
+
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/extensions/TableTools/css/dataTables.tableTools.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -281,6 +283,8 @@ if (isset($_POST['elimina'])) {
 <script src="/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
 <script src="/assets/admin/pages/scripts/ui-toastr.js"></script>
 <script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
+
+<script src="/assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
 <!-- END aggiunta da me -->
 <script>
     jQuery(document).ready(function () {
@@ -294,28 +298,22 @@ if (isset($_POST['elimina'])) {
         UIConfirmations.init();
         checkNotifiche();
 
-        /*$('#tabella_4_wrapper').DataTable( {
-            scrollY:        50vh,
-            scrollCollapse: true,
-            paging:         false
-        } );*/
-
-
-        /*var table = $('#tabella_4_wrapper');
-
-        table.find('.group-checkable').change(function () {
-            var set = jQuery(this).attr("data-set");
-            var checked = jQuery(this).is(":checked");
-            jQuery(set).each(function () {
-                if (checked) {
-                    $(this).attr("checked", true);
-                } else {
-                    $(this).attr("checked", false);
+        var table = $("#tabella_4").dataTable();
+        var tableTools = new $.fn.dataTable.TableTools(table, {
+            //"sSwfPath": "//cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls_pdf.swf",
+            "sSwfPath": "/assets/global/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf",
+            "aButtons": [
+                {
+                    "sExtends": "xls",
+                    "sButtonText": "<i class='fa fa-file-excel-o'></i> Excel"
+                },
+                {
+                    "sExtends": "pdf",
+                    "sButtonText": "<i class='fa fa-file-pdf-o'></i> PDF"
                 }
-            });
-            jQuery.uniform.update(set);
-        });*/
-
+            ]
+        });
+        $(tableTools.fnContainer()).insertBefore("#tabella_4_wrapper");
     });
 </script>
 <script>
