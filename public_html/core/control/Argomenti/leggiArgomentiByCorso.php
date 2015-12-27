@@ -8,15 +8,18 @@
 
 include_once MODEL_DIR . "ArgomentoModel.php";
 include_once BEAN_DIR . "Argomento.php";
-session_start();
 
 $argomentoModel = new ArgomentoModel();
 
+if(isset($_URL[2])) {
+    $idcorso = $_URL[2];
+    $array = array();
+    $argomenti = array();
+    $array = $argomentoModel->getAllArgomentoCorso($idcorso);
+    foreach ($array as $argomento) {
+        $argomenti[] = serialize($argomento);
+    }
+    $_SESSION['argomenti'] = $argomenti;
 
-if(isset($_URL[1])){
-    $idcorso = $_URL[1];
-    $arrayArgomenti = $argomentoModel->getAllArgomentoCorso($idcorso);
-    $_SESSION['argomenti'] = $arrayArgomenti[0];
-
-    header('Location: /docente/corso/'.$idcorso);
+    header('Location: /docente/corso/' . $idcorso);
 }

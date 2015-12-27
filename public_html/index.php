@@ -163,6 +163,9 @@ try {
                                         break;
                                     case 'domande':
                                         switch (isset($_URL[5]) ? $_URL[5] : '') {
+                                            case 'leggiargomento':
+                                                include_once CONTROL_DIR . "Argomenti/leggiArgomentoControl.php";
+                                                break;
                                             case 'inserisciaperta':
                                                 include_once VIEW_DIR . "Docente/InserisciDomandaAperta.php";
                                                 break;
@@ -259,7 +262,7 @@ try {
                                 include_once VIEW_DIR . "Docente/Statistiche.php";
                                 break;
                             default:
-                                include_once VIEW_DIR . "Docente/Home.php";
+                                include_once VIEW_DIR . "Docente/HomeCorso2.php";
                         }
                         break;
                     case 'getTestforStat':
@@ -277,7 +280,6 @@ try {
                     case 'leggiargomenticorso':
                         include_once CONTROL_DIR . "Argomenti/leggiArgomentiByCorso.php";
                         break;
-
                     default:
                         include_once VIEW_DIR . "Docente/Home.php";
                 }
