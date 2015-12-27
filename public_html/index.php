@@ -180,7 +180,7 @@ try {
                                         }
                                         break;
                                     default:
-                                        include_once VIEW_DIR . "Docente/HomeCorso2.php";
+                                        include_once VIEW_DIR . "Docente/Home.php";
                                 }
                                 break;
                             case 'test':
@@ -259,12 +259,25 @@ try {
                                 include_once VIEW_DIR . "Docente/Statistiche.php";
                                 break;
                             default:
-                                include_once VIEW_DIR . "Docente/HomeCorso2.php";
+                                include_once VIEW_DIR . "Docente/Home.php";
                         }
                         break;
                     case 'getTestforStat':
                         include_once VIEW_DIR . "Docente/getTestforStat.php";
                         break;
+                    case 'inserisciargomento':
+                        include_once CONTROL_DIR . "Argomenti/creaArgomentoControl.php";
+                        break;
+                    case 'rimuoviargomento':
+                        include_once CONTROL_DIR . "Argomenti/rimuoviArgomentoControl.php";
+                        break;
+                    case 'modificaargomento':
+                        include_once CONTROL_DIR . "Argomenti/modificaArgomentoControl.php";
+                        break;
+                    case 'leggiargomenticorso':
+                        include_once CONTROL_DIR . "Argomenti/leggiArgomentiByCorso.php";
+                        break;
+
                     default:
                         include_once VIEW_DIR . "Docente/Home.php";
                 }
