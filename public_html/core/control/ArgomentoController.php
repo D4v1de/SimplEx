@@ -80,10 +80,4 @@ class ArgomentoController {
         return $argomentoModel->deleteArgomento($id);
     }
 
-
-
-
-
-
-
 }

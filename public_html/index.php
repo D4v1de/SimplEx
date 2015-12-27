@@ -268,6 +268,12 @@ try {
                     case 'getTestforStat':
                         include_once VIEW_DIR . "Docente/getTestforStat.php";
                         break;
+                    case 'inserisciaperta':
+                        include_once CONTROL_DIR . "Domanda/creaDomandaAperta.php";
+                        break;
+                    case 'rimuoviaperta':
+                        include_once CONTROL_DIR . "Domanda/rimuoviDomandaAperta.php";
+                        break;
                     case 'inserisciargomento':
                         include_once CONTROL_DIR . "Argomenti/creaArgomentoControl.php";
                         break;
