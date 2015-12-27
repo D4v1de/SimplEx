@@ -595,6 +595,9 @@ $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso
         }else if(last == 'successelimina'){
             toastr.success('Eliminazione avvenuta correttamente!', 'Eliminazione');
         }
+        else if(last == 'error'){
+            toastr.success('Problema nella creazione.', 'Eliminazione');
+        }
     }
 </script>
 

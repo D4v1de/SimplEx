@@ -33,7 +33,7 @@ class SessioneController {
      * Crea una nuova sessione
      * @param type $sessione ovvero Una Sessione
      */
-    public function creaSessione($sessione) {
+    public function creaSessione($sessione) { //PRESO
         return $this->sessioneModel->createSessione($sessione);
     }
 
@@ -42,7 +42,7 @@ class SessioneController {
      * @param type $id E' l'id della sessione che è stata appena modificata
      * @param type $updatedSessione E' la nuova sessione appena creata
      */
-    public function updateSessione($id, $updatedSessione) {
+    public function updateSessione($id, $updatedSessione) { //PRESO
         $this->sessioneModel->updateSessione($id, $updatedSessione);
     }
 

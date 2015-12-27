@@ -206,6 +206,29 @@ try {
                                     case 'creamodificasessione':
                                         include_once VIEW_DIR . "Docente/CreaModificaSessione.php";
                                         break;
+                                    case 'creamodificasessione2':
+                                        switch (isset($_URL[6]) ? $_URL[6] : '') {
+                                            case 'creaSesControl':
+                                                include_once CONTROL_DIR . "sessioneController/creaSessioneControl.php";
+                                                break;
+                                            case 'mostraSesControl':
+                                                include_once CONTROL_DIR . "sessioneController/mostraSessioneControl.php";
+                                                break;
+                                            case 'modificaSesControl':
+                                                include_once CONTROL_DIR . "sessioneController/modificaSessioneControl.php";
+                                                break;
+                                            default:
+                                                include_once VIEW_DIR . "Docente/CreaModSessNEW.php";
+                                        }
+                                    case 'creaSesControl':
+                                        include_once CONTROL_DIR . "sessioneController/creaSessioneControl.php";
+                                        break;
+                                    case 'mostraSesControl':
+                                        include_once CONTROL_DIR . "sessioneController/mostraSessioneControl.php";
+                                        break;
+                                    case 'modificaSesControl':
+                                        include_once CONTROL_DIR . "sessioneController/modificaSessioneControl.php";
+                                        break;
                                     case 'correggi':
                                         include_once VIEW_DIR . "Docente/CorreggiTest.php";
                                         break;
