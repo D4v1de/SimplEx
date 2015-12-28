@@ -186,6 +186,8 @@ if($_URL[4]!=0) {
         else
             $newOrOldDataTo = $_POST['dataTo'];
 
+        $newtipoSessione = $_POST['radio1'];
+
         $sessioneByUrl = $controller->readSessione($_URL[4]);
         $stato=$sessioneByUrl->getStato();
         $sogliAmm=$sessioneByUrl->getSogliaAmmissione();
@@ -200,7 +202,7 @@ if($_URL[4]!=0) {
 
         else {
         try {
-            $sessioneAggiornata = new Sessione($newOrOldDataFrom, $newOrOldDataTo, $sogliAmm, $stato, $tipoSessione, $idCorso);
+            $sessioneAggiornata = new Sessione($newOrOldDataFrom, $newOrOldDataTo, $sogliAmm, $stato, $newtipoSessione, $idCorso);
             $controller->disabilitaMostraEsito($idSessione);
             $controller->disabilitaMostraRisposteCorrette($idSessione);
 
@@ -211,7 +213,7 @@ if($_URL[4]!=0) {
             if (isset($_POST['cbShowRispCorr'])) {
                 $controller->abilitaMostraRisposteCorrette($idSessione);
             }
-            $controller->disabilitaMostraRisposteCorrette($idSessione);
+
             $controller->updateSessione($_URL[4], $sessioneAggiornata);
 
             if (isset($_POST['tests'])) {

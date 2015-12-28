@@ -142,12 +142,14 @@ $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
             <div class="row">
             <div class="col-md-12">
                 <div class="col-md-8"></div>
+                <div class="col-md-4">
                 <label>Soglia esiti:
                     <?php printf("<input type='search' name='soglia' class='form-control input-small input-inline' placeholder='%s' aria-controls='sample_1'/>", $soglia);?>
                 </label>
                 <button  class="btn sm green-jungle">
                     Conferma
                 </button>
+                </div>
             </div>
         </div>
             <!-- TABELLA 1 -->
@@ -297,7 +299,7 @@ $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
                                             </th>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Email
-                                " style="width: 25%;">
+                                " style="width: 10%;">
                                                 Azioni
                                             </th>
                                         </tr>
@@ -325,11 +327,11 @@ $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
                                                 else
                                                     printf("<td>%s</td>", $ela->getEsitoParziale());
                                                 printf("<td>%s</td>", $ela->getStato());
-                                                printf("<td><a href='/docente/corso/%s/sessione/%s/correggi/%s' class=\"btn btn-sm blue-madison\">
+                                                printf("<td><div class=\"btn-group-vertical btn-group-solid\"> <a href='/docente/corso/%s/sessione/%s/correggi/%s' class=\"btn btn-xs blue-madison\">
                                                     <i class=\"fa fa-pencil\"></i> Correggi
-                                                </a>  <a href='/docente/corso/%s/sessione/%s/visualizza/%s' class=\"btn btn-sm default\">
+                                                </a>  <a href='/docente/corso/%s/sessione/%s/visualizza/%s' class=\"btn btn-xs default\">
                                                     Visualizza
-                                                </a></td>",$identificativoCorso,$idSessione, $c->getMatricola(),$identificativoCorso,$idSessione, $c->getMatricola());
+                                                </a></div></td>",$identificativoCorso,$idSessione, $c->getMatricola(),$identificativoCorso,$idSessione, $c->getMatricola());
                                                 printf("</tr>");
                                             }
                                         }

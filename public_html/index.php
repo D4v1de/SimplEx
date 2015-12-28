@@ -71,13 +71,13 @@ try {
                         include_once VIEW_DIR . "Auth/VisualizzaLogReg.php";
                         break;
                     case 'register':
-                        include_once VIEW_DIR . "Auth/Register.php";
+                        include_once CONTROL_DI . "Auth/Register.php";
                         break;
                     case 'login':
-                        include_once VIEW_DIR . "Auth/Login.php";
+                        include_once CONTROL_DIR . "Auth/Login.php";
                         break;
                     case 'logout':
-                        include_once VIEW_DIR . "Auth/Logout.php";
+                        include_once CONTROL_DIR . "Auth/Logout.php";
                         break;
                 }
             }
@@ -163,6 +163,9 @@ try {
                                         break;
                                     case 'domande':
                                         switch (isset($_URL[5]) ? $_URL[5] : '') {
+                                            case 'leggiargomento':
+                                                include_once CONTROL_DIR . "Argomenti/leggiArgomentoControl.php";
+                                                break;
                                             case 'inserisciaperta':
                                                 include_once VIEW_DIR . "Docente/InserisciDomandaAperta.php";
                                                 break;
@@ -180,7 +183,7 @@ try {
                                         }
                                         break;
                                     default:
-                                        include_once VIEW_DIR . "Docente/HomeCorso2.php";
+                                        include_once VIEW_DIR . "Docente/Home.php";
                                 }
                                 break;
                             case 'test':
@@ -205,6 +208,29 @@ try {
                                         break;
                                     case 'creamodificasessione':
                                         include_once VIEW_DIR . "Docente/CreaModificaSessione.php";
+                                        break;
+                                    case 'creamodificasessione2':
+                                        switch (isset($_URL[6]) ? $_URL[6] : '') {
+                                            case 'creaSesControl':
+                                                include_once CONTROL_DIR . "sessioneController/creaSessioneControl.php";
+                                                break;
+                                            case 'mostraSesControl':
+                                                include_once CONTROL_DIR . "sessioneController/mostraSessioneControl.php";
+                                                break;
+                                            case 'modificaSesControl':
+                                                include_once CONTROL_DIR . "sessioneController/modificaSessioneControl.php";
+                                                break;
+                                            default:
+                                                include_once VIEW_DIR . "Docente/CreaModSessNEW.php";
+                                        }
+                                    case 'creaSesControl':
+                                        include_once CONTROL_DIR . "sessioneController/creaSessioneControl.php";
+                                        break;
+                                    case 'mostraSesControl':
+                                        include_once CONTROL_DIR . "sessioneController/mostraSessioneControl.php";
+                                        break;
+                                    case 'modificaSesControl':
+                                        include_once CONTROL_DIR . "sessioneController/modificaSessioneControl.php";
                                         break;
                                     case 'correggi':
                                         include_once VIEW_DIR . "Docente/CorreggiTest.php";
@@ -241,6 +267,24 @@ try {
                         break;
                     case 'getTestforStat':
                         include_once VIEW_DIR . "Docente/getTestforStat.php";
+                        break;
+                    case 'inserisciaperta':
+                        include_once CONTROL_DIR . "Domanda/creaDomandaAperta.php";
+                        break;
+                    case 'rimuoviaperta':
+                        include_once CONTROL_DIR . "Domanda/rimuoviDomandaAperta.php";
+                        break;
+                    case 'inserisciargomento':
+                        include_once CONTROL_DIR . "Argomenti/creaArgomentoControl.php";
+                        break;
+                    case 'rimuoviargomento':
+                        include_once CONTROL_DIR . "Argomenti/rimuoviArgomentoControl.php";
+                        break;
+                    case 'modificaargomento':
+                        include_once CONTROL_DIR . "Argomenti/modificaArgomentoControl.php";
+                        break;
+                    case 'leggiargomenticorso':
+                        include_once CONTROL_DIR . "Argomenti/leggiArgomentiByCorso.php";
                         break;
                     default:
                         include_once VIEW_DIR . "Docente/Home.php";
@@ -323,9 +367,6 @@ try {
             case 'selezionestudenti':
                 include_once VIEW_DIR . "Docente/SelezioneStudenti.php";
                 break;
-            
-
-
 
 
             case 'homecorsostudente':

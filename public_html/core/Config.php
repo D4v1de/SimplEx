@@ -17,6 +17,8 @@ class Config {
     public static $DB_USER = "simlex-user";
     public static $DB_PASS = "qHt9vLTW";
 
+    public static $PERMA_COOKIE = "permaCookie";
+
     /**
      *  Varie configurazioni
      */

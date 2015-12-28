@@ -21,6 +21,8 @@ class TestModel extends Model {
     private static $GET_TEST_ELABORATO = "SELECT t.* FROM `test` as t, `elaborato` as e where e.test_id = t.id AND e.studente_matricola = '%s' AND e.sessione_id = '%d'";
     private static $GET_TEST_MULTIPLA = "SELECT t.* FROM `test` as t, `compone_multipla` as c where c.test_id = t.id AND c.domanda_multipla_id = '%d'";
     private static $GET_TEST_APERTA = "SELECT t.* FROM `test` as t, `compone_aperta` as c where c.test_id = t.id AND c.domanda_aperta_id = '%d'";
+    private static $UPDATE_NUMERO_SCELTA_TEST = "UPDATE `test` SET numero_scelta = '%d' WHERE id = '%d'";
+
 
     /**
      * Inserisce un nuovo test nel database
@@ -190,5 +192,35 @@ class TestModel extends Model {
                 $tests[] = $test;            }
         }
         return $tests;
+    }
+
+    /**
+     * Restituisce il numero di volte che un test è stato scelto
+     * @param int $id L'id del test
+     * @throws ApplicationException
+     */
+    public function readNumeroSceltaTest($id) {
+        $query = sprintf(self::$READ_TEST, $id);
+        $res = Model::getDB()->query($query);
+        if ($obj = $res->fetch_assoc()) {
+            return $obj['numero_scelta'];
+        }
+        else{
+            throw new ApplicationException(Error::$TEST_NON_TROVATO);
+        }
+    }
+
+    /**
+     * Aggiorna il numero di scelta di un test nel database
+     * @param int $id L'id del test da modificare
+     * @param int $numero Il numero di scelta del test da aggiornare
+     * @throws ApplicationException
+     */
+    public function updateNumeroSceltaTest($id, $numero) {
+        $query = sprintf(self::$UPDATE_NUMERO_SCELTA_TEST, $numero, $id);
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows==-1) {
+            throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
+        }
     }
 }

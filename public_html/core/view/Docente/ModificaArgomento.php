@@ -131,39 +131,37 @@ if(isset($_POST['nome'])){
                         </div>
                         <div class="portlet-body form">
                             <!-- BEGIN FORM-->
-                            <form id="form_sample_1" action="" method="POST" class="form-horizontal form-bordered">
+                            <form id="form_sample_1" action="/modificaargomento" method="POST" class="form-horizontal form-bordered">
                                 <div class="form-body">
                                     <div class="form-group form-md-line-input has-success" style="height: 100px">
                                         <label class="control-label col-md-3">Inserisci Titolo</label>
                                         <div class="col-md-6">
                                             <input type="text" name="nome" value="<?php echo $argomento->getNome(); ?>" class="form-control">
+                                            <input type="hidden" name="idargomento" value="<?php echo $argomento->getId(); ?>">
+                                            <input type="hidden" name="idcorso" value="<?php echo $corso->getId(); ?>"
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-actions">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="row">
-                                                <div class="col-md-9">
-                                                    <input type="submit" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
-                                                    </input>
-                                                    <a href="../../../<?php echo $corso->getId(); ?>" class="btn sm red-intense">
-                                                        Annulla
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
+                       </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <input type="submit" class="btn sm green-jungle"><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                        </input>
+                                        <a href="../../../<?php echo $corso->getId(); ?>" class="btn sm red-intense">
+                                            Annulla
+                                        </a>
                                     </div>
                                 </div>
-                            </form>
-
-
-
-
-                            <!-- END FORM-->
+                            </div>
                         </div>
                     </div>
+                    </form>
 
 
 

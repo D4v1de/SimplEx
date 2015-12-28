@@ -19,22 +19,14 @@ include_once MODEL_DIR . "UtenteModel.php";
 
 class ArgomentoController {
 
-
+/*
+ * FATTO
+ */
     public function getArgomenti($corso_id) {
         $argomentoModel = new ArgomentoModel();
         return $argomentoModel->getAllArgomentoCorso($corso_id);
     }
 
-
-    public function getAllDomandaMultipla($id,$corso_id){
-        $domandaModel = new DomandaModel();
-        return $domandaModel->getAllDomandaMultiplaByArgomento($id,$corso_id);
-    }
-
-    public function getAllDomandaAperta($id,$corso_id){
-        $domandaModel = new DomandaModel();
-        return $domandaModel->getAllDomandaApertaByArgomento($id,$corso_id);
-    }
 
 
     /**
@@ -45,6 +37,9 @@ class ArgomentoController {
      * NB. NECESSARIO CHE VENGA IMPLEMENTATA LA HOME DEL DOCENTE
      */
 
+    /*
+     * NON APPARTIENE A QUESTA GESTIONE
+     */
     public function getDocenteAssociato($corsoID) {
         $accountModel = new UtenteModel();
         return $accountModel->getAllDocentiByCorso($corsoID);
@@ -68,21 +63,21 @@ class ArgomentoController {
      * @param Argomento $updatedArgomento L'argomento modificato da aggiornare nel database
      * @throws ApplicationException
      */
+    /*
+     * FATTO
+     */
 
     public function modificaArgomento($id, $updatedArgomento){
         $argomentoModel = new ArgomentoModel();
         return $argomentoModel->updateArgomento($id, $updatedArgomento);
     }
 
+    /*
+     * FATTO
+     */
     public function rimuoviArgomento($id){
         $argomentoModel = new ArgomentoModel();
         return $argomentoModel->deleteArgomento($id);
     }
-
-
-
-
-
-
 
 }

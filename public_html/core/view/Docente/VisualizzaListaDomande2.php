@@ -15,7 +15,6 @@ $utenteLoggato = $_SESSION['user'];
 
 $cdlController = new CdlController();
 $domandaController = new DomandaController();
-$argomentoController = new ArgomentoController();
 $alternativaController = new AlternativaController();
 $controllerUtente = new UtenteController();
 
@@ -25,6 +24,11 @@ $idCorso = $_URL[2];
 $idArgomento = $_URL[5];
 $correttezzaLogin = false;
 
+//CONTROLLER NUOVO
+
+$argomento = unserialize($_SESSION['argomento']);
+//FINE CONTROLLER NUOVO
+
 
 try{
     $corso = $cdlController->readCorso($idCorso);
@@ -32,11 +36,13 @@ try{
     echo "ERRORE IN READ CORSO" . $exception;
 }
 
+/*
 try{
     $argomento = $argomentoController->readArgomento($idArgomento, $idCorso);
 }catch(ApplicationException $exception){
     echo "ERRORE IN READ ARGOMENTO" . $exception;
 }
+*/
 
 //CONTROLLO LOGIN CORRETTO
 

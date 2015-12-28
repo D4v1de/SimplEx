@@ -372,15 +372,14 @@ $corso = $controllerCorso->readCorso($_URL[2]);
                 
                 <div class="alert alert-danger display-hide">
                     <button class="close" data-close="alert"></button>
-                    Errore nei Dati. Devi inserire la descrizione del test, e selezionare almeno una domanda.
+                    Errore nei Dati. E' obbligatorio inserire la descrizione del test e selezionare almeno una domanda.
                 </div>
                 
                 <?php
                     if(!$flag) {
                         echo "<div class=\"alert alert-danger\">
                         <button class=\"close\" data-close=\"alert\"></button>
-                        Errore nei Dati. Per un test RANDOM devi inserire un numero domande maggiore di 0.
-                        </div>";
+                        Errore nei Dati. E' possibile inserire solo interi positivi.                        </div>";
                         //echo "<script type='text/javascript'>checkIt();</script>";
                     }
                 ?>
@@ -475,7 +474,7 @@ $corso = $controllerCorso->readCorso($_URL[2]);
                                         <div class="col-md-6">
                                             <div class="form-group form-md-line-input has-success">
                                                 <div class="input-icon">
-                                                    <input type="text" id="numAperte" name="numAperte" class="form-control">
+                                                    <input type="number" id="numAperte" name="numAperte" class="form-control">
                                                         <label for="numAperte">Numero domande a risposta aperta:</label>
                                                            
                                                 </div>
@@ -484,8 +483,8 @@ $corso = $controllerCorso->readCorso($_URL[2]);
                                         <div class="col-md-6">
                                             <div class="form-group form-md-line-input has-success">
                                                 <div class="input-icon">
-                                                    <input type="text" id="numMultiple" name="numMultiple" class="form-control">
-                                                        <label for="numMultiple">Numero domande a risposta multipla:</label>
+                                                    <input type="number" id="numMultiple" name="numMultiple" class="form-control">
+                                                         <label for="numMultiple">Numero domande a risposta multipla:</label>
                                                           
                                                 </div>
                                             </div>
@@ -585,10 +584,10 @@ $corso = $controllerCorso->readCorso($_URL[2]);
                                     printf("<td>%s %%</td>",$s->getPercentualeScelta());
                                     printf("<td>%s %%</td>",$s->getPercentualeRispostaCorretta());
                                     printf("<td>Multipla</td>");
-                                    printf("<td><div class=\"form-group form-md-line-input has-success\"><div class=\"input-icon\"><input type=\"text\" name=\"alternCorr-%d\" class=\"form-control\">
+                                    printf("<td><div class=\"form-group form-md-line-input has-success\"><div class=\"input-icon\"><input type=\"number\" name=\"alternCorr-%d\" class=\"form-control\">
                                             <label for=\"alternCorr\">Corretta:</label>
                                             ", $s->getId());
-                                    printf("</div><div class=\"form-group form-md-line-input has-success\"><div class=\"input-icon\"><input type=\"text\" name=\"alternErr-%d\" class=\"form-control\">
+                                    printf("</div><div class=\"form-group form-md-line-input has-success\"><div class=\"input-icon\"><input type=\"number\" name=\"alternErr-%d\" class=\"form-control\">
                                             <label for=\"alternErr\">Errata:</label>
                                             </div></div></td>", $s->getId());
                                     printf("</tr>");
@@ -613,7 +612,7 @@ $corso = $controllerCorso->readCorso($_URL[2]);
                                     printf("<td>%s %%</td>",$s->getPercentualeScelta());
                                     printf("<td>-----</td>");
                                     printf("<td>Aperta</td>");
-                                    printf("<td><div class=\"form-group form-md-line-input has-success\"><div class=\"input-icon\"><input type=\"text\" name=\"ApertaCorr-%d\" class=\"form-control\">
+                                    printf("<td><div class=\"form-group form-md-line-input has-success\"><div class=\"input-icon\"><input type=\"number\" name=\"ApertaCorr-%d\" class=\"form-control\">
                                             <label for=name=\"ApertaCorr\">Punteggio max:</label>
                            
                                             </div></div></td>", $s->getId());
