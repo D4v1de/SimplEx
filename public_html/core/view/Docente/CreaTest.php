@@ -338,7 +338,7 @@ $corso = $controllerCorso->readCorso($_URL[2]);
                     if(!$flag) {
                         echo "<div class=\"alert alert-danger\">
                         <button class=\"close\" data-close=\"alert\"></button>
-                        Errore nei Dati. Per un test RANDOM devi inserire un numero domande maggiore di 0.
+                        Errore nei Dati. E' possibile inserire solo interi positivi.
                         </div>";
                         //echo "<script type='text/javascript'>checkIt();</script>";
                     }
