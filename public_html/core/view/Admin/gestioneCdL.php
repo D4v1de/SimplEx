@@ -78,7 +78,7 @@ if (isset($_POST['checkbox'])) {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/admin/cdl/view">GestioneCdL</a>
+                        Gestione CdL
                     </li>
                 </ul>
             </div>

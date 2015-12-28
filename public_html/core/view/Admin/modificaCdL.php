@@ -49,7 +49,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     unset($cdls[$x]);
 
     //controllo su nome
-    if(empty($nomenew) || !preg_match('/^[a-zA-Z0-9\s-]+$/', $nomenew)) {
+    if(empty($nomenew) || !preg_match('/^[a-zA-Z0-9\s-èòìàù]+$/', $nomenew)) {
         $flag = 0;
     }
     foreach($cdls as $c) {
@@ -129,7 +129,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/admin/cdl/modifica/<?php echo $matricola; ?>">CdL<?php echo $nome; ?></a>
+                        CdL <?php echo $nome; ?>
                     </li>
                 </ul>
             </div>

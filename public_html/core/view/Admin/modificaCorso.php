@@ -61,7 +61,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     unset($corsi[$x]);
 
     //controllo sul nome
-    if(empty($nomenew) || !preg_match('/^[a-zA-Z0-9\s-]+$/', $nome)) {
+    if(empty($nomenew) || !preg_match('/^[a-zA-Z0-9\s-èòìàù]+$/', $nome)) {
         $flag2 = 0;
     }
 
@@ -141,7 +141,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/admin/corsi/modifica/<?php echo $corso->getId(); ?>"><?php echo $nome; ?></a>
+                        Corso <?php echo $nome; ?></a>
                     </li>
                 </ul>
             </div>

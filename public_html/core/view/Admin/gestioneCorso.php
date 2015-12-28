@@ -131,7 +131,7 @@ if (isset($_POST['elimina'])) {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/admin/corsi/gestione/<?php echo $corso->getId(); ?>"><?php echo $corso->getNome(); ?></a>
+                        Corso <?php echo $corso->getNome(); ?>
                     </li>
                 </ul>
             </div>

@@ -37,7 +37,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
     $cdlmatricola = $_POST['tipologia2'];
 
     //controllo sul nome
-    if(empty($nome) || !preg_match('/^[a-zA-Z0-9\s-]+$/', $nome)) {
+    if(empty($nome) || !preg_match('/^[a-zA-Z0-9\s-èòìàù]+$/', $nome)) {
         $flag2 = 0;
     }
 
@@ -117,7 +117,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/admin/corsi/crea">CreaCorso</a>
+                        Crea Corso
                     </li>
                 </ul>
             </div>
