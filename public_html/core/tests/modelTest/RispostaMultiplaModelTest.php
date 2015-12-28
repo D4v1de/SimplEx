@@ -31,8 +31,6 @@ class RispostaMultiplaModelTest extends PHPUnit_Framework_TestCase
         $model->updateRispostaMultipla(new RispostaMultipla(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID, self::PUNTEGGIO2, self::ALT_ID), self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID);
         $ris2 = $model->readRispostaMultipla(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID);
         $this->assertEquals(self::PUNTEGGIO2,$ris2->getPunteggio());
-        //rimuovo una risposta
-        $model->deleteRispostaMultipla(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID);
     }
 
     //testo la funzionalità di recupero risposte dato un elaborato

@@ -31,8 +31,6 @@ class RispostaApertaModelTest extends PHPUnit_Framework_TestCase
         $ris2 = $model->readRispostaAperta(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DAID);
         $this->assertEquals(self::TESTO2,$ris2->getTesto());
 
-        $model->deleteRispostaAperta(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DAID);
-
     }
 
     public function testGetRisposteByElaborato () {
