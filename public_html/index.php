@@ -71,7 +71,7 @@ try {
                         include_once VIEW_DIR . "Auth/VisualizzaLogReg.php";
                         break;
                     case 'register':
-                        include_once CONTROL_DIR . "Auth/Register.php";
+                        include_once CONTROL_DI . "Auth/Register.php";
                         break;
                     case 'login':
                         include_once CONTROL_DIR . "Auth/Login.php";

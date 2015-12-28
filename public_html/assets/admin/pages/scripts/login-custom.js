@@ -5,7 +5,7 @@ $(function () {
     });
 });
 jQuery.extend(jQuery.validator.messages, {
-    digits: "Solo i numeri sono amessi",
+    digits: "Solo i numeri sono ammessi",
     email: "Email non valida",
     equalTo: "Le password non coincidono",
     required: "Questo campo è obbligatorio",
