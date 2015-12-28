@@ -31,7 +31,7 @@
     <!-- CSS
     ================================================== -->
     <!-- logo sopra la pagina-->
-    <link rel="shortcut icon" href="/assets/admin/layout/img/simplexIcon.png"/>
+    <link rel="shortcut icon" href="/assets/homepage/images/simplexIcon.png"/>
     <!-- Bootstrap -->
     <link rel="stylesheet" href="/assets/homepage/css/bootstrap.min.css"/>
     <!-- FontAwesome -->
@@ -502,7 +502,6 @@
                     <div class="single-member">
                         <div class="overlay-hover">
                             <img src="/assets/homepage/images/team/Dario.jpg" alt="" class="img-responsive">
-
                             <div class="overlay-effect">
                                 <ul class="social list-inline">
                                     <li><a href="https://github.com/dariocast"><i class="fa fa-github-square"></i></a></li>
@@ -538,7 +537,6 @@
                     <div class="single-member">
                         <div class="overlay-hover">
                             <img src="/assets/homepage/images/team/Christian.jpg" alt="" class="img-responsive">
-
                             <div class="overlay-effect">
                                 <ul class="social list-inline">
                                     <li><a href=" https://github.com/christian161291"><i class="fa fa-github-square"></i></a></li>
@@ -559,9 +557,8 @@
 
                             <div class="overlay-effect">
                                 <ul class="social list-inline">
-                                    <li><a href=""><i class="fa fa-github-square"></i></a></li>
-                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href=""><i class="fa fa-linkedin-square"></i></a></li>
+                                    <li><a href=" https://github.com/fede3ro"><i class="fa fa-github-square"></i></a></li>
+                                    <li><a href="https://www.linkedin.com/profile/view?id=AAIAABvcVqEBUXXbZCjzwBl07ooQcs0buNEk8YQ&trk=nav_responsive_tab_profile"><i class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
                                 <p></p>
                             </div>
@@ -681,9 +678,9 @@
 
                             <div class="overlay-effect">
                                 <ul class="social list-inline">
-                                    <li><a href=""><i class="fa fa-github-square"></i></a></li>
-                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href=""><i class="fa fa-linkedin-square"></i></a></li>
+                                    <li><a href="https://github.com/giusytufano"><i class="fa fa-github-square"></i></a></li>
+                                    <li><a href=" https://plus.google.com/108198214576312534670/posts"><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href="https://www.linkedin.com/in/giusy-tufano-b42884110"><i class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
                                 <p></p>
                             </div>
@@ -850,7 +847,7 @@
                                 <div class="c-tab">
                                     <h4>La pagina di creazione test</h4>
 
-                                    <p>In questa pagina il Docente ha la possibilità di creare un test in modo manuale e in automatico ovvero lasciando che vengano scelti casualmente.</p>
+                                    <p>In questa pagina il Docente ha la possibilità di creare un test in modo manuale e in automatico, ovvero lasciando che le domande vengano scelti casualmente.</p>
                                     <br>
 
                                 </div>
@@ -864,15 +861,12 @@
                                 <div class="c-tab">
                                     <h4>La pagina di esecuzione test</h4>
 
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus praesentium
-                                        dolore sequi excepturi recusandae reprehenderit, distinctio.</p>
+                                    <p>Lo Studente ha la possibilità di partecipare ad un test rispondendo a tutte le domande in esso contenute.</p>
                                     <br>
-
 
                                 </div>
                             </div>
                         </div>
-
             </div>
         </div>
     </div>
@@ -887,36 +881,48 @@
         window.history.back()
     }
 </script>
-<?php
-$my_email = "alinakim@libero.it"; //il mio indirizzo
 
+
+
+<?php
+
+$my_email = "alinakim@libero.it"; //il mio indirizzo
+$flag= false;
 
 if (isset($_REQUEST['email'])) {
     //send email
-    $email = $_REQUEST['email'] ;
-    $subject = $_REQUEST['subject'] ;
-    $message = $_REQUEST['message'] ;
+    $email = $_REQUEST['email'];
+    $subject = $_REQUEST['subject'];
+    $message = $_REQUEST['message'];
+    $name = $_REQUEST['name'];
 
-   /* if ($email == "") {
-        echo "ERROR: Devi inserire un email!<br>";
-        echo "<input type='button' value='Back' onclick='goBack()' />";
-        exit;
+   if ($subject == "") {
+        $errore = "Inserire il numero di telefono!";
+        echo "<script type='text/javascript'>alert('$errore');</script>";
     }
-    if ($subject == "") {
-        echo "ERROR: Devi inserire il numero di telefono!<br>";
-        echo "<input type='button' value='Back' onclick='goBack()' />";
-        exit;
+    else if ($message == "") {
+        $errore = "Inserire il testo da inviare!";
+        echo "<script type='text/javascript'>alert('$errore');</script>";
+
     }
-    if ($message == "") {
-        echo "ERROR: Devi inserire un messaggio!<br>";
-        echo "<input type='button' value='Back' onclick='goBack()' />";
-        exit;
-    }*/
+    else if ($name == "") {
+        $errore = "Inserire il tuo nome!";
+        echo "<script type='text/javascript'>alert('$errore');</script>";
 
-    mail($my_email, $subject, $message, "From:" . $email);
-   // echo "<META HTTP-EQUIV='Refresh' CONTENT='0'; url='http://localhost:9080/'>";
+    }else {
 
-} else {
+        $subject = $name . $subject;
+
+       if(mail($my_email, $subject, $message, "From:" . $email)==true){
+           $invio = "L'email è stata inviata!";
+           echo "<script type='text/javascript'>alert('$invio');</script>";
+       }else{
+           $invio = "L'email non è stata inviata!";
+           echo "<script type='text/javascript'>alert('$invio');</script>";
+       }
+    }
+}
+if($flag==false){
     echo"<form method='post' action='/'>
     <section id='contact'>
       <div class='container'>
@@ -963,7 +969,6 @@ if (isset($_REQUEST['email'])) {
         </div>
     </div>
 </section>";
-
 }
 ?>
 
