@@ -372,7 +372,7 @@ $corso = $controllerCorso->readCorso($_URL[2]);
                 
                 <div class="alert alert-danger display-hide">
                     <button class="close" data-close="alert"></button>
-                    Errore nei Dati. Devi inserire la descrizione del test, e selezionare almeno una domanda.
+                    Errore nei Dati. E' obbligatorio inserire la descrizione del test e selezionare almeno una domanda.
                 </div>
                 
                 <?php
@@ -484,7 +484,7 @@ $corso = $controllerCorso->readCorso($_URL[2]);
                                             <div class="form-group form-md-line-input has-success">
                                                 <div class="input-icon">
                                                     <input type="number" id="numMultiple" name="numMultiple" class="form-control">
-                                                        <label for="numMultiple">Numero domande a risposta multipla:</label>
+                                                         <label for="numMultiple">Numero domande a risposta multipla:</label>
                                                           
                                                 </div>
                                             </div>

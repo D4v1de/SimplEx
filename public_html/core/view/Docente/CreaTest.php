@@ -331,7 +331,7 @@ $corso = $controllerCorso->readCorso($_URL[2]);
 
                 <div class="alert alert-danger display-hide">
                     <button class="close" data-close="alert"></button>
-                    Errore nei Dati. Devi inserire la descrizione del test, e selezionare almeno una domanda.
+                    Errore nei Dati. E' obbligatorio inserire la descrizione del test e selezionare almeno una domanda.
                 </div>
 
                 <?php
