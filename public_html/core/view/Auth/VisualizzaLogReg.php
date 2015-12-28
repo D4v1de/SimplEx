@@ -3,9 +3,10 @@
  * Registrazione ed autenticazione
  *
  * @author Sergio Shevchenko
- * @version 1.0
+ * @version 1.1
  * @since 18/11/15
  */
+
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) {
     /** @var Utente $user */
     $user = $_SESSION['user'];
@@ -24,14 +25,9 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) {
     }
     header("Location: " . $redirect);
 }
-
-include_once CONTROL_DIR . "UtenteController.php";
-include_once CONTROL_DIR . "CdlController.php";
-$cdlController=new CdlController();
-$corsi=$cdlController->getCdl();
-$controller = new UtenteController();
-/** @var Exception $error */
-$error = null;
+include_once MODEL_DIR . "CdLModel.php";
+$cdlModel = new CdLModel();
+$corsi = $cdlModel->getAllCdL();
 ?>
 
 <!DOCTYPE html>
@@ -111,15 +107,15 @@ $error = null;
                 Login <i class="m-icon-swapright m-icon-white"></i>
             </button>
         </div>
-<!--        <div class="forget-password">-->
-<!--            <h4>Hai dimenticato la password?</h4>-->
-<!---->
-<!--            <p>-->
-<!--                nessun problema, clicca <a href="javascript:;" id="forget-password">-->
-<!--                    qui </a>-->
-<!--                per resettarla.-->
-<!--            </p>-->
-<!--        </div>-->
+        <!--        <div class="forget-password">-->
+        <!--            <h4>Hai dimenticato la password?</h4>-->
+        <!---->
+        <!--            <p>-->
+        <!--                nessun problema, clicca <a href="javascript:;" id="forget-password">-->
+        <!--                    qui </a>-->
+        <!--                per resettarla.-->
+        <!--            </p>-->
+        <!--        </div>-->
         <div class="create-account">
             <p>
                 Non hai ancora l'account ?&nbsp; <a href="javascript:;" id="register-btn">

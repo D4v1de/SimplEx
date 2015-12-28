@@ -9,7 +9,7 @@ jQuery.extend(jQuery.validator.messages, {
     email: "Email non valida",
     equalTo: "Le password non coincidono",
     required: "Questo campo è obbligatorio",
-    regx: "Formato matricola non valido"
+    regx: "Formato del campo non valido"
 });
 var Login = function () {
 
@@ -200,13 +200,13 @@ var Login = function () {
                     required: true,
                     minlength: 2,
                     maxlength: 30,
-                    regx: "^[a-z0-9_ èàòù]+$"
+                    regx: "^[a-z_ èàòù]+$"
                 },
                 surname: {
                     required: true,
                     minlength: 2,
                     maxlength: 30,
-                    regx: "^[a-z0-9_ èàòù]+$"
+                    regx: "^[a-z_ èàòù]+$"
                 },
                 matricola: {
                     required: true,

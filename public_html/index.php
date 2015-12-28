@@ -71,13 +71,13 @@ try {
                         include_once VIEW_DIR . "Auth/VisualizzaLogReg.php";
                         break;
                     case 'register':
-                        include_once VIEW_DIR . "Auth/Register.php";
+                        include_once CONTROL_DIR . "Auth/Register.php";
                         break;
                     case 'login':
-                        include_once VIEW_DIR . "Auth/Login.php";
+                        include_once CONTROL_DIR . "Auth/Login.php";
                         break;
                     case 'logout':
-                        include_once VIEW_DIR . "Auth/Logout.php";
+                        include_once CONTROL_DIR . "Auth/Logout.php";
                         break;
                 }
             }
@@ -367,9 +367,6 @@ try {
             case 'selezionestudenti':
                 include_once VIEW_DIR . "Docente/SelezioneStudenti.php";
                 break;
-            
-
-
 
 
             case 'homecorsostudente':
