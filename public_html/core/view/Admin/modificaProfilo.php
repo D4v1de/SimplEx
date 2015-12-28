@@ -15,28 +15,6 @@ $uCtrl = new UtenteController();
 $victim = $_SESSION['user'];
 $matricola = $victim->getMatricola();
 $error = "";
-if (isset($_POST['nome'])) {
-    $tipologia = $victim->getTipologia();
-    $nome = $_POST['nome'];
-    $cognome = $_POST['cognome'];
-    $email = $_POST['email'];
-    $cdlMatricola = $victim->getCdlMatricola();
-
-
-    $pass = $_POST['pass'];
-    $pass2 = $_POST['pass2'];
-
-    try {
-        if ($pass != $pass2) throw new IllegalArgumentException("Password non coincidono");
-        $uCtrl->modificaUtente($matricola, $nome, $cognome, $cdlMatricola, $email, $pass, $tipologia);
-        header('location: /me?success=Utente modificato');
-        exit;
-    } catch (ApplicationException $ex) {
-        $error = "<h5>Errore nella modifica del profilo: " . $ex->getMessage() . "</h5>";
-    } catch (IllegalArgumentException $ex) {
-        $error = "<h5>Errore nella modifica del profilo: " . $ex->getMessage() . "</h5>";
-    }
-}
 
 ?>
 <!DOCTYPE html>

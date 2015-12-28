@@ -65,6 +65,11 @@ try {
                 StringUtils::checkPermission("all");
                 include_once VIEW_DIR . "Admin/modificaProfilo.php";
                 break;
+            case 'salva':{
+                StringUtils::checkPermission("all");
+                include_once CONTROL_DIR . "Admin/modificaProfilo.php";
+                break;
+            }
             case 'auth': {
                 switch (@$_URL[1]) {
                     case '':
