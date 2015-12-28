@@ -1,7 +1,15 @@
+$(function () {
+    $.validator.addMethod("regx", function (value, element, regexpr) {
+        var re = new RegExp(regexpr, "i");
+        return re.test(value);
+    });
+});
 jQuery.extend(jQuery.validator.messages, {
     digits: "Solo i numeri sono amessi",
-    email: "L'email inserita non è corretta",
-    equalTo: "Le password non coincidono"
+    email: "Email non valida",
+    equalTo: "Le password non coincidono",
+    required: "Questo campo è obbligatorio",
+    regx: "Formato matricola non valido"
 });
 var Login = function () {
 
@@ -13,7 +21,7 @@ var Login = function () {
             rules: {
                 email: {
                     required: true,
-                    email: true,
+                    regx: "^[a-zA-Z0-9+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,7}$",
                     minlength: 5,
                     maxlength: 50
                 },
@@ -29,6 +37,7 @@ var Login = function () {
 
             messages: {
                 email: {
+                    regx: "L'email inserita non è corretta",
                     required: "E-mail è obbligatorio"
                 },
                 password: {
@@ -187,16 +196,17 @@ var Login = function () {
             focusInvalid: false, // do not focus the last invalid input
             ignore: "",
             rules: {
-
                 name: {
                     required: true,
                     minlength: 2,
-                    maxlength: 30
+                    maxlength: 30,
+                    regx: "^[a-z0-9_ èàòù]+$"
                 },
                 surname: {
                     required: true,
                     minlength: 2,
-                    maxlength: 30
+                    maxlength: 30,
+                    regx: "^[a-z0-9_ èàòù]+$"
                 },
                 matricola: {
                     required: true,
@@ -229,8 +239,8 @@ var Login = function () {
                     maxlength: 32
                 },
                 rpassword: {
-                    equalTo: "#register_password",
                     required: true,
+                    equalTo: "#register_password",
                     minlength: 8,
                     maxlength: 32
                 },
@@ -250,7 +260,21 @@ var Login = function () {
                 },
                 rpassword: {
                     required: "Password non coincidono"
-                }
+                },
+                matricola: {
+                    minlength: "Lunghezza matricola non valida",
+                    maxlength: "Lunghezza matricola non valida"
+                },
+                password: {
+                    minlength: "Lunghezza password non valida",
+                    maxlength: "Lunghezza password non valida"
+                },
+                rpassword: {
+                    minlength: "Lunghezza password non valida",
+                    maxlength: "Lunghezza password non valida"
+                },
+
+                cdl_matricola: "Selezionare un CdL"
             },
 
             invalidHandler: function (event, validator) { //display error alert on form submit
