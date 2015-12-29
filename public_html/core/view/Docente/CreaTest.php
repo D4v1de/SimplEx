@@ -31,7 +31,6 @@ catch (ApplicationException $ex) {
 }
 
 $identificativoCorso = parseInt($_URL[2]);
-
 $corso = $modelCorso->readCorso($_URL[2]);
 ?>
 <!DOCTYPE html>

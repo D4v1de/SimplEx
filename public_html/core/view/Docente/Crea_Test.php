@@ -18,7 +18,6 @@ function parseInt($Str) {
 }
 
 $identificativoCorso=$_GET["idcorso"];
-
 function associaAperTest($idDomanda, $idTest, $punteggioMaxAlternativo){
         $domandaModel = new DomandaModel();
         if($punteggioMaxAlternativo == NULL){$domanda=$domandaModel->readDomandaAperta($idDomanda);

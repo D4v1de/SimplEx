@@ -5,12 +5,9 @@ include_once MODEL_DIR . "TestModel.php";
 
 
 $modelTest = new TestModel();
-
-
 function parseInt($Str) {
     return (int)$Str;
 }
-
 $identificativoCorso=$_GET["idcorso"];
 
 if(isset($_POST['idtest'])){

@@ -21,8 +21,6 @@ $modelDomande  = new DomandaModel();
 $modelTest = new TestModel();
 
 $identificativoCorso = parseInt($_URL[2]);
-
-
 function parseInt($Str) {
     return (int)$Str;   
 }

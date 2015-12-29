@@ -114,7 +114,6 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
     $test = new Test($descrizione,0,$cont2,$cont1,0,0,$identificativoCorso);  //creo il test
     $modelTest->updateTest($idTest,$test);   //inserisco il test nel db
     
-    
     foreach($MultipleTest as $non){
         $id = $non->getId();
         $modelDomande->dissociaDomandaMultiplaTest($id, $idTest);

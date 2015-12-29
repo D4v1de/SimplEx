@@ -5,6 +5,8 @@
  * Date: 18/11/15
  * Time: 08:58
  */
+
+
 define('ROOT_DIR', dirname(__FILE__)); //costante root dir
 define('CORE_DIR', ROOT_DIR . DIRECTORY_SEPARATOR . 'core' . DIRECTORY_SEPARATOR); //costante core directory
 define('VIEW_DIR', CORE_DIR . "view" . DIRECTORY_SEPARATOR); //ecc

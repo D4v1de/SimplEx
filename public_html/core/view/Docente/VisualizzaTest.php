@@ -39,8 +39,6 @@ catch (ApplicationException $ex) {
     echo "<h1>ERRORE NELLA LETTURA DEL CORSO!</h1>" . $ex;
 }
 
-
-
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
