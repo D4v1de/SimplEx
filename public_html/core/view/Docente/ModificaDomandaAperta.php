@@ -9,7 +9,7 @@
 include_once CONTROL_DIR . "DomandaController.php";
 include_once CONTROL_DIR . "ArgomentoController.php";
 include_once CONTROL_DIR . "CdlController.php";
-include_once CONTROL_DIR . "UtenteController.php";
+include_once MODEL_DIR . "UtenteModel.php";
 
 $utenteLoggato = $_SESSION['user'];
 
@@ -17,7 +17,7 @@ $utenteLoggato = $_SESSION['user'];
 $cdlController = new CdlController();
 $domandaController = new DomandaController();
 $argomentoController = new ArgomentoController();
-$controllerUtente = new UtenteController();
+$modelUtente = new UtenteModel();
 
 $idCorso = $_URL[2];
 $idArgomento = $_URL[6];
@@ -44,7 +44,7 @@ try{
 }
 
 try{
-    $docentiAssociati = $controllerUtente->getDocenteAssociato($corso->getId());
+    $docentiAssociati = $modelUtente->getAllDocentiByCorso($corso->getId());
 }catch(ApplicationException $exception){
     echo "ERRORE IN GET DOCENTE ASSOCIATI" . $exception;
 }

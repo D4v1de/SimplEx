@@ -10,7 +10,7 @@ include_once MODEL_DIR . "DomandaModel.php";
 include_once MODEL_DIR . "AlternativaModel.php";
 
 $domandaModel = new DomandaModel();
-$alternativaMoodel = new AlternativaModel();
+$alternativaModel = new AlternativaModel();
 
 
 if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($_POST['punteggioEsatta']) && isset($_POST['testoRisposta']) && isset($_POST['radio'])) {
@@ -22,25 +22,43 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($
     $punteggioEsatta = $_POST['punteggioEsatta'];
     $testoRisposte = $_POST['testoRisposta'];
     $radio = $_POST['radio'];
+/*
+    if (strlen($testoDomanda) < 2 || strlen($testoDomanda) > 500) {
+        $_SESSION['errore'] = 1;
+        header('Location: /docente/corso/' . $idCorso . '/argomento/domande/inseriscimultipla/' . $idArgomento);
+    } else if ($punteggioEsatta < 0) {
+        $_SESSION['errore'] = 2;
+        header('Location: /docente/corso/' . $idCorso . '/argomento/domande/inseriscimultipla/' . $idArgomento);
+    } else if ($punteggioErrata > 0) {
+        $_SESSION['errore'] = 3;
+        header('Location: /docente/corso/' . $idCorso . '/argomento/domande/inseriscimultipla/' . $idArgomento);
+    } else if (strlen($testoRisposte) < 1 || strlen($testoRisposte) > 100) {
+        $_SESSION['errore'] = 4;
+        header('Location: /docente/corso/' . $idCorso . '/argomento/domande/inseriscimultipla/' . $idArgomento);
+    } else if (!isset($radio)) {
+        $_SESSION['errore'] = 5;
+        header('Location: /docente/corso/' . $idCorso . '/argomento/domande/inseriscimultipla/' . $idArgomento);
+    } else {
+*/
+        $nuovaDomanda = new DomandaMultipla($idArgomento, $testoDomanda, $punteggioEsatta, $punteggioErrata, 0, 0);
 
-    $nuovaDomanda = new DomandaMultipla($idArgomento, $testoDomanda, $punteggioEsatta, $punteggioErrata, 0, 0);
+        $idNuovaDomanda = $domandaModel->createDomandaMultipla($nuovaDomanda);
+        for ($i = 0; $i < count($testoRisposte); $i++) {
+            if (($i + 1) == $radio) {
+                $corretta = "Si";
+            } else {
+                $corretta = "No";
+            }
+            if ($testoRisposte[$i] == '' || $testoRisposte[$i] == null) {
+                echo $i;
+                continue;
+            } else {
+                $alternativa = new Alternativa($idNuovaDomanda, $testoRisposte[$i], 0, $corretta);
+            }
 
-    $idNuovaDomanda = $domandaModel->createDomandaMultipla($nuovaDomanda);
-    for ($i = 0; $i < count($testoRisposte); $i++) {
-        if (($i + 1) == $radio) {
-            $corretta = "Si";
-        } else {
-            $corretta = "No";
-        } if($testoRisposte[$i] == '' || $testoRisposte[$i] == null){
-            echo $i;
-            continue;
-        }else {
-            $alternativa = new Alternativa($idNuovaDomanda, $testoRisposte[$i], 0, $corretta);
+            $alternativaModel->createAlternativa($alternativa);
         }
 
-        $alternativaModel->creaAlternativa($alternativa);
-    }
-
-    header('Location: /docente/corso/'. $idCorso .'/argomento/domande/'. $idArgomento .'/successinserimento');
+        header('Location: /docente/corso/' . $idCorso . '/argomento/domande/' . $idArgomento . '/successinserimento');
+   // }
 }
-?>

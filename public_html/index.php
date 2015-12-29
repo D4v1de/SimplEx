@@ -285,6 +285,12 @@ try {
                     case 'inserisciaperta':
                         include_once CONTROL_DIR . "Domanda/creaDomandaAperta.php";
                         break;
+                    case 'inseriscimultipla':
+                        include_once CONTROL_DIR . "Domanda/creaDomandaMultipla.php";
+                        break;
+                    case 'modificamultipla':
+                        include_once CONTROL_DIR . "Domanda/modificaDomandaMultipla.php";
+                        break;
                     case 'rimuoviaperta':
                         include_once CONTROL_DIR . "Domanda/rimuoviDomandaAperta.php";
                         break;

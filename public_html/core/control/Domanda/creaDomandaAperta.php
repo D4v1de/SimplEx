@@ -15,7 +15,16 @@ if(isset($_POST['testoDomanda']) && isset($_POST['punteggioEsatta']) && isset($_
     $idcorso = $_POST['idcorso'];
     $testoDomanda = $_POST['testoDomanda'];
     $punteggioEsatta = $_POST['punteggioEsatta'];
-    $domandaAperta = new DomandaAperta($idArgomento,$testoDomanda,$punteggioEsatta,0);
-    $domandaModel->createDomandaAperta($domandaAperta);
-    header('Location: /docente/corso/' . $idcorso . '/argomento/domande/' . $idArgomento .'/successinserimento');
+    if(strlen($testoDomanda)<2 || strlen($testoDomanda)>500){
+        $_SESSION['errore'] = 1;
+        header('Location: /docente/corso/' .$idcorso.'/argomento/domande/inserisciaperta/'. $idArgomento);
+    }
+    else if($punteggioEsatta<0){
+        $_SESSION['errore'] = 2;
+        header('Location: /docente/corso/' .$idcorso.'/argomento/domande/inserisciaperta/'. $idArgomento);
+    }else {
+        $domandaAperta = new DomandaAperta($idArgomento, $testoDomanda, $punteggioEsatta, 0);
+        $domandaModel->createDomandaAperta($domandaAperta);
+        header('Location: /docente/corso/' . $idcorso . '/argomento/domande/' . $idArgomento . '/successinserimento');
+    }
 }

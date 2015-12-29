@@ -9,7 +9,7 @@ include_once CONTROL_DIR . "DomandaController.php";
 include_once CONTROL_DIR . "ArgomentoController.php";
 include_once CONTROL_DIR . "CdlController.php";
 include_once CONTROL_DIR . "AlternativaController.php";
-include_once CONTROL_DIR . "UtenteController.php";
+include_once MODEL_DIR . "UtenteModel.php";
 
 $utenteLoggato = $_SESSION['user'];
 
@@ -17,7 +17,7 @@ $cdlController = new CdlController();
 $domandaController = new DomandaController();
 $argomentoController = new ArgomentoController();
 $alternativaController = new AlternativaController();
-$controllerUtente = new UtenteController();
+$modelUtente = new UtenteModel();
 
 $idCorso = $_URL[2];
 $idArgomento = $_URL[6];
@@ -38,7 +38,7 @@ try{
 }
 
 try{
-    $docentiAssociati = $controllerUtente->getDocenteAssociato($idCorso);
+    $docentiAssociati = $modelUtente->getAllDocentiByCorso($idCorso);
 }catch(ApplicationException $exception){
     echo "ERRORE IN GET DOCENTE ASSOCIATI" . $exception;
 }
@@ -216,7 +216,7 @@ if (isset($_POST['eliminatore'])) {
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <form id="form_sample_1" method="post" action="docente/modificamultipla" class="form-horizontal form-bordered">
+            <form id="form_sample_1" method="post" action="/docente/modificamultipla" class="form-horizontal form-bordered">
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">
