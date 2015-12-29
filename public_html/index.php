@@ -65,9 +65,9 @@ try {
                 StringUtils::checkPermission("all");
                 include_once VIEW_DIR . "Admin/modificaProfilo.php";
                 break;
-            case 'salva':{
+            case 'salva': {
                 StringUtils::checkPermission("all");
-                include_once CONTROL_DIR . "Admin/modificaProfilo.php";
+                include_once CONTROL_DIR . "Utente/modificaProfilo.php";
                 break;
             }
             case 'auth': {
@@ -101,8 +101,17 @@ try {
                             case 'modifica':
                                 include_once VIEW_DIR . "Admin/modificaUtente.php";
                                 break;
+                            case 'salva':
+                                include_once CONTROL_DIR . "Admin/salvaUtente.php";
+                                break;
+                            case 'elimina':
+                                include_once CONTROL_DIR . "Admin/eliminaUtente.php";
+                                break;
                             case '':
                                 include_once VIEW_DIR . "Admin/gestioneUtente.php";
+                                break;
+                            case 'salvanuovo':
+                                include_once CONTROL_DIR . "Admin/creaUtente.php";
                                 break;
                             default:
                                 include_once VIEW_DIR . "Admin/Home.php";

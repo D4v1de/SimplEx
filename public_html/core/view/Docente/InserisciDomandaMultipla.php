@@ -65,7 +65,7 @@ try {
     echo "ERRORE IN READ ARGOMENTO" . $exception;
 }
 
-
+/*
 if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($_POST['punteggioEsatta']) && isset($_POST['testoRisposta'])) {
 
     $testoDomanda = $_POST['testoDomanda'];
@@ -99,7 +99,7 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($
         }
     }
     header('Location: /docente/corso/'. $corso->getId() .'/argomento/domande/'. $argomento->getId() .'/successinserimento');
-}
+}*/
 ?>
 
 <!DOCTYPE html>
@@ -166,7 +166,7 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <form id="form_sample_1" method="post" action="" class="form-horizontal form-bordered">
+            <form id="form_sample_1" method="post" action="docente/inseriscimultpla" class="form-horizontal form-bordered">
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">
@@ -202,6 +202,8 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($
                                 <label class="control-label col-md-3">Inserisci Punteggio Esatta</label>
 
                                 <div class="col-md-4">
+                                    <input type="hidden" name="idargomento" value="<?php echo $idArgomento; ?>">
+                                    <input type="hidden" name="idcorso" value="<?php echo $idCorso; ?>">
                                     <?php
                                     printf("<input type=\"number\" id=\"punteggioDomandaEsatta\" name=\"punteggioEsatta\" value=\"\" class=\"form-control\">");
                                     printf("<span class=\"help-block\">");

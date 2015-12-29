@@ -79,6 +79,7 @@ try {
 
 $numRisposte = count($alternative);
 
+/*
 if (isset($_POST['eliminatore'])) {
     $idArgomentoDaEliminare = $_POST['eliminatore'];
     try {
@@ -147,6 +148,7 @@ if (isset($_POST['eliminatore'])) {
     }
 
 }
+*/
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -214,7 +216,7 @@ if (isset($_POST['eliminatore'])) {
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <form id="form_sample_1" method="post" action="" class="form-horizontal form-bordered">
+            <form id="form_sample_1" method="post" action="docente/modificamultipla" class="form-horizontal form-bordered">
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">
@@ -282,6 +284,9 @@ if (isset($_POST['eliminatore'])) {
                                 <label class="control-label col-md-3">Inserisci Punteggio Esatta</label>
 
                                 <div class="col-md-4">
+                                    <input type="hidden" name="idargomento" value="<?php echo $idArgomento; ?>">
+                                    <input type="hidden" name="idcorso" value="<?php echo $idCorso; ?>">
+                                    <input type="hidden" name="iddomanda" value="<?php echo $idDomanda; ?>">
                                     <?php
                                     printf("<input type=\"number\" id=\"punteggioDomandaEsatta\" name=\"punteggioEsatta\" value=\"%d\" class=\"form-control\">", $domandaOld->getPunteggioCorretta());
                                     printf("<span class=\"help-block\">");

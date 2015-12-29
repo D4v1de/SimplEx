@@ -1,44 +1,26 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: sergio
- * Date: 09/12/15
- * Time: 15:41
+ * View della creazione Utente
+ *
+ * @author Sergio Shevchenko
+ * @version 1.0
+ * @since 09/12/15
  */
 
-include_once CONTROL_DIR . "CdlController.php";
-include_once CONTROL_DIR . "UtenteController.php";
-$cdlCtrl = new CdlController();
-$uCtrl = new UtenteController();
+include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "UtenteModel.php";
+$cdlCtrl = new CdLModel();
+$uCtrl = new UtenteModel();
+
 if ($_URL[3] == "docente") {
     $tipologia = "Docente";
 } else {
     $tipologia = "Studente";
-    $cdls = $cdlCtrl->getCdl();
+    $cdls = $cdlCtrl->getAllCdL();
 }
-$error = "";
-if (isset($_POST['tipologia'])) {
-    $nome = $_POST['nome'];
-    $cognome = $_POST['cognome'];
-    $email = $_POST['email'];
-    $tipologia = $_POST['tipologia'];
-    $matricola = $_POST['matricola'];
-    if ($tipologia != "Studente") {
-        $cdlMatricola = null;
-    } else {
-        $cdlMatricola = $_POST['cdl'];
-    }
-
-    $pass = $_POST['pass'];
-
-    try {
-        $uCtrl->register($matricola, $email, $pass, $tipologia, $nome, $cognome, $cdlMatricola);
-        header('location: /admin/utenti?success=Utente registrato nel sistema');
-    } catch (ApplicationException $ex) {
-        $error = "<h5>Creazione utente FALLITO: " . $ex->getMessage() . "</h5>";
-    } catch (IllegalArgumentException $ex) {
-        $error = "<h5>Creazione utente FALLITO: " . $ex->getMessage() . "</h5>";
-    }
+if (isset($_SESSION['error'])) {
+    $error = $_SESSION['error'];
+    unset($_SESSION['error']);
 }
 ?>
 <!DOCTYPE html>
@@ -103,7 +85,7 @@ if (isset($_POST['tipologia'])) {
                             <?= $error; ?> </span>
                         </div>
                     <?php } ?>
-                    <form id="form_sample_1" method="post" action="">
+                    <form id="form_sample_1" method="post" action="/admin/utenti/salvanuovo">
                         <input type="hidden" name="tipologia" value="<?= $tipologia ?>">
 
                         <div class="portlet box blue-madison">

@@ -72,7 +72,7 @@ try {
 } catch (ApplicationException $exception) {
     echo "ERRORE IN GET DOMANDA APERTA" . $exception;
 }
-
+/*
 if (isset($_POST['testoDomanda']) && isset($_POST['punteggioEsatta'])) {
 
     $testo = $_POST['testoDomanda'];
@@ -87,6 +87,7 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioEsatta'])) {
 
     header('Location: /docente/corso/'. $corso->getId() .'/argomento/domande/'. $argomento->getId() .'/successmodifica');
 }
+*/
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -152,7 +153,7 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioEsatta'])) {
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <form id="form_sample_1" method="post" action="" class="form-horizontal form-bordered">
+            <form id="form_sample_1" method="post" action="docente/modificaaperta" class="form-horizontal form-bordered">
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">
@@ -177,6 +178,9 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioEsatta'])) {
                                 <label class="control-label col-md-3">Inserisci Punteggio</label>
 
                                 <div class="col-md-4">
+                                    <input type="hidden" name="idargomento" value="<?php echo $idArgomento; ?>">
+                                    <input type="hidden" name="idcorso" value="<?php echo $idCorso; ?>">
+                                    <input type="hidden" name="iddomanda" value="<?php echo $idDomanda; ?>">
                                     <?php
                                     printf("<input type=\"punteggioEsatta\" id=\"punteggioEsatta\" name=\"punteggioEsatta\" value=\"%d\" class=\"form-control\">", $domandaOld->getPunteggioMax());
                                     printf("<span class=\"help-block\">");
