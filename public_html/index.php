@@ -266,6 +266,9 @@ try {
                             case 'statistiche':
                                 include_once VIEW_DIR . "Docente/Statistiche.php";
                                 break;
+                            case 'statistiche2':
+                                include_once VIEW_DIR . "Docente/Statistiche2.php";
+                                break;
                             default:
                                 include_once VIEW_DIR . "Docente/HomeCorso2.php";
                         }
