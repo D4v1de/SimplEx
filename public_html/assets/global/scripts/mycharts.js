@@ -18,11 +18,6 @@ var getStatisticheTest = function (str){
         if (str == "Best")
             get20BestTest();
     }
-    Metronic.blockUI({
-        target: '#test1'
-    });
-    Metronic.startPageLoading({animate: true});
-
 }
 
 

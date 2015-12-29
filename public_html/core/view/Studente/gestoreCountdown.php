@@ -5,13 +5,12 @@
  * Date: 03/12/15
  * Time: 16:00
  */
-include_once CONTROL_DIR . "SessioneController.php";
-include_once BEAN_DIR . "Sessione.php";
-       
-    $sessCont = new SessioneController();
+include_once MODEL_DIR . "SessioneModel.php";
+   
+    $sessMod = new SessioneModel();
     
     $sessioneId = $_REQUEST["sessId"];
-    $sessione = $sessCont->readSessione($sessioneId);
+    $sessione = $sessMod->readSessione($sessioneId);
     $response = $sessione->getDataFine()."|".date("Y-m-d H:i:s");
     echo $response;
     
