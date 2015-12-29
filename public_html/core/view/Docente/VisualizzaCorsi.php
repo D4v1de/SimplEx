@@ -6,25 +6,26 @@
  * @since 18/11/15 09:58
  */
 
-//TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "CdlController.php";
-$controller = new CdlController();
+include_once MODEL_DIR . "CdLModel.php";
+$modelcdl = new CdLModel();
+include_once MODEL_DIR . "CorsoModel.php";
+$modelcorso = new CorsoModel();
 
 $cdl = null;
 $corsi = Array();
 $url = $_URL[2];
 
 if(!is_numeric($url)) {
-    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+    echo "<script type='text/javascript'>alert('errore nella url!!(idcdl)');</script>";
 }
 
 try {
-    $cdl = $controller->readCdl($url);
+    $cdl = $modelcdl->readCdl($url);
 } catch (ApplicationException $ex) {
     echo "<h1>INSERIRE MATRICOLA CDL NEL PATH!</h1>".$ex;
 }
 try {
-    $corsi = $controller->getCorsiCdl($cdl->getMatricola());
+    $corsi = $modelcorso->getAllCorsiByCdl($cdl->getMatricola());
 } catch (ApplicationException $ex) {
     echo "<h1>GETCORSICDL FALLITO!</h1>".$ex;
 }
@@ -45,7 +46,7 @@ try {
     <?php include VIEW_DIR . "design/header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
-</head>
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/extensions/TableTools/css/dataTables.tableTools.css"></head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
 <body class="page-md page-header-fixed page-quick-sidebar-over-content">
@@ -75,7 +76,7 @@ try {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/docente/cdl/<?php echo $cdl->getMatricola(); ?>"><?php echo $cdl->getNome(); ?></a>
+                        <?php echo $cdl->getNome(); ?>
                     </li>
                 </ul>
             </div>
@@ -163,6 +164,7 @@ try {
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN aggiunta da me -->
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
+<script src="/assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
 <!-- END aggiunta da me -->
 <script>
     jQuery(document).ready(function () {
@@ -171,6 +173,23 @@ try {
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
         TableManaged2.init("tabella_2", "tabella_2_wrapper");
+
+        var table = $("#tabella_2").dataTable();
+        var tableTools = new $.fn.dataTable.TableTools(table, {
+            //"sSwfPath": "//cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls_pdf.swf",
+            "sSwfPath": "/assets/global/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf",
+            "aButtons": [
+                {
+                    "sExtends": "xls",
+                    "sButtonText": "<i class='fa fa-file-excel-o'></i> Excel"
+                },
+                {
+                    "sExtends": "pdf",
+                    "sButtonText": "<i class='fa fa-file-pdf-o'></i> PDF"
+                }
+            ]
+        });
+        $(tableTools.fnContainer()).insertBefore("#tabella_2_wrapper");
     });
 </script>
 <!-- END JAVASCRIPTS -->

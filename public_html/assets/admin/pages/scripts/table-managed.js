@@ -33,14 +33,15 @@ var TableManaged = function () {
                 [5, 15, 20, -1],
                 [5, 15, 20, "All"] // change per page values here
             ],
-            // set the initial value
 
             //aggiunti da federico
             "scrollCollapse": true,
             "paging":         false,
             "scrollY":        '40vh',
-            "dom": 'Bfrtip',
+            //"dom": 'Bfrtip',
+            "dom": "<'row'<'col-md-5 col-sm-12'l><'col-md-5 col-sm-12'Bf>r>tip",
 
+            // set the initial value
             "pageLength": 5,
             "language": {
                 "lengthMenu": " _MENU_ elementi",
@@ -135,6 +136,10 @@ var TableManaged2 = function () {
                 [5, 15, 20, -1],
                 [5, 15, 20, "All"] // change per page values here
             ],
+
+            //aggiunti da federico
+            //"dom": "Blfrt<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
+            "dom": "<'row'<'col-md-5 col-sm-12'l><'col-md-5 col-sm-12'Bf>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
             // set the initial value
             "pageLength": 5,
             "language": {
