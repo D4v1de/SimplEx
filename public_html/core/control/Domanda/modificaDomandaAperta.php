@@ -18,6 +18,7 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioEsatta'])) {
 
     $testo = $_POST['testoDomanda'];
     $punteggio = $_POST['punteggioEsatta'];
+
     if(strlen($testo)<2 || strlen($testo)>500){
         $_SESSION['errore'] = 1;
         header('Location: /docente/corso/' .$idcorso.'/argomento/domande/modificaaperta/'. $idArgomento.'/'.$idDomanda);

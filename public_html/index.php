@@ -312,8 +312,14 @@ try {
                     case 'modificamultipla':
                         include_once CONTROL_DIR . "Domanda/modificaDomandaMultipla.php";
                         break;
+                    case 'modificaaperta':
+                        include_once CONTROL_DIR . "Domanda/modificaDomandaAperta.php";
+                        break;
                     case 'rimuoviaperta':
                         include_once CONTROL_DIR . "Domanda/rimuoviDomandaAperta.php";
+                        break;
+                    case 'rimuovimultipla':
+                        include_once CONTROL_DIR . "Domanda/rimuoviDomandaMultipla.php";
                         break;
                     case 'inserisciargomento':
                         include_once CONTROL_DIR . "Argomenti/creaArgomentoControl.php";

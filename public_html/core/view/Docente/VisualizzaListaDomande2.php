@@ -73,15 +73,6 @@ foreach($docentiAssociati as $docente){
     }
 }
 
-
-if (isset($_POST['domandamultipla'])){
-    try {
-        $modelDomanda->deleteDomandaMultipla($_POST['domandamultipla']);
-        header('Location: /docente/corso/'. $corso->getId() .'/argomento/domande/'. $argomento->getId() .'/successelimina');
-    } catch(ApplicationException $exception){
-        echo "ERRORE ELIMINAZIONEDOMANDAMULTIPLA" . $exception;
-    }
-}
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -230,9 +221,11 @@ if (isset($_POST['domandamultipla'])){
                         printf("<div class=\"tools\">");
                         printf("<a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a>");
                         printf("</div>");
-                        printf("<form method=\"post\" action=\"\" class=\"actions\">");
+                        printf("<form method=\"post\" action=\"/docente/rimuovimultipla\" class=\"actions\">");
                         if($correttezzaLogin==true) {
                             printf("<a href=\"/docente/corso/%d/argomento/domande/modificamultipla/%d/%d\" class=\"btn green-jungle\"><i class=\"fa fa-edit\"></i> Modifica </a>", $idCorso, $idArgomento, $d->getId());
+                            printf("<input type='hidden' name='idcorso' value='%s'>", $idCorso);
+                            printf("<input type='hidden' name='idargomento' value='%s'>", $idArgomento);
                             printf("<button class=\"btn sm red-intense\" data-toggle=\"confirmation\" data-singleton=\"true\" data-popout=\"true\" title=\"Sei sicuro?\" type=\"submit\" name=\"domandamultipla\" value=\"%d\"><i class=\"fa fa-remove\"></i> Rimuovi </button>", $d->getId());
                         }
                         printf("</div>");

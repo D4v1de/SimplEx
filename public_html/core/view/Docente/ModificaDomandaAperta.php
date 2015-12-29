@@ -6,18 +6,22 @@
  * Time: 09:58
  */
 
-include_once CONTROL_DIR . "DomandaController.php";
-include_once CONTROL_DIR . "ArgomentoController.php";
-include_once CONTROL_DIR . "CdlController.php";
+include_once MODEL_DIR . "DomandaModel.php";
+include_once MODEL_DIR . "ArgomentoModel.php";
+include_once MODEL_DIR . "CdlModel.php";
 include_once MODEL_DIR . "UtenteModel.php";
+include_once MODEL_DIR . "CorsoModel.php";
 
 $utenteLoggato = $_SESSION['user'];
 
 
-$cdlController = new CdlController();
-$domandaController = new DomandaController();
-$argomentoController = new ArgomentoController();
+
+$modelCorso = new CorsoModel();
+$modelCdl = new CdLModel();
+$modelDomanda = new DomandaModel();
+$modelArgomento = new ArgomentoModel();
 $modelUtente = new UtenteModel();
+
 
 $idCorso = $_URL[2];
 $idArgomento = $_URL[6];
@@ -30,7 +34,7 @@ $correttezzaLogin = false;
 
 
 try {
-    $corso = $cdlController->readCorso($idCorso);
+    $corso = $modelCorso->readCorso($idCorso);
 } catch (ApplicationException $exception) {
     echo "ERRORE IN READ CORSO" . $exception;
 }
@@ -63,31 +67,16 @@ if($correttezzaLogin == false){
 
 
 try {
-    $argomento = $argomentoController->readArgomento($idArgomento, $idCorso);
+    $argomento = $modelArgomento->readArgomento($idArgomento, $idCorso);
 } catch (ApplicationException $exception) {
     echo "ERRORE IN READ ARGOMENTO" . $exception;
 }
 try {
-    $domandaOld = $domandaController->getDomandaAperta($idDomanda);
+    $domandaOld = $modelDomanda->readDomandaAperta($idDomanda);
 } catch (ApplicationException $exception) {
     echo "ERRORE IN GET DOMANDA APERTA" . $exception;
 }
-/*
-if (isset($_POST['testoDomanda']) && isset($_POST['punteggioEsatta'])) {
 
-    $testo = $_POST['testoDomanda'];
-    $punteggio = $_POST['punteggioEsatta'];
-
-    $updatedDomanda = new DomandaAperta($idArgomento, $testo, $punteggio, 0);
-    try {
-        $domandaController->modificaDomandaAperta($idDomanda, $updatedDomanda);
-    } catch (ApplicationException $exception) {
-        echo "ERRORE IN MODIFICA DOMANDA APERTA" . $exception;
-    }
-
-    header('Location: /docente/corso/'. $corso->getId() .'/argomento/domande/'. $argomento->getId() .'/successmodifica');
-}
-*/
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -131,7 +120,7 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioEsatta'])) {
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"/docente/cdl/%s\">%s</a>", $corso->getCdlMatricola(), $cdlController->readCdl($corso->getCdlMatricola())->getNome());
+                    printf("<a href=\"/docente/cdl/%s\">%s</a>", $corso->getCdlMatricola(), $modelCdl->readCdl($corso->getCdlMatricola())->getNome());
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
@@ -153,7 +142,7 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioEsatta'])) {
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <form id="form_sample_1" method="post" action="docente/modificaaperta" class="form-horizontal form-bordered">
+            <form id="form_sample_2" method="post" action="/docente/modificaaperta" class="form-horizontal form-bordered">
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">

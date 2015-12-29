@@ -5,18 +5,20 @@
  * Date: 18/11/15
  * Time: 09:58
  */
-include_once CONTROL_DIR . "DomandaController.php";
-include_once CONTROL_DIR . "ArgomentoController.php";
-include_once CONTROL_DIR . "CdlController.php";
-include_once CONTROL_DIR . "AlternativaController.php";
+include_once MODEL_DIR . "DomandaModel.php";
+include_once MODEL_DIR . "ArgomentoModel.php";
+include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "AlternativaModel.php";
 include_once MODEL_DIR . "UtenteModel.php";
+include_once MODEL_DIR . "CorsoModel.php";
 
 $utenteLoggato = $_SESSION['user'];
 
-$cdlController = new CdlController();
-$domandaController = new DomandaController();
-$argomentoController = new ArgomentoController();
-$alternativaController = new AlternativaController();
+$modelCdl = new CdLModel();
+$modelCorso = new CorsoModel();
+$modelDomanda = new DomandaModel();
+$modelArgomento = new ArgomentoModel();
+$modelAlternativa = new AlternativaModel();
 $modelUtente = new UtenteModel();
 
 $idCorso = $_URL[2];
@@ -57,98 +59,28 @@ if($correttezzaLogin == false){
 
 
 try {
-    $corso = $cdlController->readCorso($idCorso);
+    $corso = $modelCorso->readCorso($idCorso);
 } catch (ApplicationException $exception) {
     echo "ERRORE IN READ CORSO" . $exception;
 }
 try {
-    $argomento = $argomentoController->readArgomento($idArgomento, $idCorso); //Chiedere se deve essere modificato
+    $argomento = $modelArgomento->readArgomento($idArgomento);
 } catch (ApplicationException $exception) {
     echo "ERRORE IN READ ARGOMENTO" . $exception;
 }
 try {
-    $domandaOld = $domandaController->getDomandaMultipla($idDomanda);
+    $domandaOld = $modelDomanda->readDomandaMultipla($idDomanda);
 } catch (ApplicationException $exception) {
     echo "ERRORE IN GET DOMANDA MULTIPLA" . $exception;
 }
 try {
-    $alternative = $alternativaController->getAllAlternativaByDomanda($idDomanda);
+    $alternative = $modelAlternativa->getAllAlternativaByDomanda($idDomanda);
 } catch (ApplicationException $exception) {
     echo "ERRORE IN GET ALL ALTERNATIVE" . $exception;
 }
 
 $numRisposte = count($alternative);
 
-/*
-if (isset($_POST['eliminatore'])) {
-    $idArgomentoDaEliminare = $_POST['eliminatore'];
-    try {
-        $alternativaController->rimuoviAlternativa($idArgomentoDaEliminare);
-    } catch (ApplicationException $exception) {
-        echo "ERRORE IN RIMUOVI ALTERNATIVA" . $exception;
-    }
-    header("Location: /docente/corso/" . $idCorso . "/argomento/domande/modificamultipla/" . $idArgomento . "/" . $idDomanda ."/successelimina");
-
-} else {
-
-    if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($_POST['punteggioEsatta']) && isset($_POST['testoRisposta']) && isset($_POST['radio'])) {
-        $testoDomanda = $_POST['testoDomanda'];
-        $punteggioErrata = $_POST['punteggioErrata'];
-        $punteggioEsatta = $_POST['punteggioEsatta'];
-        $testoRisposte = $_POST['testoRisposta'];
-        $radio = $_POST['radio'];
-
-        $updatedDomanda = new DomandaMultipla($idArgomento, $testoDomanda, $punteggioEsatta, $punteggioErrata, 0, 0);
-
-        try {
-            $domandaController->modificaDomandaMultipla($idDomanda, $updatedDomanda);
-        } catch (ApplicationException $exception) {
-            echo "ERRORE IN MODIFICA DOMANDA MULTIPLA" . $exception;
-        }
-
-        for ($i = 0; $i < count($testoRisposte); $i++) {
-            $idAlternativa = $alternative[$i]->getId();
-            if (($i + 1) == $radio) {
-                $corretta = "Si";
-            } else {
-                $corretta = "No";
-            }
-
-            $updatedAlternativa = new Alternativa($idDomanda, $testoRisposte[$i], 0, $corretta);
-            try {
-                $alternativaController->modificaAlternativa($idAlternativa, $updatedAlternativa);
-            } catch (ApplicationException $exception) {
-                echo "ERRORE MODIFICA ALTERNATIVA" . $exception;
-            }
-        }
-
-        if (isset($_POST['risposteNuove'])) {
-            $rispostenuove = $_POST['risposteNuove'];
-            $prevCount = count($testoRisposte);
-            foreach ($rispostenuove as $item) {
-                if ($item == null || $item == '') {
-                    continue;
-                } else{
-                    if (++$prevCount == $radio) {
-                        $corretta2 = "Si";
-                    } else {
-                        $corretta2 = "No";
-                    }
-                $nuovaAlternativa = new Alternativa($idDomanda, $item, 0, $corretta2);
-                try {
-                    $alternativaController->creaAlternativa($nuovaAlternativa);
-                } catch (ApplicationException $exception) {
-                    echo "ERRORE IN CREA ALTERNATIVA" . $exception;
-                }
-              }
-            }
-        }
-
-        header('Location: /docente/corso/'. $corso->getId() .'/argomento/domande/'. $argomento->getId() .'/successmodifica');
-    }
-
-}
-*/
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -194,7 +126,7 @@ if (isset($_POST['eliminatore'])) {
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"/docente/cdl/%s\">%s</a>", $corso->getCdlMatricola(), $cdlController->readCdl($corso->getCdlMatricola())->getNome());
+                    printf("<a href=\"/docente/cdl/%s\">%s</a>", $corso->getCdlMatricola(), $modelCdl->readCdl($corso->getCdlMatricola())->getNome());
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
@@ -216,7 +148,7 @@ if (isset($_POST['eliminatore'])) {
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <form id="form_sample_1" method="post" action="/docente/modificamultipla" class="form-horizontal form-bordered">
+            <form id="form_sample_2" method="post" action="/docente/modificamultipla" class="form-horizontal form-bordered">
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">

@@ -15,6 +15,6 @@ if(isset($_POST['domandamultipla'])) {
     $idArgomento = $_POST['idargomento'];
 
     $domandaModel->deleteDomandaMultipla($idDomanda);
-    header('Location: /docente/corso/' . $idCorso . '/argomento/domande/leggiargomento/' . $idArgomento);
+    header('Location: /docente/corso/' . $idCorso . '/argomento/domande/' . $idArgomento);
 }
 ?>
