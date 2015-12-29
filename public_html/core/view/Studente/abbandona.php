@@ -5,25 +5,21 @@
  * Date: 03/12/15
  * Time: 16:00
  */
-include_once CONTROL_DIR . "ElaboratoController.php";
-include_once BEAN_DIR . "Elaborato.php";
-       
-    $elCon = new ElaboratoController();
-        
-    $sessioneId = $_REQUEST["sessId"];
-    $studenteMatricola = $_REQUEST["mat"];
-    
-    $updatedElaborato = $elCon->readElaborato($studenteMatricola,$sessioneId);
-    
-    $updatedElaborato->setEsitoParziale(0);
-    
-    $updatedElaborato->setEsitoFinale(0);
-    
-    $updatedElaborato->setStato("Corretto");
-    
-    $response = $updatedElaborato->getEsitoParziale()." - ".$updatedElaborato->getEsitoFinale();
-    
-    $elCon->updateElaborato($studenteMatricola,$sessioneId,$updatedElaborato);
-    
-    echo $response;
-    
+
+include_once MODEL_DIR . "ElaboratoModel.php";
+    $elaboratoModel = new ElaboratoModel();
+    $sessId = $_REQUEST["sessId"];
+    $matricola = $_SESSION['user']->getMatricola();
+    try{
+        $elaborato = $elaboratoModel->readElaborato($matricola,$sessId);
+    }
+    catch(ApplicationException $ex){
+        $elaborato = null;
+    }
+
+    if ($elaborato != null && $elaborato->getStato() == "Non corretto"){
+        $elaborato->setEsitoParziale(0);
+        $elaborato->setEsitoFinale(0);
+        $elaborato->setStato("Corretto");
+        $elaboratoModel->updateElaborato($matricola,$sessId,$elaborato);   
+    }

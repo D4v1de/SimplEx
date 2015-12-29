@@ -70,35 +70,45 @@ foreach ($idsSessione as $c) {
          ;
 }
 
-
+/**
+ * LEGGE IL CORSO NEL QUALE CI SI TROVA
+ */
 try {
     $corso = $modelCorso->readCorso($_URL[2]);
 }catch(ApplicationException $exception){
     echo "ERRORE IN READ CORSO " . $exception;
 }
 
-
-//PRENDE INFORMAZIONI SULL'UTENTE LOGGATO E CONTROLLA SE E' LO STESSO AL QUALE E' ASSOCIATO IL CORSO
+/**
+ * RICEVE LA MATRICOLA DEL DOCENTE LOGGATO
+ */
 try {
     $docenteassociato = $modelAccount->getAllDocentiByCorso($corso->getId());
 }catch(ApplicationException $exception){
     echo "ERRORE IN GETDOCENTEASSOCIATO" . $exception;
 }
 
+/**
+ * RICEVE I DOCENTE ASSOCIATI AL CORSO NEL QUALE CI SI TROVA
+ */
 try{
     $matricolaLoggato = $utenteLoggato->getMatricola();
 }catch(ApplicationException $exception){
     echo "ERRORE IN GET MATRICOLA" . $exception;
 }
 
-
-
+/**
+ * CONTROLLA SE NEI DOCENTI ASSOCIATI E' PRESENTE IL DOCENTE LOGGATO
+ */
 foreach($docenteassociato as $docente){
     if($docente->getMatricola() == $matricolaLoggato){
         $correttezzaLogin = true;
     }
 }
 
+/**
+ * CONTROLLA IL CORRETTO LOGIN DEL DOCENTE AL CORSO DA LUI INSEGNATO
+ */
 if($correttezzaLogin == false){
     header('Location: /docente');
 }
@@ -495,7 +505,7 @@ $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso
 
                             foreach($argomenti as $a) {
                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                printf("<td><a class=\"btn default btn-xs green-stripe\" href=\"/docente/corso/%d/argomento/domande/leggiargomentocontrol/%d \">%s</a></td>", $a->getCorsoId() , $a->getId() , $a->getNome());
+                                printf("<td><a class=\"btn default btn-xs green-stripe\" href=\"/docente/corso/%d/argomento/domande/%d \">%s</a></td>", $a->getCorsoId() , $a->getId() , $a->getNome());
                                 printf("<td>");
                                 printf("<a href=\"/docente/corso/%d/argomento/modifica/%d \"  class=\"btn btn-icon-only blue\">", $a->getCorsoId(),$a->getId());
                                 printf("<i class=\"fa fa-edit\"></i>");

@@ -14,5 +14,5 @@ if(isset($_POST['domandaaperta'])){
     $idcorso = $_POST['idcorso'];
     $idargomento = $_POST['idargomento'];
     $domandaModel->deleteDomandaAperta($iddomanda);
-    header('Location: /docente/corso/'. $idcorso .'/argomento/domande/leggiargomento/' . $idargomento);
+    header('Location: /docente/corso/'. $idcorso .'/argomento/domande/' . $idargomento);
 }

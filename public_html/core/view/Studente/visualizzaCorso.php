@@ -6,44 +6,46 @@
  * @since 23/11/15 21:58
  */
 //TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "CdlController.php";
-include_once CONTROL_DIR . "UtenteController.php";
-include_once CONTROL_DIR . "SessioneController.php";
-include_once CONTROL_DIR . "ElaboratoController.php";
-include_once CONTROL_DIR . "TestController.php";
-$controller = new CdlController();
-$utenteController = new UtenteController();
-$sessioneController = new SessioneController();
-$elaboratoController = new ElaboratoController();
-$testController = new TestController();
+include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "CorsoModel.php";
+include_once MODEL_DIR . "UtenteModel.php";
+include_once MODEL_DIR . "SessioneModel.php";
+include_once MODEL_DIR . "ElaboratoModel.php";
+include_once MODEL_DIR . "TestModel.php";
+$cdlModel = new CdlModel();
+$corsoModel = new CorsoModel();
+$utenteModel = new UtenteModel();
+$sessioneModel = new SessioneModel();
+$elaboratoModel = new ElaboratoModel();
+$testModel = new TestModel();
 $docenteassociato = Array();
 $corso = null;
 $cdl = null;
 $studente = $_SESSION['user'];
 $matricolaStudente = $studente->getMatricola();
-$url = null;
+$idCorso = null;
 
-$url = $_URL[2];
-if (!is_numeric($url)) {
+$idCorso = $_URL[2];
+if (!is_numeric($idCorso)) {
     echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
 }
 try {
-    $corso = $controller->readCorso($url);
+    $corso = $corsoModel->readCorso($idCorso);
 } catch (ApplicationException $ex) {
     echo "<h1>INSERIRE ID CORSO NEL PATH!</h1>".$ex;
 }
 try {
-    $cdl = $controller->readCdl($corso->getCdlMatricola());
+    $cdl = $cdlModel->readCdl($corso->getCdlMatricola());
 } catch (ApplicationException $ex) {
     echo "<h1>READCDL FALLITO!</h1>".$ex;
 }
 try {
-    $sessioni = $sessioneController->getAllSessioniByStudente($matricolaStudente);
+    $sessioni = $sessioneModel->getAllSessioniByStudente($matricolaStudente);
 } catch (ApplicationException $ex) {
     echo "<h1>GETALLSESSIONIBYSTUDENTE FALLITO!</h1>".$ex;
 }
 try {
-    $docenteassociato = $utenteController->getDocenteAssociato($corso->getId());
+    $docenteassociato = $utenteModel->getAllDocentiByCorso($corso->getId());
 } catch (ApplicationException $ex) {
     echo "<h1>GETDOCENTIASSOCIATI FALLITO</h1>".$ex;
 }
@@ -184,13 +186,13 @@ try {
                                     if ($s->getCorsoId() == $corso->getId()){
                                         $elaborato = null;
                                         try {
-                                            $show = $sessioneController->readMostraEsitoSessione($s->getId());
-                                            $elaborato = $elaboratoController->readElaborato($matricolaStudente,$s->getId());
+                                            $show = $sessioneModel->readMostraEsitoSessione($s->getId());
+                                            $elaborato = $elaboratoModel->readElaborato($matricolaStudente,$s->getId());
                                             if (!strcmp($show,"Si")){
                                                 $parz = $elaborato->getEsitoParziale();
                                                 $fin = $elaborato->getEsitoFinale();
                                                 $esito = strcmp($elaborato->getStato(),"Corretto")? $parz:$fin;     
-                                                $test = $testController->readTest($elaborato->getTestId());
+                                                $test = $testModel->readTest($elaborato->getTestId());
                                                 $sogliaMax = $test->getPunteggioMax();      
                                                 $punt = sprintf("%s / %s", $esito,$sogliaMax);
                                             }
@@ -207,11 +209,11 @@ try {
                                             printf("<td class=\"sorting_1\"><span class=\"label label-sm label-danger\">%s</span></td>", $s->getTipologia());
                                         printf("<td class=\"sorting_1\">%s</td>", $punt);
                                         if (($elaborato == null || (!strcmp($elaborato->getStato(),"Non corretto"))) && (strtotime(date("Y-m-d H:i:s")) < strtotime($s->getDataFine())) && (strtotime(date("Y-m-d H:i:s")) >= strtotime($s->getDataInizio())))
-                                            printf("<td><a href=\"/studente/corso/%d/test/esegui/%d\" onclick=\"javascript: creaElaborato(%d)\" class=\"btn btn-sm default blue-madison\"><i class=\"fa fa-pencil\"></i> Partecipa</a></td>", $url,$s->getId(),$s->getId());
+                                            printf("<td><a href=\"/studente/corso/%d/test/esegui/%d\" onclick=\"javascript: creaElaborato(%d)\" class=\"btn btn-sm default blue-madison\"><i class=\"fa fa-pencil\"></i> Partecipa</a></td>", $idCorso,$s->getId(),$s->getId());
                                         else if (($elaborato != null) && (strcmp($elaborato->getStato(),"Non corretto")))
-                                                printf("<td><a href=\"/studente/corso/%d/test/%d\" class=\"btn btn-sm default\"><i class=\"fa fa-file-text-o\"></i> Visualizza</a></td>",$url,$s->getId());
+                                                printf("<td><a href=\"/studente/corso/%d/test/%d\" class=\"btn btn-sm default\"><i class=\"fa fa-file-text-o\"></i> Visualizza</a></td>",$idCorso,$s->getId());
                                             else 
-                                                printf("<td><a href=\"/studente/corso/%d/test/%d\" disabled class=\"btn btn-sm default\"><i class=\"fa fa-file-text-o\"></i> Visualizza</a></td>",$url,$s->getId());
+                                                printf("<td><a href=\"/studente/corso/%d/test/%d\" disabled class=\"btn btn-sm default\"><i class=\"fa fa-file-text-o\"></i> Visualizza</a></td>",$idCorso,$s->getId());
                                         printf("</tr>");
                                     }
                                 }

@@ -1,21 +1,22 @@
 <?php
 /**
- * Modifica del profilo
+ * View della modifica del profilo
  *
  * @author Sergio Shevchenko
- * @version 1.0
+ * @version 1.1
  * @since 11/12/15
  */
 
-include_once CONTROL_DIR . "CdlController.php";
-include_once CONTROL_DIR . "UtenteController.php";
-$cdlCtrl = new CdlController();
-$uCtrl = new UtenteController();
+include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "UtenteModel.php";
+$cdlCtrl = new CdLModel();
+$uCtrl = new UtenteModel();
 /** @var Utente $utente */
 $victim = $_SESSION['user'];
-$matricola = $victim->getMatricola();
-$error = "";
-
+if (isset($_SESSION['error'])) {
+    $error = $_SESSION['error'];
+    unset($_SESSION['error']);
+}
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -78,7 +79,7 @@ $error = "";
                             <?= $error; ?> </span>
                         </div>
                     <?php } ?>
-                    <form id="form_sample_1" method="post" action="">
+                    <form id="form_sample_1" method="post" action="/salva">
                         <input type="hidden" name="tipologia" value="<?= $victim->getTipologia() ?>">
 
                         <div class="portlet box blue-madison">
@@ -148,7 +149,7 @@ $error = "";
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
                                             <input type="password" class="form-control" id="pass2"
-                                                   name="pass"
+                                                   name="pass2"
                                                    placeholder="Ripeti la password"
                                                    value="">
 

@@ -5,19 +5,28 @@
  * Date: 03/12/15
  * Time: 16:00
  */
-include_once CONTROL_DIR . "RispostaMultiplaController.php";
-include_once BEAN_DIR . "RispostaMultipla.php";
+include_once MODEL_DIR . "RispostaMultiplaModel.php";
+include_once MODEL_DIR . "ElaboratoModel.php";
+include_once MODEL_DIR . "SessioneModel.php";
        
-    $rmCon = new RispostaMultiplaController();
+    $rmMod = new RispostaMultiplaModel();
+    $elMod = new ElaboratoModel();
+    $sessMod = new SessioneModel();
         
     $elaboratoSessioneId = $_REQUEST["sessId"];
-    $elaboratoStudenteMatricola = $_REQUEST["mat"];
+    $elaboratoStudenteMatricola = $_SESSION['user']->getMatricola();
     $domandaMultiplaId = $_REQUEST["domId"];
-    $updatedRisposta = $rmCon->readRispostaMultipla($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId);
-    $altId = $_REQUEST["altId"];
-    $updatedRisposta->setAlternativaId($altId);
-    
-    $rmCon->updateRispostaMultipla($updatedRisposta, $elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId);
-    
+    $elaborato = $elMod->readElaborato($elaboratoStudenteMatricola,$elaboratoSessioneId);
+
+    $sessione = $sessMod->readSessione($elaboratoSessioneId);
+    $now = date("Y-m-d H:i:s");
+    $end = $sessione->getDataFine();
+    $start = $sessione->getDataInizio();
+    if ($now >= $start && $now <= $end && $elaborato->getStato() == "Non corretto"){
+        $updatedRisposta = $rmMod->readRispostaMultipla($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId);
+        $altId = $_REQUEST["altId"];
+        $updatedRisposta->setAlternativaId($altId);
+        $rmMod->updateRispostaMultipla($updatedRisposta, $elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId);
+    }
     
     

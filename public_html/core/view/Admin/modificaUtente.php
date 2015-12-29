@@ -6,38 +6,20 @@
  * Time: 15:41
  */
 
-include_once CONTROL_DIR . "CdlController.php";
-include_once CONTROL_DIR . "UtenteController.php";
-$cdlCtrl = new CdlController();
-$uCtrl = new UtenteController();
+include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "UtenteModel.php";
+$cdlCtrl = new CdLModel();
+$uCtrl = new UtenteModel();
 $matricola = $_URL[3];
-$error = "";
-if (isset($_POST['nome'])) {
-    $tipologia = $_POST['tipologia'];
-    $nome = $_POST['nome'];
-    $cognome = $_POST['cognome'];
-    $email = $_POST['email'];
-    if ($tipologia != "Studente") {
-        $cdlMatricola = null;
-    } else {
-        $cdlMatricola = $_POST['cdl'];
-    }
 
-    $pass = $_POST['pass'];
-
-    try {
-        $uCtrl->modificaUtente($matricola, $nome, $cognome, $cdlMatricola, $email, $pass, $tipologia);
-        header('location: /admin/utenti?success=Utente modificato');
-        exit;
-    } catch (ApplicationException $ex) {
-        $error = "<h5>Modifica utente FALLITO: " . $ex->getMessage() . "</h5>";
-    } catch (IllegalArgumentException $ex) {
-        $error = "<h5>Modifica utente FALLITO: " . $ex->getMessage() . "</h5>";
-    }
+if (isset($_SESSION['error'])) {
+    $error = $_SESSION['error'];
+    unset($_SESSION['error']);
 }
+
 try {
     $victim = $uCtrl->getUtenteByMatricola($matricola);
-    $cdls = $cdlCtrl->getCdl();
+    $cdls = $cdlCtrl->getAllCdL();
 } catch (ApplicationException $ex) {
     header('Location: /admin/utenti/?error=Utente non esiste');
 }
@@ -107,7 +89,7 @@ try {
                             <?= $error; ?> </span>
                         </div>
                     <?php } ?>
-                    <form id="form_sample_1" method="post" action="">
+                    <form id="form_sample_1" method="post" action="/admin/utenti/salva/<?= $victim->getMatricola() ?>">
                         <input type="hidden" name="tipologia" value="<?= $victim->getTipologia() ?>">
 
                         <div class="portlet box blue-madison">
