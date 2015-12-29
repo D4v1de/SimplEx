@@ -6,12 +6,10 @@
  * @since 23/11/15 22:58
  */
 
-//TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "CdlController.php";
-include_once CONTROL_DIR . "UtenteController.php";
-
-$controller = new CdlController();
-$controllerUtente = new UtenteController();
+include_once MODEL_DIR . "CorsoModel.php";
+$modelcorso = new CorsoModel();
+include_once MODEL_DIR . "CdlModel.php";
+$modelcdl = new CdLModel();
 
 $cdl = null;
 $corsi = Array();
@@ -20,39 +18,26 @@ $corsistudente = Array();
 $url = null;
 
 $url = $_URL[2];
+$_SESSION['idcdl'] = $url;
 if (!is_numeric($url)) {
-    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+    echo "<script type='text/javascript'>alert('errore nella url!!(idcdl)');</script>";
 }
 
-
 $studente = $_SESSION['user'];
-
+$_SESSION['matstudente'] = $studente->getMatricola();
 
 try {
-    $cdl = $controller->readCdl($url);
-
+    $cdl = $modelcdl->readCdl($url);
 } catch (ApplicationException $ex) {
     echo "<h1>INSERIRE MATRICOLA CDL NEL PATH!</h1>" . $ex;
 }
 try {
-    $corsi = $controller->getCorsiCdl($cdl->getMatricola());
-
+    $corsi = $modelcorso->getAllCorsiByCdl($cdl->getMatricola());
 } catch (ApplicationException $ex) {
     echo "GETCORSICDL FALLITO!</h1>" . $ex;
 }
-
-if (isset($_POST['iscrivi'])) {
-    $iscrivi = $_POST['iscrivi'];
-    $controllerUtente->iscrizioneStudente($studente->getMatricola(), $iscrivi);
-    //header("Refresh:0");
-}
-if (isset($_POST['disiscrivi'])) {
-    $disiscrivi = $_POST['disiscrivi'];
-    $controllerUtente->disiscrizioneStudente($studente->getMatricola(), $disiscrivi);
-    //header("Refresh:0");
-}
 try {
-    $corsistudente = $controller->getCorsiStudente($studente->getMatricola());
+    $corsistudente = $modelcorso->getAllCorsiByStudente($studente->getMatricola());
 } catch (ApplicationException $ex) {
     echo "<h1>GETCORSISTUDENTE FALLITO!</h1>" . $ex;
 }
@@ -72,8 +57,8 @@ try {
     <title>CdL <?php echo $cdl->getNome(); ?></title>
     <?php include VIEW_DIR . "design/header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
-    <link rel="stylesheet" type="text/css"
-          href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/extensions/TableTools/css/dataTables.tableTools.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -104,14 +89,14 @@ try {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/studente/cdl/<?php echo $cdl->getMatricola(); ?>"><?php echo $cdl->getNome(); ?></a>
+                        <?php echo $cdl->getNome(); ?>
                     </li>
                 </ul>
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
 
-            <form method="post" action="">
+            <form method="post" action="/studente/iscrivi">
 
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
@@ -202,6 +187,7 @@ try {
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN aggiunta da me -->
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
+<script src="/assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
 <!-- END aggiunta da me -->
 <script>
     jQuery(document).ready(function () {
@@ -210,6 +196,23 @@ try {
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
         TableManaged2.init("tabella_2", "tabella_2_wrapper");
+
+        var table = $("#tabella_2").dataTable();
+        var tableTools = new $.fn.dataTable.TableTools(table, {
+            //"sSwfPath": "//cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls_pdf.swf",
+            "sSwfPath": "/assets/global/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf",
+            "aButtons": [
+                {
+                    "sExtends": "xls",
+                    "sButtonText": "<i class='fa fa-file-excel-o'></i> Excel"
+                },
+                {
+                    "sExtends": "pdf",
+                    "sButtonText": "<i class='fa fa-file-pdf-o'></i> PDF"
+                }
+            ]
+        });
+        $(tableTools.fnContainer()).insertBefore("#tabella_2_wrapper");
     });
 </script>
 <!-- END JAVASCRIPTS -->
