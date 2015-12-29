@@ -10,8 +10,10 @@
  */
 
 include_once CONTROL_DIR . "SessioneController.php";
-include_once CONTROL_DIR . "TestController.php";
-include_once CONTROL_DIR . "ElaboratoController.php";
+
+
+include_once MODEL_DIR . "TestModel.php";
+include_once MODEL_DIR . "ElaboratoModel.php";
 include_once MODEL_DIR . "CdlModel.php";
 include_once MODEL_DIR . "ArgomentoModel.php";
 include_once MODEL_DIR . "CorsoModel.php";
@@ -19,8 +21,10 @@ include_once MODEL_DIR . "CorsoModel.php";
 $utenteLoggato = $_SESSION['user'];
 
 $controllerSessione = new SessioneController();
-$controllerTest = new TestController();
-$controllerElaborato = new ElaboratoController();
+
+
+$modelTest = new TestModel();
+$modelElaborato = new ElaboratoModel();
 
 $modelArgomento = new ArgomentoModel();
 $modelCorso = new CorsoModel();
@@ -124,30 +128,6 @@ if(isset($_POST['IdSes'])){
     }
 }
 
-if(isset($_POST['idtest'])){
-    $id = $_POST['idtest'];
-    $Tests=Array();
-    $Sess=Array();
-    $i=0;
-    $Sess=$controllerSessione->getAllSessioniByCorso($identificativoCorso); 
-    foreach($Sess as $s){
-        $nuoviTest=$controllerSessione->getAllTestBySessione($s->getId());
-        $Tests=array_merge($Tests,$nuoviTest);
-    }
-    foreach($Tests as $t){
-        if($t==$id){
-           $i++; 
-        }
-    }
-    if($i>0){
-        
-    }else{
-     $controllerTest->deleteTest($id);
-     $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
-     header($tornaACasa);   
-    }
-    
-}
 
 $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso);
 
@@ -351,7 +331,7 @@ $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso
             </form>
 
             
-            <form action="" method="post">
+            <form action="/docente/Elimina_Test?idcorso=<?=$identificativoCorso ?>" method="post">
             <div class="portlet box blue-madison">
                 <div class="portlet-title">
                     <div class="caption">
@@ -418,12 +398,12 @@ $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso
                                 
                                  <?php
                                         $array = Array();
-                                        $array = $controllerTest->getAllTestByCorso($identificativoCorso);
+                                        $array = $modelTest->getAllTestByCorso($identificativoCorso);
                                         if($array == null){ 
                                             }
                                         else{    
                                         foreach($array as $c) {
-                                        $elaborati = $controllerElaborato->getAllElaboratiTest($c->getId());
+                                        $elaborati = $modelElaborato->getAllElaboratiTest($c->getId());
                                         if ($sessioniByCorso != null)
                                             $percSce = round(($c->getPercentualeScelto()/count($sessioniByCorso)*100),2);
                                         else
@@ -445,7 +425,7 @@ $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso
                                         $questoTest=$c->getId();
                                         $alModificaTest="/docente/corso/".$identificativoCorso."/test/modifica/".$questoTest;
                                         printf("<td><a href=\"%s\"  class=\"btn btn-icon-only blue\"><i class=\"fa fa-edit\"></i></i></a>",$alModificaTest);
-                                        printf("<button  class=\"btn btn-icon-only red-intense\" type=\"submit\" name=\"idtest\" title=\"\" id=\"%d\" value=\"%d\" data-popout=\"true\" data-toggle=\"confirmation\" data-singleton=\"true\" data-original-title=\"Sei sicuro?\"><i class=\"fa fa-trash-o\"></i></button>", $c->getId(), $c->getId());
+                                        printf("<button  class=\"btn btn-icon-only red-intense\" type=\"submit\" name=\"idtestHome\" title=\"\" id=\"%d\" value=\"%d\" data-popout=\"true\" data-toggle=\"confirmation\" data-singleton=\"true\" data-original-title=\"Sei sicuro?\"><i class=\"fa fa-trash-o\"></i></button>", $c->getId(), $c->getId());
                                         printf("</td>");
                                         printf("</tr>");
                                         }
