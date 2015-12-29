@@ -1,35 +1,14 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Giuseppina
- * Date: 30/11/15
- * Time: 21:09
+ * View della gestione utente
+ * @author Sergio Shevchenko, Giusy Tufano
+ * @version 1.2
+ * @since 23/11/15
  */
 
-//TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "UtenteController.php";
-$controller = new UtenteController();
-
-$utente = null;
-
-try {
-    $utente = $controller->getUtenti();
-} catch (ApplicationException $ex) {
-    echo "<h1>errore! ApplicationException->errore manca l'utente!</h1>";
-    echo "<h4>" . $ex . "</h4>";
-    //header('Location: ../visualizzacorso');
-}
-
-if (isset($_POST['checkbox'])) {
-
-    $checkbox = Array();
-    $checkbox = $_POST['checkbox'];
-}
-
-if (!isset($_POST['checkbox']) && isset($_POST['elimina'])) {
-
-}
-
+include_once MODEL_DIR . "UtenteModel.php";
+$uModel = new UtenteModel();
+$utente = $uModel->getUtenti();
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>

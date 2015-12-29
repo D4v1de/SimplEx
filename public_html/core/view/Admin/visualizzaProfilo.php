@@ -1,19 +1,20 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: sergio
- * Date: 11/12/15
- * Time: 20:26
+ * View Profilo
+ *
+ * @author Sergio Shevchenko
+ * @version 1.2
+ * @since 11/12/15
  */
 
-include_once CONTROL_DIR . "UtenteController.php";
-include_once CONTROL_DIR . "CdlController.php";
-$ctr = new UtenteController();
+include_once MODEL_DIR . "UtenteModel.php";
+include_once MODEL_DIR . "CdlModel.php";
+$ctr = new UtenteModel();
 $victim = null;
 try {
     $victim = $ctr->getUtenteByMatricola($_SESSION['user']->getMatricola());
     $_SESSION['user'] = $victim; // refresh
-    $cdlCtr = new CdlController();
+    $cdlCtr = new CdLModel();
     if (is_numeric($victim->getCdlMatricola())) {
         $cdl = $cdlCtr->readCdl($victim->getCdlMatricola());
     }

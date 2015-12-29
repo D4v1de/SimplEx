@@ -9,6 +9,7 @@
 
 include_once MODEL_DIR . "Model.php";
 include_once BEAN_DIR . "Utente.php";
+include_once EXCEPTION_DIR . "IllegalArgumentException.php";
 
 class UtenteModel extends Model {
     private static $SALT = "r#*1542&ztnsa7uABN83gtkw7lcSjy";
@@ -342,5 +343,200 @@ class UtenteModel extends Model {
             }
         }
         return $studenti;
+    }
+
+    /**
+     * Effettua il login
+     * @param $email
+     * @param $password
+     * @param $remember bool indica se l'utente intende effettuare il logout manualmente
+     * @return Utente loggato
+     * @throws ApplicationException
+     */
+    public function login($email, $password, $remember) {
+        if (!preg_match(Patterns::$EMAIL, $email)) {
+            throw new ApplicationException(Error::$EMAIL_NON_VALIDA);
+        }
+        if (strlen($password) < Config::$MIN_PASSWORD_LEN) {
+            throw new ApplicationException(Error::$PASS_CORTA);
+        }
+
+        $user = $this->getUtente($email, $password);
+
+        $_SESSION['loggedin'] = true;
+        $_SESSION['user'] = $user;
+
+        if ($remember) {
+            $this->setPermanentCookie($user->getPassword());
+        }
+
+        return $user;
+    }
+
+    /**
+     * Verifica se permanent cookie esiste, se si - lo usa per ottenere l'utente
+     * @return null|Utente
+     */
+    public function checkPermanentLogin() {
+        try {
+            if (!isset($_COOKIE[Config::$PERMA_COOKIE])) {
+                return null;
+            }
+            $identity = $this->getIdentityFromPerm($_COOKIE[Config::$PERMA_COOKIE]);
+
+            $user = $this->getUtenteByIdentity($identity);
+            $_SESSION['loggedin'] = true;
+            $_SESSION['user'] = $user;
+            return $user;
+        } catch (ApplicationException $ex) {
+            return null;
+        }
+    }
+
+    /**
+     * Effettua il logout resettanto la sessione e i cookie
+     */
+    public function logOut() {
+        unset($_SESSION['loggedin']);
+        unset($_SESSION['user']);
+        setcookie(Config::$PERMA_COOKIE, "", 0);
+    }
+
+    /**
+     * Registra l'utente
+     * @param $matricola string
+     * @param $email string
+     * @param $password string
+     * @param $tipologia string
+     * @param $nome string
+     * @param $cognome string
+     * @param $cdl int
+     * @return Utente registrato nel db
+     * @throws IllegalArgumentException nel caso se i parametri sono errati
+     * @throws RuntimeException violati constraint nel db (utente esistente, matricola duplicata, cdl inesistente)
+     *
+     */
+    public function register($matricola, $email, $password, $tipologia, $nome, $cognome, $cdl) {
+        if (!preg_match(Patterns::$EMAIL, $email)) {
+            throw new IllegalArgumentException("Email non valido");
+        }
+        if (!preg_match(Patterns::$MATRICOLA, $matricola)) {
+            throw new IllegalArgumentException("Matricola non valida");
+        }
+        if (strlen($password) < Config::$MIN_PASSWORD_LEN) {
+            throw new IllegalArgumentException("Password è troppo corta");
+        }
+        if (!in_array($tipologia, Config::$TIPI_UTENTE) || $tipologia == "admin") {
+            throw new IllegalArgumentException("Tipo utente errato");
+        }
+        if (!preg_match(Patterns::$NAME_GENERIC, $nome)) {
+            throw new IllegalArgumentException("Nome assente oppure errato");
+        }
+        if (!preg_match(Patterns::$NAME_GENERIC, $cognome)) {
+            throw new IllegalArgumentException("Cognome assente oppure errato");
+        }
+        if (!preg_match(Patterns::$MATRICOLA, $cdl) && $tipologia == "Studente") {
+            throw new IllegalArgumentException("Cdl sbagliato o assente");
+        }
+        return $this->createUtente(new Utente($matricola, $email, $password, $tipologia, $nome, $cognome, $cdl));
+    }
+
+    /**
+     * Setta il cookie permanente nel browser
+     * @param $getPassword identity dell'utente
+     */
+    private function setPermanentCookie($getPassword) {
+        $getPassword = $getPassword . "|" . md5(uniqid());
+        setcookie(Config::$PERMA_COOKIE, StringUtils::encrypt($getPassword), time() + 365 * 24 * 60 * 60);
+    }
+
+    /**
+     * Ripristina l'identità dell'utente dal cookie
+     * @param $permanent
+     * @return string identity
+     */
+    private function getIdentityFromPerm($permanent) {
+        $identity = StringUtils::decrypt($permanent);
+
+        if (!preg_match(Patterns::$MD5_SLASH, $identity)) {
+            return null;
+        }
+
+        $identity = explode("|", $identity);
+        return $identity[0];
+    }
+
+    /**
+     * Restituisce tutti gli Utenti dato un filtro
+     * @return array con tutti gli Utenti
+     */
+    public function getUtenti($filter = "ALL") {
+        switch ($filter) {
+            case "Docente":
+                return $this->getAllDocenti();
+            case "Studente":
+                return $this->getAllStudenti();
+            default:
+                return $this->getAllUtenti();
+        }
+    }
+
+    /**
+     * Rimuove l'utenza dato la matricola
+     * @param $matricola
+     * @throws ApplicationException
+     */
+    public function eliminaUtenteByMatricola($matricola) {
+        $accountModel = new UtenteModel();
+        if (!is_numeric($matricola)) {
+            throw new ApplicationException(Error::$MATRICOLA_INESISTENTE);
+        }
+        if (!preg_match(Patterns::$MATRICOLA, $matricola)) {
+            throw new ApplicationException(Error::$MATRICOLA_INESISTENTE);
+        }
+        $accountModel->deleteUtente($matricola);
+    }
+
+    public function modificaUtente($matricola, $nome, $cognome, $cdlMatricola, $email, $pass, $tipo) {
+        if (!is_numeric($matricola)) {
+            throw new ApplicationException(Error::$MATRICOLA_INESISTENTE);
+        }
+        $utente = $this->getUtenteByMatricola($matricola);
+
+        //!!! CRAZY CODE START
+        if (preg_match(Patterns::$EMAIL, $email)) {
+            $utente->setUsername($email);
+        } else {
+            throw new ApplicationException(Error::$EMAIL_NON_VALIDA);
+        }
+
+        if (preg_match(Patterns::$NAME_GENERIC, $nome)) {
+            $utente->setNome($nome);
+        } else {
+            throw new ApplicationException(Error::$NOME_NON_VALIDO);
+        }
+        if (preg_match(Patterns::$NAME_GENERIC, $cognome)) {
+            $utente->setCognome($cognome);
+        } else {
+            throw new ApplicationException(Error::$CONGNOME_NON_VALIDO);
+        }
+        if ($utente->getTipologia() == "Studente") {
+            if ($cdlMatricola == null) {
+                throw new ApplicationException(Error::$CDL_NON_TROVATO);
+            } else {
+                $utente->setCldMatricola($cdlMatricola);
+            }
+        } elseif ($utente->getTipologia() == "Docente") {
+            $utente->setCldMatricola(null);
+        }
+        if (isset($pass) && strlen($pass) > 0 && strlen($pass) < Config::$MIN_PASSWORD_LEN) {
+            throw new ApplicationException(Error::$PASS_CORTA);
+        }
+        if (strlen($pass) > Config::$MIN_PASSWORD_LEN) {
+            $ident = self::createIdentity($email, $pass);
+            $utente->setPassword($ident);
+        }
+
+        $this->updateUtente($matricola, $utente);
     }
 }
