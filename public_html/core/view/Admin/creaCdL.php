@@ -6,66 +6,16 @@
  * @since 23/11/15 21:58
  */
 
-//TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "CdlController.php";
-$controller = new CdlController();
-
-$cdls = Array();
-$flag = 1;
-$flag2 = 1;
-$flag3 = 1;
-$flag4 = 1;
-$flag5 = 1;
-
-try {
-    $cdls = $controller->getCdl();
-} catch (ApplicationException $ex) {
-    echo "<h1>GETCDL FALLITO!</h1>" . $ex;
-}
-
-if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricola'])) {
-
-    $nome = $_POST['nome'];
-    $matricola = $_POST['matricola'];
-    $tipologia = $_POST['tipologia'];
-
-    //controllo sul nome
-    if(empty($nome) || !preg_match('/^[a-zA-Z0-9\s-èòìàù]+$/', $nome)) {
-        $flag3 = 0;
-    }
-    foreach($cdls as $c) {
-        if($c->getNome() == $nome) {
-            $flag2 = 0;
-        }
-    }
-
-    //controllo su matricola
-    if(empty($matricola)  || !is_numeric($matricola)) {
-        $flag4 = 0;
-    }
-    foreach($cdls as $c) {
-        if($c->getMatricola() == $matricola) {
-            $flag = 0;
-        }
-    }
-
-    //controllo su tipologia
-    if(empty($tipologia) || !in_array($tipologia, Config::$TIPI_CDL)) {
-        $flag5 = 0;
-    }
-
-    if($flag && $flag2 && $flag3 && $flag4 && $flag5) {
-        try {
-            $cdl = new CdL($matricola, $nome, $tipologia);
-            $controller->creaCdl($cdl);
-
-            header('location: /admin/cdl/view/successcrea');
-        } catch (ApplicationException $ex) {
-            echo "<h1>CREACDL FALLITO!</h1>" . $ex;
-        }
-    }
-}
-
+$flag = isset($_SESSION['flag']) ? $_SESSION['flag'] : 1;
+$flag2 = isset($_SESSION['flag2']) ? $_SESSION['flag2'] : 1;
+$flag3 = isset($_SESSION['flag3']) ? $_SESSION['flag3'] : 1;
+$flag4 = isset($_SESSION['flag4']) ? $_SESSION['flag4'] : 1;
+$flag5 = isset($_SESSION['flag5']) ? $_SESSION['flag5'] : 1;
+unset($_SESSION['flag']);
+unset($_SESSION['flag2']);
+unset($_SESSION['flag3']);
+unset($_SESSION['flag4']);
+unset($_SESSION['flag5']);
 
 ?>
 <!DOCTYPE html>
@@ -124,7 +74,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
             <div class="row">
                 <div class="col-md-12">
                     <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                    <form id="form_sample_1" method="post" action="">
+                    <form id="form_sample_1" method="post" action="/admin/cdl/creacdl">
 
                         <?php
                         if(!$flag) {
@@ -171,8 +121,9 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                                 <option value="">Seleziona</option>
                                                 <?php
                                                     foreach(Config::$TIPI_CDL as $t) {
-                                                        if($tipologia == $t) {
+                                                        if(isset($_SESSION['tipologia']) && $_SESSION['tipologia'] == $t) {
                                                             printf("<option value=\"%s\" selected>%s</option>",$t,$t);
+                                                            unset($_SESSION['tipologia']);
                                                         }
                                                         else {
                                                             printf("<option value=\"%s\">%s</option>",$t,$t);
@@ -188,8 +139,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
                                             <input type="text" class="form-control" name="nome" id="nomeCdl"
-                                                   placeholder="Inserisci nome"
-                                                   value="<?php if (isset($nome)) echo $nome; ?>" required>
+                                                   placeholder="Inserisci nome" value="<?php if(isset($_SESSION['nome'])) {echo $_SESSION['nome'];unset($_SESSION['nome']);} else {echo "";} ?>">
 
                                             <div class="form-control-focus">
                                             </div>
@@ -198,8 +148,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
                                             <input type="text" class="form-control" name="matricola" id="matricolaCdl"
-                                                   placeholder="Inserisci matricola"
-                                                   value="<?php if (isset($matricola)) echo $matricola; ?>" required>
+                                                   placeholder="Inserisci matricola" value="<?php if(isset($_SESSION['matricola'])) {echo $_SESSION['matricola'];unset($_SESSION['matricola']);} else {echo "";} ?>">
 
                                             <div class="form-control-focus">
                                             </div>
