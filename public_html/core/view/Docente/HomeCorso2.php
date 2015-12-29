@@ -14,6 +14,7 @@ include_once CONTROL_DIR . "TestController.php";
 include_once CONTROL_DIR . "ElaboratoController.php";
 include_once MODEL_DIR . "CdlModel.php";
 include_once MODEL_DIR . "ArgomentoModel.php";
+include_once MODEL_DIR . "CorsoModel.php";
 
 $utenteLoggato = $_SESSION['user'];
 
