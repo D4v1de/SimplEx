@@ -5,14 +5,20 @@
  * Date: 03/12/15
  * Time: 16:00
  */
-include_once CONTROL_DIR . "ElaboratoController.php";
-include_once BEAN_DIR . "Elaborato.php";
+include_once MODEL_DIR . "ElaboratoModel.php";
        
-    $elCon = new ElaboratoController();
+    $elMod = new ElaboratoModel();
     $sessioneId = $_REQUEST["sessId"];
-    $studenteMatricola = $_REQUEST["mat"];
-    $elaborato = $elCon->readElaborato($studenteMatricola,$sessioneId);
-    
-    echo $elaborato->getStato();
+    $studenteMatricola = $_SESSION['user']->getMatricola();
+    try{
+        $elaborato = $elMod->readElaborato($studenteMatricola,$sessioneId);
+    }
+    catch(ApplicationException $ex){
+        $elaborato = null;
+    }
+    if ($elaborato != null)
+        echo $elaborato->getStato();
+    else
+        echo "Corretto";
             
     

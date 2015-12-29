@@ -5,19 +5,18 @@
  * Date: 03/12/15
  * Time: 16:00
  */
-include_once CONTROL_DIR . "ElaboratoController.php";
-include_once CONTROL_DIR . "TestController.php";
-include_once BEAN_DIR . "Elaborato.php";
+include_once MODEL_DIR . "ElaboratoModel.php";
+include_once MODEL_DIR . "TestModel.php";
        
-$matricolaStudente = $_REQUEST["mat"];
+$matricolaStudente = $_SESSION['user']->getMatricola();
 $sessioneId = $_REQUEST["sessId"];
 
-$elaboratoController = new ElaboratoController();
-$testController = new TestController();
+$elaboratoModel = new ElaboratoModel();
+$testModel = new TestModel();
 
-$tests = $testController->getAllTestBySessione($sessioneId);
+$tests = $testModel->getAllTestBySessione($sessioneId);
 $n = rand(0,count($tests)-1);
 $testId = $tests[$n]->getId();
 
 $elaborato = new Elaborato($matricolaStudente, $sessioneId, null, null, $testId, "Non corretto"); //STUB
-$elaboratoController->createElaborato($elaborato);
+$elaboratoModel->createElaborato($elaborato);
