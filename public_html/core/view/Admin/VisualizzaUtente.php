@@ -1,27 +1,32 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: sergio
- * Date: 30/11/15
- * Time: 20:29
+ * View della visualizzazione utente
+ *
+ * @author Sergio Shevchenko
+ * @version 1.1
+ * @since 30/11/15
  */
-include_once CONTROL_DIR . "UtenteController.php";
-include_once CONTROL_DIR . "CdlController.php";
-$ctr = new UtenteController();
+
+include_once MODEL_DIR . "UtenteModel.php";
+include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "CorsoModel.php";
+$ctr = new UtenteModel();
 $victim = null;
 $cdl = null;
-if (@$_POST['action'] == "elimina" && isset($_POST['matricola']) && $_POST['matricola'] == $_URL[3]) {
-    $ctr->eliminaUtenteByMatricola($_POST['matricola']);
-    header('Location: /admin/utenti?success=Eliminato con successo');
-    exit;
-}
 try {
     $victim = $ctr->getUtenteByMatricola($_URL[3]);
-    $cdlCtr = new CdlController();
+    $cdlCtr = new CdLModel();
     if (is_numeric($victim->getCdlMatricola())) {
         $cdl = $cdlCtr->readCdl($victim->getCdlMatricola());
     }
-    $cdls = $cdlCtr->getCoursesByMatricola($_URL[3]);
+    $model = new CorsoModel();
+    if ($victim->getTipologia() == "Studente") {
+        $cdls = $model->getAllCorsiByStudente($victim->getMatricola());
+    } elseif ($victim->getTipologia() == "Docente") {
+        $cdls = $model->getAllCorsiByDocente($victim->getMatricola());
+    } else {
+        return Array();
+    }
 } catch (ApplicationException $ex) {
     header('Location: /admin/utenti');
 }
@@ -150,13 +155,14 @@ try {
                         </div>
                     </div>
                     <div class="row">
-                        <form method="post">
+                        <form method="post" action="/admin/utenti/elimina/<?= $victim->getMatricola() ?>">
                             <input type="hidden" name="action" value="elimina"/>
                             <input type="hidden" name="matricola" value="<?= $victim->getMatricola() ?>"/>
 
                             <div class="col-md-3">
                                 <a class="btn green-jungle"
-                                   href="/admin/utenti/modifica/<?= $victim->getMatricola() ?>"><i class="fa fa-edit"></i>
+                                   href="/admin/utenti/modifica/<?= $victim->getMatricola() ?>"><i
+                                        class="fa fa-edit"></i>
                                     Modifica</a>
                                 <button type="submit" value="Elimina" data-toggle="confirmation" data-singleton="true"
                                         data-popout="true" title="" data-original-title="sei sicuro?"
