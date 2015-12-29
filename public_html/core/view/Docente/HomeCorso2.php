@@ -11,46 +11,30 @@
 
 include_once CONTROL_DIR . "SessioneController.php";
 include_once CONTROL_DIR . "TestController.php";
-include_once CONTROL_DIR . "ArgomentoController.php";
 include_once CONTROL_DIR . "ElaboratoController.php";
-include_once CONTROL_DIR . "CdlController.php";
+include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "ArgomentoModel.php";
+include_once MODEL_DIR . "CorsoModel.php";
 
 $utenteLoggato = $_SESSION['user'];
 
 $controllerSessione = new SessioneController();
 $controllerTest = new TestController();
-$controllerArgomento = new ArgomentoController();
 $controllerElaborato = new ElaboratoController();
-$controllerCorso = new CdlController();
+
+$modelArgomento = new ArgomentoModel();
+$modelCorso = new CorsoModel();
+$modelAccount = new UtenteModel();
+$modelCdl = new CdLModel();
 
 $corso = null;
 $identificativoCorso = $_URL[2];
-if(!isset($_SESSION['argomenti'])){
-    header('Location:/docente/leggiargomenticorso/'.$identificativoCorso);
-}
-
 
 
 $id = null;
 $idcorso = null;
 $argomenti = Array();
 $correttezzaLogin = false;
-
-//CONTROLLER NUOVO
-
-$arrayArg = array();
-$argomentiNuovi = array();
-$arrayArg = $_SESSION['argomenti'];
-unset($_SESSION['argomenti']);
-foreach($arrayArg as $argomento){
-    $argomentiNuovi[] = unserialize($argomento);
-}
-
-
-
-//FINE CONTROLLER NUOVO
-
-
 
 try {
     $idsSessione = $controllerSessione->getAllSessioniByCorso($identificativoCorso);
@@ -88,7 +72,7 @@ foreach ($idsSessione as $c) {
 
 
 try {
-    $corso = $controllerCorso->readCorso($_URL[2]);
+    $corso = $modelCorso->readCorso($_URL[2]);
 }catch(ApplicationException $exception){
     echo "ERRORE IN READ CORSO " . $exception;
 }
@@ -96,7 +80,7 @@ try {
 
 //PRENDE INFORMAZIONI SULL'UTENTE LOGGATO E CONTROLLA SE E' LO STESSO AL QUALE E' ASSOCIATO IL CORSO
 try {
-    $docenteassociato = $controllerArgomento->getDocenteAssociato($corso->getId());
+    $docenteassociato = $modelAccount->getAllDocentiByCorso($corso->getId());
 }catch(ApplicationException $exception){
     echo "ERRORE IN GETDOCENTEASSOCIATO" . $exception;
 }
@@ -108,9 +92,7 @@ try{
 }
 
 
-/* TODO
- * BISOGNA ASPETTARE IL CONTROLLER NUOVO
- */
+
 foreach($docenteassociato as $docente){
     if($docente->getMatricola() == $matricolaLoggato){
         $correttezzaLogin = true;
@@ -120,14 +102,6 @@ foreach($docenteassociato as $docente){
 if($correttezzaLogin == false){
     header('Location: /docente');
 }
-
-/* C'E' CONTROLLER NUOVO
-try{
-    $argomenti = $controllerArgomento->getArgomenti($corso->getId());
-}catch(ApplicationException $exception){
-    echo "ERRORE IN READ ARGOMENTO" . $exception;
-}
-*/
 
 if(isset($_POST['IdSes'])){
     $idSes = $_POST['IdSes'];
@@ -207,7 +181,7 @@ $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/docente/cdl/<?php echo $corso->getCdlMatricola(); ?>"> <?php echo $controllerCorso->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
+                        <a href="/docente/cdl/<?php echo $corso->getCdlMatricola(); ?>"> <?php echo $modelCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
@@ -517,9 +491,11 @@ $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso
 
                             <?php
 
-                            foreach($argomentiNuovi as $a) {
+                            $argomenti = $modelArgomento->getAllArgomentoCorso($identificativoCorso);
+
+                            foreach($argomenti as $a) {
                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                printf("<td><a class=\"btn default btn-xs green-stripe\" href=\"/docente/corso/%d/argomento/domande/leggiargomento/%d \">%s</a></td>", $a->getCorsoId() , $a->getId() , $a->getNome());
+                                printf("<td><a class=\"btn default btn-xs green-stripe\" href=\"/docente/corso/%d/argomento/domande/leggiargomentocontrol/%d \">%s</a></td>", $a->getCorsoId() , $a->getId() , $a->getNome());
                                 printf("<td>");
                                 printf("<a href=\"/docente/corso/%d/argomento/modifica/%d \"  class=\"btn btn-icon-only blue\">", $a->getCorsoId(),$a->getId());
                                 printf("<i class=\"fa fa-edit\"></i>");

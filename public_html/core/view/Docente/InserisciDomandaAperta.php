@@ -25,6 +25,7 @@ $idArgomento = $_URL[6];
 $correttezzaLogin = false;
 
 
+
 try {
     $corso = $cdlController->readCorso($idCorso);
 } catch (ApplicationException $exception) {
@@ -60,6 +61,8 @@ try {
     echo "ERRORE IN READ ARGOMENTO" . $exception;
 }
 
+/*
+
 if (isset($_POST['testoDomanda']) && isset($_POST['punteggioEsatta'])) {
     $testo = $_POST['testoDomanda'];
     $punteggio = $_POST['punteggioEsatta'];
@@ -72,6 +75,8 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioEsatta'])) {
         echo "ERRORE IN CREA DOMANDA APERTA" . $exception;
     }
 }
+
+*/
 
 ?>
 <!DOCTYPE html>
@@ -139,7 +144,7 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioEsatta'])) {
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
             <!-- BEGIN FORM-->
-            <form id="form_sample_1" method="post" action="" class="form-horizontal form-bordered">
+            <form id="form_sample_1" method="post" action="/docente/inserisciaperta" class="form-horizontal form-bordered">
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">
@@ -164,6 +169,8 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioEsatta'])) {
                                 <div class="col-md-4">
                                     <input type="punteggioEsatta" id="punteggioDomanda" name="punteggioEsatta" placeholder=""
                                            class="form-control">
+                                    <input type="hidden" name="idargomento" value="<?php echo $idArgomento; ?>">
+                                    <input type="hidden" name="idcorso" value="<?php echo $idCorso; ?>">
                                             <span class="help-block">
                                                  </span>
                                 </div>
