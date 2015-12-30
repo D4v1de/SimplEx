@@ -41,7 +41,7 @@ var FormValidation = function () {
                         max: "Non puoi inserire un numero positivo.",
                         maxlength: "Inserire esattamente 10 numeri.",
                         minlength: "Inserire esattamente 10 numeri."
-                    }
+                    },
                 },
                 rules: {
                     name: {
@@ -124,21 +124,92 @@ var FormValidation = function () {
                         maxlength: 500,
                         validchar: true
                     },
-                    testoRisposta: {
-                        required:true,
-                        minlength: 2
-                    },
-                    risposteNuove: {
-                        required: true,
-                        minlength: 2
-                    },
-                    'testoRisposta[]': {
+                  
+                    'testoRisposta1': {
                         required: true,
                         minlength: 1,
                         maxlength: 100,
                         validchar: true
                     },
-                    'risposteNuove[]': {
+                    'testoRisposta2': {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 100,
+                        validchar: true
+                    },
+                    'testoRisposta3': {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 100,
+                        validchar: true
+                    },
+                    'testoRisposta4': {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 100,
+                        validchar: true
+                    },
+                    'testoRisposta5': {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 100,
+                        validchar: true
+                    },
+                    'testoRisposta6': {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 100,
+                        validchar: true
+                    },
+                    'testoRisposta7': {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 100,
+                        validchar: true
+                    },
+                    'testoRisposta8': {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 100,
+                        validchar: true
+                    },
+                    'testoRisposta9': {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 100,
+                        validchar: true
+                    },
+                    'testoRisposta10': {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 100,
+                        validchar: true
+                    },
+                    'testoRisposta11': {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 100,
+                        validchar: true
+                    },
+                    'testoRisposta12': {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 100,
+                        validchar: true
+                    },
+                    'testoRisposta13': {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 100,
+                        validchar: true
+                    },
+                    'testoRisposta14': {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 100,
+                        validchar: true
+                    },
+                    'testoRisposta15': {
                         required: true,
                         minlength: 1,
                         maxlength: 100,
