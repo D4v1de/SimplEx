@@ -152,6 +152,16 @@ $corso = $modelCorso->readCorso($_URL[2]);
                     //echo "<script type='text/javascript'>checkIt();</script>";
                 }
                 ?>
+                <?php
+                if(isset($_GET["flag"]) && $_GET["flag"]==5) {
+                    //TODO (aggiungere da nmin a nmax domande) effettuare query per recuperare i valori e mostrarli nel messaggio
+                    echo "<div class=\"alert alert-danger\">
+                        <button class=\"close\" data-close=\"alert\"></button>
+                        Errore nei Dati. Non è possibile utilizzare caratteri speciali nella descrizione.
+                        </div>";
+                    //echo "<script type='text/javascript'>checkIt();</script>";
+                }
+                ?>
 
 
                 <div class="form-body">

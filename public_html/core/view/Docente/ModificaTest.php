@@ -116,7 +116,7 @@ $corso = $modelCorso->readCorso($_URL[2]);
 
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <form id="form_sample_1" action="/docente/modifica_TEST?idcorso=<?=$identificativoCorso ?>&idtest= <?= $_URL[5] ?>" method="post">
+            <form id="form_sample_1" action="/docente/modifica_TEST?idcorso=<?=$identificativoCorso ?>&idtest=<?=$_URL[5] ?>" method="post">
                 
                 
                 <div class="alert alert-danger display-hide">
@@ -160,6 +160,16 @@ $corso = $modelCorso->readCorso($_URL[2]);
                     echo "<div class=\"alert alert-danger\">
                         <button class=\"close\" data-close=\"alert\"></button>
                         Errore nei Dati. E' necessario selezionare almeno una domanda dalla tabella.
+                        </div>";
+                    //echo "<script type='text/javascript'>checkIt();</script>";
+                }
+                ?>
+                <?php
+                if(isset($_GET["flag"]) && $_GET["flag"]==5) {
+                    //TODO (aggiungere da nmin a nmax domande) effettuare query per recuperare i valori e mostrarli nel messaggio
+                    echo "<div class=\"alert alert-danger\">
+                        <button class=\"close\" data-close=\"alert\"></button>
+                        Errore nei Dati. Non è possibile utilizzare caratteri speciali nella descrizione.
                         </div>";
                     //echo "<script type='text/javascript'>checkIt();</script>";
                 }
