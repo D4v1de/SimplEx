@@ -89,8 +89,12 @@ try {
                             <?= $error; ?> </span>
                         </div>
                     <?php } ?>
+                    <div class="alert alert-danger display-hide">
+                        <button class="close" data-close="alert"></button>
+                        Ci sono alcuni errori nei dati. Per favore riprova l'inserimento.
+                    </div>
                     <form id="form_sample_1" method="post" action="/admin/utenti/salva/<?= $victim->getMatricola() ?>">
-                        <input type="hidden" name="tipologia" value="<?= $victim->getTipologia() ?>">
+                        <input type="hidden" id="top" name="tipologia" value="<?= $victim->getTipologia() ?>">
 
                         <div class="portlet box blue-madison">
                             <div class="portlet-title">
@@ -115,7 +119,7 @@ try {
 
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" id="nome" name="nome"
+                                            <input type="text" class="form-control" id="name" name="nome"
                                                    placeholder="Inserisci nome"
                                                    value="<?= $victim->getNome() ?>">
 
@@ -125,7 +129,7 @@ try {
                                     </div>
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" id="cognome"
+                                            <input type="text" class="form-control" id="surname"
                                                    name="cognome"
                                                    placeholder="Inserisci cognome"
                                                    value="<?= $victim->getCognome() ?>">
@@ -148,7 +152,7 @@ try {
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
                                             <input type="password" class="form-control" id="pass"
-                                                   name="pass"
+                                                   name="passifreq"
                                                    placeholder="Inserisci se necessario nuova password"
                                                    value="">
 
@@ -159,7 +163,8 @@ try {
                                     <?php if ($victim->getTipologia() == "Studente") { ?>
                                         <div class="form-group form-md-line-input">
                                             <div class="col-md-10">
-                                                <select class="form-control" id="cdlAppartenenza" name="cdl">
+                                                <select class="form-control" id="cdlAppartenenza" name="cdl_matricola">
+                                                    <option value="0">Seleziona</option>
                                                     <?php
                                                     /** @var Cdl $cdl */
                                                     foreach ($cdls as $cdl) {
@@ -174,6 +179,7 @@ try {
                                         </div>
                                     <?php } ?>
                                 </div>
+                                <br>
                             </div>
                         </div>
                         <div class="row">
@@ -222,17 +228,15 @@ try {
 <!-- BEGIN aggiunta da me -->
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
 <!--<script src="/assets/global/scripts/adminValidator.js"></script>-->
-<script src="/assets/admin/pages/scripts/form-validation.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
+<script src="/assets/global/scripts/adminValidator.js?t=<?php echo time(); ?>"></script>
 <!-- END aggiunta da me -->
 
 <script>
     jQuery(document).ready(function () {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
-        //QuickSidebar.init(); // init quick sidebar
-        //Demo.init(); // init demo features
         TableManaged.init();
         FormValidation.init();
     });
