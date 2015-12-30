@@ -7,7 +7,7 @@
  * @since 11/12/15
  */
 
-include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "CdLModel.php";
 include_once MODEL_DIR . "UtenteModel.php";
 $cdlCtrl = new CdLModel();
 $uCtrl = new UtenteModel();
