@@ -238,6 +238,14 @@ $corsi = $cdlModel->getAllCdL();
                 </div>
             </div>
         </div>
+        <div class="form-group">
+            <label>
+                <input type="checkbox" name="tnc"/> Consento trattamento dei dati personali
+            </label>
+
+            <div id="register_tnc_error">
+            </div>
+        </div>
         <div class="form-actions">
             <button id="register-back-btn" type="button" class="btn">
                 <i class="m-icon-swapleft"></i> Indietro

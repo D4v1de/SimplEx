@@ -115,7 +115,7 @@ try {
 
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" id="nomeUtente" name="nome"
+                                            <input type="text" class="form-control" id="nome" name="nome"
                                                    placeholder="Inserisci nome"
                                                    value="<?= $victim->getNome() ?>">
 
@@ -125,7 +125,7 @@ try {
                                     </div>
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" id="cognomeUtente"
+                                            <input type="text" class="form-control" id="cognome"
                                                    name="cognome"
                                                    placeholder="Inserisci cognome"
                                                    value="<?= $victim->getCognome() ?>">
@@ -221,6 +221,7 @@ try {
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN aggiunta da me -->
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
+<!--<script src="/assets/global/scripts/adminValidator.js"></script>-->
 <script src="/assets/admin/pages/scripts/form-validation.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
