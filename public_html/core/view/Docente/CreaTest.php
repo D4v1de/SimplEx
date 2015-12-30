@@ -406,6 +406,8 @@ $corso = $modelCorso->readCorso($_URL[2]);
 <script src="/assets/admin/layout/scripts/layout.js" type="text/javascript"></script>-->
 <!-- BEGIN aggiunta da me -->
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
+<script src="/assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+
 <!-- END aggiunta da me -->
 <script>
     jQuery(document).ready(function () {
@@ -418,6 +420,22 @@ $corso = $modelCorso->readCorso($_URL[2]);
         //UIConfirmations.init();
         FormValidation.init();
         //TableManaged.init(3);
+        var table = $("#tabella_domande").dataTable();
+        var tableTools = new $.fn.dataTable.TableTools(table, {
+            //"sSwfPath": "//cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls_pdf.swf",
+            "sSwfPath": "/assets/global/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf",
+            "aButtons": [
+                {
+                    "sExtends": "xls",
+                    "sButtonText": "<button><i class='fa fa-file-excel-o'></i> Excel</button>"
+                },
+                {
+                    "sExtends": "pdf",
+                    "sButtonText": "<button><i class='fa fa-file-pdf-o'></i> PDF</button>"
+                }
+            ]
+        });
+        $(tableTools.fnContainer()).insertBefore("#tabella_domande_wrapper");
     });
 </script>
 <!-- END JAVASCRIPTS -->
