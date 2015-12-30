@@ -6,83 +6,31 @@
  * @since 23/11/15 21:58
  */
 
-//TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "CdlController.php";
-$controller = new CdlController();
+include_once MODEL_DIR . "CdLModel.php";
+$modelcdl = new CdLModel();
 
-$new = null;
 $cdl = null;
 $url = null;
-$flag = 1;
-$flag2 = 1;
-$flag3 = 1;
-$flag4 = 1;
-$flag5 = 1;
+$flag = isset($_SESSION['flag']) ? $_SESSION['flag'] : 1;
+$flag2 = isset($_SESSION['flag2']) ? $_SESSION['flag2'] : 1;
+$flag3 = isset($_SESSION['flag3']) ? $_SESSION['flag3'] : 1;
+$flag4 = isset($_SESSION['flag4']) ? $_SESSION['flag4'] : 1;
+$flag5 = isset($_SESSION['flag5']) ? $_SESSION['flag5'] : 1;
+unset($_SESSION['flag']);
+unset($_SESSION['flag2']);
+unset($_SESSION['flag3']);
+unset($_SESSION['flag4']);
+unset($_SESSION['flag5']);
 
 $url = $_URL[3];
+$_SESSION['idcdl'] = $url;
 if (!is_numeric($url)) {
-    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+    echo "<script type='text/javascript'>alert('errore nella url!!(idcdl)');</script>";
 }
-
 try {
-    $cdl = $controller->readCdl($url);
+    $cdl = $modelcdl->readCdL($url);
 } catch (ApplicationException $ex) {
     echo "<h1>INSERIRE ID CDL NEL PATH!</h1>" . $ex;
-}
-try {
-    $cdls = $controller->getCdl();
-} catch (ApplicationException $ex) {
-    echo "<h1>GETCDL FALLITO!</h1>" . $ex;
-}
-
-$nome = $cdl->getNome();
-$tipologia = $cdl->getTipologia();
-$matricola = $cdl->getMatricola();
-
-if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricola'])) {
-
-    $nomenew = $_POST['nome'];
-    $tipologianew = $_POST['tipologia'];
-    $matricolanew = $_POST['matricola'];
-
-    $x = array_search($cdl ,$cdls);
-    unset($cdls[$x]);
-
-    //controllo su nome
-    if(empty($nomenew) || !preg_match('/^[a-zA-Z0-9\s-]+$/', $nomenew)) {
-        $flag = 0;
-    }
-    foreach($cdls as $c) {
-        if($c->getNome() == $nomenew) {
-            $flag4 = 0;
-        }
-    }
-
-    //controllo su matricola
-    if(empty($matricolanew) || !is_numeric($matricolanew)) {
-        $flag3 = 0;
-    }
-    foreach($cdls as $c) {
-        if($c->getMatricola() == $matricolanew) {
-            $flag5 = 0;
-        }
-    }
-
-    //controllo su tipologia
-    if(empty($tipologianew) || !in_array($tipologianew, Config::$TIPI_CDL)) {
-        $flag2 = 0;
-    }
-
-    if($flag && $flag2 && $flag3 && $flag4 && $flag5) {
-        try {
-            $new = new CdL($matricolanew, $nomenew, $tipologianew);
-            $controller->modificaCdl($cdl->getMatricola(), $new);
-
-            header('location: /admin/cdl/view/successmodifica');
-        } catch (ApplicationException $ex) {
-            echo "<h1>MODIFICACDL FALLITO!</h1>" . $ex;
-        }
-    }
 }
 
 ?>
@@ -114,7 +62,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                Modifica CdL
+                Modifica Corso di Laurea
             </h3>
 
             <div class="page-bar">
@@ -129,7 +77,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/admin/cdl/modifica/<?php echo $matricola; ?>">CdL<?php echo $nome; ?></a>
+                        CdL <?php echo $cdl->getNome(); ?>
                     </li>
                 </ul>
             </div>
@@ -140,7 +88,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
             <div class="row">
                 <div class="col-md-12">
 
-                    <form id="form_sample_1" method="post" action="">
+                    <form id="form_sample_1" method="post" action="/admin/cdl/modificacdl">
 
                         <?php
                         if(!$flag5) {
@@ -189,7 +137,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                                 <option value="">Seleziona</option>
                                                 <?php
                                                 foreach(Config::$TIPI_CDL as $t) {
-                                                    if($tipologia == $t) {
+                                                    if($cdl->getTipologia() == $t) {
                                                         printf("<option value=\"%s\" selected>%s</option>",$t,$t);
                                                     }
                                                     else {
@@ -207,7 +155,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
                                             <input type="text" class="form-control" name="nome" id="nomeCdl"
-                                                   value="<?php echo $nome; ?>">
+                                                   value="<?php echo $cdl->getNome(); ?>">
 
                                             <div class="form-control-focus">
                                             </div>
@@ -216,7 +164,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
                                             <input type="text" class="form-control" name="matricola" id="matricolaCdl"
-                                                   value="<?php echo $matricola; ?>" readonly>
+                                                   value="<?php echo $cdl->getMatricola(); ?>" readonly>
 
                                             <div class="form-control-focus">
                                             </div>
@@ -237,7 +185,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                         <input type="submit" value="Conferma" class="btn green-jungle"/>
                                     </div>
                                     <div class="col-md-3">
-                                        <input type="reset" value="Annulla" class="btn red-intense"/>
+                                        <a href="../" class="btn red-intense">Annulla</a>
                                     </div>
                                 </div>
                             </div>

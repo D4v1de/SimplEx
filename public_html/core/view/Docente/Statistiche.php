@@ -104,17 +104,18 @@ try {
                             </div>
                             <ul class="nav nav-tabs">
                                 <li class="active">
-                                    <a href="#portlet_tab1" onclick=" initChartSampleTestScelto();" data-toggle="tab" aria-expanded="true">
-                                        Inserimento </a>
-                                </li>
-                                <li class="">
                                     <a href="#testSupBest" onclick="getStatisticheTest('Best');"  data-toggle="tab" aria-expanded="false">
                                         Promossi </a>
+                                </li>
+                                <li class="">
+                                    <a href="#portlet_tab1" onclick="initChartSampleTestScelto();" data-toggle="tab" aria-expanded="true">
+                                        Inserimento </a>
                                 </li>
                             </ul>
                         </div>
                         <div class="portlet-body">
                             <div class="row">
+                                <div class="col-md-10"></div>
                                 <div id="spinner4">
                                 <div class="input-group" style="width:150px;">
                                     <div class="spinner-buttons input-group-btn">
@@ -132,15 +133,15 @@ try {
                                 </div>
                             </div>
                             <div class="tab-content">
-                                <div id="portlet_tab1" class="chart tab-pane active" style="height: 500px; overflow: hidden; text-align: left;">
-
-                                </div>
                                 <div id="testSupBest" class="chart tab-pane" style="height: 500px; overflow: hidden; text-align: left;">
 
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div id="testSupBesst" class="chart tab-pane" style="height: 500px; overflow: hidden; text-align: left;">
+
+                                </div>
 
                     <div class="tab-pane active chart" id="portlet_tab4">
 
@@ -202,245 +203,13 @@ try {
                                         jQuery(document).ready(function () {
                                             Metronic.init(); // init metronic core components
                                             Layout.init(); // init current layout
-                                            initChartSampleTestScelto();
                                             //ChartsAmcharts.init();
                                             QuickSidebar.init(); // init quick sidebar
-                                            ComponentsFormTools.init();
-                                            
+                                            $('#spinner4').spinner({value:5, step: 5, min: 5, max: 20});
                                             //Demo.init(); // init demo features
                                         });
         </script>
-        <script>
-            var initChartSample1 = function () {
-                var string = "[{\"year\": 2009,\"income\": 23.5,\"expenses\": 22.8}, {\"year\": 2010,\"income\": 26.2,\"expenses\": 22.8},]";
-                var chart = AmCharts.makeChart("chart_1", {
-                    "type": "serial",
-                    "theme": "light",
-                    "pathToImages": Metronic.getGlobalPluginsPath() + "amcharts/amcharts/images/",
-                    "autoMargins": false,
-                    "marginLeft": 30,
-                    "marginRight": 8,
-                    "marginTop": 10,
-                    "marginBottom": 26,
-                    "fontFamily": 'Open Sans',
-                    "color": '#888',
-                    "dataProvider": [{
-                            "year": 5,
-                            "income": 23.5,
-                            "expenses": 22.8
-                        }, {
-                            "year": 3,
-                            "income": 26.2,
-                            "expenses": 22.8
-                        }, ],
-                    /*"dataProvider": [{
-                     "year": 2009,
-                     "income": 23.5,
-                     "expenses": 22.8
-                     }, {
-                     "year": 2010,
-                     "income": 26.2,
-                     "expenses": 22.8
-                     }, {
-                     "year": 2011,
-                     "income": 30.1,
-                     "expenses": 23.9
-                     }, {
-                     "year": 2012,
-                     "income": 29.5,
-                     "expenses": 25.1
-                     }, {
-                     "year": 2013,
-                     "income": 30.6,
-                     "expenses": 27.2,
-                     "dashLengthLine": 5
-                     }, {
-                     "year": 2014,
-                     "income": 34.1,
-                     "expenses": 29.9,
-                     "dashLengthColumn": 5,
-                     "alpha": 0.2,
-                     "additional": "(projection)"
-                     }],*/
-                    "valueAxes": [{
-                            "axisAlpha": 0,
-                            "position": "left"
-                        }],
-                    "startDuration": 1,
-                    "graphs": [{
-                            "alphaField": "alpha",
-                            "balloonText": "<span style='font-size:13px;'>[[title]] in [[category]]:<b>[[value]]</b> [[additional]]</span>",
-                            "dashLengthField": "dashLengthColumn",
-                            "fillAlphas": 1,
-                            "title": "Income",
-                            "type": "column",
-                            "valueField": "income"
-                        }, {
-                            "balloonText": "<span style='font-size:13px;'>[[title]] in [[category]]:<b>[[value]]</b> [[additional]]</span>",
-                            "bullet": "round",
-                            "dashLengthField": "dashLengthLine",
-                            "lineThickness": 3,
-                            "bulletSize": 7,
-                            "bulletBorderAlpha": 1,
-                            "bulletColor": "#FFFFFF",
-                            "useLineColorForBulletBorder": true,
-                            "bulletBorderThickness": 3,
-                            "fillAlphas": 0,
-                            "lineAlpha": 1,
-                            "title": "Expenses",
-                            "valueField": "expenses"
-                        }],
-                    "categoryField": "year",
-                    "categoryAxis": {
-                        "gridPosition": "start",
-                        "axisAlpha": 0,
-                        "tickLength": 0
-                    }
-                });
-
-                $('#chart_1').closest('.portlet').find('.fullscreen').click(function () {
-                    chart.invalidateSize();
-                });
-            }
-            num = 10;
-            function prova(){
-            alert("OK");
-            Metronic.blockUI({
-                target: '#test1',
-                animate: true
-            });
-    Metronic.startPageLoading({animate: true});
-            };
-        </script>
-        <!-- END JAVASCRIPTS -->
-        <!-- START CHARTS -->
-        <?php
-        echo'    <script>
-                   
-            var initChartSampleTestScelto = function() {
-                var chart = AmCharts.makeChart("portlet_tab1", {
-                    "type": "serial",
-                    "theme": "none",
-                    "marginRight": 70,
-                    
-                    
-                    "dataProvider": [';
-        $sessioniByCorso = $sessioneController->getAllSessioniByCorso($corsoId);
-        for ($i = 0; $i < $n; $i++) {
-            $testId = $tests[$i]->getId();
-            $elaborati = $elaboratoController->getAllElaboratiTest($testId);
-            if ($sessioniByCorso != null)
-                $percSce = round(($tests[$i]->getPercentualeScelto() / count($sessioniByCorso) * 100), 2);
-            else
-                $percSce = 0;
-            if ($elaborati != null)
-                $percSuc = round(($tests[$i]->getPercentualeSuccesso() / count($elaborati) * 100), 2);
-            else
-                $percSuc = 0;
-            echo'{
-                            "year":';
-            echo '"Test ' . $tests[$i]->getId() . '"';
-            echo ',"income": ';
-            echo $percSce;
-            echo ',"color": "#FF0000" ';
-            echo '},';
-        }
-        echo '],"startDuration": 1,
-                    "graphs": [{
-                        "balloonText": "<span style=\'font-size:13px;\'>[[title]] nel <b>[[value]]%</b> delle Sessioni [[additional]]</span>",
-                        "fillColorsField": "color",
-                        "fillAlphas": 0.9,
-                        "lineAlpha": 0.2,
-                        "title": "Inserito",
-                        "type": "column",
-                        "valueField": "income"
-                    }],
-                    
-                    "chartCursor": {
-                      "categoryBalloonEnabled": false,
-                      "cursorAlpha": 0,
-                      "zoomable": false
-                    },
-                    "categoryField": "year",
-                    "categoryAxis": {
-                        "gridPosition": "start",
-                        "axisAlpha": 0,
-                        "tickLength": 0
-                    }
-                });
-
-                $(\'#portlet_tab1\').closest(\'.portlet\').find(\'.fullscreen\').click(function() {
-                    chart.invalidateSize();
-                });
-                }
-                
-            var initChartSampleTestSuccesso = function() {
-                var chart = AmCharts.makeChart("portlet_tab2", {
-                    "type": "serial",
-                    "theme": "light",
-                    "pathToImages": Metronic.getGlobalPluginsPath() + "amcharts/amcharts/images/",
-                    "autoMargins": false,
-                    "marginLeft": 30,
-                    "marginRight": 8,
-                    "marginTop": 10,
-                    "marginBottom": 26,
-
-                    "fontFamily": \'Open Sans\',            
-                    "color":    \'#888\',
-
-                    "dataProvider": [';
-        for ($i = 0; $i < $n; $i++) {
-            $testId = $tests[$i]->getId();
-            $elaborati = $elaboratoController->getAllElaboratiTest($testId);
-            if ($elaborati != null)
-                $percSuc = round(($tests[$i]->getPercentualeSuccesso() / count($elaborati) * 100), 2);
-            else
-                $percSuc = 0;
-            echo'{
-                            "year":';
-            echo '"Test ' . $tests[$i]->getId() . '"';
-            echo ',"income": ';
-            echo $percSuc;
-            echo '},';
-        }
-        echo '],"startDuration": 1,
-                    "graphs": [{
-                        "alphaField": "alpha",
-                        "balloonText": "<span style=\'font-size:13px;\'>[[title]]: <b>[[value]]%</b> [[additional]]</span>",
-                        "dashLengthField": "dashLengthColumn",
-                        "fillAlphas": 1,
-                        "title": "Studenti promossi",
-                        "type": "column",
-                        "valueField": "income"
-                    }, {
-                        "balloonText": "<span style=\'font-size:13px;\'>[[title]] in [[category]]:<b>[[value]]</b> [[additional]]</span>",
-                        "bullet": "round",
-                        "dashLengthField": "dashLengthLine",
-                        "lineThickness": 3,
-                        "bulletSize": 7,
-                        "bulletBorderAlpha": 1,
-                        "bulletColor": "#FFFFFF",
-                        "useLineColorForBulletBorder": true,
-                        "bulletBorderThickness": 3,
-                        "fillAlphas": 0,
-                        "lineAlpha": 1,
-                        "title": "Expenses",
-                        "valueField": "expenses"
-                    }],
-                    "categoryField": "year",
-                    "categoryAxis": {
-                        "gridPosition": "start",
-                        "axisAlpha": 0,
-                        "tickLength": 0
-                    }
-                });
-
-                $(\'#portlet_tab2\').closest(\'.portlet\').find(\'.fullscreen\').click(function() {
-                    chart.invalidateSize();
-                });
-                }
-    </script>';
-        ?>
+       
     </body>
     <!-- END BODY -->
 </html>

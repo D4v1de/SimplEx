@@ -10,47 +10,35 @@
  */
 
 include_once CONTROL_DIR . "SessioneController.php";
-include_once CONTROL_DIR . "TestController.php";
-include_once CONTROL_DIR . "ArgomentoController.php";
-include_once CONTROL_DIR . "ElaboratoController.php";
-include_once CONTROL_DIR . "CdlController.php";
+
+
+include_once MODEL_DIR . "TestModel.php";
+include_once MODEL_DIR . "ElaboratoModel.php";
+include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "ArgomentoModel.php";
+include_once MODEL_DIR . "CorsoModel.php";
 
 $utenteLoggato = $_SESSION['user'];
 
 $controllerSessione = new SessioneController();
-$controllerTest = new TestController();
-$controllerArgomento = new ArgomentoController();
-$controllerElaborato = new ElaboratoController();
-$controllerCorso = new CdlController();
+
+
+$modelTest = new TestModel();
+$modelElaborato = new ElaboratoModel();
+
+$modelArgomento = new ArgomentoModel();
+$modelCorso = new CorsoModel();
+$modelAccount = new UtenteModel();
+$modelCdl = new CdLModel();
 
 $corso = null;
 $identificativoCorso = $_URL[2];
-if(!isset($_SESSION['argomenti'])){
-    header('Location:/docente/leggiargomenticorso/'.$identificativoCorso);
-}
-
 
 
 $id = null;
 $idcorso = null;
 $argomenti = Array();
 $correttezzaLogin = false;
-
-//CONTROLLER NUOVO
-
-$arrayArg = array();
-$argomentiNuovi = array();
-$arrayArg = $_SESSION['argomenti'];
-unset($_SESSION['argomenti']);
-foreach($arrayArg as $argomento){
-    $argomentiNuovi[] = unserialize($argomento);
-}
-
-
-
-//FINE CONTROLLER NUOVO
-
-
 
 try {
     $idsSessione = $controllerSessione->getAllSessioniByCorso($identificativoCorso);
@@ -86,30 +74,35 @@ foreach ($idsSessione as $c) {
          ;
 }
 
-
+/**
+ * LEGGE IL CORSO NEL QUALE CI SI TROVA
+ */
 try {
-    $corso = $controllerCorso->readCorso($_URL[2]);
+    $corso = $modelCorso->readCorso($_URL[2]);
 }catch(ApplicationException $exception){
     echo "ERRORE IN READ CORSO " . $exception;
 }
 
-
-//PRENDE INFORMAZIONI SULL'UTENTE LOGGATO E CONTROLLA SE E' LO STESSO AL QUALE E' ASSOCIATO IL CORSO
+/**
+ * RICEVE LA MATRICOLA DEL DOCENTE LOGGATO
+ */
 try {
-    $docenteassociato = $controllerArgomento->getDocenteAssociato($corso->getId());
+    $docenteassociato = $modelAccount->getAllDocentiByCorso($corso->getId());
 }catch(ApplicationException $exception){
     echo "ERRORE IN GETDOCENTEASSOCIATO" . $exception;
 }
 
+/**
+ * RICEVE I DOCENTE ASSOCIATI AL CORSO NEL QUALE CI SI TROVA
+ */
 try{
     $matricolaLoggato = $utenteLoggato->getMatricola();
 }catch(ApplicationException $exception){
     echo "ERRORE IN GET MATRICOLA" . $exception;
 }
 
-
-/* TODO
- * BISOGNA ASPETTARE IL CONTROLLER NUOVO
+/**
+ * CONTROLLA SE NEI DOCENTI ASSOCIATI E' PRESENTE IL DOCENTE LOGGATO
  */
 foreach($docenteassociato as $docente){
     if($docente->getMatricola() == $matricolaLoggato){
@@ -117,17 +110,12 @@ foreach($docenteassociato as $docente){
     }
 }
 
+/**
+ * CONTROLLA IL CORRETTO LOGIN DEL DOCENTE AL CORSO DA LUI INSEGNATO
+ */
 if($correttezzaLogin == false){
     header('Location: /docente');
 }
-
-/* C'E' CONTROLLER NUOVO
-try{
-    $argomenti = $controllerArgomento->getArgomenti($corso->getId());
-}catch(ApplicationException $exception){
-    echo "ERRORE IN READ ARGOMENTO" . $exception;
-}
-*/
 
 if(isset($_POST['IdSes'])){
     $idSes = $_POST['IdSes'];
@@ -140,30 +128,6 @@ if(isset($_POST['IdSes'])){
     }
 }
 
-if(isset($_POST['idtest'])){
-    $id = $_POST['idtest'];
-    $Tests=Array();
-    $Sess=Array();
-    $i=0;
-    $Sess=$controllerSessione->getAllSessioniByCorso($identificativoCorso); 
-    foreach($Sess as $s){
-        $nuoviTest=$controllerSessione->getAllTestBySessione($s->getId());
-        $Tests=array_merge($Tests,$nuoviTest);
-    }
-    foreach($Tests as $t){
-        if($t==$id){
-           $i++; 
-        }
-    }
-    if($i>0){
-        
-    }else{
-     $controllerTest->deleteTest($id);
-     $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
-     header($tornaACasa);   
-    }
-    
-}
 
 $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso);
 
@@ -207,7 +171,7 @@ $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/docente/cdl/<?php echo $corso->getCdlMatricola(); ?>"> <?php echo $controllerCorso->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
+                        <a href="/docente/cdl/<?php echo $corso->getCdlMatricola(); ?>"> <?php echo $modelCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
@@ -367,7 +331,7 @@ $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso
             </form>
 
             
-            <form action="" method="post">
+            <form action="/docente/Elimina_Test?idcorso=<?=$identificativoCorso ?>" method="post">
             <div class="portlet box blue-madison">
                 <div class="portlet-title">
                     <div class="caption">
@@ -434,12 +398,12 @@ $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso
                                 
                                  <?php
                                         $array = Array();
-                                        $array = $controllerTest->getAllTestByCorso($identificativoCorso);
+                                        $array = $modelTest->getAllTestByCorso($identificativoCorso);
                                         if($array == null){ 
                                             }
                                         else{    
                                         foreach($array as $c) {
-                                        $elaborati = $controllerElaborato->getAllElaboratiTest($c->getId());
+                                        $elaborati = $modelElaborato->getAllElaboratiTest($c->getId());
                                         if ($sessioniByCorso != null)
                                             $percSce = round(($c->getPercentualeScelto()/count($sessioniByCorso)*100),2);
                                         else
@@ -461,7 +425,7 @@ $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso
                                         $questoTest=$c->getId();
                                         $alModificaTest="/docente/corso/".$identificativoCorso."/test/modifica/".$questoTest;
                                         printf("<td><a href=\"%s\"  class=\"btn btn-icon-only blue\"><i class=\"fa fa-edit\"></i></i></a>",$alModificaTest);
-                                        printf("<button  class=\"btn btn-icon-only red-intense\" type=\"submit\" name=\"idtest\" title=\"\" id=\"%d\" value=\"%d\" data-popout=\"true\" data-toggle=\"confirmation\" data-singleton=\"true\" data-original-title=\"Sei sicuro?\"><i class=\"fa fa-trash-o\"></i></button>", $c->getId(), $c->getId());
+                                        printf("<button  class=\"btn btn-icon-only red-intense\" type=\"submit\" name=\"idtestHome\" title=\"\" id=\"%d\" value=\"%d\" data-popout=\"true\" data-toggle=\"confirmation\" data-singleton=\"true\" data-original-title=\"Sei sicuro?\"><i class=\"fa fa-trash-o\"></i></button>", $c->getId(), $c->getId());
                                         printf("</td>");
                                         printf("</tr>");
                                         }
@@ -517,9 +481,11 @@ $sessioniByCorso=$controllerSessione->getAllSessioniByCorso($identificativoCorso
 
                             <?php
 
-                            foreach($argomentiNuovi as $a) {
+                            $argomenti = $modelArgomento->getAllArgomentoCorso($identificativoCorso);
+
+                            foreach($argomenti as $a) {
                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                printf("<td><a class=\"btn default btn-xs green-stripe\" href=\"/docente/corso/%d/argomento/domande/leggiargomento/%d \">%s</a></td>", $a->getCorsoId() , $a->getId() , $a->getNome());
+                                printf("<td><a class=\"btn default btn-xs green-stripe\" href=\"/docente/corso/%d/argomento/domande/%d \">%s</a></td>", $a->getCorsoId() , $a->getId() , $a->getNome());
                                 printf("<td>");
                                 printf("<a href=\"/docente/corso/%d/argomento/modifica/%d \"  class=\"btn btn-icon-only blue\">", $a->getCorsoId(),$a->getId());
                                 printf("<i class=\"fa fa-edit\"></i>");

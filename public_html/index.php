@@ -5,6 +5,8 @@
  * Date: 18/11/15
  * Time: 08:58
  */
+
+
 define('ROOT_DIR', dirname(__FILE__)); //costante root dir
 define('CORE_DIR', ROOT_DIR . DIRECTORY_SEPARATOR . 'core' . DIRECTORY_SEPARATOR); //costante core directory
 define('VIEW_DIR', CORE_DIR . "view" . DIRECTORY_SEPARATOR); //ecc
@@ -65,9 +67,9 @@ try {
                 StringUtils::checkPermission("all");
                 include_once VIEW_DIR . "Admin/modificaProfilo.php";
                 break;
-            case 'salva':{
+            case 'salva': {
                 StringUtils::checkPermission("all");
-                include_once CONTROL_DIR . "Admin/modificaProfilo.php";
+                include_once CONTROL_DIR . "Utente/modificaProfilo.php";
                 break;
             }
             case 'auth': {
@@ -101,8 +103,17 @@ try {
                             case 'modifica':
                                 include_once VIEW_DIR . "Admin/modificaUtente.php";
                                 break;
+                            case 'salva':
+                                include_once CONTROL_DIR . "Admin/salvaUtente.php";
+                                break;
+                            case 'elimina':
+                                include_once CONTROL_DIR . "Admin/eliminaUtente.php";
+                                break;
                             case '':
                                 include_once VIEW_DIR . "Admin/gestioneUtente.php";
+                                break;
+                            case 'salvanuovo':
+                                include_once CONTROL_DIR . "Admin/creaUtente.php";
                                 break;
                             default:
                                 include_once VIEW_DIR . "Admin/Home.php";
@@ -113,11 +124,20 @@ try {
                             case 'crea':
                                 include_once VIEW_DIR . "Admin/creaCdL.php";
                                 break;
+                            case 'creacdl':
+                                include_once CONTROL_DIR . "Cdl/creaCdL.php";
+                                break;
                             case 'modifica':
                                 include_once VIEW_DIR . "Admin/modificaCdL.php";
                                 break;
+                            case 'modificacdl':
+                                include_once CONTROL_DIR . "Cdl/modificaCdL.php";
+                                break;
                             case 'view':
                                 include_once VIEW_DIR . "Admin/gestioneCdL.php";
+                                break;
+                            case 'eliminacdl':
+                                include_once CONTROL_DIR . "Cdl/eliminaCdL.php";
                                 break;
                             default:
                                 include_once VIEW_DIR . "Admin/gestioneCdL.php";
@@ -128,14 +148,26 @@ try {
                             case 'crea':
                                 include_once VIEW_DIR . "Admin/creaCorso.php";
                                 break;
+                            case 'creacorso':
+                                include_once CONTROL_DIR . "Cdl/creaCorso.php";
+                                break;
                             case 'modifica':
                                 include_once VIEW_DIR . "Admin/modificaCorso.php";
+                                break;
+                            case 'modificacorso':
+                                include_once CONTROL_DIR . "Cdl/modificaCorso.php";
                                 break;
                             case 'view':
                                 include_once VIEW_DIR . "Admin/gestioneCorsi.php";
                                 break;
+                            case 'eliminacorso':
+                                include_once CONTROL_DIR . "Cdl/eliminaCorso.php";
+                                break;
                             case 'gestione':
                                 include_once VIEW_DIR . "Admin/gestioneCorso.php";
+                                break;
+                            case 'associa':
+                                include_once CONTROL_DIR . "Cdl/associaCorso.php";
                                 break;
                             default:
                                 include_once VIEW_DIR . "Admin/gestioneCorsi.php";
@@ -266,6 +298,9 @@ try {
                             case 'statistiche':
                                 include_once VIEW_DIR . "Docente/Statistiche.php";
                                 break;
+                            case 'statistiche2':
+                                include_once VIEW_DIR . "Docente/Statistiche2.php";
+                                break;
                             default:
                                 include_once VIEW_DIR . "Docente/HomeCorso2.php";
                         }
@@ -273,11 +308,32 @@ try {
                     case 'getTestforStat':
                         include_once VIEW_DIR . "Docente/getTestforStat.php";
                         break;
+                    case 'creazione_TEST':
+                        include_once VIEW_DIR . "Docente/Crea_Test.php";
+                        break;
+                    case 'modifica_TEST':
+                        include_once VIEW_DIR . "Docente/Modifica_Test.php";
+                        break;
+                    case 'Elimina_Test':
+                        include_once VIEW_DIR . "Docente/Elimina_Test.php";
+                        break;
                     case 'inserisciaperta':
                         include_once CONTROL_DIR . "Domanda/creaDomandaAperta.php";
                         break;
+                    case 'inseriscimultipla':
+                        include_once CONTROL_DIR . "Domanda/creaDomandaMultipla.php";
+                        break;
+                    case 'modificamultipla':
+                        include_once CONTROL_DIR . "Domanda/modificaDomandaMultipla.php";
+                        break;
+                    case 'modificaaperta':
+                        include_once CONTROL_DIR . "Domanda/modificaDomandaAperta.php";
+                        break;
                     case 'rimuoviaperta':
                         include_once CONTROL_DIR . "Domanda/rimuoviDomandaAperta.php";
+                        break;
+                    case 'rimuovimultipla':
+                        include_once CONTROL_DIR . "Domanda/rimuoviDomandaMultipla.php";
                         break;
                     case 'inserisciargomento':
                         include_once CONTROL_DIR . "Argomenti/creaArgomentoControl.php";
@@ -304,6 +360,9 @@ try {
                     case 'cdl':
                         include_once VIEW_DIR . "Studente/visualizzaCorsi.php";
                         break;
+                    case 'iscrivi':
+                        include_once CONTROL_DIR . "Cdl/iscrividisiscriviStudente.php";
+                        break;
                     case 'corso':
                         switch (isset($_URL[3]) ? $_URL[3] : '') {
                             case 'test':
@@ -320,25 +379,28 @@ try {
                         }
                         break;
                     case 'creaElaborato':
-                        include_once VIEW_DIR . "Studente/creaElaborato.php";
+                        include_once CONTROL_DIR . "Elaborato/creaElaborato.php";
                         break;
                     case 'controllerAbilitazione':
-                        include_once VIEW_DIR . "Studente/controllerAbilitazione.php";
+                        include_once CONTROL_DIR . "Elaborato/controllerAbilitazione.php";
                         break;
                     case 'gestoreCountdown':
-                        include_once VIEW_DIR . "Studente/gestoreCountdown.php";
+                        include_once CONTROL_DIR . "Elaborato/gestoreCountdown.php";
+                        break;
+                    case 'creaRisposte':
+                        include_once CONTROL_DIR . "Risposte/creaRisposteApertaMultipla.php";
                         break;
                     case 'consegna':
-                        include_once VIEW_DIR . "Studente/consegna.php";
+                        include_once CONTROL_DIR . "Elaborato/consegna.php";
                         break;
                     case 'abbandona':
-                        include_once VIEW_DIR . "Studente/abbandona.php";
+                        include_once CONTROL_DIR . "Elaborato/abbandona.php";
                         break;
                     case 'updateMultipla':
-                        include_once VIEW_DIR . "Studente/updateMultipla.php";
+                        include_once CONTROL_DIR . "Risposte/updateMultipla.php";
                         break;
                     case 'updateAperta':
-                        include_once VIEW_DIR . "Studente/updateAperta.php";
+                        include_once CONTROL_DIR . "Risposte/updateAperta.php";
                         break;
                     default:
                         include_once VIEW_DIR . "Studente/Home.php";

@@ -6,26 +6,26 @@
  * @since 18/11/15 09:58
  */
 
-//TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "CdlController.php";
-include_once CONTROL_DIR . "UtenteController.php";
-include_once CONTROL_DIR . "ElaboratoController.php";
-include_once CONTROL_DIR . "SessioneController.php";
-include_once CONTROL_DIR . "TestController.php";
-include_once CONTROL_DIR . "DomandaController.php";
-include_once CONTROL_DIR . "AlternativaController.php";
-include_once CONTROL_DIR . "RispostaApertaController.php";
-include_once CONTROL_DIR . "RispostaMultiplaController.php";
-$controller = new CdlController();
-$controllerUtente = new UtenteController();
-$controllerElaborato = new ElaboratoController();
-$controllerSessione = new SessioneController();
-$controllerTest = new TestController();
-$controllerDomanda = new DomandaController();
-$controllerAlternativa = new AlternativaController();
-$controllerRispostaAperta = new RispostaApertaController();
-$controllerRispostaMultipla = new RispostaMultiplaController();
-
+include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "CorsoModel.php";
+include_once MODEL_DIR . "UtenteModel.php";
+include_once MODEL_DIR . "ElaboratoModel.php";
+include_once MODEL_DIR . "SessioneModel.php";
+include_once MODEL_DIR . "TestModel.php";
+include_once MODEL_DIR . "DomandaModel.php";
+include_once MODEL_DIR . "AlternativaModel.php";
+include_once MODEL_DIR . "RispostaApertaModel.php";
+include_once MODEL_DIR . "RispostaMultiplaModel.php";
+$modelcdl = new CdLModel();
+$modelcorso = new CorsoModel();
+$modelutente = new UtenteModel();
+$modelelaborato = new ElaboratoModel();
+$modelsessione = new SessioneModel();
+$modeltest = new TestModel();
+$modeldomanda = new DomandaModel();
+$modelalternativa = new AlternativaModel();
+$modelrispostaaperta = new RispostaApertaModel();
+$modelrispostamultipla = new RispostaMultiplaModel();
 
 $cdl = null;
 $corso = null;
@@ -37,13 +37,11 @@ $studente = null;
 $multiple = Array();
 $aperte = Array();
 $alternative = Array();
-//$corretta = null;
 $rispostaaperta = null;
 $rispostamultipla = null;
 $i = 0;
 $url = null;
 $url2 = null;
-
 
 $url = $_URL[2];
 if (!is_numeric($url)) {
@@ -54,48 +52,53 @@ if (!is_numeric($url)) {
     echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
 }
 
-
 $studente = $_SESSION['user'];
-//$studente = $controllerUtente->getUtenteByMatricola('0512102390');
-
 
 try {
-    $corso = $controller->readCorso($url);
+    $corso = $modelcorso->readCorso($url);
+
 } catch (ApplicationException $ex) {
     echo "<h1>INSERIRE ID CORSO NEL PATH!</h1>" . $ex;
 }
 try {
-    $cdl = $controller->readCdl($corso->getCdlMatricola());
+    $cdl = $modelcdl->readCdl($corso->getCdlMatricola());
+
 } catch (ApplicationException $ex) {
     echo "<h1>READCDL FALLITO!</h1>" . $ex;
 }
 try {
-    $elaborato = $controllerElaborato->readElaborato($studente->getMatricola(), $url2);
+    $elaborato = $modelelaborato->readElaborato($studente->getMatricola(), $url2);
+
 } catch (ApplicationException $ex) {
     echo "<h1>READELABORATO FALLITO!</h1>" . $ex;
 }
 try {
-    $docenteassociato = $controllerUtente->getDocenteAssociato($corso->getId());
+    $docenteassociato = $modelutente->getAllDocentiByCorso($corso->getId());
+
 } catch (ApplicationException $ex) {
     echo "<h1>GETDOCENTIASSOCIATI FALLITO</h1>" . $ex;
 }
 try {
-    $sessione = $controllerSessione->readSessione($url2);
+    $sessione = $modelsessione->readSessione($url2);
+
 } catch (ApplicationException $ex) {
     echo "<h1>INSERIRE ID SESSIONE NEL PATH!</h1>" . $ex;
 }
 try {
-    $test = $controllerTest->readTest($elaborato->getTestId());
+    $test = $modeltest->readTest($elaborato->getTestId());
+
 } catch (ApplicationException $ex) {
     echo "<h1>READTEST FALLITO!</h1>" . $ex;
 }
 try {
-    $multiple = $controllerDomanda->getAllDomandeMultipleByTest($test->getId());
+    $multiple = $modeldomanda->getAllDomandeMultipleByTest($test->getId());
+
 } catch (ApplicationException $ex) {
     echo "<h1>GETALLDOMANDEMULTIPLEBYTEST FALLITO!</h1>" . $ex;
 }
 try {
-    $aperte = $controllerDomanda->getAllDomandeAperteByTest($test->getId());
+    $aperte = $modeldomanda->getAllDomandeAperteByTest($test->getId());
+
 } catch (ApplicationException $ex) {
     echo "<h1>GETALLDOMANDEAPERTEBYTEST FALLITO!</h1>" . $ex;
 }
@@ -156,7 +159,7 @@ try {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/studente/corso/<?php echo $corso->getId(); ?>/test/<?php echo $sessione->getId(); ?>">Test <?php echo $test->getId(); ?></a>
+                        Test <?php echo $test->getId(); ?>
                     </li>
                 </ul>
             </div>
@@ -199,38 +202,6 @@ try {
             <div class="row">
                 <h3></h3>
             </div>
-
-            <!--<div class="portlet light bordered">
-                <div class="portlet-title">
-                    <div class="caption font-red-sunglo">
-                        <i class="fa fa-question-circle font-red-sunglo"></i>
-                        <span class="caption-subject bold uppercase"> Question1 false</span>
-                    </div>
-                </div>
-                <div class="portlet-body form">
-                    <form role="form">
-                        <div class="form-body">
-
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="portlet light bordered">
-                <div class="portlet-title">
-                    <div class="caption font-green-haze">
-                        <i class="fa fa-question-circle font-green-haze"></i>
-                        <span class="caption-subject bold uppercase"> Question2 true</span>
-                    </div>
-                </div>
-                <div class="portlet-body form">
-                    <form role="form">
-                        <div class="form-body">
-
-                        </div>
-                    </form>
-                </div>
-            </div>-->
-
 
             <div class="row">
                 <div class="col-md-12">
@@ -283,12 +254,14 @@ try {
                                 printf("<div class=\"portlet-body\">");
                                 $i++;
                                 try {
-                                    $alternative = $controllerAlternativa->getAllAlternativaByDomanda($m->getId());
+                                    $alternative = $modelalternativa->getAllAlternativaByDomanda($m->getId());
+
                                 } catch (ApplicationException $ex) {
                                     echo "<h1>GETALLALTERNATIVABYDOMANDA FALLITO!</h1>" . $ex;
                                 }
                                 try {
-                                    $rispostamultipla = $controllerRispostaMultipla->readRispostaMultipla($elaborato->getSessioneId(), $studente->getMatricola(), $m->getId());
+                                    $rispostamultipla = $modelrispostamultipla->readRispostaMultipla($elaborato->getSessioneId(), $studente->getMatricola(), $m->getId());
+
                                 } catch (ApplicationException $ex) {
                                     echo "<h1>READRISPOSTAMULTIPLA FALLITO!</h1>" . $ex;
                                 }
@@ -300,16 +273,7 @@ try {
                                 foreach ($alternative as $a) {
                                     printf("<div class=\"form-group form-md-checkboxes\"><div class=\"md-checkbox-list\"><div class=\"md-checkbox\">");
                                     if ($rispostamultipla->getAlternativaId() == $a->getId()) {
-                                        //correzione domande multiple
-                                        //<script>var ris = []; ris.push({'%s': '%s'}); </script>
-                                        /*try {
-                                            $corretta = $controllerAlternativa->getAlternativaCorrettaByDomanda($m->getId());
-                                        } catch (ApplicationException $ex) {
-                                            echo "<h1>GETALLALTERNATIVABYDOMANDA FALLITO!</h1>" . $ex;
-                                        }
-                                        if($corretta->getId() == $a->getId()) {
-                                            printf("<script> ris.push('%s'); </script>", $a->getCorretta());
-                                        }*/
+
                                         printf("<script> ris.push('%s'); </script>", $a->getCorretta());
                                         printf("<input type=\"checkbox\" id=\"alt-12\" name=\"mul-12\" class=\"md-check\" disabled checked>");
                                     } else {
@@ -334,7 +298,7 @@ try {
                                 printf("<div class=\"portlet light bordered\"><div class=\"portlet-title\"><div class=\"caption\"><i class=\"fa fa-question-circle\"></i><span class=\"caption-subject bold uppercase\">%s (aperta)</span></div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div>", $a->getTesto());
                                 printf("<div class=\"portlet-body\">");
                                 try {
-                                    $rispostaaperta = $controllerRispostaAperta->readRispostaAperta($elaborato->getSessioneId(), $studente->getMatricola(), $a->getId());
+                                    $rispostaaperta = $modelrispostaaperta->readRispostaAperta($elaborato->getSessioneId(), $studente->getMatricola(), $a->getId());
                                 } catch (ApplicationException $ex) {
                                     echo "<h1>READRISPOSTAAPERTA FALLITO!</h1>" . $ex;
                                 }
@@ -343,9 +307,6 @@ try {
                                 }
                                 printf("</div></div>");
                             }
-                            /*if (($multiple == null) && ($aperte == null)) {
-                                printf("<h2> Il test selezionato non ha alcuna domanda associata </h2>");
-                            }*/
                             ?>
 
                             <div class="row">
@@ -400,18 +361,10 @@ try {
                 if(ris[r] == 'Si') {
                     document.getElementById("div"+r).setAttribute('class','caption questions font-green-haze');
                     document.getElementById("i"+r).setAttribute('class','fa fa-question-circle font-green-haze');
-
-                    //document.getElementsByClassName("esatte").innerHTML = "<span class=\"col-md-offset-1 label label-sm label-success\">giusta</span>";
-                    //<span class="corrette col-md-offset-1 label label-sm label-success"><!--giusto--></span>
-
                 }
                 else if(ris[r] == 'No') {
                     document.getElementById("div"+r).setAttribute('class','caption questions font-red-sunglo');
                     document.getElementById("i"+r).setAttribute('class','fa fa-question-circle font-red-sunglo');
-
-                    //document.getElementsByClassName("sbagliate").innerHTML = "<span class=\"col-md-offset-1 label label-sm label-danger\">sbagliato</span>";
-                    //<span class="sbagliate col-md-offset-1 label label-sm label-danger"><!--sbagliato--></span>
-
                 }
             }
             var array = document.getElementsByClassName("esatte");

@@ -7,26 +7,26 @@
  */
 
 //TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "ControllerTest.php";
-include_once CONTROL_DIR . "SessioneController.php";
-include_once CONTROL_DIR . "DomandaController.php";
-include_once CONTROL_DIR . "RispostaApertaController.php";
-include_once CONTROL_DIR . "RispostaMultiplaController.php";
-include_once CONTROL_DIR . "AlternativaController.php";
-include_once CONTROL_DIR . "ElaboratoController.php";
-$domandaController = new DomandaController();
-$elaboratoController = new ElaboratoController();
-$testController = new ControllerTest();
-$sessioneController = new SessioneController();
-$alternativaController = new AlternativaController();
-$rmCon = new RispostaMultiplaController();
+include_once MODEL_DIR . "TestModel.php";
+include_once MODEL_DIR . "SessioneModel.php";
+include_once MODEL_DIR . "DomandaModel.php";
+include_once MODEL_DIR . "RispostaApertaModel.php";
+include_once MODEL_DIR . "RispostaMultiplaModel.php";
+include_once MODEL_DIR . "AlternativaModel.php";
+include_once MODEL_DIR . "ElaboratoModel.php";
+$domandaModel = new DomandaModel();
+$elaboratoModel = new ElaboratoModel();
+$testModel = new TestModel();
+$sessioneModel = new SessioneModel();
+$alternativaModel = new AlternativaModel();
+$rmCon = new RispostaMultiplaModel();
 $corsoId = $_URL[2];
 $sessId = $_URL[5];
-$sessione = $sessioneController->readSessione($sessId);
+$sessione = $sessioneModel->readSessione($sessId);
 $studente = $_SESSION['user'];
 $matricola = $studente->getMatricola();
 try{
-    $elaborato = $elaboratoController->readElaborato($matricola,$sessId);
+    $elaborato = $elaboratoModel->readElaborato($matricola,$sessId);
 }
 catch(ApplicationException $ex){
     header("Location: "."/studente/corso/"."$corsoId"."/");
@@ -35,62 +35,16 @@ $now = date("Y-m-d H:i:s");
 $end = $sessione->getDataFine();
 $start = $sessione->getDataInizio();
 if ($now < $start || $now > $end || strcmp($elaborato->getStato(),"Non corretto"))
-    header("Location: "."/studente/corso/"."$corsoId"."/");
+    header("Location: "."/studente/corso/"."$corsoId");
 
-$studente = $testController->getUtentebyMatricola($matricola);
 $nome = $studente->getNome();
 $cognome = $studente->getCognome();
 
 $testId = $elaborato->getTestId();
-$multiple = $domandaController->getAllDomandeMultipleByTest($testId);
-$aperte = $domandaController->getAllDomandeAperteByTest($testId);
+$multiple = $domandaModel->getAllDomandeMultipleByTest($testId);
+$aperte = $domandaModel->getAllDomandeAperteByTest($testId);
 
-if (isset($_GET['abbandona'])){
-    $elaborato->setEsitoParziale(0);
-    $elaborato->setEsitoFinale(0);
-    $elaborato->setStato("Corretto");
-    $elaboratoController->updateElaborato($matricola,$sessId,$elaborato);   
-    header("Location: "."/studente/corso/"."$corsoId"."/");
-}
 
-if (isset($_GET['consegna'])){
-    $rispMul = $rmCon->getMultipleByElaborato($elaborato);
-    $punteggio = 0;
-    foreach ($rispMul as $rm) {
-        $multId = $rm->getDomandaMultiplaId();
-        $dom = $domandaController->getDomandaMultipla($multId);
-        $puntCorrAlt = $domandaController->readPunteggioCorrettaAlternativo($multId, $testId);
-        $puntErrAlt = $domandaController->readPunteggioErrataAlternativo($multId, $testId);
-        $puntCor = ($puntCorrAlt != null)? $puntCorrAlt:$dom->getPunteggioCorretta();
-        $puntErr = ($puntErrAlt != null)? $puntErrAlt:$dom->getPunteggioErrata();
-        $altCor = $alternativaController->getAlternativaCorrettaByDomanda($multId);
-        $altId = $rm->getAlternativaId();
-        if ($altId != 0)
-            if ($altCor->getId() == $rm->getAlternativaId()){
-                $punteggio = $punteggio + $puntCor;
-                $rm->setPunteggio($puntCor);
-                $updated = $domandaController->getDomandaMultipla($multId);
-                $perc = $updated->getPercentualeRispostaCorretta() +1;
-                $updated->setPercentualeRispostaCorretta($perc);
-                $domandaController->modificaDomandaMultipla($multId, $updated);
-            }
-            else{
-                $punteggio = $punteggio + $puntErr;
-                $rm->setPunteggio($puntErr);
-            }
-            $rmCon->updateRispostaMultipla($rm, $sessId, $matricola, $multId);
-
-            $updated = $alternativaController->readAlternativa($altId);
-            $perc = $updated->getPercentualeScelta() +1;
-            $updated->setPercentualeScelta($perc);
-            $alternativaController->modificaAlternativa($altId, $updated);
-    }
-    $elaborato->setEsitoParziale($punteggio);
-    
-    $elaborato->setStato("Parzialmente corretto");
-    $elaboratoController->updateElaborato($matricola,$sessId,$elaborato);   
-    header("Location: "."/studente/corso/"."$corsoId"."/");
-}
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -142,7 +96,6 @@ if (isset($_GET['consegna'])){
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
             
-        <form action="" method="GET">
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">
@@ -187,23 +140,13 @@ if (isset($_GET['consegna'])){
                             </div>
                             <?php
                             $selectedAlt = null;
-                            function creaRispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId, $testo, $punteggio){
-                                $raCon = new RispostaApertaController();
-                                $risp = new RispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId, $testo, $punteggio);
-                                $raCon->createRispostaAperta($risp);
-                            }
-                            function creaRispostaMultipla($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId, $punteggio, $alternativaId){
-                                $rmCon = new RispostaMultiplaController();
-                                $risp = new RispostaMultipla($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId, $punteggio, $alternativaId);
-                                $rmCon->createRispostaMultipla($risp);
-                            }
-                            function setRispostaMultiplaAlternativa($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId){
-                                $rmCon = new RispostaMultiplaController();
+                            function getRispostaMultiplaAlternativa($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId){
+                                $rmCon = new RispostaMultiplaModel();
                                 $risp = $rmCon->readRispostaMultipla($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId);
                                 return $risp->getAlternativaId();
                             }
-                            function setRispostaApertaValue($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId){
-                                $raCon = new RispostaApertaController();
+                            function getRispostaApertaValue($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId){
+                                $raCon = new RispostaApertaModel();
                                 $risp = $raCon->readRispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId);
                                 return $risp->getTesto();
                             }
@@ -213,15 +156,15 @@ if (isset($_GET['consegna'])){
                                     $testo = $m->getTesto();
                                     $multId = $m->getId();
                                     try{
-                                        creaRispostaMultipla($sessId, $matricola, $multId, null, null);
+                                        $selectedAlt = getRispostaMultiplaAlternativa($sessId, $matricola, $multId);
                                     }
                                     catch (ApplicationException $ex){
-                                        $selectedAlt = setRispostaMultiplaAlternativa($sessId, $matricola, $multId);
+                                        $selectedAlt = null;
                                     }
                                     echo "<h3>".$testo."</h3>";
                                     echo '<div class="form-group form-md-checkboxes">';
                                     echo '<div class="md-checkbox-list">';
-                                    $alternative = $alternativaController->getAllAlternativaByDomanda($multId);
+                                    $alternative = $alternativaModel->getAllAlternativaByDomanda($multId);
                                     foreach ($alternative as $r){
                                         $altId = $r->getId();
                                         echo    '<div class="md-checkbox">
@@ -246,10 +189,10 @@ if (isset($_GET['consegna'])){
                                     $apId = $a->getId();
                                     $txt = null;
                                     try{
-                                        creaRispostaAperta($sessId, $matricola, $apId, null, null);
+                                        $txt = getRispostaApertaValue($sessId, $matricola, $apId);
                                     }
                                     catch (ApplicationException $ex){
-                                        $txt = setRispostaApertaValue($sessId, $matricola, $apId);
+                                        $txt = null;
                                     }
                                     echo '<h3>'.$testo.'</h3>';
                                     echo    '<div class="form-group">
@@ -266,14 +209,13 @@ if (isset($_GET['consegna'])){
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-9">
-                                            <button href="javascript: stopInterval();" type="submit" name="consegna" class="btn green" data-toggle="confirmation" data-singleton="true" data-popout="true" title="Sei sicuro di voler consegnare?">Consegna</button>
-                                            <button href="javascript: stopInterval();" type="submit" name="abbandona" class="btn red-intense" data-toggle="confirmation" data-singleton="true" data-popout="true" title="Vuoi davvero ritirarti? Ti verrà assegnato esito nullo.">Abbandona</button>
+                                            <button href="javascript: consegna();" name="consegna" class="btn green" data-toggle="confirmation" data-singleton="true" data-popout="true" title="Sei sicuro di voler consegnare?">Consegna</button>
+                                            <button href="javascript: abbandona();" name="abbandona" class="btn red-intense" data-toggle="confirmation" data-singleton="true" data-popout="true" title="Vuoi davvero ritirarti? Ti verrà assegnato esito nullo.">Abbandona</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                </form>
             </div>
 
 <!-- END PAGE CONTENT-->
@@ -329,6 +271,8 @@ if (isset($_GET['consegna'])){
         }).done(function(data) {
             StartCounter(data);
            });*/
+        
+        $.get("/studente/creaRisposte?sessId="+sId);
         $.get("/studente/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});
         intId2 = setInterval(function(){$.get("/studente/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});},10000);
         //fine countdown
@@ -340,7 +284,7 @@ if (isset($_GET['consegna'])){
         $("textarea").focus(function() {
             var apId = $(this).attr('id');
             $.get("/studente/controllerAbilitazione?mat="+mat+"&sessId="+sId,function(data){
-                check = valutaAbilitazione(data);
+                var check = valutaAbilitazione(data);
                 $.get("/studente/gestoreCountdown?sessId="+sId,function(data){
                 var date= data.split("|");
                 var end = date[0];
@@ -351,7 +295,7 @@ if (isset($_GET['consegna'])){
                 StartCounter(data);
                     if (check){
                         intId3 = setInterval(function(){
-                            var testo = document.getElementById($(this).attr('id')).value;
+                            var testo = document.getElementById(apId).value;
                             var res = apId.split('-');
                             var id = res[1];
                             $.post("/studente/updateAperta?mat="+mat+"&sessId="+sId+"&domId="+id+"&testo="+testo);
@@ -361,14 +305,26 @@ if (isset($_GET['consegna'])){
             });
         });
         $("textarea").blur(function() {
-            if (check){
-                var apId = $(this).attr('id');
-                var testo = document.getElementById($(this).attr('id')).value;
-                var res = apId.split('-');
-                var id = res[1];
-                $.post("/studente/updateAperta?mat="+mat+"&sessId="+sId+"&domId="+id+"&testo="+testo);
-                clearInterval(intId3);
-            }
+            var apId = $(this).attr('id');
+            $.get("/studente/controllerAbilitazione?mat="+mat+"&sessId="+sId,function(data){
+               var check = valutaAbilitazione(data);
+                $.get("/studente/gestoreCountdown?sessId="+sId,function(data){
+                var date= data.split("|");
+                var end = date[0];
+                var start = date[1];
+                var fine = new Date(end.substr(0, 4), end.substr(5, 2) - 1, end.substr(8, 2), end.substr(11, 2), end.substr(14, 2), end.substr(17, 2)).getTime();
+                var inizio = new Date(start.substr(0, 4), start.substr(5, 2) - 1, start.substr(8, 2), start.substr(11, 2), start.substr(14, 2), start.substr(17, 2)).getTime();
+                check = check & (inizio < fine);
+                StartCounter(data);
+                    if (check){
+                        var testo = document.getElementById(apId).value;
+                        var res = apId.split('-');
+                        var id = res[1];
+                        $.post("/studente/updateAperta?mat="+mat+"&sessId="+sId+"&domId="+id+"&testo="+testo);
+                        clearInterval(intId3);
+                    }
+                });
+            });
         });/*
         $("textarea").each(function(){
             $.get("/getApertaValue?mat="+mat+"&sessId="+sId+"&domId="+id+"&testo="+testo);
@@ -542,6 +498,16 @@ if (isset($_GET['consegna'])){
         }
         else return true;
     }
+    
+    function consegna(){
+        $.post("/studente/consegna?mat="+mat+"&sessId="+sId);
+        location.href = "/studente/corso/<?php echo $corsoId; ?>";
+    }
+    
+    function abbandona(){
+        $.post("/studente/abbandona?mat="+mat+"&sessId="+sId);
+        location.href = "/studente/corso/<?php echo $corsoId; ?>";
+    }
                                             
     function timeout_scaduto(){
         bootbox.dialog({
@@ -553,16 +519,14 @@ if (isset($_GET['consegna'])){
                         label: "Consegna",
                         className: "green",
                         callback: function() {
-                            $.post("/studente/consegna?mat="+mat+"&sessId="+sId);
-                            location.href = "/studente/corso/<?php echo $corsoId; ?>";
+                            consegna();
                         }
                       },
                       abbandona: {
                         label: "Abbandona",
                         className: "red",
                         callback: function() {
-                            $.post("/studente/abbandona?mat="+mat+"&sessId="+sId);
-                            location.href = "/studente/corso/<?php echo $corsoId; ?>";
+                            abbandona();
                         }
                       }
                     }

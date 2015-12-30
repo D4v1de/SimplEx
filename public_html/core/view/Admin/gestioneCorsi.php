@@ -6,31 +6,15 @@
  * @since 23/11/15 21:58
  */
 
-//TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "CdlController.php";
-$controller = new CdlController();
+include_once MODEL_DIR . "CorsoModel.php";
+$modelcorso = new CorsoModel();
 
 $corsi = Array();
-$checkbox = Array();
 
 try {
-    $corsi = $controller->getCorsi();
+    $corsi = $modelcorso->getAllCorsi();
 } catch (ApplicationException $ex) {
     echo "<h1>GETCORSI FALLITO!</h1>" . $ex;
-}
-
-if (isset($_POST['checkbox'])) {
-    $checkbox = $_POST['checkbox'];
-    if (count($checkbox) >= 1) {
-        foreach ($checkbox as $c) {
-            try {
-                $controller->eliminaCorso($c);
-            } catch (ApplicationException $ex) {
-                echo "<h1>ELIMINACORSO FALLITO!</h1>" . $ex;
-            }
-        }
-        header('Location: /admin/corsi/view/successelimina');
-    }
 }
 
 ?>
@@ -50,7 +34,6 @@ if (isset($_POST['checkbox'])) {
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
-
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/extensions/TableTools/css/dataTables.tableTools.css">
 </head>
 <!-- END HEAD -->
@@ -78,14 +61,14 @@ if (isset($_POST['checkbox'])) {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/admin/corsi/view">GestioneCorsi</a>
+                        Gestione Corsi
                     </li>
                 </ul>
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
 
-            <form id="form_sample_2" method="post" action="">
+            <form id="form_sample_2" method="post" action="/admin/corsi/eliminacorso">
 
                 <div class="alert alert-danger display-hide">
                     <button class="close" data-close="alert"></button>
@@ -124,23 +107,19 @@ if (isset($_POST['checkbox'])) {
                                                data-set="#tabella_8 .checkboxes">
                                     </th>
                                     <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                        colspan="1" aria-label="Username: activate to sort column ascending"
-                                        aria-sort="ascending">
+                                        colspan="1" aria-label="" aria-sort="ascending">
                                         Nome
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                        colspan="1"
-                                        aria-label="Email: activate to sort column ascending">
+                                        colspan="1" aria-label="">
                                         Matricola
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                        colspan="1"
-                                        aria-label="Status: activate to sort column ascending">
+                                        colspan="1" aria-label="">
                                         Matricola CdL
                                     </th>
                                     <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                        colspan="1"
-                                        aria-label="Status: activate to sort column ascending">
+                                        colspan="1" aria-label="">
                                         Tipologia
                                     </th>
                                 </tr>

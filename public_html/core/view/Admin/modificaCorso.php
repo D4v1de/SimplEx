@@ -6,95 +6,48 @@
  * @since 23/11/15 09:58
  */
 
-//TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "CdlController.php";
-include_once CONTROL_DIR . "UtenteController.php";
-$controller = new CdlController();
-$controllerUtenti = new UtenteController();
+include_once MODEL_DIR . "UtenteModel.php";
+$modelutente = new UtenteModel();
+include_once MODEL_DIR . "CorsoModel.php";
+$modelcorso = new CorsoModel();
+include_once MODEL_DIR . "CdlModel.php";
+$modelcdl = new CdLModel();
 
 $docenteassociato = Array();
-$corsi = Array();
 $corso = null;
 $cdls = null;
 $url = null;
-$flag = 1;
+$flag = isset($_SESSION['flag']) ? $_SESSION['flag'] : 1;
+$flag2 = isset($_SESSION['flag2']) ? $_SESSION['flag2'] : 1;
+$flag3 = isset($_SESSION['flag3']) ? $_SESSION['flag3'] : 1;
+$flag4 = isset($_SESSION['flag4']) ? $_SESSION['flag4'] : 1;
+$flag5 = isset($_SESSION['flag5']) ? $_SESSION['flag5'] : 1;
+unset($_SESSION['flag']);
+unset($_SESSION['flag2']);
+unset($_SESSION['flag3']);
+unset($_SESSION['flag4']);
+unset($_SESSION['flag5']);
 
 $url = $_URL[3];
+$_SESSION['idcorso'] = $url;
 if (!is_numeric($url)) {
-    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+    echo "<script type='text/javascript'>alert('errore nella url!!(idcorso)');</script>";
 }
 
 try {
-    $corso = $controller->readCorso($url);
+    $corso = $modelcorso->readCorso($url);
 } catch (ApplicationException $ex) {
     echo "<h1>INSERIRE ID CORSO NEL PATH</h1>" . $ex;
 }
 try {
-    $docenteassociato = $controllerUtenti->getDocenteAssociato($corso->getId());
+    $docenteassociato = $modelutente->getAllDocentiByCorso($corso->getId());
 } catch (ApplicationException $ex) {
     echo "<h1>GETDOCENTIASSOCIATI FALLITO!</h1>" . $ex;
 }
 try {
-    $cdls = $controller->getCdl();
+    $cdls = $modelcdl->getAllCdL();
 } catch (ApplicationException $ex) {
     echo "<h1>GETCDL FALLITO!</h1>" . $ex;
-}
-try {
-    $corsi = $controller->getCorsi();
-} catch (ApplicationException $ex) {
-    echo "<h1>GETCORSI FALLITO!</h1>" . $ex;
-}
-
-$nome = $corso->getNome();
-$tipologia = $corso->getTipologia();
-$matricola = $corso->getMatricola();
-$cdlmatricola = $corso->getCdlMatricola();
-
-if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matricola']) && isset($_POST['tipologia2'])) {
-
-    $nomenew = $_POST['nome'];
-    $tipologianew = $_POST['tipologia'];
-    $matricolanew = $_POST['matricola'];
-    $cdlmatricolanew = $_POST['tipologia2'];
-
-    $x = array_search($corso ,$corsi);
-    unset($corsi[$x]);
-
-    //controllo sul nome
-    if(empty($nomenew) || !preg_match('/^[a-zA-Z0-9\s-]+$/', $nome)) {
-        $flag2 = 0;
-    }
-
-    //controllo sulla tipologia
-    if(empty($tipologianew) || !in_array($tipologianew, Config::$TIPI_CORSO)) {
-        $flag3 = 0;
-    }
-
-    //controllo sulla matricola
-    if(empty($matricola) || !is_numeric($matricola)) {
-        $flag4 = 0;
-    }
-    foreach($corsi as $c) {
-        if($c->getMatricola() == $matricolanew) {
-            $flag = 0;
-        }
-    }
-
-    //controllo cdl matricola
-    if(empty($cdlmatricola) || !is_numeric($cdlmatricola)) {
-        $flag5 = 0;
-    }
-
-    if($flag) {
-        try {
-            $new = new Corso($matricolanew, $nomenew, $tipologianew, $cdlmatricolanew);
-            $controller->modificaCorso($corso->getId(), $new);
-
-            header('location: /admin/corsi/view/successmodifica');
-        } catch (ApplicationException $ex) {
-            echo "<h1>MODIFICACORSO FALLITO!</h1>" . $ex;
-        }
-    }
 }
 
 ?>
@@ -141,7 +94,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/admin/corsi/modifica/<?php echo $corso->getId(); ?>"><?php echo $nome; ?></a>
+                        Corso <?php echo $corso->getNome(); ?>
                     </li>
                 </ul>
             </div>
@@ -180,11 +133,23 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
             <div class="row">
                 <div class="col-md-12">
 
-                    <form id="form_sample_1" method="post" action="">
+                    <form id="form_sample_1" method="post" action="/admin/corsi/modificacorso">
 
                         <?php
                         if(!$flag) {
                             echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>La matricola del corso è già presente nel DataBase.</div>";
+                        }
+                        if(!$flag3) {
+                            echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>La tipologia del corso non è valida.</div>";
+                        }
+                        if(!$flag2) {
+                            echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>Il nome del corso non è valido.</div>";
+                        }
+                        if(!$flag4) {
+                            echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>La matricola del corso non è valida.</div>";
+                        }
+                        if(!$flag5) {
+                            echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>La matricola del corso di laurea non è valida.</div>";
                         }
                         ?>
                         <div class="alert alert-danger display-hide">
@@ -215,7 +180,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                                 <option value="">Seleziona</option>
                                                 <?php
                                                 foreach(Config::$TIPI_CORSO as $t) {
-                                                    if($tipologia == $t) {
+                                                    if($corso->getTipologia() == $t) {
                                                         printf("<option value=\"%s\" selected>%s</option>",$t,$t);
                                                     }
                                                     else {
@@ -233,7 +198,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
                                             <input type="text" class="form-control" name="nome" id="nomeCorso"
-                                                   Value="<?php echo $nome; ?>">
+                                                   Value="<?php echo $corso->getNome(); ?>">
 
                                             <div class="form-control-focus">
                                             </div>
@@ -242,7 +207,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
                                             <input type="text" class="form-control" name="matricola"
-                                                   id="matricolaCorso" value="<?php echo $matricola; ?>">
+                                                   id="matricolaCorso" value="<?php echo $corso->getMatricola(); ?>">
 
                                             <div class="form-control-focus">
                                             </div>
@@ -254,7 +219,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                                 <option value="">Seleziona</option>
                                                 <?php
                                                 foreach($cdls as $c) {
-                                                    if($cdlmatricola == $c->getMatricola()) {
+                                                    if($corso->getCdlMatricola() == $c->getMatricola()) {
                                                         printf("<option value=\"%s\" selected>%s - %s</option>",$c->getMatricola(),$c->getMatricola(),$c->getNome());
                                                     }
                                                     else {
@@ -282,7 +247,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
                                         <input type="submit" value="Conferma" class="btn green-jungle"/>
                                     </div>
                                     <div class="col-md-3">
-                                        <input type="reset" value="Annulla" class="btn red-intense"/>
+                                        <a href="../" class="btn red-intense">Annulla</a>
                                     </div>
                                     <div class="col-md-offset-1 col-md-5">
                                         <a href="<?php printf('/admin/corsi/gestione/%s', $corso->getId()); ?>"

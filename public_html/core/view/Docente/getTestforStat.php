@@ -19,12 +19,14 @@ $tests = $testController->getAllTestbyCorso($corsoId);
 $n = count($tests);
 
 if ($type == "scelto")
-    for ($i=0; $i < $n; $i++)
-        $toSort[$tests[$i]->getId()] = $tests[$i]->getPercentualeScelto();
+    for ($i=0; $i < $n; $i++)        
+        $toSort[$tests[$i]->getId()] = ($n != 0)? $tests[$i]->getPercentualeScelto()/$n * 100:0;
 else if ($type == "successo")
-    for ($i=0; $i < $n; $i++)
-        $toSort[$tests[$i]->getId()] = $tests[$i]->getPercentualeSuccesso();
-    
+    for ($i=0; $i < $n; $i++){
+        $n2 = $tests[$i]->getPercentualeScelto();
+            
+        $toSort[$tests[$i]->getId()] = ($n2 != 0)? $tests[$i]->getPercentualeSuccesso()/$tests[$i]->getPercentualeScelto() * 100:0;
+    }
 if ($mod != "best")
     asort($toSort);
 else
@@ -35,11 +37,9 @@ $values = null;
 foreach ($toSort as $key => $value){
     $keys[] = $key;
     if ($type == "scelto")
-            $values[] = ($n != 0)? round($value/$n * 100,2):0;
+        $values[] = round($value,2);
     else if ($type == "successo"){
-            $elaborati = $elaboratoController->getAllElaboratiTest($key);
-            $n2 = count($elaborati);
-            $values[] = ($n2 != 0)? round($value/$n2 * 100,2):0;
+            $values[] = round($value,2);
         }
 }
 

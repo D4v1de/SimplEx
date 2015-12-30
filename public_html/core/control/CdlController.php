@@ -57,7 +57,7 @@ class CdlController {
      * @param la matricola del CdL da modificare
      * @param un CdL modificato
      */
-    public function modificaCdl($matricola, $cdl){
+    public function modificaCdl($matricola, $cdl) {
         $cdlModel = new CdLModel();
         $cdlModel->updateCdL($matricola, $cdl);
     }
@@ -86,7 +86,7 @@ class CdlController {
      * @param la matricola del Corso da modificare
      * @param un Corso
      */
-    public function modificaCorso($id, $corso){
+    public function modificaCorso($id, $corso) {
         $corsoModel = new CorsoModel();
         $corsoModel->updateCorso($id, $corso);
     }
@@ -160,28 +160,14 @@ class CdlController {
     }
 
 
-    //di sergio
+    /**
+     * Restituisce corsi del utente
+     * @return Corso[]
+     */
     public function getMyCourses() {
         /** @var Utente $utente */
         $utente = $_SESSION['user'];
         $model = new CorsoModel();
         return ($utente->getTipologia() == "Studente" ? $model->getAllCorsiByStudente($utente->getMatricola()) : $model->getAllCorsiByDocente($utente->getMatricola()));
-    }
-
-    /**
-     * @param $matricola
-     * @return array|Corso[]
-     */
-    public function getCoursesByMatricola($matricola) {
-        $aModel = new UtenteModel();
-        $utente = $aModel->getUtenteByMatricola($matricola);
-        $model = new CorsoModel();
-        if ($utente->getTipologia() == "Studente") {
-            return $model->getAllCorsiByStudente($utente->getMatricola());
-        } elseif ($utente->getTipologia() == "Docente") {
-            return $model->getAllCorsiByDocente($utente->getMatricola());
-        } else {
-            return Array();
-        }
     }
 }

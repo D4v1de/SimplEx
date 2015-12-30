@@ -5,18 +5,19 @@
  * Date: 18/11/15
  * Time: 09:58
  */
-include_once CONTROL_DIR . "DomandaController.php";
-include_once CONTROL_DIR . "ArgomentoController.php";
-include_once CONTROL_DIR . "CdlController.php";
-include_once CONTROL_DIR . "UtenteController.php";
+include_once MODEL_DIR . "DomandaModel.php";
+include_once MODEL_DIR . "ArgomentoModel.php";
+include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "UtenteModel.php";
+include_once MODEL_DIR . "CorsoModel.php";
 
 $utenteLoggato = $_SESSION['user'];
 
-
-$cdlController = new CdlController();
-$domandaController = new DomandaController();
-$argomentoController = new ArgomentoController();
-$controllerUtente = new UtenteController();
+$modelAccount = new UtenteModel();
+$modelArgomento = new ArgomentoModel();
+$modelDomanda = new DomandaModel();
+$modelCdl = new CdLModel();
+$modelCorso = new CorsoModel();
 
 $corso = null;
 $argomento = null;
@@ -24,53 +25,51 @@ $idCorso = $_URL[2];
 $idArgomento = $_URL[6];
 $correttezzaLogin = false;
 
-
+/**
+ * LEGGE IL CORSO NEL QUALE CI SI TROVA
+ */
 try {
-    $corso = $cdlController->readCorso($idCorso);
+    $corso = $modelCorso->readCorso($idCorso);
 } catch (ApplicationException $exception) {
     echo "ERRORE IN READ CORSO" . $exception;
 }
 
-//CONTROLLO LOGIN CORRETTO
+/**
+ * RICEVE LA MATRICOLA DEL DOCENTE LOGGATO
+ */
 try{
     $matricolaLoggato = $utenteLoggato->getMatricola();
 }catch(ApplicationException $exception){
     echo "ERRORE IN GET MATRICOLA" . $exception;
 }
 
+/**
+ * RICEVE I DOCENTE ASSOCIATI AL CORSO NEL QUALE CI SI TROVA
+ */
 try{
-    $docentiAssociati = $controllerUtente->getDocenteAssociato($corso->getId());
+    $docentiAssociati = $modelAccount->getAllDocentiByCorso($corso->getId());
 }catch(ApplicationException $exception){
     echo "ERRORE IN GET DOCENTE ASSOCIATI" . $exception;
 }
-
+/**
+ * CONTROLLA SE NEI DOCENTI ASSOCIATI E' PRESENTE IL DOCENTE LOGGATO
+ */
 foreach($docentiAssociati as $docente){
     if($docente->getMatricola() == $matricolaLoggato){
         $correttezzaLogin = true;
     }
 }
-
+/**
+ * CONTROLLA IL CORRETTO LOGIN DEL DOCENTE AL CORSO DA LUI INSEGNATO
+ */
 if($correttezzaLogin == false){
     header('Location: /docente');
 }
 
 try {
-    $argomento = $argomentoController->readArgomento($idArgomento, $idCorso);
+    $argomento = $modelArgomento->readArgomento($idArgomento);
 } catch (ApplicationException $exception) {
     echo "ERRORE IN READ ARGOMENTO" . $exception;
-}
-
-if (isset($_POST['testoDomanda']) && isset($_POST['punteggioEsatta'])) {
-    $testo = $_POST['testoDomanda'];
-    $punteggio = $_POST['punteggioEsatta'];
-
-    $domanda = new DomandaAperta($idArgomento, $testo, $punteggio, 0);
-    try {
-        $domandaController->creaDomandaAperta($domanda);
-        header('Location: /docente/corso/'. $corso->getId() .'/argomento/domande/'. $argomento->getId() .'/successinserimento');
-    } catch (ApplicationException $exception) {
-        echo "ERRORE IN CREA DOMANDA APERTA" . $exception;
-    }
 }
 
 ?>
@@ -116,7 +115,7 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioEsatta'])) {
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"/docente/cdl/%s\">%s</a>", $corso->getCdlMatricola(), $cdlController->readCdl($corso->getCdlMatricola())->getNome());
+                    printf("<a href=\"/docente/cdl/%s\">%s</a>", $corso->getCdlMatricola(), $modelCdl->readCdl($corso->getCdlMatricola())->getNome());
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
@@ -139,7 +138,7 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioEsatta'])) {
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
             <!-- BEGIN FORM-->
-            <form id="form_sample_1" method="post" action="" class="form-horizontal form-bordered">
+            <form id="form_sample_1" method="post" action="/docente/inserisciaperta" class="form-horizontal form-bordered">
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">
@@ -164,6 +163,8 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioEsatta'])) {
                                 <div class="col-md-4">
                                     <input type="punteggioEsatta" id="punteggioDomanda" name="punteggioEsatta" placeholder=""
                                            class="form-control">
+                                    <input type="hidden" name="idargomento" value="<?php echo $idArgomento; ?>">
+                                    <input type="hidden" name="idcorso" value="<?php echo $idCorso; ?>">
                                             <span class="help-block">
                                                  </span>
                                 </div>
