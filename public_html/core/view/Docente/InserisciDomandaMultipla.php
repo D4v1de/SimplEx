@@ -5,19 +5,27 @@
  * Date: 18/11/15
  * Time: 09:58
  */
-include_once CONTROL_DIR . "DomandaController.php";
-include_once CONTROL_DIR . "ArgomentoController.php";
-include_once CONTROL_DIR . "CdlController.php";
-include_once CONTROL_DIR . "AlternativaController.php";
-include_once CONTROL_DIR . "UtenteController.php";
+include_once MODEL_DIR . "ArgomentoModel.php";
+include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "AlternativaModel.php";
+include_once MODEL_DIR . "UtenteModel.php";
+include_once MODEL_DIR . "CorsoModel.php";
+
+$errore = 0;
+if(isset($_SESSION['errore'])){
+    $errore = $_SESSION['errore'];
+    unset($_SESSION['errore']);
+}
 
 $utenteLoggato = $_SESSION['user'];
 
-$cdlController = new CdlController();
-$domandaController = new DomandaController();
-$argomentoController = new ArgomentoController();
-$alternativaController = new AlternativaController();
-$controllerUtente = new UtenteController();
+
+$modelCdl = new CdLModel();
+$modelCorso = new CorsoModel();
+$modelArgomento = new ArgomentoModel();
+$modelAlternativa = new AlternativaModel();
+$modelUtente = new UtenteModel();
+
 
 $idCorso = $_URL[2];
 $idArgomento = $_URL[6];
@@ -35,7 +43,7 @@ try{
 }
 
 try{
-    $docentiAssociati = $controllerUtente->getDocenteAssociato($idCorso);
+    $docentiAssociati = $modelUtente->getAllDocentiByCorso($idCorso);
 }catch(ApplicationException $exception){
     echo "ERRORE IN GET DOCENTE ASSOCIATI" . $exception;
 }
@@ -54,52 +62,17 @@ if($correttezzaLogin == false){
 
 
 try {
-    $corso = $cdlController->readCorso($idCorso);
+    $corso = $modelCorso->readCorso($idCorso);
 } catch (ApplicationException $exception) {
     echo "ERRORE IN READ CORSO" . $exception;
 }
 
 try {
-    $argomento = $argomentoController->readArgomento($idArgomento, $idCorso);
+    $argomento = $modelArgomento->readArgomento($idArgomento);
 } catch (ApplicationException $exception) {
     echo "ERRORE IN READ ARGOMENTO" . $exception;
 }
 
-/*
-if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($_POST['punteggioEsatta']) && isset($_POST['testoRisposta'])) {
-
-    $testoDomanda = $_POST['testoDomanda'];
-    $punteggioErrata = $_POST['punteggioErrata'];
-    $punteggioEsatta = $_POST['punteggioEsatta'];
-    $testoRisposte = $_POST['testoRisposta'];
-    $radio = $_POST['radio'];
-
-    $nuovaDomanda = new DomandaMultipla($idArgomento, $testoDomanda, $punteggioEsatta, $punteggioErrata, 0, 0);
-
-    try {
-        $idNuovaDomanda = $domandaController->creaDomandaMultipla($nuovaDomanda);
-    } catch (ApplicationException $exception) {
-        echo "ERRORE IN CREA DOMANDA MULTIPLA" . $exception;
-    }
-    for ($i = 0; $i < count($testoRisposte); $i++) {
-        if (($i + 1) == $radio) {
-            $corretta = "Si";
-        } else {
-            $corretta = "No";
-        }if($testoRisposte[$i] == '' || $testoRisposte[$i] == null){
-            echo $i;
-            continue;
-        }else {
-            $alternativa = new Alternativa($idNuovaDomanda, $testoRisposte[$i], 0, $corretta);
-        }
-        try {
-            $alternativaController->creaAlternativa($alternativa);
-        } catch (ApplicationException $exception) {
-            echo "ERRORE IN CREA ALTERNATIVA" . $exception;
-        }
-    }
-    header('Location: /docente/corso/'. $corso->getId() .'/argomento/domande/'. $argomento->getId() .'/successinserimento');
-}*/
 ?>
 
 <!DOCTYPE html>
@@ -144,7 +117,7 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"/docente/cdl/%s\">%s</a>", $corso->getCdlMatricola(), $cdlController->readCdl($corso->getCdlMatricola())->getNome());
+                    printf("<a href=\"/docente/cdl/%s\">%s</a>", $corso->getCdlMatricola(), $modelCdl->readCdl($corso->getCdlMatricola())->getNome());
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
@@ -166,7 +139,23 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <form id="form_sample_1" method="post" action="docente/inseriscimultpla" class="form-horizontal form-bordered">
+            <form id="form_sample_1" method="post" action="/docente/inseriscimultipla" class="form-horizontal form-bordered">
+
+                <?php
+                    if($errore == 1){
+                        echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>La lunghezza del testo della domanda dev'essere compreso tra 2 e 500!</div>";
+                    }else if($errore == 2){
+                        echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>Il punteggio esatto dev'essere > 0! </div>";
+                    }else if($errore == 3){
+                        echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>Il punteggio errato dev'essere < 0! </div>";
+                    }else if($errore == 4){
+                        echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>La lunghezza delle risposte dev'essere compresa tra 1 e 100! </div>";
+                    }else if($errore == 5){
+                        echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>Devi selezionare l'alternativa corretta! </div>";
+                    }
+
+                ?>
+
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">

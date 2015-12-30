@@ -5,6 +5,8 @@
  * Date: 18/11/15
  * Time: 08:58
  */
+
+
 define('ROOT_DIR', dirname(__FILE__)); //costante root dir
 define('CORE_DIR', ROOT_DIR . DIRECTORY_SEPARATOR . 'core' . DIRECTORY_SEPARATOR); //costante core directory
 define('VIEW_DIR', CORE_DIR . "view" . DIRECTORY_SEPARATOR); //ecc
@@ -296,6 +298,9 @@ try {
                             case 'statistiche':
                                 include_once VIEW_DIR . "Docente/Statistiche.php";
                                 break;
+                            case 'statistiche2':
+                                include_once VIEW_DIR . "Docente/Statistiche2.php";
+                                break;
                             default:
                                 include_once VIEW_DIR . "Docente/HomeCorso2.php";
                         }
@@ -303,20 +308,41 @@ try {
                     case 'getTestforStat':
                         include_once VIEW_DIR . "Docente/getTestforStat.php";
                         break;
+                    case 'creazione_TEST':
+                        include_once VIEW_DIR . "Test/Crea_Test.php";
+                        break;
+                    case 'modifica_TEST':
+                        include_once VIEW_DIR . "Test/Modifica_Test.php";
+                        break;
+                    case 'Elimina_Test':
+                        include_once VIEW_DIR . "Test/Elimina_Test.php";
+                        break;
                     case 'inserisciaperta':
                         include_once CONTROL_DIR . "Domanda/creaDomandaAperta.php";
+                        break;
+                    case 'inseriscimultipla':
+                        include_once CONTROL_DIR . "Domanda/creaDomandaMultipla.php";
+                        break;
+                    case 'modificamultipla':
+                        include_once CONTROL_DIR . "Domanda/modificaDomandaMultipla.php";
+                        break;
+                    case 'modificaaperta':
+                        include_once CONTROL_DIR . "Domanda/modificaDomandaAperta.php";
                         break;
                     case 'rimuoviaperta':
                         include_once CONTROL_DIR . "Domanda/rimuoviDomandaAperta.php";
                         break;
+                    case 'rimuovimultipla':
+                        include_once CONTROL_DIR . "Domanda/rimuoviDomandaMultipla.php";
+                        break;
                     case 'inserisciargomento':
-                        include_once CONTROL_DIR . "Argomenti/creaArgomentoControl.php";
+                        include_once CONTROL_DIR . "Argomenti/creaArgomento.php";
                         break;
                     case 'rimuoviargomento':
-                        include_once CONTROL_DIR . "Argomenti/rimuoviArgomentoControl.php";
+                        include_once CONTROL_DIR . "Argomenti/rimuoviArgomento.php";
                         break;
                     case 'modificaargomento':
-                        include_once CONTROL_DIR . "Argomenti/modificaArgomentoControl.php";
+                        include_once CONTROL_DIR . "Argomenti/modificaArgomento.php";
                         break;
                     case 'leggiargomenticorso':
                         include_once CONTROL_DIR . "Argomenti/leggiArgomentiByCorso.php";
@@ -353,25 +379,28 @@ try {
                         }
                         break;
                     case 'creaElaborato':
-                        include_once VIEW_DIR . "Studente/creaElaborato.php";
+                        include_once CONTROL_DIR . "Elaborato/creaElaborato.php";
                         break;
                     case 'controllerAbilitazione':
-                        include_once VIEW_DIR . "Studente/controllerAbilitazione.php";
+                        include_once CONTROL_DIR . "Elaborato/controllerAbilitazione.php";
                         break;
                     case 'gestoreCountdown':
-                        include_once VIEW_DIR . "Studente/gestoreCountdown.php";
+                        include_once CONTROL_DIR . "Elaborato/gestoreCountdown.php";
+                        break;
+                    case 'creaRisposte':
+                        include_once CONTROL_DIR . "Risposte/creaRisposteApertaMultipla.php";
                         break;
                     case 'consegna':
-                        include_once VIEW_DIR . "Studente/consegna.php";
+                        include_once CONTROL_DIR . "Elaborato/consegna.php";
                         break;
                     case 'abbandona':
-                        include_once VIEW_DIR . "Studente/abbandona.php";
+                        include_once CONTROL_DIR . "Elaborato/abbandona.php";
                         break;
                     case 'updateMultipla':
-                        include_once VIEW_DIR . "Studente/updateMultipla.php";
+                        include_once CONTROL_DIR . "Risposte/updateMultipla.php";
                         break;
                     case 'updateAperta':
-                        include_once VIEW_DIR . "Studente/updateAperta.php";
+                        include_once CONTROL_DIR . "Risposte/updateAperta.php";
                         break;
                     default:
                         include_once VIEW_DIR . "Studente/Home.php";

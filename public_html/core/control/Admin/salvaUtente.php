@@ -19,19 +19,19 @@ if (isset($_POST['nome'])) {
     if ($tipologia != "Studente") {
         $cdlMatricola = null;
     } else {
-        $cdlMatricola = $_POST['cdl'];
+        $cdlMatricola = $_POST['cdl_matricola'];
     }
 
-    $pass = $_POST['pass'];
+    $pass = $_POST['passifreq'];
 
     try {
         $uModel->modificaUtente($matricola, $nome, $cognome, $cdlMatricola, $email, $pass, $tipologia);
         header('location: /admin/utenti?success=Utente modificato');
         exit;
     } catch (ApplicationException $ex) {
-        $error = "<h5>Modifica utente FALLITO: " . $ex->getMessage() . "</h5>";
+        $error = "<h5>Errore nella modifica: " . $ex->getMessage() . "</h5>";
     } catch (IllegalArgumentException $ex) {
-        $error = "<h5>Modifica utente FALLITO: " . $ex->getMessage() . "</h5>";
+        $error = "<h5>MErrore nella modifica: " . $ex->getMessage() . "</h5>";
     }
 } else {
     $error = "Nessuna richiesta POST rilevata";

@@ -2,7 +2,7 @@
 
 /**
  * La classe effettua il test di tutti i metodi della classe SessioneModel.php
- * @author Giuseppina Tufano
+ * @author Alina Korniychuk
  * @version 1.0
  * @since 30/11/15
  */

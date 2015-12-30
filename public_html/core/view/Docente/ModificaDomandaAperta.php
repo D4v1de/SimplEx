@@ -6,18 +6,26 @@
  * Time: 09:58
  */
 
-include_once CONTROL_DIR . "DomandaController.php";
-include_once CONTROL_DIR . "ArgomentoController.php";
-include_once CONTROL_DIR . "CdlController.php";
-include_once CONTROL_DIR . "UtenteController.php";
+include_once MODEL_DIR . "DomandaModel.php";
+include_once MODEL_DIR . "ArgomentoModel.php";
+include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "UtenteModel.php";
+include_once MODEL_DIR . "CorsoModel.php";
 
 $utenteLoggato = $_SESSION['user'];
 
+$errore = 0;
+if(isset($_SESSION['errore'])){
+    $errore = $_SESSION['errore'];
+    unset($_SESSION['errore']);
+}
 
-$cdlController = new CdlController();
-$domandaController = new DomandaController();
-$argomentoController = new ArgomentoController();
-$controllerUtente = new UtenteController();
+$modelCorso = new CorsoModel();
+$modelCdl = new CdLModel();
+$modelDomanda = new DomandaModel();
+$modelArgomento = new ArgomentoModel();
+$modelUtente = new UtenteModel();
+
 
 $idCorso = $_URL[2];
 $idArgomento = $_URL[6];
@@ -30,7 +38,7 @@ $correttezzaLogin = false;
 
 
 try {
-    $corso = $cdlController->readCorso($idCorso);
+    $corso = $modelCorso->readCorso($idCorso);
 } catch (ApplicationException $exception) {
     echo "ERRORE IN READ CORSO" . $exception;
 }
@@ -44,7 +52,7 @@ try{
 }
 
 try{
-    $docentiAssociati = $controllerUtente->getDocenteAssociato($corso->getId());
+    $docentiAssociati = $modelUtente->getAllDocentiByCorso($corso->getId());
 }catch(ApplicationException $exception){
     echo "ERRORE IN GET DOCENTE ASSOCIATI" . $exception;
 }
@@ -63,31 +71,16 @@ if($correttezzaLogin == false){
 
 
 try {
-    $argomento = $argomentoController->readArgomento($idArgomento, $idCorso);
+    $argomento = $modelArgomento->readArgomento($idArgomento, $idCorso);
 } catch (ApplicationException $exception) {
     echo "ERRORE IN READ ARGOMENTO" . $exception;
 }
 try {
-    $domandaOld = $domandaController->getDomandaAperta($idDomanda);
+    $domandaOld = $modelDomanda->readDomandaAperta($idDomanda);
 } catch (ApplicationException $exception) {
     echo "ERRORE IN GET DOMANDA APERTA" . $exception;
 }
-/*
-if (isset($_POST['testoDomanda']) && isset($_POST['punteggioEsatta'])) {
 
-    $testo = $_POST['testoDomanda'];
-    $punteggio = $_POST['punteggioEsatta'];
-
-    $updatedDomanda = new DomandaAperta($idArgomento, $testo, $punteggio, 0);
-    try {
-        $domandaController->modificaDomandaAperta($idDomanda, $updatedDomanda);
-    } catch (ApplicationException $exception) {
-        echo "ERRORE IN MODIFICA DOMANDA APERTA" . $exception;
-    }
-
-    header('Location: /docente/corso/'. $corso->getId() .'/argomento/domande/'. $argomento->getId() .'/successmodifica');
-}
-*/
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -131,7 +124,7 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioEsatta'])) {
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"/docente/cdl/%s\">%s</a>", $corso->getCdlMatricola(), $cdlController->readCdl($corso->getCdlMatricola())->getNome());
+                    printf("<a href=\"/docente/cdl/%s\">%s</a>", $corso->getCdlMatricola(), $modelCdl->readCdl($corso->getCdlMatricola())->getNome());
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
@@ -153,7 +146,17 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioEsatta'])) {
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <form id="form_sample_1" method="post" action="docente/modificaaperta" class="form-horizontal form-bordered">
+            <form id="form_sample_1" method="post" action="/docente/modificaaperta" class="form-horizontal form-bordered">
+
+                <?php
+                if($errore == 1){
+                    echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>La lunghezza del testo della domanda dev'essere compreso tra 2 e 500!</div>";
+                }else if($errore == 2){
+                    echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>Il punteggio dev'essere > 0! </div>";
+                }
+
+                ?>
+
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">

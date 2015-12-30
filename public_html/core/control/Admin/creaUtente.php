@@ -20,7 +20,7 @@ if (isset($_POST['tipologia'])) {
     if ($tipologia != "Studente") {
         $cdlMatricola = null;
     } else {
-        $cdlMatricola = $_POST['cdl'];
+        $cdlMatricola = $_POST['cdl_matricola'];
     }
 
     $pass = $_POST['pass'];

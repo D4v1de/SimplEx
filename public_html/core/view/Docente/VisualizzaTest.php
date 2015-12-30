@@ -5,21 +5,24 @@
  * Date: 6/12/15
  */
 
-// TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "DomandaController.php";
-$controllerDomanda = new DomandaController();
+// TODO qui la logica iniziale, caricamento dei model ecc
+include_once MODEL_DIR . "DomandaModel.php";
+$ModelDomanda = new DomandaModel();
 
-include_once CONTROL_DIR . "CdlController.php";
-$controlleCdl = new CdlController();
+include_once MODEL_DIR . "CdlModel.php";
+$ModelCdl = new CdlModel();
 
-include_once CONTROL_DIR . "TestController.php";
-$controllerTest = new TestController();
+include_once MODEL_DIR . "CorsoModel.php";
+$ModelCorso = new CorsoModel();
 
-include_once CONTROL_DIR . "AlternativaController.php";
-$controllerAlternativa = new AlternativaController();
+include_once MODEL_DIR . "TestModel.php";
+$ModelTest = new TestModel();
 
-include_once CONTROL_DIR . "RispostaMultiplaController.php";
-$rmController = new RispostaMultiplaController();
+include_once MODEL_DIR . "AlternativaModel.php";
+$ModelAlternativa = new AlternativaModel();
+
+include_once MODEL_DIR . "RispostaMultiplaModel.php";
+$rmModel = new RispostaMultiplaModel();
 
 $test=$_URL[4];
 $identificativoCorso=$_URL[2];
@@ -29,23 +32,11 @@ function parseInt($Str) {
 } 
 
 try {
-    $corso = $controlleCdl->readCorso($identificativoCorso);
+    $corso = $ModelCorso->readCorso($identificativoCorso);
     $nomecorso= $corso->getNome();
 }
 catch (ApplicationException $ex) {
     echo "<h1>ERRORE NELLA LETTURA DEL CORSO!</h1>" . $ex;
-}
-
-if(isset($_POST['idtest'])){
-    $id = $_POST['idtest'];
-    $controllerTest->deleteTest($id);
-    $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
-    header($tornaACasa);
-}
-
-if(isset($_POST['Indietro'])){
-    $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
-    header($tornaACasa);
 }
 
 ?>
@@ -89,7 +80,7 @@ if(isset($_POST['Indietro'])){
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="<?php echo "/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $controlleCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
+                        <a href="<?php echo "/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $ModelCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
@@ -109,12 +100,12 @@ if(isset($_POST['Indietro'])){
             
             <?php
                             $Multiple = Array();
-                            $Multiple = $controllerDomanda->getAllDomandeMultipleByTest($test);
+                            $Multiple = $ModelDomanda->getAllDomandeMultipleByTest($test);
                             foreach($Multiple as $x) {
                             
-                        $risposte = $controllerAlternativa->getAllAlternativaByDomanda($x->getId());
-                        $tests = $controllerTest->getAllTestByCorso($identificativoCorso);
-                        $risps = $rmController->getAllRisposteMultipleByDomanda($x->getId());
+                        $risposte = $ModelAlternativa->getAllAlternativaByDomanda($x->getId());
+                        $tests = $ModelTest->getAllTestByCorso($identificativoCorso);
+                        $risps = $rmModel->getAllRisposteMultipleByDomanda($x->getId());
                         $percSce = round(($x->getPercentualeScelta()/count($tests) * 100),2);
 
                         printf("<div class=\"portlet box blue-madison\">");
@@ -164,10 +155,10 @@ if(isset($_POST['Indietro'])){
                         printf("</div>");
                     }
                             $Aperte = Array();
-                            $Aperte = $controllerDomanda->getAllDomandeAperteByTest($test);
+                            $Aperte = $ModelDomanda->getAllDomandeAperteByTest($test);
                             foreach($Aperte as $x){
-                                $tests = $controllerTest->getAllTestByCorso($identificativoCorso);
-                                $risps = $rmController->getAllRisposteMultipleByDomanda($x->getId());
+                                $tests = $ModelTest->getAllTestByCorso($identificativoCorso);
+                                $risps = $rmModel->getAllRisposteMultipleByDomanda($x->getId());
                                 $percSce = round(($x->getPercentualeScelta()/count($tests) * 100),2);
                                 
                                 printf("<div class=\"portlet box blue-madison\">");
@@ -195,7 +186,7 @@ if(isset($_POST['Indietro'])){
 
                             ?>
             
-                            <form action="" method="POST">
+                            <form action="/docente/Elimina_Test?idcorso=<?=$identificativoCorso ?>" method="POST">
                             <div class="row">
                                 <div class="col-md-4">
                                     <?php
@@ -203,13 +194,15 @@ if(isset($_POST['Indietro'])){
 
                                     ?>
                                     </div>
+                                
                                 <div class="col-md-4">
-                                    <button type="submit" name="Indietro" class="btn btn sm red-intense">
-                                        Indietro
-                                    </button>
+                                    <?php
+                                    printf("<a href=\"/docente/corso/%d\" class=\"btn sm red-intense\">Indietro</a>",$identificativoCorso);
+                                    ?>
                                 </div>
                             </div>
                             </form>
+                            
             
             <!--
             <div class="portlet box blue-madison">

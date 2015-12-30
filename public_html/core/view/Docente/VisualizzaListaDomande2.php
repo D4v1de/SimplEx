@@ -5,18 +5,22 @@
  * Date: 18/11/15
  * Time: 09:58
  */
-include_once CONTROL_DIR . "DomandaController.php";
-include_once CONTROL_DIR . "ArgomentoController.php";
-include_once CONTROL_DIR . "CdlController.php";
-include_once CONTROL_DIR . "AlternativaController.php";
-include_once CONTROL_DIR . "UtenteController.php";
+include_once MODEL_DIR . "DomandaModel.php";
+include_once MODEL_DIR . "ArgomentoModel.php";
+include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "AlternativaModel.php";
+include_once MODEL_DIR . "UtenteModel.php";
+include_once MODEL_DIR . "CorsoModel.php";
 
 $utenteLoggato = $_SESSION['user'];
 
-$cdlController = new CdlController();
-$domandaController = new DomandaController();
-$alternativaController = new AlternativaController();
-$controllerUtente = new UtenteController();
+
+$modelAccount = new UtenteModel();
+$modelDomanda = new DomandaModel();
+$modelAlternativa = new AlternativaModel();
+$modelArgomento = new ArgomentoModel();
+$modelCdl = new CdLModel();
+$modelCorso = new CorsoModel();
 
 $corso = null;
 $argomento = null;
@@ -24,62 +28,51 @@ $idCorso = $_URL[2];
 $idArgomento = $_URL[5];
 $correttezzaLogin = false;
 
-//CONTROLLER NUOVO
-
-$argomento = unserialize($_SESSION['argomento']);
-//FINE CONTROLLER NUOVO
-
-
+/**
+ * LEGGE IL CORSO NEL QUALE CI SI TROVA
+ */
 try{
-    $corso = $cdlController->readCorso($idCorso);
+    $corso = $modelCorso->readCorso($idCorso);
 }catch(ApplicationException $exception){
     echo "ERRORE IN READ CORSO" . $exception;
 }
 
-/*
+/**
+ * LEGGE L'ARGOMENTO PRECEDENTEMENTE SELEZIONATO
+ */
 try{
-    $argomento = $argomentoController->readArgomento($idArgomento, $idCorso);
+    $argomento = $modelArgomento->readArgomento($idArgomento);
 }catch(ApplicationException $exception){
     echo "ERRORE IN READ ARGOMENTO" . $exception;
 }
-*/
 
-//CONTROLLO LOGIN CORRETTO
-
+/**
+ * RICEVE LA MATRICOLA DEL DOCENTE LOGGATO
+ */
 try{
     $matricolaLoggato = $utenteLoggato->getMatricola();
 }catch(ApplicationException $exception){
     echo "ERRORE IN GET MATRICOLA" . $exception;
 }
 
+/**
+ * RICEVE I DOCENTE ASSOCIATI AL CORSO NEL QUALE CI SI TROVA
+ */
 try{
-    $docentiAssociati = $controllerUtente->getDocenteAssociato($idCorso);
+    $docentiAssociati = $modelAccount->getAllDocentiByCorso($idCorso);
 }catch(ApplicationException $exception){
     echo "ERRORE IN GET DOCENTE ASSOCIATI" . $exception;
 }
 
+/**
+ * CONTROLLA SE NEI DOCENTI ASSOCIATI E' PRESENTE IL DOCENTE LOGGATO
+ */
 foreach($docentiAssociati as $docente){
     if($docente->getMatricola() == $matricolaLoggato){
         $correttezzaLogin = true;
     }
 }
 
-if (isset($_POST['domandaaperta'])){
-    try {
-        $domandaController->rimuoviDomandaAperta($_POST['domandaaperta']);
-        header('Location: /docente/corso/'. $corso->getId() .'/argomento/domande/'. $argomento->getId() .'/successelimina');
-    } catch(ApplicationException $exception){
-        echo "ERRORE ELIMINAZIONEDOMANDAAPERTA" . $exception;
-    }
-}
-if (isset($_POST['domandamultipla'])){
-    try {
-        $domandaController->rimuoviDomandaMultipla($_POST['domandamultipla']);
-        header('Location: /docente/corso/'. $corso->getId() .'/argomento/domande/'. $argomento->getId() .'/successelimina');
-    } catch(ApplicationException $exception){
-        echo "ERRORE ELIMINAZIONEDOMANDAMULTIPLA" . $exception;
-    }
-}
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -125,7 +118,7 @@ if (isset($_POST['domandamultipla'])){
                     printf("</li>");
                     printf("<li>");
                     printf("<i></i>");
-                    printf("<a href=\"/docente/cdl/%s\">%s</a>", $corso->getCdlMatricola(), $cdlController->readCdl($corso->getCdlMatricola())->getNome());
+                    printf("<a href=\"/docente/cdl/%s\">%s</a>", $corso->getCdlMatricola(), $modelCdl->readCdl($corso->getCdlMatricola())->getNome());
                     printf("<i class=\"fa fa-angle-right\"></i>");
                     printf("</li>");
                     printf("<li>");
@@ -167,7 +160,7 @@ if (isset($_POST['domandamultipla'])){
                 </div>
                 <div class="portlet-body">
                     <?php
-                    $domandeAperte = $domandaController->getAllAperte($idArgomento);
+                    $domandeAperte = $modelDomanda->getAllDomandaApertaByArgomento($idArgomento);
                     foreach ($domandeAperte as $d) {
                         printf("<div class=\"portlet\">");
                         printf("<div class=\"portlet-title \">");
@@ -177,9 +170,11 @@ if (isset($_POST['domandamultipla'])){
                         printf("</div>");
                         printf("Punteggio Massimo: %s", $d->getPunteggioMax());
                         if($correttezzaLogin==true) {
-                            printf("<form method=\"post\" action=\"\" class=\"actions\">");
+                            printf("<form method=\"post\" action=\" /docente/rimuoviaperta \" class=\"actions\">");
                             printf("<a href=\"/docente/corso/%d/argomento/domande/modificaaperta/%d/%d\" class=\"btn green-jungle\"><i class=\"fa fa-edit\"></i> Modifica </a>", $idCorso, $idArgomento, $d->getId());
                             printf("<button class=\"btn sm red-intense\" data-toggle=\"confirmation\" data-singleton=\"true\" data-popout=\"true\" title=\"Sei sicuro?\" type=\"submit\" name=\"domandaaperta\" value=\"%d\"><i class=\"fa fa-remove\"></i> Rimuovi </button>", $d->getId());
+                            printf("<input type='hidden' name='idcorso' value='%s'>", $idCorso);
+                            printf("<input type='hidden' name='idargomento' value='%s'>", $idArgomento);
                             printf("</form>");
                         }
                         printf("</div>");
@@ -212,9 +207,9 @@ if (isset($_POST['domandamultipla'])){
                 </div>
                 <div class="portlet-body">
                     <?php
-                    $domandeMultiple = $domandaController->getAllMultiple($idArgomento);
+                    $domandeMultiple = $modelDomanda->getAllDomandaMultiplaByArgomento($idArgomento);
                     foreach ($domandeMultiple as $d) {
-                        $risposte = $alternativaController->getAllAlternativaByDomanda($d->getId());
+                        $risposte = $modelAlternativa->getAllAlternativaByDomanda($d->getId());
 
                         printf("<div class=\"portlet \">");
                         printf("<div class=\"portlet-title\">");
@@ -226,9 +221,11 @@ if (isset($_POST['domandamultipla'])){
                         printf("<div class=\"tools\">");
                         printf("<a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a>");
                         printf("</div>");
-                        printf("<form method=\"post\" action=\"\" class=\"actions\">");
+                        printf("<form method=\"post\" action=\"/docente/rimuovimultipla\" class=\"actions\">");
                         if($correttezzaLogin==true) {
                             printf("<a href=\"/docente/corso/%d/argomento/domande/modificamultipla/%d/%d\" class=\"btn green-jungle\"><i class=\"fa fa-edit\"></i> Modifica </a>", $idCorso, $idArgomento, $d->getId());
+                            printf("<input type='hidden' name='idcorso' value='%s'>", $idCorso);
+                            printf("<input type='hidden' name='idargomento' value='%s'>", $idArgomento);
                             printf("<button class=\"btn sm red-intense\" data-toggle=\"confirmation\" data-singleton=\"true\" data-popout=\"true\" title=\"Sei sicuro?\" type=\"submit\" name=\"domandamultipla\" value=\"%d\"><i class=\"fa fa-remove\"></i> Rimuovi </button>", $d->getId());
                         }
                         printf("</div>");

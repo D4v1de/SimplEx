@@ -201,9 +201,8 @@
             <div class="main_feature text-center">
                 <div class="col-md-3 col-xs-12 col-sm-6">
                     <div class="feature_content">
-                        <a href="http://5.9.123.184/Documentazione/Simplex%20-%20Requirements%20Analysis%20Document.pdf">  <i class="fa fa-pencil"></i>
-
-                        <h5>RAD</h5></a>
+                        <a href="http://5.9.123.184/Documentazione/Simplex%20-%20Requirements%20Analysis%20Document.pdf" target="_black">  <i class="fa fa-pencil"></i>
+                            <h5>RAD</h5></a>
 
                         <p><b>Requirement Analysis Document</b>.<br> Documento di analisi dei requisiti funzionali e non funzionali del sistema software <b>SimplEx</b>.</p>
 
@@ -211,8 +210,7 @@
                 </div>
                 <div class="col-md-3 col-xs-12 col-sm-6">
                     <div class="feature_content">
-                        <a href="">  <i class="fa fa-pencil"></i>
-
+                        <a href="" target="_black">  <i class="fa fa-pencil"></i>
                             <h5>SDD</h5></a>
 
                         <p><b>System Design Document</b>.<br> Documento di specifica degli obiettivi di design del sistema software <b>SimplEx</b>. </p>
@@ -221,7 +219,7 @@
                 </div> <!-- Col-md-4 Single_feature End -->
                 <div class="col-md-3 col-xs-12 col-sm-6">
                     <div class="feature_content">
-                        <a href="http://5.9.123.184/Documentazione/ODD.pdf"> <i class="fa fa-pencil"></i> <h5>ODD</h5></a></li>
+                        <a href="http://5.9.123.184/Documentazione/ODD.pdf" target="_black"> <i class="fa fa-pencil"></i> <h5>ODD</h5></a></li>
 
 
                         <p><b>Object Design Document</b>.<br> Documento che descrive gli oggetti di design.</p>
@@ -230,7 +228,7 @@
                 </div> <!-- Col-md-4 Single_feature End -->
                 <div class="col-md-3 col-xs-12 col-sm-6">
                     <div class="feature_content">
-                        <a href="http://5.9.123.184/Documentazione/TestPlan.pdf"> <i class="fa fa-pencil"></i>
+                        <a href="http://5.9.123.184/Documentazione/TestPlan.pdf" target="_black"> <i class="fa fa-pencil"></i>
                         <h5>Test Plan</h5></a>
 
                         <p>Documento contenente il piano di test previsto per il sistema software <b>SimplEx</b>.</p>
@@ -720,7 +718,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="feature_header text-center">
                     <h3 class="feature_title">Preview di <b>SimplEx</b></h3>
-                    <h4 class="feature_sub">Qui una piccola anteprima di SimplEx. </h4>
+                    <h4 class="feature_sub">Di seguito un'anteprima di SimplEx. </h4>
 
                     <div class="divider"></div>
                 </div>
@@ -744,7 +742,7 @@
                             <a href="#profile" role="tab" data-toggle="tab">
                                 <div class="single-tab">
                                     <div class="f-icon">
-                                        <i class="fa fa-picture-o"></i>
+                                        <i class="fa fa-laptop"></i>
                                     </div>
                                 </div>
                                 <h4>Home docente</h4>
@@ -754,7 +752,7 @@
                             <a href="#profile1" role="tab" data-toggle="tab">
                                 <div class="single-tab">
                                     <div class="f-icon">
-                                        <i class="fa fa-picture-o"></i>
+                                        <i class="fa fa-laptop"></i>
                                     </div>
                                 </div>
                                 <h4>Home studente</h4>
@@ -764,7 +762,7 @@
                             <a href="#profile2" role="tab" data-toggle="tab">
                                 <div class="single-tab">
                                     <div class="f-icon">
-                                        <i class="fa fa-picture-o"></i>
+                                        <i class="fa fa-laptop"></i>
                                     </div>
                                 </div>
                                 <h4>Creazione test</h4>
@@ -774,7 +772,7 @@
                             <a href="#profile3" role="tab" data-toggle="tab">
                                 <div class="single-tab">
                                     <div class="f-icon">
-                                        <i class="fa fa-picture-o"></i>
+                                        <i class="fa fa-laptop"></i>
                                     </div>
                                 </div>
                                 <h4>Esecuzione test</h4>
@@ -832,7 +830,7 @@
                                 <div class="c-tab">
                                     <h4>La pagina Home dello Studente</h4>
 
-                                    <p>La Home dello Studente mostra la lista di tutti i corsi da lui seguiti. Una volta selezionato un corso, lo Studente ha la possibilita di visualizzare le sessioni con i relativi test. Inoltre da qui lo Studente ha la possibilità di visulizzare tutti i corsi di Laurea dell'eteneo e di conseguenza inscriversi.</p>
+                                    <p>La Home dello Studente mostra la lista di tutti i corsi da lui seguiti. Una volta selezionato un corso, lo Studente ha la possibilita di visualizzare le sessioni con i relativi test. Inoltre da qui lo Studente ha la possibilità di visulizzare tutti i corsi di Laurea dell'ateneo e di conseguenza inscriversi.</p>
                                     <br>
 
 
@@ -847,7 +845,7 @@
                                 <div class="c-tab">
                                     <h4>La pagina di creazione test</h4>
 
-                                    <p>In questa pagina il Docente ha la possibilità di creare un test in modo manuale e in automatico, ovvero lasciando che le domande vengano scelti casualmente.</p>
+                                    <p>In questa pagina il Docente ha la possibilità di creare un test in modo manuale o in automatico, ovvero lasciando che le domande vengano scelte casualmente.</p>
                                     <br>
 
                                 </div>
@@ -861,7 +859,7 @@
                                 <div class="c-tab">
                                     <h4>La pagina di esecuzione test</h4>
 
-                                    <p>Lo Studente ha la possibilità di partecipare ad un test rispondendo a tutte le domande in esso contenute.</p>
+                                    <p>Lo Studente ha la possibilità di partecipare ad una sessione, rispondendo alle domande contenute nel test assegnatogli..</p>
                                     <br>
 
                                 </div>
@@ -1000,7 +998,7 @@ if($flag==false){
         </div>
     </div>
 </div>
-</section>
+
 <!-- Footer Area End -->
 
 <!-- Back To Top Button -->
@@ -1058,7 +1056,7 @@ if($flag==false){
         lng: 14.789771,
         scrollwheel: false,
         panControl: false,
-        zoomControl: false,
+        zoomControl: false
     });
 
     map.addMarker({

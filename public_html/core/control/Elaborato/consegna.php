@@ -41,7 +41,7 @@ include_once MODEL_DIR . "RispostaMultiplaModel.php";
                 $punteggio = $punteggio + $puntCor;
                 $rm->setPunteggio($puntCor);
                 
-                $updated = $domMod->getDomandaMultipla($multId);
+                $updated = $domMod->readDomandaMultipla($multId);
                 $perc = $updated->getPercentualeRispostaCorretta() +1;
                 $updated->setPercentualeRispostaCorretta($perc);
                 $domMod->updateDomandaMultipla($multId, $updated);

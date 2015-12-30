@@ -6,58 +6,70 @@
  * Time: 09:58
  */
 //TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "ArgomentoController.php";
-include_once CONTROL_DIR . "CdlController.php";
-include_once CONTROL_DIR . "UtenteController.php";
+include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "UtenteModel.php";
+include_once MODEL_DIR . "CorsoModel.php";
 
 /** @var Utente $utenteLoggato */
 $utenteLoggato = $_SESSION['user'];
 
-$controller = new ArgomentoController();
-$controllerCorso = new CdlController();
-$controllerUtente = new UtenteController();
+$errore = 0;
+if(isset($_SESSION['errore'])){
+    $errore = $_SESSION['errore'];
+    unset($_SESSION['errore']);
+}
+
 $corsoid = $_URL[2];
 $correttezzaLogin = false;
 
+$cdlModel = new CdLModel();
+$corsoModel = new CorsoModel();
+$accountModel = new UtenteModel();
+
+/**
+ * LEGGE IL CORSO NEL QUALE CI SI TROVA
+ */
 try {
-    $corso = $controllerCorso->readCorso($corsoid);
+
+    $corso = $corsoModel->readCorso($corsoid);
 } catch (ApplicationException $exception) {
     echo "ERRORE IN READ CORSO" . $exception;
 }
 
-
-//PRENDE INFORMAZIONI SULL'UTENTE LOGGATO E CONTROLLA SE E' LO STESSO AL QUALE E' ASSOCIATO IL CORSO
+/**
+ * RICEVE LA MATRICOLA DEL DOCENTE LOGGATO
+ */
 try {
     $matricolaLoggato = $utenteLoggato->getMatricola();
 } catch (ApplicationException $exception) {
     echo "ERRORE IN GET MATRICOLA" . $exception;
 }
 
+/**
+ * RICEVE I DOCENTE ASSOCIATI AL CORSO NEL QUALE CI SI TROVA
+ */
 try {
-    $docentiAssociati = $controllerUtente->getDocenteAssociato($corsoid);
+    $docentiAssociati = $accountModel->getAllDocentiByCorso($corsoid);
 } catch (ApplicationException $exception) {
     echo "ERRORE IN GET DOCENTE ASSOCIATI" . $exception;
 }
 
+/**
+ * CONTROLLA SE NEI DOCENTI ASSOCIATI E' PRESENTE IL DOCENTE LOGGATO
+ */
 foreach ($docentiAssociati as $docente) {
     if ($docente->getMatricola() == $matricolaLoggato) {
         $correttezzaLogin = true;
     }
 }
 
+/**
+ * CONTROLLA IL CORRETTO LOGIN DEL DOCENTE AL CORSO DA LUI INSEGNATO
+ */
 if ($correttezzaLogin == false) {
     header('Location: /docente');
 }
 
-//CREA UN NUOVO ARGOMENTO
-if (isset($_POST['nome'])) {
-    $nome = $_POST['nome'];
-
-    $argomento = new Argomento($corsoid, $nome);
-    $controller->creaArgomento($argomento);
-    header('location:../../' . $corsoid . '/successinserimento');
-
-}
 
 ?>
 <!DOCTYPE html>
@@ -99,7 +111,7 @@ if (isset($_POST['nome'])) {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="../../../cdl/<?php echo $corso->getCdlMatricola(); ?>"> <?php echo $controllerCorso->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
+                        <a href="../../../cdl/<?php echo $corso->getCdlMatricola(); ?>"> <?php echo $cdlModel->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
@@ -125,7 +137,14 @@ if (isset($_POST['nome'])) {
                 </div>
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
-                    <form id="form_sample_1" action="/inserisciargomento" method="POST" class="form-horizontal form-bordered">
+                    <form id="form_sample_1" action="/docente/inserisciargomento" method="POST" class="form-horizontal form-bordered">
+                        <?php
+                        if($errore == 1){
+                            echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>La lunghezza del testo della domanda dev'essere compreso tra 2 e 500!</div>";
+                        }
+
+                        ?>
+
                         <div class="form-body">
                             <div class="form-group form-md-line-input has-success" style="height: 90px">
                                 <label class="control-label col-md-3">Inserisci Titolo</label>
