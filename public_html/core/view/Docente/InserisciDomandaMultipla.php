@@ -11,6 +11,11 @@ include_once MODEL_DIR . "AlternativaModel.php";
 include_once MODEL_DIR . "UtenteModel.php";
 include_once MODEL_DIR . "CorsoModel.php";
 
+$errore = 0;
+if(isset($_SESSION['errore'])){
+    $errore = $_SESSION['errore'];
+    unset($_SESSION['errore']);
+}
 
 $utenteLoggato = $_SESSION['user'];
 
@@ -135,6 +140,22 @@ try {
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
             <form id="form_sample_1" method="post" action="/docente/inseriscimultipla" class="form-horizontal form-bordered">
+
+                <?php
+                    if($errore == 1){
+                        echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>La lunghezza del testo della domanda dev'essere compreso tra 2 e 500!</div>";
+                    }else if($errore == 2){
+                        echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>Il punteggio esatto dev'essere > 0! </div>";
+                    }else if($errore == 3){
+                        echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>Il punteggio errato dev'essere < 0! </div>";
+                    }else if($errore == 4){
+                        echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>La lunghezza delle risposte dev'essere compresa tra 1 e 100! </div>";
+                    }else if($errore == 5){
+                        echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>Devi selezionare l'alternativa corretta! </div>";
+                    }
+
+                ?>
+
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">
