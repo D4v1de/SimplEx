@@ -309,13 +309,13 @@ try {
                         include_once VIEW_DIR . "Docente/getTestforStat.php";
                         break;
                     case 'creazione_TEST':
-                        include_once VIEW_DIR . "Docente/Crea_Test.php";
+                        include_once VIEW_DIR . "Test/Crea_Test.php";
                         break;
                     case 'modifica_TEST':
-                        include_once VIEW_DIR . "Docente/Modifica_Test.php";
+                        include_once VIEW_DIR . "Test/Modifica_Test.php";
                         break;
                     case 'Elimina_Test':
-                        include_once VIEW_DIR . "Docente/Elimina_Test.php";
+                        include_once VIEW_DIR . "Test/Elimina_Test.php";
                         break;
                     case 'inserisciaperta':
                         include_once CONTROL_DIR . "Domanda/creaDomandaAperta.php";
