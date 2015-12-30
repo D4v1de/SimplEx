@@ -21,4 +21,7 @@ if(isset($_POST['nome']) && isset($_POST['idargomento']) && isset($_POST['idcors
         $argomentoModel->updateArgomento($idargomento, $argomento);
         header('Location: /docente/corso/' . $idcorso . '/successmodifica');
     }
+}elseif(!isset($_POST['nome'])){
+    $_SESSION['errore'] = 1;
+    header('Location: /docente/corso/' . $idcorso . '/argomento/inserisci');
 }

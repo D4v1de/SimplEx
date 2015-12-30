@@ -27,24 +27,31 @@ if (isset($_POST['eliminatore'])) {
         $punteggioEsatta = $_POST['punteggioEsatta'];
         $testoRisposte = $_POST['testoRisposta'];
         $radio = $_POST['radio'];
-/*
+        $controlloRisposte = true;
+
+        for($i=0;$i<count($testoRisposte);$i++){
+            if(strlen($testoRisposte[$i])<1 || strlen($testoRisposte[$i])>100){
+                $controlloRisposte = false;
+            }
+        }
+
         if (strlen($testoDomanda) < 2 || strlen($testoDomanda) > 500) {
             $_SESSION['errore'] = 1;
             header('Location: /docente/corso/' . $idCorso . '/argomento/domande/modificamultipla/' . $idArgomento .'/' .$idDomanda);
-        } else if ($punteggioEsatta < 0) {
+        } else if ($punteggioEsatta <= 0) {
             $_SESSION['errore'] = 2;
             header('Location: /docente/corso/' . $idCorso . '/argomento/domande/modificamultipla/' . $idArgomento .'/' .$idDomanda);
         } else if ($punteggioErrata > 0) {
             $_SESSION['errore'] = 3;
             header('Location: /docente/corso/' . $idCorso . '/argomento/domande/modificamultipla/' . $idArgomento .'/' .$idDomanda);
-        } else if (strlen($testoRisposte) < 1 || strlen($testoRisposte) > 100) {
+        } else if ($controlloRisposte == false) {
             $_SESSION['errore'] = 4;
             header('Location: /docente/corso/' . $idCorso . '/argomento/domande/modificamultipla/' . $idArgomento .'/' .$idDomanda);
         } else if (!isset($radio)) {
             $_SESSION['errore'] = 5;
             header('Location: /docente/corso/' . $idCorso . '/argomento/domande/modificamultipla/' . $idArgomento .'/' .$idDomanda);
         } else {
-*/
+
             $updatedDomanda = new DomandaMultipla($idArgomento, $testoDomanda, $punteggioEsatta, $punteggioErrata, 0, 0);
 
             $domandaModel->updateDomandaMultipla($idDomanda, $updatedDomanda);
@@ -83,5 +90,20 @@ if (isset($_POST['eliminatore'])) {
 
             header('Location: /docente/corso/' . $idCorso . '/argomento/domande/' . $idArgomento . '/successmodifica');
         }
-  //  }
+    }else if(!isset($_POST['testoDomanda'])){
+        $_SESSION['errore'] = 1;
+        header('Location: /docente/corso/' . $idCorso . '/argomento/domande/inseriscimultipla/' . $idArgomento);
+    }else if(!isset($_POST['punteggioEsatta'])){
+        $_SESSION['errore'] = 2;
+        header('Location: /docente/corso/' . $idCorso . '/argomento/domande/inseriscimultipla/' . $idArgomento);
+    }else if(!isset($_POST['punteggioErrata'])){
+        $_SESSION['errore'] = 3;
+        header('Location: /docente/corso/' . $idCorso . '/argomento/domande/inseriscimultipla/' . $idArgomento);
+    }else if(!isset($_POST['testoRisposta'])){
+        $_SESSION['errore'] = 4;
+        header('Location: /docente/corso/' . $idCorso . '/argomento/domande/inseriscimultipla/' . $idArgomento);
+    }else if(!isset($_POST['radio'])){
+        $_SESSION['errore'] = 5;
+        header('Location: /docente/corso/' . $idCorso . '/argomento/domande/inseriscimultipla/' . $idArgomento);
+    }
 }
