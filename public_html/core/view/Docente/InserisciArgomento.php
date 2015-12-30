@@ -13,6 +13,12 @@ include_once MODEL_DIR . "CorsoModel.php";
 /** @var Utente $utenteLoggato */
 $utenteLoggato = $_SESSION['user'];
 
+$errore = 0;
+if(isset($_SESSION['errore'])){
+    $errore = $_SESSION['errore'];
+    unset($_SESSION['errore']);
+}
+
 $corsoid = $_URL[2];
 $correttezzaLogin = false;
 
@@ -132,6 +138,13 @@ if ($correttezzaLogin == false) {
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
                     <form id="form_sample_1" action="/docente/inserisciargomento" method="POST" class="form-horizontal form-bordered">
+                        <?php
+                        if($errore == 1){
+                            echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>La lunghezza del testo della domanda dev'essere compreso tra 2 e 500!</div>";
+                        }
+
+                        ?>
+
                         <div class="form-body">
                             <div class="form-group form-md-line-input has-success" style="height: 90px">
                                 <label class="control-label col-md-3">Inserisci Titolo</label>

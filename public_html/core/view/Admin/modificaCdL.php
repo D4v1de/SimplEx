@@ -91,19 +91,19 @@ try {
                     <form id="form_sample_1" method="post" action="/admin/cdl/modificacdl">
 
                         <?php
-                        if(!$flag5) {
+                        if (!$flag5) {
                             echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>La matricola del corso di laurea è già presente nel DataBase.</div>";
                         }
-                        if(!$flag4) {
+                        if (!$flag4) {
                             echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>Il nome del corso di laurea è già presente nel DataBase.</div>";
                         }
-                        if(!$flag) {
+                        if (!$flag) {
                             echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>Il nome del corso di laurea non è valido.</div>";
                         }
-                        if(!$flag3) {
+                        if (!$flag3) {
                             echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>La matricola del corso di laurea non è valida.</div>";
                         }
-                        if(!$flag2) {
+                        if (!$flag2) {
                             echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>La tipologia del corso di laurea non è valida.</div>";
                         }
                         ?>
@@ -136,12 +136,11 @@ try {
                                             <select class="form-control" id="tipologiaCdl" name="tipologia">
                                                 <option value="">Seleziona</option>
                                                 <?php
-                                                foreach(Config::$TIPI_CDL as $t) {
-                                                    if($cdl->getTipologia() == $t) {
-                                                        printf("<option value=\"%s\" selected>%s</option>",$t,$t);
-                                                    }
-                                                    else {
-                                                        printf("<option value=\"%s\">%s</option>",$t,$t);
+                                                foreach (Config::$TIPI_CDL as $t) {
+                                                    if ($cdl->getTipologia() == $t) {
+                                                        printf("<option value=\"%s\" selected>%s</option>", $t, $t);
+                                                    } else {
+                                                        printf("<option value=\"%s\">%s</option>", $t, $t);
                                                     }
                                                 }
                                                 ?>
@@ -179,14 +178,12 @@ try {
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-actions">
-                                    <div class="col-md-3">
-                                        <input type="submit" value="Conferma" class="btn green-jungle"/>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <a href="../" class="btn red-intense">Annulla</a>
-                                    </div>
+                            <div class="form-actions">
+                                <div class="col-md-3">
+                                    <input type="submit" value="Conferma" class="btn green-jungle"/>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="../" class="btn red-intense">Annulla</a>
                                 </div>
                             </div>
                         </div>
@@ -213,7 +210,8 @@ try {
 <!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
 <script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<script type="text/javascript"
+        src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <!-- END PAGE LEVEL PLUGINS aggiunta da me-->
 
 <script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>

@@ -8,7 +8,7 @@
 
 include_once MODEL_DIR . "CorsoModel.php";
 $modelcorso = new CorsoModel();
-include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "CdLModel.php";
 $modelcdl = new CdLModel();
 
 $cdl = null;

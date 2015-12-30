@@ -13,6 +13,12 @@ include_once MODEL_DIR . "CorsoModel.php";
 
 $utenteLoggato = $_SESSION['user'];
 
+$errore = 0;
+if(isset($_SESSION['errore'])){
+    $errore = $_SESSION['errore'];
+    unset($_SESSION['errore']);
+}
+
 $modelAccount = new UtenteModel();
 $modelArgomento = new ArgomentoModel();
 $modelDomanda = new DomandaModel();
@@ -139,6 +145,16 @@ try {
             <!-- BEGIN PAGE CONTENT-->
             <!-- BEGIN FORM-->
             <form id="form_sample_1" method="post" action="/docente/inserisciaperta" class="form-horizontal form-bordered">
+
+                <?php
+                if($errore == 1){
+                    echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>La lunghezza del testo della domanda dev'essere compreso tra 2 e 500!</div>";
+                }else if($errore == 2){
+                    echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>Il punteggio dev'essere > 0! </div>";
+                }
+
+                ?>
+
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">

@@ -11,6 +11,11 @@ include_once MODEL_DIR . "AlternativaModel.php";
 include_once MODEL_DIR . "UtenteModel.php";
 include_once MODEL_DIR . "CorsoModel.php";
 
+$errore = 0;
+if(isset($_SESSION['errore'])){
+    $errore = $_SESSION['errore'];
+    unset($_SESSION['errore']);
+}
 
 $utenteLoggato = $_SESSION['user'];
 
@@ -135,6 +140,22 @@ try {
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
             <form id="form_sample_1" method="post" action="/docente/inseriscimultipla" class="form-horizontal form-bordered">
+
+                <?php
+                    if($errore == 1){
+                        echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>La lunghezza del testo della domanda dev'essere compreso tra 2 e 500!</div>";
+                    }else if($errore == 2){
+                        echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>Il punteggio esatto dev'essere > 0! </div>";
+                    }else if($errore == 3){
+                        echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>Il punteggio errato dev'essere < 0! </div>";
+                    }else if($errore == 4){
+                        echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>La lunghezza delle risposte dev'essere compresa tra 1 e 100! </div>";
+                    }else if($errore == 5){
+                        echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>Devi selezionare l'alternativa corretta! </div>";
+                    }
+
+                ?>
+
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">
@@ -256,7 +277,6 @@ try {
 
 <!-- PERMETTE DI INSERIRE LE RISPOSTE DINAMICAMENTE -->
 <script>
-
     var num = 2;
 
     function primaRisposta() {
@@ -268,22 +288,26 @@ try {
             "<input type=\"radio\" id=\"radio1\" value=\"1\" name=\"radio\" class=\"md-radiobtn\">"+
             "<label for=\"radio1\"><span></span><span class=\"check\"></span><span class=\"box\"></span>"+
             "</label></div></div></div></div></div>" +
-            "<label class=\"control-label col-md-2\">Inserisci Testo Risposta</label><div class=\"col-md-6\"><input type=\"text\" name=\"testoRisposta[]\" placeholder=\"\" class=\"form-control\"> <span class=\"help-block\"> </span> </div> <div class=\"col-md-3\"><a onclick=\"javascript:insRisposte()\" class=\"btn sm green-jungle\"><i class=\"fa fa-plus\"></i> Aggiungi </a> </div></div>";
+            "<label class=\"control-label col-md-2\">Inserisci Testo Risposta</label><div class=\"col-md-6\"><input type=\"text\" name=\"testoRisposta1\" placeholder=\"\" class=\"form-control\"> <span class=\"help-block\"> </span> </div> <div class=\"col-md-3\"><a onclick=\"javascript:insRisposte()\" class=\"btn sm green-jungle\"><i class=\"fa fa-plus\"></i> Aggiungi </a> </div></div>";
     }
 
 
     function insRisposte() {
-        var newDiv = document.createElement("DIV");
-        newDiv.setAttribute("id", "form"+num);
-        var div = document.getElementById('rispostenuove');
-        div.appendChild(newDiv);
-        newDiv.innerHTML = "<div class=\"form-group form-md-line-input has-success ratio\" style=\"height: 90px\">"+
-            "<div class=\"col-md-1\"><div class=\"col-md-offset-6 col-md-6\"><div class=\"form-md-radios\"><div class=\"md-radio-list\"><div class=\"md-radio\">"+
-            "<input type=\"radio\" id=\"radio"+num+"\" value=\""+num+"\" name=\"radio\" class=\"md-radiobtn\">"+
-            "<label id=\"label" +num+ "\" for=\"radio"+num+"\"><span></span><span class=\"check\"></span><span class=\"box\"></span>"+
-            "</label></div></div></div></div></div>" +
-            "<label class=\"control-label col-md-2\">Inserisci Testo Risposta</label><div class=\"col-md-6\"><input type=\"text\" name=\"testoRisposta[]\" placeholder=\"\" class=\"form-control\"> <span class=\"help-block\"></span> </div> <div class=\"col-md-3\" id=\"padre"+num+"\"><a onclick=\"javascript:elimina(this)\" id=\"el"+num+"\" class=\"btn sm red-intense\"> <i class=\"fa fa-minus\"></i> Rimuovi </a> </div> </div>";
-        num++;
+        if(num==15){
+            toastr.error('Non puoi inserire ulteriori risposte!', 'ERRORE');
+        }else {
+            var newDiv = document.createElement("DIV");
+            newDiv.setAttribute("id", "form" + num);
+            var div = document.getElementById('rispostenuove');
+            div.appendChild(newDiv);
+            newDiv.innerHTML = "<div class=\"form-group form-md-line-input has-success ratio\" style=\"height: 90px\">" +
+                "<div class=\"col-md-1\"><div class=\"col-md-offset-6 col-md-6\"><div class=\"form-md-radios\"><div class=\"md-radio-list\"><div class=\"md-radio\">" +
+                "<input type=\"radio\" id=\"radio" + num + "\" value=\"" + num + "\" name=\"radio\" class=\"md-radiobtn\">" +
+                "<label id=\"label" + num + "\" for=\"radio" + num + "\"><span></span><span class=\"check\"></span><span class=\"box\"></span>" +
+                "</label></div></div></div></div></div>" +
+                "<label class=\"control-label col-md-2\">Inserisci Testo Risposta</label><div class=\"col-md-6\"><input type=\"text\" name=\"testoRisposta" + num + "\" placeholder=\"\" class=\"form-control\"> <span class=\"help-block\"></span> </div> <div class=\"col-md-3\" id=\"padre" + num + "\"><a onclick=\"javascript:elimina(this)\" id=\"el" + num + "\" class=\"btn sm red-intense\"> <i class=\"fa fa-minus\"></i> Rimuovi </a> </div> </div>";
+            num++;
+        }
     }
 
     function elimina(btn) {
