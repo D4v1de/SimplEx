@@ -8,7 +8,7 @@
  */
 
 include_once MODEL_DIR . "UtenteModel.php";
-include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "CdLModel.php";
 include_once MODEL_DIR . "CorsoModel.php";
 $ctr = new UtenteModel();
 $victim = null;

@@ -32,7 +32,8 @@ unset($_SESSION['flag5']);
     <title>Crea CdL</title>
     <?php include VIEW_DIR . "design/header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
-    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css"
+          href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -77,19 +78,19 @@ unset($_SESSION['flag5']);
                     <form id="form_sample_1" method="post" action="/admin/cdl/creacdl">
 
                         <?php
-                        if(!$flag) {
+                        if (!$flag) {
                             echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>La matricola del corso di laurea è già presente nel DataBase.</div>";
                         }
-                        if(!$flag2) {
+                        if (!$flag2) {
                             echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>Il nome del corso di laurea è già presente nel DataBase.</div>";
                         }
-                        if(!$flag3) {
+                        if (!$flag3) {
                             echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>Il nome del corso di laurea non è valido.</div>";
                         }
-                        if(!$flag4) {
+                        if (!$flag4) {
                             echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>La matricola del corso di laurea non è valida.</div>";
                         }
-                        if(!$flag5) {
+                        if (!$flag5) {
                             echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>La tipologia del corso di laurea non è valida.</div>";
                         }
                         ?>
@@ -120,15 +121,14 @@ unset($_SESSION['flag5']);
                                             <select class="form-control" id="tipologiaCdl" name="tipologia">
                                                 <option value="">Seleziona</option>
                                                 <?php
-                                                    foreach(Config::$TIPI_CDL as $t) {
-                                                        if(isset($_SESSION['tipologia']) && $_SESSION['tipologia'] == $t) {
-                                                            printf("<option value=\"%s\" selected>%s</option>",$t,$t);
-                                                            unset($_SESSION['tipologia']);
-                                                        }
-                                                        else {
-                                                            printf("<option value=\"%s\">%s</option>",$t,$t);
-                                                        }
+                                                foreach (Config::$TIPI_CDL as $t) {
+                                                    if (isset($_SESSION['tipologia']) && $_SESSION['tipologia'] == $t) {
+                                                        printf("<option value=\"%s\" selected>%s</option>", $t, $t);
+                                                        unset($_SESSION['tipologia']);
+                                                    } else {
+                                                        printf("<option value=\"%s\">%s</option>", $t, $t);
                                                     }
+                                                }
                                                 ?>
                                             </select>
 
@@ -139,7 +139,13 @@ unset($_SESSION['flag5']);
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
                                             <input type="text" class="form-control" name="nome" id="nomeCdl"
-                                                   placeholder="Inserisci nome" value="<?php if(isset($_SESSION['nome'])) {echo $_SESSION['nome'];unset($_SESSION['nome']);} else {echo "";} ?>">
+                                                   placeholder="Inserisci nome"
+                                                   value="<?php if (isset($_SESSION['nome'])) {
+                                                       echo $_SESSION['nome'];
+                                                       unset($_SESSION['nome']);
+                                                   } else {
+                                                       echo "";
+                                                   } ?>">
 
                                             <div class="form-control-focus">
                                             </div>
@@ -148,7 +154,13 @@ unset($_SESSION['flag5']);
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
                                             <input type="text" class="form-control" name="matricola" id="matricolaCdl"
-                                                   placeholder="Inserisci matricola" value="<?php if(isset($_SESSION['matricola'])) {echo $_SESSION['matricola'];unset($_SESSION['matricola']);} else {echo "";} ?>">
+                                                   placeholder="Inserisci matricola"
+                                                   value="<?php if (isset($_SESSION['matricola'])) {
+                                                       echo $_SESSION['matricola'];
+                                                       unset($_SESSION['matricola']);
+                                                   } else {
+                                                       echo "";
+                                                   } ?>">
 
                                             <div class="form-control-focus">
                                             </div>
@@ -162,14 +174,12 @@ unset($_SESSION['flag5']);
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-actions">
-                                    <div class="col-md-3">
-                                        <input type="submit" id="elimatricola" value="Conferma" class="btn green-jungle"/>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <input type="reset" value="Annulla" class="btn red-intense"/>
-                                    </div>
+                            <div class="form-actions">
+                                <div class="col-md-3">
+                                    <input type="submit" id="elimatricola" value="Conferma" class="btn green-jungle"/>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="reset" value="Annulla" class="btn red-intense"/>
                                 </div>
                             </div>
                         </div>
@@ -196,7 +206,8 @@ unset($_SESSION['flag5']);
 <!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
 <script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<script type="text/javascript"
+        src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <!-- END PAGE LEVEL PLUGINS aggiunta da me-->
 
 <script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>
