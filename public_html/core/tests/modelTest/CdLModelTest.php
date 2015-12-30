@@ -3,7 +3,7 @@
 /**
  * La classe effettua il test di tutti i metodi della classe CdLModel.php
  *
- * @author Elvira Zanin
+ * @author Elvira Zanin, Alina Korniychuk
  * @version 1
  * @since 30/11/15
  */

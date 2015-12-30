@@ -336,13 +336,13 @@ try {
                         include_once CONTROL_DIR . "Domanda/rimuoviDomandaMultipla.php";
                         break;
                     case 'inserisciargomento':
-                        include_once CONTROL_DIR . "Argomenti/creaArgomentoControl.php";
+                        include_once CONTROL_DIR . "Argomenti/creaArgomento.php";
                         break;
                     case 'rimuoviargomento':
-                        include_once CONTROL_DIR . "Argomenti/rimuoviArgomentoControl.php";
+                        include_once CONTROL_DIR . "Argomenti/rimuoviArgomento.php";
                         break;
                     case 'modificaargomento':
-                        include_once CONTROL_DIR . "Argomenti/modificaArgomentoControl.php";
+                        include_once CONTROL_DIR . "Argomenti/modificaArgomento.php";
                         break;
                     case 'leggiargomenticorso':
                         include_once CONTROL_DIR . "Argomenti/leggiArgomentiByCorso.php";

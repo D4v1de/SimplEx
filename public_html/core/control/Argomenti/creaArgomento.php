@@ -18,9 +18,11 @@ if (isset($_POST['nome']) && isset($_POST['idcorso'])) {
         $_SESSION['errore'] = 1;
         header('Location: /docente/corso/' . $idcorso . '/argomento/inserisci');
     }else {
-
         $argomento = new Argomento($idcorso, $nome);
         $argomentoModel->createArgomento($argomento);
         header('Location: /docente/corso/' . $idcorso . '/successinserimento');
     }
+}elseif(!isset($_POST['nome'])){
+    $_SESSION['errore'] = 1;
+    header('Location: /docente/corso/' . $idcorso . '/argomento/inserisci');
 }

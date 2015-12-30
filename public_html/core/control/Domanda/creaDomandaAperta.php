@@ -19,7 +19,7 @@ if(isset($_POST['testoDomanda']) && isset($_POST['punteggioEsatta']) && isset($_
         $_SESSION['errore'] = 1;
         header('Location: /docente/corso/' .$idcorso.'/argomento/domande/inserisciaperta/'. $idArgomento);
     }
-    else if($punteggioEsatta<0){
+    else if($punteggioEsatta<=0){
         $_SESSION['errore'] = 2;
         header('Location: /docente/corso/' .$idcorso.'/argomento/domande/inserisciaperta/'. $idArgomento);
     }else {
@@ -27,4 +27,12 @@ if(isset($_POST['testoDomanda']) && isset($_POST['punteggioEsatta']) && isset($_
         $domandaModel->createDomandaAperta($domandaAperta);
         header('Location: /docente/corso/' . $idcorso . '/argomento/domande/' . $idArgomento . '/successinserimento');
     }
+}else if(!isset($_POST['testoDomanda'])){
+    $_SESSION['errore'] = 1;
+    header('Location: /docente/corso/' .$idcorso.'/argomento/domande/inserisciaperta/'. $idArgomento);
+}else if(!isset($_POST['punteggioEsatta'])){
+    $_SESSION['errore'] = 2;
+    header('Location: /docente/corso/' .$idcorso.'/argomento/domande/inserisciaperta/'. $idArgomento);
+}else if(!isset($_POST['idargomento'])){
+    header('Location: /docente/corso/' .$idcorso.'/argomento/domande/inserisciaperta/'. $idArgomento);
 }
