@@ -273,6 +273,24 @@ try {
                                     case 'visualizza':
                                         include_once VIEW_DIR . "Docente/VisualizzaElaborato.php";
                                         break;
+                                    case 'aggiungistudente':
+                                        include_once CONTROL_DIR. "Sessione/AggiungiStudente.php";
+                                        break;
+                                    case 'annullaesame':
+                                        include_once CONTROL_DIR. "Sessione/AnnullaEsame.php";
+                                        break;
+                                    case 'terminasessione':
+                                        include_once CONTROL_DIR. "Sessione/TerminaSessione.php";
+                                        break;
+                                    case 'aggiornasessioneincorso':
+                                        include_once CONTROL_DIR. "Sessione/AggiornaSessioneInCorso.php";
+                                        break;
+                                    case 'indexsessioneincorso':
+                                        include_once CONTROL_DIR. "Sessione/IndexSessioneInCorso.php";
+                                        break;
+                                    case 'abilitastudenti':
+                                        include_once CONTROL_DIR. "Sessione/AbilitaStudente.php";
+                                        break;
                                     case 'sessioneincorso':
                                         switch (isset($_URL[6]) ? $_URL[6] : '') {
                                             case 'aggiungistudente':

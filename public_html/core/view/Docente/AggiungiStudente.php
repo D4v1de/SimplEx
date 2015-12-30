@@ -61,22 +61,6 @@ if($numProfs==0){
     header("Location: "."/docente/corso/".$corso->getId());
 }
 
-if($someStudentsChange=isset($_POST['abilita'])) {
-    if($someStudentsChange){
-        $cbStudents= Array();
-        $cbStudents = $_POST['students'];
-        $allStuAbi= $utenteModel->getAllStudentiSessione($idSessione);
-        foreach($allStuAbi as $s) {
-            $utenteModel->disabilitaStudenteSessione($idSessione, $s->getMatricola());
-        }
-        foreach($cbStudents as $s) {
-            $utenteModel->abilitaStudenteSessione($idSessione, $s);
-        }
-    }
-    header("Location: "."/docente/corso/".$idCorso."/"."sessione"."/".$idSessione."/"."sessioneincorso/show");
-
-}
-
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -148,7 +132,7 @@ if($someStudentsChange=isset($_POST['abilita'])) {
                 <h3></h3>
             </div>
 
-            <form method="post" action="">
+            <form method="post" action="/docente/corso/<?php echo $idCorso; ?>/sessione/<?php echo $idSessione; ?>/abilitastudenti" >
 
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">

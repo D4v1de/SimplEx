@@ -21,6 +21,9 @@ $modelElaborato = new ElaboratoModel();
 
 $idSessione=$_URL[4];
 $identificativoCorso = $_URL[2];
+
+
+
 $numProfs=0;
 $doc = $_SESSION['user'];
 $docentiOe=$modelUtente->getAllDocentiByCorso($identificativoCorso);
@@ -32,6 +35,9 @@ foreach($docentiOe as $d) {
 if($numProfs==0){
     header("Location: "."/docente/corso/".$corso->getId());
 }
+
+
+
 $corso = $modelCorso->readCorso($identificativoCorso);
 $nomecorso= $corso->getNome();
 
@@ -46,46 +52,6 @@ try {
     echo "<h1>errore! ApplicationException->errore manca id sessione nel path!</h1>";
     echo "<h4>" . $ex . "</h4>";
 }
-
-if(isset( $_POST['datato']) && isset( $_POST['termina'] )) {
-    $dataNow=date('Y/m/d/ h:i:s ', time());
-    $dataTo=$dataNow;
-    $newSessione = new Sessione($dataFrom, $dataNow, 18, "Eseguita", $tipoSessione, $identificativoCorso);
-    $modelSessione->updateSessione($idSessione,$newSessione);
-    $vaiVisuEsiti= "Location: "."/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."esiti/show";
-    header($vaiVisuEsiti);
-
-}
-else if(isset( $_POST['datato'])) {
-    $dataFineNow=$_POST['datato'];
-    $newSessione = new Sessione($dataFrom, $dataFineNow, 18, "In Esecuzione", $tipoSessione, $identificativoCorso);
-    $modelSessione->updateSessione($idSessione,$newSessione);
-}
-
-if(isset( $_POST['addStu'])) {
-    $vaiAddStu= "Location: "."/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."sessioneincorso/aggiungistudente";
-    header($vaiAddStu);
-}
-
-if(isset( $_POST['annullaEsame'])) {
-    $matricola=$_POST['annullaEsame'];
-    $elaborato=$modelElaborato->readElaborato($matricola,$idSessione);
-    $nuovoElaborato= new Elaborato($matricola,$elaborato->getSessioneId(),"0","0",$elaborato->getTestId(), "Corretto");
-    $modelElaborato->updateElaborato($matricola,$idSessione,$nuovoElaborato);
-    header("Refresh:0");
-}
-
-if(isset( $_POST['aggiorna'])) {
-    header("Refresh:0");
-}
-
-
-if($_URL[6]=="autostart") {
-    $newSessione = new Sessione($dataFrom, $dataTo, $soglia, "In esecuzione", $tipoSessione, $identificativoCorso);
-    $modelSessione->updateSessione($idSessione,$newSessione);
-}
-
-
 $sessioneByUrl = $modelSessione->readSessione($idSessione);
 $dataTo = $sessioneByUrl->getDataFine();
 ?>
@@ -240,7 +206,7 @@ $dataTo = $sessioneByUrl->getDataFine();
 
 
             <!-- TABELLA 2 -->
-            <form method="post" action="" name="myForm">
+            <form method="post" action="/docente/corso/<?php echo $identificativoCorso; ?>/sessione/<?php echo $idSessione; ?>/indexsessioneincorso" name="myForm">
 
             <div class="row">
                 <div class="col-md-12">

@@ -115,33 +115,6 @@ try {
     echo "<h1>GETALLDOMANDEAPERTEBYTEST FALLITO!</h1>" . $ex;
 }
 
-if (isset($_GET['salva'])){
-    echo "ciao";
-    $fin = $elaborato->getEsitoParziale();
-    foreach ($aperte as $ap){
-        $apId = $ap->getId();
-        $punt = $_GET['sel-'.$apId.''];
-        $fin = $fin + $punt;
-        $rispAp = $modelRispostaAperta->readRispostaAperta($url2, $matricola, $apId);
-        $rispAp->setPunteggio($punt);
-        $modelRispostaAperta->updateRispostaAperta($rispAp, $url2, $matricola, $apId);
-    }
-    $elaborato->setEsitoFinale($fin);
-
-    $updated = $test;
-    $soglia = $sessione->getSogliaAmmissione();
-    if ($fin >= $soglia){
-        $perc = $updated->getPercentualeSuccesso() +1;
-        $updated->setPercentualeSuccesso($perc);
-        $testModel->updateTest($elaborato->getTestId(), $updated);
-    }
-
-    $elaborato->setStato("Corretto");
-    $elaboratoModel->updateElaborato($matricola,$url2,$elaborato);
-    header("Location: "."/docente/corso/".$corso->getId()."/sessione"."/".$sessione->getId()."/"."esiti/show");
-}
-
-
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>
@@ -217,7 +190,7 @@ if (isset($_GET['salva'])){
             <div class="row">
                 <div class="col-md-12">
                     <div class="form">
-                        <form action="" class="form-horizontal form-bordered form-row-stripped">
+                        <form action="" class="form-horizontal form-bordered form-row-stripped" method="post">
                             <div class="form-actions">
                                 <div class="col-md col-md-8">
                                     <h3><?php echo $corso->getNome(); ?></h3>

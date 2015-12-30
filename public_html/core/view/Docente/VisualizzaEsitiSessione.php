@@ -36,6 +36,7 @@ $identificativoCorso = $_URL[2];
 $numProfs=0;
 $doc = $_SESSION['user'];
 $docentiOe=$utenteModel->getAllDocentiByCorso($identificativoCorso);
+
 foreach($docentiOe as $d) {
     if($doc==$d){
         $numProfs++;

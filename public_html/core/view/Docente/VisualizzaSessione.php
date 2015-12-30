@@ -60,6 +60,7 @@ $nomecorso= $corso->getNome();
 $dataFrom = $sessione->getDataInizio();
 $dataTo = $sessione->getDataFine();
 $tipoSessione = $sessione->getTipologia();
+$soglia= $sessione->getSogliaAmmissione();
 if ($sessioneModel->readMostraEsitoSessione($sessione->getId()) == "Si") {
     $showE = "Checked";
 }
@@ -494,7 +495,7 @@ else $eser = "Checked";
                                             var var2=<?php echo "$identificativoCorso" ?>;
                                             var var3='/sessione/';
                                             var var4=<?php echo "$idSessione" ?>;
-                                            var var5='/sessioneincorso/autostartsuccess';
+                                            var var5='/sessioneincorso';
                                             var res1 = var1.concat(var2);
                                             var res2 = res1.concat(var3);
                                             var res3 = res2.concat(var4);

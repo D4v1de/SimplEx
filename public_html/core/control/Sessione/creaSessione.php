@@ -100,7 +100,7 @@ $flag=1;
         }
         if($flag==0) {
             $_SESSION['flag'] = $flag;
-            $tornaACasa = "Location: "."/docente/corso/"."$idCorso"."/sessione/0/creamodificasessione2/error";
+            $tornaACasa = "Location: "."/docente/corso/"."$idCorso"."/sessione/0/creamodificasessione2";
         }
         else
             $tornaACasa= "Location: "."/docente/corso/"."$idCorso"."/successinserimento";
