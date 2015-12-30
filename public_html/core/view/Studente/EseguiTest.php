@@ -140,22 +140,12 @@ $aperte = $domandaModel->getAllDomandeAperteByTest($testId);
                             </div>
                             <?php
                             $selectedAlt = null;
-                            function creaRispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId, $testo, $punteggio){
-                                $raCon = new RispostaApertaModel();
-                                $risp = new RispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId, $testo, $punteggio);
-                                $raCon->createRispostaAperta($risp);
-                            }
-                            function creaRispostaMultipla($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId, $punteggio, $alternativaId){
-                                $rmCon = new RispostaMultiplaModel();
-                                $risp = new RispostaMultipla($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId, $punteggio, $alternativaId);
-                                $rmCon->createRispostaMultipla($risp);
-                            }
-                            function setRispostaMultiplaAlternativa($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId){
+                            function getRispostaMultiplaAlternativa($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId){
                                 $rmCon = new RispostaMultiplaModel();
                                 $risp = $rmCon->readRispostaMultipla($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId);
                                 return $risp->getAlternativaId();
                             }
-                            function setRispostaApertaValue($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId){
+                            function getRispostaApertaValue($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId){
                                 $raCon = new RispostaApertaModel();
                                 $risp = $raCon->readRispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId);
                                 return $risp->getTesto();
@@ -166,10 +156,10 @@ $aperte = $domandaModel->getAllDomandeAperteByTest($testId);
                                     $testo = $m->getTesto();
                                     $multId = $m->getId();
                                     try{
-                                        creaRispostaMultipla($sessId, $matricola, $multId, null, null);
+                                        $selectedAlt = getRispostaMultiplaAlternativa($sessId, $matricola, $multId);
                                     }
                                     catch (ApplicationException $ex){
-                                        $selectedAlt = setRispostaMultiplaAlternativa($sessId, $matricola, $multId);
+                                        $selectedAlt = null;
                                     }
                                     echo "<h3>".$testo."</h3>";
                                     echo '<div class="form-group form-md-checkboxes">';
@@ -199,10 +189,10 @@ $aperte = $domandaModel->getAllDomandeAperteByTest($testId);
                                     $apId = $a->getId();
                                     $txt = null;
                                     try{
-                                        creaRispostaAperta($sessId, $matricola, $apId, null, null);
+                                        $txt = getRispostaApertaValue($sessId, $matricola, $apId);
                                     }
                                     catch (ApplicationException $ex){
-                                        $txt = setRispostaApertaValue($sessId, $matricola, $apId);
+                                        $txt = null;
                                     }
                                     echo '<h3>'.$testo.'</h3>';
                                     echo    '<div class="form-group">
@@ -281,6 +271,8 @@ $aperte = $domandaModel->getAllDomandeAperteByTest($testId);
         }).done(function(data) {
             StartCounter(data);
            });*/
+        
+        $.get("/studente/creaRisposte?sessId="+sId);
         $.get("/studente/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});
         intId2 = setInterval(function(){$.get("/studente/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});},10000);
         //fine countdown
@@ -292,7 +284,7 @@ $aperte = $domandaModel->getAllDomandeAperteByTest($testId);
         $("textarea").focus(function() {
             var apId = $(this).attr('id');
             $.get("/studente/controllerAbilitazione?mat="+mat+"&sessId="+sId,function(data){
-                check = valutaAbilitazione(data);
+                var check = valutaAbilitazione(data);
                 $.get("/studente/gestoreCountdown?sessId="+sId,function(data){
                 var date= data.split("|");
                 var end = date[0];
@@ -303,7 +295,7 @@ $aperte = $domandaModel->getAllDomandeAperteByTest($testId);
                 StartCounter(data);
                     if (check){
                         intId3 = setInterval(function(){
-                            var testo = document.getElementById($(this).attr('id')).value;
+                            var testo = document.getElementById(apId).value;
                             var res = apId.split('-');
                             var id = res[1];
                             $.post("/studente/updateAperta?mat="+mat+"&sessId="+sId+"&domId="+id+"&testo="+testo);
@@ -313,14 +305,26 @@ $aperte = $domandaModel->getAllDomandeAperteByTest($testId);
             });
         });
         $("textarea").blur(function() {
-            if (check){
-                var apId = $(this).attr('id');
-                var testo = document.getElementById($(this).attr('id')).value;
-                var res = apId.split('-');
-                var id = res[1];
-                $.post("/studente/updateAperta?mat="+mat+"&sessId="+sId+"&domId="+id+"&testo="+testo);
-                clearInterval(intId3);
-            }
+            var apId = $(this).attr('id');
+            $.get("/studente/controllerAbilitazione?mat="+mat+"&sessId="+sId,function(data){
+               var check = valutaAbilitazione(data);
+                $.get("/studente/gestoreCountdown?sessId="+sId,function(data){
+                var date= data.split("|");
+                var end = date[0];
+                var start = date[1];
+                var fine = new Date(end.substr(0, 4), end.substr(5, 2) - 1, end.substr(8, 2), end.substr(11, 2), end.substr(14, 2), end.substr(17, 2)).getTime();
+                var inizio = new Date(start.substr(0, 4), start.substr(5, 2) - 1, start.substr(8, 2), start.substr(11, 2), start.substr(14, 2), start.substr(17, 2)).getTime();
+                check = check & (inizio < fine);
+                StartCounter(data);
+                    if (check){
+                        var testo = document.getElementById(apId).value;
+                        var res = apId.split('-');
+                        var id = res[1];
+                        $.post("/studente/updateAperta?mat="+mat+"&sessId="+sId+"&domId="+id+"&testo="+testo);
+                        clearInterval(intId3);
+                    }
+                });
+            });
         });/*
         $("textarea").each(function(){
             $.get("/getApertaValue?mat="+mat+"&sessId="+sId+"&domId="+id+"&testo="+testo);

@@ -379,25 +379,28 @@ try {
                         }
                         break;
                     case 'creaElaborato':
-                        include_once VIEW_DIR . "Studente/creaElaborato.php";
+                        include_once CONTROL_DIR . "Elaborato/creaElaborato.php";
                         break;
                     case 'controllerAbilitazione':
-                        include_once VIEW_DIR . "Studente/controllerAbilitazione.php";
+                        include_once CONTROL_DIR . "Elaborato/controllerAbilitazione.php";
                         break;
                     case 'gestoreCountdown':
-                        include_once VIEW_DIR . "Studente/gestoreCountdown.php";
+                        include_once CONTROL_DIR . "Elaborato/gestoreCountdown.php";
+                        break;
+                    case 'creaRisposte':
+                        include_once CONTROL_DIR . "Risposte/creaRisposteApertaMultipla.php";
                         break;
                     case 'consegna':
-                        include_once VIEW_DIR . "Studente/consegna.php";
+                        include_once CONTROL_DIR . "Elaborato/consegna.php";
                         break;
                     case 'abbandona':
-                        include_once VIEW_DIR . "Studente/abbandona.php";
+                        include_once CONTROL_DIR . "Elaborato/abbandona.php";
                         break;
                     case 'updateMultipla':
-                        include_once VIEW_DIR . "Studente/updateMultipla.php";
+                        include_once CONTROL_DIR . "Risposte/updateMultipla.php";
                         break;
                     case 'updateAperta':
-                        include_once VIEW_DIR . "Studente/updateAperta.php";
+                        include_once CONTROL_DIR . "Risposte/updateAperta.php";
                         break;
                     default:
                         include_once VIEW_DIR . "Studente/Home.php";
