@@ -8,26 +8,28 @@
  * @since 18/11/15 09:58
  */
 
+include_once MODEL_DIR . "ElaboratoModel.php";
+include_once MODEL_DIR . "SessioneModel.php";
+include_once MODEL_DIR . "AlternativaModel.php";
+include_once MODEL_DIR . "RispostaApertaModel.php";
+include_once MODEL_DIR . "RispostaMultiplaModel.php";
+include_once MODEL_DIR . "DomandaModel.php";
+include_once MODEL_DIR . "UtenteModel.php";
+include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "CorsoModel.php";
+include_once MODEL_DIR . "TestModel.php";
+include_once BEAN_DIR . "Sessione.php";
 
-include_once CONTROL_DIR . "CdlController.php";
-include_once CONTROL_DIR . "UtenteController.php";
-include_once CONTROL_DIR . "ElaboratoController.php";
-include_once CONTROL_DIR . "SessioneController.php";
-include_once CONTROL_DIR . "TestController.php";
-include_once CONTROL_DIR . "DomandaController.php";
-include_once CONTROL_DIR . "DomandaController.php";
-include_once CONTROL_DIR . "AlternativaController.php";
-include_once CONTROL_DIR . "RispostaApertaController.php";
-include_once CONTROL_DIR . "RispostaMultiplaController.php";
-$controller = new CdlController();
-$controllerUtente = new UtenteController();
-$controllerElaborato = new ElaboratoController();
-$controllerSessione = new SessioneController();
-$controllerTest = new TestController();
-$controllerDomanda = new DomandaController();
-$controllerAlternativa = new AlternativaController();
-$controllerRispostaAperta = new RispostaApertaController();
-$controllerRispostaMultipla = new RispostaMultiplaController();
+$sessioneModel = new SessioneModel();
+$utenteModel = new UtenteModel();
+$testModel = new TestModel();
+$corsoModel = new CorsoModel();
+$cdlModel = new CdlModel();
+$elaboratoModel= new ElaboratoModel();
+$modelDomanda = new DomandaModel();
+$modelAlternativa = new AlternativaModel();
+$modelRispostaAperta = new RispostaApertaModel();
+$modelRispostaMultipla = new RispostaMultiplaModel();
 
 
 $cdl = null;
@@ -49,7 +51,7 @@ $i = 0;
 $url = null;
 $url2 = null;
 $matricola = $_URL[6];
-$studente=$controllerUtente->getUtenteByMatricola($matricola);
+$studente=$utenteModel->getUtenteByMatricola($matricola);
 
 $url = $_URL[2];
 if (!is_numeric($url)) {
@@ -61,13 +63,13 @@ if (!is_numeric($url)) {
 }
 
 try {
-    $corso = $controller->readCorso($url);
+    $corso = $corsoModel->readCorso($url);
 } catch (ApplicationException $ex) {
     echo "<h1>INSERIRE ID CORSO NEL PATH!</h1>" . $ex;
 }
 $numProfs=0;
 $doc = $_SESSION['user'];
-$docentiOe=$controllerUtente->getDocenteAssociato($url);
+$docentiOe= $utenteModel->getAllDocentiByCorso($url);
 foreach($docentiOe as $d) {
     if($doc==$d){
         $numProfs++;
@@ -78,37 +80,37 @@ if($numProfs==0){
 }
 
 try {
-    $cdl = $controller->readCdl($corso->getCdlMatricola());
+    $cdl = $cdlModel->readCdl($corso->getCdlMatricola());
 } catch (ApplicationException $ex) {
     echo "<h1>READCDL FALLITO!</h1>" . $ex;
 }
 try {
-    $elaborato = $controllerElaborato->readElaborato($studente->getMatricola(), $url2);
+    $elaborato = $elaboratoModel->readElaborato($studente->getMatricola(), $url2);
 } catch (ApplicationException $ex) {
     echo "<h1>READELABORATO FALLITO!</h1>" . $ex;
 }
 try {
-    $docenteassociato = $controllerUtente->getDocenteAssociato($corso->getId());
+    $docenteassociato = $utenteModel->getAllDocentiByCorso($corso->getId());
 } catch (ApplicationException $ex) {
     echo "<h1>GETDOCENTIASSOCIATI FALLITO</h1>" . $ex;
 }
 try {
-    $sessione = $controllerSessione->readSessione($url2);
+    $sessione = $sessioneModel->readSessione($url2);
 } catch (ApplicationException $ex) {
     echo "<h1>INSERIRE ID SESSIONE NEL PATH!</h1>" . $ex;
 }
 try {
-    $test = $controllerTest->readTest($elaborato->getTestId());
+    $test = $testModel->readTest($elaborato->getTestId());
 } catch (ApplicationException $ex) {
     echo "<h1>READTEST FALLITO!</h1>" . $ex;
 }
 try {
-    $multiple = $controllerDomanda->getAllDomandeMultipleByTest($test->getId());
+    $multiple = $modelDomanda->getAllDomandeMultipleByTest($test->getId());
 } catch (ApplicationException $ex) {
     echo "<h1>GETALLDOMANDEMULTIPLEBYTEST FALLITO!</h1>" . $ex;
 }
 try {
-    $aperte = $controllerDomanda->getAllDomandeAperteByTest($test->getId());
+    $aperte = $modelDomanda->getAllDomandeAperteByTest($test->getId());
 } catch (ApplicationException $ex) {
     echo "<h1>GETALLDOMANDEAPERTEBYTEST FALLITO!</h1>" . $ex;
 }
@@ -120,9 +122,9 @@ if (isset($_GET['salva'])){
         $apId = $ap->getId();
         $punt = $_GET['sel-'.$apId.''];
         $fin = $fin + $punt;
-        $rispAp = $controllerRispostaAperta->readRispostaAperta($url2, $matricola, $apId);
+        $rispAp = $modelRispostaAperta->readRispostaAperta($url2, $matricola, $apId);
         $rispAp->setPunteggio($punt);
-        $controllerRispostaAperta->updateRispostaAperta($rispAp, $url2, $matricola, $apId);
+        $modelRispostaAperta->updateRispostaAperta($rispAp, $url2, $matricola, $apId);
     }
     $elaborato->setEsitoFinale($fin);
 
@@ -131,11 +133,11 @@ if (isset($_GET['salva'])){
     if ($fin >= $soglia){
         $perc = $updated->getPercentualeSuccesso() +1;
         $updated->setPercentualeSuccesso($perc);
-        $controllerTest->updateTest($elaborato->getTestId(), $updated);
+        $testModel->updateTest($elaborato->getTestId(), $updated);
     }
 
     $elaborato->setStato("Corretto");
-    $controllerElaborato->updateElaborato($matricola,$url2,$elaborato);
+    $elaboratoModel->updateElaborato($matricola,$url2,$elaborato);
     header("Location: "."/docente/corso/".$corso->getId()."/sessione"."/".$sessione->getId()."/"."esiti/show");
 }
 
@@ -183,7 +185,7 @@ if (isset($_GET['salva'])){
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="<?php echo "/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $controller->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
+                        <a href="<?php echo "/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $cdlModel->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
@@ -301,12 +303,12 @@ if (isset($_GET['salva'])){
                                 printf("<div class=\"portlet-body\">");
                                 $i++;
                                 try {
-                                    $alternative = $controllerAlternativa->getAllAlternativaByDomanda($m->getId());
+                                    $alternative = $modelAlternativa->getAllAlternativaByDomanda($m->getId());
                                 } catch (ApplicationException $ex) {
                                     echo "<h1>GETALLALTERNATIVABYDOMANDA FALLITO!</h1>" . $ex;
                                 }
                                 try {
-                                    $rispostamultipla = $controllerRispostaMultipla->readRispostaMultipla($elaborato->getSessioneId(), $studente->getMatricola(), $m->getId());
+                                    $rispostamultipla = $modelRispostaMultipla->readRispostaMultipla($elaborato->getSessioneId(), $studente->getMatricola(), $m->getId());
                                 } catch (ApplicationException $ex) {
                                     echo "<h1>READRISPOSTAMULTIPLA FALLITO!</h1>" . $ex;
                                 }
@@ -352,15 +354,15 @@ if (isset($_GET['salva'])){
 
 
 
-                                $max = $controllerDomanda->readPunteggioMaxAlternativo($a->getId(), $test->getId());
+                                $max = $modelDomanda->readPunteggioMaxAlternativo($a->getId(), $test->getId());
                                 if ($max == null){
-                                    $dom = $controllerDomanda->getDomandaAperta($a->getId());
+                                    $dom = $modelDomanda->getDomandaAperta($a->getId());
                                     $max = $dom->getPunteggioMax();
                                 }
                                 printf("<div class=\"portlet light bordered\"><div class=\"portlet-title\"><div class=\"caption\"><i class=\"fa fa-question-circle\"></i><span class=\"caption-subject bold uppercase\">%s (aperta)</span></div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div>", $a->getTesto());
                                 printf("<div class=\"portlet-body\">");
                                 try {
-                                    $rispostaaperta = $controllerRispostaAperta->readRispostaAperta($elaborato->getSessioneId(), $studente->getMatricola(), $a->getId());
+                                    $rispostaaperta = $modelRispostaAperta->readRispostaAperta($elaborato->getSessioneId(), $studente->getMatricola(), $a->getId());
                                 } catch (ApplicationException $ex) {
                                     echo "<h1>READRISPOSTAAPERTA FALLITO!</h1>" . $ex;
                                 }

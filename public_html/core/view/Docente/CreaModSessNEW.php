@@ -1,4 +1,5 @@
 <?php
+
 /**
  * La view che consente al docente di creare e modificare una sessione
  *
@@ -6,9 +7,11 @@
  * @version 1
  * @since 18/11/15 09:58
  */
+
+/*
 include_once CONTROL_DIR . "UtenteController.php";
 $controllerUtente = new UtenteController();
-include_once CONTROL_DIR . "SessioneController.php";
+include_once CONTROL_DIR . "Sessione.php";
 $controller = new SessioneController();
 include_once CONTROL_DIR . "CdlController.php";
 $controlleCdl = new CdlController();
@@ -16,12 +19,26 @@ include_once CONTROL_DIR . "TestController.php";
 $testController = new TestController();
 include_once CONTROL_DIR . "ElaboratoController.php";
 $controllerElaborato = new ElaboratoController();
+*/
+
+include_once MODEL_DIR . "UtenteModel.php";
+$modelUtente = new UtenteModel();
+include_once MODEL_DIR . "SessioneModel.php";
+$modelSessione = new SessioneModel();
+include_once MODEL_DIR . "CdlModel.php";
+$modelCdl = new CdlModel();
+include_once MODEL_DIR . "CorsoModel.php";
+$modelCorso = new CorsoModel();
+include_once MODEL_DIR . "TestModel.php";
+$testModel = new TestModel();
+include_once MODEL_DIR . "ElaboratoModel.php";
+$modelElaborato = new ElaboratoModel();
 $idCorso = $_URL[2];
 $numProfs=0;
 
 $doc = $_SESSION['user'];
 
-$docentiOe=$controllerUtente->getDocenteAssociato($idCorso);
+$docentiOe=$modelUtente->getAllDocentiByCorso($idCorso);
 foreach($docentiOe as $d) {
     if($doc==$d){
         $numProfs++;
@@ -32,7 +49,7 @@ if($numProfs==0){
 }
 
 try {
-    $corso = $controlleCdl->readCorso($idCorso);
+    $corso = $modelCorso->readCorso($idCorso);
     $nomecorso= $corso->getNome();
 }
 catch (ApplicationException $ex) {
@@ -49,15 +66,18 @@ $perModificaDataFrom =  null;
 $perModificaDataTo = null;
 $valu = null;
 $eser = null;
-$flag=1;
+$flag=null;
 $showE="";
 $showRC="";
+
+$flag = isset($_SESSION['flag']) ? $_SESSION['flag'] : 1;
+unset($_SESSION['flag']);
 
 if($_URL[4]!=0) {
     try {
         $idSessione=$_URL[4];
         try {
-            $sessioneByUrl = $controller->readSessione($_URL[4]);
+            $sessioneByUrl = $modelSessione->readSessione($_URL[4]);
             $dataFrom = $sessioneByUrl->getDataInizio();
             $dataTo = $sessioneByUrl->getDataFine();
             $tipoSessione = $sessioneByUrl->getTipologia();
@@ -72,10 +92,10 @@ if($_URL[4]!=0) {
         else $eser = "Checked";
 
         try {
-            if ($controller->readMostraEsitoSessione($idSessione) == "Si") {
+            if ($modelSessione->readMostraEsitoSessione($idSessione) == "Si") {
                 $showE = "Checked";
             }
-            if ($controller->readMostraRisposteCorretteSessione($idSessione) == "Si")
+            if ($modelSessione->readMostraRisposteCorretteSessione($idSessione) == "Si")
                 $showRC = "Checked";
         }
         catch (ApplicationException $ex) {
@@ -150,7 +170,7 @@ else {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="<?php echo "/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $controlleCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
+                        <a href="<?php echo "/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $modelCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
@@ -169,9 +189,9 @@ else {
             <!-- BEGIN PAGE CONTENT-->
             <form <?php
             if($_URL[4]==0)
-                printf("action=\"creaSesControl\"");
+                printf("action=\"creasessione\"");
             else
-                printf("action=\"modificaSesControl\"");
+                printf("action=\"modificasessione\"");
             ?> method="post" id="form_sample_2">
 
                 <?php
@@ -347,8 +367,8 @@ else {
                                 $toCheck=null;
                                 $array = Array();
                                 try {
-                                    $array = $controller->getAllTestByCorso($idCorso);
-                                    $testsOfSessione = $controller->getAllTestBySessione($_URL[4]);
+                                    $array = $testModel->getAllTestByCorso($idCorso);
+                                    $testsOfSessione = $testModel->getAllTestBySessione($idSessione);
                                 }
                                 catch (ApplicationException $ex) {
                                     echo "<h1>ERRORE NELLA LETTURA DEI TESTS!</h1>" . $ex;
@@ -356,9 +376,9 @@ else {
                                 if ($array == null) {
                                 }
                                 else {
-                                    $sessioniByCorso = $controller->getAllSessioniByCorso($idCorso);
+                                    $sessioniByCorso = $modelSessione->getAllSessioniByCorso($idCorso);
                                     foreach ($array as $c) {
-                                        $elaborati = $controllerElaborato->getAllElaboratiTest($c->getId());
+                                        $elaborati = $modelElaborato->getAllElaboratiTest($c->getId());
                                         if ($sessioniByCorso != null)
                                             $percSce = round(($c->getPercentualeScelto()/count($sessioniByCorso)*100),2);
                                         else
@@ -458,8 +478,8 @@ else {
                                 $array = Array();
                                 $toCheckS="";
                                 try {
-                                    $array = $controller->getAllStudentiByCorso($idCorso);
-                                    $studentsOfSessione = $controller->getAllStudentiBySessione($idSessione);
+                                    $array = $modelUtente->getAllStudentiByCorso($idCorso);
+                                    $studentsOfSessione = $modelUtente->getAllStudentiSessione($idSessione);
                                 }
                                 catch (ApplicationException $ex) {
                                     echo "<h1>ERRORE NELLA LETTURA DEGLI STUDENTI!</h1>" . $ex;
@@ -560,7 +580,7 @@ else {
             var href = window.location.href;
             var last = href.substr(href.lastIndexOf('/') + 1);
             if(last == 'error'){
-                toastr.error('La data di Fine non può essere inferiore alla data di Inizio!', 'Errore');
+                toastr.error('Inserimento annullato!', 'Errore');
             }
 
         }

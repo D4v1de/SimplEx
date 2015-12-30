@@ -6,20 +6,24 @@
  * @since 18/11/15 09:58
  */
 
-include_once CONTROL_DIR . "SessioneController.php";
-include_once CONTROL_DIR . "CdlController.php";
-include_once CONTROL_DIR . "UtenteController.php";
-include_once CONTROL_DIR . "ElaboratoController.php";
-$controller = new SessioneController();
-$controlleCdl = new CdlController();
-$controllerEla= new ElaboratoController();
-$controllerUtente = new UtenteController();
+include_once MODEL_DIR . "UtenteModel.php";
+$modelUtente = new UtenteModel();
+include_once MODEL_DIR . "SessioneModel.php";
+$modelSessione = new SessioneModel();
+include_once MODEL_DIR . "CdlModel.php";
+$modelCdl = new CdlModel();
+include_once MODEL_DIR . "CorsoModel.php";
+$modelCorso = new CorsoModel();
+include_once MODEL_DIR . "TestModel.php";
+$testModel = new TestModel();
+include_once MODEL_DIR . "ElaboratoModel.php";
+$modelElaborato = new ElaboratoModel();
 
 $idSessione=$_URL[4];
 $identificativoCorso = $_URL[2];
 $numProfs=0;
 $doc = $_SESSION['user'];
-$docentiOe=$controllerUtente->getDocenteAssociato($identificativoCorso);
+$docentiOe=$modelUtente->getAllDocentiByCorso($identificativoCorso);
 foreach($docentiOe as $d) {
     if($doc==$d){
         $numProfs++;
@@ -28,11 +32,11 @@ foreach($docentiOe as $d) {
 if($numProfs==0){
     header("Location: "."/docente/corso/".$corso->getId());
 }
-$corso = $controlleCdl->readCorso($identificativoCorso);
+$corso = $modelCorso->readCorso($identificativoCorso);
 $nomecorso= $corso->getNome();
 
 try {
-    $sessioneByUrl = $controller->readSessione($idSessione);
+    $sessioneByUrl = $modelSessione->readSessione($idSessione);
     $dataFrom = $sessioneByUrl->getDataInizio();
     $dataTo = $sessioneByUrl->getDataFine();
     $tipoSessione = $sessioneByUrl->getTipologia();
@@ -47,7 +51,7 @@ if(isset( $_POST['datato']) && isset( $_POST['termina'] )) {
     $dataNow=date('Y/m/d/ h:i:s ', time());
     $dataTo=$dataNow;
     $newSessione = new Sessione($dataFrom, $dataNow, 18, "Eseguita", $tipoSessione, $identificativoCorso);
-    $controller->updateSessione($idSessione,$newSessione);
+    $modelSessione->updateSessione($idSessione,$newSessione);
     $vaiVisuEsiti= "Location: "."/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."esiti/show";
     header($vaiVisuEsiti);
 
@@ -55,7 +59,7 @@ if(isset( $_POST['datato']) && isset( $_POST['termina'] )) {
 else if(isset( $_POST['datato'])) {
     $dataFineNow=$_POST['datato'];
     $newSessione = new Sessione($dataFrom, $dataFineNow, 18, "In Esecuzione", $tipoSessione, $identificativoCorso);
-    $controller->updateSessione($idSessione,$newSessione);
+    $modelSessione->updateSessione($idSessione,$newSessione);
 }
 
 if(isset( $_POST['addStu'])) {
@@ -65,9 +69,9 @@ if(isset( $_POST['addStu'])) {
 
 if(isset( $_POST['annullaEsame'])) {
     $matricola=$_POST['annullaEsame'];
-    $elaborato=$controllerEla->readElaborato($matricola,$idSessione);
+    $elaborato=$modelElaborato->readElaborato($matricola,$idSessione);
     $nuovoElaborato= new Elaborato($matricola,$elaborato->getSessioneId(),"0","0",$elaborato->getTestId(), "Corretto");
-    $controllerEla->updateElaborato($matricola,$idSessione,$nuovoElaborato);
+    $modelElaborato->updateElaborato($matricola,$idSessione,$nuovoElaborato);
     header("Refresh:0");
 }
 
@@ -78,11 +82,11 @@ if(isset( $_POST['aggiorna'])) {
 
 if($_URL[6]=="autostart") {
     $newSessione = new Sessione($dataFrom, $dataTo, $soglia, "In esecuzione", $tipoSessione, $identificativoCorso);
-    $controller->updateSessione($idSessione,$newSessione);
+    $modelSessione->updateSessione($idSessione,$newSessione);
 }
 
 
-$sessioneByUrl = $controller->readSessione($idSessione);
+$sessioneByUrl = $modelSessione->readSessione($idSessione);
 $dataTo = $sessioneByUrl->getDataFine();
 ?>
 <!DOCTYPE html>
@@ -127,7 +131,7 @@ $dataTo = $sessioneByUrl->getDataFine();
                             <i class="fa fa-angle-right"></i>
                         </li>
                         <li>
-                            <a href="<?php echo "/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $controlleCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
+                            <a href="<?php echo "/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $modelCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
                             <i class="fa fa-angle-right"></i>
                         </li>
                         <li>
@@ -205,7 +209,7 @@ $dataTo = $sessioneByUrl->getDataFine();
                                         <tbody>
                                         <?php
                                         $array = Array();
-                                        $array = $controller->getAllTestBySessione($idSessione);
+                                        $array = $testModel->getAllTestBySessione($idSessione);
                                         if ($array == null) {
                                         }
                                         else {
@@ -295,12 +299,12 @@ $dataTo = $sessioneByUrl->getDataFine();
                                         <?php
                                         $esaminandiSessione = Array();
                                         $toDisable="";
-                                        $esaminandiSessione= $controller->getEsaminandiSessione($idSessione);
+                                        $esaminandiSessione= $modelUtente->getEsaminandiSessione($idSessione);
                                         if ($esaminandiSessione == null) {
                                         }
                                         else {
                                             foreach ($esaminandiSessione as $c) {
-                                                $ela=$controllerEla->readElaborato($c->getMatricola(),$idSessione);
+                                                $ela=$modelElaborato->readElaborato($c->getMatricola(),$idSessione);
                                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
                                                 printf("<td class=\"sorting_1\">%s</td>", $c->getNome());
                                                 printf("<td>%s</td>", $c->getCognome());

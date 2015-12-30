@@ -7,24 +7,35 @@
  * @since 18/11/15 09:58
  */
 
-include_once CONTROL_DIR . "SessioneController.php";
-include_once CONTROL_DIR . "CdlController.php";
-include_once CONTROL_DIR . "ControllerTest.php";
-include_once CONTROL_DIR . "DomandaController.php";
-include_once CONTROL_DIR . "RispostaApertaController.php";
-include_once CONTROL_DIR . "RispostaMultiplaController.php";
-include_once CONTROL_DIR . "AlternativaController.php";
-include_once CONTROL_DIR . "ElaboratoController.php";
-include_once CONTROL_DIR . "UtenteController.php";
+include_once MODEL_DIR . "ElaboratoModel.php";
+include_once MODEL_DIR . "SessioneModel.php";
+include_once MODEL_DIR . "AlternativaModel.php";
+include_once MODEL_DIR . "RispostaApertaModel.php";
+include_once MODEL_DIR . "RispostaMultiplaModel.php";
+include_once MODEL_DIR . "DomandaModel.php";
+include_once MODEL_DIR . "UtenteModel.php";
+include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "CorsoModel.php";
+include_once MODEL_DIR . "TestModel.php";
+include_once BEAN_DIR . "Sessione.php";
 
-$controllerUtente = new UtenteController();
-$controllerSessione = new SessioneController();
-$controlleCdl = new CdlController();
+$sessioneModel = new SessioneModel();
+$utenteModel = new UtenteModel();
+$testModel = new TestModel();
+$corsoModel = new CorsoModel();
+$cdlModel = new CdlModel();
+$elaboratoModel= new ElaboratoModel();
+$modelDomanda = new DomandaModel();
+$modelAlternativa = new AlternativaModel();
+$modelRispostaAperta = new RispostaApertaModel();
+$modelRispostaMultipla = new RispostaMultiplaModel();
+
+
 $idSessione = $_URL[4];
 $identificativoCorso = $_URL[2];
 $numProfs=0;
 $doc = $_SESSION['user'];
-$docentiOe=$controllerUtente->getDocenteAssociato($identificativoCorso);
+$docentiOe=$utenteModel->getAllDocentiByCorso($identificativoCorso);
 foreach($docentiOe as $d) {
     if($doc==$d){
         $numProfs++;
@@ -33,13 +44,10 @@ foreach($docentiOe as $d) {
 if($numProfs==0){
     header("Location: "."/docente/corso/".$corso->getId());
 }
-$domandaController = new DomandaController();
-$elaboratoController = new ElaboratoController();
-$testController = new ControllerTest();
-$alternativaController = new AlternativaController();
+
 $soglia=null;
 $flag=1;
-$sessioneByUrl = $controllerSessione->readSessione($_URL[4]);
+$sessioneByUrl = $sessioneModel->readSessione($_URL[4]);
 $dataFrom = $sessioneByUrl->getDataInizio();
 $dataTo = $sessioneByUrl->getDataFine();
 $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
@@ -48,7 +56,7 @@ $soglia=$sessioneByUrl->getSogliaAmmissione();
 
 if($_URL[6]=="autoendsuccess") {
     $newSessione = new Sessione($dataFrom, $dataTo, $soglia, "Eseguita", $tipoSessione, $identificativoCorso);
-    $controllerSessione->updateSessione($idSessione,$newSessione);
+    $sessioneModel->updateSessione($idSessione,$newSessione);
 }
 
 if($_URL[6]=="norestart") {
@@ -56,7 +64,7 @@ if($_URL[6]=="norestart") {
 }
 
 try {
-    $corso = $controlleCdl->readCorso($identificativoCorso);
+    $corso = $corsoModel->readCorso($identificativoCorso);
     $nomecorso= $corso->getNome();
 }
 catch (ApplicationException $ex) {
@@ -66,12 +74,12 @@ catch (ApplicationException $ex) {
 if(isset($_POST['soglia'])){
     $soglia=$_POST['soglia'];
     $sessioneAggiornata = new Sessione($dataFrom, $dataTo, $soglia , $sessioneByUrl->getStato(), $sessioneByUrl->getTipologia(), $identificativoCorso);
-    $controllerSessione->updateSessione($_URL[4], $sessioneAggiornata);
+    $sessioneModel->updateSessione($_URL[4], $sessioneAggiornata);
     //header("Refresh:0");
 }
 
-$sessioneByUrl = $controllerSessione->readSessione($_URL[4]);
-$esaminandiSessione= $controllerSessione->getEsaminandiSessione($sessioneByUrl->getId());
+$sessioneByUrl = $sessioneModel->readSessione($_URL[4]);
+$esaminandiSessione= $utenteModel->getEsaminandiSessione($sessioneByUrl->getId());
 $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
 ?>
 <!DOCTYPE html>
@@ -115,7 +123,7 @@ $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
                             <i class="fa fa-angle-right"></i>
                         </li>
                         <li>
-                            <a href="<?php echo "/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $controlleCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
+                            <a href="<?php echo "/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $cdlModel->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
                             <i class="fa fa-angle-right"></i>
                         </li>
                         <li>
@@ -215,13 +223,13 @@ $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
                                         <tbody>
                                         <?php
                                         $array = Array();
-                                        $array = $controllerSessione->getAllTestBySessione($idSessione);
+                                        $array = $testModel->getAllTestBySessione($idSessione);
                                         if ($array == null) {
                                         }
                                         else {
-                                            $sessioniByCorso = $controllerSessione->getAllSessioniByCorso($identificativoCorso);
+                                            $sessioniByCorso = $sessioneModel->getAllSessioniByCorso($identificativoCorso);
                                             foreach ($array as $c) {
-                                                $elaborati = $elaboratoController->getAllElaboratiTest($c->getId());
+                                                $elaborati = $elaboratoModel->getAllElaboratiTest($c->getId());
                                                 if ($sessioniByCorso != null)
                                                     $percSce = round(($c->getPercentualeScelto()/count($sessioniByCorso)*100),2);
                                                 else
@@ -312,7 +320,7 @@ $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
                                         }
                                         else {
                                             foreach ($esaminandiSessione as $c) {
-                                                $ela=$elaboratoController->readElaborato($c->getMatricola(),$idSessione);
+                                                $ela=$elaboratoModel->readElaborato($c->getMatricola(),$idSessione);
                                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
                                                 printf("<td class=\"sorting_1\">%s</td>", $c->getNome());
                                                 printf("<td>%s</td>", $c->getCognome());

@@ -235,6 +235,9 @@ try {
                                         include_once VIEW_DIR . "Docente/VisualizzaTest.php";
                                 }
                                 break;
+                            case 'checkdatasessione':
+                                include_once CONTROL_DIR . "Sessione/checkDataSessione.php";
+                                break;
                             case 'sessione':
                                 switch (isset($_URL[5]) ? $_URL[5] : '') {
                                     case 'aggiungistudenti':
@@ -248,26 +251,21 @@ try {
                                         break;
                                     case 'creamodificasessione2':
                                         switch (isset($_URL[6]) ? $_URL[6] : '') {
-                                            case 'creaSesControl':
-                                                include_once CONTROL_DIR . "sessioneController/creaSessioneControl.php";
+                                            case 'creasessione':
+                                                include_once CONTROL_DIR . "Sessione/creaSessione.php";
                                                 break;
-                                            case 'mostraSesControl':
-                                                include_once CONTROL_DIR . "sessioneController/mostraSessioneControl.php";
-                                                break;
-                                            case 'modificaSesControl':
-                                                include_once CONTROL_DIR . "sessioneController/modificaSessioneControl.php";
+                                            case 'modificasessione':
+                                                include_once CONTROL_DIR . "Sessione/modificaSessione.php";
                                                 break;
                                             default:
                                                 include_once VIEW_DIR . "Docente/CreaModSessNEW.php";
                                         }
-                                    case 'creaSesControl':
-                                        include_once CONTROL_DIR . "sessioneController/creaSessioneControl.php";
+
+                                    case 'creasessione':
+                                        include_once CONTROL_DIR . "Sessione/creaSessione.php";
                                         break;
-                                    case 'mostraSesControl':
-                                        include_once CONTROL_DIR . "sessioneController/mostraSessioneControl.php";
-                                        break;
-                                    case 'modificaSesControl':
-                                        include_once CONTROL_DIR . "sessioneController/modificaSessioneControl.php";
+                                    case 'modificasessione':
+                                        include_once CONTROL_DIR . "Sessione/modificaSessione.php";
                                         break;
                                     case 'correggi':
                                         include_once VIEW_DIR . "Docente/CorreggiTest.php";
@@ -289,6 +287,15 @@ try {
                                 }
                                 break;
 
+                            case 'rimuovisessione':
+                                include_once CONTROL_DIR . "Sessione/rimuoviSessione.php";
+                                break;
+                            case 'avviasessione':
+                                include_once CONTROL_DIR . "Sessione/avviaSessione.php";
+                                break;
+                            case 'indexvisualizza':
+                                include_once CONTROL_DIR . "Sessione/indexVisualizza.php";
+                                break;
                             case 'gestoredata':
                                 include_once VIEW_DIR . "Docente/gestoreDataServer.php";
                                 break;
