@@ -110,7 +110,8 @@ var FormValidation = function () {
                     descrizione: {
                         required: true,
                         minlenght: 2,
-                        maxlength: 500
+                        maxlength: 500,
+                        validchar: true
                     },
                     radio1: {
                         required: true

@@ -12,20 +12,23 @@ class DomandaAperta {
     private $argomentoId;
     private $testo;
     private $punteggioMax;
-    private $percentualeScelta;
+    private $percentualeSceltaEse;
+    private $percentualeSceltaVal;
     
     /**
      * Costruttore di DomandaAperta.
      * @param int $argomentoId L'id dell'argomento a cui appartiene la domanda
      * @param string $testo Il testo della domanda
      * @param float $punteggioMax Il punteggio max della domanda
-     * @param float $percentualeScelta La percentuale di volte in cui è stata scelta quella domanda
+     * @param float $percentualeSceltaEse La percentuale di volte in cui è stata scelta quella domanda per le sessioni esercitative
+     * @param float $percentualeSceltaVal La percentuale di volte in cui è stata scelta quella domanda per le sessioni valutative
      */
-    function __construct($argomentoId, $testo, $punteggioMax, $percentualeScelta) {
+    function __construct($argomentoId, $testo, $punteggioMax, $percentualeSceltaEse, $percentualeSceltaVal) {
         $this->argomentoId = $argomentoId;
         $this->testo = $testo;
         $this->punteggioMax = $punteggioMax;
-        $this->percentualeScelta = $percentualeScelta;
+        $this->percentualeSceltaEse = $percentualeSceltaEse;
+        $this->percentualeSceltaVal = $percentualeSceltaVal;
     }
     
     /**
@@ -57,10 +60,17 @@ class DomandaAperta {
     }
 
     /**
-     * @return float La percentuale di quante volte è stata scelta la domanda aperta
+     * @return float La percentuale di quante volte è stata scelta la domanda aperta per le sessioni esercitative
      */
-    function getPercentualeScelta() {
-        return $this->percentualeScelta;
+    function getPercentualeSceltaEse() {
+        return $this->percentualeSceltaEse;
+    }
+
+    /**
+     * @return float La percentuale di quante volte è stata scelta la domanda aperta per le sessioni valutative
+     */
+    function getPercentualeSceltaVal() {
+        return $this->percentualeSceltaVal;
     }
     
     /**
@@ -96,10 +106,18 @@ class DomandaAperta {
     }
 
     /**
-     * Setta la percentuale di volta in cui è stata scelta la domanda aperta
-     * @param float $percentualeScelta La percentuale di volte in cui è stata scelta quella domanda
+     * Setta la percentuale di volta in cui è stata scelta la domanda aperta per le sessioni esercitative
+     * @param float $percentualeSceltaEse La percentuale di volte in cui è stata scelta quella domanda per le sessioni esercitative
      */
-    function setPercentualeScelta($percentualeScelta) {
-        $this->percentualeScelta = $percentualeScelta;
+    function setPercentualeSceltaEse($percentualeSceltaEse) {
+        $this->percentualeSceltaEse = $percentualeSceltaEse;
+    }
+
+    /**
+     * Setta la percentuale di volta in cui è stata scelta la domanda aperta per le sessioni valutative
+     * @param float $percentualeSceltaVal La percentuale di volte in cui è stata scelta quella domanda valutative
+     */
+    function setPercentualeSceltaVal($percentualeSceltaVal) {
+        $this->percentualeSceltaVal = $percentualeSceltaVal;
     }
 }
