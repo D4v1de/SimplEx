@@ -10,6 +10,7 @@ include_once MODEL_DIR . "CdlModel.php";
 include_once MODEL_DIR . "AlternativaModel.php";
 include_once MODEL_DIR . "UtenteModel.php";
 include_once MODEL_DIR . "CorsoModel.php";
+include_once UTILS_DIR . "controlloLogin.php";
 
 $errore = 0;
 if(isset($_SESSION['errore'])){
@@ -35,30 +36,14 @@ $correttezzaLogin = false;
 
 
 
-//CONTROLLO LOGIN CORRETTO
-try{
-    $matricolaLoggato = $utenteLoggato->getMatricola();
-}catch(ApplicationException $exception){
-    echo "ERRORE IN GET MATRICOLA" . $exception;
+if(isset($_SESSION['idcorso'])){
+    unset($_SESSION['idcorso']);
+    $_SESSION['idcorso'] = $_URL[2];
+}else{
+    $_SESSION['idcorso'] = $_URL[2];
 }
 
-try{
-    $docentiAssociati = $modelUtente->getAllDocentiByCorso($idCorso);
-}catch(ApplicationException $exception){
-    echo "ERRORE IN GET DOCENTE ASSOCIATI" . $exception;
-}
-
-foreach($docentiAssociati as $docente){
-    if($docente->getMatricola() == $matricolaLoggato){
-        $correttezzaLogin = true;
-    }
-}
-
-if($correttezzaLogin == false){
-    header('Location: /docente');
-}
-
-
+controllo();
 
 
 try {

@@ -17,6 +17,7 @@ include_once MODEL_DIR . "ElaboratoModel.php";
 include_once MODEL_DIR . "CdlModel.php";
 include_once MODEL_DIR . "ArgomentoModel.php";
 include_once MODEL_DIR . "CorsoModel.php";
+include_once UTILS_DIR . "controlloLogin.php";
 
 $utenteLoggato = $_SESSION['user'];
 
@@ -39,6 +40,15 @@ $id = null;
 $idcorso = null;
 $argomenti = Array();
 $correttezzaLogin = false;
+
+if(isset($_SESSION['idcorso'])){
+    unset($_SESSION['idcorso']);
+    $_SESSION['idcorso'] = $_URL[2];
+}else{
+    $_SESSION['idcorso'] = $_URL[2];
+}
+
+controllo();
 
 try {
     $idsSessione = $controllerSessione->getAllSessioniByCorso($identificativoCorso);
