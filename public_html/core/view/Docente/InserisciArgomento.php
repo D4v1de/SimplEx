@@ -9,6 +9,7 @@
 include_once MODEL_DIR . "CdlModel.php";
 include_once MODEL_DIR . "UtenteModel.php";
 include_once MODEL_DIR . "CorsoModel.php";
+include_once UTILS_DIR . "controlloLogin.php";
 
 /** @var Utente $utenteLoggato */
 $utenteLoggato = $_SESSION['user'];
@@ -26,6 +27,15 @@ $cdlModel = new CdLModel();
 $corsoModel = new CorsoModel();
 $accountModel = new UtenteModel();
 
+if(isset($_SESSION['idcorso'])){
+    unset($_SESSION['idcorso']);
+    $_SESSION['idcorso'] = $_URL[2];
+}else{
+    $_SESSION['idcorso'] = $_URL[2];
+}
+
+controllo();
+
 /**
  * LEGGE IL CORSO NEL QUALE CI SI TROVA
  */
@@ -36,39 +46,6 @@ try {
     echo "ERRORE IN READ CORSO" . $exception;
 }
 
-/**
- * RICEVE LA MATRICOLA DEL DOCENTE LOGGATO
- */
-try {
-    $matricolaLoggato = $utenteLoggato->getMatricola();
-} catch (ApplicationException $exception) {
-    echo "ERRORE IN GET MATRICOLA" . $exception;
-}
-
-/**
- * RICEVE I DOCENTE ASSOCIATI AL CORSO NEL QUALE CI SI TROVA
- */
-try {
-    $docentiAssociati = $accountModel->getAllDocentiByCorso($corsoid);
-} catch (ApplicationException $exception) {
-    echo "ERRORE IN GET DOCENTE ASSOCIATI" . $exception;
-}
-
-/**
- * CONTROLLA SE NEI DOCENTI ASSOCIATI E' PRESENTE IL DOCENTE LOGGATO
- */
-foreach ($docentiAssociati as $docente) {
-    if ($docente->getMatricola() == $matricolaLoggato) {
-        $correttezzaLogin = true;
-    }
-}
-
-/**
- * CONTROLLA IL CORRETTO LOGIN DEL DOCENTE AL CORSO DA LUI INSEGNATO
- */
-if ($correttezzaLogin == false) {
-    header('Location: /docente');
-}
 
 
 ?>

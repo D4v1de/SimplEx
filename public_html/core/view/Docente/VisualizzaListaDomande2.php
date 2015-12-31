@@ -11,6 +11,7 @@ include_once MODEL_DIR . "CdlModel.php";
 include_once MODEL_DIR . "AlternativaModel.php";
 include_once MODEL_DIR . "UtenteModel.php";
 include_once MODEL_DIR . "CorsoModel.php";
+include_once UTILS_DIR . "controlloLogin.php";
 
 $utenteLoggato = $_SESSION['user'];
 
@@ -27,6 +28,15 @@ $argomento = null;
 $idCorso = $_URL[2];
 $idArgomento = $_URL[5];
 $correttezzaLogin = false;
+
+if(isset($_SESSION['idcorso'])){
+    unset($_SESSION['idcorso']);
+    $_SESSION['idcorso'] = $_URL[2];
+}else{
+    $_SESSION['idcorso'] = $_URL[2];
+}
+
+controllo();
 
 /**
  * LEGGE IL CORSO NEL QUALE CI SI TROVA
