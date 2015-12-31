@@ -17,7 +17,6 @@ class ElaboratoModel extends Model {
     public static $CREATE_ELABORATO = "INSERT INTO `elaborato` (studente_matricola, sessione_id, esito_parziale, esito_finale, test_id, stato) VALUES ('%s','%d','%f','%f','%d', '%s')";
     public static $READ_ELABORATO = "SELECT * FROM `elaborato` WHERE studente_matricola = '%s' AND sessione_id = '%d'";
     public static $UPDATE_ELABORATO ="UPDATE `elaborato` SET test_id = '%d', esito_parziale = '%f', esito_finale = '%f', stato = '%s' WHERE studente_matricola = '%s' AND sessione_id = '%d'";
-    public static $DELETE_ELABORATO ="DELETE FROM `elaborato` WHERE studente_matricola = '%s' AND sessione_id = '%d'";
     public static $GET_ALL_ELABORATO = "SELECT * FROM `elaborato`";
     public static $GET_ELABORATI_STUDENTE = "SELECT * FROM `elaborato` WHERE `studente_matricola` = '%s'";
     public static $GET_ELABORATI_TEST = "SELECT * FROM `elaborato` WHERE `test_id` = '%d'";
@@ -63,19 +62,6 @@ class ElaboratoModel extends Model {
         Model::getDB()->query($query);
         if(Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
-        }
-    }
-    
-    /**
-     * Elimina un elaborato dal databse
-     * @param string $studenteMatricola La matricola dello studente di cui si vuole eliminare l'elaborato
-     * @param int $sessioneId L'id della sessione di cui si vuole eliminare l'elaborato
-     */
-    public function deleteElaborato($studenteMatricola, $sessioneId){
-        $query = sprintf(self::$DELETE_ELABORATO,$studenteMatricola,$sessioneId);
-        Model::getDB()->query($query);
-        if (Model::getDB()->affected_rows==-1) {
-            throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
         }
     }
     

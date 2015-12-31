@@ -34,7 +34,7 @@ class DomandaModelTest extends PHPUnit_Framework_TestCase
 
        $model = new DomandaModel();
        //crea una domanda aperta
-       $idDom = $model->createDomandaAperta(new DomandaAperta(self::ARGOMENTOID, self::TESTODOM, self::PUNTEGGIOMAX, self::PERCENTUALESCELTA));
+       $idDom = $model->createDomandaAperta(new DomandaAperta(self::ARGOMENTOID, self::TESTODOM, self::PUNTEGGIOMAX, self::PERCENTUALESCELTA, self::PERCENTUALESCELTA));
 
        //legge la domanda aperta creata dal db
        $domA = $model->readDomandaAperta($idDom);
@@ -43,10 +43,11 @@ class DomandaModelTest extends PHPUnit_Framework_TestCase
        $this->assertEquals(self::ARGOMENTOID, $domA->getArgomentoId());
         $this->assertEquals(self::TESTODOM, $domA->getTesto());
        $this->assertEquals(self::PUNTEGGIOMAX, $domA->getPunteggioMax());
-       $this->assertEquals(self::PERCENTUALESCELTA, $domA->getPercentualeScelta());
+       $this->assertEquals(self::PERCENTUALESCELTA, $domA->getPercentualeSceltaEse());
+        $this->assertEquals(self::PERCENTUALESCELTA, $domA->getPercentualeSceltaVal());
 
        //modifico la domanda aperta in questione
-       $model->updateDomandaAperta($idDom,(new DomandaAperta(self::ARGOMENTOID,self::TESTODOM,self::PUNTEGGIOMAX2, self::PERCENTUALESCELTA2 )));
+       $model->updateDomandaAperta($idDom,(new DomandaAperta(self::ARGOMENTOID,self::TESTODOM,self::PUNTEGGIOMAX2, self::PERCENTUALESCELTA2, self::PERCENTUALESCELTA2 )));
 
        //leggo la domanda aperta modificata dal db
        $domAM = $model->readDomandaAperta($idDom);
@@ -55,8 +56,8 @@ class DomandaModelTest extends PHPUnit_Framework_TestCase
        $this->assertEquals(self::ARGOMENTOID, $domAM->getArgomentoId());
         $this->assertEquals(self::TESTODOM, $domAM->getTesto());
        $this->assertEquals(self::PUNTEGGIOMAX2, $domAM->getPunteggioMax());
-       $this->assertEquals(self::PERCENTUALESCELTA2, $domAM->getPercentualeScelta());
-
+       $this->assertEquals(self::PERCENTUALESCELTA2, $domAM->getPercentualeSceltaEse());
+        $this->assertEquals(self::PERCENTUALESCELTA2, $domAM->getPercentualeSceltaVal());
 
 
         //leggo tutte le domande aperte dell argomento che ha l'ID 9
@@ -100,7 +101,7 @@ class DomandaModelTest extends PHPUnit_Framework_TestCase
 
         $model = new DomandaModel();
         //crea una domanda multipla
-        $idDom = $model->createDomandaMultipla(new DomandaMultipla(self::ARGOMENTOID, self::TESTODOM, self::PUNTEGGIOCORRETTA, self::PUNTEGGIOERRATA, self::PERCENTUALESCELTA, self::PERCRISPCORRETTA));
+        $idDom = $model->createDomandaMultipla(new DomandaMultipla(self::ARGOMENTOID, self::TESTODOM, self::PUNTEGGIOCORRETTA, self::PUNTEGGIOERRATA, self::PERCENTUALESCELTA, self::PERCRISPCORRETTA, self::PERCENTUALESCELTA, self::PERCRISPCORRETTA));
 
         //legge la domanda multipla creata
         $domA = $model->readDomandaMultipla($idDom);
@@ -110,11 +111,13 @@ class DomandaModelTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(self::TESTODOM, $domA->getTesto());
         $this->assertEquals(self::PUNTEGGIOCORRETTA, $domA->getPunteggioCorretta());
         $this->assertEquals(self::PUNTEGGIOERRATA, $domA->getPunteggioErrata());
-        $this->assertEquals(self::PERCENTUALESCELTA, $domA->getPercentualeScelta());
-        $this->assertEquals(self::PERCRISPCORRETTA, $domA->getPercentualeRispostaCorretta());
+        $this->assertEquals(self::PERCENTUALESCELTA, $domA->getPercentualeSceltaEse());
+        $this->assertEquals(self::PERCRISPCORRETTA, $domA->getPercentualeRispostaCorrettaEse());
+        $this->assertEquals(self::PERCENTUALESCELTA, $domA->getPercentualeSceltaVal());
+        $this->assertEquals(self::PERCRISPCORRETTA, $domA->getPercentualeRispostaCorrettaVal());
 
         //modifico la domanda aperta in questione
-        $model->updateDomandaMultipla($idDom, (new DomandaMultipla(self::ARGOMENTOID, self::TESTODOM, self::PUNTEGGIOCORRETTA2, self::PUNTEGGIOERRATA2, self::PERCENTUALESCELTA, self::PERCRISPCORRETTA)));
+        $model->updateDomandaMultipla($idDom, (new DomandaMultipla(self::ARGOMENTOID, self::TESTODOM, self::PUNTEGGIOCORRETTA2, self::PUNTEGGIOERRATA2, self::PERCENTUALESCELTA, self::PERCRISPCORRETTA, self::PERCENTUALESCELTA, self::PERCRISPCORRETTA)));
 
         //leggo la domanda multipla modificata
         $domA = $model->readDomandaMultipla($idDom);
@@ -124,9 +127,10 @@ class DomandaModelTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(self::TESTODOM, $domA->getTesto());
         $this->assertEquals(self::PUNTEGGIOCORRETTA2, $domA->getPunteggioCorretta());
         $this->assertEquals(self::PUNTEGGIOERRATA2, $domA->getPunteggioErrata());
-        $this->assertEquals(self::PERCENTUALESCELTA, $domA->getPercentualeScelta());
-        $this->assertEquals(self::PERCRISPCORRETTA, $domA->getPercentualeRispostaCorretta());
-
+        $this->assertEquals(self::PERCENTUALESCELTA, $domA->getPercentualeSceltaEse());
+        $this->assertEquals(self::PERCRISPCORRETTA, $domA->getPercentualeRispostaCorrettaEse());
+        $this->assertEquals(self::PERCENTUALESCELTA, $domA->getPercentualeSceltaVal());
+        $this->assertEquals(self::PERCRISPCORRETTA, $domA->getPercentualeRispostaCorrettaVal());
 
 
         //associo una domanda multipla al test

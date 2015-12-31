@@ -37,34 +37,24 @@ class TestModelTest extends \PHPUnit_Framework_TestCase
         print_r($test1);
 
         //creo test
-        $idTest = $model->createTest(new Test(self::DESCRIZIONE, self::PUNTEGGIOMAX, self::NMULTIPLETEST, self::NAPERTETEST, self::PERCENTUALESCELTO, self::PERCENTUALESUCCESSO, self::IDCORSO));
+        $idTest = $model->createTest(new Test(self::DESCRIZIONE, self::PUNTEGGIOMAX, self::NMULTIPLETEST, self::NAPERTETEST, self::PERCENTUALESCELTO, self::PERCENTUALESUCCESSO, self::PERCENTUALESCELTO, self::PERCENTUALESUCCESSO,  self::IDCORSO));
 
         //leggo dal db test creato
         $test = $model->readTest($idTest);
         print_r($test);
-
-        //leggo il numero di volte che il test è stato scelto
-        $numero = $model->readNumeroSceltaTest($idTest);
-        print_r($numero);
-
-        //incremento il numero di scelta
-        $model->updateNumeroSceltaTest($idTest, $numero+1);
-
-        //leggo il numero di volte che il test è stato scelto
-        $numero = $model->readNumeroSceltaTest($idTest);
-        print_r($numero);
-
 
         //confronto se i test sono equivalenti
         $this->assertEquals(self::DESCRIZIONE, $test->getDescrizione());
         $this->assertEquals(self::PUNTEGGIOMAX, $test->getPunteggioMax());
         $this->assertEquals(self::NMULTIPLETEST, $test->getNumeroMultiple());
         $this->assertEquals(self::NAPERTETEST, $test->getNumeroAperte());
-        $this->assertEquals(self::PERCENTUALESCELTO, $test->getPercentualeScelto());
-        $this->assertEquals(self::PERCENTUALESUCCESSO, $test->getPercentualeSuccesso());
+        $this->assertEquals(self::PERCENTUALESCELTO, $test->getPercentualeSceltoEse());
+        $this->assertEquals(self::PERCENTUALESUCCESSO, $test->getPercentualeSuccessoEse());
+        $this->assertEquals(self::PERCENTUALESCELTO, $test->getPercentualeSceltoVal());
+        $this->assertEquals(self::PERCENTUALESUCCESSO, $test->getPercentualeSuccessoVal());
 
         //eseguo una modifica sul test creato
-        $model->updateTest($idTest, (new Test(self::DESCRIZIONE2, self::PUNTEGGIOMAX2, self::NMULTIPLETEST2, self::NAPERTETEST2, self::PERCENTUALESCELTO2, self::PERCENTUALESUCCESSO2, self::IDCORSO)));
+        $model->updateTest($idTest, (new Test(self::DESCRIZIONE2, self::PUNTEGGIOMAX2, self::NMULTIPLETEST2, self::NAPERTETEST2, self::PERCENTUALESCELTO2, self::PERCENTUALESUCCESSO2, self::PERCENTUALESCELTO2, self::PERCENTUALESUCCESSO2, self::IDCORSO)));
 
         //leggo il test modificato dal db
         $testModificato = $model->readTest($idTest);
@@ -74,8 +64,10 @@ class TestModelTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(self::PUNTEGGIOMAX2, $testModificato->getPunteggioMax());
         $this->assertEquals(self::NMULTIPLETEST2, $testModificato->getNumeroMultiple());
         $this->assertEquals(self::NAPERTETEST2, $testModificato->getNumeroAperte());
-        $this->assertEquals(self::PERCENTUALESCELTO2, $testModificato->getPercentualeScelto());
-        $this->assertEquals(self::PERCENTUALESUCCESSO2, $testModificato->getPercentualeSuccesso());
+        $this->assertEquals(self::PERCENTUALESCELTO2, $testModificato->getPercentualeSceltoEse());
+        $this->assertEquals(self::PERCENTUALESUCCESSO2, $testModificato->getPercentualeSuccessoEse());
+        $this->assertEquals(self::PERCENTUALESCELTO2, $testModificato->getPercentualeSceltoVal());
+        $this->assertEquals(self::PERCENTUALESUCCESSO2, $testModificato->getPercentualeSuccessoVal());
 
         //elimino il test dal db
         $model->deleteTest($idTest);
