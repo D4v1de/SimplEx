@@ -12,7 +12,7 @@ include_once MODEL_DIR . "UtenteModel.php";
 include_once MODEL_DIR . "SessioneModel.php";
 include_once MODEL_DIR . "ElaboratoModel.php";
 include_once MODEL_DIR . "TestModel.php";
-$cdlModel = new CdlModel();
+$cdlModel = new CdLModel();
 $corsoModel = new CorsoModel();
 $utenteModel = new UtenteModel();
 $sessioneModel = new SessioneModel();

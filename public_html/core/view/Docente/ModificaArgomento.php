@@ -7,7 +7,7 @@
  */
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once MODEL_DIR . "ArgomentoModel.php";
-include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "CdLModel.php";
 include_once MODEL_DIR . "UtenteModel.php";
 include_once MODEL_DIR . "CorsoModel.php";
 include_once UTILS_DIR . "controlloLogin.php";

@@ -9,7 +9,7 @@
 include_once MODEL_DIR . "ElaboratoModel.php";
 include_once MODEL_DIR . "SessioneModel.php";
 include_once MODEL_DIR . "UtenteModel.php";
-include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "CdLModel.php";
 include_once MODEL_DIR . "CorsoModel.php";
 include_once MODEL_DIR . "TestModel.php";
 include_once BEAN_DIR . "Sessione.php";
@@ -18,7 +18,7 @@ $sessioneModel = new SessioneModel();
 $utenteModel = new UtenteModel();
 $testModel = new TestModel();
 $corsoModel = new CorsoModel();
-$cdlModel = new CdlModel();
+$cdlModel = new CdLModel();
 $elaboratoModel= new ElaboratoModel();
 
 
