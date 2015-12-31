@@ -355,7 +355,7 @@ try {
                 StringUtils::checkPermission("Studente");
                 switch (isset($_URL[1]) ? $_URL[1] : '') {
                     case 'cdls':
-                        include_once VIEW_DIR . "Studente/visualizzaCdl.php";
+                        include_once VIEW_DIR . "Studente/visualizzaCdL.php";
                         break;
                     case 'cdl':
                         include_once VIEW_DIR . "Studente/visualizzaCorsi.php";

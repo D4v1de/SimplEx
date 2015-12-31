@@ -57,7 +57,7 @@ try {
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="/usr/studente">Home</a>
+                        <a href="/studente">Home</a>
                     </li>
                 </ul>
             </div>
