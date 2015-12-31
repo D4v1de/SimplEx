@@ -24,8 +24,9 @@ $utente = $uModel->getUtenti();
     <title>Gestione utenti</title>
     <?php include VIEW_DIR . "design/header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
-    <link rel="stylesheet" type="text/css"
-          href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/extensions/TableTools/css/dataTables.tableTools.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -52,7 +53,7 @@ $utente = $uModel->getUtenti();
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/admin/utenti">GestioneUtente</a>
+                        <a href="/admin/utenti">Gestione Utente</a>
                     </li>
                 </ul>
             </div>
@@ -153,9 +154,10 @@ $utente = $uModel->getUtenti();
 <script src="/assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
-<!-- BEGIN aggiunta da me -->
+
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
-<!-- END aggiunta da me -->
+<script src="/assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+
 <script>
     jQuery(document).ready(function () {
         Metronic.init(); // init metronic core components
@@ -163,6 +165,23 @@ $utente = $uModel->getUtenti();
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
         TableManaged2.init("tabella_5", "tabella_5_wrapper");
+
+        var table = $("#tabella_5").dataTable();
+        var tableTools = new $.fn.dataTable.TableTools(table, {
+            //"sSwfPath": "//cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls_pdf.swf",
+            "sSwfPath": "/assets/global/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf",
+            "aButtons": [
+                {
+                    "sExtends": "xls",
+                    "sButtonText": "<button><i class='fa fa-file-excel-o'></i> Excel</button>"
+                },
+                {
+                    "sExtends": "pdf",
+                    "sButtonText": "<button><i class='fa fa-file-pdf-o'></i> PDF</button>"
+                }
+            ]
+        });
+        $(tableTools.fnContainer()).insertBefore("#tabella_5_wrapper");
     });
 </script>
 <!-- END JAVASCRIPTS -->

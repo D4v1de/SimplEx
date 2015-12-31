@@ -98,7 +98,7 @@ try {
                                 include_once VIEW_DIR . "Admin/creaUtente.php";
                                 break;
                             case 'view':
-                                include_once VIEW_DIR . "Admin/VisualizzaUtente.php";
+                                include_once VIEW_DIR . "Admin/visualizzaUtente.php";
                                 break;
                             case 'modifica':
                                 include_once VIEW_DIR . "Admin/modificaUtente.php";
