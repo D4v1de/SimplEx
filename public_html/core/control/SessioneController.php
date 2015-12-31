@@ -135,11 +135,11 @@ class SessioneController {
         return  $this->utenteController->getAllStudentiSessione($idSessione);
     }
 
-    public function abilitaStudenteASessione($idSessione, $studenteMatricola) {
+    public function abilitaStudenteASessione($idSessione, $studenteMatricola) { //PRESO
         $this->utenteController->abilitaStudenteSessione($idSessione,$studenteMatricola);
     }
 
-    public function disabilitaStudenteDaSessione($idSessione, $studenteMatricola) {
+    public function disabilitaStudenteDaSessione($idSessione, $studenteMatricola) { //PRESO
         $this->utenteController->disabilitaStudenteDaSessione($idSessione,$studenteMatricola);
     }
 
@@ -152,11 +152,11 @@ class SessioneController {
      * @param type $idSessione
      * @return type array di Test
      */
-    public function getAllTestBySessione($idSessione) {
+    public function getAllTestBySessione($idSessione) { //PRESO
         return $this->testController->getAllTestBySessione($idSessione);
     }
 
-    public function getAllTestByCorso($idCorso) {
+    public function getAllTestByCorso($idCorso) { //PRESO
         return $this->testController->getAllTestbyCorso($idCorso);
     }
 

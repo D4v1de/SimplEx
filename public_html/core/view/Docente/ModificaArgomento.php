@@ -7,11 +7,27 @@
  */
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once MODEL_DIR . "ArgomentoModel.php";
-include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "CdLModel.php";
 include_once MODEL_DIR . "UtenteModel.php";
 include_once MODEL_DIR . "CorsoModel.php";
+include_once UTILS_DIR . "controlloLogin.php";
+
 
 $utenteLoggato = $_SESSION['user'];
+
+$accountModel = new UtenteModel();
+$corsoModel = new CorsoModel();
+$argomentoModel = new ArgomentoModel();
+$cdlModel = new CdLModel();
+
+if(isset($_SESSION['idcorso'])){
+    unset($_SESSION['idcorso']);
+    $_SESSION['idcorso'] = $_URL[2];
+}else{
+    $_SESSION['idcorso'] = $_URL[2];
+}
+
+controllo();
 
 $errore = 0;
 if(isset($_SESSION['errore'])){
@@ -19,14 +35,8 @@ if(isset($_SESSION['errore'])){
     unset($_SESSION['errore']);
 }
 
-$accountModel = new UtenteModel();
-$corsoModel = new CorsoModel();
-$argomentoModel = new ArgomentoModel();
-$cdlModel = new CdLModel();
-
 $corso = null;
 $argomento = null;
-$correttezzaLogin = false;
 
 /**
  * LEGGE IL CORSO NEL QUALE CI SI TROVA
@@ -46,35 +56,7 @@ try{
     echo "ERRORE IN READ ARGOMENTO" . $exception;
 }
 
-/**
- * RICEVE LA MATRICOLA DEL DOCENTE LOGGATO
- */try{
-    $matricolaLoggato = $utenteLoggato->getMatricola();
-}catch(ApplicationException $exception){
-    echo "ERRORE IN GET MATRICOLA" . $exception;
-}
-/**
- * RICEVE I DOCENTE ASSOCIATI AL CORSO NEL QUALE CI SI TROVA
- */
-try{
-    $docentiAssociati = $accountModel->getAllDocentiByCorso($corso->getId());
-}catch(ApplicationException $exception){
-    echo "ERRORE IN GET DOCENTE ASSOCIATI" . $exception;
-}
-/**
- * CONTROLLA SE NEI DOCENTI ASSOCIATI E' PRESENTE IL DOCENTE LOGGATO
- */
-foreach($docentiAssociati as $docente){
-    if($docente->getMatricola() == $matricolaLoggato){
-        $correttezzaLogin = true;
-    }
-}
-/**
- * CONTROLLA IL CORRETTO LOGIN DEL DOCENTE AL CORSO DA LUI INSEGNATO
- */
-if($correttezzaLogin == false){
-    header('Location: /docente');
-}
+
 
 ?>
 <!DOCTYPE html>
@@ -207,8 +189,10 @@ if($correttezzaLogin == false){
                 FormValidation.init();
                 UIConfirmations.init();
                 UIToastr.init();
+                load("../utils/controlloLogin.php");
             });
         </script>
+
 
         <!-- END JAVASCRIPTS -->
     </body>

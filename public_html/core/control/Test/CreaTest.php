@@ -1,12 +1,12 @@
 <?php
 
 include_once MODEL_DIR . "ArgomentoModel.php";
-include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "CdLModel.php";
 include_once MODEL_DIR . "DomandaModel.php";
 include_once MODEL_DIR . "CorsoModel.php";
 include_once MODEL_DIR . "TestModel.php";
 
-$modelCdl = new CdlModel();
+$modelCdl = new CdLModel();
 $modelArgomento = new ArgomentoModel();
 $modelCorso = new CorsoModel();
 $modelDomande  = new DomandaModel();
@@ -82,15 +82,10 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
     // LA STO RIFACENDO C***O
     
     $descrizione=$_POST['descrizione']; //descrizione testo
-    $daControllare='@';
     $punteggio=0;
     $cont1=0;
     $cont2=0;
     
-    if(strpos($descrizione, $daControllare)){
-        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/crea?flag=5";
-        header($tornaACasa);
-    }
 
     
     if(empty($_POST['aperte']) && empty($_POST['multiple'])) {
@@ -175,12 +170,7 @@ if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && isset($_POST['
     $dbAperte;
     $dbMultiple;
     $descr=$_POST['descrizione'];
-    $daControllare='@';
     
-    if(strpos($descr, $daControllare)){
-        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/crea?flag=5";
-        header($tornaACasa);
-    }
 
     if($nApe < 0 || $nMul < 0) {
         $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/crea?flag=1";

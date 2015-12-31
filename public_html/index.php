@@ -98,7 +98,7 @@ try {
                                 include_once VIEW_DIR . "Admin/creaUtente.php";
                                 break;
                             case 'view':
-                                include_once VIEW_DIR . "Admin/VisualizzaUtente.php";
+                                include_once VIEW_DIR . "Admin/visualizzaUtente.php";
                                 break;
                             case 'modifica':
                                 include_once VIEW_DIR . "Admin/modificaUtente.php";
@@ -183,7 +183,7 @@ try {
                 StringUtils::checkPermission("Docente");
                 switch (isset($_URL[1]) ? $_URL[1] : '') {
                     case 'cdls':
-                        include_once VIEW_DIR . "Docente/VisualizzaCdl.php";
+                        include_once VIEW_DIR . "Docente/VisualizzaCdL.php";
                         break;
                     case 'cdl':
                         include_once VIEW_DIR . "Docente/VisualizzaCorsi.php";
@@ -235,6 +235,9 @@ try {
                                         include_once VIEW_DIR . "Docente/VisualizzaTest.php";
                                 }
                                 break;
+                            case 'checkdatasessione':
+                                include_once CONTROL_DIR . "Sessione/checkDataSessione.php";
+                                break;
                             case 'sessione':
                                 switch (isset($_URL[5]) ? $_URL[5] : '') {
                                     case 'aggiungistudenti':
@@ -248,32 +251,45 @@ try {
                                         break;
                                     case 'creamodificasessione2':
                                         switch (isset($_URL[6]) ? $_URL[6] : '') {
-                                            case 'creaSesControl':
-                                                include_once CONTROL_DIR . "sessioneController/creaSessioneControl.php";
+                                            case 'creasessione':
+                                                include_once CONTROL_DIR . "Sessione/creaSessione.php";
                                                 break;
-                                            case 'mostraSesControl':
-                                                include_once CONTROL_DIR . "sessioneController/mostraSessioneControl.php";
-                                                break;
-                                            case 'modificaSesControl':
-                                                include_once CONTROL_DIR . "sessioneController/modificaSessioneControl.php";
+                                            case 'modificasessione':
+                                                include_once CONTROL_DIR . "Sessione/modificaSessione.php";
                                                 break;
                                             default:
                                                 include_once VIEW_DIR . "Docente/CreaModSessNEW.php";
                                         }
-                                    case 'creaSesControl':
-                                        include_once CONTROL_DIR . "sessioneController/creaSessioneControl.php";
+
+                                    case 'creasessione':
+                                        include_once CONTROL_DIR . "Sessione/creaSessione.php";
                                         break;
-                                    case 'mostraSesControl':
-                                        include_once CONTROL_DIR . "sessioneController/mostraSessioneControl.php";
-                                        break;
-                                    case 'modificaSesControl':
-                                        include_once CONTROL_DIR . "sessioneController/modificaSessioneControl.php";
+                                    case 'modificasessione':
+                                        include_once CONTROL_DIR . "Sessione/modificaSessione.php";
                                         break;
                                     case 'correggi':
                                         include_once VIEW_DIR . "Docente/CorreggiTest.php";
                                         break;
                                     case 'visualizza':
                                         include_once VIEW_DIR . "Docente/VisualizzaElaborato.php";
+                                        break;
+                                    case 'aggiungistudente':
+                                        include_once CONTROL_DIR. "Sessione/AggiungiStudente.php";
+                                        break;
+                                    case 'annullaesame':
+                                        include_once CONTROL_DIR. "Sessione/AnnullaEsame.php";
+                                        break;
+                                    case 'terminasessione':
+                                        include_once CONTROL_DIR. "Sessione/TerminaSessione.php";
+                                        break;
+                                    case 'aggiornasessioneincorso':
+                                        include_once CONTROL_DIR. "Sessione/AggiornaSessioneInCorso.php";
+                                        break;
+                                    case 'indexsessioneincorso':
+                                        include_once CONTROL_DIR. "Sessione/IndexSessioneInCorso.php";
+                                        break;
+                                    case 'abilitastudenti':
+                                        include_once CONTROL_DIR. "Sessione/AbilitaStudente.php";
                                         break;
                                     case 'sessioneincorso':
                                         switch (isset($_URL[6]) ? $_URL[6] : '') {
@@ -289,6 +305,15 @@ try {
                                 }
                                 break;
 
+                            case 'rimuovisessione':
+                                include_once CONTROL_DIR . "Sessione/rimuoviSessione.php";
+                                break;
+                            case 'avviasessione':
+                                include_once CONTROL_DIR . "Sessione/avviaSessione.php";
+                                break;
+                            case 'indexvisualizza':
+                                include_once CONTROL_DIR . "Sessione/indexVisualizza.php";
+                                break;
                             case 'gestoredata':
                                 include_once VIEW_DIR . "Docente/gestoreDataServer.php";
                                 break;
@@ -309,13 +334,13 @@ try {
                         include_once VIEW_DIR . "Docente/getTestforStat.php";
                         break;
                     case 'creazione_TEST':
-                        include_once VIEW_DIR . "Test/Crea_Test.php";
+                        include_once CONTROL_DIR . "Test/CreaTest.php";
                         break;
                     case 'modifica_TEST':
-                        include_once VIEW_DIR . "Test/Modifica_Test.php";
+                        include_once CONTROL_DIR . "Test/ModificaTest.php";
                         break;
                     case 'Elimina_Test':
-                        include_once VIEW_DIR . "Test/Elimina_Test.php";
+                        include_once CONTROL_DIR . "Test/EliminaTest.php";
                         break;
                     case 'inserisciaperta':
                         include_once CONTROL_DIR . "Domanda/creaDomandaAperta.php";

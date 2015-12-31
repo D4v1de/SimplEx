@@ -8,9 +8,10 @@
 
 include_once MODEL_DIR . "DomandaModel.php";
 include_once MODEL_DIR . "ArgomentoModel.php";
-include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "CdLModel.php";
 include_once MODEL_DIR . "UtenteModel.php";
 include_once MODEL_DIR . "CorsoModel.php";
+include_once UTILS_DIR . "controlloLogin.php";
 
 $utenteLoggato = $_SESSION['user'];
 
@@ -35,7 +36,14 @@ $argomento = null;
 $domandaOld = null;
 $correttezzaLogin = false;
 
+if(isset($_SESSION['idcorso'])){
+    unset($_SESSION['idcorso']);
+    $_SESSION['idcorso'] = $_URL[2];
+}else{
+    $_SESSION['idcorso'] = $_URL[2];
+}
 
+controllo();
 
 try {
     $corso = $modelCorso->readCorso($idCorso);

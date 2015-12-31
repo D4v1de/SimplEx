@@ -6,20 +6,29 @@
  * @since 18/11/15 09:58
  */
 
-include_once CONTROL_DIR . "SessioneController.php";
-include_once CONTROL_DIR . "CdlController.php";
-include_once CONTROL_DIR . "ElaboratoController.php";
-include_once CONTROL_DIR . "UtenteController.php";
+include_once MODEL_DIR . "ElaboratoModel.php";
+include_once MODEL_DIR . "SessioneModel.php";
+include_once MODEL_DIR . "UtenteModel.php";
+include_once MODEL_DIR . "CdLModel.php";
+include_once MODEL_DIR . "CorsoModel.php";
+include_once MODEL_DIR . "TestModel.php";
+include_once BEAN_DIR . "Sessione.php";
 
-$elaboratoController= new ElaboratoController();
-$controllerUtente = new UtenteController();
-$controllerSessione = new SessioneController();
-$controlleCdl = new CdlController();
+$sessioneModel = new SessioneModel();
+$utenteModel = new UtenteModel();
+$testModel = new TestModel();
+$corsoModel = new CorsoModel();
+$cdlModel = new CdLModel();
+$elaboratoModel= new ElaboratoModel();
+
+
 $idSessione = $_URL[4];
 $identificativoCorso = $_URL[2];
 $numProfs=0;
+
 $doc = $_SESSION['user'];
-$docentiOe=$controllerUtente->getDocenteAssociato($identificativoCorso);
+
+$docentiOe=$utenteModel->getAllDocentiByCorso($identificativoCorso);
 foreach($docentiOe as $d) {
     if($doc==$d){
         $numProfs++;
@@ -28,82 +37,39 @@ foreach($docentiOe as $d) {
 if($numProfs==0){
     header("Location: "."/docente/corso/".$corso->getId());
 }
+
 $sessione = null;
 $valu = null;
 $eser = null;
 $showE="";
 $showRC="";
 
-
-
 if (!is_numeric($idSessione)) {
     echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
 }
 
 try {
-    $sessione = $controllerSessione->readSessione($idSessione);
+    $sessione = $sessioneModel->readSessione($idSessione);
 } catch (ApplicationException $ex) {
     echo "<h1>INSERIRE ID SESSIONE NEL PATH</h1>".$ex;
 }
 
-$corso = $controlleCdl->readCorso($identificativoCorso);
+$corso = $corsoModel->readCorso($identificativoCorso);
 $nomecorso= $corso->getNome();
 
 $dataFrom = $sessione->getDataInizio();
 $dataTo = $sessione->getDataFine();
 $tipoSessione = $sessione->getTipologia();
-if ($controllerSessione->readMostraEsitoSessione($sessione->getId()) == "Si") {
+$soglia= $sessione->getSogliaAmmissione();
+if ($sessioneModel->readMostraEsitoSessione($sessione->getId()) == "Si") {
     $showE = "Checked";
 }
-if($controllerSessione->readMostraRisposteCorretteSessione($sessione->getId()) == "Si")
+if($sessioneModel->readMostraRisposteCorretteSessione($sessione->getId()) == "Si")
     $showRC= "Checked";
 
 if ($tipoSessione == "Valutativa")
     $valu = "Checked";
 else $eser = "Checked";
-
-
-if(isset($_POST['avvia'])){
-    $almenoUnoCorretto=0;
-    $esaminandiSessione = Array();
-    $esaminandiSessione= $controllerSessione->getEsaminandiSessione($idSessione);
-    if ($esaminandiSessione == null) {
-    }
-    else {
-        foreach ($esaminandiSessione as $c) {
-            $ela=$elaboratoController->readElaborato($c->getMatricola(),$idSessione);
-            if($ela->getStato()=="Corretto") {
-                $almenoUnoCorretto++;
-            }
-        }
-    }
-    if($almenoUnoCorretto!=0) {
-        $vaiEsiti = "Location: " . "/docente/corso/" . $identificativoCorso . "/sessione" . "/" . $idSessione. "/" . "esiti/norestart";
-        header($vaiEsiti);
-    }
-    else {
-        $idSesToGo = $_POST['avvia'];
-        $dataNow = date('Y/m/d/ h:i:s ', time());
-        $newSessione = new Sessione($dataNow, $dataTo, 18, "In Esecuzione", $tipoSessione, $identificativoCorso);
-        $controllerSessione->updateSessione($idSessione, $newSessione);
-        $vaiASesInCorso = "Location: " . "/docente/corso/" . $identificativoCorso . "/sessione" . "/" . $idSesToGo . "/" . "sessioneincorso/show";
-        header($vaiASesInCorso);
-    }
-}
-
-
-
-if(isset($_POST['rimuovi'])){
-    $idSes = $_POST['rimuovi'];
-    try {
-        $controllerSessione->deleteSessione($idSes);
-        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
-        header($tornaACasa);
-    }
-    catch(ApplicationException $ex) {
-        echo "Errore nella Rimozione?".$ex;
-    }
-}
 
 ?>
 <!DOCTYPE html>
@@ -151,7 +117,7 @@ if(isset($_POST['rimuovi'])){
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="<?php echo "/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $controlleCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
+                        <a href="<?php echo "/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $cdlModel->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
@@ -325,13 +291,13 @@ if(isset($_POST['rimuovi'])){
                             <tbody>
                             <?php
                             $array = Array();
-                            $array = $controllerSessione->getAllTestBySessione($idSessione);
+                            $array = $sessioneModel->getAllTestBySessione($idSessione);
                             if ($array == null) {
                             }
                             else {
-                                $sessioniByCorso = $controllerSessione->getAllSessioniByCorso($identificativoCorso);
+                                $sessioniByCorso = $sessioneModel->getAllSessioniByCorso($identificativoCorso);
                                 foreach ($array as $c) {
-                                    $elaborati = $elaboratoController->getAllElaboratiTest($c->getId());
+                                    $elaborati = $elaboratoModel->getAllElaboratiTest($c->getId());
                                     if ($sessioniByCorso != null)
                                         $percSce = round(($c->getPercentualeScelto()/count($sessioniByCorso)*100),2);
                                     else
@@ -417,7 +383,7 @@ if(isset($_POST['rimuovi'])){
 
                             <?php
                             $studentsOfSessione = Array();
-                            $studentsOfSessione= $controllerSessione->getAllStudentiBySessione($idSessione);
+                            $studentsOfSessione= $utenteModel->getAllStudentiSessione($idSessione);
                             if ($studentsOfSessione == null) {
                             }
                             else {
@@ -436,8 +402,7 @@ if(isset($_POST['rimuovi'])){
                 </div>
             </div>
 
-
-        <form action="" method="post">
+            <form action="/docente/corso/<?php echo $identificativoCorso; ?>/indexvisualizza" method="post">
             <div class="form-actions">
                 <div class="row">
                     <div class="col-md-12">
@@ -450,7 +415,8 @@ if(isset($_POST['rimuovi'])){
                                     $avviaOripr = "Riprendi";
                                     $disabled="disabled";
                                 }
-                                printf("<button name=\"avvia\"  value=\"%s\" class=\"btn sm green-jungle\"><span class=\"md-click-circle md-click-animate\" style=\"height: 94px; width: 94px; top: -23px; left: 2px;\"></span><i class=\"fa fa-play-circle-o\"></i>%s</button>", $idSessione , $avviaOripr);
+                                printf("<button name=\"avvia\"  value=\"%s\" class=\"btn sm green-jungle\"  data-toggle=\"confirmation\"
+                                        data-singleton=\"true\" data-popout=\"true\" title=\"Sicuro?\"><span class=\"md-click-circle md-click-animate\" style=\"height: 94px; width: 94px; top: -23px; left: 2px;\"></span><i class=\"fa fa-play-circle-o\"></i>%s</button>", $idSessione , $avviaOripr);
                                 $vaiAModifica="/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."creamodificasessione";
                                 $vaiAVisu="/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."visualizzasessione";
 
@@ -529,7 +495,7 @@ if(isset($_POST['rimuovi'])){
                                             var var2=<?php echo "$identificativoCorso" ?>;
                                             var var3='/sessione/';
                                             var var4=<?php echo "$idSessione" ?>;
-                                            var var5='/sessioneincorso/autostartsuccess';
+                                            var var5='/sessioneincorso';
                                             var res1 = var1.concat(var2);
                                             var res2 = res1.concat(var3);
                                             var res3 = res2.concat(var4);

@@ -1,12 +1,12 @@
 <?php
 
 include_once MODEL_DIR . "ArgomentoModel.php";
-include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "CdLModel.php";
 include_once MODEL_DIR . "DomandaModel.php";
 include_once MODEL_DIR . "CorsoModel.php";
 include_once MODEL_DIR . "TestModel.php";
 
-$modelCdl = new CdlModel();
+$modelCdl = new CdLModel();
 $modelArgomento = new ArgomentoModel();
 $modelCorso = new CorsoModel();
 $modelDomande  = new DomandaModel();
@@ -83,15 +83,10 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
     // qui va la parte manuale
     // LA STO RIFACENDO C***O
     $descrizione=$_POST['descrizione']; //descrizione test
-    $carspec='@';
     $punteggio=0; 
     $cont1=0;
     $cont2=0;
     
-    if(strpos($descrizione, $carspec)){
-        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/modifica/"."$idTest"."?flag=5";
-        header($tornaACasa);
-    }
     
     if(empty($_POST['multiple']) && empty($_POST['aperte'])) {
         //echo "DAI CAZZOOOOOOOOO(qua dobbiamo gestire l'errore nel caso non è stata selezionata nessuna check)";
@@ -204,10 +199,6 @@ if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && isset($_POST['
     $nApe=parseInt($_POST['numAperte']);
     $nMul=parseInt($_POST['numMultiple']);
     
-    if(strpos($descr, $carspec)){
-        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/modifica/"."$idTest"."?flag=5";
-        header($tornaACasa);
-    }
     
     if($nApe < 0 || $nMul < 0) {
         $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/modifica/"."$idTest"."?flag=1";

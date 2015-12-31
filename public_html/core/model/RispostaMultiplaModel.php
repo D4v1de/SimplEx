@@ -16,7 +16,6 @@ class RispostaMultiplaModel extends Model {
     public static $CREATE_RISPOSTA_MULTIPLA = "INSERT INTO `risposta_multipla` (elaborato_sessione_id, elaborato_studente_matricola, domanda_multipla_id, punteggio, alternativa_id) VALUES ('%d', '%s', '%d', '%f', '%d')";
     public static $READ_RISPOSTA_MULTIPLA = "SELECT * FROM `risposta_multipla` WHERE elaborato_sessione_id = '%d' AND  elaborato_studente_matricola = '%s' AND domanda_multipla_id = '%d'";
     public static $UPDATE_RISPOSTA_MULTIPLA = "UPDATE `risposta_multipla` SET punteggio = '%f', alternativa_id = '%d' WHERE elaborato_sessione_id = '%d' AND elaborato_studente_matricola = '%s' AND domanda_multipla_id = '%d'";
-    public static $DELETE_RISPOSTA_MULTIPLA = "DELETE FROM `risposta_multipla` WHERE elaborato_sessione_id = '%d' AND elaborato_studente_matricola = '%s' AND domanda_multipla_id = '%d'";
     public static $GET_ALL_RISPOSTA_MULTIPLA_ELABORATO = "SELECT * FROM `risposta_multipla` WHERE elaborato_sessione_id = '%d' AND elaborato_studente_matricola = '%s'";
     public static $GET_ALL_RISPOSTA_MULTIPLA_DOMANDA = "SELECT * FROM `risposta_multipla` WHERE domanda_multipla_id = '%d'";
 
@@ -64,20 +63,6 @@ class RispostaMultiplaModel extends Model {
         Model::getDB()->query($query);
         if(Model::getDB()->affected_rows==-1) {
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
-        }
-    }
-    
-    /**
-     * Elimina una risposta multipla dal database
-     * @param int $elaboratoSessioneId L'id della sessione a cui appartiene l'elaborato relativo
-     * @param string $elaboratoStudenteMatricola La matricola dello studente a cui appartiene l'elaborato relativo
-     * @param int $domandaMultiplaId L'id della domanda multipla relativa
-     */
-    public function deleteRispostaMultipla ($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId) {
-        $query = sprintf(self::$DELETE_RISPOSTA_MULTIPLA, $elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaMultiplaId);
-        Model::getDB()->query($query);
-        if(Model::getDB()->affected_rows==-1) {
-            throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
         }
     }
     

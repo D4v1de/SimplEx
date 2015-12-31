@@ -1,3 +1,3 @@
 <?php
-header('Location: /admin/cdl/view');
+header('Location: /admin/utenti');
 exit;

@@ -19,7 +19,7 @@ try {
         $cdl = $cdlCtr->readCdl($victim->getCdlMatricola());
     }
 } catch (ApplicationException $ex) {
-    header('Location: /');
+    header('Location: /?error=Utente non trovato');
 }
 ?>
 <!DOCTYPE html>
