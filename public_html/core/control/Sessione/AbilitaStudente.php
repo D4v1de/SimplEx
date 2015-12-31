@@ -15,7 +15,6 @@ if(isset($_POST['abilita'])) {
         $cbStudents= Array();
         $cbStudents = $_POST['students'];
         print_r($cbStudents);
-        echo "................";
         $allStuAbi= $utenteModel->getAllStudentiSessione($idSessione);
         print_r($allStuAbi);
         foreach($allStuAbi as $s) {
