@@ -27,7 +27,7 @@ $idCorso = null;
 
 $idCorso = $_URL[2];
 if (!is_numeric($idCorso)) {
-    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+    echo "<script type='text/javascript'>alert('errore url!!(idcorso)');</script>";
 }
 try {
     $corso = $corsoModel->readCorso($idCorso);

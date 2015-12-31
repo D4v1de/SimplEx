@@ -31,7 +31,7 @@ unset($_SESSION['flag5']);
 $url = $_URL[3];
 $_SESSION['idcorso'] = $url;
 if (!is_numeric($url)) {
-    echo "<script type='text/javascript'>alert('errore nella url!!(idcorso)');</script>";
+    echo "<script type='text/javascript'>alert('errore url!!(idcorso)');</script>";
 }
 
 try {

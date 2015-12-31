@@ -25,7 +25,7 @@ unset($_SESSION['flag5']);
 $url = $_URL[3];
 $_SESSION['idcdl'] = $url;
 if (!is_numeric($url)) {
-    echo "<script type='text/javascript'>alert('errore nella url!!(idcdl)');</script>";
+    echo "<script type='text/javascript'>alert('errore url!!(idcdl)');</script>";
 }
 try {
     $cdl = $modelcdl->readCdL($url);

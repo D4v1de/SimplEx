@@ -20,7 +20,7 @@ $url = null;
 $url = $_URL[2];
 $_SESSION['idcdl'] = $url;
 if (!is_numeric($url)) {
-    echo "<script type='text/javascript'>alert('errore nella url!!(idcdl)');</script>";
+    echo "<script type='text/javascript'>alert('errore url!!(idcdl)');</script>";
 }
 
 $studente = $_SESSION['user'];
