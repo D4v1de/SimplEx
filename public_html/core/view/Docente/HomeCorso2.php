@@ -16,6 +16,8 @@ include_once MODEL_DIR . "CdLModel.php";
 include_once MODEL_DIR . "ArgomentoModel.php";
 include_once MODEL_DIR . "CorsoModel.php";
 include_once MODEL_DIR . "UtenteModel.php";
+include_once UTILS_DIR . "controlloLogin.php";
+
 
 $utenteLoggato = $_SESSION['user'];
 
@@ -30,6 +32,15 @@ $modelCdl = new CdLModel();
 $corso = null;
 $identificativoCorso = $_URL[2];
 $cond=null;
+
+if(isset($_SESSION['idcorso'])){
+    unset($_SESSION['idcorso']);
+    $_SESSION['idcorso'] = $_URL[2];
+}else{
+    $_SESSION['idcorso'] = $_URL[2];
+}
+
+controllo();
 
 if(isset($_URL[3]))
     $cond=$_URL[3];
