@@ -5,16 +5,16 @@
  * Date: 03/12/15
  * Time: 16:00
  */
-include_once CONTROL_DIR . "TestController.php";
-$testController = new TestController();
-include_once CONTROL_DIR . "ElaboratoController.php";
-$elaboratoController = new ElaboratoController();
+include_once MODEL_DIR . "TestModel.php";
+$testModel = new TestModel();
+include_once MODEL_DIR . "ElaboratoModel.php";
+$elaboratoModel = new ElaboratoModel();
 
 $corsoId = $_GET['corso_id'];
 $number = $_GET['num'];
 $type = $_GET['type'];
 $mod = $_GET['mod'];
-$tests = $testController->getAllTestbyCorso($corsoId);
+$tests = $testModel->getAllTestbyCorso($corsoId);
 
 $n = count($tests);
 

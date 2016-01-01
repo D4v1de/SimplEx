@@ -8,13 +8,13 @@
 
 //TODO qui la logica iniziale, caricamento dei model ecc
 include_once MODEL_DIR . "ArgomentoModel.php";
-include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "CdLModel.php";
 include_once MODEL_DIR . "DomandaModel.php";
 include_once MODEL_DIR . "CorsoModel.php";
 include_once MODEL_DIR . "TestModel.php";
 
 
-$modelCdl = new CdlModel();
+$modelCdl = new CdLModel();
 $modelArgomento = new ArgomentoModel();
 $modelCorso = new CorsoModel();
 $modelDomande  = new DomandaModel();

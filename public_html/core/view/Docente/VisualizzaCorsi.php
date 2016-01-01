@@ -16,7 +16,7 @@ $corsi = Array();
 $url = $_URL[2];
 
 if(!is_numeric($url)) {
-    echo "<script type='text/javascript'>alert('errore nella url!!(idcdl)');</script>";
+    echo "<script type='text/javascript'>alert('errore url!!(idcdl)');</script>";
 }
 
 try {

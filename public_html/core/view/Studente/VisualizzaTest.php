@@ -45,11 +45,11 @@ $url2 = null;
 
 $url = $_URL[2];
 if (!is_numeric($url)) {
-    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+    echo "<script type='text/javascript'>alert('errore url!!(idcorso)');</script>";
 }
 $url2 = $_URL[4];
 if (!is_numeric($url)) {
-    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+    echo "<script type='text/javascript'>alert('errore url!!(idelaborato)');</script>";
 }
 
 $studente = $_SESSION['user'];

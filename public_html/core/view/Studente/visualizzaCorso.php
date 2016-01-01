@@ -12,7 +12,7 @@ include_once MODEL_DIR . "UtenteModel.php";
 include_once MODEL_DIR . "SessioneModel.php";
 include_once MODEL_DIR . "ElaboratoModel.php";
 include_once MODEL_DIR . "TestModel.php";
-$cdlModel = new CdlModel();
+$cdlModel = new CdLModel();
 $corsoModel = new CorsoModel();
 $utenteModel = new UtenteModel();
 $sessioneModel = new SessioneModel();
@@ -27,7 +27,7 @@ $idCorso = null;
 
 $idCorso = $_URL[2];
 if (!is_numeric($idCorso)) {
-    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+    echo "<script type='text/javascript'>alert('errore url!!(idcorso)');</script>";
 }
 try {
     $corso = $corsoModel->readCorso($idCorso);

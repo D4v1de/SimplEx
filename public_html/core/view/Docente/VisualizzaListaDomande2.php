@@ -7,7 +7,7 @@
  */
 include_once MODEL_DIR . "DomandaModel.php";
 include_once MODEL_DIR . "ArgomentoModel.php";
-include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "CdLModel.php";
 include_once MODEL_DIR . "AlternativaModel.php";
 include_once MODEL_DIR . "UtenteModel.php";
 include_once MODEL_DIR . "CorsoModel.php";

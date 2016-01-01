@@ -14,14 +14,21 @@ $alternativaModel = new AlternativaModel();
 
 $idArgomento = $_POST['idargomento'];
 $idCorso = $_POST['idcorso'];
+$testoRisposte = array();
+
+for($j=1;$j<16;$j++){
+    if(isset($_POST['testoRisposta'.$j])){
+        $testoRisposte[$j-1] = $_POST['testoRisposta'.$j];
+    }
+}
 
 
-if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($_POST['punteggioEsatta']) && isset($_POST['testoRisposta']) && isset($_POST['radio'])) {
+
+if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($_POST['punteggioEsatta']) && isset($testoRisposte) && isset($_POST['radio'])) {
 
     $testoDomanda = $_POST['testoDomanda'];
     $punteggioErrata = $_POST['punteggioErrata'];
     $punteggioEsatta = $_POST['punteggioEsatta'];
-    $testoRisposte = $_POST['testoRisposta'];
     $radio = $_POST['radio'];
     $controlloRisposte = true;
 
@@ -80,7 +87,7 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($
 }else if(!isset($_POST['punteggioErrata'])){
     $_SESSION['errore'] = 3;
     header('Location: /docente/corso/' . $idCorso . '/argomento/domande/inseriscimultipla/' . $idArgomento);
-}else if(!isset($_POST['testoRisposta'])){
+}else if(!isset($testoRisposte)){
     $_SESSION['errore'] = 4;
     header('Location: /docente/corso/' . $idCorso . '/argomento/domande/inseriscimultipla/' . $idArgomento);
 }else if(!isset($_POST['radio'])){
