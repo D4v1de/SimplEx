@@ -56,9 +56,16 @@ if (isset($_POST['salva'])){
 
     $updated = $test;
     $soglia = $sessione->getSogliaAmmissione();
+    $tipologia = $sessione->getTipologia();
     if ($fin >= $soglia){
-        $perc = $updated->getPercentualeSuccesso() +1;
-        $updated->setPercentualeSuccesso($perc);
+        if ($tipologia == "Valutativa"){
+            $perc = $updated->getPercentualeSuccessoVal() +1;
+            $updated->setPercentualeSuccessoVal($perc);
+        }
+        else{
+            $perc = $updated->getPercentualeSuccessoEse() +1;
+            $updated->setPercentualeSuccessoEse($perc);
+        }    
         $testModel->updateTest($elaborato->getTestId(), $updated);
     }
 

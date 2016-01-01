@@ -186,8 +186,8 @@ $dataTo = $sessioneByUrl->getDataFine();
                                                 printf("<td>%d</td>", $c->getNumeroMultiple());
                                                 printf("<td>%d</td>", $c->getNumeroAperte());
                                                 printf("<td>%d</td>", $c->getPunteggioMax());
-                                                printf("<td>%d</td>", $c->getPercentualeScelto());
-                                                printf("<td>%d</td>", $c->getPercentualeSuccesso());
+                                                printf("<td>%d%%</td>", $c->getPercentualeSceltoEse() + $c->getPercentualeSceltoVal());
+                                                printf("<td>%d%%</td>", $c->getPercentualeSuccessoEse() + $c->getPercentualeSuccessoVal());
                                                 printf("</tr>");
                                             }
                                         }

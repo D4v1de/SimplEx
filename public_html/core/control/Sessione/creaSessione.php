@@ -9,10 +9,12 @@
 include_once MODEL_DIR . "SessioneModel.php";
 include_once MODEL_DIR . "UtenteModel.php";
 include_once MODEL_DIR . "TestModel.php";
+include_once MODEL_DIR . "DomandaModel.php";
 include_once BEAN_DIR . "Sessione.php";
 
 $sessioneModel = new SessioneModel();
 $utenteModel = new UtenteModel();
+$domandaModel = new DomandaModel();
 $testModel = new TestModel();
 $idCorso = $_URL[2];
 $flag=1;
@@ -75,10 +77,34 @@ $flag=1;
                             $updated->setPercentualeSceltoVal($perc);
                         }
                         else{
-                            $perc = $updated->getPercentualeSceltoVal() +1;
-                            $updated->setPercentualeSceltoVal($perc);
+                            $perc = $updated->getPercentualeSceltoEse() +1;
+                            $updated->setPercentualeSceltoEse($perc);
                         }
-                        $testModel->updateTest($t, $updated);
+                        $aperte = $domandaModel->getAllDomandeAperteByTest($t);
+                        foreach ($aperte as $updatedDom){
+                            if ($newtipoSessione == "Valutativa"){
+                                $percDom = $updatedDom->getPercentualeSceltaVal() +1;
+                                $updatedDom->setPercentualeSceltaVal($percDom);
+                            }
+                            else{
+                                $percDom = $updatedDom->getPercentualeSceltaEse() +1;
+                                $updatedDom->setPercentualeSceltaEse($percDom);
+                            }
+                            $domandaModel->updateDomandaAperta($updatedDom->getId(), $updatedDom);
+                        }
+                        $multiple = $domandaModel->getAllDomandeMultipleByTest($t);
+                        foreach ($multiple as $updatedDom){
+                            if ($newtipoSessione == "Valutativa"){
+                                $percDom = $updatedDom->getPercentualeSceltaVal() +1;
+                                $updatedDom->setPercentualeSceltaVal($percDom);
+                            }
+                            else{
+                                $percDom = $updatedDom->getPercentualeSceltaEse() +1;
+                                $updatedDom->setPercentualeSceltaEse($percDom);
+                            }
+                            $domandaModel->updateDomandaMultipla($updatedDom->getId(), $updatedDom);
+                        }
+                $testModel->updateTest($t, $updated);
                     }
                 }
             } catch (ApplicationException $ex) {

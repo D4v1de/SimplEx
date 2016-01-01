@@ -106,8 +106,11 @@ catch (ApplicationException $ex) {
                         $risposte = $ModelAlternativa->getAllAlternativaByDomanda($x->getId());
                         $tests = $ModelTest->getAllTestByCorso($identificativoCorso);
                         $risps = $rmModel->getAllRisposteMultipleByDomanda($x->getId());
-                        $percSce = round(($x->getPercentualeScelta()/count($tests) * 100),2);
-
+                        if ($tests != null) {
+                                                    $scelte = $x->getPercentualeSceltaVal() + $x->getPercentualeSceltaEse();
+                                                    $percSce = round(($scelte / count($tests) * 100));
+                                                }
+                                                
                         printf("<div class=\"portlet box blue-madison\">");
                         printf("<div class=\"portlet-title\">");
                         printf("<div class=\"col-md-5 caption\">");
@@ -120,7 +123,7 @@ catch (ApplicationException $ex) {
                         printf("Punteggio Errata: %s &nbsp", $x->getPunteggioErrata());
                         printf("</div>");
                         printf("<div class=\"caption\">");
-                        printf("Percentuale Scelta: %s",$percSce );
+                        printf("Percentuale Scelta: %s%%",$percSce );
                         printf("</div>");
                         printf("<div class=\"tools\">");
                         printf("<a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a>");
@@ -159,7 +162,10 @@ catch (ApplicationException $ex) {
                             foreach($Aperte as $x){
                                 $tests = $ModelTest->getAllTestByCorso($identificativoCorso);
                                 $risps = $rmModel->getAllRisposteMultipleByDomanda($x->getId());
-                                $percSce = round(($x->getPercentualeScelta()/count($tests) * 100),2);
+                        if ($tests != null) {
+                                                    $scelte = $x->getPercentualeSceltaVal() + $x->getPercentualeSceltaEse();
+                                                    $percSce = round(($scelte / count($tests) * 100));
+                                                }
                                 
                                 printf("<div class=\"portlet box blue-madison\">");
                                 printf("<div class=\"portlet-title\">");
@@ -170,7 +176,7 @@ catch (ApplicationException $ex) {
                                 printf("Punteggio Max Corretta: %s &nbsp", $x->getPunteggioMax());
                                 printf("</div>");
                                 printf("<div class=\"caption\">");
-                                printf("Percentuale Scelta: %s",$percSce );
+                                printf("Percentuale Scelta: %s%%",$percSce );
                                 printf("</div>");
                                 printf("</div>");
                                 printf("<div class=\"portlet-body\">");
