@@ -260,7 +260,9 @@ try {
                                             default:
                                                 include_once VIEW_DIR . "Docente/CreaModSessNEW.php";
                                         }
-
+                                    case 'filtrotests':
+                                        include_once CONTROL_DIR . "Sessione/FiltroTests.php";
+                                        break;
                                     case 'creasessione':
                                         include_once CONTROL_DIR . "Sessione/creaSessione.php";
                                         break;
