@@ -43,6 +43,29 @@ class TestModelTest extends \PHPUnit_Framework_TestCase
         $test = $model->readTest($idTest);
         print_r($test);
 
+        //leggo il numero di volte che il test è stato scelto per le sessioni esercitative
+        $numero = $model->readNumeroSceltaTestEsercitativa($idTest);
+        print_r($numero);
+
+        //incremento il numero di scelta
+        $model->updateNumeroSceltaTestEsercitativa($idTest, $numero+1);
+
+        //controllo il numero di volte che il test è stato scelto per le sessioni esercitative
+        $numero = $model->readNumeroSceltaTestEsercitativa($idTest);
+        print_r($numero);
+
+        //leggo il numero di volte che il test è stato scelto per le sessioni valutative
+        $numero = $model->readNumeroSceltaTestValutativa($idTest);
+        print_r($numero);
+
+        //incremento il numero di scelta
+        $model->updateNumeroSceltaTestValutativa($idTest, $numero+1);
+
+        //controllo il numero di volte che il test è stato scelto per le sessioni esercitative
+        $numero = $model->readNumeroSceltaTestValutativa($idTest);
+        print_r($numero);
+
+
         //confronto se i test sono equivalenti
         $this->assertEquals(self::DESCRIZIONE, $test->getDescrizione());
         $this->assertEquals(self::PUNTEGGIOMAX, $test->getPunteggioMax());

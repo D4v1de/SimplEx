@@ -25,7 +25,6 @@ class SessioneModelTest extends \PHPUnit_Framework_TestCase
 
     public function testSessione()
     {
-
         $model = new SessioneModel();
 
         //testo la read
@@ -47,7 +46,6 @@ class SessioneModelTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(self::TIPOLOGIASESS, $sessione->getTipologia());
         $this->assertEquals(self::CORSOID, $sessione->getCorsoId());
 
-
         //eseguo una modifica sulla sessione creata
         $model->updateSessione($idSess,(new Sessione(self::DATAI2, self::DATAF2, self::SOGLIAAMM, self::STATO, self::TIPOLOGIASESS, self::CORSOID)));
 
@@ -64,27 +62,13 @@ class SessioneModelTest extends \PHPUnit_Framework_TestCase
 
         //associo test ad una sessione
         $model->associaTestSessione(self::IDSESSIONE, self::IDTEST);
-        //controllo se è stato associato
-        $allTestsSessione = $model->getAllTestBySessione(self::IDSESSIONE);
-        print("Stampo tutti i test di sessione per verificare se il test è stato associato");
-        print_r($allTestsSessione);
 
         //dissocio test ad una sessione
         $model->dissociaTestSessione(self::IDSESSIONE, self::IDTEST);
-        //controllo se è stato dissociato
-        $allTestsSessione = $model->getAllTestBySessione(self::IDSESSIONE);
-        print("Stampo tutti i test di sessione per verificare se il test è stato dissociato");
-        print_r($allTestsSessione);
-
 
         //associo di nuovo il test per poi cancellare
         $model->associaTestSessione(self::IDSESSIONE, self::IDTEST);
         $model->deleteAllTestFromSessione(self::IDSESSIONE);
-        //stampo tutti i test per verificare che il test non esiste piu
-        $allTestsSessione = $model->getAllTestBySessione(self::IDSESSIONE);
-        print("Stampo tutti i test di sessione per verificare se il test è stato eliminato");
-        print_r($allTestsSessione);
-
 
         //testo abilita mostra esiti
         $model->abilitaMostraEsito(self::IDSESSIONE);
@@ -120,11 +104,5 @@ class SessioneModelTest extends \PHPUnit_Framework_TestCase
         //leggo tutte le sessioni di un corso
         $allSC = $model ->getAllSessioniByCorso(self::CORSOID);
         print_r($allSC);
-
-
     }
-
-
-
-
 }
