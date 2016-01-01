@@ -1,20 +1,25 @@
-var getStatisticheTest = function (str) {
-    var n = document.getElementById("qui").value;
-    if (str == "Best"){
-        color = "#04D215";
-        mod = "best";
+var getStatisticheTest = function (str,mod) {
+    if ($('#valTestSup').is(":checked"))
+        kind = "val";
+    else kind = "ese";
+    if (str == "Successo"){
+        var n = document.getElementById("numberTestSuccesso").value;
+        id = "testSup";
         type = "successo";
         text = "<span style='font-size:13px;'>Superato dal <b>[[value]]%</b> degli Studenti</span>";
-    }
-    if (str == "Worst"){
-        color = "#FF0F00";
-        mod = "worst";
-        type = "successo";
-        text = "<span style='font-size:13px;'>Superato dal <b>[[value]]%</b> degli Studenti</span>";
+        if (mod == "Best"){
+            color = "#16ce6d";
+            mod = "best";
+        }
+        if (mod == "Worst"){
+            color = "#e14e4e";
+            mod = "worst";
+        }
     }
     if (str == "Scelto"){
+        var n = document.getElementById("numberTestScelto").value;
+        id = "testSce";
         color = "#FF0F00";
-        mod = "worst";
         type = "scelto";
         text = "<span style='font-size:13px;'>Scelto nel <b>[[value]]%</b> delle Sessioni</span>";
     }
@@ -34,11 +39,11 @@ var getStatisticheTest = function (str) {
 }
 
 var get5Test = function () {
-    $.post("/docente/getTestforStat?corso_id=120&num=5&type=successo&mod=best", function (data) {
+    $.post("/docente/getTestforStat?corso_id=120&num=5&type=successo&mod=best&kind=val", function (data) {
         var res = data.split("/");
         var x = res[0].split("-");
         var y = res[1].split("-");
-        var chart = AmCharts.makeChart("testSupBest", {
+        var chart = AmCharts.makeChart(id, {
             "type": "serial",
             "theme": "light",
             "autoMargins": false,
@@ -93,7 +98,7 @@ var get5Test = function () {
             }
         });
 
-        $('#testSupBest').closest('.portlet').find('.fullscreen').click(function () {
+        $('#'+id).closest('.portlet').find('.fullscreen').click(function () {
             chart.invalidateSize();
         });
 
@@ -105,7 +110,7 @@ var get10Test = function () {
         var res = data.split("/");
         var x = res[0].split("-");
         var y = res[1].split("-");
-        var chart = AmCharts.makeChart("testSupBest", {
+        var chart = AmCharts.makeChart(id, {
             "type": "serial",
             "theme": "light",
             "autoMargins": false,
@@ -180,7 +185,7 @@ var get10Test = function () {
             }
         });
 
-        $('#testSupBest').closest('.portlet').find('.fullscreen').click(function () {
+        $('#'+id).closest('.portlet').find('.fullscreen').click(function () {
             chart.invalidateSize();
         });
 
@@ -192,7 +197,7 @@ var get15Test = function () {
         var res = data.split("/");
         var x = res[0].split("-");
         var y = res[1].split("-");
-        var chart = AmCharts.makeChart("testSupBest", {
+        var chart = AmCharts.makeChart(id, {
             "type": "serial",
             "theme": "light",
             "autoMargins": false,
@@ -287,7 +292,7 @@ var get15Test = function () {
             }
         });
 
-        $('#testSupBest').closest('.portlet').find('.fullscreen').click(function () {
+        $('#'+id).closest('.portlet').find('.fullscreen').click(function () {
             chart.invalidateSize();
         });
 
@@ -299,7 +304,7 @@ var get20Test = function () {
         var res = data.split("/");
         var x = res[0].split("-");
         var y = res[1].split("-");
-        var chart = AmCharts.makeChart("testSupBest", {
+        var chart = AmCharts.makeChart(id, {
             "type": "serial",
             "theme": "light",
             "autoMargins": false,
@@ -414,7 +419,7 @@ var get20Test = function () {
             }
         });
 
-        $('#testSupBest').closest('.portlet').find('.fullscreen').click(function () {
+        $('#'+id).closest('.portlet').find('.fullscreen').click(function () {
             chart.invalidateSize();
         });
 
