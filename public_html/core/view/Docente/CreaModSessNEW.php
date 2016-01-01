@@ -37,6 +37,17 @@ $idCorso = $_URL[2];
 $numProfs=0;
 
 $doc = $_SESSION['user'];
+//$mostra=false;
+$max=9999;
+
+/*if(isset($_SESSION['mostra']))
+    $mostra=$_SESSION['mostra'];
+unset($_SESSION['mostra']);
+
+if(isset($_SESSION['max']))
+    $max=$_SESSION['max'];
+unset($_SESSION['max']);
+*/
 
 $docentiOe=$modelUtente->getAllDocentiByCorso($idCorso);
 foreach($docentiOe as $d) {
@@ -188,10 +199,10 @@ else {
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
             <form <?php
-            if($_URL[4]==0)
-                printf("action=\"creasessione\"");
-            else
-                printf("action=\"modificasessione\"");
+                  if($_URL[4]==0)
+                    printf("action=\"/docente/corso/%s/sessione/%s/creasessione\"",$idCorso,$idSessione);
+                  else
+                      printf("action=\"/docente/corso/%s/sessione/%s/modificasessione\"",$idCorso,$idSessione);
             ?> method="post" id="form_sample_2">
 
                 <?php
@@ -234,7 +245,7 @@ else {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group form-md-radios">
                                 <label>Seleziona tipologia</label>
                                 <div class="md-radio-list">
@@ -257,7 +268,7 @@ else {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group form-md-checkboxes">
                                 <label>Seleziona preferenze</label>
                                 <div class="md-checkbox-list">
@@ -280,9 +291,39 @@ else {
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-2">
+                            <label >Punteggio Test</label>
+                            <select  class="form-control" id="maxTest" name="max">
+                                <?php
+                                $tests = $testModel->getAllTestByCorso($idCorso);
+                                $array[0]=-9999;
+                                $uguale=false;
+                                if($max!=9999)
+                                    printf("<option value = '%s' > %s </option >",$max,$max);
+                                else
+                                    printf("<option value = 'scegli' > Scegli </option >");
+                                foreach($tests as $t) {
+                                        for($x = 0; $x < sizeof($array); $x++) {
+                                            if ($t->getPunteggioMax()==$array[$x]) {
+                                                $uguale=true;
+                                            }
+                                        }
+                                          if($uguale==false) { //vuol dire che è diverso da tutti->posso metterlo
+                                            printf("<option value = '%s' > %s </option >",$t->getPunteggioMax(),$t->getPunteggioMax());
+                                            array_push($array,$t->getPunteggioMax());
+                                            }
+                                    $uguale=false;
+                                }
+
+                                ?>
+                                </select>
+                            <button type="submit" class="btn md green-jungle " name="filtra" data-toggle="confirmation"
+                                    data-singleton="true" data-popout="true" title="Sicuro?"> <span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                Filtra
+                            </button>
+                        </div>
                     </div>
                 </div>
-
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">
@@ -315,8 +356,6 @@ else {
                         </div>
                     </div>
                     <div class="portlet-body">
-
-
                         <div id="tabella_test_wrapper" class="dataTables_wrapper no-footer" >
                             <table class="table table-striped table-bordered table-hover dataTable no-footer" id="tabella_test" role="grid" aria-describedby="tabella_studenti_info">
                                 <thead>
@@ -364,6 +403,8 @@ else {
                                 </thead>
                                 <tbody>
                                 <?php
+
+                               // if($mostra==true) {
                                 $toCheck=null;
                                 $array = Array();
                                 try {
@@ -378,15 +419,19 @@ else {
                                 else {
                                     $sessioniByCorso = $modelSessione->getAllSessioniByCorso($idCorso);
                                     foreach ($array as $c) {
-                                        /*$elaborati = $modelElaborato->getAllElaboratiTest($c->getId());
-                                        if ($sessioniByCorso != null) //FABIANO
-                                            $percSce = round(($c->getPercentualeScelto()/count($sessioniByCorso)*100),2);
+                                        $elaborati = $modelElaborato->getAllElaboratiTest($c->getId());
+                                        if ($sessioniByCorso != null){
+                                            $scelti = $c->getPercentualeSceltoVal() + $c->getPercentualeSceltoEse();
+                                            $percSce = round(($scelti / count($sessioniByCorso) * 100), 2);
+                                        }
                                         else
                                             $percSce = 0;
-                                        if ($elaborati != null)
-                                            $percSuc = round(($c->getPercentualeSuccesso()/count($elaborati)*100),2);
+                                        if ($elaborati != null){
+                                            $succ = $c->getPercentualeSuccessoEse() + $c->getPercentualeSuccessoVal();
+                                            $percSuc = round(($succ / count($elaborati) * 100), 2);
+                                        }
                                         else
-                                            $percSuc = 0;*/
+                                            $percSuc = 0;
                                         printf("<tr class=\"gradeX odd\" role=\"row\">");
                                         foreach($testsOfSessione as $t){
                                             if($c->getId()==$t->getId())
@@ -399,11 +444,12 @@ else {
                                         printf("<td>%d</td>", $c->getNumeroMultiple());
                                         printf("<td>%d</td>", $c->getNumeroAperte());
                                         printf("<td>%d</td>", $c->getPunteggioMax());
-                                        printf("<td>%d%%</td>", 0);  //FABIANO
-                                        printf("<td>%d%%</td>", 0);  //FABIANO
+                                        printf("<td>%d%%</td>", $percSce);
+                                        printf("<td>%d%%</td>", $percSuc);
                                         printf("</tr>");
                                     }
                                 }
+                               // }
                                 ?>
                                 </tbody>
                                 <div <?php echo "id=nomeCorso"; echo "value='".$idCorso."'" ?>></div>
@@ -514,11 +560,18 @@ else {
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-9">
-                                    <button type="submit" class="btn sm green-jungle "  data-toggle="confirmation"
-                                            data-singleton="true" data-popout="true" title="Sicuro?"> <span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
-                                        Salva
-                                    </button>
-                                    <?php
+                                   <?php
+                                   if($_URL[4]==0)
+                                    printf("<button type=\"submit\" class=\"btn sm green-jungle \"  data-toggle=\"confirmation\"
+                                            data-singleton=\"true\" data-popout=\"true\" title=\"Sicuro?\"> <span class=\"md-click-circle md-click-animate\" style=\"height: 94px; width: 94px; top: -23px; left: 2px;\"></span>
+                                        Crea
+                                    </button>");
+                                   else
+                                       printf("<button type=\"submit\" class=\"btn sm green-jungle \"  data-toggle=\"confirmation\"
+                                            data-singleton=\"true\" data-popout=\"true\" title=\"Sicuro?\"> <span class=\"md-click-circle md-click-animate\" style=\"height: 94px; width: 94px; top: -23px; left: 2px;\"></span>
+                                        Modifica
+                                    </button>");
+
                                     $vaiANomeCorso="/docente/corso/".$idCorso;
                                     printf("<a href=\"%s\" class=\"btn sm red-intense\">Annulla</a>", $vaiANomeCorso ,$nomecorso);
                                     ?>
