@@ -364,12 +364,16 @@ if($correttezzaLogin == false){
                                      } else {
                                          foreach ($array as $c) {
                                              $elaborati = $modelElaborato->getAllElaboratiTest($c->getId());
-                                             if ($idsSessione != null)
-                                                 $percSce = round(($c->getPercentualeScelto() / count($idsSessione) * 100), 2);
+                                             if ($idsSessione != null){
+                                                 $scelti = $c->getPercentualeSceltoVal() + $c->getPercentualeSceltoEse();
+                                                 $percSce = round(($scelti / count($idsSessione) * 100), 2);
+                                             }
                                              else
                                                  $percSce = 0;
-                                             if ($elaborati != null)
-                                                 $percSuc = round(($c->getPercentualeSuccesso() / count($elaborati) * 100), 2);
+                                             if ($elaborati != null){
+                                                 $succ = $c->getPercentualeSuccessoEse() + $c->getPercentualeSuccessoVal();
+                                                 $percSuc = round(($succ / count($elaborati) * 100), 2);
+                                             }
                                              else
                                                  $percSuc = 0;
 

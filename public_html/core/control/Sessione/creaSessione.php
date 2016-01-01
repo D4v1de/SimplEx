@@ -70,29 +70,16 @@ $flag=1;
                     foreach ($cbTest as $t) {
                         $sessioneModel->associaTestSessione($idNuovaSessione,$t);
                         $updated = $testModel->readTest($t);
-                        $perc = $updated->getPercentualeScelto() +1;
-                        $updated->setPercentualeScelto($perc);
+                        if ($newtipoSessione == "Valutativa"){
+                            $perc = $updated->getPercentualeSceltoVal() +1;
+                            $updated->setPercentualeSceltoVal($perc);
+                        }
+                        else{
+                            $perc = $updated->getPercentualeSceltoVal() +1;
+                            $updated->setPercentualeSceltoVal($perc);
+                        }
                         $testModel->updateTest($t, $updated);
                     }
-
-                    //Statistica percentuale scelta test
-
-                    /*$allTests = $testController->getAllTestbyCorso($idCorso);
-                    $sessioni = $controller->getAllSessioniByCorso($idCorso);
-                    foreach ($allTests as $test){
-                        $testId = $test->getId();
-                        $c = 0;
-                        foreach ($sessioni as $s){
-                            $tests = $testController->getAllTestBySessione($s->getId());
-                            foreach ($tests as $t)
-                                if ($t->getId() == $testId)
-                                    $c++;
-                            }
-                            $updated = $testController->readTest($testId);
-                            $perc = $c/count($sessioni) * 100;
-                            $updated->setPercentualeScelto($perc);
-                            $testController->updateTest($testId, $updated);
-                        }*/
                 }
             } catch (ApplicationException $ex) {
                 echo "<h1>ERRORE NELLE OPERAZIONI DELLA SESSIONE (fase creazione)!</h1>" . $ex;

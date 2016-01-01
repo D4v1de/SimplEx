@@ -378,15 +378,19 @@ else {
                                 else {
                                     $sessioniByCorso = $modelSessione->getAllSessioniByCorso($idCorso);
                                     foreach ($array as $c) {
-                                        /*$elaborati = $modelElaborato->getAllElaboratiTest($c->getId());
-                                        if ($sessioniByCorso != null) //FABIANO
-                                            $percSce = round(($c->getPercentualeScelto()/count($sessioniByCorso)*100),2);
+                                        $elaborati = $modelElaborato->getAllElaboratiTest($c->getId());
+                                        if ($sessioniByCorso != null){
+                                            $scelti = $c->getPercentualeSceltoVal() + $c->getPercentualeSceltoEse();
+                                            $percSce = round(($scelti / count($sessioniByCorso) * 100), 2);
+                                        }
                                         else
                                             $percSce = 0;
-                                        if ($elaborati != null)
-                                            $percSuc = round(($c->getPercentualeSuccesso()/count($elaborati)*100),2);
+                                        if ($elaborati != null){
+                                            $succ = $c->getPercentualeSuccessoEse() + $c->getPercentualeSuccessoVal();
+                                            $percSuc = round(($succ / count($elaborati) * 100), 2);
+                                        }
                                         else
-                                            $percSuc = 0;*/
+                                            $percSuc = 0;
                                         printf("<tr class=\"gradeX odd\" role=\"row\">");
                                         foreach($testsOfSessione as $t){
                                             if($c->getId()==$t->getId())
@@ -399,8 +403,8 @@ else {
                                         printf("<td>%d</td>", $c->getNumeroMultiple());
                                         printf("<td>%d</td>", $c->getNumeroAperte());
                                         printf("<td>%d</td>", $c->getPunteggioMax());
-                                        printf("<td>%d%%</td>", 0);  //FABIANO
-                                        printf("<td>%d%%</td>", 0);  //FABIANO
+                                        printf("<td>%d%%</td>", $percSce);
+                                        printf("<td>%d%%</td>", $percSuc);
                                         printf("</tr>");
                                     }
                                 }

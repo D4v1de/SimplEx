@@ -291,19 +291,23 @@ else $eser = "Checked";
                             <tbody>
                             <?php
                             $array = Array();
-                            $array = $sessioneModel->getAllTestBySessione($idSessione);
+                            $array = $testModel->getAllTestBySessione($idSessione);
                             if ($array == null) {
                             }
                             else {
                                 $sessioniByCorso = $sessioneModel->getAllSessioniByCorso($identificativoCorso);
                                 foreach ($array as $c) {
                                     $elaborati = $elaboratoModel->getAllElaboratiTest($c->getId());
-                                    if ($sessioniByCorso != null)
-                                        $percSce = round(($c->getPercentualeScelto()/count($sessioniByCorso)*100),2);
+                                    if ($sessioniByCorso != null){
+                                        $scelti = $c->getPercentualeSceltoVal() + $c->getPercentualeSceltoEse();
+                                        $percSce = round(($scelti / count($sessioniByCorso) * 100), 2);
+                                    }
                                     else
                                         $percSce = 0;
-                                    if ($elaborati != null)
-                                        $percSuc = round(($c->getPercentualeSuccesso()/count($elaborati)*100),2);
+                                    if ($elaborati != null){
+                                        $succ = $c->getPercentualeSuccessoEse() + $c->getPercentualeSuccessoVal();
+                                        $percSuc = round(($succ / count($elaborati) * 100), 2);
+                                    }
                                     else
                                         $percSuc = 0;
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");

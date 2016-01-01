@@ -20,12 +20,11 @@ $n = count($tests);
 
 if ($type == "scelto")
     for ($i=0; $i < $n; $i++)        
-        $toSort[$tests[$i]->getId()] = ($n != 0)? $tests[$i]->getPercentualeScelto()/$n * 100:0;
+        $toSort[$tests[$i]->getId()] = ($n > 0)? $tests[$i]->getPercentualeScelto()/$n * 100:0;
 else if ($type == "successo")
     for ($i=0; $i < $n; $i++){
         $n2 = $tests[$i]->getPercentualeScelto();
-            
-        $toSort[$tests[$i]->getId()] = ($n2 != 0)? $tests[$i]->getPercentualeSuccesso()/$tests[$i]->getPercentualeScelto() * 100:0;
+        $toSort[$tests[$i]->getId()] = ($n2 > 0)? $tests[$i]->getPercentualeSuccesso()/$n2 * 100:0;
     }
 if ($mod != "best")
     asort($toSort);
