@@ -92,18 +92,18 @@ if (isset($_POST['eliminatore'])) {
         }
     }else if(!isset($_POST['testoDomanda'])){
         $_SESSION['errore'] = 1;
-        header('Location: /docente/corso/' . $idCorso . '/argomento/domande/inseriscimultipla/' . $idArgomento);
+        header('Location: /docente/corso/' . $idCorso . '/argomento/domande/modificamultipla/' . $idArgomento .'/' .$idDomanda);
     }else if(!isset($_POST['punteggioEsatta'])){
         $_SESSION['errore'] = 2;
-        header('Location: /docente/corso/' . $idCorso . '/argomento/domande/inseriscimultipla/' . $idArgomento);
+        header('Location: /docente/corso/' . $idCorso . '/argomento/domande/modificamultipla/' . $idArgomento .'/' .$idDomanda);
     }else if(!isset($_POST['punteggioErrata'])){
         $_SESSION['errore'] = 3;
-        header('Location: /docente/corso/' . $idCorso . '/argomento/domande/inseriscimultipla/' . $idArgomento);
+        header('Location: /docente/corso/' . $idCorso . '/argomento/domande/modificamultipla/' . $idArgomento .'/' .$idDomanda);
     }else if(!isset($_POST['testoRisposta'])){
         $_SESSION['errore'] = 4;
-        header('Location: /docente/corso/' . $idCorso . '/argomento/domande/inseriscimultipla/' . $idArgomento);
+        header('Location: /docente/corso/' . $idCorso . '/argomento/domande/modificamultipla/' . $idArgomento .'/' .$idDomanda);
     }else if(!isset($_POST['radio'])){
         $_SESSION['errore'] = 5;
-        header('Location: /docente/corso/' . $idCorso . '/argomento/domande/inseriscimultipla/' . $idArgomento);
+        header('Location: /docente/corso/' . $idCorso . '/argomento/domande/modificamultipla/' . $idArgomento .'/' .$idDomanda);
     }
 }

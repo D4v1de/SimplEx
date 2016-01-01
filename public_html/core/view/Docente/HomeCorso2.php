@@ -16,6 +16,8 @@ include_once MODEL_DIR . "CdLModel.php";
 include_once MODEL_DIR . "ArgomentoModel.php";
 include_once MODEL_DIR . "CorsoModel.php";
 include_once MODEL_DIR . "UtenteModel.php";
+include_once UTILS_DIR . "controlloLogin.php";
+
 
 $utenteLoggato = $_SESSION['user'];
 
@@ -30,6 +32,15 @@ $modelCdl = new CdLModel();
 $corso = null;
 $identificativoCorso = $_URL[2];
 $cond=null;
+
+if(isset($_SESSION['idcorso'])){
+    unset($_SESSION['idcorso']);
+    $_SESSION['idcorso'] = $_URL[2];
+}else{
+    $_SESSION['idcorso'] = $_URL[2];
+}
+
+controllo();
 
 if(isset($_URL[3]))
     $cond=$_URL[3];
@@ -289,74 +300,6 @@ if($correttezzaLogin == false){
             </div>
             </form>
 
-            
-            <form action="/docente/Elimina_Test?idcorso=<?=$identificativoCorso ?>" method="post">
-            <div <?php if($cond!="success"  && $cond!="errore" && $cond!="successelimina") echo "hidden"; ?> class="portlet box blue-madison">
-                <div class="portlet-title">
-                    <div class="caption">
-                        <i class="fa fa-file-text-o"></i>Test
-                    </div>
-                    <div class="tools">
-                        <a href="javascript:;" class="collapse" data-original-title="" title="">
-                        </a>
-                    </div>
-                    <?php
-                    printf("<div class=\"actions\">");
-                    printf("<a href=\"/docente/corso/%s/test/crea\" class=\"btn btn-default btn-sm\">", $identificativoCorso);
-                    printf("<i class=\"fa fa-plus\"></i> Crea Test </a>");
-                    printf("</div>");
-                    ?>
-                </div>
-                <div class="portlet-body">
-                    <div id="tabella_test_wrapper" class="dataTables_wrapper no-footer">
-                        <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                               id="tabella_test" role="grid" aria-describedby="tabella_test_info">
-                            <thead>
-                            <tr role="row">
-                                <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
-                                         Username
-                                : activate to sort column ascending" style="width: 119px;">
-                                    Nome
-                                </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                         Points
-                                " style="width: 140px;">
-                                    Descrizione
-                                </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                         Points
-                                " style="width: 73px;">
-                                    N° multiple
-                                </th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                         Status
-                                " style="width: 119px;">
-                                    N° aperte
-                                </th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                         Status
-                                " style="width: 100px;">
-                                    Punteggio massimo
-                                </th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                         Status
-                                " style="width: 100px;">
-                                    % Inserito
-                                </th>
-                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                         Status
-                                " style="width: 100px;">
-                                    % Superato
-                                </th>
-                                <?php
-                                    printf("<th class=\"sorting_disabled\" rowspan=\"1\" colspan=\"1\" aria-label=\"Status\" style=\"width: 9%%;\">");
-                                    printf("Azioni");
-                                    printf("</th>");
-                                ?>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                
-                                 <?php
-                                 if($cond=="success" || $cond=="errore" || $cond=="successelimina") {
 
                                      $array = Array();
                                      $array = $modelTest->getAllTestByCorso($identificativoCorso);
@@ -377,33 +320,6 @@ if($correttezzaLogin == false){
                                              else
                                                  $percSuc = 0;
 
-                                             $vaiATest = "/docente/corso/" . $identificativoCorso . "/test" . "/" . $c->getId() . "/" . "visualizzatest";
-                                             printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                             printf("<td class=\"sorting_1\"><a class=\"btn default btn-xs green-stripe\" href=\"%s\">Test %s</a></td>", $vaiATest, $c->getId());
-                                             printf("<td>%s</td>", $c->getDescrizione());
-                                             printf("<td>%s</td>", $c->getNumeroMultiple());
-                                             printf("<td>%s</td>", $c->getNumeroAperte());
-                                             printf("<td>%s</td>", $c->getPunteggioMax());
-                                             printf("<td>%d%%</td>", $percSce);
-                                             printf("<td>%d%%</td>", $percSuc);
-                                             $questoTest = $c->getId();
-                                             $alModificaTest = "/docente/corso/" . $identificativoCorso . "/test/modifica/" . $questoTest;
-                                             printf("<td><a href=\"%s\"  class=\"btn btn-icon-only blue\"><i class=\"fa fa-edit\"></i></i></a>", $alModificaTest);
-                                             printf("<button  class=\"btn btn-icon-only red-intense\" type=\"submit\" name=\"idtestHome\" title=\"\" id=\"%d\" value=\"%d\" data-popout=\"true\" data-toggle=\"confirmation\" data-singleton=\"true\" data-original-title=\"Sei sicuro?\"><i class=\"fa fa-trash-o\"></i></button>", $c->getId(), $c->getId());
-                                             printf("</td>");
-                                             printf("</tr>");
-                                         }
-                                     }
-                                 }
-                                 ?>
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                </div>
-                    
-            </div>
-                </form>
             
 
 
