@@ -25,10 +25,10 @@ try {
 if (isset($_POST['iscrivi'])) {
     $iscrivi = $_POST['iscrivi'];
     $modelutente->iscriviStudenteCorso($studente->getMatricola(), $iscrivi);
-    header("location: /studente/cdl/".$idcdl);
+    header("location: /studente/cdl/".$idcdl."/iscritto");
 }
 if (isset($_POST['disiscrivi'])) {
     $disiscrivi = $_POST['disiscrivi'];
     $modelutente->disiscriviStudenteCorso($studente->getMatricola(), $disiscrivi);
-    header("location: /studente/cdl/".$idcdl);
+    header("location: /studente/cdl/".$idcdl."/disiscritto");
 }

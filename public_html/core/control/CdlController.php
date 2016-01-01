@@ -158,16 +158,4 @@ class CdlController {
         $corsoModel = new CorsoModel();
         return $corsoModel->getAllCorsiByStudente($studente_matricola);
     }
-
-
-    /**
-     * Restituisce corsi del utente
-     * @return Corso[]
-     */
-    public function getMyCourses() {
-        /** @var Utente $utente */
-        $utente = $_SESSION['user'];
-        $model = new CorsoModel();
-        return ($utente->getTipologia() == "Studente" ? $model->getAllCorsiByStudente($utente->getMatricola()) : $model->getAllCorsiByDocente($utente->getMatricola()));
-    }
 }

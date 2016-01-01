@@ -17,7 +17,7 @@ if (isset($_POST['nome'])) {
     $email = $_POST['email'];
     $cdlMatricola = $victim->getCdlMatricola();
 
-    $pass = $_POST['pass'];
+    $pass = $_POST['passifreq'];
     $pass2 = $_POST['pass2'];
 
     try {

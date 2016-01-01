@@ -7,7 +7,7 @@
  * @since 29/12/15
  */
 
-include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "CdLModel.php";
 include_once MODEL_DIR . "UtenteModel.php";
 $uCtrl = new UtenteModel();
 
@@ -20,7 +20,7 @@ if (isset($_POST['tipologia'])) {
     if ($tipologia != "Studente") {
         $cdlMatricola = null;
     } else {
-        $cdlMatricola = $_POST['cdl'];
+        $cdlMatricola = $_POST['cdl_matricola'];
     }
 
     $pass = $_POST['pass'];

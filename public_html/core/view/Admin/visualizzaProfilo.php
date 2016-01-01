@@ -8,7 +8,7 @@
  */
 
 include_once MODEL_DIR . "UtenteModel.php";
-include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "CdLModel.php";
 $ctr = new UtenteModel();
 $victim = null;
 try {
@@ -19,7 +19,7 @@ try {
         $cdl = $cdlCtr->readCdl($victim->getCdlMatricola());
     }
 } catch (ApplicationException $ex) {
-    header('Location: /');
+    header('Location: /?error=Utente non trovato');
 }
 ?>
 <!DOCTYPE html>

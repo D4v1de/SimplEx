@@ -7,7 +7,7 @@
  * @since 09/12/15
  */
 
-include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "CdLModel.php";
 include_once MODEL_DIR . "UtenteModel.php";
 $cdlCtrl = new CdLModel();
 $uCtrl = new UtenteModel();
@@ -66,8 +66,7 @@ if (isset($_SESSION['error'])) {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/admin/utenti/crea">Crea <?= $tipologia ?></a>
-                        <i class="fa fa-angle-right"></i>
+                        <a href="/admin/utenti/crea/<?= $tipologia ?>">Crea <?= $tipologia ?></a>
                     </li>
                 </ul>
             </div>
@@ -112,7 +111,7 @@ if (isset($_SESSION['error'])) {
 
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" id="nomeUtente" name="nome"
+                                            <input type="text" class="form-control" id="name" name="nome"
                                                    placeholder="Inserisci nome"
                                                    value="<?php if (isset($nome)) echo $nome; ?>">
 
@@ -122,7 +121,7 @@ if (isset($_SESSION['error'])) {
                                     </div>
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" id="cognomeUtente"
+                                            <input type="text" class="form-control" id="surname"
                                                    name="cognome"
                                                    placeholder="Inserisci cognome"
                                                    value="<?php if (isset($cognome)) echo $cognome; ?>">
@@ -155,7 +154,7 @@ if (isset($_SESSION['error'])) {
                                     </div>
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
-                                            <input type="password" class="form-control" id="pass"
+                                            <input type="password" class="form-control" id="password"
                                                    name="pass"
                                                    placeholder="Inserisci password"
                                                    value="<?php if (isset($pass)) echo $pass; ?>">
@@ -167,7 +166,8 @@ if (isset($_SESSION['error'])) {
                                     <?php if ($tipologia == "Studente") { ?>
                                         <div class="form-group form-md-line-input">
                                             <div class="col-md-10">
-                                                <select class="form-control" id="cdlAppartenenza" name="cdl">
+                                                <select class="form-control" id="cdlAppartenenza" name="cdl_matricola">
+                                                    <option value="0">Seleziona</option>
                                                     <?php
                                                     /** @var Cdl $cdl */
                                                     foreach ($cdls as $cdl) {
@@ -180,6 +180,7 @@ if (isset($_SESSION['error'])) {
                                                 </div>
                                             </div>
                                         </div>
+                                        <br>
                                     <?php } ?>
                                 </div>
                             </div>
@@ -200,8 +201,6 @@ if (isset($_SESSION['error'])) {
                     <!-- END EXAMPLE TABLE PORTLET-->
                 </div>
             </div>
-
-
             <!-- END PAGE CONTENT-->
         </div>
     </div>
@@ -229,17 +228,16 @@ if (isset($_SESSION['error'])) {
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN aggiunta da me -->
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
-<script src="/assets/admin/pages/scripts/form-validation.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
+<script src="/assets/global/scripts/adminValidator.js?t=<?php echo time(); ?>"></script>
+
 <!-- END aggiunta da me -->
 
 <script>
     jQuery(document).ready(function () {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
-        //QuickSidebar.init(); // init quick sidebar
-        //Demo.init(); // init demo features
         TableManaged.init();
         FormValidation.init();
     });

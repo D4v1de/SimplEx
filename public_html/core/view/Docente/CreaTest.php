@@ -8,12 +8,12 @@
 
 //TODO qui la logica iniziale, caricamento dei model ecc
 include_once MODEL_DIR . "ArgomentoModel.php";
-include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "CdLModel.php";
 include_once MODEL_DIR . "DomandaModel.php";
 include_once MODEL_DIR . "CorsoModel.php";
 
 
-$modelCdl = new CdlModel();
+$modelCdl = new CdLModel();
 $modelArgomento = new ArgomentoModel();
 $modelCorso = new CorsoModel();
 $modelDomande  = new DomandaModel();
@@ -148,6 +148,16 @@ $corso = $modelCorso->readCorso($_URL[2]);
                     echo "<div class=\"alert alert-danger\">
                         <button class=\"close\" data-close=\"alert\"></button>
                         Errore nei Dati. E' necessario selezionare almeno una domanda dalla tabella.
+                        </div>";
+                    //echo "<script type='text/javascript'>checkIt();</script>";
+                }
+                ?>
+                <?php
+                if(isset($_GET["flag"]) && $_GET["flag"]==5) {
+                    //TODO (aggiungere da nmin a nmax domande) effettuare query per recuperare i valori e mostrarli nel messaggio
+                    echo "<div class=\"alert alert-danger\">
+                        <button class=\"close\" data-close=\"alert\"></button>
+                        Errore nei Dati. Non è possibile utilizzare caratteri speciali nella descrizione.
                         </div>";
                     //echo "<script type='text/javascript'>checkIt();</script>";
                 }
@@ -396,6 +406,8 @@ $corso = $modelCorso->readCorso($_URL[2]);
 <script src="/assets/admin/layout/scripts/layout.js" type="text/javascript"></script>-->
 <!-- BEGIN aggiunta da me -->
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
+<script src="/assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+
 <!-- END aggiunta da me -->
 <script>
     jQuery(document).ready(function () {
@@ -408,6 +420,22 @@ $corso = $modelCorso->readCorso($_URL[2]);
         //UIConfirmations.init();
         FormValidation.init();
         //TableManaged.init(3);
+        var table = $("#tabella_domande").dataTable();
+        var tableTools = new $.fn.dataTable.TableTools(table, {
+            //"sSwfPath": "//cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls_pdf.swf",
+            "sSwfPath": "/assets/global/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf",
+            "aButtons": [
+                {
+                    "sExtends": "xls",
+                    "sButtonText": "<button><i class='fa fa-file-excel-o'></i> Excel</button>"
+                },
+                {
+                    "sExtends": "pdf",
+                    "sButtonText": "<button><i class='fa fa-file-pdf-o'></i> PDF</button>"
+                }
+            ]
+        });
+        $(tableTools.fnContainer()).insertBefore("#tabella_domande_wrapper");
     });
 </script>
 <!-- END JAVASCRIPTS -->

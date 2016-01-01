@@ -14,12 +14,12 @@ include_once BEAN_DIR . "Sessione.php";
 $sessioneModel = new SessioneModel();
 $utenteModel = new UtenteModel();
 $testModel = new TestModel();
-$flag=1;
 $idCorso = $_URL[2];
-
+$flag=1;
 
 
     if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo']) && $someTestsAorD=isset($_POST['tests']) ) {
+
         $newdataFrom = $_POST['dataFrom'];
         $newdataTo = $_POST['dataTo'];
         $newtipoSessione = $_POST['radio1'];
@@ -43,12 +43,10 @@ $idCorso = $_URL[2];
 
                 if (isset($_POST['cbShowEsiti'])) {
                     $sessioneModel->abilitaMostraEsito($idNuovaSessione);
-                  //  $controller->abilitaMostraEsito($idNuovaSessione);
                 }
 
                 if (isset($_POST['cbShowRispCorr'])) {
                     $sessioneModel->abilitaMostraRisposteCorrette($idNuovaSessione);
-                    //$controller->abilitaMostraRisposteCorrette($idNuovaSessione);
                 }
 
                 if (isset($_POST['students'])) {
@@ -58,7 +56,6 @@ $idCorso = $_URL[2];
                     } else {
                         foreach ($cbStudents as $s) {
                             $utenteModel->abilitaStudenteSessione($idNuovaSessione,$s);
-                            //$controller->abilitaStudenteASessione($idNuovaSessione, $s);
                         }
                     }
                 }
@@ -72,7 +69,6 @@ $idCorso = $_URL[2];
 
                     foreach ($cbTest as $t) {
                         $sessioneModel->associaTestSessione($idNuovaSessione,$t);
-                        //$controller->associaTestASessione($idNuovaSessione, $t);
                         $updated = $testModel->readTest($t);
                         $perc = $updated->getPercentualeScelto() +1;
                         $updated->setPercentualeScelto($perc);
@@ -103,7 +99,8 @@ $idCorso = $_URL[2];
             }
         }
         if($flag==0) {
-            $tornaACasa = "Location: "."/docente/corso/"."$idCorso"."/sessione/0/creamodificasessione2/error";
+            $_SESSION['flag'] = $flag;
+            $tornaACasa = "Location: "."/docente/corso/"."$idCorso"."/sessione/0/creamodificasessione2";
         }
         else
             $tornaACasa= "Location: "."/docente/corso/"."$idCorso"."/successinserimento";

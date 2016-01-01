@@ -1,10 +1,24 @@
-/**
- * Created by sergio on 30/12/15.
- */
+$(function () {
+    $.validator.addMethod("regx", function (value, element, regexpr) {
+        var re = new RegExp(regexpr, "i");
+        return re.test(value);
+    });
+    $.validator.addMethod("valueNotEquals", function (value, element, arg) {
+        return arg != value;
+    });
+});
+jQuery.extend(jQuery.validator.messages, {
+    digits: "Solo i numeri sono ammessi",
+    email: "Email non valida",
+    equalTo: "Le password non coincidono",
+    required: "Questo campo è obbligatorio",
+    regx: "Formato del campo non valido",
+    valueNotEquals: "Questo campo è obbligatorio"
+});
 var FormValidation = function () {
 
     // basic validation
-    var hvModificaUtente = function () {
+    var handleValidation1 = function () {
         // for more info visit the official plugin documentation:
         // http://docs.jquery.com/Plugins/Validation
 
@@ -12,21 +26,76 @@ var FormValidation = function () {
         var error1 = $('.alert-danger', form1);
         var success1 = $('.alert-success', form1);
 
-        console.log('selected form' + form1 + 'error1' + error1 + 'success' + success1);
         form1.validate({
             errorElement: 'span', //default input error message container
             errorClass: 'help-block help-block-error', // default input error message class
             focusInvalid: true, // do not focus the last invalid input
+            ignore: "",  // validate all fields including form hidden input
             messages: {
-                nome: {
-                    validchar: "Puoi inserire solo caratteri validi."
+                email: {
+                    regx: "L'email inserita non è corretta",
+                    required: "E-mail è obbligatorio"
+                },
+                password: {
+                    required: "Formato password errato. La password deve contenere minimo 8 caratteri."
                 }
             },
             rules: {
-                nomeUtente: {
-                    minlength: 7,
-                    maxlength: 100,
+                email: {
+                    required: true,
+                    regx: "^[a-zA-Z0-9+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,7}$",
+                    minlength: 5,
+                    maxlength: 50
+                },
+                pass: {
+                    required: true,
+                    minlength: 8,
+                    maxlength: 32
+                },
+                passifreq: {
+                    minlength: 8,
+                    maxlength: 32
+                },
+                pass2: {
+                    equalTo: "#passifreq"
+                },
+                remember: {
+                    required: false
+                },
+                nome: {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 30,
+                    regx: "^[a-z_ èàòù]+$"
+                },
+                cognome: {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 30,
+                    regx: "^[a-z_ èàòù]+$"
+                },
+                matricola: {
+                    required: true,
+                    digits: true,
+                    minlength: 10,
+                    maxlength: 10
+                },
+                address: {
                     required: true
+                },
+                city: {
+                    required: true
+                },
+                country: {
+                    required: true
+                },
+
+                username: {
+                    required: true
+                },
+                cdl_matricola: {
+                    required: true,
+                    valueNotEquals: "0"
                 }
             },
 
@@ -52,7 +121,6 @@ var FormValidation = function () {
             },
 
             submitHandler: function (form) {
-                alert('validate');
                 success1.show();
                 error1.hide();
                 form.submit();
@@ -320,11 +388,11 @@ var FormValidation = function () {
     return {
         //main function to initiate the module
         init: function () {
-            console.log('Admin Validator init');
-            //handleWysihtml5();
-            hvModificaUtente();
-            //handleValidation2();
-            //handleValidation3();
+
+            handleWysihtml5();
+            handleValidation1();
+            handleValidation2();
+            handleValidation3();
 
         }
 

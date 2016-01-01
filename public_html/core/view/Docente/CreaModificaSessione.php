@@ -8,14 +8,14 @@
  */
 include_once CONTROL_DIR . "UtenteController.php";
 $controllerUtente = new UtenteController();
-include_once CONTROL_DIR . "SessioneController.php";
+include_once CONTROL_DIR . "Sessione.php";
 $controller = new SessioneController();
 include_once CONTROL_DIR . "CdlController.php";
 $controlleCdl = new CdlController();
 include_once CONTROL_DIR . "TestController.php";
 $testController = new TestController();
 include_once CONTROL_DIR . "ElaboratoController.php";
-$controllerElaborato = new ElaboratoController();
+$elaboratoModel = new ElaboratoController();
 $idCorso = $_URL[2];
 $numProfs=0;
 $doc = $_SESSION['user'];
@@ -516,7 +516,7 @@ if($_URL[4]!=0) {
                             else {
                                 $sessioniByCorso = $controller->getAllSessioniByCorso($idCorso);
                                 foreach ($array as $c) {
-                                    $elaborati = $controllerElaborato->getAllElaboratiTest($c->getId());
+                                    $elaborati = $elaboratoModel->getAllElaboratiTest($c->getId());
                                     if ($sessioniByCorso != null)
                                         $percSce = round(($c->getPercentualeScelto()/count($sessioniByCorso)*100),2);
                                     else

@@ -8,7 +8,7 @@
 
 include_once MODEL_DIR . "CorsoModel.php";
 $modelcorso = new CorsoModel();
-include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "CdLModel.php";
 $modelcdl = new CdLModel();
 
 $cdl = null;
@@ -20,7 +20,7 @@ $url = null;
 $url = $_URL[2];
 $_SESSION['idcdl'] = $url;
 if (!is_numeric($url)) {
-    echo "<script type='text/javascript'>alert('errore nella url!!(idcdl)');</script>";
+    echo "<script type='text/javascript'>alert('errore url!!(idcdl)');</script>";
 }
 
 $studente = $_SESSION['user'];
@@ -59,6 +59,7 @@ try {
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/extensions/TableTools/css/dataTables.tableTools.css">
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -177,8 +178,7 @@ try {
 <!-- BEGIN PAGE LEVEL PLUGINS aggiunta da me-->
 <script type="text/javascript" src="/assets/global/plugins/select2/select2.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript"
-        src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<script type="text/javascript" src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <!-- END PAGE LEVEL PLUGINS aggiunta da me-->
 
 <script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>
@@ -186,6 +186,8 @@ try {
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN aggiunta da me -->
+<script src="/assets/admin/pages/scripts/ui-toastr.js"></script>
+<script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
 <script src="/assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
 <!-- END aggiunta da me -->
@@ -196,6 +198,8 @@ try {
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
         TableManaged2.init("tabella_2", "tabella_2_wrapper");
+        UIToastr.init();
+        checkNotifiche();
 
         var table = $("#tabella_2").dataTable();
         var tableTools = new $.fn.dataTable.TableTools(table, {
@@ -214,6 +218,17 @@ try {
         });
         $(tableTools.fnContainer()).insertBefore("#tabella_2_wrapper");
     });
+</script>
+<script>
+    function checkNotifiche() {
+        var href = window.location.href;
+        var last = href.substr(href.lastIndexOf('/') + 1);
+        if (last == 'iscritto') {
+            toastr.success('Iscrizione al Corso avvenuta con successo!', 'Iscritto');
+        } else if (last == 'disiscritto') {
+            toastr.success('Disiscrizione al Corso avvenuta con successo!', 'Disiscritto');
+        }
+    }
 </script>
 <!-- END JAVASCRIPTS -->
 </body>

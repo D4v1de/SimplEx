@@ -14,8 +14,10 @@ class DomandaMultipla {
     private $testo;
     private $punteggioCorretta;
     private $punteggioErrata;
-    private $percentualeScelta;
-    private $percentualeRispostaCorretta;
+    private $percentualeSceltaEse;
+    private $percentualeRispostaCorrettaEse;
+    private $percentualeSceltaVal;
+    private $percentualeRispostaCorrettaVal;
     
     /**
      * Costruttore di DomandaMultipla.
@@ -23,16 +25,20 @@ class DomandaMultipla {
      * @param string $testo Il testo della domanda
      * @param float $punteggioCorretta Il punteggio da assegnare in caso di risposta corretta
      * @param float $punteggioErrata Il punteggio da assegnare in caso di risposta errata
-     * @param float $percentualeScelta La percentuale di volte in cui viene scelta
-     * @param float $percentualeRispostaCorretta La percentuale di risposte corrette per la domanda
+     * @param float $percentualeSceltaEse La percentuale di volte in cui viene scelta per le sessioni esercitative
+     * @param float $percentualeRispostaCorrettaEse La percentuale di risposte corrette per la domanda per le sessioni esercitative
+     * @param float $percentualeSceltaVal La percentuale di volte in cui viene scelta per le sessioni valutative
+     * @param float $percentualeRispostaCorrettaVal La percentuale di risposte corrette per la domanda per le sessioni valutative
      */
-    public function __construct($argomentoId, $testo, $punteggioCorretta, $punteggioErrata, $percentualeScelta, $percentualeRispostaCorretta) {
+    public function __construct($argomentoId, $testo, $punteggioCorretta, $punteggioErrata, $percentualeSceltaEse, $percentualeRispostaCorrettaEse, $percentualeSceltaVal, $percentualeRispostaCorrettaVal) {
         $this->argomentoId = $argomentoId;
         $this->testo = $testo;
         $this->punteggioCorretta = $punteggioCorretta;
         $this->punteggioErrata = $punteggioErrata;
-        $this->percentualeScelta = $percentualeScelta;
-        $this->percentualeRispostaCorretta = $percentualeRispostaCorretta;
+        $this->percentualeSceltaEse = $percentualeSceltaEse;
+        $this->percentualeRispostaCorrettaEse = $percentualeRispostaCorrettaEse;
+        $this->percentualeSceltaVal = $percentualeSceltaVal;
+        $this->percentualeRispostaCorrettaVal = $percentualeRispostaCorrettaVal;
     }
     
     /**
@@ -71,17 +77,31 @@ class DomandaMultipla {
     }
 
     /**
-     * @return float La percentuale di volte in cui viene scelta
+     * @return float La percentuale di volte in cui viene scelta per le sessioni esercitative
      */
-    function getPercentualeScelta() {
-        return $this->percentualeScelta;
+    function getPercentualeSceltaEse() {
+        return $this->percentualeSceltaEse;
     }
     
     /**
-     * @return float La percentuale di risposte corrette per la domanda
+     * @return float La percentuale di risposte corrette per la domanda per le sessioni esercitative
      */
-    function getPercentualeRispostaCorretta() {
-        return $this->percentualeRispostaCorretta;
+    function getPercentualeRispostaCorrettaEse() {
+        return $this->percentualeRispostaCorrettaEse;
+    }
+
+    /**
+     * @return float La percentuale di volte in cui viene scelta per le sessioni valutative
+     */
+    function getPercentualeSceltaVal() {
+        return $this->percentualeSceltaVal;
+    }
+
+    /**
+     * @return float La percentuale di risposte corrette per la domanda per le sessioni valutative
+     */
+    function getPercentualeRispostaCorrettaVal() {
+        return $this->percentualeRispostaCorrettaVal;
     }
     
     /**
@@ -125,18 +145,34 @@ class DomandaMultipla {
     }
     
     /**
-     * Setta la percentuale di volte in cui viene scelta
-     * @param float $percentualeScelta La percentuale di volte in cui viene scelta
+     * Setta la percentuale di volte in cui viene scelta per le sessioni esercitative
+     * @param float $percentualeSceltaEse La percentuale di volte in cui viene scelta per le sessioni esercitative
      */
-    function setPercentualeScelta($percentualeScelta) {
-        $this->percentualeScelta = $percentualeScelta;
+    function setPercentualeSceltaEse($percentualeSceltaEse) {
+        $this->percentualeSceltaEse = $percentualeSceltaEse;
     }
 
     /**
-     * Setta la percentuale di risposte corrette per la domanda
-     * @param float $percentualeRispostaCorretta La percentuale di risposte corrette per la domanda
+     * Setta la percentuale di risposte corrette per la domanda per le sessioni esercitative
+     * @param float $percentualeRispostaCorrettaEse La percentuale di risposte corrette per la domanda per le sessioni esercitative
      */  
-    function setPercentualeRispostaCorretta($percentualeRispostaCorretta) {
-        $this->percentualeRispostaCorretta = $percentualeRispostaCorretta;
+    function setPercentualeRispostaCorrettaEse($percentualeRispostaCorrettaEse) {
+        $this->percentualeRispostaCorrettaEse = $percentualeRispostaCorrettaEse;
+    }
+
+    /**
+     * Setta la percentuale di volte in cui viene scelta per le sessioni valutative
+     * @param float $percentualeSceltaVal La percentuale di volte in cui viene scelta per le sessioni valutative
+     */
+    function setPercentualeSceltaVal($percentualeSceltaVal) {
+        $this->percentualeSceltaVal = $percentualeSceltaVal;
+    }
+
+    /**
+     * Setta la percentuale di risposte corrette per la domanda per le sessioni valutative
+     * @param float $percentualeRispostaCorrettaVal La percentuale di risposte corrette per la domanda per le sessioni valutative
+     */
+    function setPercentualeRispostaCorrettaVal($percentualeRispostaCorrettaVal) {
+        $this->percentualeRispostaCorrettaVal = $percentualeRispostaCorrettaVal;
     }
 }

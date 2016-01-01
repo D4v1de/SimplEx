@@ -1,12 +1,12 @@
 <?php
 
 include_once MODEL_DIR . "ArgomentoModel.php";
-include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "CdLModel.php";
 include_once MODEL_DIR . "DomandaModel.php";
 include_once MODEL_DIR . "CorsoModel.php";
 include_once MODEL_DIR . "TestModel.php";
 
-$modelCdl = new CdlModel();
+$modelCdl = new CdLModel();
 $modelArgomento = new ArgomentoModel();
 $modelCorso = new CorsoModel();
 $modelDomande  = new DomandaModel();
@@ -85,6 +85,7 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
     $punteggio=0;
     $cont1=0;
     $cont2=0;
+    
 
     
     if(empty($_POST['aperte']) && empty($_POST['multiple'])) {
@@ -168,6 +169,8 @@ if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && isset($_POST['
     $nMul=parseInt($_POST['numMultiple']);
     $dbAperte;
     $dbMultiple;
+    $descr=$_POST['descrizione'];
+    
 
     if($nApe < 0 || $nMul < 0) {
         $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/crea?flag=1";

@@ -16,7 +16,6 @@ class RispostaApertaModel extends Model {
     public static $CREATE_RISPOSTA_APERTA = "INSERT INTO `risposta_aperta` (elaborato_sessione_id, elaborato_studente_matricola, domanda_aperta_id, testo, punteggio ) VALUES ('%d', '%s', '%d', '%s', '%f')";
     public static $READ_RISPOSTA_APERTA = "SELECT * FROM `risposta_aperta` WHERE elaborato_sessione_id = '%d' AND elaborato_studente_matricola = '%s' AND domanda_aperta_id = '%d'";
     public static $UPDATE_RISPOSTA_APERTA = "UPDATE `risposta_aperta` SET testo = '%s', punteggio = '%f' WHERE elaborato_sessione_id = '%d' AND elaborato_studente_matricola = '%s' AND domanda_aperta_id = '%d'";
-    public static $DELETE_RISPOSTA_APERTA = "DELETE FROM `risposta_aperta` WHERE elaborato_sessione_id = '%d' AND elaborato_studente_matricola = '%s' AND domanda_aperta_id = '%d'";
     public static $GET_ALL_RISPOSTA_APERTA_ELABORATO = "SELECT * FROM `risposta_aperta` WHERE elaborato_sessione_id = '%d' AND elaborato_studente_matricola = '%s'";
 
     /**
@@ -70,22 +69,7 @@ class RispostaApertaModel extends Model {
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
         }
     }
-    
-    /**
-     * Elimina una risposta aperta dal database
-     * @param int $elaboratoSessioneId L'id della sessione a cui appartiene l'elaborato relativo
-     * @param string $elaboratoStudenteMatricola La matricola dello studente a cui appartiene l'elaborato relativo
-     * @param int $domandaApertaId L'id della domanda aperta relativa
-     * @throws ApplicationException
-     */
-    public function deleteRispostaAperta ( $elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId) {
-        $query = sprintf(self::$DELETE_RISPOSTA_APERTA,  $elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId);
-        Model::getDB()->query($query);
-        if(Model::getDB()->affected_rows==-1) {
-            throw new ApplicationException(Error::$CANCELLAZIONE_FALLITA);
-        }
-    }
-    
+
     /**
      * Ricerca tutte le risposte aperte di un elborato
      * @param Elaborato $elaborato L'elaborato di cui cercare le risposte aperte

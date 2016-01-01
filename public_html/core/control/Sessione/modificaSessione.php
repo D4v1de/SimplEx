@@ -15,7 +15,9 @@ $sessioneModel = new SessioneModel();
 $utenteModel = new UtenteModel();
 $testModel = new TestModel();
 $flag=1;
+$idSessione=$_URL[4];
 $idCorso = $_URL[2];
+
 
     if($dataFromSettato=isset($_POST['dataFrom']) && $radio1Settato=isset($_POST['radio1']) && $dataToSettato=isset($_POST['dataTo']) && $someTestsAorD=isset($_POST['tests']) ) {
 
@@ -64,10 +66,10 @@ $idCorso = $_URL[2];
                     $sessioneModel->deleteAllTestFromSessione($idSessione);
                     foreach ($cbTest as $t) {
                         $sessioneModel->associaTestSessione($idSessione, $t);
-                        $updated = $testController->readTest($t);
+                        $updated = $testModel->readTest($t);
                         $perc = $updated->getPercentualeScelto() +1;
                         $updated->setPercentualeScelto($perc);
-                        $testController->updateTest($t, $updated);
+                        $testModel->updateTest($t, $updated);
                     }
                 }
 
@@ -75,12 +77,12 @@ $idCorso = $_URL[2];
                     if ($someStudentsChange) {
                         $cbStudents = Array();
                         $cbStudents = $_POST['students'];
-                        $allStuAbi = $sessioneModel->getAllStudentiBySessione($idSessione);
+                        $allStuAbi = $utenteModel->getAllStudentiSessione($idSessione);
                         foreach ($allStuAbi as $s) {
-                            $sessioneModel->disabilitaStudenteSessione($idSessione, $s->getMatricola());
+                            $utenteModel->disabilitaStudenteSessione($idSessione, $s->getMatricola());
                         }
                         foreach ($cbStudents as $s) {
-                            $sessioneModel->abilitaStudenteSessione($idSessione, $s);
+                            $utenteModel->abilitaStudenteSessione($idSessione, $s);
                         }
                     }
                 }
@@ -88,16 +90,28 @@ $idCorso = $_URL[2];
             catch (ApplicationException $ex) {
                 echo "<h1>ERRORE NELLE OPERAZIONI DELLA SESSIONE (fase modifica)!</h1>" . $ex;
             }
-
-
-            if($flag==0) {
-                $tornaACasa = "Location: "."/docente/corso/"."$idCorso"."/sessione/0/creamodificasessione2/error";
-            }
-            else
-                $tornaACasa= "Location: "."/docente/corso/"."$idCorso"."/successmodifica";
-            header($tornaACasa);
         }
+
+
+        if($flag==0) {
+            $_SESSION['flag'] = $flag;
+            $tornaACasa = "Location: "."/docente/corso/"."$idCorso"."/sessione/".$idSessione."/creamodificasessione2/error";
+        }
+        else {
+            $tornaACasa = "Location: " . "/docente/corso/" . "$idCorso" . "/successmodifica";
+        }
+        header($tornaACasa);
     }
     else {
 
     }
+
+if(isset( $_POST['datato'])) {
+    $dataFineNow=$_POST['datato'];
+    $newSessione = new Sessione($dataFrom, $dataFineNow, 18, "In Esecuzione", $tipoSessione, $identificativoCorso);
+    $modelSessione->updateSessione($idSessione,$newSessione);
+}
+
+/* da termina vado qui e da qui a esiti
+$newSessione = new Sessione($dataFrom, $dataTo, $soglia, "In esecuzione", $tipoSessione, $identificativoCorso);
+$sessioneModel->updateSessione($idSessione,$newSessione);*/

@@ -9,17 +9,26 @@
  * @since 18/11/15 09:58
  */
 
-include_once CONTROL_DIR . "CdlController.php";
-include_once CONTROL_DIR . "UtenteController.php";
-include_once CONTROL_DIR . "SessioneController.php";
+include_once MODEL_DIR . "ElaboratoModel.php";
+include_once MODEL_DIR . "SessioneModel.php";
+include_once MODEL_DIR . "UtenteModel.php";
+include_once MODEL_DIR . "CdLModel.php";
+include_once MODEL_DIR . "CorsoModel.php";
+include_once MODEL_DIR . "TestModel.php";
+include_once BEAN_DIR . "Sessione.php";
 
-$controllerCdl = new CdlController();
-$controllerUtenti = new UtenteController();
-$sesController = new SessioneController();
+$sessioneModel = new SessioneModel();
+$utenteModel = new UtenteModel();
+$testModel = new TestModel();
+$corsoModel = new CorsoModel();
+$cdlModel = new CdLModel();
+$elaboratoModel= new ElaboratoModel();
 
 $idSessione=$_URL[4];
 $idCorso = $_URL[2];
-$corso = $controllerCdl->readCorso($idCorso);
+
+
+$corso = $corsoModel->readCorso($idCorso);
 $nomecorso= $corso->getNome();
 
 $docenteassociato = Array();
@@ -35,14 +44,14 @@ if(!is_numeric($url)) {
 }
 
 try {
-    $corso = $controllerCdl->readCorso($url);
+    $corso = $corsoModel->readCorso($url);
 }
 catch (ApplicationException $ex) {
     echo "<h1>INSERIRE ID CORSO NEL PATH!</h1>".$ex;
 }
 $numProfs=0;
 $doc = $_SESSION['user'];
-$docentiOe=$controllerUtenti->getDocenteAssociato($corso->getId());
+$docentiOe= $utenteModel->getAllDocentiByCorso($corso->getId());
 foreach($docentiOe as $d) {
     if($doc==$d){
         $numProfs++;
@@ -50,22 +59,6 @@ foreach($docentiOe as $d) {
 }
 if($numProfs==0){
     header("Location: "."/docente/corso/".$corso->getId());
-}
-
-if($someStudentsChange=isset($_POST['abilita'])) {
-    if($someStudentsChange){
-        $cbStudents= Array();
-        $cbStudents = $_POST['students'];
-        $allStuAbi= $sesController->getAllStudentiBySessione($idSessione);
-        foreach($allStuAbi as $s) {
-            $sesController->disabilitaStudenteDaSessione($idSessione, $s->getMatricola());
-        }
-        foreach($cbStudents as $s) {
-            $sesController->abilitaStudenteASessione($idSessione,$s);
-        }
-    }
-    header("Location: "."/docente/corso/".$idCorso."/"."sessione"."/".$idSessione."/"."sessioneincorso/show");
-
 }
 
 ?>
@@ -110,7 +103,7 @@ if($someStudentsChange=isset($_POST['abilita'])) {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="<?php echo "/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $controllerCdl->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
+                        <a href="<?php echo "/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $cdlModel->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
@@ -139,7 +132,7 @@ if($someStudentsChange=isset($_POST['abilita'])) {
                 <h3></h3>
             </div>
 
-            <form method="post" action="">
+            <form method="post" action="/docente/corso/<?php echo $idCorso; ?>/sessione/<?php echo $idSessione; ?>/abilitastudenti" >
 
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
@@ -198,9 +191,9 @@ if($someStudentsChange=isset($_POST['abilita'])) {
                                 $disabilita="";
                                 $stato="";
                                 $bgr="";
-                                $array = $sesController->getAllStudentiByCorso($idCorso);
-                                $studentsOfSessione= $sesController->getAllStudentiBySessione($idSessione);
-                                $esaminandiSessione= $sesController->getEsaminandiSessione($idSessione);
+                                $array = $utenteModel->getAllStudentiByCorso($idCorso);
+                                $studentsOfSessione= $utenteModel->getAllStudentiSessione($idSessione);
+                                $esaminandiSessione= $utenteModel->getEsaminandiSessione($idSessione);
                                 if ($array == null) {
                                     echo "l'array è null";
                                 }

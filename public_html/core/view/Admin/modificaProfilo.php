@@ -7,7 +7,7 @@
  * @since 11/12/15
  */
 
-include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "CdLModel.php";
 include_once MODEL_DIR . "UtenteModel.php";
 $cdlCtrl = new CdLModel();
 $uCtrl = new UtenteModel();
@@ -137,8 +137,8 @@ if (isset($_SESSION['error'])) {
                                     </div>
                                     <div class="form-group form-md-line-input">
                                         <div class="col-md-10">
-                                            <input type="password" class="form-control" id="pass"
-                                                   name="pass"
+                                            <input type="password" class="form-control" id="passifreq"
+                                                   name="passifreq"
                                                    placeholder="Inserisci se necessario nuova password"
                                                    value="">
 
@@ -158,6 +158,7 @@ if (isset($_SESSION['error'])) {
                                         </div>
                                     </div>
                                 </div>
+                                <br>
                             </div>
                         </div>
                         <div class="row">
@@ -205,17 +206,15 @@ if (isset($_SESSION['error'])) {
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN aggiunta da me -->
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
-<script src="/assets/admin/pages/scripts/form-validation.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
+<script src="/assets/global/scripts/adminValidator.js?t=<?php echo time(); ?>"></script>
 <!-- END aggiunta da me -->
 
 <script>
     jQuery(document).ready(function () {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
-        //QuickSidebar.init(); // init quick sidebar
-        //Demo.init(); // init demo features
         TableManaged.init();
         FormValidation.init();
     });

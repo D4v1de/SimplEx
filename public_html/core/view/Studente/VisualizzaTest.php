@@ -6,7 +6,7 @@
  * @since 18/11/15 09:58
  */
 
-include_once MODEL_DIR . "CdlModel.php";
+include_once MODEL_DIR . "CdLModel.php";
 include_once MODEL_DIR . "CorsoModel.php";
 include_once MODEL_DIR . "UtenteModel.php";
 include_once MODEL_DIR . "ElaboratoModel.php";
@@ -45,11 +45,11 @@ $url2 = null;
 
 $url = $_URL[2];
 if (!is_numeric($url)) {
-    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+    echo "<script type='text/javascript'>alert('errore url!!(idcorso)');</script>";
 }
 $url2 = $_URL[4];
 if (!is_numeric($url)) {
-    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+    echo "<script type='text/javascript'>alert('errore url!!(idelaborato)');</script>";
 }
 
 $studente = $_SESSION['user'];

@@ -1,22 +1,21 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: sergio
- * Date: 13/12/15
- * Time: 17:30
+ * View della homepage docente
+ * @author Sergio Shevchenko
+ * @version 1.2
+ * @since 13/12/15
  */
 
-//TODO qui la logica iniziale, caricamento dei controller ecc
-include_once CONTROL_DIR . "CdlController.php";
+include_once MODEL_DIR . "CorsoModel.php";
 include_once BEAN_DIR . "Corso.php";
-$ctrl = new CdlController();
+$ctrl = new CorsoModel();
 /** @var Utente $utente */
 $utente = $_SESSION['user'];
 $cdls = Array();
 try {
-    $cdls = $ctrl->getMyCourses();
+    $cdls = $ctrl->getMyCourses($utente);
 } catch (ApplicationException $ex) {
-    echo "<h1>GETCDL FALLITO!</h1>" . $ex;
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 
 ?>
@@ -36,6 +35,9 @@ try {
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
     <link rel="stylesheet" type="text/css"
           href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="/assets/global/plugins/datatables/extensions/TableTools/css/dataTables.tableTools.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -58,7 +60,7 @@ try {
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="/usr/docente">Home</a>
+                        <a href="/docente">Home</a>
                     </li>
                 </ul>
             </div>
@@ -148,6 +150,7 @@ try {
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN aggiunta da me -->
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
+<script src="/assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
 <!-- END aggiunta da me -->
 <script>
     jQuery(document).ready(function () {
@@ -156,6 +159,22 @@ try {
         //QuickSidebar.init(); // init quick sidebar
         //Demo.init(); // init demo features
         TableManaged2.init("tabella_2", "tabella_2_wrapper");
+        var table = $("#tabella_2").dataTable();
+        var tableTools = new $.fn.dataTable.TableTools(table, {
+            //"sSwfPath": "//cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls_pdf.swf",
+            "sSwfPath": "/assets/global/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf",
+            "aButtons": [
+                {
+                    "sExtends": "xls",
+                    "sButtonText": "<button><i class='fa fa-file-excel-o'></i> Excel</button>"
+                },
+                {
+                    "sExtends": "pdf",
+                    "sButtonText": "<button><i class='fa fa-file-pdf-o'></i> PDF</button>"
+                }
+            ]
+        });
+        $(tableTools.fnContainer()).insertBefore("#tabella_2_wrapper");
     });
 </script>
 <!-- END JAVASCRIPTS -->

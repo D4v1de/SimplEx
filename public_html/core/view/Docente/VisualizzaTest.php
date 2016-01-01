@@ -9,8 +9,8 @@
 include_once MODEL_DIR . "DomandaModel.php";
 $ModelDomanda = new DomandaModel();
 
-include_once MODEL_DIR . "CdlModel.php";
-$ModelCdl = new CdlModel();
+include_once MODEL_DIR . "CdLModel.php";
+$ModelCdl = new CdLModel();
 
 include_once MODEL_DIR . "CorsoModel.php";
 $ModelCorso = new CorsoModel();
