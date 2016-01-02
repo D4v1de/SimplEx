@@ -18,6 +18,8 @@ class Test {
     private $percentualeSuccessoEse;
     private $percentualeSceltoVal;
     private $percentualeSuccessoVal;
+    private $numeroSceltaEsercitativa;
+    private $numeroSceltaValutativa;
     private $corsoId;
 
     /**
@@ -30,9 +32,11 @@ class Test {
      * @param float $percentualeSuccessoEse Percentuale di successo del test nelle sessioni esercitative
      * @param float $percentualeSceltoVal Percentuale di volte in cui il test viene scelto per sessioni valutative
      * @param float $percentualeSuccessoVal Percentuale di successo del test nelle sessioni valutative
+     * @param int $numeroSceltaEsercitativa Il numero di volte che il test è stato scelto per sessioni esercitative
+     * @param int $numeroSceltaValutativa Il numero di volte che il test è stato scelto per sessioni valutative
      * @param int $corso_id L'id del corso a cui appartiene
      */
-    public function __construct($descrizione, $punteggioMax, $numeroMultiple, $numeroAperte, $percentualeSceltoEse, $percentualeSuccessoEse, $percentualeSceltoVal, $percentualeSuccessoVal, $corsoId) {
+    public function __construct($descrizione, $punteggioMax, $numeroMultiple, $numeroAperte, $percentualeSceltoEse, $percentualeSuccessoEse, $percentualeSceltoVal, $percentualeSuccessoVal, $numeroSceltaEsercitativa, $numeroSceltaValutativa, $corsoId) {
         $this->descrizione=$descrizione;
         $this->punteggioMax=$punteggioMax;
         $this->numeroMultiple=$numeroMultiple;
@@ -41,6 +45,8 @@ class Test {
         $this->percentualeSuccessoEse=$percentualeSuccessoEse;
         $this->percentualeSceltoVal=$percentualeSceltoVal;
         $this->percentualeSuccessoVal=$percentualeSuccessoVal;
+        $this->numeroSceltaEsercitativa=$numeroSceltaEsercitativa;
+        $this->numeroSceltaValutativa=$numeroSceltaEsercitativa;
         $this->corsoId = $corsoId;
     } 
     
@@ -105,6 +111,20 @@ class Test {
      */
     function getPercentualeSuccessoVal() {
         return $this->percentualeSuccessoVal;
+    }
+
+    /**
+     * @return int Il numero di volte che il test è stato scelto per sessioni esercitative
+     */
+    function getNumeroSceltaEsercitativa() {
+        return $this->numeroSceltaEsercitativa;
+    }
+
+    /**
+     * @return int Il numero di volte che il test è stato scelto per sessioni valutative
+     */
+    function getNumeroSceltaValutativa() {
+        return $this->numeroSceltaValutativa;
     }
 
     /**
@@ -184,6 +204,22 @@ class Test {
      */
     function setPercentualeSuccessoVal($percentualeSuccessoVal) {
         $this->percentualeSuccessoVal = $percentualeSuccessoVal;
+    }
+
+    /**
+     * Setta il numero di volte che il test è stato scelto per sessioni esercitative
+     * @param int $numeroSceltaEsercitativa Il numero di volte che il test è stato scelto per sessioni esercitative
+     */
+    function setNumeroSceltaEsercitativa($numeroSceltaEsercitativa) {
+        $this->numeroSceltaEsercitativa = $numeroSceltaEsercitativa;
+    }
+
+    /**
+     * Setta il numero di volte che il test è stato scelto per sessioni valutative
+     * @param int $numeroSceltaEsercitativa Il numero di volte che il test è stato scelto per sessioni valutative
+     */
+    function setNumeroSceltaValutativa($numeroSceltaValutativa) {
+        $this->numeroSceltaValutativa = $numeroSceltaValutativa;
     }
 
     /**
