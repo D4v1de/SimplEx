@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: fede_dr
- * Date: 29/12/15
- * Time: 13:36
+ * Controller associaCorso permette di associare uno o più Docenti ad un Corso.
+ * @author Federico De Rosa
+ * @version 1
+ * @since 29/12/15 13:38
  */
 
 include_once MODEL_DIR . "UtenteModel.php";

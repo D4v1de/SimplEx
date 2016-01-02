@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: fede_dr
- * Date: 29/12/15
- * Time: 00:40
+ * Controller modificaCdl permette di modificare un Corso di Laurea.
+ * @author Federico De Rosa
+ * @version 1
+ * @since 29/12/15 00:38
  */
 
 include_once MODEL_DIR . "CdLModel.php";
