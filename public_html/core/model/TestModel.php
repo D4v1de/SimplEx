@@ -21,6 +21,9 @@ class TestModel extends Model {
     private static $GET_TEST_ELABORATO = "SELECT t.* FROM `test` as t, `elaborato` as e where e.test_id = t.id AND e.studente_matricola = '%s' AND e.sessione_id = '%d'";
     private static $GET_TEST_MULTIPLA = "SELECT t.* FROM `test` as t, `compone_multipla` as c where c.test_id = t.id AND c.domanda_multipla_id = '%d'";
     private static $GET_TEST_APERTA = "SELECT t.* FROM `test` as t, `compone_aperta` as c where c.test_id = t.id AND c.domanda_aperta_id = '%d'";
+    private static $GET_TEST_SESSIONE_VALUTATIVA = "SELECT DISTINCT t.* FROM `sessione_test` as s, `test` as t WHERE s.test_id = t.id AND s.tipologia='Valutativa' AND s.corso_id = '%d'";
+    private static $GET_TEST_SESSIONE_ESERCITATIVA = "SELECT DISTINCT t.* FROM `sessione_test` as s, `test` as t WHERE s.test_id = t.id AND s.tipologia='Esercitativa' AND s.corso_id = '%d'";
+
     /**
      * Inserisce un nuovo test nel database
      * @param Test $test Il test da inserire nel database
@@ -180,6 +183,42 @@ class TestModel extends Model {
      */
     public function getAllTestByAperta($domanda) {
         $query = sprintf(self::$GET_TEST_APERTA, $domanda);
+        $res = Model::getDB()->query($query);
+        $tests = array();
+        if($res){
+            while ($obj = $res->fetch_assoc()) {
+                $test = new Test($obj['descrizione'], $obj['punteggio_max'], $obj['n_multiple'], $obj['n_aperte'], $obj['percentuale_scelto_ese'], $obj['percentuale_successo_ese'], $obj['percentuale_scelto_val'], $obj['percentuale_successo_val'], $obj['numero_scelta_esercitativa'], $obj['numero_scelta_valutativa'], $obj['corso_id']);
+                $test->setId($obj['id']);
+                $tests[] = $test;            }
+        }
+        return $tests;
+    }
+
+    /**
+     * Restituisce tutti i test delle sessioni esercitative del database
+     * @param int L'id del corso a cui appertiene la sessione
+     * @return Test[] Tutti i test delle sessioni esercitative del database
+     */
+    public function getAllTestBySessioneEsercitativa($idCorso) {
+        $query = sprintf(self::$GET_TEST_SESSIONE_ESERCITATIVA, $idCorso);
+        $res = Model::getDB()->query($query);
+        $tests = array();
+        if($res){
+            while ($obj = $res->fetch_assoc()) {
+                $test = new Test($obj['descrizione'], $obj['punteggio_max'], $obj['n_multiple'], $obj['n_aperte'], $obj['percentuale_scelto_ese'], $obj['percentuale_successo_ese'], $obj['percentuale_scelto_val'], $obj['percentuale_successo_val'], $obj['numero_scelta_esercitativa'], $obj['numero_scelta_valutativa'], $obj['corso_id']);
+                $test->setId($obj['id']);
+                $tests[] = $test;            }
+        }
+        return $tests;
+    }
+
+    /**
+     * Restituisce tutti i test delle sessioni valutative del database
+     * @param int L'id del corso a cui appertiene la sessione
+     * @return Test[] Tutti i test delle sessione valutative del database
+     */
+    public function getAllTestBySessioneValutativa($idCorso) {
+        $query = sprintf(self::$GET_TEST_SESSIONE_VALUTATIVA, $idCorso);
         $res = Model::getDB()->query($query);
         $tests = array();
         if($res){

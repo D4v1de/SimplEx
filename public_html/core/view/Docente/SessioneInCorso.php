@@ -23,9 +23,9 @@ $idSessione=$_URL[4];
 $identificativoCorso = $_URL[2];
 
 
-
 $numProfs=0;
-$doc = $_SESSION['user'];
+
+/*doc = $_SESSION['user'];
 $docentiOe=$modelUtente->getAllDocentiByCorso($identificativoCorso);
 foreach($docentiOe as $d) {
     if($doc==$d){
@@ -34,7 +34,7 @@ foreach($docentiOe as $d) {
 }
 if($numProfs==0){
     header("Location: "."/docente/corso/".$corso->getId());
-}
+}*/
 
 
 
@@ -70,6 +70,7 @@ $dataTo = $sessioneByUrl->getDataFine();
     <?php include VIEW_DIR . "design/header.php"; ?>
     <link rel="stylesheet" type="text/css"
           href="/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
 
 </head>
 <!-- END HEAD -->
@@ -349,6 +350,8 @@ $dataTo = $sessioneByUrl->getDataFine();
 
 <!--Script specifici per la pagina -->
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
+<script src="/assets/admin/pages/scripts/ui-toastr.js"></script>
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <script src="/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
 <script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
@@ -358,6 +361,7 @@ $dataTo = $sessioneByUrl->getDataFine();
         Metronic.init();
         Layout.init();
         UIConfirmations.init();
+        checkNotifiche();
     });
 </script>
         <script>
@@ -410,7 +414,25 @@ $dataTo = $sessioneByUrl->getDataFine();
                 xhttp.open("GET", "/docente/corso/something/gestoredata", true);
                 xhttp.send();
             }
-            setInterval(loadDoc, 10000);
+            setInterval(loadDoc, 3000);
+        </script>
+
+        <script>
+            //controlla se c'è qualche notifica da mostrare
+            function checkNotifiche() {
+                var href = window.location.href;
+                var last = href.substr(href.lastIndexOf('/') + 1);
+                if (last == 'successinserimento') {
+                    toastr.success('Inserimento avvenuto correttamente!', 'Inserimento');
+                } else if (last == 'successmodifica') {
+                    toastr.success('Modifica avvenuta correttamente!', 'Modifica');
+                } else if (last == 'successelimina') {
+                    toastr.success('Eliminazione avvenuta correttamente!', 'Eliminazione');
+                }
+                else if (last == 'error') {
+                    toastr.success('Problema nella creazione.', 'Eliminazione');
+                }
+            }
         </script>
 
 <!-- END JAVASCRIPTS -->

@@ -185,12 +185,6 @@ if($someTestsAorD==false) {
 }
 
 
-/*if(isset( $_POST['datato'])) { creargli una pagina a parte
-    $dataFineNow=$_POST['datato'];
-    $newSessione = new Sessione($dataFrom, $dataFineNow, 18, "In Esecuzione", $tipoSessione, $identificativoCorso);
-    $modelSessione->updateSessione($idSessione,$newSessione);
-}*/
-
 /* da termina vado qui e da qui a esiti
 $newSessione = new Sessione($dataFrom, $dataTo, $soglia, "In esecuzione", $tipoSessione, $identificativoCorso);
 $sessioneModel->updateSessione($idSessione,$newSessione);*/
