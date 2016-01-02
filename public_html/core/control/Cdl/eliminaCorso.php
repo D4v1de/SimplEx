@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: fede_dr
- * Date: 29/12/15
- * Time: 13:18
+ * Controller eliminaCorso permette di eliminare uno o più Corsi.
+ * @author Federico De Rosa
+ * @version 1
+ * @since 29/12/15 13:18
  */
 
 include_once MODEL_DIR . "CorsoModel.php";
