@@ -89,7 +89,8 @@ else
               href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
         <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
         <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
-        <?php include VIEW_DIR . "design/header.php"; ?>
+        <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/extensions/TableTools/css/dataTables.tableTools.css">
+    <?php include VIEW_DIR . "design/header.php"; ?>
     </head>
     <!-- END HEAD -->
     <!-- BEGIN BODY -->
@@ -453,6 +454,8 @@ printf("<button type='submit' name='rimuovi' value='%d' class='btn btn-sm red-in
             <script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
             <script type="text/javascript"
             src="/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+            <script src="/assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+
 
             <script>
                 jQuery(document).ready(function () {
@@ -462,6 +465,40 @@ printf("<button type='submit' name='rimuovi' value='%d' class='btn btn-sm red-in
                     TableManaged2.init('tabella_studenti', 'tabella_studenti_wrapper');
                     UIConfirmations.init();
                     UIAlertDialogApi.init();
+
+                    var tableT = $("#tabella_test").dataTable();
+                    var tableToolsT = new $.fn.dataTable.TableTools(tableT, {
+                        //"sSwfPath": "//cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls_pdf.swf",
+                        "sSwfPath": "/assets/global/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf",
+                        "aButtons": [
+                            {
+                                "sExtends": "xls",
+                                "sButtonText": "<i class='fa fa-file-excel-o'></i> Excel"
+                            },
+                            {
+                                "sExtends": "pdf",
+                                "sButtonText": "<i class='fa fa-file-pdf-o'></i> PDF"
+                            }
+                        ]
+                    });
+                    $(tableToolsT.fnContainer()).insertBefore("#tabella_test_wrapper");
+
+                    var tableS = $("#tabella_studenti").dataTable();
+                    var tableToolsS = new $.fn.dataTable.TableTools(tableS, {
+                        //"sSwfPath": "//cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls_pdf.swf",
+                        "sSwfPath": "/assets/global/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf",
+                        "aButtons": [
+                            {
+                                "sExtends": "xls",
+                                "sButtonText": "<i class='fa fa-file-excel-o'></i> Excel"
+                            },
+                            {
+                                "sExtends": "pdf",
+                                "sButtonText": "<i class='fa fa-file-pdf-o'></i> PDF"
+                            }
+                        ]
+                    });
+                    $(tableToolsS.fnContainer()).insertBefore("#tabella_studenti_wrapper");
                 });
             </script>
             <script src="/assets/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
