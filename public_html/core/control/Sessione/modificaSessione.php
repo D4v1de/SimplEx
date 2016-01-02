@@ -17,6 +17,7 @@ $utenteModel = new UtenteModel();
 $domandaModel = new DomandaModel();
 $testModel = new TestModel();
 $flag=1;
+$pio=1;
 $idSessione=$_URL[4];
 $idCorso = $_URL[2];
 
@@ -175,6 +176,14 @@ $idCorso = $_URL[2];
     else {
 
     }
+
+if($someTestsAorD==false) {
+    $pio=0;
+    $_SESSION['pio'] = $pio;
+    $tornaACasa = "Location: "."/docente/corso/"."$idCorso"."/sessione/0/creamodificasessione2";
+    header($tornaACasa);
+}
+
 
 /*if(isset( $_POST['datato'])) { creargli una pagina a parte
     $dataFineNow=$_POST['datato'];

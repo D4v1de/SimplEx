@@ -333,10 +333,10 @@ try {
                         }
                         break;
                     case 'getTestforStat':
-                        include_once VIEW_DIR . "Docente/getTestforStat.php";
+                        include_once CONTROL_DIR . "Statistiche/getTestforStat.php";
                         break;
                     case 'getDomforStat':
-                        include_once VIEW_DIR . "Docente/getDomforStat.php";
+                        include_once CONTROL_DIR . "Statistiche/getDomforStat.php";
                         break;
                     case 'creazione_TEST':
                         include_once CONTROL_DIR . "Test/CreaTest.php";
