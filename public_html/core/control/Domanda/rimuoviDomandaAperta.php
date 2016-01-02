@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Carlo
- * Date: 27/12/15
- * Time: 13:30
+ * Controller che permette di rimuovere una Domanda Aperta
+ * @author  Carlo, Pasquale
+ * @version 1.3
+ * @since 28/12/15 11:02
  */
 
 include_once MODEL_DIR . "DomandaModel.php";

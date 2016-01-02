@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Pasquale
- * Date: 29/12/15
- * Time: 10.40
+ * Controller che permette di creare una Domanda Multipla
+ * @author  Pasquale
+ * @version 1.3
+ * @since 28/12/15 10:15
  */
 
 include_once MODEL_DIR . "DomandaModel.php";

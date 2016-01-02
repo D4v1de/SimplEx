@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: pasquale
- * Date: 29/12/15
- * Time: 12.36
+ * Controller che permette di rimuovere una Domanda Multipla
+ * @author Pasquale
+ * @version 1.3
+ * @since 28/12/15 11:13
  */
 
 include_once MODEL_DIR . "DomandaModel.php";
