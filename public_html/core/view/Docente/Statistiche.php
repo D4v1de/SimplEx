@@ -52,7 +52,7 @@ foreach ($argomenti as $a){
     <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8"/>
-        <title>Metronic | Page Layouts - Blank Page</title>
+        <title><?php echo 'Statistiche '.$corso->getNome(); ?></title>
         
         <?php include VIEW_DIR . "design/header.php"; ?>
         <link href="/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -143,7 +143,7 @@ foreach ($argomenti as $a){
                                         Sessioni
                                     </div>
                                 </div>
-                                <a class="more" href="javascript:;">
+                                <a class="more" href="/docente/corso/<?php echo $corsoId; ?>">
                                     Visualizza <i class="m-icon-swapright m-icon-white"></i>
                                 </a>
                             </div>
@@ -161,7 +161,7 @@ foreach ($argomenti as $a){
                                         Test
                                     </div>
                                 </div>
-                                <a class="more" href="javascript:;">
+                                <a class="more" href="/docente/corso/<?php echo $corsoId; ?>">
                                     Visualizza <i class="m-icon-swapright m-icon-white"></i>
                                 </a>
                             </div>
@@ -179,7 +179,7 @@ foreach ($argomenti as $a){
                                         Argomenti
                                     </div>
                                 </div>
-                                <a class="more" href="javascript:;">
+                                <a class="more" href="/docente/corso/<?php echo $corsoId; ?>">
                                     Visualizza <i class="m-icon-swapright m-icon-white"></i>
                                 </a>
                             </div>
@@ -576,7 +576,6 @@ foreach ($argomenti as $a){
                                                             $('#spinnerDomSup').spinner({value: 5, step: 5, min: 5, max: 20});
                                                             $('#spinnerDomSce').spinner({value: 5, step: 5, min: 5, max: 20});
                                                             cId = <?= $corsoId; ?>; 
-                                                            alert(cId);
                                                             mod = 'Best';
                                                             modSce = 'Best';
                                                             modCorr = 'Best';
