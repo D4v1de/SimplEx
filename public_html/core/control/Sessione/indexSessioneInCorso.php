@@ -24,3 +24,8 @@ if(isset( $_POST['termina'] )) {
 if(isset( $_POST['annullaEsame'])) {
     header("location: " ."/docente/corso/".$idCorso."/sessione/".$idSessione."/annullaesame/".$_POST['annullaEsame']);
 }
+
+if(isset( $_POST['datato'])) {
+    header("location: " ."/docente/corso/".$idCorso."/sessione/".$idSessione."/modificafine/".$_POST['datato']);
+
+}
