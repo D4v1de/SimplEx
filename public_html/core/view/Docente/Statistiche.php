@@ -1,5 +1,11 @@
 <?php
-//TODO qui la logica iniziale, caricamento dei controller ecc
+/**
+ * La view consente al docente di visualizzare le statistiche relative a un corso.
+ * 
+ * @author Fabiano Pecorelli
+ * @version 1.0
+ * @since 22/12/15
+ */
 include_once MODEL_DIR . "CorsoModel.php";
 include_once MODEL_DIR . "UtenteModel.php";
 include_once MODEL_DIR . "SessioneModel.php";
@@ -47,6 +53,7 @@ foreach ($argomenti as $a){
     <head>
         <meta charset="utf-8"/>
         <title>Metronic | Page Layouts - Blank Page</title>
+        
         <?php include VIEW_DIR . "design/header.php"; ?>
         <link href="/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
         <link href="/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
