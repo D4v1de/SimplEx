@@ -138,7 +138,7 @@ $numRisposte = count($alternative);
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <form id="form_sample_2" method="post" action="/docente/modificamultipla" class="form-horizontal form-bordered">
+            <form id="form_sample_1" method="post" action="/docente/modificamultipla" class="form-horizontal form-bordered">
                 <?php
                 if($errore == 1){
                     echo "<div class=\"alert alert-danger\"><button class=\"close\" data-close=\"alert\"></button>La lunghezza del testo della domanda dev'essere compreso tra 2 e 500!</div>";
@@ -198,7 +198,7 @@ $numRisposte = count($alternative);
                                 printf("<label class=\"control-label col-md-2\">");
                                 printf("Inserisci Testo Risposta</label>");
                                 printf("<div class=\"col-md-6\">");
-                                printf("<input type=\"text\" value=\"%s\" id=\"risposte\" name=\"testoRisposta[]\" class=\"form-control\">", $r->getTesto());
+                                printf("<input type=\"text\" value=\"%s\" id=\"risposte\" name=\"testoRisposta%d\" class=\"form-control\">", $r->getTesto(), $numRadio);
                                 printf("<span class=\"help-block\">");
                                 printf("</span>");
                                 printf("</div>");
@@ -329,18 +329,22 @@ $numRisposte = count($alternative);
 
 
     function insRisposte() {
-        var newDiv = document.createElement("DIV");
-        newDiv.setAttribute("id", "form" + num);
-        var div = document.getElementById('rispostenuove');
-        var newNum = num;
-        div.appendChild(newDiv);
-        newDiv.innerHTML = "<div class=\"form-group form-md-line-input has-success ratio\" style=\"height: 90px\">"+
-            "<div class=\"col-md-1\"><div class=\"col-md-offset-6 col-md-6\"><div class=\"form-md-radios\"><div class=\"md-radio-list\"><div class=\"md-radio\">"+
-            "<input type=\"radio\" id=\"radio"+num+"\" value=\""+num+"\" name=\"radio\" class=\"md-radiobtn\">"+
-            "<label id=\"label"+num+"\" for=\"radio"+num+"\"><span></span><span class=\"check\"></span><span class=\"box\"></span>"+
-            "</label></div></div></div></div></div>" +
-            "<label class=\"control-label col-md-2\">Inserisci Testo Risposta</label><div class=\"col-md-6\"><input type=\"text\" name=\"risposteNuove[]\" placeholder=\"\" class=\"form-control\"> <span class=\"help-block\"></span> </div> <div class=\"col-md-3\" id=\"padre"+num+"\"><a onclick=\"javascript:elimina(this)\" id=\"el"+num+"\" class=\"btn sm red-intense\"> <i class=\"fa fa-minus\"></i> Rimuovi </a> </div> </div>";
-        num++;
+        if(num==15){
+            toastr.error('Non puoi inserire ulteriori risposte!', 'ERRORE');
+        }else {
+            var newDiv = document.createElement("DIV");
+            newDiv.setAttribute("id", "form" + num);
+            var div = document.getElementById('rispostenuove');
+            var newNum = num;
+            div.appendChild(newDiv);
+            newDiv.innerHTML = "<div class=\"form-group form-md-line-input has-success ratio\" style=\"height: 90px\">" +
+                "<div class=\"col-md-1\"><div class=\"col-md-offset-6 col-md-6\"><div class=\"form-md-radios\"><div class=\"md-radio-list\"><div class=\"md-radio\">" +
+                "<input type=\"radio\" id=\"radio" + num + "\" value=\"" + num + "\" name=\"radio\" class=\"md-radiobtn\">" +
+                "<label id=\"label" + num + "\" for=\"radio" + num + "\"><span></span><span class=\"check\"></span><span class=\"box\"></span>" +
+                "</label></div></div></div></div></div>" +
+                "<label class=\"control-label col-md-2\">Inserisci Testo Risposta</label><div class=\"col-md-6\"><input type=\"text\" name=\"risposteNuove[]\" placeholder=\"\" class=\"form-control\"> <span class=\"help-block\"></span> </div> <div class=\"col-md-3\" id=\"padre" + num + "\"><a onclick=\"javascript:elimina(this)\" id=\"el" + num + "\" class=\"btn sm red-intense\"> <i class=\"fa fa-minus\"></i> Rimuovi </a> </div> </div>";
+            num++;
+        }
     }
 
     function elimina(btn) {

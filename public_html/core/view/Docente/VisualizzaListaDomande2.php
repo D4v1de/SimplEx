@@ -175,7 +175,7 @@ foreach($docentiAssociati as $docente){
                         printf("<div class=\"portlet\">");
                         printf("<div class=\"portlet-title \">");
 
-                        printf("<div class=\"col-md-6\">");
+                        printf("<div class=\"col-md-6 caption\">");
                         printf("<i class=\"fa fa-file-o\"></i> %s", $d->getTesto());
                         printf("</div>");
                         printf("Punteggio Massimo: %s", $d->getPunteggioMax());
@@ -223,7 +223,7 @@ foreach($docentiAssociati as $docente){
 
                         printf("<div class=\"portlet \">");
                         printf("<div class=\"portlet-title\">");
-                        printf("<div class=\"col-md-5\">");
+                        printf("<div class=\"col-md-5 caption\">");
                         printf("<i class=\"fa fa-file-o\"></i> %s", $d->getTesto());
                         printf("</div>");
                         printf("Punteggio Corretta: %s/", $d->getPunteggioCorretta());
