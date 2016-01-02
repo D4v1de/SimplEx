@@ -37,7 +37,7 @@ if ($kind == "val"){
             $toSort[$tests[$i]->getId()] = ($n1Val > 0)? $tests[$i]->getPercentualeSceltoVal()/$n1Val * 100:0;
     else if ($type == "successo")
         for ($i=0; $i < $n; $i++){
-            $n2 = 100;// $testModel->readNumeroSceltaTestValutativa($tests[$i]->getId());
+            $n2 = $tests[$i]->getNumeroSceltaValutativa();
             $toSort[$tests[$i]->getId()] = ($n2 > 0)? $tests[$i]->getPercentualeSuccessoVal()/$n2 * 100:0;
         }
 }
@@ -47,7 +47,7 @@ else{
             $toSort[$tests[$i]->getId()] = ($n1Ese > 0)? $tests[$i]->getPercentualeSceltoEse()/$n1Ese * 100:0;
     else if ($type == "successo")
         for ($i=0; $i < $n; $i++){
-            $n2 =100;// $testModel->readNumeroSceltaTestEsercitativa($tests[$i]->getId());
+            $n2 = $tests[$i]->getNumeroSceltaEsercitativa();
             $toSort[$tests[$i]->getId()] = ($n2 > 0)? $tests[$i]->getPercentualeSuccessoEse()/$n2 * 100:0;
         }
 }
