@@ -119,10 +119,6 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
                 $punteggio=$punteggio+($w->getPunteggioMax());
                 associaAperTest($s,$idNuovoTest,NULL);
             }
-            $updated = $modelDomande->readDomandaAperta($s);
-            $perc = $updated->getPercentualeScelta() +1;
-            $updated->setPercentualeScelta($perc);
-            $modelDomande->updateDomandaAperta($s, $updated);
         }
         $z1=0;
         $z2=0;
@@ -144,10 +140,6 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
             }
             associaMultTest($s, $idNuovoTest, $z1, $z2);//associo la domanda multipla al test
             
-            $updated = $modelDomande->readDomandaMultipla($s);
-            $perc = $updated->getPercentualeScelta() +1;
-            $updated->setPercentualeScelta($perc);
-            $modelDomande->updateDomandaMultipla($s, $updated);
 
         }
         $ilTest=$modelTest->readTest($idNuovoTest);
@@ -249,19 +241,11 @@ if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && isset($_POST['
             $id = parseInt($s->getId());
             associaAperTest($id, $idNuovoTest, NULL);
             
-            $updated = $modelDomande->readDomandaAperta($id);
-            $perc = $updated->getPercentualeScelta() +1;
-            $updated->setPercentualeScelta($perc);
-            $modelDomande->updateDomandaAperta($id, $updated);
         }
         foreach($leMultiple as $x) { //scansiono di nuovo le multiple per associarle al test
             $id = parseInt($x->getId());
             associaMultTest($id, $idNuovoTest, NULL, NULL);
             
-            $updated = $modelDomande->readDomandaMultipla($id);
-            $perc = $updated->getPercentualeScelta() +1;
-            $updated->setPercentualeScelta($perc);
-            $modelDomande->updateDomandaMultiplaa($id, $updated);
         }
 
         $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";

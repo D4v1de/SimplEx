@@ -521,10 +521,13 @@ if($_URL[4]!=0) {
                                         $percSce = round(($c->getPercentualeScelto()/count($sessioniByCorso)*100),2);
                                     else
                                         $percSce = 0;
-                                    if ($elaborati != null)
-                                        $percSuc = round(($c->getPercentualeSuccesso()/count($elaborati)*100),2);
-                                    else
-                                        $percSuc = 0;
+                                    
+                                                        $succ = $c->getPercentualeSuccessoEse() + $c->getPercentualeSuccessoVal();
+                                                        $n = $modelTest->readNumeroSceltaTestValutativa($testId) + $modelTest->readNumeroSceltaTestEsercitativa($testId);
+                                                        if ($n > 0)
+                                                            $percSuc = round(($succ / $n * 100), 2);
+                                                        else
+                                                            $percSuc = 0;
                                     printf("<tr class=\"gradeX odd\" role=\"row\">");
                                     foreach($testsOfSessione as $t){
                                         if($c->getId()==$t->getId())

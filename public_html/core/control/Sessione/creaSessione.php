@@ -9,10 +9,12 @@
 include_once MODEL_DIR . "SessioneModel.php";
 include_once MODEL_DIR . "UtenteModel.php";
 include_once MODEL_DIR . "TestModel.php";
+include_once MODEL_DIR . "DomandaModel.php";
 include_once BEAN_DIR . "Sessione.php";
 
 $sessioneModel = new SessioneModel();
 $utenteModel = new UtenteModel();
+$domandaModel = new DomandaModel();
 $testModel = new TestModel();
 $idCorso = $_URL[2];
 $flag=1;
@@ -70,29 +72,40 @@ $flag=1;
                     foreach ($cbTest as $t) {
                         $sessioneModel->associaTestSessione($idNuovaSessione,$t);
                         $updated = $testModel->readTest($t);
-                        $perc = $updated->getPercentualeScelto() +1;
-                        $updated->setPercentualeScelto($perc);
-                        $testModel->updateTest($t, $updated);
-                    }
-
-                    //Statistica percentuale scelta test
-
-                    /*$allTests = $testController->getAllTestbyCorso($idCorso);
-                    $sessioni = $controller->getAllSessioniByCorso($idCorso);
-                    foreach ($allTests as $test){
-                        $testId = $test->getId();
-                        $c = 0;
-                        foreach ($sessioni as $s){
-                            $tests = $testController->getAllTestBySessione($s->getId());
-                            foreach ($tests as $t)
-                                if ($t->getId() == $testId)
-                                    $c++;
+                        if ($newtipoSessione == "Valutativa"){
+                            $perc = $updated->getPercentualeSceltoVal() +1;
+                            $updated->setPercentualeSceltoVal($perc);
+                        }
+                        else{
+                            $perc = $updated->getPercentualeSceltoEse() +1;
+                            $updated->setPercentualeSceltoEse($perc);
+                        }
+                        $aperte = $domandaModel->getAllDomandeAperteByTest($t);
+                        foreach ($aperte as $updatedDom){
+                            if ($newtipoSessione == "Valutativa"){
+                                $percDom = $updatedDom->getPercentualeSceltaVal() +1;
+                                $updatedDom->setPercentualeSceltaVal($percDom);
                             }
-                            $updated = $testController->readTest($testId);
-                            $perc = $c/count($sessioni) * 100;
-                            $updated->setPercentualeScelto($perc);
-                            $testController->updateTest($testId, $updated);
-                        }*/
+                            else{
+                                $percDom = $updatedDom->getPercentualeSceltaEse() +1;
+                                $updatedDom->setPercentualeSceltaEse($percDom);
+                            }
+                            $domandaModel->updateDomandaAperta($updatedDom->getId(), $updatedDom);
+                        }
+                        $multiple = $domandaModel->getAllDomandeMultipleByTest($t);
+                        foreach ($multiple as $updatedDom){
+                            if ($newtipoSessione == "Valutativa"){
+                                $percDom = $updatedDom->getPercentualeSceltaVal() +1;
+                                $updatedDom->setPercentualeSceltaVal($percDom);
+                            }
+                            else{
+                                $percDom = $updatedDom->getPercentualeSceltaEse() +1;
+                                $updatedDom->setPercentualeSceltaEse($percDom);
+                            }
+                            $domandaModel->updateDomandaMultipla($updatedDom->getId(), $updatedDom);
+                        }
+                $testModel->updateTest($t, $updated);
+                    }
                 }
             } catch (ApplicationException $ex) {
                 echo "<h1>ERRORE NELLE OPERAZIONI DELLA SESSIONE (fase creazione)!</h1>" . $ex;

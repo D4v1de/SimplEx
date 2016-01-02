@@ -310,8 +310,8 @@ $corso = $modelCorso->readCorso($_URL[2]);
                                                 printf("<td>%s</td>",$s->getId());
                                                 printf("<td>%s</td>",$a->getNome());
                                                 printf("<td>%s</td>",$s->getTesto());
-                                                printf("<td>%s %%</td>",$s->getPercentualeScelta());
-                                                printf("<td>%s %%</td>",$s->getPercentualeRispostaCorretta());
+                                                printf("<td>%s %%</td>",$s->getPercentualeSceltaEse() + $s->getPercentualeSceltaVal());
+                                                printf("<td>%s %%</td>",$s->getPercentualeRispostaCorrettaEse() + $s->getPercentualeRispostaCorrettaVal());
                                                 printf("<td>Multipla</td>");
                                                 printf("<td><div class=\"form-group form-md-line-input has-success\"><div class=\"input-icon\"><input type=\"number\" name=\"alternCorr-%d\" class=\"form-control\">
                                             <label for=\"alternCorr\">Corretta:</label>
@@ -327,7 +327,7 @@ $corso = $modelCorso->readCorso($_URL[2]);
                                                 printf("<td>%s</td>",$s->getId());
                                                 printf("<td>%s</td>",$a->getNome());
                                                 printf("<td>%s</td>",$s->getTesto());
-                                                printf("<td>%s %%</td>",$s->getPercentualeScelta());
+                                                printf("<td>%s %%</td>",$s->getPercentualeSceltaEse() + $s->getPercentualeSceltaVal());
                                                 printf("<td>-----</td>");
                                                 printf("<td>Aperta</td>");
                                                 printf("<td><div class=\"form-group form-md-line-input has-success\"><div class=\"input-icon\"><input type=\"number\" name=\"ApertaCorr-%d\" class=\"form-control\">

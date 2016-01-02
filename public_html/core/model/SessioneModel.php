@@ -10,8 +10,6 @@
 
 include_once MODEL_DIR . "Model.php";
 include_once BEAN_DIR . "Sessione.php";
-//questo include serve per utilizzare un metodo che si trova in testModel.php e serve per il testing
-include_once BEAN_DIR . "Test.php";
 
 class SessioneModel extends Model {
     private static $CREATE_SESSIONE = "INSERT INTO `sessione` (data_inizio, data_fine, soglia_ammissione, stato, tipologia, corso_id) VALUES ('%s','%s','%f','%s','%s','%d')";
@@ -30,8 +28,7 @@ class SessioneModel extends Model {
     private static $DISABILITA_MOSTRA_ESITO = "UPDATE `sessione` SET mostra_esiti = 'No' WHERE id = '%d'";
     private static $ABILITA_MOSTRA_RISPOSTE_CORRETTE = "UPDATE `sessione` SET mostra_risposte_corrette = 'Si' WHERE id = '%d'";
     private static $DISABILITA_MOSTRA_RISPOSTE_CORRETTE = "UPDATE `sessione` SET mostra_risposte_corrette = 'No' WHERE id = '%d'";
-    //il metodo è stato creato per testare il metodo associaTestSessione() non dovrà essere utilizzato qui
-    private static $GET_ALL_TEST_SESSIONE = "SELECT t.* FROM `sessione_test` as s, `test` as t WHERE s.sessione_id = '%d' AND s.test_id = t.id";
+
     /**
      * Inserisce una nuova sessione nel database
      * @param Sessione $sessione La sessione da inserire nel database
@@ -282,25 +279,4 @@ class SessioneModel extends Model {
             throw new ApplicationException(Error::$SESSIONE_NON_TROVATA);
         }
     }
-
-
-    /**
-     * Restituisce tutti i test di una sessione del database
-     * E stato creato qui solo per il testing
-     * @param int $id L'id della sessione per la quale si vogliono conoscere i test associati
-     * @return Test[] Tutti i test di una sessione del database del database
-     */
-    public function getAllTestBySessione($id) {
-        $query = sprintf(self::$GET_ALL_TEST_SESSIONE, $id);
-        $res = Model::getDB()->query($query);
-        $tests = array();
-        if($res){
-            while ($obj = $res->fetch_assoc()) {
-                $test = new Test($obj['descrizione'], $obj['punteggio_max'], $obj['n_multiple'], $obj['n_aperte'], $obj['percentuale_scelto'], $obj['percentuale_successo'], $obj['corso_id']);
-                $test->setId($obj['id']);
-                $tests[] = $test;            }
-        }
-        return $tests;
-    }
-
 }

@@ -230,15 +230,17 @@ $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
                                         else {
                                             $sessioniByCorso = $sessioneModel->getAllSessioniByCorso($identificativoCorso);
                                             foreach ($array as $c) {
-                                                $elaborati = $elaboratoModel->getAllElaboratiTest($c->getId());
-                                                if ($sessioniByCorso != null)
-                                                    $percSce = round(($c->getPercentualeScelto()/count($sessioniByCorso)*100),2);
-                                                else
+                                                if ($sessioniByCorso != null) {
+                                                    $scelti = $c->getPercentualeSceltoVal() + $c->getPercentualeSceltoEse();
+                                                    $percSce = round(($scelti / count($sessioniByCorso) * 100), 2);
+                                                } else
                                                     $percSce = 0;
-                                                if ($elaborati != null)
-                                                    $percSuc = round(($c->getPercentualeSuccesso()/count($elaborati)*100),2);
-                                                else
-                                                    $percSuc = 0;
+                                                    $succ = $c->getPercentualeSuccessoEse() + $c->getPercentualeSuccessoVal();
+                                                    $n = $testModel->readNumeroSceltaTestValutativa($c->getId()) + $testModel->readNumeroSceltaTestEsercitativa($c->getId());
+                                                    if ($n > 0)
+                                                        $percSuc = round(($succ / $n * 100), 2);
+                                                    else
+                                                        $percSuc = 0;
                                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
                                                 printf("<td class=\"sorting_1\">Test %s</td>", $c->getId());
                                                 printf("<td>%s</td>", $c->getDescrizione());

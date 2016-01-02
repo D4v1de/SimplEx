@@ -51,7 +51,7 @@ $i = 0;
 $url = null;
 $url2 = null;
 $matricola = $_URL[6];
-$studente=$utenteModel>getUtenteByMatricola($matricola);
+$studente=$utenteModel->getUtenteByMatricola($matricola);
 
 $url = $_URL[2];
 if (!is_numeric($url)) {
