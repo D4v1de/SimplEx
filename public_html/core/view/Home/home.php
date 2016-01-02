@@ -520,9 +520,9 @@
 
                             <div class="overlay-effect">
                                 <ul class="social list-inline">
-                                    <li><a href=""><i class="fa fa-github-square"></i></a></li>
-                                    <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href=""><i class="fa fa-linkedin-square"></i></a></li>
+                                    <li><a href="https://github.com/AntonioLuca"><i class="fa fa-github-square"></i></a></li>
+                                    <li><a href="https://www.facebook.com/antonioluca.davanzo?fref=ts"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="https://www.linkedin.com/profile/view?id=AAkAABwB25sB6LTa4ABFitFa8KhmDWMFr3SeXiU&authType=NAME_SEARCH&authToken=0rco&locale=it_IT&trk=tyah&goback="><i class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
                                 <p> </p>
                             </div>

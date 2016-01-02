@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Antonio Luca
- * Date: 30/12/2015
- * Time: 22:52
+ * Questo Control permette di aggiungere uno studente ad una sessione in corso. In pratica, lo abilita.
+ * @author Antonio Luca D'Avanzo
+ * @version 1
+ * @since  30/12/2015 22:52
  */
 $idSessione=$_URL[4];
 $identificativoCorso = $_URL[2];

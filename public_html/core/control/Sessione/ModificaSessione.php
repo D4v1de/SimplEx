@@ -22,7 +22,7 @@ $idSessione=$_URL[4];
 $idCorso = $_URL[2];
 
 
-    if($dataFromSettato=isset($_POST['dataFrom']) && $radio1Settato=isset($_POST['radio1']) && $dataToSettato=isset($_POST['dataTo']) && $someTestsAorD=isset($_POST['tests']) ) {
+    if($dataFromSettato=isset($_POST['dataFrom']) && $radio1Settato=isset($_POST['radio1']) && $dataToSettato=isset($_POST['dataTo'])) {
 
         if($dataFromSettato)
             $newOrOldDataFrom = $_POST['dataFrom'];
@@ -176,13 +176,6 @@ $idCorso = $_URL[2];
     else {
 
     }
-
-if($someTestsAorD==false) {
-    $pio=0;
-    $_SESSION['pio'] = $pio;
-    $tornaACasa = "Location: "."/docente/corso/"."$idCorso"."/sessione/0/creamodificasessione2";
-    header($tornaACasa);
-}
 
 
 /* da termina vado qui e da qui a esiti

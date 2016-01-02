@@ -6,19 +6,6 @@
  * @version 1
  * @since 18/11/15 09:58
  */
-/*
-  include_once CONTROL_DIR . "UtenteController.php";
-  $controllerUtente = new UtenteController();
-  include_once CONTROL_DIR . "Sessione.php";
-  $controller = new SessioneController();
-  include_once CONTROL_DIR . "CdlController.php";
-  $controlleCdl = new CdlController();
-  include_once CONTROL_DIR . "TestController.php";
-  $testController = new TestController();
-  include_once CONTROL_DIR . "ElaboratoController.php";
-  $controllerElaborato = new ElaboratoController();
- */
-
 include_once MODEL_DIR . "UtenteModel.php";
 $modelUtente = new UtenteModel();
 include_once MODEL_DIR . "SessioneModel.php";
@@ -334,11 +321,6 @@ if ($_URL[4] != 0) {
                                 }
                                 ?>
                             </select>
-                            <a id="fil" class="btn md green-jungle " name="filtra"> <span
-                                    class="md-click-circle md-click-animate"
-                                    style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
-                                Filtra
-                            </a>
                         </div>
                     </div>
                 </div>

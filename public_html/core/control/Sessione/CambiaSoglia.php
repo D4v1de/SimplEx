@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Antonio Luca
- * Date: 02/01/2016
- * Time: 16:07
+ * Questo Control permette di modificare la soglia di ammissione di una sessione.
+ * @author Antonio Luca D'Avanzo
+ * @version 1
+ * @since  02/01/2016 16:07
  */
 
 $soglia=$_POST['soglia'];

@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Antonio Luca
- * Date: 02/01/2016
- * Time: 15:43
+ * Questo Control permette al docente di modificare la data di termine di una sessione in corso.
+ * @author Antonio Luca D'Avanzo
+ * @version 1
+ * @since  02/01/2016 15:43
  */
 
 

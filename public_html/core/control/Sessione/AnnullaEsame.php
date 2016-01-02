@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Antonio Luca
- * Date: 30/12/2015
- * Time: 22:53
+ * Questo Control permette di annullare ad uno studente l'esame durante una sessione in corso.
+ * @author Antonio Luca D'Avanzo
+ * @version 1
+ * @since  30/12/2015 22:53
  */
 $idCorso = $_URL[2];
 $idSessione = $_URL[4];
