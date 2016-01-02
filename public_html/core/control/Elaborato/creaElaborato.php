@@ -1,9 +1,10 @@
 <?php
 /**
- * Created by NetBeans.
- * User: Fabiano
- * Date: 03/12/15
- * Time: 16:00
+ * Controller per la creazione di un elaborato
+ *
+ * @author Fabiano Pecorelli
+ * @version 1.0
+ * @since 03/12/15
  */
 include_once MODEL_DIR . "ElaboratoModel.php";
 include_once MODEL_DIR . "TestModel.php";
@@ -24,10 +25,11 @@ $testId = $tests[$n]->getId();
 $elaborato = new Elaborato($matricolaStudente, $sessioneId, null, null, $testId, "Non corretto"); //STUB
 $elaboratoModel->createElaborato($elaborato);
 if ($tipologia == "Valutativa"){
-    $num = $testModel->readNumeroSceltaTestValutativa($testId) + 1;
-    $testModel->updateNumeroSceltaTestValutativa($testId, $num);
+    $num = $testModel->$tests[$n]->getNumeroSceltaValutativa() + 1;
+    $tests[$n]->setNumeroSceltaValutativa($num);
 }
 else{
-    $num = $testModel->readNumeroSceltaTestEsercitativa($testId) + 1;
-    $testModel->updateNumeroSceltaTestEsercitativa($testId, $num);
+    $num = $testModel->$tests[$n]->getNumeroSceltaEsercitativa() + 1;
+    $tests[$n]->setNumeroSceltaEsercitativa($num);
 }
+    $testModel->updateTest($testId, $tests[$n]);

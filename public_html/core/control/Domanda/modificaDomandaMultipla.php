@@ -14,6 +14,14 @@ $alternativaModel = new AlternativaModel();
 $idArgomento = $_POST['idargomento'];
 $idCorso = $_POST['idcorso'];
 $idDomanda = $_POST['iddomanda'];
+$testoRisposte = array();
+
+for($j=1;$j<16;$j++){
+    if(isset($_POST['testoRisposta'.$j])){
+        $testoRisposte[$j-1] = $_POST['testoRisposta'.$j];
+    }
+}
+
 
 if (isset($_POST['eliminatore'])) {
     $idAlternativaDaEliminare = $_POST['eliminatore'];
@@ -21,11 +29,10 @@ if (isset($_POST['eliminatore'])) {
     header("Location: /docente/corso/" . $idCorso . "/argomento/domande/modificamultipla/" . $idArgomento . "/" . $idDomanda ."/successelimina");
 } else {
 
-    if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($_POST['punteggioEsatta']) && isset($_POST['testoRisposta']) && isset($_POST['radio'])) {
+    if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($_POST['punteggioEsatta']) && isset($testoRisposte) && isset($_POST['radio'])) {
         $testoDomanda = $_POST['testoDomanda'];
         $punteggioErrata = $_POST['punteggioErrata'];
         $punteggioEsatta = $_POST['punteggioEsatta'];
-        $testoRisposte = $_POST['testoRisposta'];
         $radio = $_POST['radio'];
         $controlloRisposte = true;
 

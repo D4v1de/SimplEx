@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: fede_dr
- * Date: 29/12/15
- * Time: 00:40
+ * Controller modificaCorso permette di modificare un Corso.
+ * @author Federico De Rosa
+ * @version 1
+ * @since 29/12/15 00:38
  */
 
 include_once MODEL_DIR . "CorsoModel.php";

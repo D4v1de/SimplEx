@@ -272,6 +272,9 @@ try {
                                     case 'correggi':
                                         include_once VIEW_DIR . "Docente/CorreggiTest.php";
                                         break;
+                                    case 'cambiasoglia':
+                                        include_once VIEW_DIR . "Docente/CambiaSoglia.php";
+                                        break;
                                     case 'visualizza':
                                         include_once VIEW_DIR . "Docente/VisualizzaElaborato.php";
                                         break;
@@ -283,6 +286,9 @@ try {
                                         break;
                                     case 'terminasessione':
                                         include_once CONTROL_DIR. "Sessione/TerminaSessione.php";
+                                        break;
+                                    case 'modificafine':
+                                        include_once CONTROL_DIR. "Sessione/ModificaDataFineInCorso.php";
                                         break;
                                     case 'aggiornasessioneincorso':
                                         include_once CONTROL_DIR. "Sessione/AggiornaSessioneInCorso.php";
@@ -333,7 +339,10 @@ try {
                         }
                         break;
                     case 'getTestforStat':
-                        include_once VIEW_DIR . "Docente/getTestforStat.php";
+                        include_once CONTROL_DIR . "Statistiche/getTestforStat.php";
+                        break;
+                    case 'getDomforStat':
+                        include_once CONTROL_DIR . "Statistiche/getDomforStat.php";
                         break;
                     case 'creazione_TEST':
                         include_once CONTROL_DIR . "Test/CreaTest.php";

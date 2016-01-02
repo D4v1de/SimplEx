@@ -72,13 +72,6 @@ catch (ApplicationException $ex) {
     echo "<h1>ERRORE NELLA LETTURA DEL CORSO!</h1>" . $ex;
 }
 
-if(isset($_POST['soglia'])){
-    $soglia=$_POST['soglia'];
-    $sessioneAggiornata = new Sessione($dataFrom, $dataTo, $soglia , $sessioneByUrl->getStato(), $sessioneByUrl->getTipologia(), $identificativoCorso);
-    $sessioneModel->updateSessione($_URL[4], $sessioneAggiornata);
-    //header("Refresh:0");
-}
-
 $sessioneByUrl = $sessioneModel->readSessione($_URL[4]);
 $esaminandiSessione= $utenteModel->getEsaminandiSessione($sessioneByUrl->getId());
 $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
@@ -236,7 +229,7 @@ $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
                                                 } else
                                                     $percSce = 0;
                                                     $succ = $c->getPercentualeSuccessoEse() + $c->getPercentualeSuccessoVal();
-                                                    $n = $testModel->readNumeroSceltaTestValutativa($c->getId()) + $testModel->readNumeroSceltaTestEsercitativa($c->getId());
+                                                    $n = $c->getNumeroSceltaValutativa() + $c->getNumeroSceltaEsercitativa();
                                                     if ($n > 0)
                                                         $percSuc = round(($succ / $n * 100), 2);
                                                     else

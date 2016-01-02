@@ -42,6 +42,14 @@ var FormValidation = function () {
                         maxlength: "Inserire esattamente 10 numeri.",
                         minlength: "Inserire esattamente 10 numeri."
                     },
+                    //per il test
+                    descrizione: {
+                        min: "Non puoi inserire un numero negativo.",
+                        max: "Non puoi inserire un numero positivo.",
+                        maxlength: "Inserire esattamente 10 numeri.",
+                        minlength: "Inserire esattamente 10 numeri.",
+                        validchar: "Puoi inserire solo caratteri validi."
+                    }
                 },
                 rules: {
                     name: {
@@ -109,10 +117,16 @@ var FormValidation = function () {
                     //per il test
                     descrizione: {
                         required: true,
-                        minlenght: 2,
-                        maxlength: 500,
+                        //minlenght: 2,
+                        //maxlength: 500,
                         validchar: true
                     },
+                    /*'multiple[]': {
+                        required: true
+                    },
+                    'aperte[]': {
+                        required: true
+                    },*/
                     radio1: {
                         required: true
                     },
@@ -123,98 +137,97 @@ var FormValidation = function () {
                         required: true,
                         minlength: 2,
                         maxlength: 500,
-                        validchar: true
+                        validchar: false
                     },
-
                     'testoRisposta1': {
                         required: true,
                         minlength: 1,
                         maxlength: 100,
-                        validchar: true
+                        validchar: false
                     },
                     'testoRisposta2': {
                         required: true,
                         minlength: 1,
                         maxlength: 100,
-                        validchar: true
+                        validchar: false
                     },
                     'testoRisposta3': {
                         required: true,
                         minlength: 1,
                         maxlength: 100,
-                        validchar: true
+                        validchar: false
                     },
                     'testoRisposta4': {
                         required: true,
                         minlength: 1,
                         maxlength: 100,
-                        validchar: true
+                        validchar: false
                     },
                     'testoRisposta5': {
                         required: true,
                         minlength: 1,
                         maxlength: 100,
-                        validchar: true
+                        validchar: false
                     },
                     'testoRisposta6': {
                         required: true,
                         minlength: 1,
                         maxlength: 100,
-                        validchar: true
+                        validchar: false
                     },
                     'testoRisposta7': {
                         required: true,
                         minlength: 1,
                         maxlength: 100,
-                        validchar: true
+                        validchar: false
                     },
                     'testoRisposta8': {
                         required: true,
                         minlength: 1,
                         maxlength: 100,
-                        validchar: true
+                        validchar: false
                     },
                     'testoRisposta9': {
                         required: true,
                         minlength: 1,
                         maxlength: 100,
-                        validchar: true
+                        validchar: false
                     },
                     'testoRisposta10': {
                         required: true,
                         minlength: 1,
                         maxlength: 100,
-                        validchar: true
+                        validchar: false
                     },
                     'testoRisposta11': {
                         required: true,
                         minlength: 1,
                         maxlength: 100,
-                        validchar: true
+                        validchar: false
                     },
                     'testoRisposta12': {
                         required: true,
                         minlength: 1,
                         maxlength: 100,
-                        validchar: true
+                        validchar: false
                     },
                     'testoRisposta13': {
                         required: true,
                         minlength: 1,
                         maxlength: 100,
-                        validchar: true
+                        validchar: false
                     },
                     'testoRisposta14': {
                         required: true,
                         minlength: 1,
                         maxlength: 100,
-                        validchar: true
+                        validchar: false
                     },
                     'testoRisposta15': {
                         required: true,
                         minlength: 1,
                         maxlength: 100,
-                        validchar: true
+                        validchar: false
                     },
                     url: {
                         required: true,

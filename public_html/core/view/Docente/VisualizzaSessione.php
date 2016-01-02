@@ -302,7 +302,7 @@ else
                                                 } else
                                                     $percSce = 0;
                                                     $succ = $c->getPercentualeSuccessoEse() + $c->getPercentualeSuccessoVal();
-                                                    $n = $testModel->readNumeroSceltaTestValutativa($c->getId()) + $testModel->readNumeroSceltaTestEsercitativa($c->getId());
+                                                    $n = $c->getNumeroSceltaValutativa() + $c->getNumeroSceltaEsercitativa();
                                                     if ($n > 0)
                                                         $percSuc = round(($succ / $n * 100), 2);
                                                     else

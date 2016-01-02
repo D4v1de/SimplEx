@@ -1,5 +1,11 @@
 <?php
-//TODO qui la logica iniziale, caricamento dei controller ecc
+/**
+ * La view consente al docente di visualizzare le statistiche relative a un corso.
+ * 
+ * @author Fabiano Pecorelli
+ * @version 1.0
+ * @since 22/12/15
+ */
 include_once MODEL_DIR . "CorsoModel.php";
 include_once MODEL_DIR . "UtenteModel.php";
 include_once MODEL_DIR . "SessioneModel.php";
@@ -47,6 +53,7 @@ foreach ($argomenti as $a){
     <head>
         <meta charset="utf-8"/>
         <title>Metronic | Page Layouts - Blank Page</title>
+        
         <?php include VIEW_DIR . "design/header.php"; ?>
         <link href="/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
         <link href="/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
@@ -214,34 +221,34 @@ foreach ($argomenti as $a){
                             </div>
                         </div>
                     </div>
-                    <div id="test1" class="portlet box blue-madison">
+                    <div class="portlet box blue-madison">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i onclick="prova();" class="fa fa-bar-chart"></i> Test Superati
+                                <i class="fa fa-bar-chart"></i> Test Superati
                             </div>
                             <div class="tools">
-                                <a href="javascript:;" class="collapse" data-original-title="" title="">
+                                <a href="javascript:;" onclick="getStatisticheTest(cId,'Successo',mod);" class="expand" data-original-title="" title="">
                                 </a>
                             </div>
                             <ul class="nav nav-tabs">
                                 <li class="active">
-                                    <a href="#testSupBest" onclick="mod = 'Best'; getStatisticheTest('Successo',mod);"  data-toggle="tab" aria-expanded="false">
+                                    <a href="#testSupBest" onclick="mod = 'Best'; getStatisticheTest(cId,'Successo',mod);"  data-toggle="tab" aria-expanded="false">
                                         Migliori </a>
                                 </li>
                                 <li class="">
-                                    <a href="#testSupWorst" onclick="mod = 'Worst'; getStatisticheTest('Successo',mod);" data-toggle="tab" aria-expanded="true">
+                                    <a href="#testSupWorst" onclick="mod = 'Worst'; getStatisticheTest(cId,'Successo',mod);" data-toggle="tab" aria-expanded="true">
                                         Peggiori </a>
                                 </li>
                             </ul>
                         </div>
-                        <div class="portlet-body">
+                        <div class="portlet-body" style="display : none">
                             <div class="row">
                                 <div class="row">
                                     <div class="col-md-1"></div>
                                     <div class="col-md-3">
                                         <div class="md-radio-inline">
                                             <div class="md-radio">
-                                                <input type="radio" onclick="getStatisticheTest('Successo',mod);" id="valTestSup" name="testSup" class="md-radiobtn" checked="">
+                                                <input type="radio" onclick="getStatisticheTest(cId,'Successo',mod);" id="valTestSup" name="testSup" class="md-radiobtn" checked="">
                                                 <label for="valTestSup">
                                                     <span></span>
                                                     <span class="check"></span>
@@ -249,7 +256,7 @@ foreach ($argomenti as $a){
                                                     Valutative </label>
                                             </div>
                                             <div class="md-radio">
-                                                <input type="radio" onclick="getStatisticheTest('Successo',mod);" id="eseTestSup" name="testSup" class="md-radiobtn">
+                                                <input type="radio" onclick="getStatisticheTest(cId,'Successo',mod);" id="eseTestSup" name="testSup" class="md-radiobtn">
                                                 <label for="eseTestSup">
                                                     <span></span>
                                                     <span class="check"></span>
@@ -263,13 +270,13 @@ foreach ($argomenti as $a){
                                         <div id="spinnerSup">
                                             <div class="input-group" style="width:150px;">
                                                 <div class="spinner-buttons input-group-btn">
-                                                    <button type="button" onclick="getStatisticheTest('Successo',mod);" class="btn spinner-down red-intense">
+                                                    <button type="button" onclick="getStatisticheTest(cId,'Successo',mod);" class="btn spinner-down red-intense">
                                                         <i class="fa fa-minus"></i>
                                                     </button>
                                                 </div>
                                                 <input type="text" id="numberTestSuccesso" class="spinner-input form-control" maxlength="3" readonly="">
                                                 <div class="spinner-buttons input-group-btn">
-                                                    <button type="button" onclick="getStatisticheTest('Successo',mod);" class="btn spinner-up blue-madison">
+                                                    <button type="button" onclick="getStatisticheTest(cId,'Successo',mod);" class="btn spinner-up blue-madison">
                                                         <i class="fa fa-plus"></i>
                                                     </button>
                                                 </div>
@@ -286,34 +293,34 @@ foreach ($argomenti as $a){
                         </div>
                     </div>
                     
-                    <div id="test1" class="portlet box blue-madison">
+                    <div class="portlet box blue-madison">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i onclick="prova();" class="fa fa-bar-chart"></i> Test Scelti
+                                <i class="fa fa-bar-chart"></i> Test Scelti
                             </div>
                             <div class="tools">
-                                <a href="javascript:;" class="collapse" data-original-title="" title="">
+                                <a href="javascript:;"  onclick="getStatisticheTest(cId,'Scelto',modSce);" class="expand" data-original-title="" title="">
                                 </a>
                             </div>
                             <ul class="nav nav-tabs">
                                 <li class="active">
-                                    <a href="#testSce" onclick="modSce = 'Perc'; getStatisticheTest('Scelto',modSce);"  data-toggle="tab" aria-expanded="false">
-                                        Percentuale </a>
+                                    <a href="#testSce" onclick="modSce = 'Best'; getStatisticheTest(cId,'Scelto',modSce);"  data-toggle="tab" aria-expanded="false">
+                                        Più scelti </a>
                                 </li>
                                 <li class="">
-                                    <a href="#testSce" onclick="modSce = 'Abs'; getStatisticheTest('Scelto',modSce);" data-toggle="tab" aria-expanded="true">
-                                        Assoluto </a>
+                                    <a href="#testSce" onclick="modSce = 'Worst'; getStatisticheTest(cId,'Scelto',modSce);" data-toggle="tab" aria-expanded="true">
+                                        Meno scelti </a>
                                 </li>
                             </ul>
                         </div>
-                        <div class="portlet-body">
+                        <div class="portlet-body" style="display : none">
                             <div class="row">
                                 <div class="row">
                                     <div class="col-md-1"></div>
                                     <div class="col-md-3">
                                         <div class="md-radio-inline">
                                             <div class="md-radio">
-                                                <input type="radio" onclick="getStatisticheTest('Scelto',modSce);" id="valTestSce" name="testSce" class="md-radiobtn" checked="">
+                                                <input type="radio" onclick="getStatisticheTest(cId,'Scelto',modSce);" id="valTestSce" name="testSce" class="md-radiobtn" checked="">
                                                 <label for="valTestSce">
                                                     <span></span>
                                                     <span class="check"></span>
@@ -321,7 +328,7 @@ foreach ($argomenti as $a){
                                                     Valutative </label>
                                             </div>
                                             <div class="md-radio">
-                                                <input type="radio" onclick="getStatisticheTest('Scelto',modSce);" id="eseTestSce" name="testSce" class="md-radiobtn">
+                                                <input type="radio" onclick="getStatisticheTest(cId,'Scelto',modSce);" id="eseTestSce" name="testSce" class="md-radiobtn">
                                                 <label for="eseTestSce">
                                                     <span></span>
                                                     <span class="check"></span>
@@ -335,13 +342,13 @@ foreach ($argomenti as $a){
                                         <div id="spinnerSce">
                                             <div class="input-group" style="width:150px;">
                                                 <div class="spinner-buttons input-group-btn">
-                                                    <button type="button" onclick="getStatisticheTest('Scelto',modSce);" class="btn spinner-down red-intense">
+                                                    <button type="button" onclick="getStatisticheTest(cId,'Scelto',modSce);" class="btn spinner-down red-intense">
                                                         <i class="fa fa-minus"></i>
                                                     </button>
                                                 </div>
                                                 <input type="text" id="numberTestScelto" class="spinner-input form-control" maxlength="3" readonly="">
                                                 <div class="spinner-buttons input-group-btn">
-                                                    <button type="button" onclick="getStatisticheTest('Scelto',modSce);" class="btn spinner-up blue-madison">
+                                                    <button type="button" onclick="getStatisticheTest(cId,'Scelto',modSce);" class="btn spinner-up blue-madison">
                                                         <i class="fa fa-plus"></i>
                                                     </button>
                                                 </div>
@@ -352,6 +359,151 @@ foreach ($argomenti as $a){
                             </div>
                             <div class="tab-content">
                                 <div id="testSce" class="chart tab-pane active" style="height: 200px; overflow: hidden; text-align: left;">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="portlet box blue-madison">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-bar-chart"></i> Risposte corrette
+                            </div>
+                            <div class="tools">
+                                <a href="javascript:;"  onclick="getStatisticheDomande(cId,'Successo',modCorr);" class="expand" data-original-title="" title="">
+                                </a>
+                            </div>
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#domSup" onclick="modCorr = 'Best'; getStatisticheDomande(cId,'Successo',modCorr);"  data-toggle="tab" aria-expanded="false">
+                                        Migliori </a>
+                                </li>
+                                <li class="">
+                                    <a href="#domSup" onclick="modCorr = 'Worst'; getStatisticheDomande(cId,'Successo',modCorr);" data-toggle="tab" aria-expanded="true">
+                                        Peggiori </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="portlet-body" style="display : none">
+                            <div class="row">
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-3">
+                                        <div class="md-radio-inline">
+                                            <div class="md-radio">
+                                                <input type="radio" onclick="getStatisticheDomande(cId,'Successo',modCorr);" id="valDomSup" name="domSup" class="md-radiobtn" checked="">
+                                                <label for="valDomSup">
+                                                    <span></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span>
+                                                    Valutative </label>
+                                            </div>
+                                            <div class="md-radio">
+                                                <input type="radio" onclick="getStatisticheDomande(cId,'Successo',modCorr);" id="eseDomSup" name="domSup" class="md-radiobtn">
+                                                <label for="eseDomSup">
+                                                    <span></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span>
+                                                    Esercitative </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5"></div>
+                                    <div class="col-md-2">
+                                        <div id="spinnerDomSup">
+                                            <div class="input-group" style="width:150px;">
+                                                <div class="spinner-buttons input-group-btn">
+                                                    <button type="button" onclick="getStatisticheDomande(cId,'Successo',modCorr);" class="btn spinner-down red-intense">
+                                                        <i class="fa fa-minus"></i>
+                                                    </button>
+                                                </div>
+                                                <input type="text" id="numberDomSup" class="spinner-input form-control" maxlength="3" readonly="">
+                                                <div class="spinner-buttons input-group-btn">
+                                                    <button type="button" onclick="getStatisticheDomande(cId,'Successo',modCorr);" class="btn spinner-up blue-madison">
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-content">
+                                <div id="domSup" class="chart tab-pane active" style="height: 200px; overflow: hidden; text-align: left;">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="portlet box blue-madison">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-bar-chart"></i> Domande scelte
+                            </div>
+                            <div class="tools">
+                                <a href="javascript:;"  onclick="getStatisticheDomande(cId,'Scelto',modDomSce);" class="expand" data-original-title="" title="">
+                                </a>
+                            </div>
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#domSce" onclick="modDomSce = 'Best'; getStatisticheDomande(cId,'Scelto',modDomSce);"  data-toggle="tab" aria-expanded="false">
+                                        Migliori </a>
+                                </li>
+                                <li class="">
+                                    <a href="#domSce" onclick="modDomSce = 'Worst'; getStatisticheDomande(cId,'Scelto',modDomSce);" data-toggle="tab" aria-expanded="true">
+                                        Peggiori </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="portlet-body" style="display : none">
+                            <div class="row">
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-3">
+                                        <div class="md-radio-inline">
+                                            <div class="md-radio">
+                                                <input type="radio" onclick="getStatisticheDomande(cId,'Scelto',modDomSce);" id="valDomSce" name="domSce" class="md-radiobtn" checked="">
+                                                <label for="valDomSce">
+                                                    <span></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span>
+                                                    Valutative </label>
+                                            </div>
+                                            <div class="md-radio">
+                                                <input type="radio" onclick="getStatisticheDomande(cId,'Scelto',modDomSce);" id="eseDomSce" name="domSce" class="md-radiobtn">
+                                                <label for="eseDomSce">
+                                                    <span></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span>
+                                                    Esercitative </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5"></div>
+                                    <div class="col-md-2">
+                                        <div id="spinnerDomSce">
+                                            <div class="input-group" style="width:150px;">
+                                                <div class="spinner-buttons input-group-btn">
+                                                    <button type="button" onclick="getStatisticheDomande(cId,'Scelto',modDomSce);" class="btn spinner-down red-intense">
+                                                        <i class="fa fa-minus"></i>
+                                                    </button>
+                                                </div>
+                                                <input type="text" id="numberDomSce" class="spinner-input form-control" maxlength="3" readonly="">
+                                                <div class="spinner-buttons input-group-btn">
+                                                    <button type="button" onclick="getStatisticheDomande(cId,'Scelto',modDomSce);" class="btn spinner-up blue-madison">
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-content">
+                                <div id="domSce" class="chart tab-pane active" style="height: 200px; overflow: hidden; text-align: left;">
 
                                 </div>
                             </div>
@@ -421,10 +573,14 @@ foreach ($argomenti as $a){
                                                             QuickSidebar.init(); // init quick sidebar
                                                             $('#spinnerSup').spinner({value: 5, step: 5, min: 5, max: 20});
                                                             $('#spinnerSce').spinner({value: 5, step: 5, min: 5, max: 20});
+                                                            $('#spinnerDomSup').spinner({value: 5, step: 5, min: 5, max: 20});
+                                                            $('#spinnerDomSce').spinner({value: 5, step: 5, min: 5, max: 20});
+                                                            cId = <?= $corsoId; ?>; 
+                                                            alert(cId);
                                                             mod = 'Best';
-                                                            getStatisticheTest('Successo',mod);
-                                                            modSce = 'Perc';
-                                                            getStatisticheTest('Scelto',modSce);
+                                                            modSce = 'Best';
+                                                            modCorr = 'Best';
+                                                            modDomSce = 'Best';
                                                             //Demo.init(); // init demo features
                                                         });
         </script>
