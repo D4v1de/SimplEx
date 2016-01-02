@@ -18,7 +18,9 @@ class DomandaMultipla {
     private $percentualeRispostaCorrettaEse;
     private $percentualeSceltaVal;
     private $percentualeRispostaCorrettaVal;
-    
+    private $numero_risposte_esercitative;
+    private $numero_risposte_valutative;
+
     /**
      * Costruttore di DomandaMultipla.
      * @param int $argomentoId L'id dell'argomento a cui appartiene la domanda
@@ -30,7 +32,7 @@ class DomandaMultipla {
      * @param float $percentualeSceltaVal La percentuale di volte in cui viene scelta per le sessioni valutative
      * @param float $percentualeRispostaCorrettaVal La percentuale di risposte corrette per la domanda per le sessioni valutative
      */
-    public function __construct($argomentoId, $testo, $punteggioCorretta, $punteggioErrata, $percentualeSceltaEse, $percentualeRispostaCorrettaEse, $percentualeSceltaVal, $percentualeRispostaCorrettaVal) {
+    public function __construct($argomentoId, $testo, $punteggioCorretta, $punteggioErrata, $percentualeSceltaEse, $percentualeRispostaCorrettaEse, $percentualeSceltaVal, $percentualeRispostaCorrettaVal, $numero_risposte_esercitative, $numero_risposte_valutative) {
         $this->argomentoId = $argomentoId;
         $this->testo = $testo;
         $this->punteggioCorretta = $punteggioCorretta;
@@ -39,6 +41,8 @@ class DomandaMultipla {
         $this->percentualeRispostaCorrettaEse = $percentualeRispostaCorrettaEse;
         $this->percentualeSceltaVal = $percentualeSceltaVal;
         $this->percentualeRispostaCorrettaVal = $percentualeRispostaCorrettaVal;
+        $this->numero_risposte_esercitative=$numero_risposte_esercitative;
+        $this->numero_risposte_valutative=$numero_risposte_valutative;
     }
     
     /**
@@ -103,7 +107,21 @@ class DomandaMultipla {
     function getPercentualeRispostaCorrettaVal() {
         return $this->percentualeRispostaCorrettaVal;
     }
-    
+
+    /**
+     * @return int Il numero di risposte alla domanda per le sessioni esercitative
+     */
+    function getNumeroRisposteEsercitative() {
+        return $this->numero_risposte_esercitative;
+    }
+
+    /**
+     * @return int Il numero di risposte alla domanda per le sessioni valutative
+     */
+    function getNumeroRisposteValutative() {
+        return $this->numero_risposte_valutative;
+    }
+
     /**
      * Setta l'id della domanda multipla
      * @param $id

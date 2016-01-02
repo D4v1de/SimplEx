@@ -21,8 +21,8 @@ class DomandaModel extends Model {
     private static $GET_ALL_DOMANDA_APERTA = "SELECT * FROM `domanda_aperta` WHERE stato = 'In uso' ORDER BY testo";
     private static $GET_ALL_DOMANDA_APERTA_BY_ARGOMENTO = "SELECT * FROM `domanda_aperta` WHERE argomento_id = '%d' AND stato = 'In uso' ORDER BY testo";
     private static $GET_ALL_DOMANDE_APERTE_TEST = "SELECT d.* FROM `domanda_aperta` as d,`compone_aperta` as c WHERE c.test_id = '%s' AND c.domanda_aperta_id = d.id ORDER BY d.testo";
-    private static $CREATE_DOMANDA_MULTIPLA = "INSERT INTO `domanda_multipla` (argomento_id, testo, punteggio_corretta, punteggio_errata, percentuale_scelta_ese, percentuale_risposta_corretta_ese, percentuale_scelta_val, percentuale_risposta_corretta_val) VALUES ('%d','%s','%f','%f','%f','%f','%f','%f')";
-    private static $UPDATE_DOMANDA_MULTIPLA = "UPDATE `domanda_multipla` SET argomento_id = '%d', testo = '%s', punteggio_corretta = '%f', punteggio_errata = '%f', percentuale_scelta_ese = '%f', percentuale_risposta_corretta_ese = '%f', percentuale_scelta_val = '%f', percentuale_risposta_corretta_val = '%f'  WHERE id = '%d'";
+    private static $CREATE_DOMANDA_MULTIPLA = "INSERT INTO `domanda_multipla` (argomento_id, testo, punteggio_corretta, punteggio_errata, percentuale_scelta_ese, percentuale_risposta_corretta_ese, percentuale_scelta_val, percentuale_risposta_corretta_val, numero_risposte_esercitative, numero_risposte_valutative) VALUES ('%d','%s','%f','%f','%f','%f','%f','%f','%d','%d')";
+    private static $UPDATE_DOMANDA_MULTIPLA = "UPDATE `domanda_multipla` SET argomento_id = '%d', testo = '%s', punteggio_corretta = '%f', punteggio_errata = '%f', percentuale_scelta_ese = '%f', percentuale_risposta_corretta_ese = '%f', percentuale_scelta_val = '%f', percentuale_risposta_corretta_val = '%f', numero_risposte_esercitative='%d', numero_risposte_valutative='%d' WHERE id = '%d'";
     private static $DELETE_DOMANDA_MULTIPLA = "UPDATE `domanda_multipla` SET stato = 'Obsoleto' WHERE id = '%d'";
     private static $READ_DOMANDA_MULTIPLA = "SELECT * FROM `domanda_multipla` WHERE id = '%d'";
     private static $GET_ALL_DOMANDA_MULTIPLA = "SELECT * FROM `domanda_multipla` WHERE stato = 'In uso' ORDER BY testo";
@@ -145,7 +145,7 @@ class DomandaModel extends Model {
     public function createDomandaMultipla($domandaMultipla) {
         $query = sprintf(self::$CREATE_DOMANDA_MULTIPLA, $domandaMultipla->getArgomentoId(), $domandaMultipla->getTesto(), $domandaMultipla->getPunteggioCorretta(),
             $domandaMultipla->getPunteggioErrata(), $domandaMultipla->getPercentualeSceltaEse(), $domandaMultipla->getPercentualeRispostaCorrettaEse(),
-            $domandaMultipla->getPercentualeSceltaVal(), $domandaMultipla->getPercentualeRispostaCorrettaVal());
+            $domandaMultipla->getPercentualeSceltaVal(), $domandaMultipla->getPercentualeRispostaCorrettaVal(),$domandaMultipla->getNumeroRisposteEsercitative(), $domandaMultipla->getNumeroRisposteValutative());
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$INSERIMENTO_FALLITO);
@@ -163,7 +163,8 @@ class DomandaModel extends Model {
     public function updateDomandaMultipla($id, $updatedDomandaMultipla) {
         $query = sprintf(self::$UPDATE_DOMANDA_MULTIPLA, $updatedDomandaMultipla->getArgomentoId(), $updatedDomandaMultipla->getTesto(),
             $updatedDomandaMultipla->getPunteggioCorretta(), $updatedDomandaMultipla->getPunteggioErrata(), $updatedDomandaMultipla->getPercentualeSceltaEse(),
-            $updatedDomandaMultipla->getPercentualeRispostaCorrettaEse(), $updatedDomandaMultipla->getPercentualeSceltaVal(), $updatedDomandaMultipla->getPercentualeRispostaCorrettaVal(), $id);
+            $updatedDomandaMultipla->getPercentualeRispostaCorrettaEse(), $updatedDomandaMultipla->getPercentualeSceltaVal(), $updatedDomandaMultipla->getPercentualeRispostaCorrettaVal(),
+            $updatedDomandaMultipla->getNumeroRisposteEsercitative(), $updatedDomandaMultipla->getNumeroRisposteValutative(), $id);
         Model::getDB()->query($query);
         if (Model::getDB()->affected_rows == -1) {
             throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
@@ -193,7 +194,7 @@ class DomandaModel extends Model {
         $query = sprintf(self::$READ_DOMANDA_MULTIPLA, $id);
         $res = Model::getDB()->query($query);
         if ($obj = $res->fetch_assoc()) {
-            $domandaMultipla = new DomandaMultipla($obj['argomento_id'], $obj['testo'], $obj['punteggio_corretta'],$obj['punteggio_errata'], $obj['percentuale_scelta_ese'], $obj['percentuale_risposta_corretta_ese'], $obj['percentuale_scelta_val'], $obj['percentuale_risposta_corretta_val']);
+            $domandaMultipla = new DomandaMultipla($obj['argomento_id'], $obj['testo'], $obj['punteggio_corretta'],$obj['punteggio_errata'], $obj['percentuale_scelta_ese'], $obj['percentuale_risposta_corretta_ese'], $obj['percentuale_scelta_val'], $obj['percentuale_risposta_corretta_val'], $obj['numero_risposte_esercitative'], $obj['numero_risposte_valutative']);
             $domandaMultipla->setId($obj['id']);
             return $domandaMultipla;
         } else {
@@ -211,7 +212,7 @@ class DomandaModel extends Model {
         $domandeMultiple = array();
         if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $domandaMultipla = new DomandaMultipla($obj['argomento_id'], $obj['testo'], $obj['punteggio_corretta'],$obj['punteggio_errata'], $obj['percentuale_scelta_ese'], $obj['percentuale_risposta_corretta_ese'], $obj['percentuale_scelta_val'], $obj['percentuale_risposta_corretta_val']);
+                $domandaMultipla = new DomandaMultipla($obj['argomento_id'], $obj['testo'], $obj['punteggio_corretta'],$obj['punteggio_errata'], $obj['percentuale_scelta_ese'], $obj['percentuale_risposta_corretta_ese'], $obj['percentuale_scelta_val'], $obj['percentuale_risposta_corretta_val'], $obj['numero_risposte_esercitative'], $obj['numero_risposte_valutative']);
                 $domandaMultipla->setId($obj['id']);
                 $domandeMultiple[] = $domandaMultipla;
             }
@@ -232,7 +233,7 @@ class DomandaModel extends Model {
         $domandeMultiple = array();
         if ($res) {
             while ($obj = $res->fetch_assoc()) {
-                $domandaMultipla = new DomandaMultipla($obj['argomento_id'], $obj['testo'], $obj['punteggio_corretta'],$obj['punteggio_errata'], $obj['percentuale_scelta_ese'], $obj['percentuale_risposta_corretta_ese'], $obj['percentuale_scelta_val'], $obj['percentuale_risposta_corretta_val']);
+                $domandaMultipla = new DomandaMultipla($obj['argomento_id'], $obj['testo'], $obj['punteggio_corretta'],$obj['punteggio_errata'], $obj['percentuale_scelta_ese'], $obj['percentuale_risposta_corretta_ese'], $obj['percentuale_scelta_val'], $obj['percentuale_risposta_corretta_val'], $obj['numero_risposte_esercitative'], $obj['numero_risposte_valutative']);
                 $domandaMultipla->setId($obj['id']);
                 $domandeMultiple[] = $domandaMultipla;
             }
@@ -270,7 +271,7 @@ class DomandaModel extends Model {
         $domandeMultiple = array();
         if($res){
             while ($obj = $res->fetch_assoc()) {
-                $domandaMultipla = new DomandaMultipla($obj['argomento_id'], $obj['testo'], $obj['punteggio_corretta'],$obj['punteggio_errata'], $obj['percentuale_scelta_ese'], $obj['percentuale_risposta_corretta_ese'], $obj['percentuale_scelta_val'], $obj['percentuale_risposta_corretta_val']);
+                $domandaMultipla = new DomandaMultipla($obj['argomento_id'], $obj['testo'], $obj['punteggio_corretta'],$obj['punteggio_errata'], $obj['percentuale_scelta_ese'], $obj['percentuale_risposta_corretta_ese'], $obj['percentuale_scelta_val'], $obj['percentuale_risposta_corretta_val'], $obj['numero_risposte_esercitative'], $obj['numero_risposte_valutative']);
                 $domandaMultipla->setId($obj['id']);
                 $domandeMultiple[] = $domandaMultipla;
             }  
