@@ -335,6 +335,9 @@ try {
                     case 'getTestforStat':
                         include_once VIEW_DIR . "Docente/getTestforStat.php";
                         break;
+                    case 'getDomforStat':
+                        include_once VIEW_DIR . "Docente/getDomforStat.php";
+                        break;
                     case 'creazione_TEST':
                         include_once CONTROL_DIR . "Test/CreaTest.php";
                         break;

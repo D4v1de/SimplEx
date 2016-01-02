@@ -1,25 +1,27 @@
-var getStatisticheTest = function (str,mod) {
-    if ($('#valTestSup').is(":checked"))
-        kind = "val";
-    else kind = "ese";
+var getStatisticheTest = function (str,modal) {
+    if (modal == "Best"){
+            color = "#16ce6d";
+            mod = "best";
+        }
+        else if (modal == "Worst"){
+            color = "#e14e4e";
+            mod = "worst";
+        }
     if (str == "Successo"){
+        if ($('#valTestSup').is(":checked"))
+            kind = "val";
+        else kind = "ese";
         var n = document.getElementById("numberTestSuccesso").value;
         id = "testSup";
         type = "successo";
         text = "<span style='font-size:13px;'>Superato dal <b>[[value]]%</b> degli Studenti</span>";
-        if (mod == "Best"){
-            color = "#16ce6d";
-            mod = "best";
-        }
-        if (mod == "Worst"){
-            color = "#e14e4e";
-            mod = "worst";
-        }
     }
     if (str == "Scelto"){
+        if ($('#valTestSce').is(":checked"))
+            kind = "val";
+        else kind = "ese";
         var n = document.getElementById("numberTestScelto").value;
         id = "testSce";
-        color = "#FF0F00";
         type = "scelto";
         text = "<span style='font-size:13px;'>Scelto nel <b>[[value]]%</b> delle Sessioni</span>";
     }
@@ -37,9 +39,50 @@ var getStatisticheTest = function (str,mod) {
         get20Test();
     }
 }
+var getStatisticheDomande = function (str,modal) {
+    if (modal == "Best"){
+            color = "#16ce6d";
+            mod = "best";
+        }
+        else if (modal == "Worst"){
+            color = "#e14e4e";
+            mod = "worst";
+        }
+    if (str == "Successo"){
+        if ($('#valDomSup').is(":checked"))
+            kind = "val";
+        else kind = "ese";
+        var n = document.getElementById("numberDomSup").value;
+        id = "domSup";
+        type = "successo";
+        text = "<span style='font-size:13px;'>Risposta correttamente il <b>[[value]]%</b> delle volte</span>";
+    }
+    if (str == "Scelto"){
+        if ($('#valDomSce').is(":checked"))
+            kind = "val";
+        else kind = "ese";
+        var n = document.getElementById("numberDomSce").value;
+        id = "domSce";
+        type = "scelto";
+        text = "<span style='font-size:13px;'>Scelta nel <b>[[value]]%</b> dei Test</span>";
+    }
+    if (n == 5) {
+        get5Dom();
+    }
+    if (n == 10) {
+        get10Dom();
+    }
+    if (n == 15) {
+        get15Dom();
+    }
+
+    if (n == 20) {
+        get20Dom();
+    }
+}
 
 var get5Test = function () {
-    $.post("/docente/getTestforStat?corso_id=120&num=5&type=successo&mod=best&kind=val", function (data) {
+    $.post("/docente/getTestforStat?corso_id=120&num=5&type="+type+"&mod="+mod+"&kind="+kind, function (data) {
         var res = data.split("/");
         var x = res[0].split("-");
         var y = res[1].split("-");
@@ -53,7 +96,8 @@ var get5Test = function () {
             "marginBottom": 26,
             "fontFamily": 'Open Sans',
             "color": '#888',
-            "dataProvider": [{
+            "dataProvider": [
+                {
                     "test": "Test " + x[0],
                     "perc": y[0],
                     "color": color
@@ -84,7 +128,7 @@ var get5Test = function () {
                     "fillColorsField": "color",
                     "lineColorField": "color",
                     "balloonColor": "color",
-                    "balloonText": "<span style='font-size:13px;'>Superato dal <b>[[value]]%</b> degli Studenti</span>",
+                    "balloonText": text,
                     "dashLengthField": "dashLengthColumn",
                     "fillAlphas": 1,
                     "type": "column",
@@ -106,7 +150,7 @@ var get5Test = function () {
 };
 
 var get10Test = function () {
-    $.post("/docente/getTestforStat?corso_id=120&num=10&type=successo&mod=best", function (data) {
+    $.post("/docente/getTestforStat?corso_id=120&num=10&type="+type+"&mod="+mod+"&kind="+kind, function (data) {
         var res = data.split("/");
         var x = res[0].split("-");
         var y = res[1].split("-");
@@ -171,7 +215,7 @@ var get10Test = function () {
                     "fillColorsField": "color",
                     "lineColorField": "color",
                     "balloonColor": "color",
-                    "balloonText": "<span style='font-size:13px;'>Superato dal <b>[[value]]%</b> degli Studenti</span>",
+                    "balloonText": text,
                     "dashLengthField": "dashLengthColumn",
                     "fillAlphas": 1,
                     "type": "column",
@@ -193,7 +237,7 @@ var get10Test = function () {
 };
 
 var get15Test = function () {
-    $.post("/docente/getTestforStat?corso_id=120&num=15&type=successo&mod=best", function (data) {
+    $.post("/docente/getTestforStat?corso_id=120&num=15&type="+type+"&mod="+mod+"&kind="+kind, function (data) {
         var res = data.split("/");
         var x = res[0].split("-");
         var y = res[1].split("-");
@@ -278,7 +322,7 @@ var get15Test = function () {
                     "fillColorsField": "color",
                     "lineColorField": "color",
                     "balloonColor": "color",
-                    "balloonText": "<span style='font-size:13px;'>Superato dal <b>[[value]]%</b> degli Studenti</span>",
+                    "balloonText": text,
                     "dashLengthField": "dashLengthColumn",
                     "fillAlphas": 1,
                     "type": "column",
@@ -300,7 +344,7 @@ var get15Test = function () {
 };
 
 var get20Test = function () {
-    $.post("/docente/getTestforStat?corso_id=120&num=20&type=successo&mod=best", function (data) {
+    $.post("/docente/getTestforStat?corso_id=120&num=20&type="+type+"&mod="+mod+"&kind="+kind, function (data) {
         var res = data.split("/");
         var x = res[0].split("-");
         var y = res[1].split("-");
@@ -405,7 +449,76 @@ var get20Test = function () {
                     "fillColorsField": "color",
                     "lineColorField": "color",
                     "balloonColor": "color",
-                    "balloonText": "<span style='font-size:13px;'>Superato dal <b>[[value]]%</b> degli Studenti</span>",
+                    "balloonText": text,
+                    "dashLengthField": "dashLengthColumn",
+                    "fillAlphas": 1,
+                    "type": "column",
+                    "valueField": "perc"
+                }],
+            "categoryField": "test",
+            "categoryAxis": {
+                "gridPosition": "start",
+                "axisAlpha": 0,
+                "tickLength": 0
+            }
+        });
+
+        $('#'+id).closest('.portlet').find('.fullscreen').click(function () {
+            chart.invalidateSize();
+        });
+
+    });
+};
+
+
+var get5Dom = function () {
+    $.post("/docente/getDomforStat?corso_id=120&num=5&type="+type+"&mod="+mod+"&kind="+kind, function (data) {
+        var res = data.split("/");
+        var x = res[0].split("-");
+        var y = res[1].split("-");
+        var chart = AmCharts.makeChart(id, {
+            "type": "serial",
+            "theme": "light",
+            "autoMargins": false,
+            "marginLeft": 30,
+            "marginRight": 8,
+            "marginTop": 10,
+            "marginBottom": 26,
+            "fontFamily": 'Open Sans',
+            "color": '#888',
+            "dataProvider": [
+                {
+                    "test": x[0],
+                    "perc": y[0],
+                    "color": color
+                }, {
+                    "test": x[1],
+                    "perc": y[1],
+                    "color": color
+                }, {
+                    "test": x[2],
+                    "perc": y[2],
+                    "color": color
+                }, {
+                    "test": x[3],
+                    "perc": y[3],
+                    "color": color
+                }, {
+                    "test": x[4],
+                    "perc": y[4],
+                    "color": color
+                }],
+            "valueAxes": [{
+                    "axisAlpha": 0,
+                    "position": "left"
+                }],
+            "startDuration": 1,
+            "graphs": [{
+                    "alphaField": "alpha",
+                    "fillColorsField": "color",
+                    "lineColorField": "color",
+                    "balloonColor": "color",
+                    "balloonText": text,
                     "dashLengthField": "dashLengthColumn",
                     "fillAlphas": 1,
                     "type": "column",
