@@ -27,7 +27,7 @@ if(isset($_POST['idtestHome'])){
     $i=0;
     $Sess=$modelSessione->getAllSessioniByCorso($identificativoCorso); 
     foreach($Sess as $s){
-        $nuoviTest=$modelSessione->getAllTestBySessione($s->getId());
+        $nuoviTest=$modelTest->getAllTestBySessione($s->getId());
         $Tests=array_merge($Tests,$nuoviTest);
     }
     foreach($Tests as $t){
@@ -36,7 +36,8 @@ if(isset($_POST['idtestHome'])){
         }
     }
     if($i>0){
-        
+        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
+        header($tornaACasa);
     }else{
      $modelTest->deleteTest($id);
      $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
