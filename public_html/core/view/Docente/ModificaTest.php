@@ -60,8 +60,8 @@ $corso = $modelCorso->readCorso($_URL[2]);
     <meta charset="utf-8"/>
     <title>Modifica Test</title>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
-    <link rel="stylesheet" type="text/css"
-          href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/extensions/TableTools/css/dataTables.tableTools.css">
     <?php include VIEW_DIR . "design/header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/jquery-nestable/jquery.nestable.css">
 
@@ -233,7 +233,7 @@ $corso = $modelCorso->readCorso($_URL[2]);
                                         <div class="col-md-6">
                                             <div class="form-group form-md-line-input has-success">
                                                 <div class="input-icon">
-                                                    <input type="number" id="numAperte" name="numAperte" class="form-control">
+                                                    <input type="number" id="numAperte" name="numAperte" class="form-control" value="0">
                                                         <label for="numAperte">Numero domande a risposta aperta:</label>
                                                            
                                                 </div>
@@ -242,7 +242,7 @@ $corso = $modelCorso->readCorso($_URL[2]);
                                         <div class="col-md-6">
                                             <div class="form-group form-md-line-input has-success">
                                                 <div class="input-icon">
-                                                    <input type="number" id="numMultiple" name="numMultiple" class="form-control">
+                                                    <input type="number" id="numMultiple" name="numMultiple" class="form-control" value="0">
                                                          <label for="numMultiple">Numero domande a risposta multipla:</label>
                                                           
                                                 </div>
@@ -466,11 +466,11 @@ $corso = $modelCorso->readCorso($_URL[2]);
             "aButtons": [
                 {
                     "sExtends": "xls",
-                    "sButtonText": "<button><i class='fa fa-file-excel-o'></i> Excel</button>"
+                    "sButtonText": "<i class='fa fa-file-excel-o'></i> Excel"
                 },
                 {
                     "sExtends": "pdf",
-                    "sButtonText": "<button><i class='fa fa-file-pdf-o'></i> PDF</button>"
+                    "sButtonText": "<i class='fa fa-file-pdf-o'></i> PDF"
                 }
             ]
         });

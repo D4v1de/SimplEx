@@ -42,6 +42,14 @@ var FormValidation = function () {
                         maxlength: "Inserire esattamente 10 numeri.",
                         minlength: "Inserire esattamente 10 numeri."
                     },
+                    //per il test
+                    descrizione: {
+                        min: "Non puoi inserire un numero negativo.",
+                        max: "Non puoi inserire un numero positivo.",
+                        maxlength: "Inserire esattamente 10 numeri.",
+                        minlength: "Inserire esattamente 10 numeri.",
+                        validchar: "Puoi inserire solo caratteri validi."
+                    }
                 },
                 rules: {
                     name: {
@@ -109,10 +117,16 @@ var FormValidation = function () {
                     //per il test
                     descrizione: {
                         required: true,
-                        minlenght: 2,
-                        maxlength: 500,
+                        //minlenght: 2,
+                        //maxlength: 500,
                         validchar: true
                     },
+                    /*'multiple[]': {
+                        required: true
+                    },
+                    'aperte[]': {
+                        required: true
+                    },*/
                     radio1: {
                         required: true
                     },
@@ -125,7 +139,6 @@ var FormValidation = function () {
                         maxlength: 500,
                         validchar: true
                     },
-
                     'testoRisposta1': {
                         required: true,
                         minlength: 1,

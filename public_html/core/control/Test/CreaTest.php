@@ -236,7 +236,7 @@ if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && isset($_POST['
         $nApe=parseInt($_POST['numAperte']);//mi riprendo il numero delle aperte
         $nMul=parseInt($_POST['numMultiple']);//mi riprendo il numero di multiple
         $test = new Test($descr,$punteggio,$nMul,$nApe,0,0,0,0,0,0,$identificativoCorso);//creo il test e lo metto nel db
-        $idNuovoTest=$modelTest->creaTest($test);
+        $idNuovoTest=$modelTest->createTest($test);
         foreach($leAperte as $s){ //scansiono di nuovo le aperte per associarle al test
             $id = parseInt($s->getId());
             associaAperTest($id, $idNuovoTest, NULL);
