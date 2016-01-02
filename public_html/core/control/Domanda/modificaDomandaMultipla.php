@@ -59,7 +59,7 @@ if (isset($_POST['eliminatore'])) {
             header('Location: /docente/corso/' . $idCorso . '/argomento/domande/modificamultipla/' . $idArgomento .'/' .$idDomanda);
         } else {
 
-            $updatedDomanda = new DomandaMultipla($idArgomento, $testoDomanda, $punteggioEsatta, $punteggioErrata, 0, 0);
+            $updatedDomanda = new DomandaMultipla($idArgomento, $testoDomanda, $punteggioEsatta, $punteggioErrata, 0, 0, 0, 0, 0, 0);
 
             $domandaModel->updateDomandaMultipla($idDomanda, $updatedDomanda);
 
