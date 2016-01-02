@@ -274,11 +274,11 @@ $aperte = $domandaModel->getAllDomandeAperteByTest($testId);
         
         $.get("/studente/creaRisposte?sessId="+sId);
         $.get("/studente/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});
-        intId2 = setInterval(function(){$.get("/studente/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});},10000);
+        intId2 = setInterval(function(){$.get("/studente/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});},5000);
         //fine countdown
         //controller abilitazione
         $.get("/studente/controllerAbilitazione?mat="+mat+"&sessId="+sId,function(data){valutaAbilitazione(data);});
-        intId4 = setInterval(function(){$.get("/studente/controllerAbilitazione?mat="+mat+"&sessId="+sId,function(data){valutaAbilitazione(data);});},10000);
+        intId4 = setInterval(function(){$.get("/studente/controllerAbilitazione?mat="+mat+"&sessId="+sId,function(data){valutaAbilitazione(data);});},5000);
         //fine controller
         //aperte
         $("textarea").focus(function() {
@@ -452,7 +452,7 @@ $aperte = $domandaModel->getAllDomandeAperteByTest($testId);
                     var current_date = inizio;
                     showTime(current_date,target_date);
                     clearInterval(intId2);
-                    intId2 = setInterval(function(){$.get("/studente/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});},10000);
+                    intId2 = setInterval(function(){$.get("/studente/gestoreCountdown?sessId="+sId,function(data){StartCounter(data);});},5000);
                 }
                 
             });
