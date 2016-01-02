@@ -15,10 +15,10 @@ class Config {
     public static $DB_URL = "5.9.123.184";
     public static $DB_NAME = "simplex";
     public static $DB_USER = "simlex-user";
-    public static $DB_PASS = "WtC7kllj"; //qHt9vLTW
+    public static $DB_PASS = "qHt9vLTW";
 
     public static $PERMA_COOKIE = "permaCookie";
-
+WtC7kllj
     /**
      *  Varie configurazioni
      */
