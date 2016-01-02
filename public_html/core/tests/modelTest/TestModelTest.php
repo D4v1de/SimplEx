@@ -93,5 +93,14 @@ class TestModelTest extends \PHPUnit_Framework_TestCase
         //leggo il test di un elaborato
         $testElaborato = $model->getTestByElaborato(self::MATRICOLASTUDENTE, self::IDSESSIONE);
         print_r($testElaborato);
+
+        //leggo tutti i test delle sessioni esercitative
+        $allTestsEsercitative = $model->getAllTestBySessioneEsercitativa(self::IDCORSO);
+        print_r($allTestsEsercitative);
+
+        //leggo tutti i test delle sessioni valutative
+        $allTestsValutativa = $model->getAllTestBySessioneValutativa(self::IDCORSO);
+        print_r($allTestsValutativa);
+
     }
 }
