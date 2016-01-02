@@ -116,6 +116,7 @@ if ($correttezzaLogin == false) {
         <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
         <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
         <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
+        <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/extensions/TableTools/css/dataTables.tableTools.css">
     </head>
     <!-- END HEAD -->
     <!-- BEGIN BODY -->
@@ -517,7 +518,7 @@ src="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
 <script src="/assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
 <script src="/assets/admin/pages/scripts/ui-confirmations.js"></script>
-
+        <script src="/assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
 <script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
 <script src="/assets/admin/pages/scripts/ui-toastr.js"></script>
 
@@ -541,6 +542,23 @@ if ($cond == "vuoto" || $cond == "successmodifica" || $cond == "successinserimen
         UIConfirmations . init();
         UIToastr . init();
         checkNotifiche();
+
+        var table = $(\"#tabella_sessioni\").dataTable();
+        var tableTools = new $.fn.dataTable.TableTools(table, {
+            //\"sSwfPath\": \"//cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls_pdf.swf\",
+            \"sSwfPath\": \"/assets/global/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf\",
+            \"aButtons\": [
+                {
+                    \"sExtends\": \"xls\",
+                    \"sButtonText\": \"<i class='fa fa-file-excel-o'></i> Excel\"
+                },
+                {
+                    \"sExtends\": \"pdf\",
+                    \"sButtonText\": \"<i class='fa fa-file-pdf-o'></i> PDF\"
+                }
+            ]
+        });
+        $(tableTools.fnContainer()).insertBefore(\"#tabella_sessioni_wrapper\");
     });</script>";
 }
 ?>

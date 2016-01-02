@@ -89,7 +89,8 @@ $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
     <meta charset="utf-8"/>
     <title>Metronic | Page Layouts - Blank Page</title>
      <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
-    <link rel="stylesheet" type="text/css"
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/extensions/TableTools/css/dataTables.tableTools.css">
+<link rel="stylesheet" type="text/css"
           href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
     <?php include VIEW_DIR . "design/header.php"; ?>
 </head>
@@ -382,6 +383,7 @@ $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
 <script src="/assets/global/scripts/metronic.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
 <script src="/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
 <script src="/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <!-- BEGIN aggiunta da me -->
 <script src="/assets/admin/pages/scripts/table-managed.js"></script>
@@ -395,6 +397,40 @@ $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
         Layout.init();
         TableManaged2.init("tabella_test2","tabella_test2_wrapper");
         TableManaged2.init("tabella_studenti_esiti","tabella_studenti_esiti_wrapper");
+
+        var tableT = $("#tabella_test2").dataTable();
+        var tableToolsT = new $.fn.dataTable.TableTools(tableT, {
+            //"sSwfPath": "//cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls_pdf.swf",
+            "sSwfPath": "/assets/global/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf",
+            "aButtons": [
+                {
+                    "sExtends": "xls",
+                    "sButtonText": "<i class='fa fa-file-excel-o'></i> Excel"
+                },
+                {
+                    "sExtends": "pdf",
+                    "sButtonText": "<i class='fa fa-file-pdf-o'></i> PDF"
+                }
+            ]
+        });
+        $(tableToolsT.fnContainer()).insertBefore("#tabella_test2_wrapper");
+
+        var tableS = $("#tabella_studenti_esiti").dataTable();
+        var tableToolsS = new $.fn.dataTable.TableTools(tableS, {
+            //"sSwfPath": "//cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls_pdf.swf",
+            "sSwfPath": "/assets/global/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf",
+            "aButtons": [
+                {
+                    "sExtends": "xls",
+                    "sButtonText": "<i class='fa fa-file-excel-o'></i> Excel"
+                },
+                {
+                    "sExtends": "pdf",
+                    "sButtonText": "<i class='fa fa-file-pdf-o'></i> PDF"
+                }
+            ]
+        });
+        $(tableToolsS.fnContainer()).insertBefore("#tabella_studenti_esiti_wrapper");
     });
 </script>
 <!-- END JAVASCRIPTS -->
