@@ -18,6 +18,8 @@ $domandaModel = new DomandaModel();
 $testModel = new TestModel();
 $idCorso = $_URL[2];
 $flag=1;
+$pio=1;
+$someTestsAorD=false;
 
 
     if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo']) && $someTestsAorD=isset($_POST['tests']) ) {
@@ -120,4 +122,10 @@ $flag=1;
         header($tornaACasa);
     }
 
+if($someTestsAorD==false) {
+    $pio=0;
+    $_SESSION['pio'] = $pio;
+    $tornaACasa = "Location: "."/docente/corso/"."$idCorso"."/sessione/0/creamodificasessione2";
+    header($tornaACasa);
+}
 

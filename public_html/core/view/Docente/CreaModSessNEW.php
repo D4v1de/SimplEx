@@ -77,6 +77,7 @@ $perModificaDataTo = null;
 $valu = null;
 $eser = null;
 $flag = null;
+$pio=null;
 $showE = "";
 $showRC = "";
 if($_URL[4] != 0)
@@ -84,6 +85,9 @@ if($_URL[4] != 0)
 
 $flag = isset($_SESSION['flag']) ? $_SESSION['flag'] : 1;
 unset($_SESSION['flag']);
+
+$pio = isset($_SESSION['pio']) ? $_SESSION['pio'] : 1;
+unset($_SESSION['pio']);
 
 if ($_URL[4] != 0) {
     try {
@@ -207,10 +211,17 @@ if ($flag == 0) {
                     <button class=\"close\" data-close=\"alert\"></button>
                        La data di Fine non può essere inferiore alla data di Inizio. </div>");
 }
+if($pio==0) {
+    printf("<div class='alert alert-danger'>
+                    <button class=\"close\" data-close=\"alert\"></button>
+                    Occorre selezionare almeno un Test!
+                </div>");
+}
 printf("<div class='alert alert-danger display-hide'>
                     <button class=\"close\" data-close=\"alert\"></button>
                     Occorre selezionare almeno un Test con Avvio e Termine.
                 </div>");
+
 ?>
                         <div class="row">
                             <div class="col-md-12">
