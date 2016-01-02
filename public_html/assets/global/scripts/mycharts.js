@@ -1,4 +1,6 @@
-var getStatisticheTest = function (str,modal) {
+var getStatisticheTest = function (id,str,modal) {
+    idCorso = id;
+    alert(idCorso);
     if (modal == "Best"){
             color = "#16ce6d";
             mod = "best";
@@ -39,7 +41,8 @@ var getStatisticheTest = function (str,modal) {
         get20Test();
     }
 }
-var getStatisticheDomande = function (str,modal) {
+var getStatisticheDomande = function (id,str,modal) {
+    idCorso = id;
     if (modal == "Best"){
             color = "#16ce6d";
             mod = "best";
@@ -82,7 +85,7 @@ var getStatisticheDomande = function (str,modal) {
 }
 
 var get5Test = function () {
-    $.post("/docente/getTestforStat?corso_id=120&num=5&type="+type+"&mod="+mod+"&kind="+kind, function (data) {
+    $.post("/docente/getTestforStat?corso_id="+idCorso+"&num=5&type="+type+"&mod="+mod+"&kind="+kind, function (data) {
         var res = data.split("/");
         var x = res[0].split("-");
         var y = res[1].split("-");
@@ -150,7 +153,7 @@ var get5Test = function () {
 };
 
 var get10Test = function () {
-    $.post("/docente/getTestforStat?corso_id=120&num=10&type="+type+"&mod="+mod+"&kind="+kind, function (data) {
+    $.post("/docente/getTestforStat?corso_id="+idCorso+"&num=10&type="+type+"&mod="+mod+"&kind="+kind, function (data) {
         var res = data.split("/");
         var x = res[0].split("-");
         var y = res[1].split("-");
@@ -237,7 +240,7 @@ var get10Test = function () {
 };
 
 var get15Test = function () {
-    $.post("/docente/getTestforStat?corso_id=120&num=15&type="+type+"&mod="+mod+"&kind="+kind, function (data) {
+    $.post("/docente/getTestforStat?corso_id="+idCorso+"&num=15&type="+type+"&mod="+mod+"&kind="+kind, function (data) {
         var res = data.split("/");
         var x = res[0].split("-");
         var y = res[1].split("-");
@@ -344,7 +347,7 @@ var get15Test = function () {
 };
 
 var get20Test = function () {
-    $.post("/docente/getTestforStat?corso_id=120&num=20&type="+type+"&mod="+mod+"&kind="+kind, function (data) {
+    $.post("/docente/getTestforStat?corso_id="+idCorso+"&num=20&type="+type+"&mod="+mod+"&kind="+kind, function (data) {
         var res = data.split("/");
         var x = res[0].split("-");
         var y = res[1].split("-");
@@ -472,7 +475,7 @@ var get20Test = function () {
 
 
 var get5Dom = function () {
-    $.post("/docente/getDomforStat?corso_id=120&num=5&type="+type+"&mod="+mod+"&kind="+kind, function (data) {
+    $.post("/docente/getDomforStat?corso_id="+idCorso+"&num=5&type="+type+"&mod="+mod+"&kind="+kind, function (data) {
         var res = data.split("/");
         var x = res[0].split("-");
         var y = res[1].split("-");
