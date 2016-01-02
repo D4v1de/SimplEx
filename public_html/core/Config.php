@@ -18,7 +18,7 @@ class Config {
     public static $DB_PASS = "qHt9vLTW";
 
     public static $PERMA_COOKIE = "permaCookie";
-WtC7kllj
+
     /**
      *  Varie configurazioni
      */
