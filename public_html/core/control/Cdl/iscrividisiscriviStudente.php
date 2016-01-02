@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: fede_dr
- * Date: 29/12/15
- * Time: 14:54
+ * Controller iscrividisiscriviStudente permette di far iscrivere o disiscrivere uno Studente ad un Corso
+ * @author Federico De Rosa
+ * @version 1
+ * @since 29/12/15 14:58
  */
 
 include_once MODEL_DIR . "UtenteModel.php";

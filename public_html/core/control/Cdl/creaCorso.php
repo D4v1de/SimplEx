@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: fede_dr
- * Date: 28/12/15
- * Time: 22:10
+ * Controller creaCorso permette di creare un Corso.
+ * @author Federico De Rosa
+ * @version 1
+ * @since 28/12/15 22:18
  */
 
 include_once MODEL_DIR . "CorsoModel.php";
