@@ -49,6 +49,7 @@ $corso = $modelCorso->readCorso($_URL[2]);
     <link rel="stylesheet" type="text/css"
           href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
     <?php include VIEW_DIR . "design/header.php"; ?>
+    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/extensions/TableTools/css/dataTables.tableTools.css">
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/jquery-nestable/jquery.nestable.css">
 
     <style type="text/css">
@@ -122,7 +123,6 @@ $corso = $modelCorso->readCorso($_URL[2]);
 
                 <?php
                 if(isset($_GET["flag"]) && $_GET["flag"]==2){
-                    //TODO (aggiungere da nmin a nmax domande) effettuare query per recuperare i valori e mostrarli nel messaggio
                     echo "<div class=\"alert alert-danger\">
                         <button class=\"close\" data-close=\"alert\"></button>
                         Errore nei Dati. Per un test RANDOM devi inserire un numero di domande valido.
@@ -133,7 +133,6 @@ $corso = $modelCorso->readCorso($_URL[2]);
                 
                 <?php
                 if(isset($_GET["flag"]) && $_GET["flag"]==3) {
-                    //TODO (aggiungere da nmin a nmax domande) effettuare query per recuperare i valori e mostrarli nel messaggio
                     echo "<div class=\"alert alert-danger\">
                         <button class=\"close\" data-close=\"alert\"></button>
                         Errore nei Dati. Hai richiesto troppe domande per il test RANDOM.
@@ -144,7 +143,6 @@ $corso = $modelCorso->readCorso($_URL[2]);
                 <?php
                 
                 if(isset($_GET["flag"]) && $_GET["flag"]==4) {
-                    //TODO (aggiungere da nmin a nmax domande) effettuare query per recuperare i valori e mostrarli nel messaggio
                     echo "<div class=\"alert alert-danger\">
                         <button class=\"close\" data-close=\"alert\"></button>
                         Errore nei Dati. E' necessario selezionare almeno una domanda dalla tabella.
@@ -154,7 +152,6 @@ $corso = $modelCorso->readCorso($_URL[2]);
                 ?>
                 <?php
                 if(isset($_GET["flag"]) && $_GET["flag"]==5) {
-                    //TODO (aggiungere da nmin a nmax domande) effettuare query per recuperare i valori e mostrarli nel messaggio
                     echo "<div class=\"alert alert-danger\">
                         <button class=\"close\" data-close=\"alert\"></button>
                         Errore nei Dati. Non è possibile utilizzare caratteri speciali nella descrizione.
@@ -215,7 +212,7 @@ $corso = $modelCorso->readCorso($_URL[2]);
                                     <div class="col-md-6">
                                         <div class="form-group form-md-line-input">
                                             <div class="input-icon">
-                                                <input type="number" id="numAperte" name="numAperte" class="form-control">
+                                                <input type="number" id="numAperte" name="numAperte" class="form-control" value="0">
                                                 <label for="numAperte">Numero domande a risposta aperta:</label>
                                                 <span class="help-block"></span>
                                             </div>
@@ -224,7 +221,7 @@ $corso = $modelCorso->readCorso($_URL[2]);
                                     <div class="col-md-6">
                                         <div class="form-group form-md-line-input">
                                             <div class="input-icon">
-                                                <input type="number" id="numMultiple" name="numMultiple" class="form-control">
+                                                <input type="number" id="numMultiple" name="numMultiple" class="form-control" value="0">
                                                 <label for="numMultiple">Numero domande a risposta multipla:</label>
                                                 <span class="help-block"></span>
                                             </div>
@@ -427,11 +424,11 @@ $corso = $modelCorso->readCorso($_URL[2]);
             "aButtons": [
                 {
                     "sExtends": "xls",
-                    "sButtonText": "<button><i class='fa fa-file-excel-o'></i> Excel</button>"
+                    "sButtonText": "<i class='fa fa-file-excel-o'></i> Excel"
                 },
                 {
                     "sExtends": "pdf",
-                    "sButtonText": "<button><i class='fa fa-file-pdf-o'></i> PDF</button>"
+                    "sButtonText": "<i class='fa fa-file-pdf-o'></i> PDF"
                 }
             ]
         });

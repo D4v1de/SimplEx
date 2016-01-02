@@ -1,11 +1,11 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Fabiano
- * Date: 18/11/15
- * Time: 09:58
+ * La view consente allo studente di eseguire un test.
+ * 
+ * @author Fabiano Pecorelli
+ * @version 1.0
+ * @since 22/11/15
  */
-
 //TODO qui la logica iniziale, caricamento dei controller ecc
 include_once MODEL_DIR . "TestModel.php";
 include_once MODEL_DIR . "SessioneModel.php";

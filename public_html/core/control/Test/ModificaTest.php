@@ -112,7 +112,7 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
     $AperteTest=Array();
     $MultipleTest=$modelDomande->getAllDomandeMultipleByTest($idTest);
     $AperteTest=$modelDomande->getAllDomandeAperteByTest($idTest);
-    $test = new Test($descrizione,0,$cont2,$cont1,0,0,$identificativoCorso);  //creo il test
+    $test = new Test($descrizione,0,$cont2,$cont1,0,0,0,0,0,0,$identificativoCorso);  //creo il test
     $modelTest->updateTest($idTest,$test);   //inserisco il test nel db
     
     foreach($MultipleTest as $non){
@@ -258,7 +258,7 @@ if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && isset($_POST['
     $AperteTest=Array();
     $MultipleTest=$modelDomande->getAllDomandeMultipleByTest($idTest);
     $AperteTest=$modelDomande->getAllDomandeAperteByTest($idTest);
-    $test = new Test($descr,$punteggio,$nMul,$nApe,0,0,$identificativoCorso);//creo il test e lo metto nel db
+    $test = new Test($descr,$punteggio,$nMul,$nApe,0,0,0,0,0,0,$identificativoCorso);//creo il test e lo metto nel db
     $modelTest->updateTest($idTest,$test);
     
     foreach($MultipleTest as $s){

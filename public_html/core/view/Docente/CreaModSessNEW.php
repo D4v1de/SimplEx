@@ -33,19 +33,20 @@ include_once MODEL_DIR . "ElaboratoModel.php";
 $modelElaborato = new ElaboratoModel();
 $idCorso = $_URL[2];
 $numProfs = 0;
+$abi=false;
+if(isset($_SESSION['abi']))
+    $abi=$_SESSION['abi'];
+unset($_SESSION['abi']);
 
 $doc = $_SESSION['user'];
 //$mostra=false;
 $max = 9999;
 
+
 /* if(isset($_SESSION['mostra']))
   $mostra=$_SESSION['mostra'];
   unset($_SESSION['mostra']);
-
-  if(isset($_SESSION['max']))
-  $max=$_SESSION['max'];
-  unset($_SESSION['max']);
- */
+*/
 
 $docentiOe = $modelUtente->getAllDocentiByCorso($idCorso);
 foreach ($docentiOe as $d) {
@@ -64,6 +65,7 @@ try {
     echo "<h1>ERRORE NELLA LETTURA DEL CORSO!</h1>" . $ex;
 }
 
+$siamoInModifica=false;
 $idSessione = 0;
 $someStudentsChange = null;
 $dataToSettato = null;
@@ -75,11 +77,17 @@ $perModificaDataTo = null;
 $valu = null;
 $eser = null;
 $flag = null;
+$pio=null;
 $showE = "";
 $showRC = "";
+if($_URL[4] != 0)
+    $siamoInModifica=true;
 
 $flag = isset($_SESSION['flag']) ? $_SESSION['flag'] : 1;
 unset($_SESSION['flag']);
+
+$pio = isset($_SESSION['pio']) ? $_SESSION['pio'] : 1;
+unset($_SESSION['pio']);
 
 if ($_URL[4] != 0) {
     try {
@@ -112,6 +120,9 @@ if ($_URL[4] != 0) {
         echo "<h1>errore! ApplicationException->errore manca id sessione nel path!</h1>";
         echo "<h4>" . $ex . "</h4>";
     }
+    $testsOfSessione = $testModel->getAllTestBySessione($idSessione);
+    $max=$testsOfSessione[0]->getPunteggioMax();
+
 } else {
     
 }
@@ -200,10 +211,17 @@ if ($flag == 0) {
                     <button class=\"close\" data-close=\"alert\"></button>
                        La data di Fine non può essere inferiore alla data di Inizio. </div>");
 }
+if($pio==0) {
+    printf("<div class='alert alert-danger'>
+                    <button class=\"close\" data-close=\"alert\"></button>
+                    Occorre selezionare almeno un Test!
+                </div>");
+}
 printf("<div class='alert alert-danger display-hide'>
                     <button class=\"close\" data-close=\"alert\"></button>
                     Occorre selezionare almeno un Test con Avvio e Termine.
                 </div>");
+
 ?>
                         <div class="row">
                             <div class="col-md-12">
@@ -282,7 +300,7 @@ printf("<div class='alert alert-danger display-hide'>
                                 </div>
                                 <div class="col-md-2">
                                     <label >Punteggio Test</label>
-                                    <select  class="form-control" id="maxTest" name="max">
+                                    <select  class="form-control" id="maxTest" name="max" onchange="pig()">
 <?php
 $tests = $testModel->getAllTestByCorso($idCorso);
 $array[0] = -9999;
@@ -290,25 +308,27 @@ $uguale = false;
 if ($max != 9999)
     printf("<option value = '%s' > %s </option >", $max, $max);
 else
-    printf("<option value = 'scegli' > Scegli </option >");
+    printf("<option value = 'Scegli' > Scegli </option >");
 foreach ($tests as $t) {
-    for ($x = 0; $x < sizeof($array); $x++) {
-        if ($t->getPunteggioMax() == $array[$x]) {
-            $uguale = true;
+    if($t->getPunteggioMax()!=$max) {
+        for ($x = 0; $x < sizeof($array); $x++) {
+            if ($t->getPunteggioMax() == $array[$x]) {
+                $uguale = true;
+            }
         }
+        if ($uguale == false) {
+            printf("<option value = '%s' > %s </option >", $t->getPunteggioMax(), $t->getPunteggioMax());
+            array_push($array, $t->getPunteggioMax());
+        }
+        $uguale = false;
     }
-    if ($uguale == false) { //vuol dire che è diverso da tutti->posso metterlo
-        printf("<option value = '%s' > %s </option >", $t->getPunteggioMax(), $t->getPunteggioMax());
-        array_push($array, $t->getPunteggioMax());
-    }
-    $uguale = false;
+
 }
 ?>
                                     </select>
-                                    <button type="submit" class="btn md green-jungle " name="filtra" data-toggle="confirmation"
-                                            data-singleton="true" data-popout="true" title="Sicuro?"> <span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                    <a id="fil" class="btn md green-jungle " name="filtra"> <span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                                         Filtra
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -343,15 +363,18 @@ foreach ($tests as $t) {
                                     </div>
                                 </div>
                             </div>
-                            <div class="portlet-body">
+                            <div id="divTest" class="portlet-body">
                                 <div id="tabella_test_wrapper" class="dataTables_wrapper no-footer" >
                                     <table class="table table-striped table-bordered table-hover dataTable no-footer" id="tabella_test" role="grid" aria-describedby="tabella_studenti_info">
                                         <thead>
                                             <tr role="row">
-                                                <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="
-                                                    " style="width: 24px;">
-                                                    <input type="checkbox" class="group-checkable" data-set="#tabella_test .checkboxes">
-                                                </th>
+                                                <?php
+                                                if($abi)
+                                                    printf("<th class=\"table-checkbox sorting_disabled\" rowspan=\"1\" colspan=\"1\" aria-label=\"
+                                                    \" style=\"width: 24px;\">
+                                                    <input type=\"checkbox\" class=\"group-checkable\" data-set=\"#tabella_test .checkboxes\">
+                                                </th>");
+                                                ?>
                                                 <th class="sorting-disabled" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" aria-label="
                                                     Email
                                                     : activate to sort column ascending" style="width: 106px;">
@@ -389,6 +412,7 @@ foreach ($tests as $t) {
 
                                             </tr>
                                         </thead>
+
                                         <tbody>
 <?php
 // if($mostra==true) {
@@ -404,6 +428,7 @@ if ($array == null) {
     
 } else {
     $sessioniByCorso = $modelSessione->getAllSessioniByCorso($idCorso);
+if (!$siamoInModifica) {
     foreach ($array as $c) {
         if ($sessioniByCorso != null) {
             $scelti = $c->getPercentualeSceltoVal() + $c->getPercentualeSceltoEse();
@@ -422,7 +447,8 @@ if ($array == null) {
             if ($c->getId() == $t->getId())
                 $toCheck = "Checked";
         }
-        printf("<td><input name=\"tests[]\" type=\"checkbox\" %s class=\"checkboxes\" value='%d'></td>", $toCheck, $c->getId());
+        if ($abi)
+            printf("<td><input name=\"tests[]\" type=\"checkbox\" %s class=\"checkboxes\" value='%d'></td>", $toCheck, $c->getId());
         $toCheck = "";
         printf("<td class=\"sorting_1\">Test %s</td>", $c->getId());
         printf("<td>%s</td>", $c->getDescrizione());
@@ -432,11 +458,44 @@ if ($array == null) {
         printf("<td>%d%%</td>", $percSce);
         printf("<td>%d%%</td>", $percSuc);
         printf("</tr>");
+
+    }
+}
+    else {
+        $array=$testModel->getAllTestBySessione($idSessione);
+        foreach ($array as $c) {
+            if ($sessioniByCorso != null) {
+                $scelti = $c->getPercentualeSceltoVal() + $c->getPercentualeSceltoEse();
+                $percSce = round(($scelti / count($sessioniByCorso) * 100), 2);
+            } else
+                $percSce = 0;
+
+            $succ = $c->getPercentualeSuccessoEse() + $c->getPercentualeSuccessoVal();
+            $n = $c->getNumeroSceltaValutativa() + $c->getNumeroSceltaEsercitativa();
+            if ($n > 0)
+                $percSuc = round(($succ / $n * 100), 2);
+            else
+                $percSuc = 0;
+            printf("<tr class=\"gradeX odd\" role=\"row\">");
+            if ($abi)
+                printf("<td><input name=\"tests[]\" type=\"checkbox\" class=\"checkboxes\" value='%d'></td>", $c->getId());
+            $toCheck = "";
+            printf("<td class=\"sorting_1\">Test %s</td>", $c->getId());
+            printf("<td>%s</td>", $c->getDescrizione());
+            printf("<td>%d</td>", $c->getNumeroMultiple());
+            printf("<td>%d</td>", $c->getNumeroAperte());
+            printf("<td>%d</td>", $c->getPunteggioMax());
+            printf("<td>%d%%</td>", $percSce);
+            printf("<td>%d%%</td>", $percSuc);
+            printf("</tr>");
+
+        }
     }
 }
 // }
 ?>
                                         </tbody>
+                                </div>
                                         <div <?php echo "id=nomeCorso";
                                             echo "value='" . $idCorso . "'" ?>></div>
                                     </table>
@@ -611,7 +670,22 @@ if ($array == null) {
                 $(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii:ss'});
             </script>
 
-            <!-- END JAVASCRIPTS -->
+               <script>
+                   function pig() {
+                       d = document.getElementById("maxTest").value;
+                       var vaiA = "/docente/corso/<?php echo $idCorso; ?>/sessione/<?php echo $idSessione; ?>/filtrotests/vai/"+d;
+                       $(document).ready(function(){
+                           $('#fil').click(function(){
+                               $.ajax({url: vaiA, success: function(result){
+                                   $("#divTest").html(result);
+                               }});
+                           });
+                       });
+                   }
+              </script>
+
+
+                      <!-- END JAVASCRIPTS -->
     </body>
     <!-- END BODY -->
 </html>
