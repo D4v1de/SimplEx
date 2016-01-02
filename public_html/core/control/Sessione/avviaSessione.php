@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Antonio Luca
- * Date: 30/12/2015
- * Time: 20:03
+ * Questo Control permette al docente di avviare una sessione manualmente.
+ * @author Antonio Luca D'Avanzo
+ * @version 1
+ * @since  30/12/2015 20:03
  */
 include_once MODEL_DIR . "SessioneModel.php";
 include_once MODEL_DIR . "UtenteModel.php";
