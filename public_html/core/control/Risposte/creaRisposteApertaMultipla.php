@@ -1,9 +1,10 @@
 <?php
 /**
- * Created by NetBeans.
- * User: Fabiano
- * Date: 03/12/15
- * Time: 16:00
+ * Controller per la creazione delle risposte
+ *
+ * @author Fabiano Pecorelli
+ * @version 1.0
+ * @since 03/12/15
  */
 include_once MODEL_DIR . "RispostaMultiplaModel.php";
 include_once MODEL_DIR . "RispostaApertaModel.php";
