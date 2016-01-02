@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Antonio Luca
- * Date: 31/12/2015
- * Time: 00:26
+ * Questo Control permette di abilitare uno studente ad una sessione.
+ * @author Antonio Luca D'Avanzo
+ * @version 1
+ * @since  31/12/2015 00:26
  */
 
 include_once MODEL_DIR . "UtenteModel.php";

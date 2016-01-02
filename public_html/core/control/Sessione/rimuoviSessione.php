@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Antonio Luca
- * Date: 30/12/2015
- * Time: 11:26
+ * Questo Control permette al docente di rimuovere una sessione.
+ * @author Antonio Luca D'Avanzo
+ * @version 1
+ * @since  30/12/2015 11:26
  */
 
 include_once MODEL_DIR . "SessioneModel.php";

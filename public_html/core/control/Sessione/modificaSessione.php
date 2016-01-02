@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Antonio Luca
- * Date: 23/12/2015
- * Time: 11:52
+ * Questo Control permette al docente di modificare una sessione.
+ * @author Antonio Luca D'Avanzo
+ * @version 1
+ * @since  23/12/2015 11:00
  */
 
 include_once MODEL_DIR . "SessioneModel.php";

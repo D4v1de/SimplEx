@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Antonio Luca
- * Date: 30/12/2015
- * Time: 23:01
+ * Da questo Control possiamo raggiungere altre pagine. Viene invocato dalla view SessioneInCorso .
+ * @author Antonio Luca D'Avanzo
+ * @version 1
+ * @since  30/12/2015 23:03
  */
 
 $idCorso = $_URL[2];

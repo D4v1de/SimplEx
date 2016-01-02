@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Antonio Luca
- * Date: 31/12/2015
- * Time: 16:18
+ * Questo Control permette di filtrare i test per punteggio massimo.
+ * @author Antonio Luca D'Avanzo
+ * @version 1
+ * @since  31/12/2015 16:18
  */
 
 include_once MODEL_DIR . "UtenteModel.php";

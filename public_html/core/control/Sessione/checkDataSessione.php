@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Antonio Luca
- * Date: 30/12/2015
- * Time: 11:49
+ * Questo Control permette di aggiornare lo stato di una sessione in relazione alla data attuale.
+ * @author Antonio Luca D'Avanzo
+ * @version 1
+ * @since  30/12/2015 11:49
  */
 
 include_once MODEL_DIR . "SessioneModel.php";

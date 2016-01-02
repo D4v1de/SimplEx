@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Antonio Luca
- * Date: 31/12/2015
- * Time: 00:46
+ * Questo Control permette al docente di correggere un test.
+ * @author Antonio Luca D'Avanzo
+ * @version 1
+ * @since  31/12/2015 00:46
  */
 include_once MODEL_DIR . "ElaboratoModel.php";
 include_once MODEL_DIR . "SessioneModel.php";

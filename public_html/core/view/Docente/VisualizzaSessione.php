@@ -421,7 +421,7 @@ printf("<button name=\"avvia\"  value=\"%s\" class=\"btn sm green-jungle\"  data
 $vaiAModifica = "/docente/corso/" . $identificativoCorso . "/sessione" . "/" . $idSessione . "/" . "creamodificasessione";
 $vaiAVisu = "/docente/corso/" . $identificativoCorso . "/sessione" . "/" . $idSessione . "/" . "visualizzasessione";
 
-printf(" <a href=\"%s\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i>ModificaSessione</a>", $vaiAModifica);
+printf(" <a href=\"%s\" class=\"btn btn-sm blue-madison\"><i class=\"fa fa-edit\"></i>Modifica Sessione</a>", $vaiAModifica);
 printf("<button type='submit' name='rimuovi' value='%d' class='btn btn-sm red-intense'  data-toggle=\"confirmation\"
                                         data-singleton=\"true\" data-popout=\"true\" %s title=\"Sicuro?\"><i class=\"fa fa-trash-o\"></i>Elimina Sessione</button>", $idSessione, $disabled);
 ?>
