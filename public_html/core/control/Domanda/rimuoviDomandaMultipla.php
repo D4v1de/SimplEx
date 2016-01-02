@@ -13,8 +13,12 @@ if(isset($_POST['domandamultipla'])) {
     $idDomanda = $_POST['domandamultipla'];
     $idCorso = $_POST['idcorso'];
     $idArgomento = $_POST['idargomento'];
-
-    $domandaModel->deleteDomandaMultipla($idDomanda);
-    header('Location: /docente/corso/' . $idCorso . '/argomento/domande/' . $idArgomento);
+    $domanda = $domandaModel->readDomandaMultipla($idDomanda);
+    if($domanda->getArgomentoId() == $idArgomento) {
+        $domandaModel->deleteDomandaMultipla($idDomanda);
+        header('Location: /docente/corso/' . $idCorso . '/argomento/domande/' . $idArgomento);
+    } else {
+        header('Location: /docente/corso/' . $idCorso . '/argomento/domande/' . $idArgomento);
+    }
 }
 ?>

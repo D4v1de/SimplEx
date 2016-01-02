@@ -57,7 +57,7 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($
 
     else {
 
-        $nuovaDomanda = new DomandaMultipla($idArgomento, $testoDomanda, $punteggioEsatta, $punteggioErrata, 0, 0);
+        $nuovaDomanda = new DomandaMultipla($idArgomento, $testoDomanda, $punteggioEsatta, $punteggioErrata, 0, 0, 0, 0, 0, 0);
 
         $idNuovaDomanda = $domandaModel->createDomandaMultipla($nuovaDomanda);
         for ($i = 0; $i < count($testoRisposte); $i++) {
