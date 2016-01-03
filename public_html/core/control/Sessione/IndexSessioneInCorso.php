@@ -12,19 +12,18 @@ $idSessione = $_URL[4];
 if(isset( $_POST['aggiorna'])) {
     header("location: " ."/docente/corso/".$idCorso."/sessione/".$idSessione."/aggiornasessioneincorso");
 }
-
-if(isset( $_POST['addStu'])) {
+else if(isset( $_POST['addStu'])) {
     header("location: " ."/docente/corso/".$idCorso."/sessione/".$idSessione."/aggiungistudente/");
 }
 
-if(isset( $_POST['termina'] )) {
+else if(isset( $_POST['termina'] )) {
     header("location: " ."/docente/corso/".$idCorso."/sessione/".$idSessione."/terminasessione/");
 }
 
-if(isset( $_POST['annullaEsame'])) {
+else if(isset( $_POST['annullaEsame'])) {
     header("location: " ."/docente/corso/".$idCorso."/sessione/".$idSessione."/annullaesame/".$_POST['annullaEsame']);
 }
 
-if(isset( $_POST['datato'])) {
+else {
     header("location: " . "/docente/corso/" . $idCorso . "/sessione/" . $idSessione . "/modificafine/" . $_POST['datato']);
 }

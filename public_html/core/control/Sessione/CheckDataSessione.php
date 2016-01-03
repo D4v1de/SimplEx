@@ -14,7 +14,10 @@ include_once BEAN_DIR . "Sessione.php";
 $sessioneModel = new SessioneModel();
 $utenteModel = new UtenteModel();
 $testModel = new TestModel();
+$stat="";
 $idCorso = $_URL[2];
+if(isset($_URL[4]))
+    $stat = $_URL[4];
 try {
     $idsSessione= $sessioneModel->getAllSessioniByCorso($idCorso);
 } catch (ApplicationException $ex) {
@@ -49,5 +52,7 @@ foreach ($idsSessione as $c) {
         ;
 }
 
-
-header('Location: /docente/corso/'.$idCorso.'/success');
+if($stat=="vuoto") {
+    $stat="";
+}
+header('Location: /docente/corso/'.$idCorso.'/success/'.$stat);

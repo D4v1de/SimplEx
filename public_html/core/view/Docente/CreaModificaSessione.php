@@ -19,22 +19,22 @@ $testModel = new TestModel();
 include_once MODEL_DIR . "ElaboratoModel.php";
 $modelElaborato = new ElaboratoModel();
 $idCorso = $_URL[2];
-$numProfs = 0;
 $abi = false;
 if (isset($_SESSION['abi']))
     $abi = $_SESSION['abi'];
 unset($_SESSION['abi']);
-
-$doc = $_SESSION['user'];
-//$mostra=false;
 $max = 9999;
 
+try {
+    $corso = $modelCorso->readCorso($idCorso);
+    $nomecorso = $corso->getNome();
+} catch (ApplicationException $ex) {
+    echo "<h1>ERRORE NELLA LETTURA DEL CORSO!</h1>" . $ex;
+}
 
-/* if(isset($_SESSION['mostra']))
-  $mostra=$_SESSION['mostra'];
-  unset($_SESSION['mostra']);
-*/
 
+$doc = $_SESSION['user'];
+$numProfs = 0;
 $docentiOe = $modelUtente->getAllDocentiByCorso($idCorso);
 foreach ($docentiOe as $d) {
     if ($doc == $d) {
@@ -45,12 +45,6 @@ if ($numProfs == 0) {
     header("Location: " . "/docente/corso/" . $corso->getId());
 }
 
-try {
-    $corso = $modelCorso->readCorso($idCorso);
-    $nomecorso = $corso->getNome();
-} catch (ApplicationException $ex) {
-    echo "<h1>ERRORE NELLA LETTURA DEL CORSO!</h1>" . $ex;
-}
 
 $siamoInModifica = false;
 $idSessione = 0;

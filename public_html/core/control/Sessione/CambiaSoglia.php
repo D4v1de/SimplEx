@@ -6,7 +6,16 @@
  * @since  02/01/2016 16:07
  */
 
-$soglia=$_POST['soglia'];
-$sessioneAggiornata = new Sessione($dataFrom, $dataTo, $soglia , $sessioneByUrl->getStato(), $sessioneByUrl->getTipologia(), $identificativoCorso);
-$sessioneModel->updateSessione($_URL[4], $sessioneAggiornata);
+include_once MODEL_DIR . "SessioneModel.php";
+include_once BEAN_DIR . "Sessione.php";
+$idCorso = $_URL[2];
+$idSessione=$_URL[4];
+$sessioneModel = new SessioneModel();;
 
+$sessioneByUrl=$sessioneModel->readSessione($idSessione);
+$soglia=$_POST['soglia'];
+$sessioneAggiornata = new Sessione($sessioneByUrl->getDataInizio(),$sessioneByUrl->getDataFine(), $soglia , $sessioneByUrl->getStato(), $sessioneByUrl->getTipologia(), $idCorso);
+$sessioneModel->updateSessione($idSessione, $sessioneAggiornata);
+
+$tornaACasa = "Location: "."/docente/corso/".$idCorso."/sessione"."/".$idSessione."/"."esiti/show";
+header($tornaACasa);
