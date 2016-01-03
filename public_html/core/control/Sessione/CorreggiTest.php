@@ -28,21 +28,74 @@ $modelAlternativa = new AlternativaModel();
 $modelRispostaAperta = new RispostaApertaModel();
 $modelRispostaMultipla = new RispostaMultiplaModel();
 
-
+$cdl = null;
+$corso = null;
+$docenteassociato = Array();
+$sessione = null;
+$test = null;
+$elaborato = null;
+$studente = null;
+$max=null;
+$dom=null;
+$multiple = Array();
+$aperte = Array();
+$alternative = Array();
+//$corretta = null;
+$rispostaaperta = null;
+$rispostamultipla = null;
+$i = 0;
 $url = null;
 $url2 = null;
 $matricola = $_URL[6];
-$url2 = $_URL[4];
 $url = $_URL[2];
+$url2 = $_URL[4];
 $studente=$utenteModel->getUtenteByMatricola($matricola);
+
+try {
+    $corso = $corsoModel->readCorso($url);
+} catch (ApplicationException $ex) {
+    echo "<h1>INSERIRE ID CORSO NEL PATH!</h1>" . $ex;
+}
+
 try {
     $elaborato = $elaboratoModel->readElaborato($studente->getMatricola(), $url2);
 } catch (ApplicationException $ex) {
     echo "<h1>READELABORATO FALLITO!</h1>" . $ex;
 }
 
+try {
+    $cdl = $cdlModel->readCdl($corso->getCdlMatricola());
+} catch (ApplicationException $ex) {
+    echo "<h1>READCDL FALLITO!</h1>" . $ex;
+}
+try {
+    $docenteassociato = $utenteModel->getAllDocentiByCorso($corso->getId());
+} catch (ApplicationException $ex) {
+    echo "<h1>GETDOCENTIASSOCIATI FALLITO</h1>" . $ex;
+}
+try {
+    $sessione = $sessioneModel->readSessione($url2);
+} catch (ApplicationException $ex) {
+    echo "<h1>INSERIRE ID SESSIONE NEL PATH!</h1>" . $ex;
+}
+try {
+    $test = $testModel->readTest($elaborato->getTestId());
+} catch (ApplicationException $ex) {
+    echo "<h1>READTEST FALLITO!</h1>" . $ex;
+}
+try {
+    $multiple = $modelDomanda->getAllDomandeMultipleByTest($test->getId());
+} catch (ApplicationException $ex) {
+    echo "<h1>GETALLDOMANDEMULTIPLEBYTEST FALLITO!</h1>" . $ex;
+}
+try {
+    $aperte = $modelDomanda->getAllDomandeAperteByTest($test->getId());
+} catch (ApplicationException $ex) {
+    echo "<h1>GETALLDOMANDEAPERTEBYTEST FALLITO!</h1>" . $ex;
+}
+
+
 if (isset($_POST['salva'])){
-    echo "ciao";
     $fin = $elaborato->getEsitoParziale();
     foreach ($aperte as $ap){
         $apId = $ap->getId();

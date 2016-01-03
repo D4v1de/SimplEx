@@ -190,7 +190,6 @@ try {
             <div class="row">
                 <div class="col-md-12">
                     <div class="form">
-                        <form action="/docente/corso/<?php echo $url;?>/sessione/<?php echo $url2;?>/correggi" class="form-horizontal form-bordered form-row-stripped" method="post">
                             <div class="form-actions">
                                 <div class="col-md col-md-8">
                                     <h3><?php echo $corso->getNome(); ?></h3>
@@ -270,7 +269,7 @@ try {
                             </div>
 
                             <?php
-                            echo "<form method='get' action=''>";
+                            printf("<form method='post' action='/docente/corso/%s/sessione/%s/correggisalva/%s'>",$url,$url2,$matricola);
                             foreach ($multiple as $m) {
                                 printf("<div class=\"portlet light bordered\"><div class=\"portlet-title\"><div id=\"div%s\" class=\"caption questions\"><i id=\"i%s\" class=\"fa fa-question-circle\"></i><span class=\"caption-subject bold uppercase\">%s</span></div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div>",$i ,$i , $m->getTesto());
                                 printf("<div class=\"portlet-body\">");
