@@ -16,4 +16,3 @@ $elaborato=$modelElaborato->readElaborato($matricola,$idSessione);
 $nuovoElaborato= new Elaborato($matricola,$elaborato->getSessioneId(),"0","0",$elaborato->getTestId(), "Corretto");
 $modelElaborato->updateElaborato($matricola,$idSessione,$nuovoElaborato);
 header("location: " ."/docente/corso/".$idCorso."/sessione/".$idSessione."/sessioneincorso/show");
-
