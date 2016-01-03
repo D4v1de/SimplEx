@@ -6,12 +6,9 @@
  * @since  30/12/2015 11:26
  */
 include_once MODEL_DIR . "SessioneModel.php";
-include_once MODEL_DIR . "UtenteModel.php";
-include_once MODEL_DIR . "TestModel.php";
 include_once BEAN_DIR . "Sessione.php";
+
 $sessioneModel = new SessioneModel();
-$utenteModel = new UtenteModel();
-$testModel = new TestModel();
 $idCorso = $_URL[2];
 if(isset($_POST['IdSes'])) {
     $idSes = $_POST['IdSes'];

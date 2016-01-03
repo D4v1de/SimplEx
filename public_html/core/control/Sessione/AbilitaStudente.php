@@ -26,3 +26,4 @@ if(isset($_POST['abilita'])) {
     header("Location: "."/docente/corso/".$idCorso."/"."sessione"."/".$idSessione."/"."sessioneincorso/show");
 
 }
+

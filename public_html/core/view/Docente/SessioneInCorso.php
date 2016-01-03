@@ -226,11 +226,11 @@ $dataTo = $sessioneByUrl->getDataFine();
                               <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
                         <div class="row">
                                 <div class="col-md-12">
-                                    <button type="submit"  name="addStu" class="btn sm green-jungle"><i class="fa fa-plus"></i><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
-                                        Aggiungi Studente</button>
+                                    <a href="/docente/corso/<?php echo $identificativoCorso; ?>/sessione/<?php echo $idSessione; ?>/sessioneincorso/aggiungistudente" class="btn sm green-jungle"><i class="fa fa-plus"></i><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                        Aggiungi Studente</a>
 
                                         <a title="Aggiungi alla lista seguente gli Studenti che hanno appena cominciato il test!" name="aggiorna" href="<?php
-                                        $vaiASesInCorso="/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."sessioneincorso";
+                                        $vaiASesInCorso="/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."sessioneincorso/show";
                                         printf("%s",$vaiASesInCorso);  ?>"
                                            class="btn sm green-jungle"><i class="fa fa-refresh" ></i><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                                             Aggiorna

@@ -7,12 +7,10 @@
  */
 include_once MODEL_DIR . "ElaboratoModel.php";
 include_once MODEL_DIR . "SessioneModel.php";
-include_once MODEL_DIR . "AlternativaModel.php";
 include_once MODEL_DIR . "RispostaApertaModel.php";
 include_once MODEL_DIR . "RispostaMultiplaModel.php";
 include_once MODEL_DIR . "DomandaModel.php";
 include_once MODEL_DIR . "UtenteModel.php";
-include_once MODEL_DIR . "CdLModel.php";
 include_once MODEL_DIR . "CorsoModel.php";
 include_once MODEL_DIR . "TestModel.php";
 include_once BEAN_DIR . "Sessione.php";
@@ -21,16 +19,12 @@ $sessioneModel = new SessioneModel();
 $utenteModel = new UtenteModel();
 $testModel = new TestModel();
 $corsoModel = new CorsoModel();
-$cdlModel = new CdLModel();
 $elaboratoModel= new ElaboratoModel();
 $modelDomanda = new DomandaModel();
-$modelAlternativa = new AlternativaModel();
 $modelRispostaAperta = new RispostaApertaModel();
 $modelRispostaMultipla = new RispostaMultiplaModel();
 
-$cdl = null;
 $corso = null;
-$docenteassociato = Array();
 $sessione = null;
 $test = null;
 $elaborato = null;
@@ -39,7 +33,6 @@ $max=null;
 $dom=null;
 $multiple = Array();
 $aperte = Array();
-$alternative = Array();
 //$corretta = null;
 $rispostaaperta = null;
 $rispostamultipla = null;
@@ -61,17 +54,6 @@ try {
     $elaborato = $elaboratoModel->readElaborato($studente->getMatricola(), $url2);
 } catch (ApplicationException $ex) {
     echo "<h1>READELABORATO FALLITO!</h1>" . $ex;
-}
-
-try {
-    $cdl = $cdlModel->readCdl($corso->getCdlMatricola());
-} catch (ApplicationException $ex) {
-    echo "<h1>READCDL FALLITO!</h1>" . $ex;
-}
-try {
-    $docenteassociato = $utenteModel->getAllDocentiByCorso($corso->getId());
-} catch (ApplicationException $ex) {
-    echo "<h1>GETDOCENTIASSOCIATI FALLITO</h1>" . $ex;
 }
 try {
     $sessione = $sessioneModel->readSessione($url2);

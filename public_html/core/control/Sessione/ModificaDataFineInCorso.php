@@ -5,18 +5,10 @@
  * @version 1
  * @since  02/01/2016 15:43
  */
-
-
 include_once MODEL_DIR . "SessioneModel.php";
-include_once MODEL_DIR . "UtenteModel.php";
-include_once MODEL_DIR . "TestModel.php";
-include_once MODEL_DIR . "DomandaModel.php";
 include_once BEAN_DIR . "Sessione.php";
 
 $sessioneModel = new SessioneModel();
-$utenteModel = new UtenteModel();
-$domandaModel = new DomandaModel();
-$testModel = new TestModel();
 $idCorso = $_URL[2];
 $idSessione=$_URL[4];
 $allungA=null;
