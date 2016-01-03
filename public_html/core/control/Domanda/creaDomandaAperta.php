@@ -1,10 +1,11 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Carlo
- * Date: 27/12/15
- * Time: 13:03
+ * Controller che permette di creare una Domanda Aperta
+ * @author Carlo, Pasquale
+ * @version 1.3
+ * @since 27/12/15 13:38
  */
+
 
 include_once MODEL_DIR . "DomandaModel.php";
 $domandaModel = new DomandaModel();
