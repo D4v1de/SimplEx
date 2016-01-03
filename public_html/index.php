@@ -316,14 +316,14 @@ try {
                             case 'rimuovisessione':
                                 include_once CONTROL_DIR . "Sessione/RimuoviSessione.php";
                                 break;
+                            case 'gestoredata':
+                                include_once VIEW_DIR . "Sessione/GestoreDataServer.php";
+                                break;
                             case 'avviasessione':
                                 include_once CONTROL_DIR . "Sessione/AvviaSessione.php";
                                 break;
                             case 'indexvisualizza':
                                 include_once CONTROL_DIR . "Sessione/IndexVisualizza.php";
-                                break;
-                            case 'gestoredata':
-                                include_once VIEW_DIR . "Sessione/GestoreDataServer.php";
                                 break;
                             case 'griglia':
                                 include_once VIEW_DIR . "Docente/GrigliaEsiti.php";

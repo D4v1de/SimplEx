@@ -26,6 +26,5 @@ if(isset( $_POST['annullaEsame'])) {
 }
 
 if(isset( $_POST['datato'])) {
-    header("location: " ."/docente/corso/".$idCorso."/sessione/".$idSessione."/modificafine/".$_POST['datato']);
-
+    header("location: " . "/docente/corso/" . $idCorso . "/sessione/" . $idSessione . "/modificafine/" . $_POST['datato']);
 }

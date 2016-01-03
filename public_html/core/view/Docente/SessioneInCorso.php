@@ -384,7 +384,8 @@ $dataTo = $sessioneByUrl->getDataFine();
                         if(boT>=timeFromServer)
                             document.getElementById("demo").innerHTML = "Sessione in Corso" ;
                         else {
-                            if(count==0) {
+                            document.getElementById("demo").innerHTML = "PROBLEMA" ;
+                            <!--if(count==0) {
                                 document.getElementById("demo").innerHTML = "Sessione Terminata";
                                 bootbox.dialog({
                                     message: "Vai alla visualizzazione degli esiti.",
@@ -396,9 +397,9 @@ $dataTo = $sessioneByUrl->getDataFine();
                                             className: "green",
                                             callback: function () {
                                                 var var1='/docente/corso/';
-                                                var var2=<?php echo "$identificativoCorso" ?>;
+                                                var var2=<?php //echo "$identificativoCorso" ?>;
                                                 var var3='/sessione/';
-                                                var var4=<?php echo "$idSessione" ?>;
+                                                var var4=<?php //echo "$idSessione" ?>;
                                                 var var5='/esiti/autoendsuccess';
                                                 var res1 = var1.concat(var2);
                                                 var res2 = res1.concat(var3);
@@ -410,11 +411,11 @@ $dataTo = $sessioneByUrl->getDataFine();
                                     }
                                 });
                                 count++;
-                            }
+                            }-->
                         }
                     }
                 };
-                xhttp.open("GET", "/docente/corso/something/gestoredata", true);
+                xhttp.open("POST", "/docente/corso/something/gestoredata", true);
                 xhttp.send();
             }
             setInterval(loadDoc, 3000);
