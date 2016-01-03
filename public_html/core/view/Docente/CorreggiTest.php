@@ -190,7 +190,7 @@ try {
             <div class="row">
                 <div class="col-md-12">
                     <div class="form">
-                        <form action="/docente/corso/<?php echo $url;?>/sessione/<?php echo $url2;?>/creasessione" class="form-horizontal form-bordered form-row-stripped" method="post">
+                        <form action="/docente/corso/<?php echo $url;?>/sessione/<?php echo $url2;?>/correggi" class="form-horizontal form-bordered form-row-stripped" method="post">
                             <div class="form-actions">
                                 <div class="col-md col-md-8">
                                     <h3><?php echo $corso->getNome(); ?></h3>
