@@ -166,7 +166,7 @@ $idCorso = $_URL[2];
 
         if($flag==0) {
             $_SESSION['flag'] = $flag;
-            $tornaACasa = "Location: "."/docente/corso/"."$idCorso"."/sessione/".$idSessione."/creamodificasessione/error";
+            $tornaACasa = "Location: "."/docente/corso/"."$idCorso"."/sessione/".$idSessione."/creamodificasessione2/error";
         }
         else {
             $tornaACasa = "Location: " . "/docente/corso/" . "$idCorso" . "/successmodifica";
@@ -177,3 +177,7 @@ $idCorso = $_URL[2];
 
     }
 
+
+/* da termina vado qui e da qui a esiti
+$newSessione = new Sessione($dataFrom, $dataTo, $soglia, "In esecuzione", $tipoSessione, $identificativoCorso);
+$sessioneModel->updateSessione($idSessione,$newSessione);*/

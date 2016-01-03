@@ -61,15 +61,15 @@ try {
                 break;
             case 'me':
                 StringUtils::checkPermission("all");
-                include_once VIEW_DIR . "Admin/visualizzaProfilo.php";
+                include_once VIEW_DIR . "Admin/VisualizzaProfilo.php";
                 break;
             case 'modifica':
                 StringUtils::checkPermission("all");
-                include_once VIEW_DIR . "Admin/modificaProfilo.php";
+                include_once VIEW_DIR . "Admin/ModificaProfilo.php";
                 break;
             case 'salva': {
                 StringUtils::checkPermission("all");
-                include_once CONTROL_DIR . "Utente/modificaProfilo.php";
+                include_once CONTROL_DIR . "Utente/ModificaProfilo.php";
                 break;
             }
             case 'auth': {
@@ -95,25 +95,25 @@ try {
                     case 'utenti':
                         switch (isset($_URL[2]) ? $_URL[2] : '') {
                             case 'crea':
-                                include_once VIEW_DIR . "Admin/creaUtente.php";
+                                include_once VIEW_DIR . "Admin/CreaUtente.php";
                                 break;
                             case 'view':
-                                include_once VIEW_DIR . "Admin/visualizzaUtente.php";
+                                include_once VIEW_DIR . "Admin/VisualizzaUtente.php";
                                 break;
                             case 'modifica':
-                                include_once VIEW_DIR . "Admin/modificaUtente.php";
+                                include_once VIEW_DIR . "Admin/ModificaUtente.php";
                                 break;
                             case 'salva':
-                                include_once CONTROL_DIR . "Admin/salvaUtente.php";
+                                include_once CONTROL_DIR . "Admin/SalvaUtente.php";
                                 break;
                             case 'elimina':
-                                include_once CONTROL_DIR . "Admin/eliminaUtente.php";
+                                include_once CONTROL_DIR . "Admin/EliminaUtente.php";
                                 break;
                             case '':
-                                include_once VIEW_DIR . "Admin/gestioneUtente.php";
+                                include_once VIEW_DIR . "Admin/GestioneUtente.php";
                                 break;
                             case 'salvanuovo':
-                                include_once CONTROL_DIR . "Admin/creaUtente.php";
+                                include_once CONTROL_DIR . "Admin/CreaUtente.php";
                                 break;
                             default:
                                 include_once VIEW_DIR . "Admin/Home.php";
