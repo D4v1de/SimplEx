@@ -156,8 +156,7 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
     }
         
         
-        
-        
+           
         
     
     if ($domAperte!= null){

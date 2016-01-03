@@ -171,7 +171,7 @@ $corso = $modelCorso->readCorso($_URL[2]);
                         Errore nei Dati. Il punteggio alternativo corretto della domanda aperta non può essere negativo.
                         </div>";
                         //echo "<script type='text/javascript'>checkIt();</script>";
-                        unset($_SESSION['flag6']);
+                        unset($_SESSION['flag6']);    
                     }
                 ?>
                 <?php

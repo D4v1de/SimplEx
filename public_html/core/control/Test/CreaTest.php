@@ -168,6 +168,7 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
                 $punteggio=$punteggio+($w->getPunteggioCorretta());
                 $z1=NULL;
             }
+            
             $stringa2=sprintf("alternErr-%d", $s);
             if(!(empty($_POST[$stringa2]))){  //controllo per il punteggio alternativo dell' errore
                 if($_POST[$stringa2]>0){
