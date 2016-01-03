@@ -183,7 +183,7 @@ $corso = $modelCorso->readCorso($_URL[2]);
                         echo "<div class=\"alert alert-danger\">
                         <button class=\"close\" data-close=\"alert\"></button>
                         Errore nei Dati. Il punteggio alternativo corretto della domanda aperta non può essere negativo.
-                        </div>";
+                        </div>";  
                         //echo "<script type='text/javascript'>checkIt();</script>";
                         unset($_SESSION['flag6']);
                     }

@@ -127,6 +127,8 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
         if(!(empty($_POST[$stringa]))){  //se si associo quella domanda al test con quel valore e incremento il punteggio totale
             if($_POST[$stringa]<0){
                   $_SESSION['flag6']=1;
+                  
+                  
                   $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/modifica/"."$idTest";
         header($tornaACasa);
                 }

@@ -160,6 +160,7 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
                   $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/crea";
                   header($tornaACasa);
                 }
+                
                 $z1=$_POST[$stringa1];
                 $punteggio=$punteggio+(parseInt($z1));
             }else{ // altrimenti incremento con il valore di default preso dal db

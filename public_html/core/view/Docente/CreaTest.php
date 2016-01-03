@@ -249,7 +249,7 @@ $corso = $modelCorso->readCorso($_URL[2]);
                                             <div class="input-icon">
                                                 <input type="number" id="numAperte" name="numAperte" class="form-control" value="0">
                                                 <label for="numAperte">Numero domande a risposta aperta:</label>
-                                                <span class="help-block"></span>
+                                                <span class="help-block"></span> 
                                             </div>
                                         </div>
                                     </div>
