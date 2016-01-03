@@ -9,8 +9,16 @@ include_once MODEL_DIR . "SessioneModel.php";
 $modelSessione = new SessioneModel();
 include_once BEAN_DIR . "Sessione.php";
 
-$idSessione=$_URL[4];
+$idSessione="";
+$idSessione= $_URL[4];
+if (!is_numeric($idSessione)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
+$identificativoCorso ="";
 $identificativoCorso = $_URL[2];
+if (!is_numeric($identificativoCorso)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
 
 $sessione=$modelSessione->readSessione($idSessione);
 $dataFrom=$sessione->getDataInizio();

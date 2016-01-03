@@ -9,8 +9,16 @@ include_once MODEL_DIR . "SessioneModel.php";
 include_once BEAN_DIR . "Sessione.php";
 
 $sessioneModel = new SessioneModel();
+$idSessione="";
+$idSessione= $_URL[4];
+if (!is_numeric($idSessione)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
+$idCorso ="";
 $idCorso = $_URL[2];
-$idSessione=$_URL[4];
+if (!is_numeric($idCorso)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
 $allungA=null;
 if(isset($_URL[6]))
     $allungA=$_URL[6];

@@ -51,13 +51,13 @@ $i = 0;
 $url = null;
 $url2 = null;
 $matricola = "";
-
-$studente=$utenteModel->getUtenteByMatricola($matricola);
-
 $matricola = $_URL[6];
 if (!is_numeric($matricola)) {
     echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
 }
+
+$studente=$utenteModel->getUtenteByMatricola($matricola);
+
 $url = $_URL[2];
 if (!is_numeric($url)) {
     echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";

@@ -8,7 +8,12 @@
 include_once MODEL_DIR . "SessioneModel.php";
 include_once BEAN_DIR . "Sessione.php";
 $sessioneModel = new SessioneModel();
+$idCorso ="";
 $idCorso = $_URL[2];
+if (!is_numeric($idCorso)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
+
 $cond="";
 if(isset($_URL[4]))
     $cond=$_URL[4];

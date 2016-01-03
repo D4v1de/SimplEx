@@ -10,8 +10,16 @@ include_once MODEL_DIR . "SessioneModel.php";
 $modelSessione = new SessioneModel();
 include_once MODEL_DIR . "TestModel.php";
 $testModel = new TestModel();
+$idSessione="";
+$idSessione= $_URL[4];
+if (!is_numeric($idSessione)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
+$idCorso ="";
 $idCorso = $_URL[2];
-$idSessione = $_URL[4];
+if (!is_numeric($idCorso)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
 $maxFromSelect=-9999;
 if(isset($_URL[7]))
     $maxFromSelect = $_URL[7];

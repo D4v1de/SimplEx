@@ -5,7 +5,11 @@
  * @version 1
  * @since  30/12/2015 23:50
  */
+$idCorso ="";
 $idCorso = $_URL[2];
+if (!is_numeric($idCorso)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
 
 if(isset($_POST['rimuovi'])){
         header("location: " ."/docente/corso/".$idCorso."/rimuovisessione/".$_POST['rimuovi']);
