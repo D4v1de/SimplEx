@@ -1,6 +1,6 @@
 <?php
 /**
- * La classe costituisce il model che effettua tutte le query riguardanti le funzionalità legate alle domande, interfacciandosi al db al quale è connesso
+ * La classe costituisce il model che effettua tutte le query riguardanti le funzionalitÃ  legate alle domande, interfacciandosi al db al quale Ã¨ connesso
  *
  * @author Alina Korniychuk
  * @version 1.0
@@ -13,13 +13,14 @@ include_once BEAN_DIR . "DomandaAperta.php";
 include_once BEAN_DIR . "DomandaMultipla.php";
 
 class DomandaModel extends Model {
-    
+
     private static $CREATE_DOMANDA_APERTA = "INSERT INTO `domanda_aperta` (argomento_id, testo, punteggio_max, percentuale_scelta_ese, percentuale_scelta_val) VALUES ('%d','%s','%f','%f','%f')";
     private static $UPDATE_DOMANDA_APERTA = "UPDATE `domanda_aperta` SET argomento_id = '%d', testo = '%s', punteggio_max = '%f', percentuale_scelta_ese = '%f', percentuale_scelta_val = '%f' WHERE id = '%d'";
     private static $DELETE_DOMANDA_APERTA = "UPDATE `domanda_aperta` SET stato = 'Obsoleto' WHERE id = '%d'";
     private static $READ_DOMANDA_APERTA = "SELECT * FROM `domanda_aperta` WHERE id = '%d'";
     private static $GET_ALL_DOMANDA_APERTA = "SELECT * FROM `domanda_aperta` WHERE stato = 'In uso' ORDER BY testo";
     private static $GET_ALL_DOMANDA_APERTA_BY_ARGOMENTO = "SELECT * FROM `domanda_aperta` WHERE argomento_id = '%d' AND stato = 'In uso' ORDER BY testo";
+    private static $GET_ALL_DOMANDA_APERTA_BY_CORSO = "SELECT * FROM `domanda_aperta` as d, `argomento` as a WHERE d.argomento_id = a.id AND a.corso_id='%d'";
     private static $GET_ALL_DOMANDE_APERTE_TEST = "SELECT d.* FROM `domanda_aperta` as d,`compone_aperta` as c WHERE c.test_id = '%s' AND c.domanda_aperta_id = d.id ORDER BY d.testo";
     private static $CREATE_DOMANDA_MULTIPLA = "INSERT INTO `domanda_multipla` (argomento_id, testo, punteggio_corretta, punteggio_errata, percentuale_scelta_ese, percentuale_risposta_corretta_ese, percentuale_scelta_val, percentuale_risposta_corretta_val, numero_risposte_esercitative, numero_risposte_valutative) VALUES ('%d','%s','%f','%f','%f','%f','%f','%f','%d','%d')";
     private static $UPDATE_DOMANDA_MULTIPLA = "UPDATE `domanda_multipla` SET argomento_id = '%d', testo = '%s', punteggio_corretta = '%f', punteggio_errata = '%f', percentuale_scelta_ese = '%f', percentuale_risposta_corretta_ese = '%f', percentuale_scelta_val = '%f', percentuale_risposta_corretta_val = '%f', numero_risposte_esercitative='%d', numero_risposte_valutative='%d' WHERE id = '%d'";
@@ -27,6 +28,7 @@ class DomandaModel extends Model {
     private static $READ_DOMANDA_MULTIPLA = "SELECT * FROM `domanda_multipla` WHERE id = '%d'";
     private static $GET_ALL_DOMANDA_MULTIPLA = "SELECT * FROM `domanda_multipla` WHERE stato = 'In uso' ORDER BY testo";
     private static $GET_ALL_DOMANDA_MULTIPLA_BY_ARGOMENTO = "SELECT * FROM `domanda_multipla` WHERE argomento_id = '%d' AND stato = 'In uso' ORDER BY testo";
+    private static $GET_ALL_DOMANDA_MULTIPLA_BY_CORSO = "SELECT * FROM `domanda_multipla` as d, `argomento` as a WHERE d.argomento_id = a.id AND a.corso_id='%d'";
     private static $GET_ALL_DOMANDE_MULTIPLE_TEST = "SELECT d.* FROM `domanda_multipla` as d,`compone_multipla` as c WHERE c.test_id = '%s' AND c.domanda_multipla_id = d.id ORDER BY d.testo";
     private static $ASSOCIA_DOMANDA_APERTA_TEST = "INSERT INTO `compone_aperta` (domanda_aperta_id, test_id, punteggio_max_alternativo) VALUES ('%d','%d', '%f')";
     private static $MODIFICA_DOMANDA_APERTA_TEST = "UPDATE `compone_aperta` SET punteggio_max_alternativo = '%f' WHERE domanda_aperta_id = '%d' AND test_id= '%d'";
@@ -137,6 +139,26 @@ class DomandaModel extends Model {
     }
 
     /**
+     * Restituisce tutte le domande aperte di un corso
+     * @param int $corsoId L'id del corso a cui appartiene la domanda
+     * @return DomandaAperta[] Tutte le domande aperte del corso
+     * @throws ApplicationException
+     */
+    public function getAllDomandaApertaByCorso($corsoId) {
+        $query = sprintf(self::$GET_ALL_DOMANDA_APERTA_BY_CORSO, $corsoId);
+        $res = Model::getDB()->query($query);
+        $domandeAperte = array();
+        if ($res) {
+            while ($obj = $res->fetch_assoc()) {
+                $domandaAperta = new DomandaAperta($obj['argomento_id'], $obj['testo'], $obj['punteggio_max'], $obj['percentuale_scelta_ese'], $obj['percentuale_scelta_val']);
+                $domandaAperta->setId($obj['id']);
+                $domandeAperte[] = $domandaAperta;
+            }
+        }
+        return $domandeAperte;
+    }
+
+    /**
      * Inserisce una nuova domanda multipla nel database
      * @param DomandaMultipla $domandaMultipla La domanda multipla da inserire nel database
      * @throws ApplicationException
@@ -226,7 +248,6 @@ class DomandaModel extends Model {
      * @return DomandaMultipla[] Tutte le domande multiple di un argomento
      * @throws ApplicationException
      */
-
     public function getAllDomandaMultiplaByArgomento($argomentoId) {
         $query = sprintf(self::$GET_ALL_DOMANDA_MULTIPLA_BY_ARGOMENTO, $argomentoId);
         $res = Model::getDB()->query($query);
@@ -240,7 +261,28 @@ class DomandaModel extends Model {
         }
         return $domandeMultiple;
     }
-    
+
+    /**
+     * Restituisce un array con tutte le domande multiple di un corso
+     * @param int $corsoId L'id del corso a cui appartiene la domanda
+     * @return DomandaMultipla[] Tutte le domande multiple di un corso
+     * @throws ApplicationException
+     */
+
+    public function getAllDomandaMultiplaByCorso($corsoId) {
+        $query = sprintf(self::$GET_ALL_DOMANDA_MULTIPLA_BY_ARGOMENTO, $corsoId);
+        $res = Model::getDB()->query($query);
+        $domandeMultiple = array();
+        if ($res) {
+            while ($obj = $res->fetch_assoc()) {
+                $domandaMultipla = new DomandaMultipla($obj['argomento_id'], $obj['testo'], $obj['punteggio_corretta'],$obj['punteggio_errata'], $obj['percentuale_scelta_ese'], $obj['percentuale_risposta_corretta_ese'], $obj['percentuale_scelta_val'], $obj['percentuale_risposta_corretta_val'], $obj['numero_risposte_esercitative'], $obj['numero_risposte_valutative']);
+                $domandaMultipla->setId($obj['id']);
+                $domandeMultiple[] = $domandaMultipla;
+            }
+        }
+        return $domandeMultiple;
+    }
+
     /**
      * Restituisce tutte le domande aperte che costituiscono un test
      * @param int $id L'id del test per il quale si vogliono conoscere tutte le domande aperte che lo compongono
@@ -255,11 +297,11 @@ class DomandaModel extends Model {
                 $domandaAperta = new DomandaAperta($obj['argomento_id'], $obj['testo'], $obj['punteggio_max'], $obj['percentuale_scelta_ese'], $obj['percentuale_scelta_val']);
                 $domandaAperta->setId($obj['id']);
                 $domandeAperte[] = $domandaAperta;
-            }  
+            }
         }
         return $domandeAperte;
     }
-    
+
     /**
      * Restituisce tutte le domande multiple che costituiscono un test
      * @param int $id L'id del test per il quale si vogliono conoscere tutte le domande multiple che lo compongono
@@ -274,7 +316,7 @@ class DomandaModel extends Model {
                 $domandaMultipla = new DomandaMultipla($obj['argomento_id'], $obj['testo'], $obj['punteggio_corretta'],$obj['punteggio_errata'], $obj['percentuale_scelta_ese'], $obj['percentuale_risposta_corretta_ese'], $obj['percentuale_scelta_val'], $obj['percentuale_risposta_corretta_val'], $obj['numero_risposte_esercitative'], $obj['numero_risposte_valutative']);
                 $domandaMultipla->setId($obj['id']);
                 $domandeMultiple[] = $domandaMultipla;
-            }  
+            }
         }
         return $domandeMultiple;
     }
