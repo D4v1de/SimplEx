@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">762</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">24</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-87951250"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-87951250" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Alternativa.html">Alternativa</a></li>
+                                                    <li class="class"><a href="../classes/AlternativaModel.html">AlternativaModel</a></li>
+                                                    <li class="class"><a href="../classes/AlternativaModelTest.html">AlternativaModelTest</a></li>
+                                                    <li class="class"><a href="../classes/ApplicationException.html">ApplicationException</a></li>
+                                                    <li class="class"><a href="../classes/Argomento.html">Argomento</a></li>
+                                                    <li class="class"><a href="../classes/ArgomentoModel.html">ArgomentoModel</a></li>
+                                                    <li class="class"><a href="../classes/ArgomentoModelTest.html">ArgomentoModelTest</a></li>
+                                                    <li class="class"><a href="../classes/AutoLoader.html">AutoLoader</a></li>
+                                                    <li class="class"><a href="../classes/CdL.html">CdL</a></li>
+                                                    <li class="class"><a href="../classes/CdLModel.html">CdLModel</a></li>
+                                                    <li class="class"><a href="../classes/CdLModelTest.html">CdLModelTest</a></li>
+                                                    <li class="class"><a href="../classes/Config.html">Config</a></li>
+                                                    <li class="class"><a href="../classes/ConnectionException.html">ConnectionException</a></li>
+                                                    <li class="class"><a href="../classes/Contatto.html">Contatto</a></li>
+                                                    <li class="class"><a href="../classes/ContattoModel.html">ContattoModel</a></li>
+                                                    <li class="class"><a href="../classes/ContattoModelTest.html">ContattoModelTest</a></li>
+                                                    <li class="class"><a href="../classes/Corso.html">Corso</a></li>
+                                                    <li class="class"><a href="../classes/CorsoModel.html">CorsoModel</a></li>
+                                                    <li class="class"><a href="../classes/CorsoModelTest.html">CorsoModelTest</a></li>
+                                                    <li class="class"><a href="../classes/DomandaAperta.html">DomandaAperta</a></li>
+                                                    <li class="class"><a href="../classes/DomandaModel.html">DomandaModel</a></li>
+                                                    <li class="class"><a href="../classes/DomandaModelTest.html">DomandaModelTest</a></li>
+                                                    <li class="class"><a href="../classes/DomandaMultipla.html">DomandaMultipla</a></li>
+                                                    <li class="class"><a href="../classes/Elaborato.html">Elaborato</a></li>
+                                                    <li class="class"><a href="../classes/ElaboratoModel.html">ElaboratoModel</a></li>
+                                                    <li class="class"><a href="../classes/ElaboratoModelTest.html">ElaboratoModelTest</a></li>
+                                                    <li class="class"><a href="../classes/Error.html">Error</a></li>
+                                                    <li class="class"><a href="../classes/Event.html">Event</a></li>
+                                                    <li class="class"><a href="../classes/Event.html">Event</a></li>
+                                                    <li class="class"><a href="../classes/IllegalArgumentException.html">IllegalArgumentException</a></li>
+                                                    <li class="class"><a href="../classes/Logger.html">Logger</a></li>
+                                                    <li class="class"><a href="../classes/Model.html">Model</a></li>
+                                                    <li class="class"><a href="../classes/Patterns.html">Patterns</a></li>
+                                                    <li class="class"><a href="../classes/RispostaAperta.html">RispostaAperta</a></li>
+                                                    <li class="class"><a href="../classes/RispostaApertaModel.html">RispostaApertaModel</a></li>
+                                                    <li class="class"><a href="../classes/RispostaApertaModelTest.html">RispostaApertaModelTest</a></li>
+                                                    <li class="class"><a href="../classes/RispostaMultipla.html">RispostaMultipla</a></li>
+                                                    <li class="class"><a href="../classes/RispostaMultiplaModel.html">RispostaMultiplaModel</a></li>
+                                                    <li class="class"><a href="../classes/RispostaMultiplaModelTest.html">RispostaMultiplaModelTest</a></li>
+                                                    <li class="class"><a href="../classes/Sessione.html">Sessione</a></li>
+                                                    <li class="class"><a href="../classes/SessioneModel.html">SessioneModel</a></li>
+                                                    <li class="class"><a href="../classes/SessioneModelTest.html">SessioneModelTest</a></li>
+                                                    <li class="class"><a href="../classes/SSP.html">SSP</a></li>
+                                                    <li class="class"><a href="../classes/SSP.html">SSP</a></li>
+                                                    <li class="class"><a href="../classes/StringUtils.html">StringUtils</a></li>
+                                                    <li class="class"><a href="../classes/Test.html">Test</a></li>
+                                                    <li class="class"><a href="../classes/TestModel.html">TestModel</a></li>
+                                                    <li class="class"><a href="../classes/TestModelTest.html">TestModelTest</a></li>
+                                                    <li class="class"><a href="../classes/Utente.html">Utente</a></li>
+                                                    <li class="class"><a href="../classes/UtenteModel.html">UtenteModel</a></li>
+                                                    <li class="class"><a href="../classes/UtenteModelTest.html">UtenteModelTest</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/default.html">\</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\</small>DomandaMultipla</h1>
+                    <p><em>La classe descrive una domanda multipla.</em></p>
+                    
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/DomandaMultipla.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/DomandaMultipla.html#method_getId" class="">getId()</a><br />
+                                                                    <a href="../classes/DomandaMultipla.html#method_getArgomentoId" class="">getArgomentoId()</a><br />
+                                                                    <a href="../classes/DomandaMultipla.html#method_getTesto" class="">getTesto()</a><br />
+                                                                    <a href="../classes/DomandaMultipla.html#method_getPunteggioCorretta" class="">getPunteggioCorretta()</a><br />
+                                                                    <a href="../classes/DomandaMultipla.html#method_getPunteggioErrata" class="">getPunteggioErrata()</a><br />
+                                                                    <a href="../classes/DomandaMultipla.html#method_getPercentualeSceltaEse" class="">getPercentualeSceltaEse()</a><br />
+                                                                    <a href="../classes/DomandaMultipla.html#method_getPercentualeRispostaCorrettaEse" class="">getPercentualeRispostaCorrettaEse()</a><br />
+                                                                    <a href="../classes/DomandaMultipla.html#method_getPercentualeSceltaVal" class="">getPercentualeSceltaVal()</a><br />
+                                                                    <a href="../classes/DomandaMultipla.html#method_getPercentualeRispostaCorrettaVal" class="">getPercentualeRispostaCorrettaVal()</a><br />
+                                                                    <a href="../classes/DomandaMultipla.html#method_getNumeroRisposteEsercitative" class="">getNumeroRisposteEsercitative()</a><br />
+                                                                    <a href="../classes/DomandaMultipla.html#method_getNumeroRisposteValutative" class="">getNumeroRisposteValutative()</a><br />
+                                                                    <a href="../classes/DomandaMultipla.html#method_setId" class="">setId()</a><br />
+                                                                    <a href="../classes/DomandaMultipla.html#method_setArgomentoId" class="">setArgomentoId()</a><br />
+                                                                    <a href="../classes/DomandaMultipla.html#method_setTesto" class="">setTesto()</a><br />
+                                                                    <a href="../classes/DomandaMultipla.html#method_setPunteggioCorretta" class="">setPunteggioCorretta()</a><br />
+                                                                    <a href="../classes/DomandaMultipla.html#method_setPunteggioErrata" class="">setPunteggioErrata()</a><br />
+                                                                    <a href="../classes/DomandaMultipla.html#method_setPercentualeSceltaEse" class="">setPercentualeSceltaEse()</a><br />
+                                                                    <a href="../classes/DomandaMultipla.html#method_setPercentualeRispostaCorrettaEse" class="">setPercentualeRispostaCorrettaEse()</a><br />
+                                                                    <a href="../classes/DomandaMultipla.html#method_setPercentualeSceltaVal" class="">setPercentualeSceltaVal()</a><br />
+                                                                    <a href="../classes/DomandaMultipla.html#method_setPercentualeRispostaCorrettaVal" class="">setPercentualeRispostaCorrettaVal()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/DomandaMultipla.html#property_id" class="">$id</a><br />
+                                                                    <a href="../classes/DomandaMultipla.html#property_argomentoId" class="">$argomentoId</a><br />
+                                                                    <a href="../classes/DomandaMultipla.html#property_testo" class="">$testo</a><br />
+                                                                    <a href="../classes/DomandaMultipla.html#property_punteggioCorretta" class="">$punteggioCorretta</a><br />
+                                                                    <a href="../classes/DomandaMultipla.html#property_punteggioErrata" class="">$punteggioErrata</a><br />
+                                                                    <a href="../classes/DomandaMultipla.html#property_percentualeSceltaEse" class="">$percentualeSceltaEse</a><br />
+                                                                    <a href="../classes/DomandaMultipla.html#property_percentualeRispostaCorrettaEse" class="">$percentualeRispostaCorrettaEse</a><br />
+                                                                    <a href="../classes/DomandaMultipla.html#property_percentualeSceltaVal" class="">$percentualeSceltaVal</a><br />
+                                                                    <a href="../classes/DomandaMultipla.html#property_percentualeRispostaCorrettaVal" class="">$percentualeRispostaCorrettaVal</a><br />
+                                                                    <a href="../classes/DomandaMultipla.html#property_numero_risposte_esercitative" class="">$numero_risposte_esercitative</a><br />
+                                                                    <a href="../classes/DomandaMultipla.html#property_numero_risposte_valutative" class="">$numero_risposte_valutative</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/core.bean.DomandaMultipla.html"><div class="path-wrapper">core\bean\DomandaMultipla.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\DomandaMultipla</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                author
+                            </th>
+                            <td>
+                                                                    <p>Alina Korniychuk</p>
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                version
+                            </th>
+                            <td>
+                                                                    
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                since
+                            </th>
+                            <td>
+                                                                    
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_id" name="property_id" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$id</h3>
+                <pre class="signature">$id : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_argomentoId" name="property_argomentoId" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$argomentoId</h3>
+                <pre class="signature">$argomentoId : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_testo" name="property_testo" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$testo</h3>
+                <pre class="signature">$testo : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_punteggioCorretta" name="property_punteggioCorretta" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$punteggioCorretta</h3>
+                <pre class="signature">$punteggioCorretta : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_punteggioErrata" name="property_punteggioErrata" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$punteggioErrata</h3>
+                <pre class="signature">$punteggioErrata : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_percentualeSceltaEse" name="property_percentualeSceltaEse" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$percentualeSceltaEse</h3>
+                <pre class="signature">$percentualeSceltaEse : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_percentualeRispostaCorrettaEse" name="property_percentualeRispostaCorrettaEse" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$percentualeRispostaCorrettaEse</h3>
+                <pre class="signature">$percentualeRispostaCorrettaEse : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_percentualeSceltaVal" name="property_percentualeSceltaVal" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$percentualeSceltaVal</h3>
+                <pre class="signature">$percentualeSceltaVal : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_percentualeRispostaCorrettaVal" name="property_percentualeRispostaCorrettaVal" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$percentualeRispostaCorrettaVal</h3>
+                <pre class="signature">$percentualeRispostaCorrettaVal : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_numero_risposte_esercitative" name="property_numero_risposte_esercitative" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$numero_risposte_esercitative</h3>
+                <pre class="signature">$numero_risposte_esercitative : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_numero_risposte_valutative" name="property_numero_risposte_valutative" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$numero_risposte_valutative</h3>
+                <pre class="signature">$numero_risposte_valutative : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(integer  <span class="argument">$argomentoId</span>, string  <span class="argument">$testo</span>, float  <span class="argument">$punteggioCorretta</span>, float  <span class="argument">$punteggioErrata</span>, float  <span class="argument">$percentualeSceltaEse</span>, float  <span class="argument">$percentualeRispostaCorrettaEse</span>, float  <span class="argument">$percentualeSceltaVal</span>, float  <span class="argument">$percentualeRispostaCorrettaVal</span>,   <span class="argument">$numero_risposte_esercitative</span>,   <span class="argument">$numero_risposte_valutative</span>) </pre>
+                <p><em>Costruttore di DomandaMultipla.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$argomentoId </td>
+                                <td><p>L'id dell'argomento a cui appartiene la domanda</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$testo </td>
+                                <td><p>Il testo della domanda</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>float</td>
+                                <td>$punteggioCorretta </td>
+                                <td><p>Il punteggio da assegnare in caso di risposta corretta</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>float</td>
+                                <td>$punteggioErrata </td>
+                                <td><p>Il punteggio da assegnare in caso di risposta errata</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>float</td>
+                                <td>$percentualeSceltaEse </td>
+                                <td><p>La percentuale di volte in cui viene scelta per le sessioni esercitative</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>float</td>
+                                <td>$percentualeRispostaCorrettaEse </td>
+                                <td><p>La percentuale di risposte corrette per la domanda per le sessioni esercitative</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>float</td>
+                                <td>$percentualeSceltaVal </td>
+                                <td><p>La percentuale di volte in cui viene scelta per le sessioni valutative</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>float</td>
+                                <td>$percentualeRispostaCorrettaVal </td>
+                                <td><p>La percentuale di risposte corrette per la domanda per le sessioni valutative</p></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$numero_risposte_esercitative </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$numero_risposte_valutative </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getId" name="method_getId" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getId()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getId() : integer</pre>
+                <p><em></em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    integer
+                                            &mdash; <p>L'id della domanda multipla</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getArgomentoId" name="method_getArgomentoId" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getArgomentoId()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getArgomentoId() : integer</pre>
+                <p><em></em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    integer
+                                            &mdash; <p>L'id dell'argomento della domanda multipla</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getTesto" name="method_getTesto" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getTesto()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getTesto() : string</pre>
+                <p><em></em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Il testo della domanda multipla</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getPunteggioCorretta" name="method_getPunteggioCorretta" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getPunteggioCorretta()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getPunteggioCorretta() : float</pre>
+                <p><em></em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    float
+                                            &mdash; <p>Il punteggio da assegnare in caso di risposta corretta</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getPunteggioErrata" name="method_getPunteggioErrata" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getPunteggioErrata()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getPunteggioErrata() : float</pre>
+                <p><em></em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    float
+                                            &mdash; <p>Il punteggio da assegnare in caso di risposta errata</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getPercentualeSceltaEse" name="method_getPercentualeSceltaEse" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getPercentualeSceltaEse()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getPercentualeSceltaEse() : float</pre>
+                <p><em></em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    float
+                                            &mdash; <p>La percentuale di volte in cui viene scelta per le sessioni esercitative</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getPercentualeRispostaCorrettaEse" name="method_getPercentualeRispostaCorrettaEse" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getPercentualeRispostaCorrettaEse()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getPercentualeRispostaCorrettaEse() : float</pre>
+                <p><em></em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    float
+                                            &mdash; <p>La percentuale di risposte corrette per la domanda per le sessioni esercitative</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getPercentualeSceltaVal" name="method_getPercentualeSceltaVal" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getPercentualeSceltaVal()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getPercentualeSceltaVal() : float</pre>
+                <p><em></em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    float
+                                            &mdash; <p>La percentuale di volte in cui viene scelta per le sessioni valutative</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getPercentualeRispostaCorrettaVal" name="method_getPercentualeRispostaCorrettaVal" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getPercentualeRispostaCorrettaVal()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getPercentualeRispostaCorrettaVal() : float</pre>
+                <p><em></em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    float
+                                            &mdash; <p>La percentuale di risposte corrette per la domanda per le sessioni valutative</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getNumeroRisposteEsercitative" name="method_getNumeroRisposteEsercitative" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getNumeroRisposteEsercitative()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getNumeroRisposteEsercitative() : integer</pre>
+                <p><em></em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    integer
+                                            &mdash; <p>Il numero di risposte alla domanda per le sessioni esercitative</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getNumeroRisposteValutative" name="method_getNumeroRisposteValutative" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getNumeroRisposteValutative()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getNumeroRisposteValutative() : integer</pre>
+                <p><em></em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    integer
+                                            &mdash; <p>Il numero di risposte alla domanda per le sessioni valutative</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setId" name="method_setId" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setId()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setId(  <span class="argument">$id</span>) </pre>
+                <p><em>Setta l&#039;id della domanda multipla</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$id </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setArgomentoId" name="method_setArgomentoId" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setArgomentoId()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setArgomentoId(integer  <span class="argument">$argomentoId</span>) </pre>
+                <p><em>Setta l&#039;id dell&#039;argomento a cui appartiene la domanda multipla</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$argomentoId </td>
+                                <td><p>L'id dell'argomento a cui appartiene la domanda</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setTesto" name="method_setTesto" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setTesto()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setTesto(  <span class="argument">$testo</span>) </pre>
+                <p><em>Setta il testo della domanda multipla</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$testo </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setPunteggioCorretta" name="method_setPunteggioCorretta" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setPunteggioCorretta()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setPunteggioCorretta(float  <span class="argument">$punteggioCorretta</span>) </pre>
+                <p><em>Setta il punteggio da assegnare in caso di risposta corretta</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>float</td>
+                                <td>$punteggioCorretta </td>
+                                <td><p>Il punteggio da assegnare in caso di risposta corretta</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setPunteggioErrata" name="method_setPunteggioErrata" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setPunteggioErrata()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setPunteggioErrata(float  <span class="argument">$punteggioErrata</span>) </pre>
+                <p><em>Setta il punteggio da assegnare in caso di risposta errata</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>float</td>
+                                <td>$punteggioErrata </td>
+                                <td><p>Il punteggio da assegnare in caso di risposta errata</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setPercentualeSceltaEse" name="method_setPercentualeSceltaEse" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setPercentualeSceltaEse()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setPercentualeSceltaEse(float  <span class="argument">$percentualeSceltaEse</span>) </pre>
+                <p><em>Setta la percentuale di volte in cui viene scelta per le sessioni esercitative</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>float</td>
+                                <td>$percentualeSceltaEse </td>
+                                <td><p>La percentuale di volte in cui viene scelta per le sessioni esercitative</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setPercentualeRispostaCorrettaEse" name="method_setPercentualeRispostaCorrettaEse" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setPercentualeRispostaCorrettaEse()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setPercentualeRispostaCorrettaEse(float  <span class="argument">$percentualeRispostaCorrettaEse</span>) </pre>
+                <p><em>Setta la percentuale di risposte corrette per la domanda per le sessioni esercitative</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>float</td>
+                                <td>$percentualeRispostaCorrettaEse </td>
+                                <td><p>La percentuale di risposte corrette per la domanda per le sessioni esercitative</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setPercentualeSceltaVal" name="method_setPercentualeSceltaVal" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setPercentualeSceltaVal()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setPercentualeSceltaVal(float  <span class="argument">$percentualeSceltaVal</span>) </pre>
+                <p><em>Setta la percentuale di volte in cui viene scelta per le sessioni valutative</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>float</td>
+                                <td>$percentualeSceltaVal </td>
+                                <td><p>La percentuale di volte in cui viene scelta per le sessioni valutative</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setPercentualeRispostaCorrettaVal" name="method_setPercentualeRispostaCorrettaVal" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setPercentualeRispostaCorrettaVal()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setPercentualeRispostaCorrettaVal(float  <span class="argument">$percentualeRispostaCorrettaVal</span>) </pre>
+                <p><em>Setta la percentuale di risposte corrette per la domanda per le sessioni valutative</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>float</td>
+                                <td>$percentualeRispostaCorrettaVal </td>
+                                <td><p>La percentuale di risposte corrette per la domanda per le sessioni valutative</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">DomandaMultipla.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/core\bean\DomandaMultipla.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on January 3rd, 2016 at 11:24.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
