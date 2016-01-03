@@ -1,11 +1,20 @@
 <?php
 
+/**
+ * Controller che permette di modificare un Test (Random/Manuale)
+ * @author Fabio
+ * @version 1.2
+ * @since 03/01/16 04:16
+ */
+
 include_once MODEL_DIR . "ArgomentoModel.php";
 include_once MODEL_DIR . "CdLModel.php";
 include_once MODEL_DIR . "DomandaModel.php";
 include_once MODEL_DIR . "CorsoModel.php";
 include_once MODEL_DIR . "TestModel.php";
+include_once MODEL_DIR . "UtenteModel.php";
 
+$modelUtente = new UtenteModel(); 
 $modelCdl = new CdLModel();
 $modelArgomento = new ArgomentoModel();
 $modelCorso = new CorsoModel();
@@ -77,7 +86,18 @@ function contaMultiple($idcorso){
 
 $flag = 0;
 
-
+$numProfs=0;
+$doc = $_SESSION['user'];
+$docentiOe=$modelUtente->getAllDocentiByCorso($identificativoCorso);
+foreach($docentiOe as $d) {
+    if($doc==$d){
+        $numProfs++;
+    }
+}
+if($numProfs==0){
+    $_SESSION["Intruso"]=1;
+    header("Location: "."/docente/corso/".$identificativoCorso);
+}
 
 if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipologia']=='man')){
     // qui va la parte manuale
@@ -90,7 +110,8 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
     
     if(empty($_POST['multiple']) && empty($_POST['aperte'])) {
         //echo "DAI CAZZOOOOOOOOO(qua dobbiamo gestire l'errore nel caso non è stata selezionata nessuna check)";
-        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/modifica/"."$idTest"."?flag=4";
+        $_SESSION['flag4']=1;
+        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/modifica/"."$idTest";
         header($tornaACasa);
         
     }else{
@@ -185,17 +206,20 @@ if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && isset($_POST['
     
     
     if($nApe < 0 || $nMul < 0) {
-        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/modifica/"."$idTest"."?flag=1";
+        $_SESSION['flag1']=1;
+        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/modifica/"."$idTest";
         header($tornaACasa);
         //TODO echo della funzione che effettua il cambiamento di contenuto da manuale a random
         //echo "<script type='text/javascript'>checkIt();</script>";
     }else if($nApe == 0 && $nMul == 0) {
-        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/modifica/"."$idTest"."?flag=2";
+        $_SESSION['flag2']=1;
+        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/modifica/"."$idTest";
         header($tornaACasa);
         //TODO echo della funzione che effettua il cambiamento di contenuto da manuale a random
         //echo "<script type='text/javascript'>checkIt();</script>";
     }else if($nApe>(contaAperte($identificativoCorso)) || $nMul>(contaMultiple($identificativoCorso))){
-        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/modifica/"."$idTest"."?flag=3";
+        $_SESSION['flag3']=1;
+        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/modifica/"."$idTest";
         header($tornaACasa);
     }else{
     

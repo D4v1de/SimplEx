@@ -151,6 +151,15 @@ if ($correttezzaLogin == false) {
 
                     <!-- END PAGE HEADER-->
                     <!-- BEGIN PAGE CONTENT-->
+                    <?php
+                    if(isset($_SESSION["Intruso"]) && $_SESSION["Intruso"]==1) {
+                        echo "<div class=\"alert alert-danger\">
+                        <button class=\"close\" data-close=\"alert\"></button>
+                        Attenzione! Non ti è permesso effettuare questa operazione.                        </div>";
+                        //echo "<script type='text/javascript'>checkIt();</script>";
+                        unset($_SESSION['Intruso']);
+                    }
+                ?>
 
 
                     <div class="row">
