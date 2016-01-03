@@ -270,7 +270,7 @@ class DomandaModel extends Model {
      */
 
     public function getAllDomandaMultiplaByCorso($corsoId) {
-        $query = sprintf(self::$GET_ALL_DOMANDA_MULTIPLA_BY_ARGOMENTO, $corsoId);
+        $query = sprintf(self::$GET_ALL_DOMANDA_MULTIPLA_BY_CORSO, $corsoId);
         $res = Model::getDB()->query($query);
         $domandeMultiple = array();
         if ($res) {
