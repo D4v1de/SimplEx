@@ -19,13 +19,20 @@ $testModel = new TestModel();
 include_once MODEL_DIR . "ElaboratoModel.php";
 $modelElaborato = new ElaboratoModel();
 
-$idSessione=$_URL[4];
+$idSessione="";
+$idSessione= $_URL[4];
+if (!is_numeric($idSessione)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
+$identificativoCorso ="";
 $identificativoCorso = $_URL[2];
-
+if (!is_numeric($identificativoCorso)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
 
 $numProfs=0;
 
-/*doc = $_SESSION['user'];
+$doc = $_SESSION['user'];
 $docentiOe=$modelUtente->getAllDocentiByCorso($identificativoCorso);
 foreach($docentiOe as $d) {
     if($doc==$d){
@@ -34,10 +41,7 @@ foreach($docentiOe as $d) {
 }
 if($numProfs==0){
     header("Location: "."/docente/corso/".$corso->getId());
-}*/
-
-
-
+}
 $corso = $modelCorso->readCorso($identificativoCorso);
 $nomecorso= $corso->getNome();
 

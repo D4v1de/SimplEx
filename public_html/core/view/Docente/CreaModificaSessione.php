@@ -18,7 +18,11 @@ include_once MODEL_DIR . "TestModel.php";
 $testModel = new TestModel();
 include_once MODEL_DIR . "ElaboratoModel.php";
 $modelElaborato = new ElaboratoModel();
+$idCorso = "";
 $idCorso = $_URL[2];
+if (!is_numeric($idCorso)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
 $abi = false;
 if (isset($_SESSION['abi']))
     $abi = $_SESSION['abi'];
@@ -61,6 +65,10 @@ $flag = null;
 $pio = null;
 $showE = "";
 $showRC = "";
+
+if (!is_numeric($_URL[4])) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
 if ($_URL[4] != 0)
     $siamoInModifica = true;
 

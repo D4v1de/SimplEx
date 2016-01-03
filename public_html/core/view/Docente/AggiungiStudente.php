@@ -24,9 +24,18 @@ $corsoModel = new CorsoModel();
 $cdlModel = new CdLModel();
 $elaboratoModel= new ElaboratoModel();
 
-$idSessione=$_URL[4];
-$idCorso = $_URL[2];
+$idSessione="";
+$idCorso = "";
 
+
+$idCorso = $_URL[2];
+if(!is_numeric($idCorso)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
+$idSessione = $_URL[4];
+if(!is_numeric($idSessione)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
 
 $corso = $corsoModel->readCorso($idCorso);
 $nomecorso= $corso->getNome();

@@ -29,7 +29,11 @@ $modelAccount = new UtenteModel();
 $modelCdl = new CdLModel();
 
 $corso = null;
+$identificativoCorso ="";
 $identificativoCorso = $_URL[2];
+if (!is_numeric($identificativoCorso)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
 $cond = null;
 
 if (isset($_SESSION['idcorso'])) {

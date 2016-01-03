@@ -50,9 +50,14 @@ $rispostamultipla = null;
 $i = 0;
 $url = null;
 $url2 = null;
-$matricola = $_URL[6];
+$matricola = "";
+
 $studente=$utenteModel->getUtenteByMatricola($matricola);
 
+$matricola = $_URL[6];
+if (!is_numeric($matricola)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
 $url = $_URL[2];
 if (!is_numeric($url)) {
     echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";

@@ -31,8 +31,17 @@ $modelRispostaAperta = new RispostaApertaModel();
 $modelRispostaMultipla = new RispostaMultiplaModel();
 
 
-$idSessione = $_URL[4];
+$idSessione="";
+$idSessione= $_URL[4];
+if (!is_numeric($idSessione)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
+$identificativoCorso ="";
 $identificativoCorso = $_URL[2];
+if (!is_numeric($identificativoCorso)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
+
 $numProfs=0;
 $doc = $_SESSION['user'];
 $docentiOe=$utenteModel->getAllDocentiByCorso($identificativoCorso);
@@ -55,13 +64,14 @@ $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
 $tipoSessione = $sessioneByUrl->getTipologia();
 $soglia=$sessioneByUrl->getSogliaAmmissione();
 
-if($_URL[6]=="autoendsuccess") {
-    $newSessione = new Sessione($dataFrom, $dataTo, $soglia, "Eseguita", $tipoSessione, $identificativoCorso);
-    $sessioneModel->updateSessione($idSessione,$newSessione);
-}
-
-if($_URL[6]=="norestart") {
-    $flag=0;
+if(isset($_URL[6])) {
+    if($_URL[6]=="autoendsuccess") {
+        $newSessione = new Sessione($dataFrom, $dataTo, $soglia, "Eseguita", $tipoSessione, $identificativoCorso);
+        $sessioneModel->updateSessione($idSessione,$newSessione);
+    }
+    if($_URL[6]=="norestart") {
+        $flag=0;
+    }
 }
 
 try {
