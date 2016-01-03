@@ -115,7 +115,7 @@ $someTestsAorD=false;
         }
         if($flag==0) {
             $_SESSION['flag'] = $flag;
-            $tornaACasa = "Location: "."/docente/corso/"."$idCorso"."/sessione/0/creamodificasessione2";
+            $tornaACasa = "Location: "."/docente/corso/"."$idCorso"."/sessione/0/creamodificasessione";
         }
         else
             $tornaACasa= "Location: "."/docente/corso/"."$idCorso"."/successinserimento";
@@ -125,7 +125,7 @@ $someTestsAorD=false;
 if($someTestsAorD==false) {
     $pio=0;
     $_SESSION['pio'] = $pio;
-    $tornaACasa = "Location: "."/docente/corso/"."$idCorso"."/sessione/0/creamodificasessione2";
+    $tornaACasa = "Location: "."/docente/corso/"."$idCorso"."/sessione/0/creamodificasessione";
     header($tornaACasa);
 }
 

@@ -1,7 +1,7 @@
 <?php
 /**
  * Questo Control permette di aggiornare una sessione in corso in modo tale da poter visualizzare
- * studenti che abilitati che hanno appena iniziato il test.
+ * studenti abilitati che hanno appena iniziato il test.
  * @author Antonio Luca D'Avanzo
  * @version 1
  * @since  30/12/2015 23:06

@@ -521,7 +521,7 @@ printf("<button type='submit' name='rimuovi' value='%d' class='btn btn-sm red-in
                             else {
                                 if (count == 0 && bdataTo > timeFromServer) {
                                     bootbox.dialog({
-                                        message: "Visulizza i dettagli della Sessione in corso!",
+                                        message: "Visualizza i dettagli della Sessione in corso!",
                                         title: "La sessione è iniziata.",
                                         closeButton: false,
                                         buttons: {

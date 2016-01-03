@@ -141,7 +141,7 @@ $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
 
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-        <form method="post" action="">
+        <form method="post" action="/docente/corso/<?php echo $identificativoCorso; ?>/sessione/<?php echo $idSessione; ?>/cambiasoglia">
             <div class="row">
             <div class="col-md-12">
                 <div class="col-md-8"></div>

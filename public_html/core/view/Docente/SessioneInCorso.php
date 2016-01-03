@@ -226,7 +226,7 @@ $dataTo = $sessioneByUrl->getDataFine();
                               <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
                         <div class="row">
                                 <div class="col-md-12">
-                                    <button type="submit"  name="addStu" href="javascript:;" class="btn sm green-jungle"><i class="fa fa-plus"></i><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                    <button type="submit"  name="addStu" class="btn sm green-jungle"><i class="fa fa-plus"></i><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                                         Aggiungi Studente</button>
 
                                         <a title="Aggiungi alla lista seguente gli Studenti che hanno appena cominciato il test!" name="aggiorna" href="<?php
@@ -365,16 +365,18 @@ $dataTo = $sessioneByUrl->getDataFine();
         Layout.init();
         UIConfirmations.init();
         checkNotifiche();
+
+
     });
 </script>
         <script>
             $(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii:ss'});
         </script>
         <script src="/assets/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
+
         <script>
             var count=0;
             function loadDoc() {
-
                 var datTo = document.getElementById('bottoneT').value;
                 var xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function() {
@@ -386,7 +388,7 @@ $dataTo = $sessioneByUrl->getDataFine();
                         else {
                             if(count==0) {
                                 document.getElementById("demo").innerHTML = "Sessione Terminata";
-                                bootbox.dialog({
+                               bootbox.dialog({
                                     message: "Vai alla visualizzazione degli esiti.",
                                     title: "La sessione è terminata.",
                                     closeButton: false,

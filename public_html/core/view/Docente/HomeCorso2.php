@@ -208,7 +208,7 @@ if ($correttezzaLogin == false) {
                                     </a>
                                 </div>
                                 <div class="actions">
-                                    <a href="<?php printf("%s", "/docente/corso/" . $identificativoCorso . "/sessione" . "/" . "0" . "/" . "creamodificasessione2") ?>" class="btn btn-default btn-sm">
+                                    <a href="<?php printf("%s", "/docente/corso/" . $identificativoCorso . "/sessione" . "/" . "0" . "/" . "creamodificasessione") ?>" class="btn btn-default btn-sm">
                                         <i class="fa fa-plus"></i> Crea Sessione </a>
                                 </div>
                             </div>
@@ -588,12 +588,15 @@ if ($cond == "vuoto" || $cond == "successmodifica" || $cond == "successinserimen
         else if (last == 'error') {
             toastr.success('Problema nella creazione.', 'Eliminazione');
         }
+        else if (last == 'accessdenied') {
+            toastr.error('Impossibile accedere.', 'Violazione');
+        }
     }
 </script>
 
 <script>
     function look() {
-        window.location.replace("/docente/corso/<?php echo $identificativoCorso ?>/checkdatasessione");
+        window.location.replace("/docente/corso/<?php echo $identificativoCorso ?>/checkdatasessione/<?php echo $cond ?>");
     }
 
 </script>
