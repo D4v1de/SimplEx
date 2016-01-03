@@ -265,7 +265,7 @@ try {
                                         include_once CONTROL_DIR . "Sessione/CorreggiTest.php";
                                         break;
                                     case 'cambiasoglia':
-                                        include_once VIEW_DIR. "Docente/CambiaSoglia.php";
+                                        include_once CONTROL_DIR. "Sessione/CambiaSoglia.php";
                                         break;
                                     case 'visualizza':
                                         include_once CONTROL_DIR . "Sessione/VisualizzaElaborato.php";
