@@ -13,6 +13,10 @@ $sessioneModel = new SessioneModel();
 $utenteModel = new UtenteModel();
 $testModel = new TestModel();
 $idCorso = $_URL[2];
+$cond="";
+if(isset($_URL[4]))
+    $cond=$_URL[4];
+
 try {
     $idsSessione= $sessioneModel->getAllSessioniByCorso($idCorso);
 } catch (ApplicationException $ex) {
@@ -44,4 +48,7 @@ foreach ($idsSessione as $c) {
     } else
         ;
 }
-header('Location: /docente/corso/'.$idCorso.'/success');
+
+if($cond=="vuoto")
+    $cond="";
+header('Location: /docente/corso/'.$idCorso.'/success/'.$cond);

@@ -190,7 +190,7 @@ try {
             <div class="row">
                 <div class="col-md-12">
                     <div class="form">
-                        <form action="" class="form-horizontal form-bordered form-row-stripped" method="post">
+                        <form action="/docente/corso/<?php echo $url;?>/sessione/<?php echo $url2;?>/creasessione" class="form-horizontal form-bordered form-row-stripped" method="post">
                             <div class="form-actions">
                                 <div class="col-md col-md-8">
                                     <h3><?php echo $corso->getNome(); ?></h3>
@@ -324,15 +324,19 @@ try {
                                 printf("</div></div>");
                             }
                             foreach ($aperte as $a) {
-
-
-
                                 $max = $modelDomanda->readPunteggioMaxAlternativo($a->getId(), $test->getId());
                                 if ($max == null){
-                                    $dom = $modelDomanda->getDomandaAperta($a->getId());
+                                    //$dom = $modelDomanda->getDomandaAperta($a->getId());
+                                    $dom = $modelDomanda->readDomandaAperta($a->getId());
                                     $max = $dom->getPunteggioMax();
+
                                 }
-                                printf("<div class=\"portlet light bordered\"><div class=\"portlet-title\"><div class=\"caption\"><i class=\"fa fa-question-circle\"></i><span class=\"caption-subject bold uppercase\">%s (aperta)</span></div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div>", $a->getTesto());
+                                printf("<div class=\"portlet light bordered\"><div class=\"portlet-title\">
+                                        <div class=\"caption\"><i class=\"fa fa-question-circle\"></i>
+                                        <span class=\"caption-subject bold uppercase\">%s (aperta)</span>
+                                        </div>
+                                        <div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a>
+                                        </div></div>", $a->getTesto());
                                 printf("<div class=\"portlet-body\">");
                                 try {
                                     $rispostaaperta = $modelRispostaAperta->readRispostaAperta($elaborato->getSessioneId(), $studente->getMatricola(), $a->getId());
@@ -340,7 +344,9 @@ try {
                                     echo "<h1>READRISPOSTAAPERTA FALLITO!</h1>" . $ex;
                                 }
                                 if ($rispostaaperta->getDomandaApertaId() == $a->getId()) {
-                                    printf("<div class=\"row\"> <div class=\"col-md-10\"><textarea class=\"form-control\" id=\"ap-12\" rows=\"3\" placeholder=\"\" style=\"resize:none\" disabled>%s</textarea> </div>", $rispostaaperta->getTesto());
+                                    printf("<div class=\"row\"> <div class=\"col-md-10\">
+                                            <textarea class=\"form-control\" id=\"ap-12\" rows=\"3\" placeholder=\"\" style=\"resize:none\" disabled>%s</textarea>
+                                             </div>", $rispostaaperta->getTesto());
                                     printf("<div class=\"col-md-2\">  <select class=\"form-control\" name=\"sel-%s\">", $a->getId());
                                     for($x = 0; $x <= $max; $x++)
                                         printf("<option value=\"%s\">%s</option>", $x, $x);
