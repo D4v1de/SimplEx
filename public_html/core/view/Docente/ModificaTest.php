@@ -1,7 +1,7 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: sergio
+ * Created by NetBeans.
+ * User: Fabio
  * Date: 18/11/15
  * Time: 09:58
  */
@@ -125,53 +125,58 @@ $corso = $modelCorso->readCorso($_URL[2]);
                 </div>
                 
                 <?php
-                    if(isset($_GET["flag"]) && $_GET["flag"]==1) {
+                    if(isset($_SESSION["flag1"]) && $_SESSION["flag1"]==1) {
                         echo "<div class=\"alert alert-danger\">
                         <button class=\"close\" data-close=\"alert\"></button>
                         Errore nei Dati. E' possibile inserire solo interi positivi.                        </div>";
                         //echo "<script type='text/javascript'>checkIt();</script>";
+                        unset($_SESSION['flag1']);
                     }
                 ?>
 
                 <?php
-                if(isset($_GET["flag"]) && $_GET["flag"]==2) {
+                if(isset($_SESSION["flag2"]) && $_SESSION["flag2"]==1) {
                     //TODO (aggiungere da nmin a nmax domande) effettuare query per recuperare i valori e mostrarli nel messaggio
                     echo "<div class=\"alert alert-danger\">
                         <button class=\"close\" data-close=\"alert\"></button>
                         Errore nei Dati. Per un test RANDOM devi inserire un numero di domande valido.
                         </div>";
                     //echo "<script type='text/javascript'>checkIt();</script>";
+                    unset($_SESSION['flag2']);
                 }
                 ?>
                 
                 <?php
-                if(isset($_GET["flag"]) && $_GET["flag"]==3) {
+                if(isset($_SESSION["flag3"]) && $_SESSION["flag3"]==1) {
                     //TODO (aggiungere da nmin a nmax domande) effettuare query per recuperare i valori e mostrarli nel messaggio
                     echo "<div class=\"alert alert-danger\">
                         <button class=\"close\" data-close=\"alert\"></button>
                         Errore nei Dati. Hai richiesto troppe domande per il test RANDOM.
                         </div>";
                     //echo "<script type='text/javascript'>checkIt();</script>";
+                    unset($_SESSION['flag3']);
                 }
                 ?>
                 <?php
-                if(isset($_GET["flag"]) && $_GET["flag"]==4) {
+                if(isset($_SESSION["flag4"]) && $_SESSION["flag4"]==1) {
                     //TODO (aggiungere da nmin a nmax domande) effettuare query per recuperare i valori e mostrarli nel messaggio
                     echo "<div class=\"alert alert-danger\">
                         <button class=\"close\" data-close=\"alert\"></button>
                         Errore nei Dati. E' necessario selezionare almeno una domanda dalla tabella.
                         </div>";
                     //echo "<script type='text/javascript'>checkIt();</script>";
+                    unset($_SESSION['flag4']);
                 }
                 ?>
                 <?php
-                if(isset($_GET["flag"]) && $_GET["flag"]==5) {
+                if(isset($_SESSION["flag5"]) && $_SESSION["flag5"]==1) {
                     //TODO (aggiungere da nmin a nmax domande) effettuare query per recuperare i valori e mostrarli nel messaggio
                     echo "<div class=\"alert alert-danger\">
                         <button class=\"close\" data-close=\"alert\"></button>
                         Errore nei Dati. Non è possibile utilizzare caratteri speciali nella descrizione.
                         </div>";
                     //echo "<script type='text/javascript'>checkIt();</script>";
+                    unset($_SESSION['flag5']);
                 }
                 ?>
 
