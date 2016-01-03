@@ -106,13 +106,13 @@ $corso = $modelCorso->readCorso($_URL[2]);
             <form id="form_sample_1" action="/docente/creazione_TEST?idcorso=<?=$identificativoCorso ?>" method="post">
 
 
-                <div class="alert alert-danger display-hide">
+                <!--<div class="alert alert-danger display-hide">
                     <button class="close" data-close="alert"></button>
                     Errore nei Dati. E' obbligatorio inserire la descrizione del test e selezionare almeno una domanda.
-                </div>
+                </div> -->
 
                 <?php
-                    if(isset($_GET["flag1"]) && $_GET["flag1"]==1) {
+                    if(isset($_SESSION["flag1"]) && $_SESSION["flag1"]==1) {
                         echo "<div class=\"alert alert-danger\">
                         <button class=\"close\" data-close=\"alert\"></button>
                         Errore nei Dati. E' possibile inserire solo interi positivi.
@@ -158,11 +158,41 @@ $corso = $modelCorso->readCorso($_URL[2]);
                 if(isset($_SESSION["flag5"]) && $_SESSION["flag5"]==1) {
                     echo "<div class=\"alert alert-danger\">
                         <button class=\"close\" data-close=\"alert\"></button>
-                        Errore nei Dati. Non è possibile utilizzare caratteri speciali nella descrizione.
+                        Errore nei Dati. E' necessario inserire un numero valido nei campi.
                         </div>";
                     //echo "<script type='text/javascript'>checkIt();</script>";
                     unset($_SESSION['flag5']);
                 }
+                ?>
+                <?php
+                    if(isset($_SESSION["flag6"]) && $_SESSION["flag6"]==1) {
+                        echo "<div class=\"alert alert-danger\">
+                        <button class=\"close\" data-close=\"alert\"></button>
+                        Errore nei Dati. Il punteggio alternativo corretto della domanda aperta non può essere negativo.
+                        </div>";
+                        //echo "<script type='text/javascript'>checkIt();</script>";
+                        unset($_SESSION['flag6']);
+                    }
+                ?>
+                <?php
+                    if(isset($_SESSION["flag7"]) && $_SESSION["flag7"]==1) {
+                        echo "<div class=\"alert alert-danger\">
+                        <button class=\"close\" data-close=\"alert\"></button>
+                        Errore nei Dati. Il punteggio alternativo corretto della domanda multipla non può essere negativo.
+                        </div>";
+                        //echo "<script type='text/javascript'>checkIt();</script>";
+                        unset($_SESSION['flag7']);
+                    }
+                ?>
+                <?php
+                    if(isset($_SESSION["flag8"]) && $_SESSION["flag8"]==1) {
+                        echo "<div class=\"alert alert-danger\">
+                        <button class=\"close\" data-close=\"alert\"></button>
+                        Errore nei Dati. Il punteggio alternativo errato della domanda multipla non può essere positivo.
+                        </div>";
+                        //echo "<script type='text/javascript'>checkIt();</script>";
+                        unset($_SESSION['flag8']);
+                    }
                 ?>
 
 
