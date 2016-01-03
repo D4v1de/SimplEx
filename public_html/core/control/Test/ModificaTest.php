@@ -115,10 +115,50 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
         header($tornaACasa);
         
     }else{
-    $domAperte=Array(); //domande aperte selezionate
-    $domAperte=$_POST['aperte']; //domande aperte selezionate
-    $domMultiple=Array(); //domande multiple selezionate
-    $domMultiple=$_POST['multiple']; //domande multiple selezionate
+        
+        $domAperte=Array(); //domande aperte selezionate
+        $domAperte=$_POST['aperte']; //domande aperte selezionate
+        $domMultiple=Array(); //domande multiple selezionate
+        $domMultiple=$_POST['multiple']; //domande multiple selezionate
+      
+        foreach($domAperte as $x){      //per ogni domanda aperta selezionata controllo se è stato inserito un punteggio alternativo
+        $id = parseInt($x);
+        $stringa=sprintf("ApertaCorr-%d", $id);
+        if(!(empty($_POST[$stringa]))){  //se si associo quella domanda al test con quel valore e incremento il punteggio totale
+            if($_POST[$stringa]<0){
+                  $_SESSION['flag6']=1;
+                  
+                  
+                  $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/modifica/"."$idTest";
+        header($tornaACasa);
+                }
+        }
+    }
+    
+    foreach($domMultiple as $x){  
+        $id = parseInt($x);
+        $stringa1=sprintf("alternCorr-%d", $id);
+        if(!(empty($_POST[$stringa1]))){  
+            if($_POST[$stringa1]<0){
+                  $_SESSION['flag7']=1;
+                  $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/modifica/"."$idTest";
+        header($tornaACasa);
+                }
+        }
+        $stringa2=sprintf("alternErr-%d", $id);
+        if(!(empty($_POST[$stringa2]))){  
+            if($_POST[$stringa2]>0){
+                  $_SESSION['flag8']=1;
+                  $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/modifica/"."$idTest";
+        header($tornaACasa);
+                }
+        }        
+    }
+        
+        
+           
+        
+    
     if ($domAperte!= null){
         foreach($domAperte as $s){
             $cont1=$cont1+1;   //conto le domande aperte
@@ -211,6 +251,12 @@ if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && isset($_POST['
         header($tornaACasa);
         //TODO echo della funzione che effettua il cambiamento di contenuto da manuale a random
         //echo "<script type='text/javascript'>checkIt();</script>";
+    }else if(is_numeric($nApe)==false ||  is_numeric($nMul)==false){
+        $_SESSION['flag5']=1;
+        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/crea";
+        header($tornaACasa);
+        
+        
     }else if($nApe == 0 && $nMul == 0) {
         $_SESSION['flag2']=1;
         $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/modifica/"."$idTest";
