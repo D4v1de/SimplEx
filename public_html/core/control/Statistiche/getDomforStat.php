@@ -24,29 +24,14 @@ $mod = $_GET['mod'];
 $kind = $_GET['kind'];
 $argomenti = $argomentoModel->getAllArgomentoCorso($corsoId);
 $sessioni = $sessioneModel->getAllSessionibyCorso($corsoId);
-$tests = Array();
-foreach ($sessioni as $s)
-    if ($s->getTipologia() == "Valutativa")
-        $tests = array_merge($tests,$testModel->getAllTestbySessione($s->getId()));
-foreach ($tests as $t){
-    $tests2[] = $t->getId();
-}
-$testsVal = array_unique($tests2);
-foreach ($sessioni as $s)
-    if ($s->getTipologia() == "Esercitativa")
-        $tests = array_merge($tests,$testModel->getAllTestbySessione($s->getId()));
-foreach ($tests as $t){
-    $tests2[] = $t->getId();
-}
-$testsEse = array_unique($tests2);
+
+$testsVal = $testModel->getAllTestBySessioneValutativa($corsoId);
+$testsEse = $testModel->getAllTestBySessioneEsercitativa($corsoId);
 
 
-$multiple = Array();
-$aperte = Array();
-foreach ($argomenti as $arg){
-    $multiple = array_merge($multiple,$domandaModel->getAllDomandaMultiplaByArgomento($arg->getId()));
-    $aperte = array_merge($aperte,$domandaModel->getAllDomandaApertaByArgomento($arg->getId()));
-}
+$multiple = $domandaModel->getAllDomandaMultiplaByCorso($corsoId);
+$aperte = $domandaModel->getAllDomandaApertaByCorso($corsoId);
+
 $allDomande = array_merge($multiple,$aperte);
 
 $n = count($allDomande);
@@ -54,22 +39,22 @@ $n1Ese = count($testsEse);
 $n1Val = count($testsVal);
 if ($kind == "val"){
     if ($type == "scelto")
-        for ($i=0; $i < $n; $i++)        
-            $toSort[$allDomande[$i]->getTesto()] = ($n1Val > 0)? $allDomande[$i]->getPercentualeSceltaVal()/$n1Val * 100:0;
+        foreach ($allDomande as $a)        
+            $toSort[$a->getTesto()] = ($n1Val > 0)? $a->getPercentualeSceltaVal()/$n1Val * 100:0;
     else if ($type == "successo")
-        for ($i=0; $i < $n; $i++){
-            $n2 = $tests[$i]->getNumeroSceltaValutativa();
-            $toSort[$tests[$i]->getId()] = ($n2 > 0)? $tests[$i]->getPercentualeSuccessoVal()/$n2 * 100:0;
+        foreach ($multiple as $m){
+            $n2 = $m->getNumeroRisposteValutative();
+            $toSort[$m->getTesto()] = ($n2 > 0)? $m->getPercentualeRispostaCorrettaVal()/$n2 * 100:0;
         }
 }
 else{
     if ($type == "scelto")
-        for ($i=0; $i < $n; $i++)        
-            $toSort[$allDomande[$i]->getTesto()] = ($n1Ese > 0)? $allDomande[$i]->getPercentualeSceltaEse()/$n1Ese * 100:0;
+        foreach ($allDomande as $a)        
+            $toSort[$a->getTesto()] = ($n1Ese > 0)? $a->getPercentualeSceltaEse()/$n1Ese * 100:0;
     else if ($type == "successo")
-        for ($i=0; $i < $n; $i++){
-            $n2 =100;// $testModel->readNumeroSceltaTestEsercitativa($tests[$i]->getId());
-            $toSort[$tests[$i]->getId()] = ($n2 > 0)? $tests[$i]->getPercentualeSuccessoEse()/$n2 * 100:0;
+        foreach ($multiple as $m){
+            $n2 = $m->getNumeroRisposteEsercitative();
+            $toSort[$m->getTesto()] = ($n2 > 0)? $m->getPercentualeRispostaCorrettaEse()/$n2 * 100:0;
         }
 }
             

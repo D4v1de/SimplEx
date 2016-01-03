@@ -450,11 +450,11 @@ foreach ($argomenti as $a){
                             <ul class="nav nav-tabs">
                                 <li class="active">
                                     <a href="#domSce" onclick="modDomSce = 'Best'; getStatisticheDomande(cId,'Scelto',modDomSce);"  data-toggle="tab" aria-expanded="false">
-                                        Migliori </a>
+                                        Più scelte </a>
                                 </li>
                                 <li class="">
                                     <a href="#domSce" onclick="modDomSce = 'Worst'; getStatisticheDomande(cId,'Scelto',modDomSce);" data-toggle="tab" aria-expanded="true">
-                                        Peggiori </a>
+                                        Meno scelte </a>
                                 </li>
                             </ul>
                         </div>
