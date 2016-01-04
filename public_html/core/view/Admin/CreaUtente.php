@@ -58,7 +58,7 @@ if (isset($_SESSION['error'])) {
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-                        <a href="/adm">Home</a>
+                        <a href="/admin">Home</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
@@ -66,7 +66,7 @@ if (isset($_SESSION['error'])) {
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="/admin/utenti/crea/<?= $tipologia ?>">Crea <?= $tipologia ?></a>
+                        Crea
                     </li>
                 </ul>
             </div>
