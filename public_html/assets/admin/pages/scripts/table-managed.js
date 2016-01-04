@@ -39,7 +39,9 @@ var TableManaged = function () {
             "paging":         false,
             "scrollY":        '40vh',
             //"dom": 'Bfrtip',
-            "dom": "<'row'<'col-md-5 col-sm-12'l><'col-md-5 col-sm-12'Bf>r>tip",
+            //questa è buona "dom": "<'row'<'col-md-5 col-sm-12'l><'col-md-5 col-sm-12'Bf>r>tip",
+
+            "dom": "Blfrt<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
 
             // set the initial value
             "pageLength": 5,
@@ -92,7 +94,7 @@ var TableManaged = function () {
             if (!jQuery().dataTable) {
                 return;
             }
-                initTable(idTabella,wrapperTabella);
+            initTable(idTabella,wrapperTabella);
             //initTable1();
             //initTable2();
             //initTable3();
@@ -138,8 +140,8 @@ var TableManaged2 = function () {
             ],
 
             //aggiunti da federico
-            //"dom": "Blfrt<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
-            "dom": "<'row'<'col-md-5 col-sm-12'l><'col-md-5 col-sm-12'Bf>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
+            "dom": "Blfrt<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
+            //"dom": "<'row'<'col-md-3 col-sm-12'l><'col-md-6 col-sm-12'Bf>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
             // set the initial value
             "pageLength": 5,
             "language": {
@@ -190,7 +192,7 @@ var TableManaged2 = function () {
             if (!jQuery().dataTable) {
                 return;
             }
-                initTable(idTabella,wrapperTabella);
+            initTable(idTabella,wrapperTabella);
             //initTable1();
             //initTable2();
             //initTable3();
