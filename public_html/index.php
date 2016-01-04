@@ -57,7 +57,7 @@ try {
     if (!defined("TESTING")) {
         switch (isset($_URL[0]) ? $_URL[0] : '') {
             case '':
-                include_once VIEW_DIR . "Home/home.php";
+                include_once VIEW_DIR . "Home/Home.php";
                 break;
             case 'me':
                 StringUtils::checkPermission("all");
