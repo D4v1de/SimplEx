@@ -31,10 +31,7 @@ try{
 catch(ApplicationException $ex){
     header("Location: "."/studente/corso/"."$corsoId"."/");
 }
-$now = date("Y-m-d H:i:s");
-$end = $sessione->getDataFine();
-$start = $sessione->getDataInizio();
-if ($now < $start || $now > $end || strcmp($elaborato->getStato(),"Non corretto"))
+if (strcmp($elaborato->getStato(),"Non corretto"))
     header("Location: "."/studente/corso/"."$corsoId");
 
 $nome = $studente->getNome();
@@ -148,7 +145,7 @@ $aperte = $domandaModel->getAllDomandeAperteByTest($testId);
                             function getRispostaApertaValue($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId){
                                 $raCon = new RispostaApertaModel();
                                 $risp = $raCon->readRispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId);
-                                return $risp->getTesto();
+                                return base64_decode($risp->getTesto());
                             }
                                 $i = 1;
                                 foreach ($multiple as $m) {

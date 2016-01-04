@@ -139,6 +139,7 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
                   $_SESSION['flag6']=1;
                   $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/crea";
                   header($tornaACasa);
+                  return;
                 }
                 $z=$_POST[$stringa];
                 $punteggio=$punteggio+(parseInt($z));
@@ -159,6 +160,7 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
                   $_SESSION['flag7']=1;
                   $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/crea";
                   header($tornaACasa);
+                  return;
                 }
                 
                 $z1=$_POST[$stringa1];
@@ -176,6 +178,7 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
                   $_SESSION['flag8']=1;
                   $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/crea";
                   header($tornaACasa);
+                  return;
                 }
                 $z2=$_POST[$stringa2];
             }else{

@@ -380,7 +380,7 @@ $corso = $modelCorso->readCorso($_URL[2]);
                                     printf("<td><div class=\"form-group form-md-line-input has-success\"><div class=\"input-icon\"><input type=\"number\" name=\"alternCorr-%d\" class=\"form-control\">
                                             <label for=\"alternCorr\">Corretta:</label>
                                             ", $s->getId());
-                                    printf("</div><div class=\"form-group form-md-line-input has-success\"><div class=\"input-icon\"><input type=\"number\" name=\"alternErr-%d\" class=\"form-control\">
+                                    printf("</div><br><br><div class=\"form-group form-md-line-input has-success\"><div class=\"input-icon\"><input type=\"number\" name=\"alternErr-%d\" class=\"form-control\">
                                             <label for=\"alternErr\">Errata:</label>
                                             </div></div></td>", $s->getId());
                                     printf("</tr>");

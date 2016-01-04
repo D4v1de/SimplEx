@@ -127,10 +127,9 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
         if(!(empty($_POST[$stringa]))){  //se si associo quella domanda al test con quel valore e incremento il punteggio totale
             if($_POST[$stringa]<0){
                   $_SESSION['flag6']=1;
-                  
-                  
-                  $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/modifica/"."$idTest";
+        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/modifica/"."$idTest";
         header($tornaACasa);
+        return;
                 }
         }
     }
@@ -141,16 +140,18 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
         if(!(empty($_POST[$stringa1]))){  
             if($_POST[$stringa1]<0){
                   $_SESSION['flag7']=1;
-                  $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/modifica/"."$idTest";
+        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/modifica/"."$idTest";
         header($tornaACasa);
+        return;
                 }
         }
         $stringa2=sprintf("alternErr-%d", $id);
         if(!(empty($_POST[$stringa2]))){  
             if($_POST[$stringa2]>0){
                   $_SESSION['flag8']=1;
-                  $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/modifica/"."$idTest";
+        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/modifica/"."$idTest";
         header($tornaACasa);
+        return;
                 }
         }        
     }
