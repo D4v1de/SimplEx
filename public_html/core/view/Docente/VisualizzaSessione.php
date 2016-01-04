@@ -36,6 +36,9 @@ $numProfs = 0;
 
 $doc = $_SESSION['user'];
 
+$corso = $corsoModel->readCorso($identificativoCorso);
+$nomecorso = $corso->getNome();
+
 $docentiOe = $utenteModel->getAllDocentiByCorso($identificativoCorso);
 foreach ($docentiOe as $d) {
     if ($doc == $d) {
@@ -61,9 +64,6 @@ try {
 } catch (ApplicationException $ex) {
     echo "<h1>INSERIRE ID SESSIONE NEL PATH</h1>" . $ex;
 }
-
-$corso = $corsoModel->readCorso($identificativoCorso);
-$nomecorso = $corso->getNome();
 
 $dataFrom = $sessione->getDataInizio();
 $dataTo = $sessione->getDataFine();
