@@ -196,7 +196,7 @@ $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
                                             </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Email
                                 " style="width: 210px;">
-                                                Data creazione
+                                                Descrizione
                                             </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Points
                                 " style="width: 73px;">

@@ -343,7 +343,7 @@ try {
                                     echo "<h1>READRISPOSTAAPERTA FALLITO!</h1>" . $ex;
                                 }
                                 if ($rispostaaperta->getDomandaApertaId() == $a->getId()) {
-                                    printf("<div class=\"row\"> <div class=\"col-md-12\"><textarea class=\"form-control\" id=\"ap-12\" rows=\"3\" placeholder=\"\" style=\"resize:none\" disabled>%s</textarea> </div>", $rispostaaperta->getTesto());
+                                    printf("<div class=\"row\"> <div class=\"col-md-12\"><textarea class=\"form-control\" id=\"ap-12\" rows=\"3\" placeholder=\"\" style=\"resize:none\" disabled>%s</textarea> </div>", base64_decode($rispostaaperta->getTesto()));
                                 }
                                 printf("</div></div></div>");
 

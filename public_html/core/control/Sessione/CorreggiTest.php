@@ -91,7 +91,7 @@ if (isset($_POST['salva'])){
     $fin = $elaborato->getEsitoParziale();
     foreach ($aperte as $ap){
         $apId = $ap->getId();
-        $punt = $_GET['sel-'.$apId.''];
+        $punt = $_POST['sel-'.$apId.''];
         $fin = $fin + $punt;
         $rispAp = $modelRispostaAperta->readRispostaAperta($url2, $matricola, $apId);
         $rispAp->setPunteggio($punt);
