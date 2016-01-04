@@ -134,6 +134,13 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
         foreach($domAperte as $s){      //per ogni domanda aperta selezionata controllo se è stato inserito un punteggio alternativo
             $stringa=sprintf("ApertaCorr-%d", $s);
             if(!(empty($_POST[$stringa]))){  //se si associo quella domanda al test con quel valore e incremento il punteggio totale
+                if($_POST[$stringa]<0){
+                  $modelTest->deleteTest($idNuovoTest);
+                  $_SESSION['flag6']=1;
+                  $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/crea";
+                  header($tornaACasa);
+                  return;
+                }
                 $z=$_POST[$stringa];
                 $punteggio=$punteggio+(parseInt($z));
                 associaAperTest($s,$idNuovoTest,$z);
@@ -148,6 +155,14 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
         foreach($domMultiple as $s){  //per ogni domanda multipla selezionata controllo se è stato inserito un punteggio alternativo
             $stringa1=sprintf("alternCorr-%d", $s);
             if(!(empty($_POST[$stringa1]))){  //se si incremento il punteggio totale con quel punteggio alternativo
+                if($_POST[$stringa1]<0){
+                  $modelTest->deleteTest($idNuovoTest);
+                  $_SESSION['flag7']=1;
+                  $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/crea";
+                  header($tornaACasa);
+                  return;
+                }
+                
                 $z1=$_POST[$stringa1];
                 $punteggio=$punteggio+(parseInt($z1));
             }else{ // altrimenti incremento con il valore di default preso dal db
@@ -155,8 +170,16 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
                 $punteggio=$punteggio+($w->getPunteggioCorretta());
                 $z1=NULL;
             }
+            
             $stringa2=sprintf("alternErr-%d", $s);
             if(!(empty($_POST[$stringa2]))){  //controllo per il punteggio alternativo dell' errore
+                if($_POST[$stringa2]>0){
+                  $modelTest->deleteTest($idNuovoTest);
+                  $_SESSION['flag8']=1;
+                  $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/crea";
+                  header($tornaACasa);
+                  return;
+                }
                 $z2=$_POST[$stringa2];
             }else{
                 $z2=NULL;
@@ -193,8 +216,13 @@ if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && isset($_POST['
         header($tornaACasa); //torno alla home
         //TODO echo della funzione che effettua il cambiamento di contenuto da manuale a random
         echo "<script type='text/javascript'>checkIt();</script>";
-    }
-    else if($nApe == 0 && $nMul == 0) {
+    }else if(is_numeric($nApe)==false ||  is_numeric($nMul)==false){
+        $_SESSION['flag5']=1;
+        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/crea";
+        header($tornaACasa);
+        
+        
+    }else if($nApe == 0 && $nMul == 0) {
         $_SESSION['flag2']=1;
         $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/crea";
         header($tornaACasa);

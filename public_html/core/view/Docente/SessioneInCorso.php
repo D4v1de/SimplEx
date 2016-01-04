@@ -19,13 +19,20 @@ $testModel = new TestModel();
 include_once MODEL_DIR . "ElaboratoModel.php";
 $modelElaborato = new ElaboratoModel();
 
-$idSessione=$_URL[4];
+$idSessione="";
+$idSessione= $_URL[4];
+if (!is_numeric($idSessione)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
+$identificativoCorso ="";
 $identificativoCorso = $_URL[2];
-
+if (!is_numeric($identificativoCorso)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
 
 $numProfs=0;
 
-/*doc = $_SESSION['user'];
+$doc = $_SESSION['user'];
 $docentiOe=$modelUtente->getAllDocentiByCorso($identificativoCorso);
 foreach($docentiOe as $d) {
     if($doc==$d){
@@ -34,10 +41,7 @@ foreach($docentiOe as $d) {
 }
 if($numProfs==0){
     header("Location: "."/docente/corso/".$corso->getId());
-}*/
-
-
-
+}
 $corso = $modelCorso->readCorso($identificativoCorso);
 $nomecorso= $corso->getNome();
 
@@ -226,11 +230,11 @@ $dataTo = $sessioneByUrl->getDataFine();
                               <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
                         <div class="row">
                                 <div class="col-md-12">
-                                    <button type="submit"  name="addStu" class="btn sm green-jungle"><i class="fa fa-plus"></i><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
-                                        Aggiungi Studente</button>
+                                    <a href="/docente/corso/<?php echo $identificativoCorso; ?>/sessione/<?php echo $idSessione; ?>/sessioneincorso/aggiungistudente" class="btn sm green-jungle"><i class="fa fa-plus"></i><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
+                                        Aggiungi Studente</a>
 
                                         <a title="Aggiungi alla lista seguente gli Studenti che hanno appena cominciato il test!" name="aggiorna" href="<?php
-                                        $vaiASesInCorso="/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."sessioneincorso";
+                                        $vaiASesInCorso="/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."sessioneincorso/show";
                                         printf("%s",$vaiASesInCorso);  ?>"
                                            class="btn sm green-jungle"><i class="fa fa-refresh" ></i><span class="md-click-circle md-click-animate" style="height: 94px; width: 94px; top: -23px; left: 2px;"></span>
                                             Aggiorna

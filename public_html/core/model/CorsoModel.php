@@ -116,7 +116,7 @@ class CorsoModel extends Model {
      * Restituisce tutti il corsi del database
      * @return Corso[] Tutti i corsi del database
      */
-    public function getAllCorsi() {
+        public function getAllCorsi() {
         $res = Model::getDB()->query(self::$GET_ALL_CORSI);
         $corsi = array();
         if ($res) {

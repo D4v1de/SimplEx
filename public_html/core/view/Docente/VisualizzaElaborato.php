@@ -44,13 +44,16 @@ $dom=null;
 $multiple = Array();
 $aperte = Array();
 $alternative = Array();
-//$corretta = null;
 $rispostaaperta = null;
 $rispostamultipla = null;
 $i = 0;
 $url = null;
 $url2 = null;
+$matricola="";
 $matricola = $_URL[6];
+if (!is_numeric($matricola)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
 $studente=$utenteModel->getUtenteByMatricola($matricola);
 
 $url = $_URL[2];

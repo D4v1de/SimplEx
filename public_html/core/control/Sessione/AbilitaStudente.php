@@ -8,8 +8,18 @@
 
 include_once MODEL_DIR . "UtenteModel.php";
 $utenteModel = new UtenteModel();
-$idSessione=$_URL[4];
+
+$idSessione="";
+$idSessione= $_URL[4];
+if (!is_numeric($idSessione)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
+$idCorso ="";
 $idCorso = $_URL[2];
+if (!is_numeric($idCorso)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
+
 
 if(isset($_POST['abilita'])) {
         $cbStudents= Array();
@@ -26,3 +36,4 @@ if(isset($_POST['abilita'])) {
     header("Location: "."/docente/corso/".$idCorso."/"."sessione"."/".$idSessione."/"."sessioneincorso/show");
 
 }
+

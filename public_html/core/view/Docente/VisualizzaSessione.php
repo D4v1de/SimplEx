@@ -21,8 +21,17 @@ $cdlModel = new CdLModel();
 $elaboratoModel = new ElaboratoModel();
 
 
-$idSessione = $_URL[4];
+$idSessione="";
+$idSessione= $_URL[4];
+if (!is_numeric($idSessione)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
+$identificativoCorso ="";
 $identificativoCorso = $_URL[2];
+if (!is_numeric($identificativoCorso)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
+
 $numProfs = 0;
 
 $doc = $_SESSION['user'];

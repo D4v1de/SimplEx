@@ -16,7 +16,11 @@ $sessioneModel = new SessioneModel();
 $utenteModel = new UtenteModel();
 $domandaModel = new DomandaModel();
 $testModel = new TestModel();
+$idCorso ="";
 $idCorso = $_URL[2];
+if (!is_numeric($idCorso)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
 $flag=1;
 $pio=1;
 $someTestsAorD=false;

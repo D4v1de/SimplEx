@@ -7,19 +7,24 @@
  */
 include_once MODEL_DIR . "SessioneModel.php";
 include_once MODEL_DIR . "UtenteModel.php";
-include_once MODEL_DIR . "TestModel.php";
 include_once MODEL_DIR . "ElaboratoModel.php";
 include_once BEAN_DIR . "Sessione.php";
 
 $sessioneModel = new SessioneModel();
 $utenteModel = new UtenteModel();
-$testModel = new TestModel();
 $elaboratoModel = new ElaboratoModel();
 
 $flag=1;
+$idSessione="";
+$idSessione= $_URL[4];
+if (!is_numeric($idSessione)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
+$idCorso ="";
 $idCorso = $_URL[2];
-
-$idSessione=$_URL[4];
+if (!is_numeric($idCorso)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
 $almenoUnoCorretto=0;
 $esaminandiSessione = Array();
 $esaminandiSessione= $utenteModel->getEsaminandiSessione($idSessione);

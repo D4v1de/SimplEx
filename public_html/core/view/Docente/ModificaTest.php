@@ -119,10 +119,10 @@ $corso = $modelCorso->readCorso($_URL[2]);
             <form id="form_sample_1" action="/docente/modifica_TEST?idcorso=<?=$identificativoCorso ?>&idtest=<?=$_URL[5] ?>" method="post">
                 
                 
-                <div class="alert alert-danger display-hide">
+               <!-- <div class="alert alert-danger display-hide">
                     <button class="close" data-close="alert"></button>
                     Errore nei Dati. E' obbligatorio inserire la descrizione del test e selezionare almeno una domanda.
-                </div>
+                </div> -->
                 
                 <?php
                     if(isset($_SESSION["flag1"]) && $_SESSION["flag1"]==1) {
@@ -173,11 +173,40 @@ $corso = $modelCorso->readCorso($_URL[2]);
                     //TODO (aggiungere da nmin a nmax domande) effettuare query per recuperare i valori e mostrarli nel messaggio
                     echo "<div class=\"alert alert-danger\">
                         <button class=\"close\" data-close=\"alert\"></button>
-                        Errore nei Dati. Non è possibile utilizzare caratteri speciali nella descrizione.
-                        </div>";
+                        Errore nei Dati. E' necessario inserire un numero valido nei campi.                        </div>";
                     //echo "<script type='text/javascript'>checkIt();</script>";
                     unset($_SESSION['flag5']);
                 }
+                ?>
+               <?php
+                    if(isset($_SESSION["flag6"]) && $_SESSION["flag6"]==1) {
+                        echo "<div class=\"alert alert-danger\">
+                        <button class=\"close\" data-close=\"alert\"></button>
+                        Errore nei Dati. Il punteggio alternativo corretto della domanda aperta non può essere negativo.
+                        </div>";  
+                        //echo "<script type='text/javascript'>checkIt();</script>";
+                        unset($_SESSION['flag6']);
+                    }
+                ?>
+                <?php
+                    if(isset($_SESSION["flag7"]) && $_SESSION["flag7"]==1) {
+                        echo "<div class=\"alert alert-danger\">
+                        <button class=\"close\" data-close=\"alert\"></button>
+                        Errore nei Dati. Il punteggio alternativo corretto della domanda multipla non può essere negativo.
+                        </div>";
+                        //echo "<script type='text/javascript'>checkIt();</script>";
+                        unset($_SESSION['flag7']);  
+                    }
+                ?>
+                <?php
+                    if(isset($_SESSION["flag8"]) && $_SESSION["flag8"]==1) {
+                        echo "<div class=\"alert alert-danger\">
+                        <button class=\"close\" data-close=\"alert\"></button>
+                        Errore nei Dati. Il punteggio alternativo errato della domanda multipla non può essere positivo.
+                        </div>";
+                        //echo "<script type='text/javascript'>checkIt();</script>";
+                        unset($_SESSION['flag8']);
+                    }
                 ?>
 
                 <div class="form-body">
@@ -351,7 +380,7 @@ $corso = $modelCorso->readCorso($_URL[2]);
                                     printf("<td><div class=\"form-group form-md-line-input has-success\"><div class=\"input-icon\"><input type=\"number\" name=\"alternCorr-%d\" class=\"form-control\">
                                             <label for=\"alternCorr\">Corretta:</label>
                                             ", $s->getId());
-                                    printf("</div><div class=\"form-group form-md-line-input has-success\"><div class=\"input-icon\"><input type=\"number\" name=\"alternErr-%d\" class=\"form-control\">
+                                    printf("</div><br><br><div class=\"form-group form-md-line-input has-success\"><div class=\"input-icon\"><input type=\"number\" name=\"alternErr-%d\" class=\"form-control\">
                                             <label for=\"alternErr\">Errata:</label>
                                             </div></div></td>", $s->getId());
                                     printf("</tr>");

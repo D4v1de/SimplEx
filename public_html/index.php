@@ -268,10 +268,7 @@ try {
                                         include_once CONTROL_DIR. "Sessione/CambiaSoglia.php";
                                         break;
                                     case 'visualizza':
-                                        include_once CONTROL_DIR . "Sessione/VisualizzaElaborato.php";
-                                        break;
-                                    case 'aggiungistudente':
-                                        include_once CONTROL_DIR. "Sessione/AggiungiStudente.php";
+                                        include_once VIEW_DIR . "Docente/VisualizzaElaborato.php";
                                         break;
                                     case 'annullaesame':
                                         include_once CONTROL_DIR. "Sessione/AnnullaEsame.php";
@@ -281,9 +278,6 @@ try {
                                         break;
                                     case 'modificafine':
                                         include_once CONTROL_DIR. "Sessione/ModificaDataFineInCorso.php";
-                                        break;
-                                    case 'aggiornasessioneincorso':
-                                        include_once CONTROL_DIR. "Sessione/AggiornaSessioneInCorso.php";
                                         break;
                                     case 'indexsessioneincorso':
                                         include_once CONTROL_DIR. "Sessione/IndexSessioneInCorso.php";
