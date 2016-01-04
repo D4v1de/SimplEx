@@ -93,6 +93,7 @@ foreach($docentiOe as $d) {
 if($numProfs==0){
     $_SESSION["Intruso"]=1;
     header("Location: "."/docente/corso/".$identificativoCorso);
+    return;
 }
 
 $flag = 0;
@@ -302,7 +303,7 @@ if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && isset($_POST['
             
         }
 
-        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
+        $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/successinserimento";
         header($tornaACasa); //torno alla home
     }
 

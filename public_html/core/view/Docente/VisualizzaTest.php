@@ -203,7 +203,7 @@ catch (ApplicationException $ex) {
                                 
                                 <div class="col-md-4">
                                     <?php
-                                    printf("<a href=\"/docente/corso/%d\" class=\"btn sm red-intense\">Indietro</a>",$identificativoCorso);
+                                    printf("<a href=\"/docente/corso/%d/success\" class=\"btn sm red-intense\">Indietro</a>",$identificativoCorso);
                                     ?>
                                 </div>
                             </div>

@@ -65,7 +65,7 @@ if(isset($_POST['idtestHome'])){
         header($tornaACasa);
     }else{*/
      $modelTest->deleteTest($id);
-     $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
+     $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/successelimina";
      header($tornaACasa);   
    // }
     

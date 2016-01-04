@@ -434,7 +434,7 @@ $corso = $modelCorso->readCorso($_URL[2]);
                                     Salva
                                     </button>
                                     <?php
-                                    printf("<a href=\"/docente/corso/%d\" class=\"btn sm red-intense\">Annulla</a>",$identificativoCorso);
+                                    printf("<a href=\"/docente/corso/%d/success\" class=\"btn sm red-intense\">Annulla</a>",$identificativoCorso);
                                       
                                     
                                     ?>
