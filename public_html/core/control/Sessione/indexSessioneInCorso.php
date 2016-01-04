@@ -6,8 +6,16 @@
  * @since  30/12/2015 23:03
  */
 
+$idSessione="";
+$idSessione= $_URL[4];
+if (!is_numeric($idSessione)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
+$idCorso ="";
 $idCorso = $_URL[2];
-$idSessione = $_URL[4];
+if (!is_numeric($idCorso)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
 
 if(isset( $_POST['aggiorna'])) {
     header("location: " ."/docente/corso/".$idCorso."/sessione/".$idSessione."/aggiornasessioneincorso");

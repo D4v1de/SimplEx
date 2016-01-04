@@ -18,8 +18,16 @@ $domandaModel = new DomandaModel();
 $testModel = new TestModel();
 $flag=1;
 $pio=1;
-$idSessione=$_URL[4];
+$idSessione="";
+$idSessione= $_URL[4];
+if (!is_numeric($idSessione)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
+$idCorso ="";
 $idCorso = $_URL[2];
+if (!is_numeric($idCorso)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
 
 
     if($dataFromSettato=isset($_POST['dataFrom']) && $radio1Settato=isset($_POST['radio1']) && $dataToSettato=isset($_POST['dataTo'])) {
