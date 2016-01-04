@@ -31,6 +31,7 @@ if($vai=="vai") {
     $_SESSION['abi']=false;
 
     echo "<div id=\"divTest\" class=\"portlet-body\">
+ <div class=\"table-responsive\">
                                 <div id=\"tabella_test_wrapper\" class=\"dataTables_wrapper no-footer\" >
                                     <table class=\"table table-striped table-bordered table-hover dataTable no-footer\" id=\"tabella_test\" role=\"grid\" aria-describedby=\"tabella_studenti_info\">
                                         <thead>
@@ -130,5 +131,5 @@ if($vai=="vai") {
     echo "</tbody> </div><div";
     echo "id=nomeCorso";
     echo "value='" . $idCorso . "'";
-    echo "></div></table></div>";
+    echo "></div></table></div></div>";
 }

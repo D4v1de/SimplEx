@@ -538,8 +538,6 @@ if ($_URL[4] != 0) {
                 </div>
             </div>
             <div class="portlet-body">
-
-
                 <div id="tabella_studenti_wrapper" class="dataTables_wrapper no-footer">
                     <table class="table table-striped table-bordered table-hover dataTable no-footer"
                            id="tabella_studenti" role="grid" aria-describedby="tabella_studenti_info">

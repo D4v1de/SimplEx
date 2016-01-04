@@ -50,9 +50,9 @@ if (!is_numeric($idCorso)) {
         
         
         $timeTo = strtotime( $newOrOldDataTo);
-        $toCompareTo = date('yyyy-mm-dd hh:ii:ss', $timeTo);
+        $toCompareTo = date('y-m-d H:i:s', $timeTo);
         $timeFrom = strtotime($newOrOldDataFrom);
-        $toCompareFrom = date('yyyy-mm-dd hh:ii:ss', $timeFrom);
+        $toCompareFrom = date('y-m-d H:i:s', $timeFrom);
         if ($toCompareTo < $toCompareFrom) {
             $flag = 0;
         }
