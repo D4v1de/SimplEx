@@ -201,7 +201,7 @@
             <div class="main_feature text-center">
                 <div class="col-md-3 col-xs-12 col-sm-6">
                     <div class="feature_content">
-                        <a href="http://5.9.123.184/Documentazione/Simplex%20-%20Requirements%20Analysis%20Document.pdf" target="_black">  <i class="fa fa-pencil"></i>
+                        <a href="http://5.9.123.184/Documentazione/RAD.pdf" target="_black">  <i class="fa fa-pencil"></i>
                             <h5>RAD</h5></a>
 
                         <p><b>Requirement Analysis Document</b>.<br> Documento di analisi dei requisiti funzionali e non funzionali del sistema software <b>SimplEx</b>.</p>
@@ -210,7 +210,7 @@
                 </div>
                 <div class="col-md-3 col-xs-12 col-sm-6">
                     <div class="feature_content">
-                        <a href="" target="_black">  <i class="fa fa-pencil"></i>
+                        <a href="ftp://5.9.123.184/Documentazione/SDD.pdf" target="_black">  <i class="fa fa-pencil"></i>
                             <h5>SDD</h5></a>
 
                         <p><b>System Design Document</b>.<br> Documento di specifica degli obiettivi di design del sistema software <b>SimplEx</b>. </p>
@@ -231,7 +231,7 @@
                         <a href="http://5.9.123.184/Documentazione/TestPlan.pdf" target="_black"> <i class="fa fa-pencil"></i>
                         <h5>Test Plan</h5></a>
 
-                        <p>Documento contenente il piano di test previsto per il sistema software <b>SimplEx</b>.</p>
+                        <p>Documento contenente il <b>piano di test</b> previsto per il sistema software <b>SimplEx</b>.</p>
 
                     </div>
                 </div> <!-- Col-md-4 Single_feature End -->
@@ -284,7 +284,7 @@
                         </div>
                         <i class="fa fa-weixin fa-3x fw"></i>
 
-                        <div class="facts-wrap-num"><span class="counter">8500</span></div>
+                        <div class="facts-wrap-num"><span class="counter">10000</span></div>
                     </div>
                     <h6>Messaggi</h6>
                 </div>
@@ -304,7 +304,7 @@
                         </div>
                         <i class="fa fa-group fa-3x fw"></i>
 
-                        <div class="facts-wrap-num"><span class="counter">20</span></div>
+                        <div class="facts-wrap-num"><span class="counter">18</span></div>
                     </div>
                     <h6>Meeting</h6>
                 </div>
@@ -324,7 +324,7 @@
                         </div>
                         <i class="fa fa-check-square-o fa-3x fw"></i>
 
-                        <div class="facts-wrap-num"><span class="counter">1100</span></div>
+                        <div class="facts-wrap-num"><span class="counter">1300</span></div>
                     </div>
                     <h6>Commit</h6>
                 </div>
@@ -343,7 +343,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="feature_header text-center">
                     <h3 class="feature_title">Chi <b>siamo</b></h3>
-                    <h4 class="feature_sub">Il sistema <b>SimplEx</b> è stato realizzato come progetto per l'esame di <b>Ingegneria del software</b>, questo sistema è stato sviluppato da un gruppo di studenti dell'<b>Universita degli Studi di Salerno</b> della facolt&agrave; di Scienze MM.FF.NN. del dipartimento di Informatica. </h4>
+                    <h4 class="feature_sub">Il sistema <b>SimplEx</b> &egrave; stato realizzato come progetto per l'esame di <b>Ingegneria del software</b>, questo sistema &egrave; stato sviluppato da un gruppo di studenti dell'<b>Universita degli Studi di Salerno</b> del <b>dipartimento di Informatica</b>. </h4>
 
                     <div class="divider"></div>
                 </div>
@@ -391,9 +391,7 @@
                         <h3 class="name">Alessandro Longo <span><b>Project Manager</b></span></h3>
 
                         <p class="testimonial-text">
-                            Lorem Ipsum as their default model text, and a search for ‘lorem ipsum’ will uncover many
-                            web sites still in their infancy. Various versions have evolved over the years, sometimes by
-                            accident, sometimes on purpose. Lorem Ipsum is that it as opposed to using.
+
                         </p>
                     </div>
                 </div>
@@ -405,9 +403,11 @@
                         <h3 class="name wow bounceInLeft">Davide De Chiara<span><b>Project Manager</b></span></h3>
 
                         <p class="testimonial-text">
-                            Lorem Ipsum as their default model text, and a search for ‘lorem ipsum’ will uncover many
-                            web sites still in their infancy. Various versions have evolved over the years, sometimes by
-                            accident, sometimes on purpose. Lorem Ipsum is that it as opposed to using.
+                            Sono uno studente della laurea magistrale in <b>Tecnologie Informatiche e Management</b> dell’<b>Università degli Studi di Salerno</b>,
+                            da quando ho conosciuto il mondo dell’<b>Ingegneria del Software</b> non ne ho potuto più fare a meno, &egrave; diventata la mia passione
+                            che mi ha portato a ottenere tante belle soddisfazioni. Il mio obiettivo è rapportarmi a realt&agrave; che mi consentano di
+                            sfruttare al meglio le mie competenze e capacit&agrave; relazionali, nonché la mia predisposizione al lavoro di squadra e al
+                            problem-solving.
                         </p>
                     </div>
                 </div>
@@ -453,7 +453,7 @@
                                     <li><a href="https://plus.google.com/u/0/116598927567654271356/posts"><i class="fa fa-google-plus"></i></a></li>
                                     <li><a href="https://www.linkedin.com/profile/view?id=AAkAAADyWAMBD27_vJoLSc5XNrmdA7RtLp9wPLA&authType=NAME_SEARCH&authToken=5V0u&locale=it_IT&trk=tyah&trkInfo=clickedVertical%3Amynetwork%2CclickedEntityId%3A15882243%2CauthType%3ANAME_SEARCH%2Cidx%3A1-1-1%2CtarId%3A1450817493260%2Ctas%3Aandrea%20de%20lucia"><i class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
-                                <p> </p>
+                                <p> Top Manager</p>
                             </div>
                         </div>
                         <h3>Andrea De Lucia</h3>
@@ -471,7 +471,7 @@
                                     <li><a href="https://plus.google.com/u/0/105812069876884913820/posts"><i class="fa fa-google-plus"></i></a></li>
                                     <li><a href="https://www.linkedin.com/profile/view?id=ADEAAAhAnPcBaq_rcApOeZSw2VTlFE3j7TO_1Hw&authType=NAME_SEARCH&authToken=I1n9&locale=it_IT&srchid=4674249261450817344258&srchindex=1&srchtotal=104&trk=vsrp_people_res_name&trkInfo=VSRPsearchId%3A4674249261450817344258%2CVSRPtargetId%3A138452215%2CVSRPcmpt%3Aprimary%2CVSRPnm%3Atrue%2CauthType%3ANAME_SEARCH"><i class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
-                                <p> </p>
+                                <p> Project Manager</p>
                             </div>
                         </div>
                         <h3>Alessandro Longo</h3>
@@ -489,7 +489,7 @@
                                     <li><a href="https://plus.google.com/u/0/107433973753755438977/posts"><i class="fa fa-google-plus"></i></a></li>
                                     <li><a href="https://www.linkedin.com/profile/view?id=AAkAAA7wPCUBSBZYb7M0n6mXsh1rIm7KveZu348&authType=NAME_SEARCH&authToken=tjFv&locale=it_IT&trk=tyah&trkInfo=clickedVertical%3Amynetwork%2CclickedEntityId%3A250625061%2CauthType%3ANAME_SEARCH%2Cidx%3A1-1-1%2CtarId%3A1450817378306%2Ctas%3Adavide%20de%20chiara"><i class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
-                                <p> </p>
+                                <p> Project Manager</p>
                             </div>
                         </div>
                         <h3>Davide De Chiara</h3>
@@ -789,19 +789,6 @@
                             </div>
                             <div class="col-md-12 col-sm-9">
                                 <div class="c-tab">
-                                   <!-- <h4>Web Design and Development</h4>
-
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus praesentium
-                                        dolore sequi excepturi recusandae reprehenderit, distinctio.</p>
-                                    <br>
-
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae dolorum, quisquam
-                                        eum eaque. Excepturi nisi necessitatibus, inventore explicabo corporis expedita
-                                        fugit aspernatur harum reprehenderit temporibus, pariatur esse laborum qui
-                                        quisquam.
-                                    </p>
-                                    <br>-->
 
                                 </div>
                             </div>
