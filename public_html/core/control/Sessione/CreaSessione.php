@@ -36,10 +36,10 @@ $someTestsAorD=false;
         $stato = 'Non Eseguita';
 
         $timeTo = strtotime($newdataTo);
-        $toCompareTo = date('yyyy-mm-dd hh:ii:ss', $timeTo);
+        $toCompareTo = date('y-m-d H:i:s', $timeTo);
 
         $timeFrom = strtotime($newdataFrom);
-        $toCompareFrom = date('yyyy-mm-dd hh:ii:ss', $timeFrom);
+        $toCompareFrom = date('y-m-d H:i:s', $timeFrom);
 
         if ($toCompareTo < $toCompareFrom) {
             $flag = 0;
@@ -124,6 +124,7 @@ $someTestsAorD=false;
         else
             $tornaACasa= "Location: "."/docente/corso/"."$idCorso"."/successinserimento";
         header($tornaACasa);
+
     }
 
 if($someTestsAorD==false) {
