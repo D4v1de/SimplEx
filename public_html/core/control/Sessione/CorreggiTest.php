@@ -110,7 +110,7 @@ if (isset($_POST['salva'])){
         else{
             $perc = $updated->getPercentualeSuccessoEse() +1;
             $updated->setPercentualeSuccessoEse($perc);
-        }    
+        }
         $testModel->updateTest($elaborato->getTestId(), $updated);
     }
 

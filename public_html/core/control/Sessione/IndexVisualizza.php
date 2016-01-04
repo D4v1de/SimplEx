@@ -12,7 +12,7 @@ if (!is_numeric($idCorso)) {
 }
 
 if(isset($_POST['rimuovi'])){
-        header("location: " ."/docente/corso/".$idCorso."/rimuovisessione/".$_POST['rimuovi']);
+    header("location: " ."/docente/corso/".$idCorso."/rimuovisessione/".$_POST['rimuovi']);
 }
 
 if(isset($_POST['avvia'])){
