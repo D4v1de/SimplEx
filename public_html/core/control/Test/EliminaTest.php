@@ -33,14 +33,14 @@ foreach($docentiOe as $d) {
 }
 if($numProfs==0){
     $_SESSION["Intruso"]=1;
-    header("Location: "."/docente/corso/".$identificativoCorso);
+    header("Location: "."/docente/corso/".$identificativoCorso."/accessdenied");
 }
 
 
 if(isset($_POST['idtest'])){
     $id = $_POST['idtest'];
     $modelTest->deleteTest($id);
-    $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
+    $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/successelimina";
     header($tornaACasa);
 }
 

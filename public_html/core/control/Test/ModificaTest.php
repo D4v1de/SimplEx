@@ -96,7 +96,7 @@ foreach($docentiOe as $d) {
 }
 if($numProfs==0){
     $_SESSION["Intruso"]=1;
-    header("Location: "."/docente/corso/".$identificativoCorso);
+    header("Location: "."/docente/corso/".$identificativoCorso."/accessdenied");
     return;
 }
 
@@ -229,7 +229,7 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
          $ilTest=$modelTest->readTest($idTest);
          $ilTest->setPunteggioMax($punteggio);
          $modelTest->updateTest($idTest,$ilTest);//aggiorno il valore di punteggio totale del test(finora zero) con il puteggio calcolato finora
-         $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso";
+         $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/successmodifica";
          header($tornaACasa);//torno alla home
 
         }
