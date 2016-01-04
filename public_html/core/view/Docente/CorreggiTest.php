@@ -350,7 +350,7 @@ try {
                                 if ($rispostaaperta->getDomandaApertaId() == $a->getId()) {
                                     printf("<div class=\"row\"> <div class=\"col-md-10\">
                                             <textarea class=\"form-control\" id=\"ap-12\" rows=\"3\" placeholder=\"\" style=\"resize:none\" disabled>%s</textarea>
-                                             </div>", $rispostaaperta->getTesto());
+                                             </div>", base64_decode( ($rispostaaperta->getTesto()) ));
                                     printf("<div class=\"col-md-2\">  <select class=\"form-control\" name=\"sel-%s\">", $a->getId());
                                     for($x = 0; $x <= $max; $x++)
                                         printf("<option value=\"%s\">%s</option>", $x, $x);
