@@ -506,7 +506,7 @@
                                     <li><a href="https://www.google.com/+DarioCastellano94"><i class="fa fa-google-plus"></i></a></li>
                                     <li><a href=" https://www.linkedin.com/in/dario-castellano-4aa617100"><i class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
-                                <p> </p>
+                                <p>Tester </p>
                             </div>
                         </div>
                         <h3>Dario Castellano</h3>
@@ -524,7 +524,7 @@
                                     <li><a href="https://www.facebook.com/antonioluca.davanzo?fref=ts"><i class="fa fa-facebook"></i></a></li>
                                     <li><a href="https://www.linkedin.com/profile/view?id=AAkAABwB25sB6LTa4ABFitFa8KhmDWMFr3SeXiU&authType=NAME_SEARCH&authToken=0rco&locale=it_IT&trk=tyah&goback="><i class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
-                                <p> </p>
+                                <p>Software Developer</p>
                             </div>
                         </div>
                         <h3>Antonio Luca D'Avanzo</h3>
@@ -541,7 +541,7 @@
                                     <li><a href=" https://www.facebook.com/christian.deblasio.16"><i class="fa fa-facebook"></i></a></li>
                                     <li><a href="https://www.linkedin.com/profile/preview?vpa=pub&locale=it_IT"><i class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
-                                <p> </p>
+                                <p> IT Architect</p>
                             </div>
                         </div>
                         <h3>Christian De Blasio</h3>
@@ -558,7 +558,7 @@
                                     <li><a href=" https://github.com/fede3ro"><i class="fa fa-github-square"></i></a></li>
                                     <li><a href="https://www.linkedin.com/profile/view?id=AAIAABvcVqEBUXXbZCjzwBl07ooQcs0buNEk8YQ&trk=nav_responsive_tab_profile"><i class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
-                                <p></p>
+                                <p>Liaison and Software Developer</p>
                             </div>
                         </div>
                         <h3>Federico De Rosa</h3>
@@ -575,7 +575,7 @@
                                     <li><a href=" https://github.com/chardido"><i class="fa fa-github-square"></i></a></li>
                                     <li><a href="https://it.linkedin.com/in/carlo-di-domenico-651658110"><i class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
-                                <p> </p>
+                                <p>Software Developer</p>
                             </div>
                         </div>
                         <h3>Carlo Di Domenico</h3>
@@ -592,7 +592,7 @@
                                     <li><a href="https://github.com/fabesp1994"><i class="fa fa-github-square"></i></a></li>
                                     <li><a href=" https://plus.google.com/u/0/?hl=it"><i class="fa fa-google-plus"></i></a></li>
                                 </ul>
-                                <p> </p>
+                                <p>Software Developer</p>
                             </div>
                         </div>
                         <h3>Fabio Esposito</h3>
@@ -610,7 +610,7 @@
                                     <li><a href="https://plus.google.com/u/0/117270428071805224670/posts"><i class="fa fa-google-plus"></i></a></li>
                                     <li><a href="https://www.linkedin.com/profile/view?id=AAIAABvcVp4BSdMe_XvYyATRQ1B-jO-_nHISiSs&trk=nav_responsive_tab_profile_pic"><i class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
-                                <p> </p>
+                                <p>Front-end Developer and Tester</p>
                             </div>
                         </div>
                         <h3>Alina Korniychuk</h3>
@@ -627,7 +627,7 @@
                                     <li><a href="https://github.com/PasqualeMartiniello"><i class="fa fa-github-square"></i></a></li>
                                     <li><a href="https://it.linkedin.com/in/pasquale-martiniello-651129111"><i class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
-                                <p> </p>
+                                <p>Software Developer</p>
                             </div>
                         </div>
                         <h3>Pasquale Martiniello</h3>
@@ -645,7 +645,7 @@
                                     <li><a href="https://plus.google.com/u/0/110805340083652923912"><i class="fa fa-google-plus"></i></a></li>
                                     <li><a href="https://www.linkedin.com/profile/view?id=AAIAABvcTB4BBQnZ-h5XKhjYQpHS83kKsVuY560"><i class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
-                                <p></p>
+                                <p>Graphic Designer and Software Developer</p>
                             </div>
                         </div>
                         <h3>Fabiano Pecorelli</h3>
@@ -662,7 +662,7 @@
                                     <li><a href="https://github.com/mrneutro"><i class="fa fa-github-square"></i></a></li>
                                     <li><a href="https://it.linkedin.com/in/sergey-shevchenko-b6122353"><i class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
-                                <p> </p>
+                                <p>Access and Security Manager</p>
                             </div>
                         </div>
                         <h3>Sergiy Shevchenko</h3>
@@ -680,7 +680,7 @@
                                     <li><a href=" https://plus.google.com/108198214576312534670/posts"><i class="fa fa-google-plus"></i></a></li>
                                     <li><a href="https://www.linkedin.com/in/giusy-tufano-b42884110"><i class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
-                                <p></p>
+                                <p>Tester</p>
                             </div>
                         </div>
                         <h3>Giuseppina Tufano</h3>
@@ -698,7 +698,7 @@
                                     <li><a href="https://www.facebook.com/ElviraZanin"><i class="fa fa-facebook"></i></a></li>
                                     <li><a href="https://it.linkedin.com/in/elvira-zanin-330893110"><i class="fa fa-linkedin-square"></i></a></li>
                                 </ul>
-                                <p> </p>
+                                <p>Database Manager and Requirements Manager</p>
                             </div>
                         </div>
                         <h3>Elvira Zanin</h3>
@@ -789,7 +789,6 @@
                             </div>
                             <div class="col-md-12 col-sm-9">
                                 <div class="c-tab">
-
                                 </div>
                             </div>
 
