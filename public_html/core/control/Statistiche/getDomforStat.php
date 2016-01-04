@@ -8,10 +8,6 @@
  */
 include_once MODEL_DIR . "TestModel.php";
 $testModel = new TestModel();
-include_once MODEL_DIR . "ElaboratoModel.php";
-$elaboratoModel = new ElaboratoModel();
-include_once MODEL_DIR . "ArgomentoModel.php";
-$argomentoModel = new ArgomentoModel();
 include_once MODEL_DIR . "DomandaModel.php";
 $domandaModel = new DomandaModel();
 include_once MODEL_DIR . "SessioneModel.php";
@@ -22,7 +18,6 @@ $number = $_GET['num'];
 $type = $_GET['type'];
 $mod = $_GET['mod'];
 $kind = $_GET['kind'];
-$argomenti = $argomentoModel->getAllArgomentoCorso($corsoId);
 $sessioni = $sessioneModel->getAllSessionibyCorso($corsoId);
 
 $testsVal = $testModel->getAllTestBySessioneValutativa($corsoId);
