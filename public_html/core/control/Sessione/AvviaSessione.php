@@ -48,7 +48,7 @@ else {
     $dataTo = $sessione->getDataFine();
     $tipoSessione = $sessione->getTipologia();
     $soglia=$sessione->getSogliaAmmissione();
-    $dataNow = date('Y/m/d/ h:i:s ', time());
+    $dataNow = date('y-m-d H:i:s', time());
     $newSessione = new Sessione($dataNow, $dataTo, $soglia, "In Esecuzione", $tipoSessione, $idCorso);
     $sessioneModel->updateSessione($idSessione, $newSessione);
     $vaiASesInCorso = "Location: " . "/docente/corso/" . $idCorso . "/sessione" . "/" . $idSesToGo . "/" . "sessioneincorso/show";

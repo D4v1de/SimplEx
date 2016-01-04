@@ -24,7 +24,7 @@ $sessione=$modelSessione->readSessione($idSessione);
 $dataFrom=$sessione->getDataInizio();
 $soglia=$sessione->getSogliaAmmissione();
 $tipoSessione=$sessione->getTipologia();
-$dataNow=date('Y/m/d/ h:i:s ', time());
+$dataNow=date('y-m-d H:i:s', time());
 $newSessione = new Sessione($dataFrom, $dataNow, $soglia, "Eseguita", $tipoSessione, $identificativoCorso);
 $modelSessione->updateSessione($idSessione,$newSessione);
 $vaiVisuEsiti= "Location: "."/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."esiti/show";
