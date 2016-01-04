@@ -129,6 +129,7 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
                   $_SESSION['flag6']=1;
         $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/modifica/"."$idTest";
         header($tornaACasa);
+        return;
                 }
         }
     }
@@ -141,6 +142,7 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
                   $_SESSION['flag7']=1;
         $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/modifica/"."$idTest";
         header($tornaACasa);
+        return;
                 }
         }
         $stringa2=sprintf("alternErr-%d", $id);
@@ -149,6 +151,7 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
                   $_SESSION['flag8']=1;
         $tornaACasa= "Location: "."/docente/corso/"."$identificativoCorso"."/test/modifica/"."$idTest";
         header($tornaACasa);
+        return;
                 }
         }        
     }
