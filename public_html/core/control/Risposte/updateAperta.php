@@ -25,7 +25,7 @@ include_once MODEL_DIR . "SessioneModel.php";
     $start = $sessione->getDataInizio();
     if ($now >= $start && $now <= $end && $elaborato->getStato() == "Non corretto"){
         $updatedRisposta = $raMod->readRispostaAperta($elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId);
-        $testo = $_REQUEST["testo"];
+        $testo = base64_encode($_REQUEST["testo"]);
         $updatedRisposta->setTesto($testo);
 
         $raMod->updateRispostaAperta($updatedRisposta, $elaboratoSessioneId, $elaboratoStudenteMatricola, $domandaApertaId);

@@ -8,8 +8,6 @@
  */
 include_once MODEL_DIR . "TestModel.php";
 $testModel = new TestModel();
-include_once MODEL_DIR . "ElaboratoModel.php";
-$elaboratoModel = new ElaboratoModel();
 include_once MODEL_DIR . "SessioneModel.php";
 $sessioneModel = new SessioneModel();
 
