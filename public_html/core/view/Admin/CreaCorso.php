@@ -180,10 +180,10 @@ try {
                                                 <?php
                                                 foreach ($cdls as $c) {
                                                     if (isset($_SESSION['tipologia2']) && $_SESSION['tipologia2'] == $c->getMatricola()) {
-                                                        printf("<option value=\"%s\" selected>%s - %s</option>", $c->getMatricola(), $c->getMatricola(), $c->getNome());
+                                                        printf("<option value=\"%s\" selected>%s - %s - %s</option>", $c->getMatricola(), $c->getMatricola(), $c->getNome(), $c->getTipologia());
                                                         unset($_SESSION['tipologia2']);
                                                     } else {
-                                                        printf("<option value=\"%s\">%s - %s</option>", $c->getMatricola(), $c->getMatricola(), $c->getNome());
+                                                        printf("<option value=\"%s\">%s - %s - %s</option>", $c->getMatricola(), $c->getMatricola(), $c->getNome(), $c->getTipologia());
                                                     }
                                                 }
                                                 ?>
