@@ -506,10 +506,12 @@ $aperte = $domandaModel->getAllDomandeAperteByTest($testId);
     }
     
     function consegna(){
+        stopInterval();
         $.post("/studente/consegna?mat="+mat+"&sessId="+sId+"&corsoId="+cId);
     }
     
     function abbandona(){
+        stopInterval();
         $.post("/studente/abbandona?mat="+mat+"&sessId="+sId+"&corsoId="+cId);
     }
                                             
@@ -522,8 +524,22 @@ $aperte = $domandaModel->getAllDomandeAperteByTest($testId);
                       consegna: {
                         label: "Consegna",
                         className: "green",
+                        href: "/studente/corso/<?php echo $corsoId; ?>",
                         callback: function() {
                             consegna();
+                            bootbox.dialog({
+                            message: "Consegna effettuata con successo",
+                            closeButton: false,
+                            buttons: {
+                              conferma: {
+                                label: "Ok",
+                                className: "green",
+                                callback: function() {
+                                  location.href = "/studente/corso/<?php echo $corsoId; ?>";
+                                }
+                              }
+                            }
+                        });
                         }
                       },
                       abbandona: {
@@ -531,6 +547,19 @@ $aperte = $domandaModel->getAllDomandeAperteByTest($testId);
                         className: "red",
                         callback: function() {
                             abbandona();
+                            bootbox.dialog({
+                            message: "Test Annullato",
+                            closeButton: false,
+                            buttons: {
+                              conferma: {
+                                label: "Ok",
+                                className: "red",
+                                callback: function() {
+                                  location.href = "/studente/corso/<?php echo $corsoId; ?>";
+                                }
+                              }
+                            }
+                        });
                         }
                       }
                     }
