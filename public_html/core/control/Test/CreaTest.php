@@ -104,7 +104,7 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
     // qui va la parte manuale
     // LA STO RIFACENDO C***O
     
-    $descrizione=$_POST['descrizione']; //descrizione testo
+    $descrizione=base64_encode($_POST['descrizione']); //descrizione testo
     $punteggio=0;
     $cont1=0;
     $cont2=0;
@@ -208,7 +208,7 @@ if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && isset($_POST['
     $nMul=parseInt($_POST['numMultiple']);
     $dbAperte;
     $dbMultiple;
-    $descr=$_POST['descrizione'];
+    $descr=base64_encode($_POST['descrizione']);
     
 
     if($nApe < 0 || $nMul < 0) {
@@ -235,7 +235,7 @@ if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && isset($_POST['
         header($tornaACasa);
     }
     else  {
-        $descr=$_POST['descrizione'];
+        $descr=base64_encode($_POST['descrizione']);
         $punteggio=0;
         $Argomenti = Array();
         $Multiple = Array();
