@@ -282,10 +282,10 @@ try {
 
                                     //mi segna una classe a tutte le corrette e una a tutte le sbagliate
                                     if($a->getCorretta() == 'Si') {
-                                        printf("<label for=\"alt-12\"><span class=\"inc\"></span><span class=\"check\"></span><span class=\"box\"></span>%s</label><span class=\"esatte col-md-offset-3\"></span></div>", $a->getTesto());
+                                        printf("<label for=\"alt-12\"><span class=\"inc\"></span><span class=\"check\"></span><span class=\"box\"></span>%s</label><span class=\"esatte col-md-offset-1\"></span></div>", $a->getTesto());
                                     }
                                     else if($a->getCorretta() == 'No' && $rispostamultipla->getAlternativaId() == $a->getId()) {
-                                        printf("<label for=\"alt-12\"><span class=\"inc\"></span><span class=\"check\"></span><span class=\"box\"></span>%s</label><span class=\"sbagliate col-md-offset-3\"></span></div>", $a->getTesto());
+                                        printf("<label for=\"alt-12\"><span class=\"inc\"></span><span class=\"check\"></span><span class=\"box\"></span>%s</label><span class=\"sbagliate col-md-offset-1\"></span></div>", $a->getTesto());
                                     }
                                     else {
                                         printf("<label for=\"alt-12\"><span class=\"inc\"></span><span class=\"check\"></span><span class=\"box\"></span>%s</label></div>", $a->getTesto());
@@ -295,13 +295,21 @@ try {
                                 printf("</div></div>");
                             }
                             foreach ($aperte as $a) {
-                                printf("<div class=\"portlet light bordered\"><div class=\"portlet-title\"><div class=\"caption\"><i class=\"fa fa-question-circle\"></i><span class=\"caption-subject bold uppercase\">%s (aperta)</span></div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div>", $a->getTesto());
-                                printf("<div class=\"portlet-body\">");
                                 try {
                                     $rispostaaperta = $modelrispostaaperta->readRispostaAperta($elaborato->getSessioneId(), $studente->getMatricola(), $a->getId());
                                 } catch (ApplicationException $ex) {
                                     echo "<h1>READRISPOSTAAPERTA FALLITO!</h1>" . $ex;
                                 }
+                                $punteggio = $rispostaaperta->getPunteggio();
+                                $componi = $modeldomanda->readPunteggioMaxAlternativo($a->getId(), $test->getId());
+                                $max = $a->getPunteggioMax() == null ? $componi : $a->getPunteggioMax();
+                                if($punteggio == $max) {
+                                    printf("<div class=\"portlet light bordered\"><div class=\"portlet-title\"><div class=\"caption open perfetta\"><i class=\"fa fa-question-circle\"></i><span class=\"caption-subject bold uppercase\">%s</span></div><div class=\"caption punteggio col-md-offset-1\"></div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div>", $a->getTesto());
+                                }
+                                else {
+                                    printf("<div class=\"portlet light bordered\"><div class=\"portlet-title\"><div class=\"caption open\"><i class=\"fa fa-question-circle\"></i><span class=\"caption-subject bold uppercase\">%s</span></div><div class=\"caption punteggio col-md-offset-1\"></div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div>", $a->getTesto());
+                                }
+                                printf("<div class=\"portlet-body\">");
                                 if ($rispostaaperta->getDomandaApertaId() == $a->getId()) {
                                     printf("<textarea class=\"form-control\" id=\"ap-12\" rows=\"3\" placeholder=\"\" style=\"resize:none\" disabled>%s</textarea>", $rispostaaperta->getTesto());
                                 }
@@ -356,7 +364,7 @@ try {
         /*for(var r in ris) {
             alert(ris[r]);
         }*/
-        if(document.getElementsByClassName('label label-sm label-success').length == 0) {
+        if(document.getElementsByClassName('label label-sm risp').length == 0) {
             for(var r in ris) {
                 if(ris[r] == 'Si') {
                     document.getElementById("div"+r).setAttribute('class','caption questions font-green-haze');
@@ -370,18 +378,38 @@ try {
             var array = document.getElementsByClassName("esatte");
             for(var i=0; i<array.length; i++) {
                 var span = document.createElement("span");
-                span.setAttribute("class","label label-sm label-success");
+                span.setAttribute("class","label label-sm label-success risp");
                 span.innerHTML = "esatta";
                 array[i].appendChild(span);
             }
             var array2 = document.getElementsByClassName("sbagliate");
             for(var j=0; j<array2.length; j++) {
                 var span2 = document.createElement("span");
-                span2.setAttribute("class","label label-sm label-danger");
+                span2.setAttribute("class","label label-sm label-danger risp");
                 span2.innerHTML = "sbagliata";
                 array2[j].appendChild(span2);
             }
         }
+
+        if(document.getElementsByClassName('label label-sm label-success punt').length == 0) {
+            var perfetta = document.getElementsByClassName("perfetta");
+            if (perfetta.length >= 1) {
+                for (var k = 0; k < perfetta.length; k++) {
+                    perfetta[k].setAttribute('class', 'caption open perfetta questions font-green-haze');
+                    perfetta[k].firstChild.setAttribute('class', 'fa fa-question-circle font-green-haze');
+                }
+            }
+            var open = document.getElementsByClassName("punteggio");
+            if (open.length >= 1) {
+                for (var h = 0; h < open.length; h++) {
+                    var span3 = document.createElement("span");
+                    span3.setAttribute("class", "label label-sm label-success punt");
+                    span3.innerHTML = "<?php echo 'Punteggio: ' . $punteggio . ' su ' . $max ?>";
+                    open[h].appendChild(span3);
+                }
+            }
+        }
+
     }
 </script>
 <!-- END JAVASCRIPTS -->

@@ -325,10 +325,10 @@ try {
                         }
                         break;
                     case 'getTestforStat':
-                        include_once CONTROL_DIR . "Statistiche/getTestforStat.php";
+                        include_once CONTROL_DIR . "Statistiche/GetTestforStat.php";
                         break;
                     case 'getDomforStat':
-                        include_once CONTROL_DIR . "Statistiche/getDomforStat.php";
+                        include_once CONTROL_DIR . "Statistiche/GetDomforStat.php";
                         break;
                     case 'creazione_TEST':
                         include_once CONTROL_DIR . "Test/CreaTest.php";
