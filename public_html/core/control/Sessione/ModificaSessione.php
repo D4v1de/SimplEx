@@ -50,136 +50,136 @@ if($dataFromSettato=isset($_POST['dataFrom']) && $radio1Settato=isset($_POST['ra
 
 
     $timeTo = strtotime( $newOrOldDataTo);
-    $toCompareTo = date('y-m-d H:i:s', $timeTo);
     $timeFrom = strtotime($newOrOldDataFrom);
-    $toCompareFrom = date('y-m-d H:i:s', $timeFrom);
-    if ($toCompareTo < $toCompareFrom) {
-        $flag = 0;
+    if(!$timeTo) {
+        echo "<script type='text/javascript'>alert('Data non corretta');</script>";
     }
-
+    else if(!$timeFrom) {
+        echo "<script type='text/javascript'>alert('Data non corretta');</script>";
+    }
+    else if($newtipoSessione!="Valutativa" && $newtipoSessione!="Esercitativa")
+            echo "<script type='text/javascript'>alert('Tipologia Sessione non corretta.');</script>";
     else {
-        try {
-            $sessioneAggiornata = new Sessione($newOrOldDataFrom, $newOrOldDataTo, $sogliAmm, $stato, $newtipoSessione, $idCorso);
-            $sessioneModel->disabilitaMostraEsito($idSessione);
-            $sessioneModel->disabilitaMostraRisposteCorrette($idSessione);
+        $toCompareTo = date('y-m-d H:i:s', $timeTo);
+        $toCompareFrom = date('y-m-d H:i:s', $timeFrom);
+        if ($toCompareTo < $toCompareFrom) {
+            $flag = 0;
+        } else {
+            try {
+                $sessioneAggiornata = new Sessione($newOrOldDataFrom, $newOrOldDataTo, $sogliAmm, $stato, $newtipoSessione, $idCorso);
+                $sessioneModel->disabilitaMostraEsito($idSessione);
+                $sessioneModel->disabilitaMostraRisposteCorrette($idSessione);
 
-            if (isset($_POST['cbShowEsiti'])) {
-                $sessioneModel->abilitaMostraEsito($idSessione);
-            }
-
-            if (isset($_POST['cbShowRispCorr'])) {
-                $sessioneModel->abilitaMostraRisposteCorrette($idSessione);
-            }
-
-            $sessioneModel->updateSessione($_URL[4], $sessioneAggiornata);
-
-            if (isset($_POST['tests'])) {
-                $cbTest = Array();
-                $cbTest = $_POST['tests'];
-                $tests = $testModel->getAllTestBySessione($idSessione);
-                $sessioneModel->deleteAllTestFromSessione($idSessione);
-                foreach ($tests as $updated) {
-                    if ($oldTipologia == "Valutativa"){
-                        $perc = $updated->getPercentualeSceltoVal() -1;
-                        $updated->setPercentualeSceltoVal($perc);
-                    }
-                    else{
-                        $perc = $updated->getPercentualeSceltoEse() -1;
-                        $updated->setPercentualeSceltoEse($perc);
-                    }
-                    $aperte = $domandaModel->getAllDomandeAperteByTest($updated->getId());
-                    foreach ($aperte as $updatedDom){
-                        if ($oldTipologia == "Valutativa"){
-                            $percDom = $updatedDom->getPercentualeSceltaVal() -1;
-                            $updatedDom->setPercentualeSceltaVal($percDom);
-                        }
-                        else{
-                            $percDom = $updatedDom->getPercentualeSceltaEse() -1;
-                            $updatedDom->setPercentualeSceltaEse($percDom);
-                        }
-                        $domandaModel->updateDomandaAperta($updatedDom->getId(), $updatedDom);
-                    }
-                    $multiple = $domandaModel->getAllDomandeMultipleByTest($updated->getId());
-                    foreach ($multiple as $updatedDom){
-                        if ($oldTipologia == "Valutativa"){
-                            $percDom = $updatedDom->getPercentualeSceltaVal() -1;
-                            $updatedDom->setPercentualeSceltaVal($percDom);
-                        }
-                        else{
-                            $percDom = $updatedDom->getPercentualeSceltaEse() -1;
-                            $updatedDom->setPercentualeSceltaEse($percDom);
-                        }
-                        $domandaModel->updateDomandaMultipla($updatedDom->getId(), $updatedDom);
-                    }
-                    $testModel->updateTest($updated->getId(), $updated);
+                if (isset($_POST['cbShowEsiti'])) {
+                    $sessioneModel->abilitaMostraEsito($idSessione);
                 }
-                foreach ($cbTest as $t) {
-                    $sessioneModel->associaTestSessione($idSessione, $t);
-                    $updated = $testModel->readTest($t);
-                    if ($newtipoSessione == "Valutativa"){
-                        $perc = $updated->getPercentualeSceltoVal() +1;
-                        $updated->setPercentualeSceltoVal($perc);
-                    }
-                    else{
-                        $perc = $updated->getPercentualeSceltoEse() +1;
-                        $updated->setPercentualeSceltoEse($perc);
-                    }
-                    $aperte = $domandaModel->getAllDomandeAperteByTest($t);
-                    foreach ($aperte as $updatedDom){
-                        if ($newtipoSessione == "Valutativa"){
-                            $percDom = $updatedDom->getPercentualeSceltaVal() +1;
-                            $updatedDom->setPercentualeSceltaVal($percDom);
-                        }
-                        else{
-                            $percDom = $updatedDom->getPercentualeSceltaEse() +1;
-                            $updatedDom->setPercentualeSceltaEse($percDom);
-                        }
-                        $domandaModel->updateDomandaAperta($updatedDom->getId(), $updatedDom);
-                    }
-                    $multiple = $domandaModel->getAllDomandeMultipleByTest($t);
-                    foreach ($multiple as $updatedDom){
-                        if ($newtipoSessione == "Valutativa"){
-                            $percDom = $updatedDom->getPercentualeSceltaVal() +1;
-                            $updatedDom->setPercentualeSceltaVal($percDom);
-                        }
-                        else{
-                            $percDom = $updatedDom->getPercentualeSceltaEse() +1;
-                            $updatedDom->setPercentualeSceltaEse($percDom);
-                        }
-                        $domandaModel->updateDomandaMultipla($updatedDom->getId(), $updatedDom);
-                    }
-                    $testModel->updateTest($t, $updated);
-                }
-            }
 
-            if($someStudentsChange=isset($_POST['students'])){
-                if ($someStudentsChange) {
-                    $cbStudents = Array();
-                    $cbStudents = $_POST['students'];
-                    $allStuAbi = $utenteModel->getAllStudentiSessione($idSessione);
-                    foreach ($allStuAbi as $s) {
-                        $utenteModel->disabilitaStudenteSessione($idSessione, $s->getMatricola());
+                if (isset($_POST['cbShowRispCorr'])) {
+                    $sessioneModel->abilitaMostraRisposteCorrette($idSessione);
+                }
+
+                $sessioneModel->updateSessione($_URL[4], $sessioneAggiornata);
+
+                if (isset($_POST['tests'])) {
+                    $cbTest = Array();
+                    $cbTest = $_POST['tests'];
+                    $tests = $testModel->getAllTestBySessione($idSessione);
+                    $sessioneModel->deleteAllTestFromSessione($idSessione);
+                    foreach ($tests as $updated) {
+                        if ($oldTipologia == "Valutativa") {
+                            $perc = $updated->getPercentualeSceltoVal() - 1;
+                            $updated->setPercentualeSceltoVal($perc);
+                        } else {
+                            $perc = $updated->getPercentualeSceltoEse() - 1;
+                            $updated->setPercentualeSceltoEse($perc);
+                        }
+                        $aperte = $domandaModel->getAllDomandeAperteByTest($updated->getId());
+                        foreach ($aperte as $updatedDom) {
+                            if ($oldTipologia == "Valutativa") {
+                                $percDom = $updatedDom->getPercentualeSceltaVal() - 1;
+                                $updatedDom->setPercentualeSceltaVal($percDom);
+                            } else {
+                                $percDom = $updatedDom->getPercentualeSceltaEse() - 1;
+                                $updatedDom->setPercentualeSceltaEse($percDom);
+                            }
+                            $domandaModel->updateDomandaAperta($updatedDom->getId(), $updatedDom);
+                        }
+                        $multiple = $domandaModel->getAllDomandeMultipleByTest($updated->getId());
+                        foreach ($multiple as $updatedDom) {
+                            if ($oldTipologia == "Valutativa") {
+                                $percDom = $updatedDom->getPercentualeSceltaVal() - 1;
+                                $updatedDom->setPercentualeSceltaVal($percDom);
+                            } else {
+                                $percDom = $updatedDom->getPercentualeSceltaEse() - 1;
+                                $updatedDom->setPercentualeSceltaEse($percDom);
+                            }
+                            $domandaModel->updateDomandaMultipla($updatedDom->getId(), $updatedDom);
+                        }
+                        $testModel->updateTest($updated->getId(), $updated);
                     }
-                    foreach ($cbStudents as $s) {
-                        $utenteModel->abilitaStudenteSessione($idSessione, $s);
+                    foreach ($cbTest as $t) {
+                        $sessioneModel->associaTestSessione($idSessione, $t);
+                        $updated = $testModel->readTest($t);
+                        if ($newtipoSessione == "Valutativa") {
+                            $perc = $updated->getPercentualeSceltoVal() + 1;
+                            $updated->setPercentualeSceltoVal($perc);
+                        } else {
+                            $perc = $updated->getPercentualeSceltoEse() + 1;
+                            $updated->setPercentualeSceltoEse($perc);
+                        }
+                        $aperte = $domandaModel->getAllDomandeAperteByTest($t);
+                        foreach ($aperte as $updatedDom) {
+                            if ($newtipoSessione == "Valutativa") {
+                                $percDom = $updatedDom->getPercentualeSceltaVal() + 1;
+                                $updatedDom->setPercentualeSceltaVal($percDom);
+                            } else {
+                                $percDom = $updatedDom->getPercentualeSceltaEse() + 1;
+                                $updatedDom->setPercentualeSceltaEse($percDom);
+                            }
+                            $domandaModel->updateDomandaAperta($updatedDom->getId(), $updatedDom);
+                        }
+                        $multiple = $domandaModel->getAllDomandeMultipleByTest($t);
+                        foreach ($multiple as $updatedDom) {
+                            if ($newtipoSessione == "Valutativa") {
+                                $percDom = $updatedDom->getPercentualeSceltaVal() + 1;
+                                $updatedDom->setPercentualeSceltaVal($percDom);
+                            } else {
+                                $percDom = $updatedDom->getPercentualeSceltaEse() + 1;
+                                $updatedDom->setPercentualeSceltaEse($percDom);
+                            }
+                            $domandaModel->updateDomandaMultipla($updatedDom->getId(), $updatedDom);
+                        }
+                        $testModel->updateTest($t, $updated);
                     }
                 }
+
+                if ($someStudentsChange = isset($_POST['students'])) {
+                    if ($someStudentsChange) {
+                        $cbStudents = Array();
+                        $cbStudents = $_POST['students'];
+                        $allStuAbi = $utenteModel->getAllStudentiSessione($idSessione);
+                        foreach ($allStuAbi as $s) {
+                            $utenteModel->disabilitaStudenteSessione($idSessione, $s->getMatricola());
+                        }
+                        foreach ($cbStudents as $s) {
+                            $utenteModel->abilitaStudenteSessione($idSessione, $s);
+                        }
+                    }
+                }
+            } catch (ApplicationException $ex) {
+                echo "<h1>ERRORE NELLE OPERAZIONI DELLA SESSIONE (fase modifica)!</h1>" . $ex;
             }
         }
-        catch (ApplicationException $ex) {
-            echo "<h1>ERRORE NELLE OPERAZIONI DELLA SESSIONE (fase modifica)!</h1>" . $ex;
+
+
+        if ($flag == 0) {
+            $_SESSION['flag'] = $flag;
+            $tornaACasa = "Location: " . "/docente/corso/" . "$idCorso" . "/sessione/" . $idSessione . "/creamodificasessione2/error";
+        } else {
+            $tornaACasa = "Location: " . "/docente/corso/" . "$idCorso" . "/successmodifica";
         }
+        header($tornaACasa);
     }
-
-
-    if($flag==0) {
-        $_SESSION['flag'] = $flag;
-        $tornaACasa = "Location: "."/docente/corso/"."$idCorso"."/sessione/".$idSessione."/creamodificasessione2/error";
-    }
-    else {
-        $tornaACasa = "Location: " . "/docente/corso/" . "$idCorso" . "/successmodifica";
-    }
-    header($tornaACasa);
 }
 else {
 

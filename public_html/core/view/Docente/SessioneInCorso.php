@@ -149,7 +149,7 @@ $dataTo = $sessioneByUrl->getDataFine();
                                             </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Email
                                 " style="width: 210px;">
-                                                Data creazione
+                                                Descrizione
                                             </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                          Points
                                 " style="width: 73px;">
@@ -188,7 +188,7 @@ $dataTo = $sessioneByUrl->getDataFine();
                                             foreach ($array as $c) {
                                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
                                                 printf("<td class=\"sorting_1\">Test %s</td>", $c->getId());
-                                                printf("<td>%s</td>", $c->getDescrizione());
+                                                printf("<td>%s</td>", base64_decode($c->getDescrizione()));
                                                 printf("<td>%d</td>", $c->getNumeroMultiple());
                                                 printf("<td>%d</td>", $c->getNumeroAperte());
                                                 printf("<td>%d</td>", $c->getPunteggioMax());
