@@ -247,7 +247,7 @@ $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
                                                         $percSuc = 0;
                                                 printf("<tr class=\"gradeX odd\" role=\"row\">");
                                                 printf("<td class=\"sorting_1\">Test %s</td>", $c->getId());
-                                                printf("<td>%s</td>", $c->getDescrizione());
+                                                printf("<td>%s</td>", base64_decode( $c->getDescrizione()));
                                                 printf("<td>%d</td>", $c->getNumeroMultiple());
                                                 printf("<td>%d</td>", $c->getNumeroAperte());
                                                 printf("<td>%d</td>", $c->getPunteggioMax());

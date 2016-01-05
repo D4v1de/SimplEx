@@ -16,22 +16,32 @@ if (!is_numeric($idCorso)) {
 }
 if(isset($_POST['IdSes'])) {
     $idSes = $_POST['IdSes'];
-    try {
-        $sessioneModel->deleteSessione($idSes);
-        header("location: " . "/docente/corso/" . $idCorso . "/successelimina");
-    } catch (ApplicationException $ex) {
-        echo "ERRORE" . $ex;
+    if (!is_numeric($idSes)) {
+        echo "<script type='text/javascript'>alert('Id non valido!!!');</script>";
+    }
+    else {
+        try {
+            $sessioneModel->deleteSessione($idSes);
+            header("location: " . "/docente/corso/" . $idCorso . "/successelimina");
+        } catch (ApplicationException $ex) {
+            echo "Errore nella rimozione" . $ex;
+        }
     }
 }
 else {
     if(isset($_URL[4])) {
         $idSes = $_URL[4];
-        try {
-            $sessioneModel->deleteSessione($idSes);
-            $tornaACasa = "Location: " . "/docente/corso/" . $idCorso . "/successelimina";
-            header($tornaACasa);
-        } catch (ApplicationException $ex) {
-            echo "Errore nella Rimozione" . $ex;
+        if (!is_numeric($idSes)) {
+            echo "<script type='text/javascript'>alert('Id non valido!!!');</script>";
+        }
+        else {
+            try {
+                $sessioneModel->deleteSessione($idSes);
+                $tornaACasa = "Location: " . "/docente/corso/" . $idCorso . "/successelimina";
+                header($tornaACasa);
+            } catch (ApplicationException $ex) {
+                echo "Errore nella Rimozione" . $ex;
+            }
         }
     }
     else
