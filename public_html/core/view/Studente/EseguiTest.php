@@ -212,8 +212,10 @@ $aperte = $domandaModel->getAllDomandeAperteByTest($testId);
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-9">
-                                            <button href="javascript: consegna();" name="consegna" class="btn green" data-toggle="confirmation" data-singleton="true" data-popout="true" title="Sei sicuro di voler consegnare?">Consegna</button>
-                                            <button href="javascript: abbandona();" name="abbandona" class="btn red-intense" data-toggle="confirmation" data-singleton="true" data-popout="true" title="Vuoi davvero ritirarti? Ti verrà assegnato esito nullo.">Abbandona</button>
+                                            <?php
+                                            printf("<button href=\"/studente/corso/%d\" onclick=\"javascript: consegna();\"  name=\"consegna\" class=\"btn green\" data-toggle=\"confirmation\" data-singleton=\"true\" data-popout=\"true\" title=\"Sei sicuro di voler consegnare?\">Consegna</button>",$corsoId);
+                                            printf("<button href=\"/studente/corso/%d\" onclick=\"javascript: abbandona();\" name=\"abbandona\" class=\"btn red-intense\" data-toggle=\"confirmation\" data-singleton=\"true\" data-popout=\"true\" title=\"Vuoi davvero ritirarti? Ti verrà assegnato esito nullo.\">Abbandona</button>",$corsoId);
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -504,10 +506,12 @@ $aperte = $domandaModel->getAllDomandeAperteByTest($testId);
     }
     
     function consegna(){
+        stopInterval();
         $.post("/studente/consegna?mat="+mat+"&sessId="+sId+"&corsoId="+cId);
     }
     
     function abbandona(){
+        stopInterval();
         $.post("/studente/abbandona?mat="+mat+"&sessId="+sId+"&corsoId="+cId);
     }
                                             
@@ -520,8 +524,22 @@ $aperte = $domandaModel->getAllDomandeAperteByTest($testId);
                       consegna: {
                         label: "Consegna",
                         className: "green",
+                        href: "/studente/corso/<?php echo $corsoId; ?>",
                         callback: function() {
                             consegna();
+                            bootbox.dialog({
+                            message: "Consegna effettuata con successo",
+                            closeButton: false,
+                            buttons: {
+                              conferma: {
+                                label: "Ok",
+                                className: "green",
+                                callback: function() {
+                                  location.href = "/studente/corso/<?php echo $corsoId; ?>";
+                                }
+                              }
+                            }
+                        });
                         }
                       },
                       abbandona: {
@@ -529,6 +547,19 @@ $aperte = $domandaModel->getAllDomandeAperteByTest($testId);
                         className: "red",
                         callback: function() {
                             abbandona();
+                            bootbox.dialog({
+                            message: "Test Annullato",
+                            closeButton: false,
+                            buttons: {
+                              conferma: {
+                                label: "Ok",
+                                className: "red",
+                                callback: function() {
+                                  location.href = "/studente/corso/<?php echo $corsoId; ?>";
+                                }
+                              }
+                            }
+                        });
                         }
                       }
                     }
