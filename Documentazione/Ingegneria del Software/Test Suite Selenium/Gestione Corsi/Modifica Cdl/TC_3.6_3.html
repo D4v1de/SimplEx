@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://simplex.com:9080/admin/cdl/modifica/0256985478" />
+<title>TC_3.6_3</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">TC_3.6_3</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/admin/cdl/view</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=infermieristica</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=tipologiaCdl</td>
+	<td>label=Magistrale</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=nomeCdl</td>
+	<td>infermieristica%</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=input.btn.green-jungle</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//form[@id='form_sample_1']/div</td>
+	<td>Ci sono alcuni errori nei dati. Per favore riprova l'inserimento.</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=nomeCdl-error</td>
+	<td>Puoi inserire solo caratteri validi.</td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

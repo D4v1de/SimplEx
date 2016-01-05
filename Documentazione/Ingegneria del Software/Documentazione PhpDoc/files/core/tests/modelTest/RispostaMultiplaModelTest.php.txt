@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * La classe effettua il test di tutti i metodi della classe RispostaMultiplaModel.php
+ * @author Giuseppina Tufano
+ * @version 1.0
+ * @since 02/12/15
+ */
+class RispostaMultiplaModelTest extends PHPUnit_Framework_TestCase
+{
+    const SESSIONE_ID = 1;
+    const STUDENTE_MATRICOLA = "0512102390";
+    const PUNTEGGIO2 = 5;
+    const PUNTEGGIO = 2;
+    const DOMANDAMULTIPLAID = 12;
+    const ALT_ID = 1;
+    const TEST_ID = 1;
+
+    public function testCreateRemoveEditRispostaMultipla()
+    {
+        $model = new RispostaMultiplaModel();
+
+        //creo una risposta
+        $model->createRispostaMultipla(new RispostaMultipla(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID, self::PUNTEGGIO, null));
+        //leggo una risposta
+        $ris = $model->readRispostaMultipla(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID);
+        $this->assertEquals(self::SESSIONE_ID,$ris->getElaboratoSessioneId());
+        $this->assertEquals(self::STUDENTE_MATRICOLA,$ris->getElaboratoStudenteMatricola());
+        $this->assertEquals(self::PUNTEGGIO,$ris->getPunteggio());
+        //aggiorno una risposta
+        $model->updateRispostaMultipla(new RispostaMultipla(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID, self::PUNTEGGIO2, self::ALT_ID), self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID);
+        $ris2 = $model->readRispostaMultipla(self::SESSIONE_ID, self::STUDENTE_MATRICOLA, self::DOMANDAMULTIPLAID);
+        $this->assertEquals(self::PUNTEGGIO2,$ris2->getPunteggio());
+    }
+
+    //testo la funzionalità di recupero risposte dato un elaborato
+    public function testGetRisposteByElaborato () {
+        $model = new RispostaMultiplaModel();
+        $all = $model->getMultipleByElaborato(new Elaborato(self::STUDENTE_MATRICOLA,self::SESSIONE_ID,"","",self::TEST_ID,""));
+        print_r($all);
+    }
+
+    //testo la funzionalità di recupero risposte data una domanda
+    public function testGetRisposteByDomanda () {
+        $model = new RispostaMultiplaModel();
+        $all = $model->getAllRisposteMultipleByDomanda(self::DOMANDAMULTIPLAID);
+        print_r($all);
+    }
+}

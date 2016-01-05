@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://simplex.dfs.su/admin/utenti/modifica/1234567890" />
+<title>TC_2.14_7</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">TC_2.14_7</td></tr>
+</thead><tbody>
+<tr>
+	<td>type</td>
+	<td>id=nomeUtente</td>
+	<td>Antonio</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=cognomeUtente</td>
+	<td>Esposito</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=email</td>
+	<td>a.esposito@studenti.unisa.it</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=passifreq</td>
+	<td>123</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=input.btn.green-jungle</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//form[@id='form_sample_1']/div/div[2]/div/div[6]</td>
+	<td>Per favore inserisci almeno 8 caratteri.</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//form[@id='form_sample_1']/div/div[2]/div/div[7]</td>
+	<td>Le password non coincidono</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//form[@id='form_sample_1']/div/div[2]/div/div</td>
+	<td>Ci sono alcuni errori nei dati. Per favore riprova l'inserimento.</td>
+</tr>
+</tbody></table>
+</body>
+</html>
