@@ -254,8 +254,7 @@ else
                             </div>
                         </div>
                         <div class="portlet-body">
-
-
+                            <div class="table-responsive">
                             <div id="tabella_test_wrapper" class="dataTables_wrapper no-footer">
                                 <table class="table table-striped table-bordered table-hover dataTable no-footer" id="tabella_test" role="grid" aria-describedby="tabella_studenti_info">
                                     <thead>
@@ -332,6 +331,7 @@ else
                                     </tbody>
                                 </table>
                             </div>
+                                </div>
                         </div>
                     </div>
 
@@ -367,8 +367,7 @@ else
                             </div>
                         </div>
                         <div class="portlet-body">
-
-
+                            <div class="table-responsive">
                             <div id="tabella_studenti_wrapper" class="dataTables_wrapper no-footer">
                                 <table class="table table-striped table-bordered table-hover dataTable no-footer" id="tabella_studenti" role="grid" aria-describedby="tabella_studenti_info">
                                     <thead>
@@ -410,6 +409,7 @@ if ($studentsOfSessione == null) {
                                     </tbody>
                                 </table>
                             </div>
+                                </div>
                         </div>
                     </div>
 

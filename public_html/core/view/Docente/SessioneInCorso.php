@@ -92,7 +92,7 @@ $dataTo = $sessioneByUrl->getDataFine();
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                <div id="demo"></div>
+                <div id="demo">Sessione in Corso</div>
                 </h3>
 
                 <div class="page-bar">
