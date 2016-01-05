@@ -83,7 +83,6 @@ class RispostaApertaModel extends Model {
         if($res){
             while($obj=$res->fetch_assoc()) {
                 $risposta = new RispostaAperta($obj['elaborato_sessione_id'],$obj['elaborato_studente_matricola'], $obj['domanda_aperta_id'], $obj['testo'],$obj['punteggio']);
-                $risposta->setId($obj['id']);
                 $risposte[] = $risposta;
             }  
         }

@@ -10,12 +10,27 @@ include_once MODEL_DIR . "TestModel.php";
 $testModel = new TestModel();
 include_once MODEL_DIR . "SessioneModel.php";
 $sessioneModel = new SessioneModel();
-
+$flag = 0;
 $corsoId = $_GET['corso_id'];
+if (!is_numeric($corsoId)) {
+    $flag = 1;
+}
 $number = $_GET['num'];
+if (!is_numeric($number)) {
+    $flag = 1;
+}
 $type = $_GET['type'];
+if (empty($type) || !preg_match('/^[a-zA-Z0-9\s-èòìàù]+$/', $type)) {
+    $flag = 1;
+}
 $mod = $_GET['mod'];
+if (empty($mod) || !preg_match('/^[a-zA-Z0-9\s-èòìàù]+$/', $mod)) {
+    $flag = 1;
+}
 $kind = $_GET['kind'];
+if (empty($kind) || !preg_match('/^[a-zA-Z0-9\s-èòìàù]+$/', $kind)) {
+    $flag = 1;
+}
 $tests = $testModel->getAllTestbyCorso($corsoId);
 $sessioni = $sessioneModel->getAllSessionibyCorso($corsoId);
 

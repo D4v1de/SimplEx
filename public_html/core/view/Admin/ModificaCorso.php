@@ -219,9 +219,9 @@ try {
                                                 <?php
                                                 foreach ($cdls as $c) {
                                                     if ($corso->getCdlMatricola() == $c->getMatricola()) {
-                                                        printf("<option value=\"%s\" selected>%s - %s</option>", $c->getMatricola(), $c->getMatricola(), $c->getNome());
+                                                        printf("<option value=\"%s\" selected>%s - %s - %s</option>", $c->getMatricola(), $c->getMatricola(), $c->getNome(), $c->getTipologia());
                                                     } else {
-                                                        printf("<option value=\"%s\">%s - %s</option>", $c->getMatricola(), $c->getMatricola(), $c->getNome());
+                                                        printf("<option value=\"%s\">%s - %s - %s</option>", $c->getMatricola(), $c->getMatricola(), $c->getNome(), $c->getTipologia());
                                                     }
                                                 }
                                                 ?>
