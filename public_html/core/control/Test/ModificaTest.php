@@ -103,7 +103,7 @@ if($numProfs==0){
 if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipologia']=='man')){
     // qui va la parte manuale
     // LA STO RIFACENDO C***O
-    $descrizione=$_POST['descrizione']; //descrizione test
+    $descrizione=base64_encode($_POST['descrizione']); //descrizione test
     $punteggio=0; 
     $cont1=0;
     $cont2=0;
@@ -241,7 +241,7 @@ if(isset($_POST['descrizione']) && (isset($_POST['tipologia']) && $_POST['tipolo
 
 if((isset($_POST['tipologia']) && $_POST['tipologia']=='rand') && isset($_POST['descrizione']) && isset($_POST['numAperte']) && isset($_POST['numMultiple'])){
     //qui va la parte random
-    $descr=$_POST['descrizione'];
+    $descr=base64_encode($_POST['descrizione']);
     $carspec='@';
     $nApe=parseInt($_POST['numAperte']);
     $nMul=parseInt($_POST['numMultiple']);

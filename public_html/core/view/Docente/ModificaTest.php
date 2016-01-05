@@ -232,7 +232,7 @@ $corso = $modelCorso->readCorso($_URL[2]);
                                         echo "<h1>ERRORE NELLA LETTURA DELLA DESCRIZIONE TEST!</h1>" . $ex;
                                     }
                                     ?>
-                                    <input class="form-control" name="descrizione" id="descrizione" value="<?php echo $testo; ?>" rows="4" style="resize:none"/>
+                                    <input class="form-control" name="descrizione" id="descrizione" value="<?php echo base64_decode($testo); ?>" rows="4" style="resize:none"/>
                                     <span class="help-block"></span>
                                 </div>
                              </div>

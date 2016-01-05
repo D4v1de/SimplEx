@@ -117,10 +117,10 @@ catch (ApplicationException $ex) {
                         printf("<i class=\"fa fa-file-o\"></i>%s", $x->getTesto());
                         printf("</div>");
                         printf("<div class=\"caption\">");
-                        printf("Punteggio Corretta: %s &nbsp", $x->getPunteggioCorretta());
+                        printf("Punteggio Corretta: %s &nbsp", $ModelDomanda->readPunteggioCorrettaAlternativo($x->getId(),$test));
                         printf("</div>");
                         printf("<div class=\"caption\">");
-                        printf("Punteggio Errata: %s &nbsp", $x->getPunteggioErrata());
+                        printf("Punteggio Errata: %s &nbsp", $ModelDomanda->readPunteggioErrataAlternativo($x->getId(),$test));
                         printf("</div>");
                         printf("<div class=\"caption\">");
                         printf("Percentuale Scelta: %s%%",$percSce );
@@ -173,7 +173,7 @@ catch (ApplicationException $ex) {
                                 printf("<i class=\"fa fa-file-o\"></i>%s (APERTA)", $x->getTesto());
                                 printf("</div>");
                                 printf("<div class=\"caption\">");
-                                printf("Punteggio Max Corretta: %s &nbsp", $x->getPunteggioMax());
+                                printf("Punteggio Max Corretta: %s &nbsp", $ModelDomanda->readPunteggioMaxAlternativo($x->getId(),$test));
                                 printf("</div>");
                                 printf("<div class=\"caption\">");
                                 printf("Percentuale Scelta: %s%%",$percSce );
