@@ -543,8 +543,8 @@ var get20Test = function () {
 
 var get5Dom = function () {
     $.post("/docente/getDomforStat?corso_id="+idCorso+"&num=5&type="+type+"&mod="+mod+"&kind="+kind, function (data) {
-        var res = data.split("/");
-        var x = res[0].split("-");
+        var res = data.split("§§");
+        var x = res[0].split("çç");
         var y = res[1].split("-");
         var chart = AmCharts.makeChart(id, {
             "type": "serial",

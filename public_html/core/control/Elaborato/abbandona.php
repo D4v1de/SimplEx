@@ -11,6 +11,7 @@
 include_once MODEL_DIR . "ElaboratoModel.php";
     $elaboratoModel = new ElaboratoModel();
     $sessId = $_REQUEST["sessId"];
+    $corsoId = $_REQUEST["corsoId"];
     $matricola = $_SESSION['user']->getMatricola();
     try{
         $elaborato = $elaboratoModel->readElaborato($matricola,$sessId);
@@ -25,3 +26,5 @@ include_once MODEL_DIR . "ElaboratoModel.php";
         $elaborato->setStato("Corretto");
         $elaboratoModel->updateElaborato($matricola,$sessId,$elaborato);   
     }
+    
+    header("Location: /studente/corso/".$corsoId);

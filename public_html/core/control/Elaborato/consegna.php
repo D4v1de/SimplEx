@@ -21,6 +21,7 @@ include_once MODEL_DIR . "SessioneModel.php";
     $sessMod = new SessioneModel();
     
     $sessioneId = $_REQUEST["sessId"];
+    $corsoId = $_REQUEST["corsoId"];
     $sessione = $sessMod->readSessione($sessioneId);
     $tipologia = $sessione->getTipologia();
     $studenteMatricola = $_SESSION['user']->getMatricola();
@@ -74,4 +75,6 @@ include_once MODEL_DIR . "SessioneModel.php";
     $elaborato->setEsitoParziale($punteggio);
     $elaborato->setStato("Parzialmente corretto");
     $elMod->updateElaborato($studenteMatricola,$sessioneId,$elaborato);
+    header("Location: /studente/corso/".$corsoId);
     }
+    

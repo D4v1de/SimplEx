@@ -244,7 +244,8 @@ $aperte = $domandaModel->getAllDomandeAperteByTest($testId);
 <script src="/assets/admin/pages/scripts/ui-blockui.js"></script>
 
 <script type="text/javascript">
-
+    
+    var cId = <?= $corsoId ?>;
     var sId = <?= $sessId ?>;
     var mat = "<?= $matricola; ?>";
     var intId = null;
@@ -503,13 +504,11 @@ $aperte = $domandaModel->getAllDomandeAperteByTest($testId);
     }
     
     function consegna(){
-        $.post("/studente/consegna?mat="+mat+"&sessId="+sId);
-        location.href = "/studente/corso/<?php echo $corsoId; ?>";
+        $.post("/studente/consegna?mat="+mat+"&sessId="+sId+"&corsoId="+cId);
     }
     
     function abbandona(){
-        $.post("/studente/abbandona?mat="+mat+"&sessId="+sId);
-        location.href = "/studente/corso/<?php echo $corsoId; ?>";
+        $.post("/studente/abbandona?mat="+mat+"&sessId="+sId+"&corsoId="+cId);
     }
                                             
     function timeout_scaduto(){

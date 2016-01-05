@@ -68,7 +68,7 @@ foreach ($toSort as $key => $value){
 $sortedK[] = current($keys);
 for ($i = 1; $i < $number; $i++)
     $sortedK[] = next($keys);
-$stringK = implode("-",$sortedK);
+$stringK = implode("çç",$sortedK);
 
 $sortedV[] = current($values);
 for ($i = 1; $i < $number; $i++)
@@ -76,7 +76,7 @@ for ($i = 1; $i < $number; $i++)
 $stringV = implode("-",$sortedV);
 
 
-$toReturn = $stringK."/".$stringV;
+$toReturn = $stringK."§§".$stringV;
 
 echo $toReturn;
     
