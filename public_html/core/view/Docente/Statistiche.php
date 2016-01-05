@@ -21,6 +21,9 @@ $argomentoModel = new ArgomentoModel();
 $domandaModel = new DomandaModel();
 
 $corsoId = $_URL[2];
+if (!is_numeric($corsoId)) {
+    echo "<script type='text/javascript'>alert('errore url!!(idcorso)');</script>";
+}
 $n = 10;
 
 try {
@@ -34,12 +37,10 @@ $nSessioni = count($sessioneModel->getAllSessioniByCorso($corsoId));
 $nTest = count($testModel->getAllTestByCorso($corsoId));
 $argomenti = $argomentoModel->getAllArgomentoCorso($corsoId);
 $nArgomenti = count($argomenti);
-$nMultiple = 0;
-$nAperte = 0;
-foreach ($argomenti as $a){
-    $nMultiple += count($domandaModel->getAllDomandaMultiplaByArgomento($a->getId()));
-    $nAperte += count($domandaModel->getAllDomandaApertaByArgomento($a->getId()));
-}
+$multiple = $domandaModel->getAllDomandaMultiplaByCorso($corsoId);
+$aperte = $domandaModel->getAllDomandaApertaByCorso($corsoId);
+$nMultiple = count($multiple);
+$nAperte = count($aperte);
 ?>
 <!DOCTYPE html>
 <!--[if IE 8]>

@@ -22,6 +22,12 @@ $alternativaModel = new AlternativaModel();
 $rmCon = new RispostaMultiplaModel();
 $corsoId = $_URL[2];
 $sessId = $_URL[5];
+if (!is_numeric($corsoId)) {
+    echo "<script type='text/javascript'>alert('errore url!!(idcdl)');</script>";
+}
+if (!is_numeric($sessId)) {
+    echo "<script type='text/javascript'>alert('errore url!!(idcdl)');</script>";
+}
 $sessione = $sessioneModel->readSessione($sessId);
 $studente = $_SESSION['user'];
 $matricola = $studente->getMatricola();
