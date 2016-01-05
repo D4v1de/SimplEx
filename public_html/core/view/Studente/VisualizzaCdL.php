@@ -80,7 +80,7 @@ try {
                         </div>
                     </div>
                     <div class="portlet-body">
-                        <div id="tabella_2_wrapper" class="dataTables_wrapper no-footer">
+                        <div id="tabella_2_wrapper" class="dataTables_wrapper no-footer table-responsive">
                             <table class="table table-striped table-bordered table-hover dataTable no-footer"
                                    id="tabella_2" role="grid" aria-describedby="tabella_2_info">
                                 <thead>
