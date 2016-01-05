@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Controller per il ritiro di uno studente da una sessione
+ * Controller per la consegna di un test da parte di uno studente
  *
  * @author Fabiano Pecorelli
  * @version 1.0

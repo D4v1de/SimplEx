@@ -19,7 +19,11 @@ if (!is_numeric($idCorso)) {
 include_once MODEL_DIR . "ElaboratoModel.php";
 $modelElaborato = new ElaboratoModel();
 
-$matricola=$_URL[6];
+$matricola="";
+$matricola = $_URL[6];
+if (!is_numeric($matricola)) {
+    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
+}
 $elaborato=$modelElaborato->readElaborato($matricola,$idSessione);
 $nuovoElaborato= new Elaborato($matricola,$elaborato->getSessioneId(),"0","0",$elaborato->getTestId(), "Corretto");
 $modelElaborato->updateElaborato($matricola,$idSessione,$nuovoElaborato);

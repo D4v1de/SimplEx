@@ -455,7 +455,7 @@ if ($_URL[4] != 0) {
                                                 printf("<td><input name=\"tests[]\" type=\"checkbox\" %s class=\"checkboxes\" value='%d'></td>", $toCheck, $c->getId());
                                             $toCheck = "";
                                             printf("<td class=\"sorting_1\">Test %s</td>", $c->getId());
-                                            printf("<td>%s</td>", $c->getDescrizione());
+                                            printf("<td>%s</td>", base64_decode($c->getDescrizione()));
                                             printf("<td>%d</td>", $c->getNumeroMultiple());
                                             printf("<td>%d</td>", $c->getNumeroAperte());
                                             printf("<td>%d</td>", $c->getPunteggioMax());
@@ -484,7 +484,7 @@ if ($_URL[4] != 0) {
                                                 printf("<td><input name=\"tests[]\" type=\"checkbox\" class=\"checkboxes\" value='%d'></td>", $c->getId());
                                             $toCheck = "";
                                             printf("<td class=\"sorting_1\">Test %s</td>", $c->getId());
-                                            printf("<td>%s</td>", $c->getDescrizione());
+                                            printf("<td>%s</td>", base64_decode($c->getDescrizione()));
                                             printf("<td>%d</td>", $c->getNumeroMultiple());
                                             printf("<td>%d</td>", $c->getNumeroAperte());
                                             printf("<td>%d</td>", $c->getPunteggioMax());

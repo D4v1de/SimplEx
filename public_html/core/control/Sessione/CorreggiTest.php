@@ -88,6 +88,7 @@ try {
 
 
 if (isset($_POST['salva'])){
+    //valore di $_POST non utilizzato.
     $fin = $elaborato->getEsitoParziale();
     foreach ($aperte as $ap){
         $apId = $ap->getId();

@@ -325,10 +325,10 @@ try {
                         }
                         break;
                     case 'getTestforStat':
-                        include_once CONTROL_DIR . "Statistiche/getTestforStat.php";
+                        include_once CONTROL_DIR . "Statistiche/GetTestforStat.php";
                         break;
                     case 'getDomforStat':
-                        include_once CONTROL_DIR . "Statistiche/getDomforStat.php";
+                        include_once CONTROL_DIR . "Statistiche/GetDomforStat.php";
                         break;
                     case 'creazione_TEST':
                         include_once CONTROL_DIR . "Test/CreaTest.php";
@@ -401,28 +401,28 @@ try {
                         }
                         break;
                     case 'creaElaborato':
-                        include_once CONTROL_DIR . "Elaborato/creaElaborato.php";
+                        include_once CONTROL_DIR . "Elaborato/CreaElaborato.php";
                         break;
                     case 'controllerAbilitazione':
-                        include_once CONTROL_DIR . "Elaborato/controllerAbilitazione.php";
+                        include_once CONTROL_DIR . "Elaborato/ControllerAbilitazione.php";
                         break;
                     case 'gestoreCountdown':
-                        include_once CONTROL_DIR . "Elaborato/gestoreCountdown.php";
+                        include_once CONTROL_DIR . "Elaborato/GestoreCountdown.php";
                         break;
                     case 'creaRisposte':
-                        include_once CONTROL_DIR . "Risposte/creaRisposteApertaMultipla.php";
+                        include_once CONTROL_DIR . "Risposte/CreaRisposteApertaMultipla.php";
                         break;
                     case 'consegna':
-                        include_once CONTROL_DIR . "Elaborato/consegna.php";
+                        include_once CONTROL_DIR . "Elaborato/Consegna.php";
                         break;
                     case 'abbandona':
-                        include_once CONTROL_DIR . "Elaborato/abbandona.php";
+                        include_once CONTROL_DIR . "Elaborato/Abbandona.php";
                         break;
                     case 'updateMultipla':
-                        include_once CONTROL_DIR . "Risposte/updateMultipla.php";
+                        include_once CONTROL_DIR . "Risposte/UpdateMultipla.php";
                         break;
                     case 'updateAperta':
-                        include_once CONTROL_DIR . "Risposte/updateAperta.php";
+                        include_once CONTROL_DIR . "Risposte/UpdateAperta.php";
                         break;
                     default:
                         include_once VIEW_DIR . "Studente/Home.php";
