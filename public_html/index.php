@@ -340,31 +340,31 @@ try {
                         include_once CONTROL_DIR . "Test/EliminaTest.php";
                         break;
                     case 'inserisciaperta':
-                        include_once CONTROL_DIR . "Domanda/creaDomandaAperta.php";
+                        include_once CONTROL_DIR . "Domanda/CreaDomandaAperta.php";
                         break;
                     case 'inseriscimultipla':
-                        include_once CONTROL_DIR . "Domanda/creaDomandaMultipla.php";
+                        include_once CONTROL_DIR . "Domanda/CreaDomandaMultipla.php";
                         break;
                     case 'modificamultipla':
-                        include_once CONTROL_DIR . "Domanda/modificaDomandaMultipla.php";
+                        include_once CONTROL_DIR . "Domanda/ModificaDomandaMultipla.php";
                         break;
                     case 'modificaaperta':
-                        include_once CONTROL_DIR . "Domanda/modificaDomandaAperta.php";
+                        include_once CONTROL_DIR . "Domanda/ModificaDomandaAperta.php";
                         break;
                     case 'rimuoviaperta':
-                        include_once CONTROL_DIR . "Domanda/rimuoviDomandaAperta.php";
+                        include_once CONTROL_DIR . "Domanda/RimuoviDomandaAperta.php";
                         break;
                     case 'rimuovimultipla':
-                        include_once CONTROL_DIR . "Domanda/rimuoviDomandaMultipla.php";
+                        include_once CONTROL_DIR . "Domanda/RimuoviDomandaMultipla.php";
                         break;
                     case 'inserisciargomento':
-                        include_once CONTROL_DIR . "Argomenti/creaArgomento.php";
+                        include_once CONTROL_DIR . "Argomenti/CreaArgomento.php";
                         break;
                     case 'rimuoviargomento':
-                        include_once CONTROL_DIR . "Argomenti/rimuoviArgomento.php";
+                        include_once CONTROL_DIR . "Argomenti/RimuoviArgomento.php";
                         break;
                     case 'modificaargomento':
-                        include_once CONTROL_DIR . "Argomenti/modificaArgomento.php";
+                        include_once CONTROL_DIR . "Argomenti/ModificaArgomento.php";
                         break;
                     case 'leggiargomenticorso':
                         include_once CONTROL_DIR . "Argomenti/leggiArgomentiByCorso.php";
