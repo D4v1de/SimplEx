@@ -212,8 +212,10 @@ $aperte = $domandaModel->getAllDomandeAperteByTest($testId);
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-9">
-                                            <button href="javascript: consegna();" name="consegna" class="btn green" data-toggle="confirmation" data-singleton="true" data-popout="true" title="Sei sicuro di voler consegnare?">Consegna</button>
-                                            <button href="javascript: abbandona();" name="abbandona" class="btn red-intense" data-toggle="confirmation" data-singleton="true" data-popout="true" title="Vuoi davvero ritirarti? Ti verrà assegnato esito nullo.">Abbandona</button>
+                                            <?php
+                                            printf("<button href=\"/studente/corso/%d\" onclick=\"javascript: consegna();\"  name=\"consegna\" class=\"btn green\" data-toggle=\"confirmation\" data-singleton=\"true\" data-popout=\"true\" title=\"Sei sicuro di voler consegnare?\">Consegna</button>",$corsoId);
+                                            printf("<button href=\"/studente/corso/%d\" onclick=\"javascript: abbandona();\" name=\"abbandona\" class=\"btn red-intense\" data-toggle=\"confirmation\" data-singleton=\"true\" data-popout=\"true\" title=\"Vuoi davvero ritirarti? Ti verrà assegnato esito nullo.\">Abbandona</button>",$corsoId);
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
