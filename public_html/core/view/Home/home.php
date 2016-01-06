@@ -843,7 +843,7 @@
                         </div>
                         <div role="tabpanel" class="tab-pane" id="profile3">
                             <div class="col-md-12 col-sm-9">
-                                <img src="/assets/homepage/images/about/browse.png" alt="" class="img-responsive">
+                                <img src="/assets/homepage/images/about/eseguitest.png" alt="" class="img-responsive">
                             </div>
                             <div class="col-md-12 col-sm-9">
                                 <div class="c-tab">
