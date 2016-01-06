@@ -392,13 +392,13 @@ if ($correttezzaLogin == false) {
                                                         $testId = $c->getId();
                                                         if ($idsSessione != null) {
                                                             $scelti = $c->getPercentualeSceltoVal() + $c->getPercentualeSceltoEse();
-                                                            $percSce = round(($scelti / count($idsSessione) * 100), 2);
+                                                            $percSce = round(($scelti / count($idsSessione) * 100));
                                                         } else
                                                             $percSce = 0;
                                                         $succ = $c->getPercentualeSuccessoEse() + $c->getPercentualeSuccessoVal();
                                                         $n = $c->getNumeroSceltaValutativa() + $c->getNumeroSceltaEsercitativa();
                                                         if ($n > 0)
-                                                            $percSuc = round(($succ / $n * 100), 2);
+                                                            $percSuc = round(($succ / $n * 100));
                                                         else
                                                             $percSuc = 0;
 

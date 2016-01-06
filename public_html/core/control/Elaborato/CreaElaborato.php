@@ -27,7 +27,7 @@ if ($flag == 0) {
     $tests = $testModel->getAllTestBySessione($sessioneId);
     $n = rand(0, count($tests) - 1);
     $testId = $tests[$n]->getId();
-    $elaborato = new Elaborato($matricolaStudente, $sessioneId, null, null, $testId, "Non corretto"); //STUB
+    $elaborato = new Elaborato($matricolaStudente, $sessioneId, null, null, $testId, "Non corretto");
     $elaboratoModel->createElaborato($elaborato);
     if ($tipologia == "Valutativa") {
         $num = $tests[$n]->getNumeroSceltaValutativa() + 1;
