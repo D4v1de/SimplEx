@@ -28,7 +28,8 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioEsatta'])) {
         header('Location: /docente/corso/' .$idCorso.'/argomento/domande/modificaaperta/'. $idArgomento.'/'.$idDomanda);
         }
     else {
-        $updatedDomanda = new DomandaAperta($idArgomento, $testo, $punteggio, 0, 0);
+        $testoEncoded = base64_encode($testo);
+        $updatedDomanda = new DomandaAperta($idArgomento, $testoEncoded, $punteggio, 0, 0);
         $domandaModel->updateDomandaAperta($idDomanda, $updatedDomanda);
         header('Location: /docente/corso/' . $idCorso . '/argomento/domande/' . $idArgomento . '/successmodifica');
     }

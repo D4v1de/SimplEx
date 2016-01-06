@@ -26,7 +26,7 @@ for($j=1;$j<16;$j++){
 
 if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($_POST['punteggioEsatta']) && isset($testoRisposte) && isset($_POST['radio'])) {
     //controlli
-    $testoDomanda = base64_encode(strip_tags($_POST['testoDomanda']));
+    $testoDomanda = $_POST['testoDomanda'];
     $punteggioErrata = $_POST['punteggioErrata'];
     $punteggioEsatta = $_POST['punteggioEsatta'];
     $radio = $_POST['radio'];
@@ -57,8 +57,8 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($
     }*/
 
     else {
-
-        $nuovaDomanda = new DomandaMultipla($idArgomento, $testoDomanda, $punteggioEsatta, $punteggioErrata, 0, 0, 0, 0, 0, 0);
+        $testoEncoded = base64_encode(strip_tags($testoDomanda));
+        $nuovaDomanda = new DomandaMultipla($idArgomento, $testoEncoded, $punteggioEsatta, $punteggioErrata, 0, 0, 0, 0, 0, 0);
 
         $idNuovaDomanda = $domandaModel->createDomandaMultipla($nuovaDomanda);
         for ($i = 0; $i < count($testoRisposte); $i++) {
@@ -71,7 +71,8 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($
                 echo $i;
                 continue;
             } else {
-                $alternativa = new Alternativa($idNuovaDomanda, $testoRisposte[$i], 0, $corretta);
+                $testoEncoded = base64_encode(strip_tags($testoRisposte[$i]));
+                $alternativa = new Alternativa($idNuovaDomanda, $testoEncoded, 0, $corretta);
             }
 
             $alternativaModel->createAlternativa($alternativa);
