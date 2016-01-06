@@ -104,7 +104,8 @@ try {
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
                                             colspan="1"
-                                            aria-label="Status: activate to sort column ascending">
+                                            aria-label="Status: activate to sort column ascending"
+                                            style="width: 17%;">
                                             Altro
                                         </th>
                                     </tr>
@@ -116,7 +117,8 @@ try {
                                         printf("<td class=\"sorting_1\"><a class=\"btn default btn-xs green-stripe\" href=\"/docente/corso/%s\">%s</a></td>", $c->getId(), $c->getNome());
                                         printf("<td class=\"sorting_1\">%s</td>", $c->getMatricola());
                                         printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
-                                        printf("<td class=\"sorting_1\"><a class=\"btn default btn-xs green-stripe\" href=\"/docente/corso/%s/statistiche\">Statistiche</a></td>", $c->getId());
+                                        printf("<td class=\"sorting_1\"><a class=\"btn default btn-xs green-stripe\" href=\"/docente/corso/%s/statistiche\">Statistiche</a>", $c->getId());
+                                        printf("<a class=\"btn default btn-xs green-stripe\" href=\"/docente/corso/%s/visualizzaiscritti\">Iscritti</a></td>", $c->getId());
                                         printf("</tr>");
                                     }
                                     ?>

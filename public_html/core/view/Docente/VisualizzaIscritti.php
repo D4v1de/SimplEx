@@ -1,12 +1,11 @@
 <?php
 
 /**
- * La view consente al docente di abilitare nuovi studenti mentre
- * la sessione è in corso.
+ * La view consente al docente di visualizzare tutti gli iscritti al corso.
  *
  * @author Antonio Luca D'Avanzo
  * @version 1
- * @since 18/11/15 09:58
+ * @since 06/01/2016 18:00
  */
 
 include_once MODEL_DIR . "ElaboratoModel.php";
@@ -24,16 +23,10 @@ $corsoModel = new CorsoModel();
 $cdlModel = new CdLModel();
 $elaboratoModel= new ElaboratoModel();
 
-$idSessione="";
+
 $idCorso = "";
-
-
 $idCorso = $_URL[2];
 if(!is_numeric($idCorso)) {
-    echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
-}
-$idSessione = $_URL[4];
-if(!is_numeric($idSessione)) {
     echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
 }
 
@@ -41,7 +34,6 @@ $corso = $corsoModel->readCorso($idCorso);
 $nomecorso= $corso->getNome();
 
 $docenteassociato = Array();
-$checkbox = Array();
 $corso = null;
 $docenti = null;
 $docente = null;
@@ -102,7 +94,7 @@ if($numProfs==0){
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                Aggiungi Studenti
+                Iscritti
             </h3>
 
             <div class="page-bar">
@@ -113,25 +105,11 @@ if($numProfs==0){
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="<?php echo "/docente/cdl/".$corso->getCdlMatricola(); ?>"> <?php echo $cdlModel->readCdl($corso->getCdlMatricola())->getNome(); ?> </a>
+                        <a href="/docente/corso/<?php echo $corsoId; ?>"><?php echo $corso->getNome(); ?></a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <?php
-                        $vaiANomeCorso="/docente/corso/".$idCorso;
-                        printf("<a href=\"%s\">%s</a><i class=\"fa fa-angle-right\"></i>", $vaiANomeCorso ,$nomecorso);
-                        ?>
-                    </li>
-                    <li>
-                        <?php
-                            $sex = "Sessione ".$idSessione;
-                            $vaiASex= "/docente/corso/".$idCorso."/"."sessione"."/".$idSessione."/"."sessioneincorso/show";
-                            printf("<a href=\"%s\">%s</a>", $vaiASex, $sex);
-                        ?>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
-                    <li>
-                        Aggiungi Studenti
+                        Iscritti
                     </li>
                 </ul>
             </div>
@@ -142,7 +120,6 @@ if($numProfs==0){
                 <h3></h3>
             </div>
 
-            <form method="post" action="/docente/corso/<?php echo $idCorso; ?>/sessione/<?php echo $idSessione; ?>/abilitastudenti" >
 
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
@@ -154,9 +131,6 @@ if($numProfs==0){
                             </a>
                         </div>
                         <div class="actions">
-                            <button type="submit" name="abilita" class="btn btn-default btn-sm">
-                                <i class="fa fa-plus"></i> Abilita
-                            </button>
                             <input type="hidden" id="elimina" name="elimina" value="elimina">
                         </div>
                     </div>
@@ -166,12 +140,6 @@ if($numProfs==0){
                                    id="tabella_4" role="grid" aria-describedby="tabella_4_info">
                                 <thead>
                                 <tr role="row">
-                                    <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1"
-                                        aria-label=""
-                                        style="width: 24px;">
-                                        <input type="checkbox" class="group-checkable"
-                                               data-set="#tabella_4 .checkboxes">
-                                    </th>
                                     <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
                                         colspan="1" aria-label="Username: activate to sort column ascending"
                                         aria-sort="ascending" style="width: 78px;">
@@ -187,53 +155,20 @@ if($numProfs==0){
                                         aria-label="Status: activate to sort column ascending" style="width: 36px;">
                                         Matricola
                                     </th>
-                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                        colspan="1"
-                                        aria-label="Status: activate to sort column ascending" style="width: 36px;">
-                                        Stato
-                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
                                 $array = Array();
-                                $toCheckS="";
-                                $disabilita="";
-                                $stato="";
-                                $bgr="";
                                 $array = $utenteModel->getAllStudentiByCorso($idCorso);
-                                $studentsOfSessione= $utenteModel->getAllStudentiSessione($idSessione);
-                                $esaminandiSessione= $utenteModel->getEsaminandiSessione($idSessione);
                                 if ($array == null) {
                                 }
                                 else {
                                     foreach ($array as $c) {
                                         printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                        foreach($studentsOfSessione as $t){
-                                            if($c->getMatricola()==$t->getMatricola()) {
-                                                $toCheckS = "Checked";
-                                                $stato="In attesa";
-                                            }
-                                        }
-                                        foreach($esaminandiSessione as $e){
-                                            if($e->getMatricola()==$c->getMatricola()) {
-                                                $disabilita = "disabled";
-                                                $toCheckS = "Checked";
-                                                $stato="Esame in corso";
-                                            }
-                                        }
-                                        printf("<td><input name=\"students[]\" type=\"checkbox\" %s %s class=\"checkboxes\" value='%s'></td>",$disabilita,$toCheckS, $c->getMatricola());
-                                        $toCheckS="";
-                                        $disabilita="";
                                         printf("<td class=\"sorting_1\">%s</td>", $c->getNome());
                                         printf("<td>%s</td>", $c->getCognome());
                                         printf("<td>%s</td>", $c->getMatricola());
-                                        if($stato=="In attesa"){
-                                            $bgr="bg-red";
-                                        }
-                                        printf("<td><span class=\"label label-sm label-success %s\">%s</span> </td>", $bgr,$stato);
-                                        $bgr="";
-                                        $stato="";
                                         printf("</tr>");
                                     }
                                 }
@@ -244,8 +179,6 @@ if($numProfs==0){
                         </div>
                     </div>
                 </div>
-
-            </form>
             <!-- END PAGE CONTENT-->
         </div>
     </div>

@@ -132,7 +132,7 @@ try {
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>Correggi Test</title>
+    <title><?php echo $corso->getNome(); ?></title>
     <?php include VIEW_DIR . "design/header.php"; ?>
     <script type="text/javascript">
         var ris = [];

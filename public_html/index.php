@@ -241,7 +241,7 @@ try {
                             case 'sessione':
                                 switch (isset($_URL[5]) ? $_URL[5] : '') {
                                     case 'aggiungistudenti':
-                                        include_once VIEW_DIR . "Docente/AggiungiStudenteTest2.php";
+                                        include_once VIEW_DIR . "Docente/AggiungiStudente.php";
                                         break;
                                     case 'esiti':
                                         include_once VIEW_DIR . "Docente/VisualizzaEsitiSessione.php";
@@ -263,6 +263,9 @@ try {
                                         break;
                                     case 'correggisalva':
                                         include_once CONTROL_DIR . "Sessione/CorreggiTest.php";
+                                        break;
+                                    case 'cambiasoglia':
+                                        include_once CONTROL_DIR . "Sessione/CambiaSoglia.php";
                                         break;
                                     case 'cambiasoglia':
                                         include_once CONTROL_DIR . "Sessione/CambiaSoglia.php";
@@ -298,7 +301,9 @@ try {
                                         include_once VIEW_DIR . "Docente/VisualizzaSessione.php";
                                 }
                                 break;
-
+                            case 'visualizzaiscritti':
+                                include_once VIEW_DIR . "Docente/VisualizzaIscritti.php";
+                                break;
                             case 'rimuovisessione':
                                 include_once CONTROL_DIR . "Sessione/RimuoviSessione.php";
                                 break;

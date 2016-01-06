@@ -79,7 +79,7 @@ $dataTo = $sessioneByUrl->getDataFine();
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>Sessione in Corso</title>
+    <title><?php echo $corso->getNome(); ?></title>
     <?php include VIEW_DIR . "design/header.php"; ?>
     <link rel="stylesheet" type="text/css"
           href="/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css">

@@ -127,7 +127,7 @@ if ($_URL[4] != 0) {
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>Gestione Sessione</title>
+    <title><?php echo $corso->getNome(); ?></title>
     <link rel="stylesheet" type="text/css"
           href="/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" type="text/css"
