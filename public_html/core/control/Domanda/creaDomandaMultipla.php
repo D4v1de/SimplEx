@@ -25,18 +25,19 @@ for($j=1;$j<16;$j++){
 
 
 if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($_POST['punteggioEsatta']) && isset($testoRisposte) && isset($_POST['radio'])) {
-
-    $testoDomanda = $_POST['testoDomanda'];
+    //controlli
+    $testoDomanda = base64_encode(strip_tags($_POST['testoDomanda']));
     $punteggioErrata = $_POST['punteggioErrata'];
     $punteggioEsatta = $_POST['punteggioEsatta'];
     $radio = $_POST['radio'];
     $controlloRisposte = true;
 
-    for($i=0;$i<count($testoRisposte);$i++){
+
+    /*for($i=0;$i<count($testoRisposte);$i++){
         if(strlen($testoRisposte[$i])<1 || strlen($testoRisposte[$i])>100){
             $controlloRisposte = false;
         }
-    }
+    }*/
 
     if (strlen($testoDomanda) < 2 || strlen($testoDomanda) > 500) {
         $_SESSION['errore'] = 1;
@@ -49,11 +50,11 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($
     else if ($punteggioErrata > 0) {
         $_SESSION['errore'] = 3;
         header('Location: /docente/corso/' . $idCorso . '/argomento/domande/inseriscimultipla/' . $idArgomento);
-    }
+    }/*
     else if ($controlloRisposte == false) {
         $_SESSION['errore'] = 4;
         header('Location: /docente/corso/' . $idCorso . '/argomento/domande/inseriscimultipla/' . $idArgomento);
-    }
+    }*/
 
     else {
 

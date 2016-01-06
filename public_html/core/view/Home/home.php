@@ -210,7 +210,7 @@
                 </div>
                 <div class="col-md-3 col-xs-12 col-sm-6">
                     <div class="feature_content">
-                        <a href="ftp://5.9.123.184/Documentazione/SDD.pdf" target="_black">  <i class="fa fa-pencil"></i>
+                        <a href="http://5.9.123.184/Documentazione/SDD.pdf" target="_black">  <i class="fa fa-pencil"></i>
                             <h5>SDD</h5></a>
 
                         <p><b>System Design Document</b>.<br> Documento di specifica degli obiettivi di design del sistema software <b>SimplEx</b>. </p>
@@ -712,7 +712,6 @@
             </div>
         </div>
     </div> <!-- Conatiner Team end -->
-
 </section>  <!-- Section TEam End -->
 
 <!-- About us start -->
@@ -843,7 +842,7 @@
                         </div>
                         <div role="tabpanel" class="tab-pane" id="profile3">
                             <div class="col-md-12 col-sm-9">
-                                <img src="/assets/homepage/images/about/browse.png" alt="" class="img-responsive">
+                                <img src="/assets/homepage/images/about/eseguitest.png" alt="" class="img-responsive">
                             </div>
                             <div class="col-md-12 col-sm-9">
                                 <div class="c-tab">
