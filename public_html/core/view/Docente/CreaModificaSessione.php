@@ -315,12 +315,16 @@ if ($_URL[4] != 0) {
                                             }
                                         }
                                         if ($uguale == false) {
-                                            printf("<option value = '%s' > %s </option >", $t->getPunteggioMax(), $t->getPunteggioMax());
                                             array_push($array, $t->getPunteggioMax());
                                         }
                                         $uguale = false;
                                     }
 
+                                }
+                                sort($array);
+                                foreach ($array as $a) {
+                                    if($a!=-9999)
+                                        printf("<option value = '%s' > %s </option >", $a, $a);
                                 }
                                 ?>
                             </select>

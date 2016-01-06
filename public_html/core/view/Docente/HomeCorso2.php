@@ -249,7 +249,7 @@ if ($correttezzaLogin == false) {
                                                     Mostra Risposte Corrette
                                                 </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                                          Status
-                                                         " style="width: 18%;">
+                                                         " style="width: 19%;">
                                                     Azioni
                                                 </th></tr>
                                         </thead>
