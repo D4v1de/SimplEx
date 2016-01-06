@@ -22,7 +22,7 @@ class TestModel extends Model {
     private static $GET_TEST_MULTIPLA = "SELECT t.* FROM `test` as t, `compone_multipla` as c where c.test_id = t.id AND c.domanda_multipla_id = '%d'";
     private static $GET_TEST_APERTA = "SELECT t.* FROM `test` as t, `compone_aperta` as c where c.test_id = t.id AND c.domanda_aperta_id = '%d'";
     private static $GET_TEST_SESSIONE_VALUTATIVA = "SELECT DISTINCT t.* FROM `sessione_test` as s_t, `test` as t , `sessione` as s WHERE s_t.test_id = t.id AND s.tipologia='Valutativa' AND s.corso_id = '%d' AND s_t.sessione_id = s.id";
-    private static $GET_TEST_SESSIONE_ESERCITATIVA = "SELECT DISTINCT t.* FROM `sessione_test` as s_t, `test` as t , `sessione` as s WHERE s_t.test_id = t.id AND s.tipologia='Esercitativa' AND s.corso_id = '%d' AND s_t.sessione_id = s.id";
+    private static $GET_TEST_SESSIONE_ESERCITATIVA = "SELECT t.* FROM `sessione_test` as s_t, `test` as t , `sessione` as s WHERE s_t.test_id = t.id AND s.tipologia='Esercitativa' AND s.corso_id = '%d' AND s_t.sessione_id = s.id";
 
     /**
      * Inserisce un nuovo test nel database

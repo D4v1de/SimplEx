@@ -11,12 +11,14 @@ include_once MODEL_DIR . "ArgomentoModel.php";
 include_once MODEL_DIR . "CdLModel.php";
 include_once MODEL_DIR . "DomandaModel.php";
 include_once MODEL_DIR . "CorsoModel.php";
+include_once MODEL_DIR . "TestModel.php";
 
 
 $modelCdl = new CdLModel();
 $modelArgomento = new ArgomentoModel();
 $modelCorso = new CorsoModel();
 $modelDomande  = new DomandaModel();
+$testModel  = new TestModel();
 
 function parseInt($Str) {
     return (int)$Str;
@@ -333,6 +335,11 @@ $corso = $modelCorso->readCorso($_URL[2]);
                                         $Multiple = Array();
                                         $Aperte = Array();
                                         $Argomenti = $modelArgomento->getAllArgomentoCorso($identificativoCorso);
+                                        $testsVal = $testModel->getAllTestBySessioneValutativa($identificativoCorso);
+                                        $testsEse = $testModel->getAllTestBySessioneEsercitativa($identificativoCorso);
+                                        $nEse = count($testsEse);
+                                        $nVal = count($testsVal);
+                                        $nSce = $nEse + $nVal;
                                         foreach($Argomenti as $a){
                                             $Multiple = $modelDomande->getAllDomandaMultiplaByArgomento($a->getId());
                                             $Aperte = $modelDomande->getAllDomandaApertaByArgomento($a->getId());
@@ -342,8 +349,11 @@ $corso = $modelCorso->readCorso($_URL[2]);
                                                 printf("<td>%s</td>",$s->getId());
                                                 printf("<td>%s</td>",$a->getNome());
                                                 printf("<td>%s</td>",$s->getTesto());
-                                                printf("<td>%s %%</td>",$s->getPercentualeSceltaEse() + $s->getPercentualeSceltaVal());
-                                                printf("<td>%s %%</td>",$s->getPercentualeRispostaCorrettaEse() + $s->getPercentualeRispostaCorrettaVal());
+                                                $percSce = ($nSce != 0)? round(($s->getPercentualeSceltaEse() + $s->getPercentualeSceltaVal())/$nSce * 100):0;
+                                                printf("<td>%s %%</td>",$percSce);
+                                                $nCorr = $s->getNumeroRisposteValutative() + $s->getNumeroRisposteEsercitative();
+                                                $percCorr = ($nCorr != 0)? round(($s->getPercentualeRispostaCorrettaEse() + $s->getPercentualeRispostaCorrettaVal())/ $nCorr * 100):0;
+                                                printf("<td>%s %%</td>",$percCorr);
                                                 printf("<td>Multipla</td>");
                                                 printf("<td><div class=\"form-group form-md-line-input has-success\"><div class=\"input-icon\"><input type=\"number\" name=\"alternCorr-%d\" class=\"form-control\">
                                             <label for=\"alternCorr\">Corretta:</label>
@@ -359,7 +369,7 @@ $corso = $modelCorso->readCorso($_URL[2]);
                                                 printf("<td>%s</td>",$s->getId());
                                                 printf("<td>%s</td>",$a->getNome());
                                                 printf("<td>%s</td>",$s->getTesto());
-                                                printf("<td>%s %%</td>",$s->getPercentualeSceltaEse() + $s->getPercentualeSceltaVal());
+                                                printf("<td>%s %%</td>",round(($s->getPercentualeSceltaEse() + $s->getPercentualeSceltaVal())/($nVal + $nEse) * 100));
                                                 printf("<td>-----</td>");
                                                 printf("<td>Aperta</td>");
                                                 printf("<td><div class=\"form-group form-md-line-input has-success\"><div class=\"input-icon\"><input type=\"number\" name=\"ApertaCorr-%d\" class=\"form-control\">
