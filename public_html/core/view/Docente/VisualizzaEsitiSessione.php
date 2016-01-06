@@ -54,7 +54,7 @@ foreach($docentiOe as $d) {
 if($numProfs==0){
     header("Location: "."/docente/corso/".$corso->getId());
 }
-
+$url6="nada";
 $soglia=null;
 $flag=1;
 $sessioneByUrl = $sessioneModel->readSessione($_URL[4]);
@@ -65,11 +65,15 @@ $tipoSessione = $sessioneByUrl->getTipologia();
 $soglia=$sessioneByUrl->getSogliaAmmissione();
 
 if(isset($_URL[6])) {
+    $url6=$_URL[6];
     if($_URL[6]=="autoendsuccess") {
         $newSessione = new Sessione($dataFrom, $dataTo, $soglia, "Eseguita", $tipoSessione, $identificativoCorso);
         $sessioneModel->updateSessione($idSessione,$newSessione);
     }
     if($_URL[6]=="norestart") {
+        $flag=0;
+    }
+    if($_URL[6]=="nochange") {
         $flag=0;
     }
 }
@@ -167,7 +171,12 @@ $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
         </div>
             <!-- TABELLA 1 -->
             <?php
-            if($flag==0) {
+            if($flag==0 && $url6=="nochange") {
+                printf("<div class='alert alert-danger'>
+                    <button class=\"close\" data-close=\"alert\"></button>
+                      Uno o più Tests sono stati già corretti. Impossibile modificare la sessione! </div>");
+            }
+            if($flag==0 && $url6=="norestart") {
                 printf("<div class='alert alert-danger'>
                     <button class=\"close\" data-close=\"alert\"></button>
                       Uno o più Tests sono stati già corretti. Impossibile riprendere la sessione! </div>");
