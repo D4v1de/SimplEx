@@ -13,12 +13,14 @@ include_once MODEL_DIR . "DomandaModel.php";
 include_once MODEL_DIR . "UtenteModel.php";
 include_once MODEL_DIR . "CorsoModel.php";
 include_once MODEL_DIR . "TestModel.php";
+include_once MODEL_DIR . "AlternativaModel.php";
 include_once BEAN_DIR . "Sessione.php";
 
 $sessioneModel = new SessioneModel();
 $utenteModel = new UtenteModel();
 $testModel = new TestModel();
 $corsoModel = new CorsoModel();
+$altMod = new AlternativaModel();
 $elaboratoModel= new ElaboratoModel();
 $modelDomanda = new DomandaModel();
 $modelRispostaAperta = new RispostaApertaModel();
@@ -48,9 +50,10 @@ if (!is_numeric($url)) {
     echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
 }
 $url2 = $_URL[4];
-if (!is_numeric($url)) {
+if (!is_numeric($url2)) {
     echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
 }
+$sessioneId=$url2;
 
 $studente=$utenteModel->getUtenteByMatricola($matricola);
 
@@ -84,6 +87,48 @@ try {
     $aperte = $modelDomanda->getAllDomandeAperteByTest($test->getId());
 } catch (ApplicationException $ex) {
     echo "<h1>GETALLDOMANDEAPERTEBYTEST FALLITO!</h1>" . $ex;
+}
+
+if ($elaborato->getStato() == "Non corretto") {
+    $rispMul = $modelRispostaMultipla->getMultipleByElaborato($elaborato);
+    $punteggio = 0;
+    foreach ($rispMul as $rm) {
+        $multId = $rm->getDomandaMultiplaId();
+        $dom = $modelDomanda->readDomandaMultipla($multId);
+        $puntCorrAlt = $modelDomanda->readPunteggioCorrettaAlternativo($multId, $elaborato->getTestId());
+        $puntErrAlt = $modelDomanda->readPunteggioErrataAlternativo($multId, $elaborato->getTestId());
+        $puntCor = ($puntCorrAlt != null) ? $puntCorrAlt : $dom->getPunteggioCorretta();
+        $puntErr = ($puntErrAlt != null) ? $puntErrAlt : $dom->getPunteggioErrata();
+        $altCor = $altMod->getAlternativaCorrettaByDomanda($multId);
+        $altId = $rm->getAlternativaId();
+        if ($altId != 0) {
+            if ($altCor->getId() == $rm->getAlternativaId()) {
+                $punteggio = $punteggio + $puntCor;
+                $rm->setPunteggio($puntCor);
+
+                $updatedDom = $modelDomanda->readDomandaMultipla($multId);
+                if ($tipologia == "Valutativa") {
+                    $percDom = $updatedDom->getPercentualeRispostaCorrettaVal() + 1;
+                    $updatedDom->setPercentualeRispostaCorrettaVal($percDom);
+                } else {
+                    $percDom = $updatedDom->getPercentualeRispostaCorrettaEse() + 1;
+                    $updatedDom->setPercentualeRispostaCorrettaEse($percDom);
+                }
+                $modelDomanda->updateDomandaMultipla($multId, $updatedDom);
+            } else {
+                $punteggio = $punteggio + $puntErr;
+                $rm->setPunteggio($puntErr);
+            }
+            $updated = $altMod->readAlternativa($altId);
+            $perc = $updated->getPercentualeScelta() + 1;
+            $updated->setPercentualeScelta($perc);
+            $altMod->updateAlternativa($altId, $updated);
+        }
+        $modelRispostaMultipla->updateRispostaMultipla($rm, $sessioneId, $matricola, $rm->getDomandaMultiplaId());
+    }
+    $elaborato->setEsitoParziale($punteggio);
+    $elaborato->setStato("Parzialmente corretto");
+    $elaboratoModel->updateElaborato($matricola, $sessioneId, $elaborato);
 }
 
 
