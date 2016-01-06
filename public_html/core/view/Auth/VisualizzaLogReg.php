@@ -200,7 +200,7 @@ $corsi = $cdlModel->getAllCdL();
                 <?php
                 /** @var CdL $corso */
                 foreach ($corsi as $corso) {
-                    printf("<option value='%s'>%s</option>", $corso->getMatricola(), $corso->getNome());
+                    printf("<option value='%s'>%s [%s]</option>", $corso->getMatricola(), $corso->getNome(), $corso->getTipologia());
                 }
                 ?>
             </select>
