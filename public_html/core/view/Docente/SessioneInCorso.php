@@ -19,6 +19,8 @@ $testModel = new TestModel();
 include_once MODEL_DIR . "ElaboratoModel.php";
 $modelElaborato = new ElaboratoModel();
 
+$flag=null;
+$url6="nada";
 $idSessione="";
 $idSessione= $_URL[4];
 if (!is_numeric($idSessione)) {
@@ -44,6 +46,13 @@ if($numProfs==0){
 }
 $corso = $modelCorso->readCorso($identificativoCorso);
 $nomecorso= $corso->getNome();
+
+if(isset($_URL[6])) {
+    $url6=$_URL[6];
+    if($_URL[6]=="nochange") {
+        $flag=0;
+    }
+}
 
 try {
     $sessioneByUrl = $modelSessione->readSessione($idSessione);
@@ -123,7 +132,14 @@ $dataTo = $sessioneByUrl->getDataFine();
             <!-- BEGIN PAGE CONTENT-->
 
             <!-- TABELLA 1 -->
-
+            <?php
+            if($flag==0 && $url6=="nochange") {
+                printf("<div class='alert alert-danger'>
+                    <button class=\"close\" data-close=\"alert\"></button>
+                      Uno o più Studenti stanno svolgendo l'esame. Impossibile modificare la sessione! </div>");
+                $flag=1;
+            }
+            ?>
             <div class="row">
                 <div class="col-md-12">
                     <div class="portlet box blue-madison">
