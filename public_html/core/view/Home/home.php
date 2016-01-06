@@ -391,11 +391,11 @@
                         <h3 class="name">Alessandro Longo <span><b>Project Manager</b></span></h3>
 
                         <p class="testimonial-text">
-                            Sono uno studente della laurea magistrale in <b>IT & Management</b> dell'<b>Università degli Studi di Salerno</b>.
+                            Sono uno studente della laurea magistrale in <b>IT & Management</b> dell'<b>Universit&agrave; degli Studi di Salerno</b>.
                             Questa Magistrale mi ha aperto a nuove prospettive,
                             come il <b>Project Management</b> che coniugato con l'<b>Ingegneria del Software</b> rappresenta un trampolino di lancio nel mondo
                             del lavoro. Da sempre ricoprono incarichi di responsabilità, ad ogni livello e mi ritrovo a coniugare spesso le
-                            esigenze di diverse persone. Prossimo obiettivo è il conseguimento della certificazione CAPM e della laurea Magistrale.
+                            esigenze di diverse persone. Prossimo obiettivo &egrave; il conseguimento della certificazione CAPM e della laurea Magistrale.
                         </p>
                     </div>
                 </div>
@@ -405,12 +405,10 @@
                     </div>
                     <div class="testimonial-content">
                         <h3 class="name wow bounceInLeft">Davide De Chiara<span><b>Project Manager</b></span></h3>
-
                         <p class="testimonial-text">
-                            Sono uno studente della laurea magistrale in <b>Tecnologie Informatiche e Management</b> dell’<b>Università degli Studi di Salerno</b>,
-                            da quando ho conosciuto il mondo dell’<b>Ingegneria del Software</b> non ne ho potuto più fare a meno, &egrave; diventata la mia passione
-                            che mi ha portato a ottenere tante belle soddisfazioni. Il mio obiettivo è rapportarmi a realt&agrave; che mi consentano di
-                            sfruttare al meglio le mie competenze e capacit&agrave; relazionali, nonché la mia predisposizione al lavoro di squadra e al
+                            Sono uno studente del corso di laurea magistrale in <b>Tecnologie Informatiche e Management</b> dell’<b>Universit&agrave; degli Studi di Salerno</b>.
+                            La mia passione &egrave; l'<b>Ingegneria del Software</b>. Il mio obiettivo &egrave; rapportarmi a realt&agrave; lavorative che mi consentano
+                            di sfruttare al meglio le mie competenze e capacit&agrave; relazionali, nonch&egrave;; la mia predisposizione al lavoro di squadra e al
                             problem-solving.
                         </p>
                     </div>
@@ -444,7 +442,6 @@
                     <div class="divider"></div>
                 </div>
             </div>  <!-- Col-md-12 End -->
-
             <div id="owl-demo" class="owl-carousel owl-theme team-items">
                 <div class="item text-center">
                     <div class="single-member">

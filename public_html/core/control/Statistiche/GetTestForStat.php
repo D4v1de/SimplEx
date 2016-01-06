@@ -11,6 +11,7 @@ $testModel = new TestModel();
 include_once MODEL_DIR . "SessioneModel.php";
 $sessioneModel = new SessioneModel();
 $flag = 0;
+$toSort = Array();
 $corsoId = $_GET['corso_id'];
 if (!is_numeric($corsoId)) {
     $flag = 1;
@@ -67,10 +68,11 @@ else{
 }
         
             
-if ($mod != "best")
-    asort($toSort);
-else
-    arsort($toSort);
+if ($toSort != null){
+    if ($mod != "best")
+        asort($toSort);
+    else
+        arsort($toSort);
 
 $keys = null;
 $values = null;
@@ -94,3 +96,4 @@ $toReturn = $stringK."/".$stringV;
 
 echo $toReturn;
     
+}
