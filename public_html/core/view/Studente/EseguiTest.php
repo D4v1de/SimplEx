@@ -22,6 +22,7 @@ $alternativaModel = new AlternativaModel();
 $rmCon = new RispostaMultiplaModel();
 $corsoId = $_URL[2];
 $sessId = $_URL[5];
+$flag = 0;
 if (!is_numeric($corsoId)) {
     echo "<script type='text/javascript'>alert('errore url!!(idcdl)');</script>";
 }
@@ -37,7 +38,13 @@ try{
 catch(ApplicationException $ex){
     header("Location: "."/studente/corso/"."$corsoId"."/");
 }
+
+$maschera = $sessioneModel->readMascheraSessione($sessId);
+if (($maschera != "") && !StringUtils::compareIP(IP,$maschera))
+        $flag = 1;
 if (strcmp($elaborato->getStato(),"Non corretto"))
+        $flag = 1;
+if ($flag != 0)
     header("Location: "."/studente/corso/"."$corsoId");
 
 $nome = $studente->getNome();

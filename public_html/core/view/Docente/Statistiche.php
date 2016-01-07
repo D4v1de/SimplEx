@@ -126,7 +126,7 @@ $nAperte = count($aperte);
                                         Iscritti
                                     </div>
                                 </div>
-                                <a class="more" href="javascript:;">
+                                <a class="more" href="/docente/corso/<?php echo $corsoId; ?>/visualizzaiscritti">
                                     Visualizza <i class="m-icon-swapright m-icon-white"></i>
                                 </a>
                             </div>

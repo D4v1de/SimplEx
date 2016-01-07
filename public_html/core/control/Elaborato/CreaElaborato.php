@@ -21,6 +21,11 @@ if (!is_numeric($sessioneId)) {
 $elaboratoModel = new ElaboratoModel();
 $testModel = new TestModel();
 $sessioneModel = new SessioneModel();
+
+$maschera = $sessioneModel->readMascheraSessione($sessioneId);
+if (($maschera != "") && !StringUtils::compareIP(IP,$maschera))
+        $flag = 1;
+
 if ($flag == 0) {
     $sessione = $sessioneModel->readSessione($sessioneId);
     $tipologia = $sessione->getTipologia();

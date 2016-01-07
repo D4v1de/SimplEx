@@ -204,12 +204,15 @@ try {
                                         printf("<tr class=\"gradeX odd\" role=\"row\">");
                                         printf("<td class=\"sorting_1\">Sessione %d</td>", $s->getId());
                                         printf("<td class=\"sorting_1\">%s</td>", $s->getDataInizio());
+                                        $maschera = $sessioneModel->readMascheraSessione($s->getId());
                                         if (!strcmp($s->getTipologia(), "Esercitativa"))
                                             printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $s->getTipologia());
                                         else
                                             printf("<td class=\"sorting_1\"><span class=\"label label-sm label-danger\">%s</span></td>", $s->getTipologia());
                                         printf("<td class=\"sorting_1\">%s</td>", $punt);
-                                        if ($elaborato == null && (strtotime(date("Y-m-d H:i:s")) < strtotime($s->getDataFine())) && (strtotime(date("Y-m-d H:i:s")) >= strtotime($s->getDataInizio())))
+                                        if (($maschera != "") && !StringUtils::compareIP(IP,$maschera))
+                                                printf("<td><a disabled class=\"btn btn-sm default\"><i class=\"fa fa-file-text-o\"></i> Visualizza</a></td>",$idCorso,$s->getId());
+                                        else if ($elaborato == null && (strtotime(date("Y-m-d H:i:s")) < strtotime($s->getDataFine())) && (strtotime(date("Y-m-d H:i:s")) >= strtotime($s->getDataInizio())))
                                             printf("<td><a href=\"/studente/corso/%d/test/esegui/%d\" onclick=\"javascript: creaElaborato(%d)\" class=\"btn btn-sm default blue-madison\"><i class=\"fa fa-pencil\"></i> Partecipa</a></td>", $idCorso,$s->getId(),$s->getId());
                                         else if ($elaborato != null && $elaborato->getStato() == "Non corretto" && (strtotime(date("Y-m-d H:i:s")) < strtotime($s->getDataFine())) && (strtotime(date("Y-m-d H:i:s")) >= strtotime($s->getDataInizio())))
                                             printf("<td><a href=\"/studente/corso/%d/test/esegui/%d\" class=\"btn btn-sm default blue-madison\"><i class=\"fa fa-pencil\"></i> Riprendi</a></td>", $idCorso,$s->getId(),$s->getId());
@@ -218,7 +221,7 @@ try {
                                         else if ($elaborato != null && $elaborato->getStato() == "Non corretto" && (strtotime(date("Y-m-d H:i:s")) >= strtotime($s->getDataFine())))
                                             printf("<td><a href=\"/studente/corso/%d/test/esegui/%d\" class=\"btn btn-sm default blue-madison\"><i class=\"fa fa-pencil\"></i> Concludi</a></td>", $idCorso,$s->getId(),$s->getId());
                                         else
-                                            printf("<td><a href=\"/studente/corso/%d/test/%d\" disabled class=\"btn btn-sm default\"><i class=\"fa fa-file-text-o\"></i> Visualizza</a></td>",$idCorso,$s->getId());
+                                            printf("<td><a disabled class=\"btn btn-sm default\"><i class=\"fa fa-file-text-o\"></i> Visualizza</a></td>",$idCorso,$s->getId());
                                         printf("</tr>");
                                     }
                                 }
