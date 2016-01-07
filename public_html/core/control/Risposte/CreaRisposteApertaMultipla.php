@@ -40,5 +40,13 @@ if ($flag == 0) {
     foreach ($multiple as $m) {
         $risp = new RispostaMultipla($sessId, $elaboratoStudenteMatricola, $m->getId(), null, null);
         $rmMod->createRispostaMultipla($risp);
+        if ($sessione->getTipologia() == "Valutativa"){
+            $n = $m->getNumeroRisposteValutative() + 1;
+            $m.setNumeroRisposteValutative($n);
+        }
+        else{
+            $n = $m->getNumeroRisposteEsercitative() + 1;
+            $m.setNumeroRisposteEsercitative($n);
+        }
     }
 }

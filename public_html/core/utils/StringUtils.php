@@ -35,4 +35,19 @@ class StringUtils {
         header('Location: ' . $redirect);
         exit;
     }
+
+    /**
+     * Funzione verifica se l'ip appartiene alla maschera
+     * @param $ip String es. 192.168.1.22
+     * @param $maschera String es. 192.168.*.*
+     * @return bool
+     */
+    public static function compareIP($ip, $maschera) {
+        if (!preg_match("/^([\d]{1,3}|\*)\.([\d]{1,3}|\*)\.([\d]{1,3}|\*)\.([\d]{1,3}|\*)$/i", $maschera)) {
+            return false;
+        }
+        $pies = explode("*", $maschera);
+        $prefix = $pies[0];
+        return substr($ip, 0, strlen($prefix)) === $prefix;
+    }
 }
