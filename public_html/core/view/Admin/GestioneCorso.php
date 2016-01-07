@@ -74,7 +74,7 @@ catch (ApplicationException $ex) {
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                View Corso
+                Associa Docente Corso
             </h3>
 
             <div class="page-bar">
