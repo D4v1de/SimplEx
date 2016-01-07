@@ -249,7 +249,7 @@ if ($correttezzaLogin == false) {
                                                     Mostra Risposte Corrette
                                                 </th><th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
                                                          Status
-                                                         " style="width: 14%;">
+                                                         " style="width: 19%;">
                                                     Azioni
                                                 </th></tr>
                                         </thead>
@@ -392,13 +392,13 @@ if ($correttezzaLogin == false) {
                                                         $testId = $c->getId();
                                                         if ($idsSessione != null) {
                                                             $scelti = $c->getPercentualeSceltoVal() + $c->getPercentualeSceltoEse();
-                                                            $percSce = round(($scelti / count($idsSessione) * 100), 2);
+                                                            $percSce = round(($scelti / count($idsSessione) * 100));
                                                         } else
                                                             $percSce = 0;
                                                         $succ = $c->getPercentualeSuccessoEse() + $c->getPercentualeSuccessoVal();
                                                         $n = $c->getNumeroSceltaValutativa() + $c->getNumeroSceltaEsercitativa();
                                                         if ($n > 0)
-                                                            $percSuc = round(($succ / $n * 100), 2);
+                                                            $percSuc = round(($succ / $n * 100));
                                                         else
                                                             $percSuc = 0;
 

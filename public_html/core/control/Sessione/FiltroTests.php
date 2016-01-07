@@ -30,6 +30,9 @@ if($vai=="vai") {
 
     $_SESSION['abi']=false;
 
+
+$_SESSION['table']=true;
+
     echo "<div id=\"divTest\" class=\"portlet-body\">
  <div class=\"table-responsive\">
                                 <div id=\"tabella_test_wrapper\" class=\"dataTables_wrapper no-footer\" >
@@ -38,7 +41,6 @@ if($vai=="vai") {
                                             <tr role=\"row\">
                                                 <th class=\"table-checkbox sorting_disabled\" rowspan=\"1\" colspan=\"1\" aria-label=\"
                                                     \" style=\"width: 24px;\">
-                                                    <input type=\"checkbox\" class=\"group-checkable\" data-set=\"#tabella_test .checkboxes\">
                                                 </th>
                                                 <th class=\"sorting-disabled\" tabindex=\"0\" aria-controls=\"sample_2\" rowspan=\"1\" colspan=\"1\" aria-label=\"
                                                     Email
@@ -128,8 +130,8 @@ if($vai=="vai") {
     }
 // }
 
-    echo "</tbody> </div><div";
+    echo "</tbody><div";
     echo "id=nomeCorso";
     echo "value='" . $idCorso . "'";
-    echo "></div></table></div></div>";
+    echo "></div></table></div></div></div>";
 }

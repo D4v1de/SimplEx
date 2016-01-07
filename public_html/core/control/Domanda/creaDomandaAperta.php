@@ -24,7 +24,8 @@ if(isset($_POST['testoDomanda']) && isset($_POST['punteggioEsatta']) && isset($_
         $_SESSION['errore'] = 2;
         header('Location: /docente/corso/' .$idcorso.'/argomento/domande/inserisciaperta/'. $idArgomento);
     }else {
-        $domandaAperta = new DomandaAperta($idArgomento, $testoDomanda, $punteggioEsatta, 0, 0);
+        $testoEncoded = base64_encode(strip_tags($testoDomanda));
+        $domandaAperta = new DomandaAperta($idArgomento, $testoEncoded, $punteggioEsatta, 0, 0);
         $domandaModel->createDomandaAperta($domandaAperta);
         header('Location: /docente/corso/' . $idcorso . '/argomento/domande/' . $idArgomento . '/successinserimento');
     }

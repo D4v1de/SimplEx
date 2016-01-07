@@ -354,6 +354,11 @@ $corso = $modelCorso->readCorso($_URL[2]);
                             $Multiple = Array();
                             $Aperte = Array();
                             $Argomenti = $modelArgomento->getAllArgomentoCorso($identificativoCorso);
+                            $testsVal = $modelTest->getAllTestBySessioneValutativa($identificativoCorso);
+                            $testsEse = $modelTest->getAllTestBySessioneEsercitativa($identificativoCorso);
+                            $nEse = count($testsEse);
+                            $nVal = count($testsVal);
+                            $nSce = $nEse + $nVal;
                             foreach($Argomenti as $a){
                                 $Multiple = $modelDomande->getAllDomandaMultiplaByArgomento($a->getId());
                                 $Aperte = $modelDomande->getAllDomandaApertaByArgomento($a->getId());
@@ -373,9 +378,12 @@ $corso = $modelCorso->readCorso($_URL[2]);
                                     $toCheck="";
                                     printf("<td>%s</td>",$s->getId());
                                     printf("<td>%s</td>",$a->getNome());
-                                    printf("<td>%s</td>",$s->getTesto());
-                                    printf("<td>%s %%</td>",$s->getPercentualeSceltaEse() + $s->getPercentualeSceltaVal());
-                                    printf("<td>%s %%</td>",$s->getPercentualeRispostaCorrettaEse() + $s->getPercentualeRispostaCorrettaVal());
+                                    printf("<td>%s</td>",base64_decode($s->getTesto()));
+                                    $percSce = ($nSce != 0)? round(($s->getPercentualeSceltaEse() + $s->getPercentualeSceltaVal())/$nSce * 100):0;
+                                    printf("<td>%s %%</td>",$percSce);
+                                    $nCorr = $s->getNumeroRisposteValutative() + $s->getNumeroRisposteEsercitative();
+                                    $percCorr = ($nCorr != 0)? round(($s->getPercentualeRispostaCorrettaEse() + $s->getPercentualeRispostaCorrettaVal())/ $nCorr * 100):0;
+                                    printf("<td>%s %%</td>",$percCorr);
                                     printf("<td>Multipla</td>");
                                     printf("<td><div class=\"form-group form-md-line-input has-success\"><div class=\"input-icon\"><input type=\"number\" name=\"alternCorr-%d\" class=\"form-control\">
                                             <label for=\"alternCorr\">Corretta:</label>
@@ -401,8 +409,9 @@ $corso = $modelCorso->readCorso($_URL[2]);
                                     $toCheck="";
                                     printf("<td>%s</td>",$s->getId());
                                     printf("<td>%s</td>",$a->getNome());
-                                    printf("<td>%s</td>",$s->getTesto());
-                                    printf("<td>%s %%</td>",$s->getPercentualeSceltaEse() + $s->getPercentualeSceltaVal());
+                                    printf("<td>%s</td>",base64_decode($s->getTesto()));
+                                    $percSce = ($nSce != 0)? round(($s->getPercentualeSceltaEse() + $s->getPercentualeSceltaVal())/$nSce * 100):0;
+                                    printf("<td>%s %%</td>",$percSce);
                                     printf("<td></td>");
                                     printf("<td>Aperta</td>");
                                     printf("<td><div class=\"form-group form-md-line-input has-success\"><div class=\"input-icon\"><input type=\"number\" name=\"ApertaCorr-%d\" class=\"form-control\">

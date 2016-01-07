@@ -176,7 +176,7 @@ foreach($docentiAssociati as $docente){
                         printf("<div class=\"portlet-title \">");
 
                         printf("<div class=\"col-md-6 caption\">");
-                        printf("<i class=\"fa fa-file-o\"></i> %s", $d->getTesto());
+                        printf("<i class=\"fa fa-file-o\"></i> %s", base64_decode($d->getTesto()));
                         printf("</div>");
                         printf("Punteggio Massimo: %s", $d->getPunteggioMax());
                         if($correttezzaLogin==true) {
@@ -224,7 +224,7 @@ foreach($docentiAssociati as $docente){
                         printf("<div class=\"portlet \">");
                         printf("<div class=\"portlet-title\">");
                         printf("<div class=\"col-md-5 caption\">");
-                        printf("<i class=\"fa fa-file-o\"></i> %s", $d->getTesto());
+                        printf("<i class=\"fa fa-file-o\"></i> %s", base64_decode($d->getTesto()));
                         printf("</div>");
                         printf("Punteggio Corretta: %s/", $d->getPunteggioCorretta());
                         printf("Punteggio Errata: %s", $d->getPunteggioErrata());
@@ -254,7 +254,7 @@ foreach($docentiAssociati as $docente){
                                 printf("<input type=\"checkbox\" disabled=\"\">");
                             }
                             printf("</td>");
-                            printf("<td>%s</td>", $r->getTesto());
+                            printf("<td>%s</td>", base64_decode($r->getTesto()));
                             printf("</tr>");
                         }
                         printf("</tbody>");

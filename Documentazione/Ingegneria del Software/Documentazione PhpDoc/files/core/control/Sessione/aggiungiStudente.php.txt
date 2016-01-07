@@ -1,0 +1,13 @@
+<?php
+/**
+ * Questo Control permette di aggiungere uno studente ad una sessione in corso. In pratica, lo abilita.
+ * @author Antonio Luca D'Avanzo
+ * @version 1
+ * @since  30/12/2015 22:52
+ */
+$idSessione=$_URL[4];
+$identificativoCorso = $_URL[2];
+
+$vaiAddStu= "Location: "."/docente/corso/".$identificativoCorso."/sessione"."/".$idSessione."/"."sessioneincorso/aggiungistudente";
+header($vaiAddStu);
+

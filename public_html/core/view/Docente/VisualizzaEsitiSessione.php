@@ -54,7 +54,7 @@ foreach($docentiOe as $d) {
 if($numProfs==0){
     header("Location: "."/docente/corso/".$corso->getId());
 }
-
+$url6="nada";
 $soglia=null;
 $flag=1;
 $sessioneByUrl = $sessioneModel->readSessione($_URL[4]);
@@ -65,11 +65,15 @@ $tipoSessione = $sessioneByUrl->getTipologia();
 $soglia=$sessioneByUrl->getSogliaAmmissione();
 
 if(isset($_URL[6])) {
+    $url6=$_URL[6];
     if($_URL[6]=="autoendsuccess") {
         $newSessione = new Sessione($dataFrom, $dataTo, $soglia, "Eseguita", $tipoSessione, $identificativoCorso);
         $sessioneModel->updateSessione($idSessione,$newSessione);
     }
     if($_URL[6]=="norestart") {
+        $flag=0;
+    }
+    if($_URL[6]=="nochange") {
         $flag=0;
     }
 }
@@ -97,7 +101,7 @@ $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>Esiti</title>
+    <title><?php echo $corso->getNome(); ?></title>
      <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/extensions/TableTools/css/dataTables.tableTools.css">
 <link rel="stylesheet" type="text/css"
@@ -167,7 +171,12 @@ $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
         </div>
             <!-- TABELLA 1 -->
             <?php
-            if($flag==0) {
+            if($flag==0 && $url6=="nochange") {
+                printf("<div class='alert alert-danger'>
+                    <button class=\"close\" data-close=\"alert\"></button>
+                      Uno o più Tests sono stati già corretti. Impossibile modificare la sessione! </div>");
+            }
+            if($flag==0 && $url6=="norestart") {
                 printf("<div class='alert alert-danger'>
                     <button class=\"close\" data-close=\"alert\"></button>
                       Uno o più Tests sono stati già corretti. Impossibile riprendere la sessione! </div>");
@@ -236,13 +245,13 @@ $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
                                             foreach ($array as $c) {
                                                 if ($sessioniByCorso != null) {
                                                     $scelti = $c->getPercentualeSceltoVal() + $c->getPercentualeSceltoEse();
-                                                    $percSce = round(($scelti / count($sessioniByCorso) * 100), 2);
+                                                    $percSce = round(($scelti / count($sessioniByCorso) * 100));
                                                 } else
                                                     $percSce = 0;
                                                     $succ = $c->getPercentualeSuccessoEse() + $c->getPercentualeSuccessoVal();
                                                     $n = $c->getNumeroSceltaValutativa() + $c->getNumeroSceltaEsercitativa();
                                                     if ($n > 0)
-                                                        $percSuc = round(($succ / $n * 100), 2);
+                                                        $percSuc = round(($succ / $n * 100));
                                                     else
                                                         $percSuc = 0;
                                                 printf("<tr class=\"gradeX odd\" role=\"row\">");

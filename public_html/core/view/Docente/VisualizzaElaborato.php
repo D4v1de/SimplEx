@@ -131,7 +131,7 @@ try {
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>Visualizza Elaborato</title>
+    <title><?php echo $corso->getNome(); ?></title>
     <?php include VIEW_DIR . "design/header.php"; ?>
     <script type="text/javascript">
         var ris = [];
@@ -211,11 +211,15 @@ try {
                                     ?>
                                 </div>
                                 <div class="col-md col-md-4">
-                                    <h3>Esito <?php if ($elaborato->getStato() == 'Corretto') {
-                                            echo 'Finale: ' . $elaborato->getEsitoFinale();
-                                        } else {
-                                            echo 'Parziale: ' . $elaborato->getEsitoParziale();
-                                        } ?>/<?php echo $test->getPunteggioMax(); ?>
+                                    <h3><?php
+                                        if ($elaborato->getStato() == 'Corretto') {
+                                            echo 'Esito Finale: ' . $elaborato->getEsitoFinale();
+                                        } else if($elaborato->getStato()== 'Parzialmente corretto') {
+                                            echo 'Esito Parziale: ' . $elaborato->getEsitoParziale();
+                                        }
+                                        else
+                                            echo 'Non corretto';
+                                        ?><?php if($elaborato->getStato() != 'Non corretto')echo "/".$test->getPunteggioMax(); ?>
                                     </h3>
                                 </div>
                             </div>

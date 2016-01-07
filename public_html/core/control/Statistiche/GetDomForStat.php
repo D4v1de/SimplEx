@@ -14,6 +14,7 @@ $domandaModel = new DomandaModel();
 include_once MODEL_DIR . "SessioneModel.php";
 $sessioneModel = new SessioneModel();
 $flag = 0;
+$toSort = Array();
 $corsoId = $_GET['corso_id'];
 if (!is_numeric($corsoId)) {
     $flag = 1;
@@ -51,27 +52,28 @@ $n1Val = count($testsVal);
 if ($kind == "val") {
     if ($type == "scelto")
         foreach ($allDomande as $a)
-            $toSort[$a->getTesto()] = ($n1Val > 0) ? $a->getPercentualeSceltaVal() / $n1Val * 100 : 0;
+            $toSort[base64_decode($a->getTesto())] = ($n1Val > 0) ? $a->getPercentualeSceltaVal() / $n1Val * 100 : 0;
     else if ($type == "successo")
         foreach ($multiple as $m) {
             $n2 = $m->getNumeroRisposteValutative();
-            $toSort[$m->getTesto()] = ($n2 > 0) ? $m->getPercentualeRispostaCorrettaVal() / $n2 * 100 : 0;
+            $toSort[base64_decode($m->getTesto())] = ($n2 > 0) ? $m->getPercentualeRispostaCorrettaVal() / $n2 * 100 : 0;
         }
 } else {
     if ($type == "scelto")
         foreach ($allDomande as $a)
-            $toSort[$a->getTesto()] = ($n1Ese > 0) ? $a->getPercentualeSceltaEse() / $n1Ese * 100 : 0;
+            $toSort[base64_decode($a->getTesto())] = ($n1Ese > 0) ? $a->getPercentualeSceltaEse() / $n1Ese * 100 : 0;
     else if ($type == "successo")
         foreach ($multiple as $m) {
             $n2 = $m->getNumeroRisposteEsercitative();
-            $toSort[$m->getTesto()] = ($n2 > 0) ? $m->getPercentualeRispostaCorrettaEse() / $n2 * 100 : 0;
+            $toSort[base64_decode($m->getTesto())] = ($n2 > 0) ? $m->getPercentualeRispostaCorrettaEse() / $n2 * 100 : 0;
         }
 }
 
-if ($mod != "best")
-    asort($toSort);
-else
-    arsort($toSort);
+if ($toSort != null){
+    if ($mod != "best")
+        asort($toSort);
+    else
+        arsort($toSort);
 
 $keys = null;
 $values = null;
@@ -94,4 +96,4 @@ $stringV = implode("-", $sortedV);
 $toReturn = $stringK . "§§" . $stringV;
 
 echo $toReturn;
-
+}

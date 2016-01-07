@@ -25,18 +25,19 @@ for($j=1;$j<16;$j++){
 
 
 if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($_POST['punteggioEsatta']) && isset($testoRisposte) && isset($_POST['radio'])) {
-
+    //controlli
     $testoDomanda = $_POST['testoDomanda'];
     $punteggioErrata = $_POST['punteggioErrata'];
     $punteggioEsatta = $_POST['punteggioEsatta'];
     $radio = $_POST['radio'];
     $controlloRisposte = true;
 
-    for($i=0;$i<count($testoRisposte);$i++){
+
+    /*for($i=0;$i<count($testoRisposte);$i++){
         if(strlen($testoRisposte[$i])<1 || strlen($testoRisposte[$i])>100){
             $controlloRisposte = false;
         }
-    }
+    }*/
 
     if (strlen($testoDomanda) < 2 || strlen($testoDomanda) > 500) {
         $_SESSION['errore'] = 1;
@@ -49,15 +50,15 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($
     else if ($punteggioErrata > 0) {
         $_SESSION['errore'] = 3;
         header('Location: /docente/corso/' . $idCorso . '/argomento/domande/inseriscimultipla/' . $idArgomento);
-    }
+    }/*
     else if ($controlloRisposte == false) {
         $_SESSION['errore'] = 4;
         header('Location: /docente/corso/' . $idCorso . '/argomento/domande/inseriscimultipla/' . $idArgomento);
-    }
+    }*/
 
     else {
-
-        $nuovaDomanda = new DomandaMultipla($idArgomento, $testoDomanda, $punteggioEsatta, $punteggioErrata, 0, 0, 0, 0, 0, 0);
+        $testoEncoded = base64_encode(strip_tags($testoDomanda));
+        $nuovaDomanda = new DomandaMultipla($idArgomento, $testoEncoded, $punteggioEsatta, $punteggioErrata, 0, 0, 0, 0, 0, 0);
 
         $idNuovaDomanda = $domandaModel->createDomandaMultipla($nuovaDomanda);
         for ($i = 0; $i < count($testoRisposte); $i++) {
@@ -70,7 +71,8 @@ if (isset($_POST['testoDomanda']) && isset($_POST['punteggioErrata']) && isset($
                 echo $i;
                 continue;
             } else {
-                $alternativa = new Alternativa($idNuovaDomanda, $testoRisposte[$i], 0, $corretta);
+                $testoEncoded = base64_encode(strip_tags($testoRisposte[$i]));
+                $alternativa = new Alternativa($idNuovaDomanda, $testoEncoded, 0, $corretta);
             }
 
             $alternativaModel->createAlternativa($alternativa);

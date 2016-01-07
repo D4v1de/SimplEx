@@ -156,7 +156,7 @@ $aperte = $domandaModel->getAllDomandeAperteByTest($testId);
                                 $i = 1;
                                 foreach ($multiple as $m) {
                                     $j = 1;
-                                    $testo = $m->getTesto();
+                                    $testo = base64_decode($m->getTesto());
                                     $multId = $m->getId();
                                     try{
                                         $selectedAlt = getRispostaMultiplaAlternativa($sessId, $matricola, $multId);
@@ -178,7 +178,7 @@ $aperte = $domandaModel->getAllDomandeAperteByTest($testId);
                                                     <span class="inc"></span>
                                                     <span class="check"></span>
                                                     <span class="box"></span>
-                                                    '.$r->getTesto().'</label>
+                                                    '.base64_decode($r->getTesto()).'</label>
                                                 </div>';
                                         $j++;
                                     }
@@ -188,7 +188,7 @@ $aperte = $domandaModel->getAllDomandeAperteByTest($testId);
                                 }
 
                                 foreach ($aperte as $a) {
-                                    $testo = $a->getTesto();
+                                    $testo = base64_decode($a->getTesto());
                                     $apId = $a->getId();
                                     $txt = null;
                                     try{

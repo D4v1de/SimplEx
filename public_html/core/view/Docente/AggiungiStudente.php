@@ -205,7 +205,6 @@ if($numProfs==0){
                                 $studentsOfSessione= $utenteModel->getAllStudentiSessione($idSessione);
                                 $esaminandiSessione= $utenteModel->getEsaminandiSessione($idSessione);
                                 if ($array == null) {
-                                    echo "l'array è null";
                                 }
                                 else {
                                     foreach ($array as $c) {

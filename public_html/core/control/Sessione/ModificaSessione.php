@@ -8,18 +8,22 @@
 
 include_once MODEL_DIR . "SessioneModel.php";
 include_once MODEL_DIR . "UtenteModel.php";
+include_once MODEL_DIR . "ElaboratoModel.php";
 include_once MODEL_DIR . "TestModel.php";
 include_once MODEL_DIR . "DomandaModel.php";
 include_once BEAN_DIR . "Sessione.php";
 
 $sessioneModel = new SessioneModel();
 $utenteModel = new UtenteModel();
+$elaboratoModel = new ElaboratoModel();
 $domandaModel = new DomandaModel();
 $testModel = new TestModel();
 $flag=1;
 $pio=1;
 $idSessione="";
 $idSessione= $_URL[4];
+$almenoUnoCorretto=0;
+$esaminandiSessione = Array();
 if (!is_numeric($idSessione)) {
     echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
 }
@@ -28,7 +32,8 @@ $idCorso = $_URL[2];
 if (!is_numeric($idCorso)) {
     echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
 }
-
+$esaminandiSessione = Array();
+$esaminandiSessione= $utenteModel->getEsaminandiSessione($idSessione);
 
 if($dataFromSettato=isset($_POST['dataFrom']) && $radio1Settato=isset($_POST['radio1']) && $dataToSettato=isset($_POST['dataTo'])) {
 
@@ -48,6 +53,17 @@ if($dataFromSettato=isset($_POST['dataFrom']) && $radio1Settato=isset($_POST['ra
     $sogliAmm=$sessioneByUrl->getSogliaAmmissione();
     $oldTipologia=$sessioneByUrl->getTipologia();
 
+    $esaminandiSessione= $utenteModel->getEsaminandiSessione($idSessione);
+    if ($esaminandiSessione == null) {
+    }
+    else {
+        foreach ($esaminandiSessione as $c) {
+            $ela=$elaboratoModel->readElaborato($c->getMatricola(),$idSessione);
+            if($ela->getStato()=="Corretto") {
+                $almenoUnoCorretto++;
+            }
+        }
+    }
 
     $timeTo = strtotime( $newOrOldDataTo);
     $timeFrom = strtotime($newOrOldDataFrom);
@@ -59,6 +75,14 @@ if($dataFromSettato=isset($_POST['dataFrom']) && $radio1Settato=isset($_POST['ra
     }
     else if($newtipoSessione!="Valutativa" && $newtipoSessione!="Esercitativa")
             echo "<script type='text/javascript'>alert('Tipologia Sessione non corretta.');</script>";
+    else  if($almenoUnoCorretto!=0) {
+            $vaiEsiti = "Location: " . "/docente/corso/" . $idCorso . "/sessione" . "/" . $idSessione. "/" . "esiti/nochange";
+            header($vaiEsiti);
+    }
+    else if(count($esaminandiSessione)>0) {
+        $vaiASesInCorso = "Location: " . "/docente/corso/" . $idCorso . "/sessione" . "/" . $idSessione . "/" . "sessioneincorso/nochange";
+        header($vaiASesInCorso);
+    }
     else {
         $toCompareTo = date('y-m-d H:i:s', $timeTo);
         $toCompareFrom = date('y-m-d H:i:s', $timeFrom);

@@ -24,9 +24,11 @@ $utente = $uModel->getUtenti();
     <title>Gestione utente</title>
     <?php include VIEW_DIR . "design/header.php"; ?>
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
-    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css"
+          href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
-    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/extensions/TableTools/css/dataTables.tableTools.css">
+    <link rel="stylesheet" type="text/css"
+          href="/assets/global/plugins/datatables/extensions/TableTools/css/dataTables.tableTools.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -82,48 +84,49 @@ $utente = $uModel->getUtenti();
                         </div>
                     </div>
                     <div class="portlet-body">
-                        <div id="tabella_5_wrapper" class="dataTables_wrapper no-footer">
-                            <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                   id="tabella_5" role="grid" aria-describedby="tabella_5_info">
-                                <thead>
-                                <tr role="row">
+                        <div class="table-responsive">
+                            <div id="tabella_5_wrapper" class="dataTables_wrapper no-footer">
+                                <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                                       id="tabella_5" role="grid" aria-describedby="tabella_5_info">
+                                    <thead>
+                                    <tr role="row">
 
-                                    <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                        colspan="1" aria-label="Username: activate to sort column ascending"
-                                        aria-sort="ascending" style="width: 78px;">
-                                        Matricola
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                        colspan="1"
-                                        aria-label="Email: activate to sort column ascending" style="width: 137px;">
-                                        Nome
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                        colspan="1"
-                                        aria-label="Email: activate to sort column ascending" style="width: 137px;">
-                                        Cognome
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                        colspan="1"
-                                        aria-label="Status: activate to sort column ascending" style="width: 36px;">
-                                        Tipologia
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php
-                                foreach ($utente as $d) {
-                                    printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    printf("<td><a class='btn default btn-xs green-stripe' href='/admin/utenti/view/%s'>%s</a></td>", $d->getMatricola(), $d->getMatricola());
-                                    printf("<td>%s</td>", $d->getNome());
-                                    printf("<td><span>%s</span></td>", $d->getCognome());
-                                    printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $d->getTipologia());
-                                    printf("</tr>");
-                                }
-                                ?>
-                                </tbody>
-                            </table>
-
+                                        <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                            colspan="1" aria-label="Username: activate to sort column ascending"
+                                            aria-sort="ascending" style="width: 78px;">
+                                            Matricola
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                            colspan="1"
+                                            aria-label="Email: activate to sort column ascending" style="width: 137px;">
+                                            Nome
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                            colspan="1"
+                                            aria-label="Email: activate to sort column ascending" style="width: 137px;">
+                                            Cognome
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                            colspan="1"
+                                            aria-label="Status: activate to sort column ascending" style="width: 36px;">
+                                            Tipologia
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    foreach ($utente as $d) {
+                                        printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                        printf("<td><a class='btn default btn-xs green-stripe' href='/admin/utenti/view/%s'>%s</a></td>", $d->getMatricola(), $d->getMatricola());
+                                        printf("<td>%s</td>", $d->getNome());
+                                        printf("<td><span>%s</span></td>", $d->getCognome());
+                                        printf("<td><span class=\"label label-sm label-success\">%s</span></td>", $d->getTipologia());
+                                        printf("</tr>");
+                                    }
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

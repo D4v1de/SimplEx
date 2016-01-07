@@ -241,7 +241,7 @@ try {
                             case 'sessione':
                                 switch (isset($_URL[5]) ? $_URL[5] : '') {
                                     case 'aggiungistudenti':
-                                        include_once VIEW_DIR . "Docente/AggiungiStudenteTest2.php";
+                                        include_once VIEW_DIR . "Docente/AggiungiStudente.php";
                                         break;
                                     case 'esiti':
                                         include_once VIEW_DIR . "Docente/VisualizzaEsitiSessione.php";
@@ -265,25 +265,28 @@ try {
                                         include_once CONTROL_DIR . "Sessione/CorreggiTest.php";
                                         break;
                                     case 'cambiasoglia':
-                                        include_once CONTROL_DIR. "Sessione/CambiaSoglia.php";
+                                        include_once CONTROL_DIR . "Sessione/CambiaSoglia.php";
+                                        break;
+                                    case 'cambiasoglia':
+                                        include_once CONTROL_DIR . "Sessione/CambiaSoglia.php";
                                         break;
                                     case 'visualizza':
                                         include_once VIEW_DIR . "Docente/VisualizzaElaborato.php";
                                         break;
                                     case 'annullaesame':
-                                        include_once CONTROL_DIR. "Sessione/AnnullaEsame.php";
+                                        include_once CONTROL_DIR . "Sessione/AnnullaEsame.php";
                                         break;
                                     case 'terminasessione':
-                                        include_once CONTROL_DIR. "Sessione/TerminaSessione.php";
+                                        include_once CONTROL_DIR . "Sessione/TerminaSessione.php";
                                         break;
                                     case 'modificafine':
-                                        include_once CONTROL_DIR. "Sessione/ModificaDataFineInCorso.php";
+                                        include_once CONTROL_DIR . "Sessione/ModificaDataFineInCorso.php";
                                         break;
                                     case 'indexsessioneincorso':
-                                        include_once CONTROL_DIR. "Sessione/IndexSessioneInCorso.php";
+                                        include_once CONTROL_DIR . "Sessione/IndexSessioneInCorso.php";
                                         break;
                                     case 'abilitastudenti':
-                                        include_once CONTROL_DIR. "Sessione/AbilitaStudente.php";
+                                        include_once CONTROL_DIR . "Sessione/AbilitaStudente.php";
                                         break;
                                     case 'sessioneincorso':
                                         switch (isset($_URL[6]) ? $_URL[6] : '') {
@@ -298,7 +301,9 @@ try {
                                         include_once VIEW_DIR . "Docente/VisualizzaSessione.php";
                                 }
                                 break;
-
+                            case 'visualizzaiscritti':
+                                include_once VIEW_DIR . "Docente/VisualizzaIscritti.php";
+                                break;
                             case 'rimuovisessione':
                                 include_once CONTROL_DIR . "Sessione/RimuoviSessione.php";
                                 break;
@@ -462,7 +467,8 @@ try {
                 include_once VIEW_DIR . "Studente/HomeCorso.php";
                 break;
             default:
-                include_once VIEW_DIR . "design/404.php";
+                header('Location: /');
+                exit;
         }
 
     }

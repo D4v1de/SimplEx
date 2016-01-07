@@ -171,7 +171,7 @@ $numRisposte = count($alternative);
 
                                 <div class="col-md-6">
                                     <?php
-                                    printf("<input type=\"text\" id=\"testoDomanda\" name=\"testoDomanda\" value=\"%s\" class=\"form-control\">", $domandaOld->getTesto());
+                                    printf("<input type=\"text\" id=\"testoDomanda\" name=\"testoDomanda\" value=\"%s\" class=\"form-control\">", base64_decode($domandaOld->getTesto()));
                                     printf("<span class=\"help-block\">");
                                     printf("</span>");
                                     ?>
@@ -198,7 +198,7 @@ $numRisposte = count($alternative);
                                 printf("<label class=\"control-label col-md-2\">");
                                 printf("Inserisci Testo Risposta</label>");
                                 printf("<div class=\"col-md-6\">");
-                                printf("<input type=\"text\" value=\"%s\" id=\"risposte\" name=\"testoRisposta%d\" class=\"form-control\">", $r->getTesto(), $numRadio);
+                                printf("<input type=\"text\" value=\"%s\" id=\"risposte\" name=\"testoRisposta%d\" class=\"form-control\">", base64_decode($r->getTesto()), $numRadio);
                                 printf("<span class=\"help-block\">");
                                 printf("</span>");
                                 printf("</div>");

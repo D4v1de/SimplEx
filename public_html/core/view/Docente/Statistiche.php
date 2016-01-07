@@ -101,7 +101,7 @@ $nAperte = count($aperte);
                                 <i class="fa fa-angle-right"></i>
                             </li>
                             <li>
-                                <a href="/docente/corso/<?php echo $corsoId; ?>">Nome Corso</a>
+                                <a href="/docente/corso/<?php echo $corsoId; ?>"><?php echo $corso->getNome(); ?></a>
                                 <i class="fa fa-angle-right"></i>
                             </li>
                             <li>
