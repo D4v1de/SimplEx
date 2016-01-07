@@ -66,6 +66,7 @@ $pio = null;
 $flag5=false;
 $showE = "";
 $showRC = "";
+$disabilita="";
 
 
 if (!is_numeric($_URL[4])) {
@@ -77,12 +78,16 @@ if ($_URL[4] != 0) {
     $esaminandiSessione= $modelUtente->getEsaminandiSessione($_URL[4]);
     if(count($esaminandiSessione)>0) {
         $flag5=true;
+        $disabilita="disabled";
     }
 }
 
 
 $flag = isset($_SESSION['flag']) ? $_SESSION['flag'] : 1;
 unset($_SESSION['flag']);
+
+$flag7 = isset($_SESSION['flag7']) ? $_SESSION['flag7'] : 1;
+unset($_SESSION['flag7']);
 
 $pio = isset($_SESSION['pio']) ? $_SESSION['pio'] : 1;
 unset($_SESSION['pio']);
@@ -209,6 +214,11 @@ if ($_URL[4] != 0) {
                     <button class=\"close\" data-close=\"alert\"></button>
                        La data di Fine non può essere inferiore alla data di Inizio. </div>");
                 }
+                if ($flag7 == 0) {
+                    printf("<div class='alert alert-danger'>
+                    <button class=\"close\" data-close=\"alert\"></button>
+                       Solo la data di Fine può essere modificata! </div>");
+                }
                 if ($pio == 0) {
                     printf("<div class='alert alert-danger'>
                     <button class=\"close\" data-close=\"alert\"></button>
@@ -233,11 +243,11 @@ if ($_URL[4] != 0) {
 
                                 <div class="input-group date form_datetime">
 
-                                    <input name="dataFrom" type="text"
+                                    <input  name="dataFrom" type="text"
                                            value='<?php printf("%s", $perModificaDataFrom); ?>' size="16" readonly=""
                                            class="form-control"/>
                                             <span class="input-group-btn">
-                                                <button class="btn default date-set" type="button"><i
+                                                <button class="btn default date-set" disabled type="button"><i
                                                         class="fa fa-calendar"></i></button>
                                             </span>
                                 </div>
@@ -262,7 +272,7 @@ if ($_URL[4] != 0) {
 
                                 <div class="md-radio-list">
                                     <div class="md-radio">
-                                        <?php printf("<input type=\"radio\" value=\"Valutativa\" checked id=\"radio1\" %s name=\"radio1\" class=\"md-radiobtn\">", $valu); ?>
+                                        <?php printf("<input type=\"radio\" value=\"Valutativa\" %s checked id=\"radio1\" %s name=\"radio1\" class=\"md-radiobtn\">", $disabilita,$valu); ?>
                                         <label for="radio1">
                                             <span></span>
                                             <span class="check"></span>
@@ -270,7 +280,7 @@ if ($_URL[4] != 0) {
                                             Valutativa </label>
                                     </div>
                                     <div class="md-radio">
-                                        <?php printf("<input type=\"radio\" value=\"Esercitativa\" id=\"radio2\" %s name=\"radio1\" class=\"md-radiobtn\">", $eser); ?>
+                                        <?php printf("<input type=\"radio\" value=\"Esercitativa\" %s id=\"radio2\" %s name=\"radio1\" class=\"md-radiobtn\">", $disabilita,$eser); ?>
                                         <label for="radio2">
                                             <span></span>
                                             <span class="check"></span>
@@ -286,7 +296,7 @@ if ($_URL[4] != 0) {
 
                                 <div class="md-checkbox-list">
                                     <div class="md-checkbox">
-                                        <input type="checkbox" id="checkbox1" <?php printf("%s", $showE) ?>
+                                        <input type="checkbox"  <?php echo $disabilita; ?> id="checkbox1" <?php printf("%s", $showE) ?>
                                                name="cbShowEsiti" class="md-check">
                                         <label for="checkbox1">
                                             <span></span>
@@ -295,7 +305,7 @@ if ($_URL[4] != 0) {
                                             Mostra esiti </label>
                                     </div>
                                     <div class="md-checkbox">
-                                        <input type="checkbox" id="checkbox2" <?php printf("%s", $showRC) ?>
+                                        <input type="checkbox" id="checkbox2"  <?php echo $disabilita; ?> <?php printf("%s", $showRC) ?>
                                                name="cbShowRispCorr" class="md-check">
                                         <label for="checkbox2">
                                             <span></span>
@@ -308,7 +318,7 @@ if ($_URL[4] != 0) {
                         </div>
                         <div class="col-md-2">
                             <label>Punteggio Test</label>
-                            <select class="form-control" id="maxTest" name="max" onchange="pig()">
+                            <select class="form-control"  <?php echo $disabilita; ?> id="maxTest" name="max" onchange="pig()">
                                 <?php
                                 $tests = $testModel->getAllTestByCorso($idCorso);
                                 $array[0] = -9999;
@@ -561,7 +571,7 @@ if ($_URL[4] != 0) {
                         <tr role="row">
                             <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="
                                                     " style="width: 24px;">
-                                <input type="checkbox" class="group-checkable" data-set="#tabella_studenti .checkboxes">
+                                <?php printf("<input type=\"checkbox\" %s class=\"group-checkable\" data-set=\"#tabella_studenti .checkboxes\">", $disabilita);?>
                             </th>
                             <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1"
                                 aria-sort="ascending" aria-label="
@@ -605,7 +615,7 @@ if ($_URL[4] != 0) {
                                     if ($c->getMatricola() == $t->getMatricola())
                                         $toCheckS = "Checked";
                                 }
-                                printf("<td><input name=\"students[]\" type=\"checkbox\" %s class=\"checkboxes\" value='%s'></td>", $toCheckS, $c->getMatricola());
+                                printf("<td><input name=\"students[]\" %s type=\"checkbox\" %s class=\"checkboxes\" value='%s'></td>",$disabilita, $toCheckS, $c->getMatricola());
                                 $toCheckS = "";
                                 printf("<td class=\"sorting_1\">%s</td>", $c->getNome());
                                 printf("<td>%s</td>", $c->getCognome());

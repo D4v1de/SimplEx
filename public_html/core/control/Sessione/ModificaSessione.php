@@ -33,14 +33,18 @@ if (!is_numeric($idCorso)) {
     echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
 }
 
+$oldSes=$sessioneModel->readSessione($idSessione);
+$esaminandiSessione = Array();
+$esaminandiSessione= $utenteModel->getEsaminandiSessione($idSessione);
+
 
 if($dataFromSettato=isset($_POST['dataFrom']) && $radio1Settato=isset($_POST['radio1']) && $dataToSettato=isset($_POST['dataTo'])) {
 
-    if($dataFromSettato)
+    if ($dataFromSettato)
         $newOrOldDataFrom = $_POST['dataFrom'];
     else
-        $newOrOldDataFrom= $dataFrom;
-    if($dataToSettato)
+        $newOrOldDataFrom = $dataFrom;
+    if ($dataToSettato)
         $newOrOldDataTo = $_POST['dataTo'];
     else
         $newOrOldDataTo = $_POST['dataTo'];
@@ -48,37 +52,33 @@ if($dataFromSettato=isset($_POST['dataFrom']) && $radio1Settato=isset($_POST['ra
     $newtipoSessione = $_POST['radio1'];
 
     $sessioneByUrl = $sessioneModel->readSessione($_URL[4]);
-    $stato=$sessioneByUrl->getStato();
-    $sogliAmm=$sessioneByUrl->getSogliaAmmissione();
-    $oldTipologia=$sessioneByUrl->getTipologia();
+    $stato = $sessioneByUrl->getStato();
+    $sogliAmm = $sessioneByUrl->getSogliaAmmissione();
+    $oldTipologia = $sessioneByUrl->getTipologia();
 
-    $esaminandiSessione= $utenteModel->getEsaminandiSessione($idSessione);
+    $esaminandiSessione = $utenteModel->getEsaminandiSessione($idSessione);
     if ($esaminandiSessione == null) {
-    }
-    else {
+    } else {
         foreach ($esaminandiSessione as $c) {
-            $ela=$elaboratoModel->readElaborato($c->getMatricola(),$idSessione);
-            if($ela->getStato()=="Corretto") {
+            $ela = $elaboratoModel->readElaborato($c->getMatricola(), $idSessione);
+            if ($ela->getStato() == "Corretto") {
                 $almenoUnoCorretto++;
             }
         }
     }
 
-    $timeTo = strtotime( $newOrOldDataTo);
+    $timeTo = strtotime($newOrOldDataTo);
     $timeFrom = strtotime($newOrOldDataFrom);
-    if(!$timeTo) {
+    if (!$timeTo) {
         echo "<script type='text/javascript'>alert('Data non corretta');</script>";
-    }
-    else if(!$timeFrom) {
+    } else if (!$timeFrom) {
         echo "<script type='text/javascript'>alert('Data non corretta');</script>";
-    }
-    else if($newtipoSessione!="Valutativa" && $newtipoSessione!="Esercitativa")
-            echo "<script type='text/javascript'>alert('Tipologia Sessione non corretta.');</script>";
-    else  if($almenoUnoCorretto!=0) {
-            $vaiEsiti = "Location: " . "/docente/corso/" . $idCorso . "/sessione" . "/" . $idSessione. "/" . "esiti/nochange";
-            header($vaiEsiti);
-    }
-    else {
+    } else if ($newtipoSessione != "Valutativa" && $newtipoSessione != "Esercitativa")
+        echo "<script type='text/javascript'>alert('Tipologia Sessione non corretta.');</script>";
+    else if ($almenoUnoCorretto != 0) {
+        $vaiEsiti = "Location: " . "/docente/corso/" . $idCorso . "/sessione" . "/" . $idSessione . "/" . "esiti/nochange";
+        header($vaiEsiti);
+    } else {
         $toCompareTo = date('y-m-d H:i:s', $timeTo);
         $toCompareFrom = date('y-m-d H:i:s', $timeFrom);
         if ($toCompareTo < $toCompareFrom) {
@@ -193,13 +193,19 @@ if($dataFromSettato=isset($_POST['dataFrom']) && $radio1Settato=isset($_POST['ra
 
         if ($flag == 0) {
             $_SESSION['flag'] = $flag;
-            $tornaACasa = "Location: " . "/docente/corso/" . "$idCorso" . "/sessione/" . $idSessione . "/creamodificasessione2/error";
+            $tornaACasa = "Location: " . "/docente/corso/" . "$idCorso" . "/sessione/" . $idSessione . "/creamodificasessione/error";
         } else {
             $tornaACasa = "Location: " . "/docente/corso/" . "$idCorso" . "/successmodifica";
         }
         header($tornaACasa);
     }
+
+
 }
 else {
-
+    if (count($esaminandiSessione) > 0) {
+        $_SESSION['flag7'] = 0;
+        $tornaACasa = "Location: " . "/docente/corso/" . "$idCorso" . "/sessione/" . $idSessione . "/creamodificasessione";
+        header($tornaACasa);
+    }
 }

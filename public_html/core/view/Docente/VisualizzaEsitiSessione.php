@@ -158,14 +158,14 @@ $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
         <form method="post" action="/docente/corso/<?php echo $identificativoCorso; ?>/sessione/<?php echo $idSessione; ?>/cambiasoglia">
             <div class="row">
             <div class="col-md-12">
-                <div class="col-md-8"></div>
                 <div class="col-md-4">
-                <label>Soglia esiti:
-                    <?php printf("<input type='search' name='soglia' class='form-control input-small input-inline' placeholder='%s' aria-controls='sample_1'/>", $soglia);?>
-                </label>
-                <button  class="btn sm green-jungle">
-                    Conferma
-                </button>
+                <label><h3>Soglia esiti:
+                    <?php
+                    if($soglia==-1)
+                        ;
+                    else echo $soglia;
+                    //printf("<input type='search' name='soglia' class='form-control input-small input-inline' placeholder='%s' aria-controls='sample_1'/>", c);?>
+                        </h3></label>
                 </div>
             </div>
         </div>
@@ -409,6 +409,7 @@ $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
 <script src="/assets/admin/pages/scripts/form-validation.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
+<script src="/assets/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
 <!-- END aggiunta da me -->
 <script>
     jQuery(document).ready(function () {
@@ -416,6 +417,9 @@ $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
         Layout.init();
         TableManaged2.init("tabella_test2","tabella_test2_wrapper");
         TableManaged2.init("tabella_studenti_esiti","tabella_studenti_esiti_wrapper");
+        FormValidation.init();
+        setSoglia();
+
 
         var tableT = $("#tabella_test2").dataTable();
         var tableToolsT = new $.fn.dataTable.TableTools(tableT, {
@@ -451,6 +455,42 @@ $sogliaMin=$sessioneByUrl->getSogliaAmmissione();
         });
         $(tableToolsS.fnContainer()).insertBefore("#tabella_studenti_esiti_wrapper");
     });
+</script>
+<script>
+
+    var soglia = <?= $soglia; ?>;
+    if(soglia==-1) {
+        bootbox.dialog({
+            message: '<div class="row">  ' +
+            '<div class="col-md-12"> ' +
+            '<form  > ' +
+            '<div class="form-group"> ' +
+            '<label class="col-md-4" for="name"></label> ' +
+            '<div class="col-md-4"> ' +
+            '<input id="soglia" name="soglia" type="text" placeholder="Soglia minima" class="form-control input-md"> ' +
+            '</div> ' +
+            '</div> ' +
+            '</form> </div>  </div>',
+            title: "Soglia Ammissione",
+            closeButton: false,
+            buttons: {
+                conferma: {
+                    label: "Conferma",
+                    className: "green",
+                    callback: function () {
+                        var soglia = document.getElementById('soglia').value;
+                        soglia = soglia.replace(/\s+/g, '');
+                        if((!isNaN(soglia) && isFinite(soglia)) && soglia!="")
+                            location.href = "/docente/corso/<?php echo $identificativoCorso; ?>/sessione/<?php echo $idSessione; ?>/cambiasoglia/"+soglia;
+                        else
+                            location.reload();
+                    }
+                }
+            }
+        });
+    }
+
+
 </script>
 <!-- END JAVASCRIPTS -->
 </body>
