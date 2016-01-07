@@ -28,6 +28,15 @@ $someTestsAorD=false;
 
 if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo']) && $someTestsAorD=isset($_POST['tests']) ) {
 
+    if(isset($_POST['ip'])) {
+        $validIp = filter_var($_POST['ip'], FILTER_VALIDATE_IP);
+    }
+    if(!$validIp) {
+        $_SESSION['valIp'] = 0;
+        $tornaACasa = "Location: " . "/docente/corso/" . "$idCorso" . "/sessione/0/creamodificasessione";
+        header($tornaACasa);
+    }
+    else {
     $newdataFrom = $_POST['dataFrom'];
     $newdataTo = $_POST['dataTo'];
     $newtipoSessione = $_POST['radio1'];
@@ -128,6 +137,7 @@ if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo'
         } else
             $tornaACasa = "Location: " . "/docente/corso/" . "$idCorso" . "/successinserimento";
         header($tornaACasa);
+    }
     }
 }
 

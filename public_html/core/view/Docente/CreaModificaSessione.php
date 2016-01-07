@@ -83,6 +83,9 @@ if ($_URL[4] != 0) {
 }
 
 
+$valIp = isset($_SESSION['valIp']) ? $_SESSION['valIp'] : 1;
+unset($_SESSION['valIp']);
+
 $flag = isset($_SESSION['flag']) ? $_SESSION['flag'] : 1;
 unset($_SESSION['flag']);
 
@@ -225,6 +228,12 @@ if ($_URL[4] != 0) {
                     Occorre selezionare almeno un Test!
                 </div>");
                 }
+                if ($valIp == 0) {
+                    printf("<div class='alert alert-danger'>
+                    <button class=\"close\" data-close=\"alert\"></button>
+                    IP non corretto!
+                </div>");
+                }
                 if($flag5)
                     echo "<script></script>";
                 printf("<div class='alert alert-danger display-hide'>
@@ -247,7 +256,7 @@ if ($_URL[4] != 0) {
                                            value='<?php printf("%s", $perModificaDataFrom); ?>' size="16" readonly=""
                                            class="form-control"/>
                                             <span class="input-group-btn">
-                                                <button class="btn default date-set" disabled type="button"><i
+                                                <button class="btn default date-set"  type="button"><i
                                                         class="fa fa-calendar"></i></button>
                                             </span>
                                 </div>
@@ -260,7 +269,7 @@ if ($_URL[4] != 0) {
                                     <input name="dataTo" id="dataTo" class="form-control" type="text"
                                            value='<?php printf("%s", $perModificaDataTo); ?>' size="16" readonly=""/>
                                             <span class="input-group-btn">
-                                                <button class="btn default date-set" type="button"><i
+                                                <button class="btn default date-set" <?php echo $disabilita; ?> type="button"><i
                                                         class="fa fa-calendar"></i></button>
                                             </span>
                                 </div>
@@ -351,6 +360,7 @@ if ($_URL[4] != 0) {
                         </div>
                     </div>
                 </div>
+
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">
@@ -651,6 +661,9 @@ if ($_URL[4] != 0) {
                             $vaiANomeCorso = "/docente/corso/" . $idCorso;
                             printf("<a href=\"%s\" class=\"btn sm red-intense\">Annulla</a>", $vaiANomeCorso, $nomecorso);
                             ?>
+                        </div>
+                        <div class="col-md-3">
+                            <label>IP</label><input name="ip" id="ip" type="text" />
                         </div>
                     </div>
                 </div>
