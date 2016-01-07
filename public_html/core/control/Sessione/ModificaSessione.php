@@ -32,8 +32,7 @@ $idCorso = $_URL[2];
 if (!is_numeric($idCorso)) {
     echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
 }
-$esaminandiSessione = Array();
-$esaminandiSessione= $utenteModel->getEsaminandiSessione($idSessione);
+
 
 if($dataFromSettato=isset($_POST['dataFrom']) && $radio1Settato=isset($_POST['radio1']) && $dataToSettato=isset($_POST['dataTo'])) {
 
@@ -78,10 +77,6 @@ if($dataFromSettato=isset($_POST['dataFrom']) && $radio1Settato=isset($_POST['ra
     else  if($almenoUnoCorretto!=0) {
             $vaiEsiti = "Location: " . "/docente/corso/" . $idCorso . "/sessione" . "/" . $idSessione. "/" . "esiti/nochange";
             header($vaiEsiti);
-    }
-    else if(count($esaminandiSessione)>0) {
-        $vaiASesInCorso = "Location: " . "/docente/corso/" . $idCorso . "/sessione" . "/" . $idSessione . "/" . "sessioneincorso/nochange";
-        header($vaiASesInCorso);
     }
     else {
         $toCompareTo = date('y-m-d H:i:s', $timeTo);

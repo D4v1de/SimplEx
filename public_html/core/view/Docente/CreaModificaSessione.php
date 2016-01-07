@@ -63,14 +63,23 @@ $valu = null;
 $eser = null;
 $flag = null;
 $pio = null;
+$flag5=false;
 $showE = "";
 $showRC = "";
+
 
 if (!is_numeric($_URL[4])) {
     echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
 }
-if ($_URL[4] != 0)
+if ($_URL[4] != 0) {
     $siamoInModifica = true;
+    $esaminandiSessione = Array();
+    $esaminandiSessione= $modelUtente->getEsaminandiSessione($_URL[4]);
+    if(count($esaminandiSessione)>0) {
+        $flag5=true;
+    }
+}
+
 
 $flag = isset($_SESSION['flag']) ? $_SESSION['flag'] : 1;
 unset($_SESSION['flag']);
@@ -127,14 +136,13 @@ if ($_URL[4] != 0) {
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title><?php echo $corso->getNome(); ?></title>
+    <title><?php echo $corso->getNome();?></title>
     <link rel="stylesheet" type="text/css"
           href="/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" type="text/css"
           href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/extensions/TableTools/css/dataTables.tableTools.css">
-    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
 
     <?php include VIEW_DIR . "design/header.php"; ?>
@@ -207,6 +215,8 @@ if ($_URL[4] != 0) {
                     Occorre selezionare almeno un Test!
                 </div>");
                 }
+                if($flag5)
+                    echo "<script></script>";
                 printf("<div class='alert alert-danger display-hide'>
                     <button class=\"close\" data-close=\"alert\"></button>
                     Occorre selezionare almeno un Test con Avvio e Termine.
@@ -677,7 +687,7 @@ if ($_URL[4] != 0) {
         UIToastr.init();
         UIConfirmations.init();
         FormValidation.init();
-
+        checkModifica();
         var tableT = $("#tabella_test").dataTable();
         var tableToolsT = new $.fn.dataTable.TableTools(tableT, {
             //"sSwfPath": "//cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls_pdf.swf",
@@ -726,6 +736,16 @@ if ($_URL[4] != 0) {
                 $("#divTest").html(result);
             }
         });
+    }
+</script>
+
+
+<script>
+    //controlla se c'è qualche notifica da mostrare
+    var flag = <?= $flag5; ?>;
+    function checkModifica() {
+        if(flag)
+        toastr.warning('Almeno uno studente ha avviato l\'esecuzione del test. E\' possibile modificare solo la data di termine!', 'Attenzione');
     }
 </script>
 
