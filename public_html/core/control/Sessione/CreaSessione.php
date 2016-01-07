@@ -29,7 +29,8 @@ $someTestsAorD=false;
 if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo']) && $someTestsAorD=isset($_POST['tests']) ) {
 
     if(isset($_POST['ip'])) {
-        $validIp = filter_var($_POST['ip'], FILTER_VALIDATE_IP);
+        $maschera=$_POST['ip'];
+        $validIp = preg_match("/^([\d]{1,3}|\*)\.([\d]{1,3}|\*)\.([\d]{1,3}|\*)\.([\d]{1,3}|\*)$/i", $maschera);
     }
     if(!$validIp) {
         $_SESSION['valIp'] = 0;
@@ -37,6 +38,7 @@ if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo'
         header($tornaACasa);
     }
     else {
+
     $newdataFrom = $_POST['dataFrom'];
     $newdataTo = $_POST['dataTo'];
     $newtipoSessione = $_POST['radio1'];
@@ -65,7 +67,7 @@ if(isset($_POST['dataFrom']) && isset($_POST['radio1']) && isset($_POST['dataTo'
             try {
 
                 $idNuovaSessione = $sessioneModel->createSessione($sessione);
-
+                $sessioneModel->updateMascheraSessione($idNuovaSessione,$maschera);
                 if (isset($_POST['cbShowEsiti'])) {
                     $sessioneModel->abilitaMostraEsito($idNuovaSessione);
                 }

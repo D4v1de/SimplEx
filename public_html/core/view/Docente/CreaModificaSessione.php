@@ -64,6 +64,7 @@ $eser = null;
 $flag = null;
 $pio = null;
 $flag5=false;
+$ip="";
 $showE = "";
 $showRC = "";
 $disabilita="";
@@ -103,6 +104,7 @@ if ($_URL[4] != 0) {
             $dataFrom = $sessioneByUrl->getDataInizio();
             $dataTo = $sessioneByUrl->getDataFine();
             $tipoSessione = $sessioneByUrl->getTipologia();
+            $ip=$modelSessione->readMascheraSessione($idSessione);
         } catch (ApplicationException $ex) {
             echo "<h1>ERRORE NELLA LETTURA DELLA SESSIONE!</h1>" . $ex;
         }
@@ -322,6 +324,7 @@ if ($_URL[4] != 0) {
                                             <span class="box"></span>
                                             Mostra risposte corrette </label>
                                     </div>
+                                    <input class="form-control" placeholder="Limite IP" name="ip" id="ip" value='<?php echo $ip; ?>' type="text" />
                                 </div>
                             </div>
                         </div>
@@ -661,9 +664,6 @@ if ($_URL[4] != 0) {
                             $vaiANomeCorso = "/docente/corso/" . $idCorso;
                             printf("<a href=\"%s\" class=\"btn sm red-intense\">Annulla</a>", $vaiANomeCorso, $nomecorso);
                             ?>
-                        </div>
-                        <div class="col-md-3">
-                            <label>IP</label><input name="ip" id="ip" type="text" />
                         </div>
                     </div>
                 </div>

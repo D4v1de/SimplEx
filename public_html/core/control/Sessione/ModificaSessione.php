@@ -20,6 +20,8 @@ $domandaModel = new DomandaModel();
 $testModel = new TestModel();
 $flag=1;
 $pio=1;
+$maschera="";
+$validIp=true;
 $idSessione="";
 $idSessione= $_URL[4];
 $almenoUnoCorretto=0;
@@ -40,6 +42,16 @@ $esaminandiSessione= $utenteModel->getEsaminandiSessione($idSessione);
 
 if($dataFromSettato=isset($_POST['dataFrom']) && $radio1Settato=isset($_POST['radio1']) && $dataToSettato=isset($_POST['dataTo'])) {
 
+    if(isset($_POST['ip'])) {
+        $maschera=$_POST['ip'];
+        $validIp = preg_match("/^([\d]{1,3}|\*)\.([\d]{1,3}|\*)\.([\d]{1,3}|\*)\.([\d]{1,3}|\*)$/i", $maschera);
+    }
+    if(!$validIp && $maschera!="") {
+        $_SESSION['valIp'] = 0;
+        $tornaACasa = "Location: " . "/docente/corso/" . "$idCorso" . "/sessione/".$idSessione."/creamodificasessione";
+        header($tornaACasa);
+    }
+else {
     if ($dataFromSettato)
         $newOrOldDataFrom = $_POST['dataFrom'];
     else
@@ -88,7 +100,7 @@ if($dataFromSettato=isset($_POST['dataFrom']) && $radio1Settato=isset($_POST['ra
                 $sessioneAggiornata = new Sessione($newOrOldDataFrom, $newOrOldDataTo, $sogliAmm, $stato, $newtipoSessione, $idCorso);
                 $sessioneModel->disabilitaMostraEsito($idSessione);
                 $sessioneModel->disabilitaMostraRisposteCorrette($idSessione);
-
+                $sessioneModel->updateMascheraSessione($idSessione,$maschera);
                 if (isset($_POST['cbShowEsiti'])) {
                     $sessioneModel->abilitaMostraEsito($idSessione);
                 }
@@ -200,7 +212,7 @@ if($dataFromSettato=isset($_POST['dataFrom']) && $radio1Settato=isset($_POST['ra
         header($tornaACasa);
     }
 
-
+}
 }
 else {
     if (count($esaminandiSessione) > 0) {
