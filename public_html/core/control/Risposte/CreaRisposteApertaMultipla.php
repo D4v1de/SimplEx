@@ -48,5 +48,6 @@ if ($flag == 0) {
             $n = $m->getNumeroRisposteEsercitative() + 1;
             $m.setNumeroRisposteEsercitative($n);
         }
+        $domandaModel->updateDomandaMultipla($m->getId(), $m);
     }
 }

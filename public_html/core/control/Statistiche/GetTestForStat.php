@@ -48,22 +48,34 @@ if ($type == "scelto"){
 }
 if ($kind == "val"){
     if ($type == "scelto")
-        for ($i=0; $i < $n; $i++)        
-            $toSort[$tests[$i]->getId()] = ($n1Val > 0)? $tests[$i]->getPercentualeSceltoVal()/$n1Val * 100:0;
+        for ($i=0; $i < $n; $i++){ 
+            $scelti = $tests[$i]->getPercentualeSceltoVal();
+            if ($scelti > 0)
+                $toSort[$tests[$i]->getId()] = ($n1Val > 0)? $scelti/$n1Val * 100:0;
+        }
     else if ($type == "successo")
         for ($i=0; $i < $n; $i++){
-            $n2 = $tests[$i]->getNumeroSceltaValutativa();
-            $toSort[$tests[$i]->getId()] = ($n2 > 0)? $tests[$i]->getPercentualeSuccessoVal()/$n2 * 100:0;
+            $scelti = $tests[$i]->getPercentualeSceltoVal();
+            if ($scelti > 0){
+                $n2 = $tests[$i]->getNumeroSceltaValutativa();
+                $toSort[$tests[$i]->getId()] = ($n2 > 0)? $tests[$i]->getPercentualeSuccessoVal()/$n2 * 100:0;
+            }
         }
 }
 else{
     if ($type == "scelto")
-        for ($i=0; $i < $n; $i++)        
-            $toSort[$tests[$i]->getId()] = ($n1Ese > 0)? $tests[$i]->getPercentualeSceltoEse()/$n1Ese * 100:0;
+        for ($i=0; $i < $n; $i++){  
+            $scelti = $tests[$i]->getPercentualeSceltoEse();
+            if ($scelti > 0)
+                $toSort[$tests[$i]->getId()] = ($n1Ese > 0)? $scelti/$n1Ese * 100:0;
+        }
     else if ($type == "successo")
         for ($i=0; $i < $n; $i++){
-            $n2 = $tests[$i]->getNumeroSceltaEsercitativa();
-            $toSort[$tests[$i]->getId()] = ($n2 > 0)? $tests[$i]->getPercentualeSuccessoEse()/$n2 * 100:0;
+            $scelti = $tests[$i]->getPercentualeSceltoEse();
+            if ($scelti > 0){
+                $n2 = $tests[$i]->getNumeroSceltaEsercitativa();
+                $toSort[$tests[$i]->getId()] = ($n2 > 0)? $tests[$i]->getPercentualeSuccessoEse()/$n2 * 100:0;
+            }
         }
 }
         
