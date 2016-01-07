@@ -182,11 +182,11 @@ try {
             "aButtons": [
                 {
                     "sExtends": "xls",
-                    "sButtonText": "<i class='fa fa-file-excel-o'></i> Excel"
+                    "sButtonText": "<button><i class='fa fa-file-excel-o'></i> Excel</button>"
                 },
                 {
                     "sExtends": "pdf",
-                    "sButtonText": "<i class='fa fa-file-pdf-o'></i> PDF"
+                    "sButtonText": "<button><i class='fa fa-file-pdf-o'></i> PDF</button>"
                 }
             ]
         });
