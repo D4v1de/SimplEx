@@ -38,7 +38,7 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
         $flag3 = 0;
     }
     foreach($cdls as $c) {
-        if($c->getNome() == $nome) {
+        if(strtolower($c->getNome()) == strtolower($nome)) {
             $flag2 = 0;
         }
     }
