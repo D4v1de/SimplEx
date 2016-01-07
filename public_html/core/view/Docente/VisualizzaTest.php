@@ -115,7 +115,7 @@ foreach ($Multiple as $x) {
     printf("<div class=\"portlet box blue-madison\">");
     printf("<div class=\"portlet-title\">");
     printf("<div class=\"col-md-5 caption\">");
-    printf("<i class=\"fa fa-file-o\"></i>%s", $x->getTesto());
+    printf("<i class=\"fa fa-file-o\"></i>%s", base64_decode($x->getTesto()));
     printf("</div>");
     printf("<div class=\"caption\">");
     printf("Punteggio Corretta: %s &nbsp", $ModelDomanda->readPunteggioCorrettaAlternativo($x->getId(), $test));
@@ -149,7 +149,7 @@ foreach ($Multiple as $x) {
             printf("<input type=\"checkbox\" disabled=\"\">");
         }
         printf("</td>");
-        printf("<td>%s</td><td align=\"right\">Selezionata: %d%%</td>", $r->getTesto(), $percSel);
+        printf("<td>%s</td><td align=\"right\">Selezionata: %d%%</td>", base64_decode($r->getTesto()), $percSel);
         printf("</tr>");
     }
     printf("</tbody>");
@@ -171,7 +171,7 @@ foreach ($Aperte as $x) {
     printf("<div class=\"portlet box blue-madison\">");
     printf("<div class=\"portlet-title\">");
     printf("<div class=\"col-md-5 caption\">");
-    printf("<i class=\"fa fa-file-o\"></i>%s (APERTA)", $x->getTesto());
+    printf("<i class=\"fa fa-file-o\"></i>%s (APERTA)", base64_decode($x->getTesto()));
     printf("</div>");
     printf("<div class=\"caption\">");
     printf("Punteggio Max Corretta: %s &nbsp", $ModelDomanda->readPunteggioMaxAlternativo($x->getId(), $test));
