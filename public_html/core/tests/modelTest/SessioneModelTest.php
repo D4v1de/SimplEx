@@ -10,7 +10,7 @@
 
 class SessioneModelTest extends \PHPUnit_Framework_TestCase
 {
-    const IDSESSIONE = 170; // CI DEVE STARE QUESTO ID NEL DB
+    const IDSESSIONE = 327; // CI DEVE STARE QUESTO ID NEL DB
     const TIPOLOGIASESS = 'Esercitativa';
     const TIPOLOGIASESS2 = "Valutativa";
     const CORSOID  = 18;
@@ -22,6 +22,7 @@ class SessioneModelTest extends \PHPUnit_Framework_TestCase
     const DATAF2 = '2015-11-28 10:00:00';
     const MATRICOLA = "0512109994";
     const IDTEST = 1;
+    const MASCHERA = "255.255.255.0";
 
     public function testSessione()
     {
@@ -89,6 +90,10 @@ class SessioneModelTest extends \PHPUnit_Framework_TestCase
         $model->disabilitaMostraRisposteCorrette(self::IDSESSIONE);
         $mostraEsito = $model->readMostraRisposteCorretteSessione(self::IDSESSIONE);
         $this->assertEquals('No', $mostraEsito);
+
+        //testo l'aggiornamento della maschera
+        $model->updateMascheraSessione(self::IDSESSIONE, self::MASCHERA);
+        $maschera = $model->readMascheraSessione(self::IDSESSIONE);
 
         //elimino la sessione dal db
         $model->deleteSessione($idSess);
