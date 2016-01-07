@@ -60,8 +60,8 @@ if (isset($_POST['eliminatore'])) {
             $_SESSION['errore'] = 5;
             header('Location: /docente/corso/' . $idCorso . '/argomento/domande/modificamultipla/' . $idArgomento .'/' .$idDomanda);
         } else {
-
-            $updatedDomanda = new DomandaMultipla($idArgomento, $testoDomanda, $punteggioEsatta, $punteggioErrata, 0, 0, 0, 0, 0, 0);
+            $testoEncoded = base64_encode(strip_tags($testoDomanda));
+            $updatedDomanda = new DomandaMultipla($idArgomento, $testoEncoded, $punteggioEsatta, $punteggioErrata, 0, 0, 0, 0, 0, 0);
 
             $domandaModel->updateDomandaMultipla($idDomanda, $updatedDomanda);
 
@@ -74,8 +74,8 @@ if (isset($_POST['eliminatore'])) {
                 } else {
                     $corretta = "No";
                 }
-
-                $updatedAlternativa = new Alternativa($idDomanda, $testoRisposte[$i], 0, $corretta);
+                $testoEncoded = base64_encode(strip_tags($testoRisposte[$i]));
+                $updatedAlternativa = new Alternativa($idDomanda, $testoEncoded, 0, $corretta);
                 $alternativaModel->updateAlternativa($idAlternativa, $updatedAlternativa);
             }
 
@@ -91,7 +91,8 @@ if (isset($_POST['eliminatore'])) {
                         } else {
                             $corretta2 = "No";
                         }
-                        $nuovaAlternativa = new Alternativa($idDomanda, $item, 0, $corretta2);
+                        $testoEncoded = base64_encode(strip_tags($item));
+                        $nuovaAlternativa = new Alternativa($idDomanda, $testoEncoded, 0, $corretta2);
                         $alternativaModel->createAlternativa($nuovaAlternativa);
                     }
                 }

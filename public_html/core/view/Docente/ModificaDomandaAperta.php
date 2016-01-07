@@ -179,7 +179,7 @@ try {
 
                                 <div class="col-md-6">
                                     <?php
-                                    printf("<input type=\"text\" id=\"testoDomanda\" name=\"testoDomanda\" value=\"%s\" class=\"form-control\">", $domandaOld->getTesto());
+                                    printf("<input type=\"text\" id=\"testoDomanda\" name=\"testoDomanda\" value=\"%s\" class=\"form-control\">", base64_decode($domandaOld->getTesto()));
                                     printf("<span class=\"help-block\">");
                                     printf("</span>");
                                     ?>

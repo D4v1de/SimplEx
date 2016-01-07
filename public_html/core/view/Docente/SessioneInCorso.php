@@ -198,6 +198,8 @@ $dataTo = $sessioneByUrl->getDataFine();
                                         <?php
                                         $array = Array();
                                         $array = $testModel->getAllTestBySessione($idSessione);
+                                        $sessioni = $modelSessione->getAllSessioniByCorso($identificativoCorso);
+                                        $numSess = count($sessioni);
                                         if ($array == null) {
                                         }
                                         else {
@@ -208,8 +210,11 @@ $dataTo = $sessioneByUrl->getDataFine();
                                                 printf("<td>%d</td>", $c->getNumeroMultiple());
                                                 printf("<td>%d</td>", $c->getNumeroAperte());
                                                 printf("<td>%d</td>", $c->getPunteggioMax());
-                                                printf("<td>%d%%</td>", $c->getPercentualeSceltoEse() + $c->getPercentualeSceltoVal());
-                                                printf("<td>%d%%</td>", $c->getPercentualeSuccessoEse() + $c->getPercentualeSuccessoVal());
+                                                $percSce = ($numSess != 0)? round(($c->getPercentualeSceltoEse() + $c->getPercentualeSceltoVal())/$numSess * 100):0;
+                                                printf("<td>%d%%</td>", $percSce);
+                                                $numSucc = $c->getNumeroSceltaValutativa() + $c->getNumeroSceltaEsercitativa();
+                                                $percSucc = ($numSucc!=0)? round(($c->getPercentualeSuccessoEse() + $c->getPercentualeSuccessoVal())/$numSucc * 100):0;
+                                                printf("<td>%d%%</td>", $percSucc);
                                                 printf("</tr>");
                                             }
                                         }

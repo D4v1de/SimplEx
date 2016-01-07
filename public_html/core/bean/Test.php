@@ -46,7 +46,7 @@ class Test {
         $this->percentualeSceltoVal=$percentualeSceltoVal;
         $this->percentualeSuccessoVal=$percentualeSuccessoVal;
         $this->numeroSceltaEsercitativa=$numeroSceltaEsercitativa;
-        $this->numeroSceltaValutativa=$numeroSceltaEsercitativa;
+        $this->numeroSceltaValutativa=$numeroSceltaValutativa;
         $this->corsoId = $corsoId;
     } 
     
