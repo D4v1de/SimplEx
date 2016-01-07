@@ -210,7 +210,7 @@ $nAperte = count($aperte);
                                 </div>
                                 <div class="details">
                                     <div class="number">
-                                        <?php echo $nMultiple; ?>
+                                        <?php echo $nAperte; ?>
                                     </div>
                                     <div class="desc">
                                         Domande Aperte
