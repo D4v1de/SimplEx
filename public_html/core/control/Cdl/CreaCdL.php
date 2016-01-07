@@ -69,6 +69,10 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
             $cdl = new CdL($matricola, $nome, $tipologia);
             $modelcdl->createCdL($cdl);
 
+            unset($_SESSION['nome']);
+            unset($_SESSION['tipologia']);
+            unset($_SESSION['matricola']);
+
             header('location: /admin/cdl/view/successcrea');
         } catch (ApplicationException $ex) {
             echo "<h1>CREACDL FALLITO!</h1>" . $ex;

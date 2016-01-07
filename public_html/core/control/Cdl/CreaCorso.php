@@ -70,6 +70,12 @@ if (isset($_POST['nome']) && isset($_POST['tipologia']) && isset($_POST['matrico
             $corso = new Corso($matricola, $nome, $tipologia, $cdlmatricola);
             $id = $modelcorso->createCorso($corso);
 
+            unset($_SESSION['nome']);
+            unset($_SESSION['tipologia']);
+            unset($_SESSION['matricola']);
+            unset($_SESSION['tipologia2']);
+
+
             header('location: /admin/corsi/gestione/' . $id . '/successcrea');
         } catch (ApplicationException $ex) {
             echo "<h1>CREACORSO FALLITO!</h1>.$ex";
