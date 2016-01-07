@@ -189,7 +189,7 @@ try {
                                         try {
                                             $show = $sessioneModel->readMostraEsitoSessione($s->getId());
                                             $elaborato = $elaboratoModel->readElaborato($matricolaStudente,$s->getId());
-                                            if (!strcmp($show,"Si")){
+                                            if (!strcmp($show,"Si") || ($elaborato->getStato() == "Corretto")){
                                                 $parz = $elaborato->getEsitoParziale();
                                                 $fin = $elaborato->getEsitoFinale();
                                                 $esito = strcmp($elaborato->getStato(),"Corretto")? $parz:$fin;
