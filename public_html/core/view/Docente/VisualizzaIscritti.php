@@ -124,7 +124,7 @@ if($numProfs==0){
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-university"></i>Scegli uno Studente
+                            <i class="fa fa-person"></i>Studenti
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="collapse" data-original-title="" title="">
