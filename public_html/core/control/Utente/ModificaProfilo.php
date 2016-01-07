@@ -71,7 +71,7 @@ function modificaUtente($matricola, $nome, $cognome, $cdlMatricola, $email, $pas
     if (isset($pass) && strlen($pass) > 0 && strlen($pass) < Config::$MIN_PASSWORD_LEN) {
         throw new ApplicationException(Error::$PASS_CORTA);
     }
-    if (strlen($pass) > Config::$MIN_PASSWORD_LEN) {
+    if (strlen($pass) >= Config::$MIN_PASSWORD_LEN) {
         $ident = UtenteModel::createIdentity($email, $pass);
         $utente->setPassword($ident);
     }

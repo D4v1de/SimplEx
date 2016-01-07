@@ -81,7 +81,8 @@ try {
                         </div>
                     </div>
                     <div class="portlet-body">
-                        <div id="tabella_2_wrapper" class="dataTables_wrapper no-footer table-responsive">
+                        <div class="table-responsive">
+                        <div id="tabella_2_wrapper" class="dataTables_wrapper no-footer">
                             <table class="table table-striped table-bordered table-hover dataTable no-footer"
                                    id="tabella_2" role="grid" aria-describedby="tabella_2_info">
                                 <thead>
@@ -116,6 +117,7 @@ try {
                                 </tbody>
                             </table>
 
+                        </div>
                         </div>
                     </div>
 
@@ -167,11 +169,11 @@ try {
             "aButtons": [
                 {
                     "sExtends": "xls",
-                    "sButtonText": "<i class='fa fa-file-excel-o'></i> Excel"
+                    "sButtonText": "<button><i class='fa fa-file-excel-o'></i> Excel</button>"
                 },
                 {
                     "sExtends": "pdf",
-                    "sButtonText": "<i class='fa fa-file-pdf-o'></i> PDF"
+                    "sButtonText": "<button><i class='fa fa-file-pdf-o'></i> PDF</button>"
                 }
             ]
         });

@@ -186,11 +186,12 @@ try {
                                     ?>
                                 </div>
                                 <div class="col-md col-md-4">
-                                    <h3>Esito <?php if ($elaborato->getStato() == 'Corretto') {
-                                                    echo 'Finale: ' . $elaborato->getEsitoFinale();
-                                                    } else {
-                                                    echo 'Parziale: ' . $elaborato->getEsitoParziale();
-                                                    } ?>/<?php echo $test->getPunteggioMax(); ?>
+                                    <h3><?php if ($modelsessione->readMostraEsitoSessione($sessione->getId()) == 'Si' && $elaborato->getStato() == 'Corretto') {
+                                                    echo 'Esito Finale: ' . $elaborato->getEsitoFinale() . '/'.$test->getPunteggioMax();
+                                                    }
+                                                else if($modelsessione->readMostraEsitoSessione($sessione->getId()) == 'Si' && $elaborato->getStato() != 'Corretto') {
+                                                    echo 'Parziale: ' . $elaborato->getEsitoParziale() . '/'.$test->getPunteggioMax();
+                                                    } ?>
                                     </h3>
                                 </div>
                             </div>
@@ -250,7 +251,7 @@ try {
 
                             <?php
                             foreach ($multiple as $m) {
-                                printf("<div class=\"portlet light bordered\"><div class=\"portlet-title\"><div id=\"div%s\" class=\"caption questions\"><i id=\"i%s\" class=\"fa fa-question-circle\"></i><span class=\"caption-subject bold uppercase\">%s</span></div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div>",$i ,$i , $m->getTesto());
+                                printf("<div class=\"portlet light bordered\"><div class=\"portlet-title\"><div id=\"div%s\" class=\"caption questions\"><i id=\"i%s\" class=\"fa fa-question-circle\"></i><span class=\"caption-subject bold uppercase\">%s</span></div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div>",$i ,$i , base64_decode($m->getTesto()));
                                 printf("<div class=\"portlet-body\">");
                                 $i++;
                                 try {
@@ -282,13 +283,13 @@ try {
 
                                     //mi segna una classe a tutte le corrette e una a tutte le sbagliate
                                     if($a->getCorretta() == 'Si') {
-                                        printf("<label for=\"alt-12\"><span class=\"inc\"></span><span class=\"check\"></span><span class=\"box\"></span>%s</label><span class=\"esatte col-md-offset-1\"></span></div>", $a->getTesto());
+                                        printf("<label for=\"alt-12\"><span class=\"inc\"></span><span class=\"check\"></span><span class=\"box\"></span>%s</label><span class=\"esatte col-md-offset-1\"></span></div>", base64_decode($a->getTesto()));
                                     }
                                     else if($a->getCorretta() == 'No' && $rispostamultipla->getAlternativaId() == $a->getId()) {
-                                        printf("<label for=\"alt-12\"><span class=\"inc\"></span><span class=\"check\"></span><span class=\"box\"></span>%s</label><span class=\"sbagliate col-md-offset-1\"></span></div>", $a->getTesto());
+                                        printf("<label for=\"alt-12\"><span class=\"inc\"></span><span class=\"check\"></span><span class=\"box\"></span>%s</label><span class=\"sbagliate col-md-offset-1\"></span></div>", base64_decode($a->getTesto()));
                                     }
                                     else {
-                                        printf("<label for=\"alt-12\"><span class=\"inc\"></span><span class=\"check\"></span><span class=\"box\"></span>%s</label></div>", $a->getTesto());
+                                        printf("<label for=\"alt-12\"><span class=\"inc\"></span><span class=\"check\"></span><span class=\"box\"></span>%s</label></div>", base64_decode($a->getTesto()));
                                     }
                                     printf("</div></div>");
                                 }
@@ -304,14 +305,14 @@ try {
                                 $componi = $modeldomanda->readPunteggioMaxAlternativo($a->getId(), $test->getId());
                                 $max = $a->getPunteggioMax() == null ? $componi : $a->getPunteggioMax();
                                 if($punteggio == $max) {
-                                    printf("<div class=\"portlet light bordered\"><div class=\"portlet-title\"><div class=\"caption open perfetta\"><i class=\"fa fa-question-circle\"></i><span class=\"caption-subject bold uppercase\">%s</span></div><div class=\"caption punteggio col-md-offset-1\"></div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div>", $a->getTesto());
+                                    printf("<div class=\"portlet light bordered\"><div class=\"portlet-title\"><div class=\"caption open perfetta\"><i class=\"fa fa-question-circle\"></i><span class=\"caption-subject bold uppercase\">%s</span></div><div class=\"caption punteggio col-md-offset-1\"></div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div>", base64_decode($a->getTesto()));
                                 }
                                 else {
-                                    printf("<div class=\"portlet light bordered\"><div class=\"portlet-title\"><div class=\"caption open\"><i class=\"fa fa-question-circle\"></i><span class=\"caption-subject bold uppercase\">%s</span></div><div class=\"caption punteggio col-md-offset-1\"></div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div>", $a->getTesto());
+                                    printf("<div class=\"portlet light bordered\"><div class=\"portlet-title\"><div class=\"caption open\"><i class=\"fa fa-question-circle\"></i><span class=\"caption-subject bold uppercase\">%s</span></div><div class=\"caption punteggio col-md-offset-1\"></div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div>", base64_decode($a->getTesto()));
                                 }
                                 printf("<div class=\"portlet-body\">");
                                 if ($rispostaaperta->getDomandaApertaId() == $a->getId()) {
-                                    printf("<textarea class=\"form-control\" id=\"ap-12\" rows=\"3\" placeholder=\"\" style=\"resize:none\" disabled>%s</textarea>", $rispostaaperta->getTesto());
+                                    printf("<textarea class=\"form-control\" id=\"ap-12\" rows=\"3\" placeholder=\"\" style=\"resize:none\" disabled>%s</textarea>", base64_decode($rispostaaperta->getTesto()));
                                 }
                                 printf("</div></div>");
                             }
@@ -320,7 +321,7 @@ try {
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="col-md-4">
-                                        <?php if($elaborato->getStato() != 'Non Corretto') {printf("<a href=\"#\" type=\"button\" onclick=\"correggi()\" class=\"btn green-jungle\">Correggi</a>");} ?>
+                                        <?php if($modelsessione->readMostraRisposteCorretteSessione($sessione->getId()) == 'Si' && $elaborato->getStato() != 'Non Corretto') {printf("<a href=\"#\" type=\"button\" onclick=\"correggi()\" class=\"btn green-jungle\">Correggi</a>");} ?>
                                     </div>
                                     <div class="col-md-4">
                                         <a href="/studente/corso/<?php echo $corso->getId(); ?>">
