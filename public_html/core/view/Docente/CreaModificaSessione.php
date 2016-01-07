@@ -63,17 +63,34 @@ $valu = null;
 $eser = null;
 $flag = null;
 $pio = null;
+$flag5=false;
 $showE = "";
 $showRC = "";
+$disabilita="";
+
 
 if (!is_numeric($_URL[4])) {
     echo "<script type='text/javascript'>alert('errore nella url!!!');</script>";
 }
-if ($_URL[4] != 0)
+if ($_URL[4] != 0) {
     $siamoInModifica = true;
+    $esaminandiSessione = Array();
+    $esaminandiSessione= $modelUtente->getEsaminandiSessione($_URL[4]);
+    if(count($esaminandiSessione)>0) {
+        $flag5=true;
+        $disabilita="disabled";
+    }
+}
+
+
+$valIp = isset($_SESSION['valIp']) ? $_SESSION['valIp'] : 1;
+unset($_SESSION['valIp']);
 
 $flag = isset($_SESSION['flag']) ? $_SESSION['flag'] : 1;
 unset($_SESSION['flag']);
+
+$flag7 = isset($_SESSION['flag7']) ? $_SESSION['flag7'] : 1;
+unset($_SESSION['flag7']);
 
 $pio = isset($_SESSION['pio']) ? $_SESSION['pio'] : 1;
 unset($_SESSION['pio']);
@@ -127,14 +144,13 @@ if ($_URL[4] != 0) {
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title><?php echo $corso->getNome(); ?></title>
+    <title><?php echo $corso->getNome();?></title>
     <link rel="stylesheet" type="text/css"
           href="/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" type="text/css"
           href="/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/select2/select2.css">
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/datatables/extensions/TableTools/css/dataTables.tableTools.css">
-    <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
     <link rel="stylesheet" type="text/css" href="/assets/global/plugins/bootstrap-toastr/toastr.min.css">
 
     <?php include VIEW_DIR . "design/header.php"; ?>
@@ -201,12 +217,25 @@ if ($_URL[4] != 0) {
                     <button class=\"close\" data-close=\"alert\"></button>
                        La data di Fine non può essere inferiore alla data di Inizio. </div>");
                 }
+                if ($flag7 == 0) {
+                    printf("<div class='alert alert-danger'>
+                    <button class=\"close\" data-close=\"alert\"></button>
+                       Solo la data di Fine può essere modificata! </div>");
+                }
                 if ($pio == 0) {
                     printf("<div class='alert alert-danger'>
                     <button class=\"close\" data-close=\"alert\"></button>
                     Occorre selezionare almeno un Test!
                 </div>");
                 }
+                if ($valIp == 0) {
+                    printf("<div class='alert alert-danger'>
+                    <button class=\"close\" data-close=\"alert\"></button>
+                    IP non corretto!
+                </div>");
+                }
+                if($flag5)
+                    echo "<script></script>";
                 printf("<div class='alert alert-danger display-hide'>
                     <button class=\"close\" data-close=\"alert\"></button>
                     Occorre selezionare almeno un Test con Avvio e Termine.
@@ -223,11 +252,11 @@ if ($_URL[4] != 0) {
 
                                 <div class="input-group date form_datetime">
 
-                                    <input name="dataFrom" type="text"
+                                    <input  name="dataFrom" type="text"
                                            value='<?php printf("%s", $perModificaDataFrom); ?>' size="16" readonly=""
                                            class="form-control"/>
                                             <span class="input-group-btn">
-                                                <button class="btn default date-set" type="button"><i
+                                                <button class="btn default date-set"  type="button"><i
                                                         class="fa fa-calendar"></i></button>
                                             </span>
                                 </div>
@@ -240,7 +269,7 @@ if ($_URL[4] != 0) {
                                     <input name="dataTo" id="dataTo" class="form-control" type="text"
                                            value='<?php printf("%s", $perModificaDataTo); ?>' size="16" readonly=""/>
                                             <span class="input-group-btn">
-                                                <button class="btn default date-set" type="button"><i
+                                                <button class="btn default date-set" <?php echo $disabilita; ?> type="button"><i
                                                         class="fa fa-calendar"></i></button>
                                             </span>
                                 </div>
@@ -252,7 +281,7 @@ if ($_URL[4] != 0) {
 
                                 <div class="md-radio-list">
                                     <div class="md-radio">
-                                        <?php printf("<input type=\"radio\" value=\"Valutativa\" checked id=\"radio1\" %s name=\"radio1\" class=\"md-radiobtn\">", $valu); ?>
+                                        <?php printf("<input type=\"radio\" value=\"Valutativa\" %s checked id=\"radio1\" %s name=\"radio1\" class=\"md-radiobtn\">", $disabilita,$valu); ?>
                                         <label for="radio1">
                                             <span></span>
                                             <span class="check"></span>
@@ -260,7 +289,7 @@ if ($_URL[4] != 0) {
                                             Valutativa </label>
                                     </div>
                                     <div class="md-radio">
-                                        <?php printf("<input type=\"radio\" value=\"Esercitativa\" id=\"radio2\" %s name=\"radio1\" class=\"md-radiobtn\">", $eser); ?>
+                                        <?php printf("<input type=\"radio\" value=\"Esercitativa\" %s id=\"radio2\" %s name=\"radio1\" class=\"md-radiobtn\">", $disabilita,$eser); ?>
                                         <label for="radio2">
                                             <span></span>
                                             <span class="check"></span>
@@ -276,7 +305,7 @@ if ($_URL[4] != 0) {
 
                                 <div class="md-checkbox-list">
                                     <div class="md-checkbox">
-                                        <input type="checkbox" id="checkbox1" <?php printf("%s", $showE) ?>
+                                        <input type="checkbox"  <?php echo $disabilita; ?> id="checkbox1" <?php printf("%s", $showE) ?>
                                                name="cbShowEsiti" class="md-check">
                                         <label for="checkbox1">
                                             <span></span>
@@ -285,7 +314,7 @@ if ($_URL[4] != 0) {
                                             Mostra esiti </label>
                                     </div>
                                     <div class="md-checkbox">
-                                        <input type="checkbox" id="checkbox2" <?php printf("%s", $showRC) ?>
+                                        <input type="checkbox" id="checkbox2"  <?php echo $disabilita; ?> <?php printf("%s", $showRC) ?>
                                                name="cbShowRispCorr" class="md-check">
                                         <label for="checkbox2">
                                             <span></span>
@@ -298,7 +327,7 @@ if ($_URL[4] != 0) {
                         </div>
                         <div class="col-md-2">
                             <label>Punteggio Test</label>
-                            <select class="form-control" id="maxTest" name="max" onchange="pig()">
+                            <select class="form-control"  <?php echo $disabilita; ?> id="maxTest" name="max" onchange="pig()">
                                 <?php
                                 $tests = $testModel->getAllTestByCorso($idCorso);
                                 $array[0] = -9999;
@@ -331,6 +360,7 @@ if ($_URL[4] != 0) {
                         </div>
                     </div>
                 </div>
+
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">
@@ -551,7 +581,7 @@ if ($_URL[4] != 0) {
                         <tr role="row">
                             <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="
                                                     " style="width: 24px;">
-                                <input type="checkbox" class="group-checkable" data-set="#tabella_studenti .checkboxes">
+                                <?php printf("<input type=\"checkbox\" %s class=\"group-checkable\" data-set=\"#tabella_studenti .checkboxes\">", $disabilita);?>
                             </th>
                             <th class="sorting_asc" tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1"
                                 aria-sort="ascending" aria-label="
@@ -595,7 +625,7 @@ if ($_URL[4] != 0) {
                                     if ($c->getMatricola() == $t->getMatricola())
                                         $toCheckS = "Checked";
                                 }
-                                printf("<td><input name=\"students[]\" type=\"checkbox\" %s class=\"checkboxes\" value='%s'></td>", $toCheckS, $c->getMatricola());
+                                printf("<td><input name=\"students[]\" %s type=\"checkbox\" %s class=\"checkboxes\" value='%s'></td>",$disabilita, $toCheckS, $c->getMatricola());
                                 $toCheckS = "";
                                 printf("<td class=\"sorting_1\">%s</td>", $c->getNome());
                                 printf("<td>%s</td>", $c->getCognome());
@@ -631,6 +661,9 @@ if ($_URL[4] != 0) {
                             $vaiANomeCorso = "/docente/corso/" . $idCorso;
                             printf("<a href=\"%s\" class=\"btn sm red-intense\">Annulla</a>", $vaiANomeCorso, $nomecorso);
                             ?>
+                        </div>
+                        <div class="col-md-3">
+                            <label>IP</label><input name="ip" id="ip" type="text" />
                         </div>
                     </div>
                 </div>
@@ -677,7 +710,7 @@ if ($_URL[4] != 0) {
         UIToastr.init();
         UIConfirmations.init();
         FormValidation.init();
-
+        checkModifica();
         var tableT = $("#tabella_test").dataTable();
         var tableToolsT = new $.fn.dataTable.TableTools(tableT, {
             //"sSwfPath": "//cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls_pdf.swf",
@@ -726,6 +759,16 @@ if ($_URL[4] != 0) {
                 $("#divTest").html(result);
             }
         });
+    }
+</script>
+
+
+<script>
+    //controlla se c'è qualche notifica da mostrare
+    var flag = <?= $flag5; ?>;
+    function checkModifica() {
+        if(flag)
+        toastr.warning('Almeno uno studente ha avviato l\'esecuzione del test. E\' possibile modificare solo la data di termine!', 'Attenzione');
     }
 </script>
 

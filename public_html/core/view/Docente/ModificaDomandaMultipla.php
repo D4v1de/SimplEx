@@ -249,7 +249,7 @@ $numRisposte = count($alternative);
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-9">
-                                    <button type="submit" class="btn sm green-jungle">Conferma</button>
+                                    <button type="submit" onclick="controlloRadio()" class="btn sm green-jungle">Conferma</button>
                                     <?php
                                     printf("<a href=\"/docente/corso/%d/argomento/domande/%d\" class=\"btn sm red-intense\">", $idCorso, $idArgomento);
                                     ?>
@@ -378,8 +378,19 @@ $numRisposte = count($alternative);
             num--;
         }
     }
+</script>
 
+<script>
+    function controlloRadio(){
 
+        setTimeout(function(){
+            var elemento = document.getElementById('radio-error');
+            if(elemento.innerHTML.length != 0){
+                toastr.error('Inserire una risposta corretta!','ERRORE')
+            }
+        }, 500);
+
+    }
 </script>
 
 <!-- END JAVASCRIPTS -->

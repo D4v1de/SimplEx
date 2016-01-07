@@ -124,7 +124,7 @@ if($numProfs==0){
                 <div class="portlet box blue-madison">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-university"></i>Scegli uno Studente
+                            <i class="fa fa-person"></i>Studenti
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="collapse" data-original-title="" title="">
@@ -135,6 +135,7 @@ if($numProfs==0){
                         </div>
                     </div>
                     <div class="portlet-body">
+                        <div class="table-responsive">
                         <div id="tabella_4_wrapper" class="dataTables_wrapper no-footer">
                             <table class="table table-striped table-bordered table-hover dataTable no-footer"
                                    id="tabella_4" role="grid" aria-describedby="tabella_4_info">
@@ -178,6 +179,7 @@ if($numProfs==0){
 
                         </div>
                     </div>
+                    </div>
                 </div>
             <!-- END PAGE CONTENT-->
         </div>
@@ -212,7 +214,7 @@ if($numProfs==0){
     jQuery(document).ready(function () {
         Metronic.init();
         Layout.init();
-        TableManaged.init("tabella_4", "tabella_4_wrapper");
+        TableManaged2.init("tabella_4", "tabella_4_wrapper");
         var table = $("#tabella_4").dataTable();
         var tableTools = new $.fn.dataTable.TableTools(table, {
             //"sSwfPath": "//cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls_pdf.swf",

@@ -29,6 +29,8 @@ class SessioneModel extends Model {
     private static $ABILITA_MOSTRA_RISPOSTE_CORRETTE = "UPDATE `sessione` SET mostra_risposte_corrette = 'Si' WHERE id = '%d'";
     private static $DISABILITA_MOSTRA_RISPOSTE_CORRETTE = "UPDATE `sessione` SET mostra_risposte_corrette = 'No' WHERE id = '%d'";
 
+    private static $UPDATE_MASCHERA_SESSIONE = "UPDATE `sessione` SET maschera = '%s' WHERE id = '%d'";
+
     /**
      * Inserisce una nuova sessione nel database
      * @param Sessione $sessione La sessione da inserire nel database
@@ -279,4 +281,39 @@ class SessioneModel extends Model {
             throw new ApplicationException(Error::$SESSIONE_NON_TROVATA);
         }
     }
+
+    /**
+     * Restituisce la maschera di una sessione
+     * @param int $id L'id della sessione
+     * @throws ApplicationException
+     * @return string
+     */
+    public function readMascheraSessione($id) {
+        $query = sprintf(self::$READ_SESSIONE, $id);
+        $res = Model::getDB()->query($query);
+        if ($obj = $res->fetch_assoc()) {
+            return $obj['maschera'];
+        }
+        else{
+            throw new ApplicationException(Error::$SESSIONE_NON_TROVATA);
+        }
+    }
+
+    /**
+     * Modifica la maschera di una sessione nel database
+     * @param int $id L'id della sessione da modificare
+     * @param String La maschera della sessione
+     * @throws ApplicationException
+     */
+    public function updateMascheraSessione($id, $maschera) {
+        $query = sprintf(self::$UPDATE_MASCHERA_SESSIONE, $maschera,  $id);
+        Model::getDB()->query($query);
+        if (Model::getDB()->affected_rows == -1) {
+            throw new ApplicationException(Error::$AGGIORNAMENTO_FALLITO);
+        }
+    }
+
+
+
+
 }

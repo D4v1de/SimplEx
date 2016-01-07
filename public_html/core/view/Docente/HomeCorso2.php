@@ -561,6 +561,25 @@ if ($cond == "vuoto" || $cond == "successmodifica" || $cond == "successinserimen
         UIToastr . init();
         checkNotifiche();
 
+         var table = $(\"#tabella_argomenti\").dataTable();
+        var tableTools = new $.fn.dataTable.TableTools(table, {
+            //\"sSwfPath\": \"//cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls_pdf.swf\",
+            \"sSwfPath\": \"/assets/global/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf\",
+            \"aButtons\": [
+                {
+                    \"sExtends\": \"xls\",
+                    \"sButtonText\": \"<i class='fa fa-file-excel-o'></i> Excel\"
+                },
+                {
+                    \"sExtends\": \"pdf\",
+                    \"sButtonText\": \"<i class='fa fa-file-pdf-o'></i> PDF\"
+                }
+            ]
+        });
+        $(tableTools.fnContainer()).insertBefore(\"#tabella_argomenti_wrapper\");
+
+
+
         var table = $(\"#tabella_sessioni\").dataTable();
         var tableTools = new $.fn.dataTable.TableTools(table, {
             //\"sSwfPath\": \"//cdn.datatables.net/tabletools/2.2.4/swf/copy_csv_xls_pdf.swf\",

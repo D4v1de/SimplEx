@@ -22,7 +22,7 @@ if (!is_numeric($idCorso)) {
 $sessioneModel = new SessioneModel();;
 
 $sessioneByUrl=$sessioneModel->readSessione($idSessione);
-$soglia=$_POST['soglia'];
+$soglia=$_URL[6];
 $sessioneAggiornata = new Sessione($sessioneByUrl->getDataInizio(),$sessioneByUrl->getDataFine(), $soglia , $sessioneByUrl->getStato(), $sessioneByUrl->getTipologia(), $idCorso);
 $sessioneModel->updateSessione($idSessione, $sessioneAggiornata);
 

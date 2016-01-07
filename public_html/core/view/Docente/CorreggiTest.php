@@ -280,7 +280,7 @@ try {
                             <?php
                             printf("<form method='post' action='/docente/corso/%s/sessione/%s/correggisalva/%s'>",$url,$url2,$matricola);
                             foreach ($multiple as $m) {
-                                printf("<div class=\"portlet light bordered\"><div class=\"portlet-title\"><div id=\"div%s\" class=\"caption questions\"><i id=\"i%s\" class=\"fa fa-question-circle\"></i><span class=\"caption-subject bold uppercase\">%s</span></div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div>",$i ,$i , $m->getTesto());
+                                printf("<div class=\"portlet light bordered\"><div class=\"portlet-title\"><div id=\"div%s\" class=\"caption questions\"><i id=\"i%s\" class=\"fa fa-question-circle\"></i><span class=\"caption-subject bold uppercase\">%s</span></div><div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a></div></div>",$i ,$i ,  base64_decode($m->getTesto()));
                                 printf("<div class=\"portlet-body\">");
                                 $i++;
                                 try {
@@ -319,13 +319,13 @@ try {
 
                                     //mi segna una classe a tutte le corrette e una a tutte le sbagliate
                                     if($a->getCorretta() == 'Si') {
-                                        printf("<label for=\"alt-12\"><span class=\"inc\"></span><span class=\"check\"></span><span class=\"box\"></span>%s</label><span class=\"esatte col-md-offset-3\"></span></div>", $a->getTesto());
+                                        printf("<label for=\"alt-12\"><span class=\"inc\"></span><span class=\"check\"></span><span class=\"box\"></span>%s</label><span class=\"esatte col-md-offset-3\"></span></div>",  base64_decode($a->getTesto()));
                                     }
                                     else if($a->getCorretta() == 'No' && $rispostamultipla->getAlternativaId() == $a->getId()) {
-                                        printf("<label for=\"alt-12\"><span class=\"inc\"></span><span class=\"check\"></span><span class=\"box\"></span>%s</label><span class=\"sbagliate col-md-offset-3\"></span></div>", $a->getTesto());
+                                        printf("<label for=\"alt-12\"><span class=\"inc\"></span><span class=\"check\"></span><span class=\"box\"></span>%s</label><span class=\"sbagliate col-md-offset-3\"></span></div>",  base64_decode($a->getTesto()));
                                     }
                                     else {
-                                        printf("<label for=\"alt-12\"><span class=\"inc\"></span><span class=\"check\"></span><span class=\"box\"></span>%s</label></div>", $a->getTesto());
+                                        printf("<label for=\"alt-12\"><span class=\"inc\"></span><span class=\"check\"></span><span class=\"box\"></span>%s</label></div>", base64_decode($a->getTesto()));
                                     }
                                     printf("</div></div>");
                                 }
@@ -344,7 +344,7 @@ try {
                                         <span class=\"caption-subject bold uppercase\">%s (aperta)</span>
                                         </div>
                                         <div class=\"tools\"><a href=\"javascript:;\" class=\"collapse\" data-original-title=\"\" title=\"\"></a>
-                                        </div></div>", $a->getTesto());
+                                        </div></div>",  base64_decode($a->getTesto()));
                                 printf("<div class=\"portlet-body\">");
                                 try {
                                     $rispostaaperta = $modelRispostaAperta->readRispostaAperta($elaborato->getSessioneId(), $studente->getMatricola(), $a->getId());

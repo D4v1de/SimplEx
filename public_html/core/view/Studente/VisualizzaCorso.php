@@ -148,7 +148,8 @@ try {
                         </div>
                     </div>
                     <div class="portlet-body">
-                        <div id="tabella_4_wrapper" class="dataTables_wrapper no-footer table-responsive">
+                        <div class="table-responsive">
+                        <div id="tabella_4_wrapper" class="dataTables_wrapper no-footer">
                             <table class="table table-striped table-bordered table-hover dataTable no-footer"
                                    id="tabella_4" role="grid" aria-describedby="tabella_4_info">
                                 <thead>
@@ -224,7 +225,7 @@ try {
                                 ?>
                                 </tbody>
                             </table>
-
+                        </div>
                         </div>
                     </div>
                 </div>

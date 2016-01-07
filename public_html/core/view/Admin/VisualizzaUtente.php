@@ -25,7 +25,7 @@ try {
     } elseif ($victim->getTipologia() == "Docente") {
         $cdls = $model->getAllCorsiByDocente($victim->getMatricola());
     } else {
-        return Array();
+        $cdls = Array();
     }
 } catch (ApplicationException $ex) {
     header('Location: /admin/utenti');
@@ -169,59 +169,60 @@ try {
                     </div>
                 </div>
             </div>
-
-            <div class="portlet box blue-madison">
-                <div class="portlet-title">
-                    <div class="caption">
-                        <i class="fa fa-graduation-cap"></i><?php if ($victim->getTipologia() == "Docente") {
-                            echo "Corsi tenuti";
-                        } else {
-                            echo "Corsi seguiti";
-                        }
-                        ?>
+            <?php if ($victim->getTipologia() != "Admin") { ?>
+                <div class="portlet box blue-madison">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-graduation-cap"></i><?php if ($victim->getTipologia() == "Docente") {
+                                echo "Corsi tenuti";
+                            } else {
+                                echo "Corsi seguiti";
+                            }
+                            ?>
+                        </div>
                     </div>
-                </div>
-                <div class="portlet-body">
-                    <div class="table-responsive">
-                        <div id="tabella_2_wrapper" class="dataTables_wrapper no-footer">
-                            <table class="table table-striped table-bordered table-hover dataTable no-footer"
-                                   id="tabella_2" role="grid" aria-describedby="tabella_2_info">
-                                <thead>
-                                <tr role="row">
-                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                        colspan="1"
-                                        aria-label="Status: activate to sort column ascending">
-                                        Nome
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                        colspan="1"
-                                        aria-label="Status: activate to sort column ascending">
-                                        Matricola
-                                    </th>
-                                    <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
-                                        colspan="1"
-                                        aria-label="Status: activate to sort column ascending">
-                                        Tipologia
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php
-                                foreach ($cdls as $c) {
-                                    printf("<tr class=\"gradeX odd\" role=\"row\">");
-                                    printf("<td class=\"sorting_1\"><a class='btn default btn-xs green-stripe' href=\"/admin/corsi/modifica/%s\">%s</a></td>", $c->getId(), $c->getNome());
-                                    printf("<td class=\"sorting_1\">%s</td>", $c->getMatricola());
-                                    printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
-                                    printf("</tr>");
-                                }
-                                ?>
-                                </tbody>
-                            </table>
+                    <div class="portlet-body">
+                        <div class="table-responsive">
+                            <div id="tabella_2_wrapper" class="dataTables_wrapper no-footer">
+                                <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                                       id="tabella_2" role="grid" aria-describedby="tabella_2_info">
+                                    <thead>
+                                    <tr role="row">
+                                        <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                            colspan="1"
+                                            aria-label="Status: activate to sort column ascending">
+                                            Nome
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                            colspan="1"
+                                            aria-label="Status: activate to sort column ascending">
+                                            Matricola
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
+                                            colspan="1"
+                                            aria-label="Status: activate to sort column ascending">
+                                            Tipologia
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    foreach ($cdls as $c) {
+                                        printf("<tr class=\"gradeX odd\" role=\"row\">");
+                                        printf("<td class=\"sorting_1\"><a class='btn default btn-xs green-stripe' href=\"/admin/corsi/modifica/%s\">%s</a></td>", $c->getId(), $c->getNome());
+                                        printf("<td class=\"sorting_1\">%s</td>", $c->getMatricola());
+                                        printf("<td class=\"sorting_1\"><span class=\"label label-sm label-success\">%s</span></td>", $c->getTipologia());
+                                        printf("</tr>");
+                                    }
+                                    ?>
+                                    </tbody>
+                                </table>
 
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            <?php } ?>
         </div>
     </div>
     <!--END EXAMPLE TABLE PORTLET-->

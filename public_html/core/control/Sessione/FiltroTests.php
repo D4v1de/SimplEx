@@ -30,16 +30,19 @@ if($vai=="vai") {
 
     $_SESSION['abi']=false;
 
-    echo "<div id=\"divTest\" class=\"portlet-body\">
- <div class=\"table-responsive\">
+
+$_SESSION['table']=true;
+
+    echo "
+ <div id=\"divTest\" class=\"portlet-body\">
                                 <div id=\"tabella_test_wrapper\" class=\"dataTables_wrapper no-footer\" >
                                     <table class=\"table table-striped table-bordered table-hover dataTable no-footer\" id=\"tabella_test\" role=\"grid\" aria-describedby=\"tabella_studenti_info\">
                                         <thead>
                                             <tr role=\"row\">
                                                 <th class=\"table-checkbox sorting_disabled\" rowspan=\"1\" colspan=\"1\" aria-label=\"
                                                     \" style=\"width: 24px;\">
-                                                    <input type=\"checkbox\" class=\"group-checkable\" data-set=\"#tabella_test .checkboxes\">
-                                                </th>
+
+    </th>
                                                 <th class=\"sorting-disabled\" tabindex=\"0\" aria-controls=\"sample_2\" rowspan=\"1\" colspan=\"1\" aria-label=\"
                                                     Email
                                                     : activate to sort column ascending\" style=\"width: 106px;\">
@@ -128,8 +131,8 @@ if($vai=="vai") {
     }
 // }
 
-    echo "</tbody> </div><div";
+    echo "</tbody><div";
     echo "id=nomeCorso";
     echo "value='" . $idCorso . "'";
-    echo "></div></table></div></div>";
+    echo "></div></table></div></div><script>TableManaged.init('tabella_test', 'tabella_test_wrapper');</script>";
 }

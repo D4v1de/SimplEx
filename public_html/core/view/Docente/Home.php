@@ -105,7 +105,7 @@ try {
                                         <th class="sorting" tabindex="0" aria-controls="sample_2" rowspan="1"
                                             colspan="1"
                                             aria-label="Status: activate to sort column ascending"
-                                            style="width: 17%;">
+                                            style="width: 27%;">
                                             Altro
                                         </th>
                                     </tr>
