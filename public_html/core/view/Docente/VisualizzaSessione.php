@@ -20,7 +20,7 @@ $corsoModel = new CorsoModel();
 $cdlModel = new CdLModel();
 $elaboratoModel = new ElaboratoModel();
 
-
+$ip="";
 $idSessione="";
 $idSessione= $_URL[4];
 if (!is_numeric($idSessione)) {
@@ -65,6 +65,7 @@ try {
     echo "<h1>INSERIRE ID SESSIONE NEL PATH</h1>" . $ex;
 }
 
+$ip=$sessioneModel->readMascheraSessione($idSessione);
 $dataFrom = $sessione->getDataInizio();
 $dataTo = $sessione->getDataFine();
 $tipoSessione = $sessione->getTipologia();
@@ -173,7 +174,7 @@ else
                                 </div>
 
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group form-md-radios">
                                     <label>Seleziona tipologia</label>
                                     <div class="md-radio-list">
@@ -196,7 +197,7 @@ else
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group form-md-checkboxes">
                                     <label>Seleziona preferenze</label>
                                     <div class="md-checkbox-list">
@@ -218,6 +219,9 @@ else
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label>IP</label><input class="form-control" name="ip" id="ip" disabled value='<?php echo $ip; ?>' type="text" />
                             </div>
                         </div>
                     </div>
